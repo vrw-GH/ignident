@@ -5,9 +5,7 @@
 {% capture siteId %}ignident{% endcapture %}
 {% assign var2 = "vercel.app" %}
 
-![screenshot](https://raw.githubusercontent.com/vrw-GH/assets/main/repo-media/{{ siteId }}/Screenshot.png)
-
-[<img src="https://raw.githubusercontent.com/vrw-GH/assets/main/repo-media/{{ siteId }}/Screenshot.png" alt="screenshot of app" width="95%">](https://extrasbox.vercel.app "click to visit beta site")
+[<img src="https://raw.githubusercontent.com/vrw-GH/assets/main/repo-media/{{ siteId }}/Screenshot.png" alt="screenshot of {{ siteId }} app" width="98%">](https://{{ siteId }}.{{ var2 }} "click to visit beta site")
 
 ---
 
@@ -18,12 +16,17 @@
 
 </details>
 
-<pre>
-<u>VERSIONS:</u>
-  *Beta(Online): <a href="https://{{ siteId }}.{{ var2 }}">{{ siteId }}.{{ var2 }}</a>
-  *Dev Build:    <a href="https://wrightsdesk.com/{{ siteId }}">www.wrightsdesk.com/{{ siteId }}</a>jfalanka/dev2</a>
-  *Live Site:    <a href="http://www.{{ siteId }}.com">www.{{ siteId }}.com</a>
+---
 
+## VERSIONS:
+
+* Beta(Online): <a href="https://{{ siteId }}.{{ var2 }}">{{ siteId }}.{{ var2 }}</a>
+* Dev Build:    <a href="https://wrightsdesk.com/{{ siteId }}">www.wrightsdesk.com/{{ siteId }}</a>
+* Live Site:    <a href="http://www.{{ siteId }}.com">www.{{ siteId }}.com</a>
+
+---
+
+<pre>
 Developer:   Victor Wright
 Client:      {{ siteId }}
 Date:        Mar 2024
