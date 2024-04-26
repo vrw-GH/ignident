@@ -1,9 +1,9 @@
-# Project: Ignident (updates)
-
-## IGNIDENT (R) website - <i>(a WordPress site)</i>
-
 {% capture siteId %}ignident{% endcapture %}
 {% assign var2 = "vercel.app" %}
+
+# Project: {{ siteId }}
+
+## IGNIDENT <sup>(R)</sup> website  (updates) - <i>(a WordPress site)</i>
 
 [<img src="https://raw.githubusercontent.com/vrw-GH/assets/main/repo-media/{{ siteId }}/Screenshot.png" alt="screenshot of {{ siteId }} app" width="98%">](https://{{ siteId }}.{{ var2 }} "click to visit beta site")
 
@@ -20,9 +20,9 @@
 
 ## VERSIONS:
 
-* Beta(Online): <a href="https://{{ siteId }}.{{ var2 }}">{{ siteId }}.{{ var2 }}</a>
-* Dev Build:    <a href="https://wrightsdesk.com/{{ siteId }}">www.wrightsdesk.com/{{ siteId }}</a>
-* Live Site:    <a href="http://www.{{ siteId }}.com">www.{{ siteId }}.com</a>
+* Beta Ver: <a href="https://{{ siteId }}.{{ var2 }}">{{ siteId }}.{{ var2 }}</a>
+* Dev Build:    <a href="https://wrightsdesk.com/{{ siteId }}">wrightsdesk.com/{{ siteId }}</a>
+* Live Site:    <a href="http://www.{{ siteId }}.com">{{ siteId }}.com</a>
 
 ---
 
