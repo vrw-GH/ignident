@@ -10,7 +10,7 @@
 ---
 
 <details>
-    <summary>Summary</summary>Detailed content goes here …
+    <summary>Summary</summary>Some detailed content goes here …
 </details>
 
 test:
