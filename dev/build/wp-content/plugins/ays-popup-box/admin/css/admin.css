@@ -1,0 +1,61 @@
+/* Plugin menu icon styles start */
+#adminmenu a.toplevel_page_ays-pb div.wp-menu-image img {
+    width: 23px;
+    padding: 3px 0 0;
+    transition: .3s ease-in-out;
+    height: 30px;
+}
+/* Plugin menu icon styles end */
+
+/* Plugin Pro Features submenu item styles start */
+#adminmenu li.toplevel_page_ays-pb ul.wp-submenu.wp-submenu-wrap li a[href*="features"] {
+    color: #68A615;
+    font-weight: bold;
+}
+/* Plugin Pro Features submenu item styles end */
+
+/* Plugin deactivation popup styles start */
+.swal2-popup.swal2-modal.ays-pb-deactivate-popup.swal2-show {
+    font-size: initial !important;
+}
+
+.swal2-popup .ays-pb-upgrade-button,
+.swal2-popup .ays-pb-cancel-button {
+    position: relative;
+}
+
+.swal2-popup .ays-pb-upgrade-button.swal2-styled.swal2-confirm {
+    background-color: #fff !important;
+    color: #3085d6 !important;
+    border: 1px solid #3085d6 !important;
+}
+
+.swal2-popup .ays-pb-upgrade-button.swal2-styled.swal2-confirm:after,
+.swal2-popup .ays-pb-cancel-button.swal2-styled.swal2-cancel:after {
+    position: absolute;
+    color: #878787;
+    bottom: -18px;
+    font-size: 12px;
+}
+
+.swal2-popup .ays-pb-upgrade-button.swal2-styled.swal2-confirm:after {
+    content: "(Save Your Data)";
+    left: 25px;
+}
+
+.swal2-popup .ays-pb-cancel-button.swal2-styled.swal2-cancel:after {
+    content: "(Delete All Data)";
+    left: 30px;
+}
+/* Plugin deactivation popup styles end */
+
+/* Plugins page upgrade button styles start */
+#ays-pb-plugins-buy-now-button {
+    color: #01A32A;
+    font-weight: bold;
+}
+
+#ays-pb-plugins-buy-now-button:hover {
+    color: #3B8D3F;
+}
+/* Plugins page upgrade button styles end */

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30" xml:space="preserve">
+    <g transform="translate(-150 -380)">
+        <g xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="shopping-cart-7">
+		<path d="M152,382v1h4v18h17.323v-1H157v-2h16.692L178,385h-21v-3H152z M176.615,386l-3.645,11H157v-11H176.615z"/>
+		<path d="M156,405c0,1.657,1.343,3,3,3s3-1.343,3-3s-1.343-3-3-3S156,403.343,156,405z M161,405c0,1.104-0.896,2-2,2s-2-0.896-2-2    s0.896-2,2-2S161,403.896,161,405z"/>
+		<path d="M171.323,402c-1.657,0-3,1.343-3,3s1.343,3,3,3s3-1.343,3-3S172.98,402,171.323,402z M171.323,407c-1.104,0-2-0.896-2-2    s0.896-2,2-2s2,0.896,2,2S172.427,407,171.323,407z"/>
+	</g>
+	
+    </g>
+</svg>

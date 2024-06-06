@@ -1,0 +1,548 @@
+# Translation of Plugins - Yoast Duplicate Post - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - Yoast Duplicate Post - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-05-22 18:44:58+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.1\n"
+"Language: de\n"
+"Project-Id-Version: Plugins - Yoast Duplicate Post - Stable (latest release)\n"
+
+#. translators: %1$s and %2$s are replaced by opening and closing anchor tags.
+#: src/ui/newsletter.php:33
+msgid "Yoast respects your privacy. Read %1$sour privacy policy%2$s on how we handle your personal information."
+msgstr "Yoast respektiert deine Privatsphäre. Lies in %1$sunserer Datenschutzrichtlinie%2$s nach, wie wir mit deinen persönlichen Daten umgehen."
+
+#: src/admin/views/options.php:236
+msgid "Welcome notice"
+msgstr "Willkommens-Nachricht"
+
+#: src/admin/options.php:262
+msgid "Show welcome notice"
+msgstr "Willkommens-Nachricht Anzeigen"
+
+#. translators: %s: Yoast Duplicate Post.
+#: admin-functions.php:224
+msgid "You've successfully installed %s!"
+msgstr "Du hast %s erfolgreich installiert!"
+
+#: src/ui/newsletter.php:137
+msgid "You have successfully subscribed to the newsletter. Please check your inbox."
+msgstr "Du hast den Newsletter erfolgreich abonniert. Bitte schau in deinen Posteingang."
+
+#: src/ui/newsletter.php:97
+msgid "Please enter valid e-mail address."
+msgstr "Bitte gib eine gültige E-Mail-Adresse an."
+
+#: src/ui/newsletter.php:81 src/ui/newsletter.php:131
+msgid "Something went wrong. Please try again later."
+msgstr "Etwas ist schiefgelaufen. Bitte versuche es später erneut."
+
+#: src/handlers/check-changes-handler.php:134
+msgid "Added"
+msgstr "Hinzugefügt"
+
+#: src/handlers/check-changes-handler.php:133
+msgid "Removed"
+msgstr "Entfernt"
+
+#: src/post-republisher.php:224
+msgid "An error occurred while deleting the Rewrite & Republish copy."
+msgstr "Beim Löschen der überarbeiteten Kopie ist ein Fehler aufgetreten."
+
+#. Description of the plugin
+msgid "The go-to tool for cloning posts and pages, including the powerful Rewrite & Republish feature."
+msgstr "Das Tool zum Duplizieren von Beiträgen und Seiten, inklusive der leistungsstarken Funktion „Überarbeiten und Wiederveröffentlichen“."
+
+#. translators: 1: The page title with a link to the frontend page, 2: The
+#. scheduled date and time.
+#: src/ui/classic-editor.php:271
+msgid "This rewritten page %1$s is now scheduled to replace the original page. It will be published on %2$s."
+msgstr "Die überarbeitete Seite %1$s ist nun so eingestellt, dass sie das Original ersetzt. Zeitpunkt der Veröffentlichung ist %2$s."
+
+#. translators: 1: The post title with a link to the frontend page, 2: The
+#. scheduled date and time.
+#: src/ui/classic-editor.php:258
+msgid "This rewritten post %1$s is now scheduled to replace the original post. It will be published on %2$s."
+msgstr "Der überarbeitete Beitrag %1$s ist nun so eingestellt, dass er das Original ersetzt. Zeitpunkt der Veröffentlichung ist %2$s."
+
+#: src/ui/classic-editor.php:232 js/dist/duplicate-post-strings-440.js:1
+msgid "Schedule republish"
+msgstr "Wiederveröffentlichung planen"
+
+#. translators: %s: Date on which the post is to be republished.
+#: src/ui/classic-editor.php:215
+msgid "Republish on: %s"
+msgstr "Wiederveröffentlichen am: %s"
+
+#: src/ui/classic-editor.php:192
+msgid "Compare"
+msgstr "Vergleichen"
+
+#: src/ui/classic-editor.php:189
+msgid "Do you want to compare your changes with the original version before merging? Please save any changes first."
+msgstr "Möchtest du vor dem Zusammenführen deine Änderungen mit der ursprünglichen Version vergleichen? Bitte speichere deine Änderungen zunächst ab."
+
+#. translators: %s: Original item link (to view or edit) or title.
+#: src/ui/post-states.php:61
+msgid "Rewrite & Republish of %s"
+msgstr "%s überarbeiten und wiederveröffentlichen"
+
+#: src/ui/row-actions.php:145
+msgctxt "verb"
+msgid "Rewrite & Republish"
+msgstr "Überarbeiten und wiederveröffentlichen"
+
+#. translators: %s: Post title.
+#: src/ui/row-actions.php:143
+msgid "Rewrite & Republish &#8220;%s&#8221;"
+msgstr "&#8222;%s&#8220; überarbeiten und wiederveröffentlichen"
+
+#: src/admin/views/options.php:190
+msgid "Show these links"
+msgstr "Folgende Links anzeigen"
+
+#: src/admin/views/options.php:153
+msgid "Warning: users will be able to copy, rewrite and republish all posts, even those of other users."
+msgstr "Warnung: Benutzer dürfen alle Beiträge kopieren, umschreiben und erneut veröffentlichen, auch die von anderen Benutzern."
+
+#: src/admin/options.php:281 src/ui/admin-bar.php:105 src/ui/admin-bar.php:125
+#: src/ui/bulk-actions.php:74 src/ui/classic-editor.php:164
+#: js/dist/duplicate-post-edit-440.js:1
+msgid "Rewrite & Republish"
+msgstr "Überarbeiten und wiederveröffentlichen"
+
+#: src/admin/options.php:236
+msgid "In a metabox in the Edit screen"
+msgstr "In einer Metabox in der Bearbeiten-Ansicht"
+
+#: src/admin/options.php:142
+msgid "Post format"
+msgstr "Beitragsformat"
+
+#: src/watchers/original-post-watcher.php:51
+msgid "The original post has been edited in the meantime. If you click \"Republish\", this rewritten post will replace the original post."
+msgstr "Der ursprüngliche Beitrag wurde mittlerweile bearbeitet. Wenn du auf „Wiederveröffentlichen“ klickst, wird dieser umgeschriebene Beitrag den ursprünglichen Beitrag ersetzen."
+
+#. translators: %s: Number of posts copied.
+#: src/watchers/bulk-actions-watcher.php:79
+msgid "%s post duplicated. You can now start rewriting your post in the duplicate of the original post. Once you choose to republish it your changes will be merged back into the original post."
+msgid_plural "%s posts duplicated. You can now start rewriting your posts in the duplicates of the original posts. Once you choose to republish them your changes will be merged back into the original post."
+msgstr[0] "%s Beitrag dupliziert. Du kannst nun beginnen, deinen Beitrag im Duplikat des ursprünglichen Beitrags umzuschreiben. Sobald du auswählst, ihn wieder zu veröffentlichen, werden deine Änderungen in den ursprünglichen Beitrag übernommen."
+msgstr[1] "%s Beiträge dupliziert. Du kannst nun beginnen, deine Beiträge in den Duplikaten der ursprünglichen Beiträge umzuschreiben. Sobald du auswählst, sie wieder zu veröffentlichen, werden deine Änderungen in den ursprünglichen Beitrag übernommen."
+
+#: src/watchers/republished-post-watcher.php:65
+msgid "Your original post has been replaced with the rewritten post. You are now viewing the (rewritten) original post."
+msgstr "Der ursprüngliche Beitrag wurde ersetzt durch die überarbeiteten Fassung. Du siehst den (überarbeiteten) Originalbeitrag."
+
+#. translators: %1$s: scheduled date of the copy, %2$s: scheduled time of the
+#. copy.
+#: src/watchers/copied-post-watcher.php:66
+msgid "A duplicate of this post was made, which is scheduled to replace this post on %1$s at %2$s."
+msgstr "Von diesem Beitrag wurde ein Duplikat erstellt, das diesen Beitrag am %1$s um %2$s ersetzen soll."
+
+#: src/watchers/copied-post-watcher.php:58
+msgid "A duplicate of this post was made. Please note that any changes you make to this post will be replaced when the duplicated version is republished."
+msgstr "Von diesem Beitrag wurde ein Duplikat erstellt. Bitte bedenke, dass jegliche Änderung, die du an diesem Beitrag machst, ersetzt wird, wenn die duplizierte Version veröffentlicht ist."
+
+#: src/watchers/copied-post-watcher.php:50
+msgid "You can only make one Rewrite & Republish duplicate at a time, and a duplicate of this post already exists in the trash. Permanently delete it if you want to make a new duplicate."
+msgstr "Du kannst nur ein Duplikat als „Überarbeiten und Wiederveröffentlichen“ zeitgleich erstellen. Ein Duplikat dieses Beitrags existiert bereits im Papierkorb. Entferne ihn endgültig, wenn du ein neues Duplikat erstellen willst."
+
+#: src/watchers/link-actions-watcher.php:113
+msgid "You can now start rewriting your post in this duplicate of the original post. If you click \"Republish\", this rewritten post will replace the original post."
+msgstr "In dieser Kopie des ursprünglichen Beitrags kannst du nun beginnen, den Beitrag umzuschreiben. Wenn du auf „Wiederveröffentlichen“ klickst, wird der überarbeitete Beitrag den ursprünglichen ersetzen."
+
+#: src/watchers/link-actions-watcher.php:97
+msgid "You can now start rewriting your post in this duplicate of the original post. If you click \"Republish\", your changes will be merged into the original post and you’ll be redirected there."
+msgstr "Du kannst nun beginnen, deinen Beitrag in diesem Duplikat zu überarbeiten. Wenn du auf „Wiederveröffentlichen“ klickst, werden deine Änderungen mit dem Originalbeitrag zusammengeführt und du wirst dorthin geleitet."
+
+#: src/post-republisher.php:332
+msgid "An error occurred while republishing the post."
+msgstr "Beim Wiederveröffentlichen des Beitrags ist ein Fehler aufgetreten."
+
+#: src/post-republisher.php:83 src/ui/classic-editor.php:210
+#: js/dist/duplicate-post-strings-440.js:1
+msgid "Republish"
+msgstr "Wiederveröffentlichen"
+
+#: src/handlers/link-handler.php:213
+msgid "You cannot create a copy for Rewrite & Republish if the original is not published or if it already has a copy."
+msgstr "Du kannst keine Kopie zum überarbeiten und wiederveröffentlichen erstellen, wenn das Original nicht veröffentlicht ist oder bereits eine Kopie existiert."
+
+#: src/handlers/link-handler.php:91 src/handlers/link-handler.php:147
+#: src/handlers/link-handler.php:221
+msgid "Copy creation failed, could not create a copy."
+msgstr "Kopieren fehlgeschlagen, es konnte keine Kopie erstellt werden."
+
+#: src/handlers/link-handler.php:83 src/handlers/link-handler.php:139
+msgid "You cannot create a copy of a post which is intended for Rewrite & Republish."
+msgstr "Du kannst keine Kopie eines Beitrags erstellen, der für eine Überarbeitung und Wiederveröffentlichung vorgesehen ist."
+
+#: src/handlers/check-changes-handler.php:116
+msgid "&larr; Return to editor"
+msgstr "&larr; Zurück zum Editor"
+
+#. translators: %s: original item link (to view or edit) or title.
+#: src/handlers/check-changes-handler.php:111
+msgid "Compare changes of duplicated post with the original (&#8220;%s&#8221;)"
+msgstr "Vergleiche die Änderungen des duplizierten Beitrags mit dem Original (&#8222;%s&#8220;)"
+
+#: src/handlers/check-changes-handler.php:97
+msgid "Changes overview failed, could not find original post."
+msgstr "Ansicht der Änderungsübersicht fehlgeschlagen, konnte ursprünglichen Beitrag nicht finden. "
+
+#. translators: %s: post ID.
+#: src/handlers/check-changes-handler.php:84
+msgid "Changes overview failed, could not find post with ID %s."
+msgstr "Ansicht der Änderungsübersicht fehlgeschlagen, konnte den Beitrag mit der ID %s nicht finden."
+
+#: src/handlers/check-changes-handler.php:68
+msgid "No post has been supplied!"
+msgstr "Es wurde kein Beitrag angegeben!"
+
+#: admin-functions.php:597
+msgid "You aren't allowed to duplicate this post"
+msgstr "Du hast nicht die nötigen Rechte, um diesen Beitrag zu duplizieren"
+
+#: src/ui/newsletter.php:58
+msgid "Subscribe"
+msgstr "Abonnieren"
+
+#. translators: 1: Code start tag, 2: Code closing tag, 3: Link start tag to
+#. the template tag documentation, 4: Link closing tag.
+#: src/admin/views/options.php:216
+msgid "You can also use the template tag %1$sduplicate_post_clone_post_link( $link, $before, $after, $id )%2$s. %3$sMore info on the template tag%4$s."
+msgstr "Du kannst auch das Template-Tag %1$sduplicate_post_clone_post_link( $link, $before, $after, $id )%2$s benutzen. %3$sMehr Informationen zum Template-Tag%4$s."
+
+#. translators: %s: Post title.
+#: src/ui/row-actions.php:112
+msgid "New draft of &#8220;%s&#8221;"
+msgstr "Neuer Entwurf von &#8222;%s&#8220;"
+
+#: src/ui/row-actions.php:87
+msgctxt "verb"
+msgid "Clone"
+msgstr "Duplizieren"
+
+#. translators: %s: post title
+#: src/ui/metabox.php:100
+msgid "The original item this was copied from is: <span class=\"duplicate_post_original_item_title_span\">%s</span>"
+msgstr "Das Original-Element, von dem dieses kopiert wurde, ist: <span class=\"duplicate_post_original_item_title_span\">%s</span>"
+
+#: src/ui/column.php:135
+msgid "The original item this was copied from is: <span class=\"duplicate_post_original_item_title_span\"></span>"
+msgstr "Das Original-Element, von dem dieses kopiert wurde, ist: <span class=\"duplicate_post_original_item_title_span\"></span>"
+
+#: src/ui/column.php:130 src/ui/metabox.php:89
+msgid "Delete reference to original item."
+msgstr "Referenz zum Original-Element löschen."
+
+#: src/ui/newsletter.php:29
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+#. translators: 1: Yoast
+#: src/ui/newsletter.php:22
+msgid "If you want to stay up to date about all the exciting developments around Duplicate Post, subscribe to the %1$s newsletter!"
+msgstr "Wenn du auf dem aktuellen Stand bezüglich aller aufregenden Entwicklungen rund um Duplicate Post bleiben willst, abonniere den %1$s-Newsletter!"
+
+#. Author URI of the plugin
+msgid "https://yoast.com"
+msgstr "https://yoast.com"
+
+#. Author of the plugin
+msgid "Enrico Battocchi & Team Yoast"
+msgstr "Enrico Battocchi & Team Yoast"
+
+#. Plugin URI of the plugin
+msgid "https://yoast.com/wordpress/plugins/duplicate-post/"
+msgstr "https://yoast.com/wordpress/plugins/duplicate-post/"
+
+#. Plugin Name of the plugin
+msgid "Yoast Duplicate Post"
+msgstr "Yoast Duplicate Post"
+
+#. translators: %s: Post title.
+#: src/ui/row-actions.php:85
+msgid "Clone &#8220;%s&#8221;"
+msgstr "&#8222;%s&#8220; duplizieren"
+
+#. translators: %s: Original item link (to view or edit) or title.
+#: src/ui/post-states.php:67
+msgid "Original: %s"
+msgstr "Original: %s"
+
+#: src/ui/column.php:68
+msgid "Original item"
+msgstr "Original-Element"
+
+#: src/admin/options.php:256
+msgid "After the title in the Post list"
+msgstr "Nach dem Titel in der Beitragsliste"
+
+#: src/admin/options.php:249
+msgid "You'll also be able to delete the reference to the original item with a checkbox in Quick Edit"
+msgstr "Du wirst auch in der Lage sein, den Bezug zum Original-Element in einem Auswahlkästchen in QuickEdit zu löschen"
+
+#: src/admin/options.php:246
+msgid "In a column in the Post list"
+msgstr "in einer Spalte der Beitragsliste"
+
+#: src/admin/options.php:239
+msgid "You'll also be able to delete the reference to the original item with a checkbox"
+msgstr "Du wirst auch in der Lage sein, den Bezug zum Original-Element mit einem Auswahlkästchen zu löschen"
+
+#: src/admin/views/options.php:227
+msgid "Show original item:"
+msgstr "Original-Element anzeigen:"
+
+#: src/admin/views/options.php:20
+msgid "Settings sections"
+msgstr "Einstellungen Abschnitte"
+
+#: duplicate-post.php:98
+msgid "Settings for Duplicate Post"
+msgstr "Einstellungen für Duplicate Post"
+
+#. translators: %s: post title
+#: src/utils.php:144
+msgid "View &#8220;%s&#8221;"
+msgstr "&#8222;%s&#8220; anzeigen"
+
+#. translators: %s: post title
+#: src/utils.php:134
+msgid "Preview &#8220;%s&#8221;"
+msgstr "Vorschau von &#8222;%s&#8220;"
+
+#. translators: %s: post title
+#: src/utils.php:122
+msgid "Edit &#8220;%s&#8221;"
+msgstr "&#8222;%s&#8220; bearbeiten"
+
+#: src/handlers/link-handler.php:58 src/handlers/link-handler.php:114
+#: src/handlers/link-handler.php:188
+msgid "Current user is not allowed to copy posts."
+msgstr "Der angemeldete Benutzer hat keine Berechtigung, Beiträge zu duplizieren."
+
+#: src/admin/options.php:165
+msgid "you probably want this unchecked, unless you have very special requirements"
+msgstr "dies sollte wahrscheinlich deaktiviert sein, es sei denn, du hättest besondere Anforderungen"
+
+#: admin-functions.php:750
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: src/admin/options.php:307
+msgid "Bulk Actions"
+msgstr "Mehrfachaktionen"
+
+#: src/admin/options.php:217
+msgid "You can use * to match zero or more alphanumeric characters or underscores: e.g. field*"
+msgstr "Du kannst * als Platzhalter für beliebig viele alphanumerische Zeichen verwenden, z.&nbsp;B. field*"
+
+#: src/admin/options.php:186
+msgid "Menu order"
+msgstr "Menüreihenfolge"
+
+#: src/admin/options.php:149
+msgid "Author"
+msgstr "Autor"
+
+#: src/admin/options.php:135
+msgid "Template"
+msgstr "Template"
+
+#: src/admin/options.php:128
+msgid "Featured Image"
+msgstr "Beitragsbild"
+
+#. translators: %s: Number of posts copied.
+#: src/watchers/bulk-actions-watcher.php:55
+#: src/watchers/link-actions-watcher.php:73
+msgid "%s item copied."
+msgid_plural "%s items copied."
+msgstr[0] "%s Element kopiert."
+msgstr[1] "%s Elemente kopiert."
+
+#: src/admin/views/options.php:174 src/admin/views/options.php:211
+msgid "Whether the links are displayed for custom post types registered by themes or plugins depends on their use of standard WordPress UI elements."
+msgstr "Ob die Links für Individuelle Inhaltstypen, die von Themes oder Plugins registriert wurden, angezeigt werden, hängt von deren Benutzung der Standard-Bedienelemente von WordPress ab."
+
+#: src/admin/views/options.php:172
+msgid "Select the post types you want the plugin to be enabled for."
+msgstr "Wähle die Beitrags-Typen, für die du das Plugin aktivieren möchtest."
+
+#: src/admin/views/options.php:162 src/admin/views/options.php:166
+msgid "Enable for these post types"
+msgstr "Für diese Beitrags-Typen aktivieren"
+
+#: src/admin/views/options.php:155
+msgid "Passwords and contents of password-protected posts may become visible to undesired users and visitors."
+msgstr "Passwörter und Inhalte passwortgeschützter Beiträge können für unerwünschte Benutzer und Besucher sichtbar werden."
+
+#: src/admin/views/options.php:127
+msgid "Show/hide private taxonomies"
+msgstr "Private Taxonomien anzeigen/verbergen"
+
+#: src/admin/options.php:208
+msgid "Add this number to the original menu order (blank or zero to retain the value)"
+msgstr "Diese Zahl zur ursprünglichen Menüreihenfolge addieren (keine Eingabe oder eine Null behält den Wert bei)"
+
+#: src/admin/options.php:206 src/admin/views/options.php:93
+msgid "Increase menu order by"
+msgstr "Menü-Reihenfolge erhöhen um"
+
+#: src/admin/options.php:180
+msgid "except pingbacks and trackbacks"
+msgstr "außer Pingbacks und Trackbacks"
+
+#: src/admin/options.php:178
+msgid "Comments"
+msgstr "Kommentare"
+
+#: src/admin/options.php:171
+msgid "Children"
+msgstr "Kinder"
+
+#: src/admin/options.php:163
+msgid "Attachments"
+msgstr "Anhänge"
+
+#: src/admin/options.php:156
+msgid "Password"
+msgstr "Passwort"
+
+#: src/admin/options.php:121 src/handlers/check-changes-handler.php:127
+msgid "Content"
+msgstr "Inhalt"
+
+#: src/admin/options.php:114 src/handlers/check-changes-handler.php:128
+msgid "Excerpt"
+msgstr "Textauszug"
+
+#: src/admin/options.php:107
+msgid "Slug"
+msgstr "Titelform"
+
+#: src/admin/options.php:100
+msgid "Status"
+msgstr "Status"
+
+#: src/admin/options.php:93
+msgid "Date"
+msgstr "Datum"
+
+#: src/admin/options.php:86 src/handlers/check-changes-handler.php:126
+msgid "Title"
+msgstr "Titel"
+
+#: src/admin/views/options.php:58 src/admin/views/options.php:61
+msgid "Post/page elements to copy"
+msgstr "Folgende Beitrags-/Seitenelemente kopieren"
+
+#: src/admin/views/options.php:46 src/admin/views/options.php:187
+msgid "Display"
+msgstr "Anzeige"
+
+#: src/admin/views/options.php:37 src/admin/views/options.php:140
+msgid "Permissions"
+msgstr "Berechtigungen"
+
+#: src/admin/views/options.php:28 src/admin/views/options.php:55
+msgid "What to copy"
+msgstr "Folgendes kopieren"
+
+#: admin-functions.php:603
+msgid "Copy features for this post type are not enabled in options page"
+msgstr "Die Kopierfunktion für diesen Beitrags-Typ ist auf der Einstellungs-Seite nicht aktiviert."
+
+#: duplicate-post.php:99
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: src/admin/views/options.php:247
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+#: src/admin/options.php:297
+msgid "Admin bar"
+msgstr "Adminleiste"
+
+#: src/admin/options.php:302
+msgid "Edit screen"
+msgstr "Editor-Fenster"
+
+#: src/admin/options.php:292
+msgid "Post list"
+msgstr "Beitragsliste"
+
+#: src/admin/views/options.php:202
+msgid "Show links in"
+msgstr "Links anzeigen in"
+
+#: src/admin/views/options.php:144 src/admin/views/options.php:147
+msgid "Roles allowed to copy"
+msgstr "Rollen, die duplizieren dürfen"
+
+#: src/admin/options.php:201
+msgid "Suffix to be added after the title, e.g. \"(dup)\" (blank for no suffix)"
+msgstr "Suffix, das hinter den Originaltitel angehängt werden soll, z.B. „(Duplikat)“; freilassen, um nichts anzuhängen"
+
+#: src/admin/options.php:199 src/admin/views/options.php:82
+msgid "Title suffix"
+msgstr "Titel-Suffix"
+
+#: src/admin/options.php:194
+msgid "Prefix to be added before the title, e.g. \"Copy of\" (blank for no prefix)"
+msgstr "Präfix, das vor dem Originaltitel eingefügt werden soll, z.B. „Kopie von“; freilassen, um nichts einzufügen"
+
+#: src/admin/options.php:192 src/admin/views/options.php:71
+msgid "Title prefix"
+msgstr "Titel-Präfix"
+
+#: src/admin/views/options.php:116 src/admin/views/options.php:120
+msgid "Do not copy these taxonomies"
+msgstr "Diese Schlagwörter nicht duplizieren"
+
+#: src/admin/options.php:216
+msgid "Comma-separated list of meta fields that must not be copied."
+msgstr "Komma-getrennte Liste der Meta-Felder, die nicht kopiert werden dürfen."
+
+#: src/admin/options.php:213 src/admin/views/options.php:105
+msgid "Do not copy these fields"
+msgstr "Diese Felder nicht duplizieren"
+
+#: src/admin/options-page.php:77 src/ui/admin-bar.php:89 src/ui/metabox.php:59
+msgid "Duplicate Post"
+msgstr "Duplicate Post"
+
+#: src/admin/options-page.php:76 src/admin/views/options.php:14
+msgid "Duplicate Post Options"
+msgstr "Duplicate Post Optionen"
+
+#: src/handlers/link-handler.php:75 src/handlers/link-handler.php:131
+#: src/handlers/link-handler.php:205
+msgid "Copy creation failed, could not find original:"
+msgstr "Anlegen des Duplikats gescheitert. Das Original konnte nicht gefunden werden:"
+
+#: src/handlers/link-handler.php:63 src/handlers/link-handler.php:119
+#: src/handlers/link-handler.php:193
+msgid "No post to duplicate has been supplied!"
+msgstr "Es wurde kein Beitrag zum duplizieren angegeben!"
+
+#: src/admin/options.php:271 src/ui/row-actions.php:114
+msgid "New Draft"
+msgstr "Neuer Entwurf"
+
+#: common-functions.php:79 src/ui/admin-bar.php:97 src/ui/admin-bar.php:115
+#: src/ui/classic-editor.php:135 js/dist/duplicate-post-edit-440.js:1
+msgid "Copy to a new draft"
+msgstr "Beitrag/Seite als Entwurf duplizieren"
+
+#: src/admin/options.php:276 src/ui/bulk-actions.php:69
+msgid "Clone"
+msgstr "Duplizieren"
