@@ -1,0 +1,14 @@
+#ls-404-addon-settings .ls-settings-table tr {
+	display: none;
+}
+
+#ls-404-addon-settings[data-type="project"] .ls--404-project-type-only,
+#ls-404-addon-settings[data-type="page"] .ls--404-page-type-only,
+#ls-404-addon-settings .ls--404-type-tr {
+	display: table-row !important;
+}
+
+
+#ls-404-addon-settings[data-enabled="false"] .ls-404-preview-button {
+	display: none !important;
+}

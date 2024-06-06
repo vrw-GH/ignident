@@ -1,0 +1,92 @@
+
+@font-face { 
+     font-family: 'macosx';
+     src:    url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-600.woff2') format('woff2'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-600.woff') format('woff'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-600.ttf') format('truetype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-600.svg#macosx') format('svg'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-600.eot') format('embedded-opentype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-600.eot?#iefix') format('embedded-opentype');
+     font-style: normal;
+     font-weight: 400;
+     font-display: auto;
+}
+@font-face { 
+     font-family: 'macosx';
+     src:    url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-regular.woff2') format('woff2'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-regular.woff') format('woff'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-regular.ttf') format('truetype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-regular.svg#macosx') format('svg'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-regular.eot') format('embedded-opentype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/macosx/._open-sans-v34-latin-regular.eot?#iefix') format('embedded-opentype');
+     font-style: normal;
+     font-weight: 400;
+     font-display: auto;
+}
+@font-face { 
+     font-family: 'open-sans-v15';
+     src:    url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-700.woff2') format('woff2'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-700.woff') format('woff'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-700.ttf') format('truetype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-700.svg#open-sans-v15') format('svg'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-700.eot') format('embedded-opentype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-700.eot?#iefix') format('embedded-opentype');
+     font-style: normal;
+     font-weight: 400;
+     font-display: auto;
+}
+@font-face { 
+     font-family: 'open-sans-v15';
+     src:    url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-regular.woff2') format('woff2'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-regular.woff') format('woff'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-regular.ttf') format('truetype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-regular.svg#open-sans-v15') format('svg'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-regular.eot') format('embedded-opentype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v15/open-sans-v15-latin-regular.eot?#iefix') format('embedded-opentype');
+     font-style: normal;
+     font-weight: 400;
+     font-display: auto;
+}
+@font-face { 
+     font-family: 'open-sans-v34-latin';
+     src:    url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-600.woff2') format('woff2'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-600.woff') format('woff'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-600.ttf') format('truetype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-600.svg#open-sans-v34-latin') format('svg'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-600.eot') format('embedded-opentype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-600.eot?#iefix') format('embedded-opentype');
+     font-style: normal;
+     font-weight: 400;
+     font-display: auto;
+}
+@font-face { 
+     font-family: 'open-sans-v34-latin';
+     src:    url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-regular.woff2') format('woff2'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-regular.woff') format('woff'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-regular.ttf') format('truetype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-regular.svg#open-sans-v34-latin') format('svg'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-regular.eot') format('embedded-opentype'),
+             url('https://ignident.com/wp-content/uploads/avia_fonts/type_fonts/open-sans-v34-latin/open-sans-v34-latin-regular.eot?#iefix') format('embedded-opentype');
+     font-style: normal;
+     font-weight: 400;
+     font-display: auto;
+}
+
+
+.editor-block-list__block,
+.editor-block-list__block p {background-color:var(--enfold-main-color-bg); color:var(--enfold-main-color-color); font-size:16px;}
+.editor-block-list__block h1,
+.editor-block-list__block h2,
+.editor-block-list__block h3,
+.editor-block-list__block h4,
+.editor-block-list__block h5,
+.editor-block-list__block h6 {color:var(--enfold-main-color-heading);}
+.editor-post-title__block textarea {color:var(--enfold-alternate-color-color); background-color:var(--enfold-alternate-color-bg);}
+.editor-block-list__block a,
+.editor-block-list__block strong,
+.editor-block-list__block b,
+.editor-block-list__block b a,
+.editor-block-list__block strong a {color:var(--enfold-main-color-primary);}
+.editor-block-list__block .wp-block-heading,
+.editor-post-title__block textarea {font-family:'open-sans-v15', Helvetica, Arial, sans-serif;}
+.editor-block-list__block {font-family:'open-sans-v15', Helvetica, Arial, sans-serif;}

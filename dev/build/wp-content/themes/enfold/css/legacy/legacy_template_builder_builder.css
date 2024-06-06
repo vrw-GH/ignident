@@ -1,0 +1,364 @@
+/*
+	Contains vendor prefixed CSS rules that have been removed from core files because no longer needed
+	Cannot be minified because old rules are removed !!!!
+
+	@source			enfold/config_templatebuilder/avia-template-builder
+	@since 5.6.3
+*/
+
+root{}
+
+/* avia modal */
+
+.avia-style input[type="text"],
+.avia-style input[type="input"],
+.avia-style input[type="password"],
+.avia-style input[type="email"],
+.avia-style textarea,
+.avia-style select {
+	-webkit-appearance: none;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.avia-style textarea{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.avia-style input[type="text"]:focus,
+.avia-style input[type="password"]:focus,
+.avia-style input[type="email"]:focus,
+.avia-style textarea:focus,
+.avia-style select:focus {
+	-moz-box-shadow: 0 0 3px rgba(0,0,0,.2);
+	-webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+}
+
+.avia_icon_preview{
+	-moz-transition: 	all 0.1s ease-out; /* Firefox 4 */
+	-webkit-transition: all 0.1s ease-out; /* Safari and Chrome */
+	-o-transition: 		all 0.1s ease-out; /* Opera */
+}
+
+.avia_icon_preview:not(.avia-locked-data-value):hover{
+	-webkit-transform: scale(1.3);
+	-o-transform: scale(1.3);
+	-moz-transform: scale(1.3);
+}
+
+.avia-style .iris-picker{
+	-webkit-box-shadow: 0 1px 27px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0 1px 27px 0px rgba(0,0,0,0.3);
+}
+
+.avia-modal {
+	-webkit-animation: avia_modal_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Safari 4+ */
+	-moz-animation:    avia_modal_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Fx 5+ */
+	-o-animation:      avia_modal_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Opera 12+ */
+}
+
+@-webkit-keyframes avia_modal_pop {
+  0%   { -webkit-transform:scale(0.8); opacity:0; }
+  100% { -webkit-transform:scale(1); opacity:1;  }
+}
+@-moz-keyframes avia_modal_pop {
+  0%   { -moz-transform:scale(0.8); opacity:0; }
+  100% { -moz-transform:scale(1); opacity:1;  }
+}
+@-o-keyframes avia_modal_pop {
+  0%   { -o-transform:scale(0.8); opacity:0; }
+  100% { -o-transform:scale(1); opacity:1;  }
+}
+
+.avia-modal-close{
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+}
+
+.avia-modal .avia-form-element-container{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.avia-style .iris-picker,
+.avia-style .wp-color-result,
+.avia-style .wp-color-result:after,
+.avia-style .wp-picker-input-wrap .button{
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+/* media */
+div .attachment-preview  .thumbnail{
+	-webkit-border-radius:0;
+	-moz-border-radius:0;
+}
+
+div div .avia-video-element img{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.avia-delete-image {
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+}
+
+.avia-builder-prev-img-container img,
+.avia-builder-prev-img-container dotlottie-player,
+.avia-builder-prev-img-container lottie-player{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.avia-delete-gallery-button.button,
+.avia-delete-gallery-button.button:hover{
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#DD7C5C),to(#D54E21));
+	background-image: -webkit-linear-gradient(top,#DD7C5C,#D54E21);
+	background-image: -moz-linear-gradient(top,#DD7C5C,#D54E21);
+	background-image: -ms-linear-gradient(top,#DD7C5C,#D54E21);
+	background-image: -o-linear-gradient(top,#DD7C5C,#D54E21);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.avia-modal-group-element-inner .avia_slideshow_image img{
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+}
+
+/* avia builder */
+
+#menu_content_content_avia_builder_button_menu_tbl {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.av-builder-note.av-neutral a:hover{
+	-webkit-transition: all 0.4s ease-in-out;
+}
+
+.avia-form-element .avia-image-radio{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.avia-form-element .avia-image-radio label{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.avia-expanded .avia-fixed-controls {
+	-webkit-box-shadow: 0 1px 8px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0 1px 8px 0px rgba(0,0,0,0.2);
+}
+
+.avia-expanded .avia-fixed-controls  .avia-expand-button{
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#DD7C5C),to(#D54E21));
+	background-image: -webkit-linear-gradient(top,#DD7C5C,#D54E21);
+	background-image: -moz-linear-gradient(top,#DD7C5C,#D54E21);
+	background-image: -ms-linear-gradient(top,#DD7C5C,#D54E21);
+	background-image: -o-linear-gradient(top,#DD7C5C,#D54E21);
+	-moz-box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.3);
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.avia-expanded .avia-fixed-controls .avia-expand-button:active{
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#D54E21),to(#DD7C5C));
+	background-image: -webkit-linear-gradient(top,#D54E21,#DD7C5C);
+	background-image: -moz-linear-gradient(top,#D54E21,#DD7C5C);
+	background-image: -ms-linear-gradient(top,#D54E21,#DD7C5C);
+	background-image: -o-linear-gradient(top,#D54E21,#DD7C5C);
+}
+
+#avia_builder a.open-template-button.button {
+    -webkit-transition-property: border,color;
+}
+
+.avia-template-save-button-inner{
+	-moz-box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.avia-arrow{
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+}
+
+.avia-templates-miniheader{
+	-moz-box-shadow:    0px 2px 3px 0px rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
+}
+
+
+.avia-tooltip,
+.avia-help-tooltip{
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+
+.avia-hotkey-info{
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+}
+
+.avia-help-tooltip {
+	-moz-box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.2);
+}
+
+.avia-controll-bar{
+	background-image: -webkit-gradient(linear,left bottom,left top,from(#ECECEC),to(#F9F9F9));
+	background-image: -webkit-linear-gradient(bottom,#ECECEC,#F9F9F9);
+	background-image: -moz-linear-gradient(bottom,#ECECEC,#F9F9F9);
+	background-image: -o-linear-gradient(bottom,#ECECEC,#F9F9F9);
+}
+
+
+.avia-undo-button,
+.avia-redo-button{
+	-moz-transition: 	none; /* Firefox 4 */
+	-webkit-transition: none; /* Safari and Chrome */
+	-o-transition: 		none; /* Opera */
+}
+
+.avia_pop_class{
+	-webkit-animation: avia_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Safari 4+ */
+	-moz-animation:    avia_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Fx 5+ */
+	-o-animation:      avia_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Opera 12+ */
+}
+
+
+@-webkit-keyframes avia_pop {
+  0%   { -webkit-transform:scale(0.8);  }
+  100% { -webkit-transform:scale(1);  }
+}
+@-moz-keyframes avia_pop {
+  0%   { -moz-transform:scale(0.8);  }
+  100% { -moz-transform:scale(1);   }
+}
+@-o-keyframes avia_pop {
+  0%   { -o-transform:scale(0.8);  }
+  100% { -o-transform:scale(1);   }
+}
+
+div .avia_sorthandle{
+	-webkit-border-bottom-right-radius: 0px;
+	-webkit-border-bottom-left-radius: 	0px;
+	-moz-border-radius-bottomright: 	0px;
+	-moz-border-radius-bottomleft: 		0px;
+}
+
+.avia-col-size{
+	-moz-transition: 	all 0.2s ease-in-out; /* Firefox 4 */
+	-webkit-transition: all 0.2s ease-in-out; /* Safari and Chrome */
+	-o-transition: 		all 0.2s ease-in-out; /* Opera */
+}
+
+.avia_sorthandle a,
+.avia_sortable_element .avia_sorthandle,
+.avia-expand-button,
+.avia-element-title,
+.avia_sorthandle a.avia-element-bg-color{
+	-moz-transition: 	opacity 0.2s ease-in-out; /* Firefox 4 */
+	-webkit-transition: opacity 0.2s ease-in-out; /* Safari and Chrome */
+	-o-transition: 		opacity 0.2s ease-in-out; /* Opera */
+}
+
+.avia_layout_builder .avia-highlight{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.avia-modal-group{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.avia-modal-group-element .avia-move-handle{
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+}
+
+.avia-modal-group-element .avia-delete{
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+}
+
+.avia-add,
+.avia-clone{
+	-webkit-transition-duration: 0s;
+	-moz-transition-duration: 0s;
+}
+
+.avia_sortable_element.av_hr .avia_sorthandle{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.avia-layout-row-modal-label span span{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.avia_icon_element .avia_icon_char{
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+}
+
+.avia_iconbox_icon {
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+}
+
+.avia-image-diff-container .av-image-diff-overlay .av-img-diff-label{
+	-webkit-box-shadow: 0 0 5px rgba(51,51,51,.5);
+}
+
+.avia-image-diff-container .av-img-diff-label{
+	-webkit-transform: translateY(-50%);
+}
+
+.avia-image-diff-container .avia-drag_direction-av-handle-horizontal .av-img-diff-label{
+	-webkit-transform: translateX(-50%);
+}
+
+#fakeTabContent{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.avia-style .avia-table .avia-highlight-col{
+	-moz-box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.2);
+}
+
+.avia-style .avia-table .avia-table-col-style .avia-highlight-col{
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+#wpwrap .av-image-hotspot:after {
+	-webkit-animation: av_pulsate 2s ease-out infinite;
+	-moz-animation: av_pulsate 2s linear infinite;
+}
+
+@-webkit-keyframes av_pulsate {
+    0% 		{-webkit-transform: scale(0.1); opacity: 0.0;}
+    50% 	{opacity: 1.0;}
+    100% 	{-webkit-transform: scale(1); opacity: 0.0;}
+}
+
+@-moz-keyframes av_pulsate {
+    0% 		{-moz-transform: scale(0.1); opacity: 0.0;}
+    50% 	{opacity: 1.0;}
+    100% 	{-moz-transform: scale(1); opacity: 0.0;}
+}
+
+div .avia_sortable_element .avia_hidden_bg_box{
+	-moz-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+}
+

@@ -1,0 +1,1 @@
+X:/.Settings/_configs/wordpress/wp-config.php

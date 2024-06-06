@@ -1,0 +1,259 @@
+.ays-pro-features-v2-main-box,
+.ays-pro-features-v2-main-box * {
+    box-sizing: border-box;
+}
+
+.ays-pro-features-v2-main-box {
+    position: relative;
+    padding: 15px 10px;
+    background-color: rgba(53, 113, 196, 0.05);
+    transition: .15s;
+    border-radius: 10px;
+}
+
+.ays-pro-features-v2-main-box label {
+    color: #A3A3A3;
+}
+
+/* Small buttons start */
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box {
+    position: absolute;
+    right: 10px;
+    top: -12px;
+    z-index: 4;
+    display: flex;
+    gap: 7px;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-button {
+    display: flex;
+    align-items: center;
+    padding: 5px 13px;
+    background-color: #E0EBFF;
+    border-radius: 25px;
+    color: #6392D4;
+    font-size: 15px;
+    box-shadow: 0px 1px 1px #00000036;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-button:hover {
+    color: #3571C4;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-button:hover img:not(.ays-pb-new-video-button-hover),
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-button img.ays-pb-new-video-button-hover {
+    display: none;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-button:hover img.ays-pb-new-video-button-hover {
+    display: inline-block;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-upgrade-button {
+    display: flex;
+    padding: 5px 13px;
+    background-color: #FFE9DE;
+    border-radius: 25px;
+    color: #F47535;
+    font-size: 15px;
+    box-shadow: 0px 1px 1px #00000036;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-upgrade-button:hover {
+    color: #FF5500;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-upgrade-icon,
+.ays-pro-features-v2-main-box .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-icon {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-size: cover;    
+    transition: .10s;
+}
+/* Small buttons end */
+
+/* Big buttons start */
+.ays-pro-features-v2-big-buttons-box-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    visibility: hidden;
+}
+
+.ays-pro-features-v2-big-buttons-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    visibility: hidden;
+}
+
+.ays-pro-features-v2-big-buttons-box-main-container .ays-pro-features-v2-big-buttons-box {
+    position: static;
+    transform: none;
+}
+
+.ays-pro-features-v2-big-buttons-box-main-container .ays-pro-features-v2-big-buttons-box-view-demo .ays-pro-features-v2-upgrade-text {
+    color: #6392D4;
+}
+
+.ays-pro-features-v2-big-buttons-box-view-demo:hover .ays-pro-features-v2-upgrade-text {
+    color: #3571C4;
+}
+
+.ays-pro-features-v2-big-buttons-box-view-demo:hover  img.ays-pb-new-button-img-hide,
+.ays-pro-features-v2-big-buttons-box-view-demo .ays-pb-new-watch-video-button-hover {
+    display: none;
+}
+
+.ays-pro-features-v2-big-buttons-box-view-demo  img.ays-pb-new-button-img-hide,
+.ays-pro-features-v2-big-buttons-box-view-demo:hover .ays-pb-new-watch-video-button-hover {
+    display: block;
+}
+
+.ays-pro-features-v2-big-buttons-box-view-demo {
+    display: flex;
+    background-color: #fff;
+    border-radius: 31px;
+    font-size: 20px;
+    box-shadow: 0px 1px 2px #00000036;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    width: 250px;
+    height: 65px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-right: 10px;
+}
+
+.ays-pro-features-v2-big-buttons-box-view-demo>a,
+.ays-pro-features-v2-big-buttons-box-view-demo>a:hover {
+    text-decoration: none;
+}
+
+.ays-pro-features-v2-big-buttons-box-view-demo>a:focus {
+    box-shadow: none;
+    outline: auto;
+    color: #3571C4;
+}
+
+.ays-pro-features-v2-big-buttons-box-view-demo .ays-pro-features-v2-upgrade-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ays-pro-features-v2-main-box:hover .ays-pro-features-v2-big-buttons-box,
+.ays-pro-features-v2-main-box:hover .ays-pro-features-v2-big-buttons-box-view-demo {
+    visibility: visible;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-big-buttons-box .ays-pro-features-v2-upgrade-button {
+    display: flex;
+    background-color: #fff;
+    border-radius: 31px;
+    color: #F47535;
+    font-size: 20px;
+    box-shadow: 0px 1px 2px #00000036;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    width: 250px;
+    height: 65px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-big-buttons-box .ays-pro-features-v2-upgrade-button:hover {
+    color: #FF5500;
+}
+
+.ays-pro-features-v2-main-box .ays-pro-features-v2-big-buttons-box .ays-pro-features-v2-upgrade-icon{
+    width: 40px;
+    height: 40px;
+    background-repeat: repeat;
+    background-size: cover;    
+}
+/* Big buttons end */
+
+/* Themes styles start */
+.ays-pro-features-v2-main-box-themes .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-upgrade-button,
+.ays-pro-features-v2-main-box-themes .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-button {    
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.ays-pro-features-v2-main-box-themes .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-upgrade-button .ays-pro-features-v2-upgrade-icon,
+.ays-pro-features-v2-main-box-themes .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-button .ays-pro-features-v2-video-icon {    
+    width: 19px;
+    height: 19px;
+}
+
+.ays-pro-features-v2-main-box-themes .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-upgrade-text,
+.ays-pro-features-v2-main-box-themes .ays-pro-features-v2-small-buttons-box .ays-pro-features-v2-video-text {
+    display: none;
+}
+/* Themes styles end */
+
+.ays-pro-features-v2-main-box input[type="checkbox"] {
+    border-color: #D1D1D1;
+    background-color: #EDF2FC;
+    border-width: 2px;
+    box-shadow: unset;
+}
+
+.ays-pro-features-v2-main-box * {
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.ays-pro-features-v2-small-buttons-box,
+.ays-pro-features-v2-small-buttons-box *,
+.ays-pro-features-v2-big-buttons-box,
+.ays-pro-features-v2-big-buttons-box *,
+.ays-pro-features-v2-big-buttons-box-view-demo,
+.ays-pro-features-v2-big-buttons-box-view-demo *,
+.ays-pro-features-v2-big-buttons-box-main-container,
+.ays-pro-features-v2-main-box .ays-survey-zindex-for-pro,
+.ays-pro-features-v2-main-box iframe {
+    pointer-events: auto !important;
+    opacity: 1;
+}
+
+#ays_title_font_size.ays-text-input-max-width-100,
+#ays_title_letter_spacing.ays-text-input-max-width-100,
+#ays_title_line_height.ays-text-input-max-width-100 {
+    width: 11em;
+}
+
+.ays-text-input-max-width-100 {
+    min-width: 11em !important;
+}
+
+@media screen and (max-width: 1350px) {
+    .ays_pb_pro_feature>div,
+    .ays-pro-features-v2-big-buttons-box-main-container {
+        flex-direction: column;
+    }
+
+    .ays-pro-features-v2-big-buttons-box-main-container .ays-pro-features-v2-big-buttons-box-view-demo {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,1 @@
+(function(a){'use strict';a(document).ready(function(){a('body').on('avia_burger_list_created','.av-burger-menu-main a',function(){var e=a(this);setTimeout(function(){var n=e.closest('.avia-menu.av-main-nav-wrap').find('.av-burger-overlay').find('.language_flag');n.each(function(){a(this).closest('li').remove()})},200)})})})(jQuery);

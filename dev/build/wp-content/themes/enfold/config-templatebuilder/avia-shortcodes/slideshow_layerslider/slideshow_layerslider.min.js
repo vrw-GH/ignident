@@ -1,0 +1,1 @@
+!function(t){"use strict";t.fn.layer_slider_height_helper=function(e){return this.each((function(){var e=t(this),i=e.find(">div").first(),n=0,h=function(){i.height()>0||n>5?e.height("auto"):(setTimeout(h,500),n++)};i.length&&setTimeout(h,0)}))}}(jQuery);

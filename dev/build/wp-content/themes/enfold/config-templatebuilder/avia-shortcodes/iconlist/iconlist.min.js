@@ -1,0 +1,1 @@
+!function(i){"use strict";i.fn.avia_sc_iconlist=function(n){return this.each((function(){var n=i(this),t=n.find(">li");n.on("avia_start_animation",(function(){t.each((function(n){var t=i(this);setTimeout((function(){t.addClass("avia_start_animation")}),350*n)}))}))}))}}(jQuery);

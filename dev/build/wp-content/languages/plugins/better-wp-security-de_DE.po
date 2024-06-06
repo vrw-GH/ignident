@@ -1,0 +1,4136 @@
+# Translation of Plugins - iThemes Security - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - iThemes Security - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-01-08 18:58:43+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.0-alpha.3\n"
+"Language: de\n"
+"Project-Id-Version: Plugins - iThemes Security - Stable (latest release)\n"
+
+#: core/lib/class-itsec-mail.php:539
+#: core/modules/promos/entries/dashboard/app.js:80
+#: core/modules/promos/entries/settings/app.js:107 dist/promos/dashboard.js:1
+#: dist/promos/settings.js:1
+msgid "Go Pro Now"
+msgstr "Auf Pro erweitern"
+
+#: core/modules/dashboard/container.php:13
+msgid "Brute Force Attacks"
+msgstr "Brute-Force-Angriffe"
+
+#: core/lib/site-types/Type/Blog.php:16
+#: core/packages/components/src/help-list/index.js:108 dist/144.js:1
+msgid "Blog"
+msgstr "Blog"
+
+#: core/modules/brute-force/class-itsec-brute-force.php:109
+msgid "Brute Force \"admin\" Username"
+msgstr "Brute-Force-„admin“-Benutzername"
+
+#: core/modules/core/class-itsec-rest-actors-controller.php:40
+msgid "That actor type is not supported."
+msgstr "Dieser Akteurstyp wird nicht unterstützt."
+
+#: core/modules/core/class-itsec-rest-actors-controller.php:102
+msgid "A search term is required when querying this actor type."
+msgstr "Bei der Abfrage dieses Akteurstyp ist ein Suchbegriff erforderlich."
+
+#: core/modules/ban-users/Database_Repository.php:251
+msgid "Update Ban"
+msgstr "Dauerhafte Aussperrung aktualisieren"
+
+#. translators: %s: Parameter name.
+#: core/lib/class-itsec-lib-rest.php:144
+msgid "%s is not a valid IP address."
+msgstr "%s ist keine gültige IP-Adresse."
+
+#: core/modules/ban-users/Database_Repository.php:340
+msgid "This IP address is already banned."
+msgstr "Diese IP-Adresse ist bereits dauerhaft ausgesperrt."
+
+#: core/modules/ban-users/Database_Repository.php:308
+msgid "Cannot ban an authorized host."
+msgstr "Es kann kein autorisierter Host dauerhaft ausgesperrt werden."
+
+#: core/modules/ban-users/Database_Repository.php:230
+#: core/modules/ban-users/Database_Repository.php:256
+#: core/modules/dashboard/entries/dashboard/cards/banned-users-list/list.js:89
+#: core/modules/dashboard/entries/dashboard/cards/banned-users-list/list.js:125
+#: core/modules/dashboard/entries/dashboard/cards/banned-users-list/list.js:170
+#: dist/dashboard/dashboard.js:1
+msgid "Notes"
+msgstr "Hinweise"
+
+#: core/modules/ban-users/Database_Repository.php:211
+msgid "Created By"
+msgstr "Erstellt von"
+
+#: core/modules/ban-users/class-itsec-ban-users.php:140
+msgid "View Activity"
+msgstr "Aktivitätsprotokoll anzeigen"
+
+#: core/modules/ban-users/Database_Repository.php:366
+msgid "Failed to delete the ban: %s"
+msgstr "Das Löschen der dauerhaften Aussperrung ist fehlgeschlagen: %s"
+
+#: core/modules/ban-users/Database_Repository.php:346
+msgid "Failed to save the ban: %s"
+msgstr "Das Speichern der dauerhaften Aussperrung ist fehlgeschlagen: %s"
+
+#: module-strings.php:54
+msgid "Limit Banned IPs in Server Configuration Files"
+msgstr "Dauerhaft ausgesperrte IP-Adressen in Serverkonfigurationsdateien begrenzen"
+
+#: core/lib/ban-hosts/REST.php:197 core/lib/ban-hosts/REST.php:248
+#: core/lib/ban-hosts/REST.php:275
+msgid "No ban found with that id."
+msgstr "Keine dauerhafte Aussperrung mit dieser ID gefunden."
+
+#: core/lib/ban-hosts/REST.php:268
+msgid "Sorry, you do not have permission to delete bans."
+msgstr "Entschuldige, du hast nicht die Berechtigung dauerhafte Aussperrungen zu löschen."
+
+#: core/lib/ban-hosts/REST.php:241
+msgid "Sorry, you do not have permission to update bans."
+msgstr "Entschuldige, du hast nicht die Berechtigung dauerhafte Aussperrungen zu aktualisieren."
+
+#: core/lib/ban-hosts/REST.php:208
+msgid "Sorry, you do not have permission to create bans."
+msgstr "Entschuldige, du hast nicht die Berechtigung dauerhafte Aussperrungen zu erstellen."
+
+#: core/lib/ban-hosts/REST.php:106
+msgid "Sorry, you do not have permission to view bans."
+msgstr "Entschuldige, du hast nicht die Berechtigung dauerhafte Aussperrungen anzusehen."
+
+#: core/modules/ban-users/Database_Repository.php:231
+#: core/modules/ban-users/Database_Repository.php:257
+msgid "A comment describing the ban."
+msgstr "Ein Kommentar, der die dauerhafte Aussperrung beschreibt."
+
+#: core/modules/ban-users/Database_Repository.php:204
+msgid "The IP address to ban."
+msgstr "Die IP-Adresse, die dauerhaft ausgesperrt werden soll."
+
+#: core/modules/ban-users/Database_Repository.php:67
+msgid "Failed to get bans: %s"
+msgstr "Dauerhafte Aussperrungen konnten nicht abgerufen werden: %s"
+
+#: core/lib/actor/Lockout_Module_Factory.php:15
+msgid "Lockout Module"
+msgstr "Sperrmodul"
+
+#: core/lib/actor/Lockout_Module.php:32
+msgid "Inactive lockout module %s"
+msgstr "Inaktives Sperrmodul %s"
+
+#: core/lib/ban-hosts/REST.php:219
+msgid "The host matches your current IP and cannot be banned."
+msgstr "Der Host entspricht deiner aktuellen IP-Adresse und kann nicht dauerhaft ausgesperrt werden."
+
+#: core/core.php:817
+msgid "Passing a module as a single parameter is no longer supported. Pass a filters array instead."
+msgstr "Die Übergabe eines Moduls als einzelner Parameter wird nicht mehr unterstützt. Verwende stattdessen ein Filter-Array."
+
+#: core/modules/ban-users/Database_Repository.php:301
+msgid "The \"database\" repository only accepts Host instances."
+msgstr "Das „Datenbank“-Repository akzeptiert nur Host-Instanzen."
+
+#: core/modules/ban-users/Database_Repository.php:274
+msgid "The \"database\" repository only accepts Ban instances."
+msgstr "Das „Datenbank“-Repository akzeptiert nur dauerhafte Aussperrungsinstanzen."
+
+#: core/modules/ban-users/Database_Repository.php:225
+msgid "The actor who added the ban."
+msgstr "Der Akteur, der die dauerhafte Aussperrung hinzugefügt hat."
+
+#: core/modules/ban-users/Database_Repository.php:222
+msgid "The identifier for the actor."
+msgstr "Die Kennung des Akteurs."
+
+#: core/modules/ban-users/Database_Repository.php:218
+msgid "The type of the actor."
+msgstr "Der Typ des Akteurs."
+
+#: core/lib/ban-hosts/REST.php:510
+msgid "Banned Before"
+msgstr "Zuvor dauerhaft ausgesperrt"
+
+#: core/lib/ban-hosts/REST.php:502
+msgid "Banned After"
+msgstr "Danach dauerhaft ausgesperrt"
+
+#: core/lib/ban-hosts/Multi_Repository.php:316
+msgid "Unknown ban source \"%s\"."
+msgstr "Unbekannte Quelle „%s“ für dauerhafte Aussperrung."
+
+#: core/lib/ban-hosts/REST.php:495
+msgid "Actor Identifier"
+msgstr "Akteurskennung"
+
+#: core/lib/ban-hosts/REST.php:487
+msgid "Actor Type"
+msgstr "Akteurstyp"
+
+#: core/lib/ban-hosts/REST.php:488
+msgid "The type of actor that created the ban."
+msgstr "Der Typ des Aktors, der die dauerhafte Aussperrung erstellt hat."
+
+#: core/lib/ban-hosts/REST.php:496
+msgid "The particular actor that caused the ban."
+msgstr "Der genaue Akteur, der die dauerhafte Aussperrung veranlasst hat."
+
+#: core/lib/ban-hosts/REST.php:511
+msgid "Limit to bans added before the given date."
+msgstr "Auf dauerhafte Aussperrungen beschränken, die vor dem angegebenen Datum hinzugefügt wurden."
+
+#: core/lib/ban-hosts/REST.php:503
+msgid "Limit to bans added after the given date."
+msgstr "Auf dauerhafte Aussperrungen beschränken, die nach dem angegebenen Datum hinzugefügt wurden."
+
+#: core/lib/ban-hosts/Cursor.php:40
+msgid "Cursor definition for repository is malformed."
+msgstr "Die Cursor-Definition für das Repository ist falsch aufgebaut."
+
+#: core/lib/ban-hosts/Multi_Cursor.php:27
+msgid "Cursor missing definition for repository."
+msgstr "Dem Cursor fehlt die Definition für das Repository."
+
+#: core/lib/ban-hosts/Multi_Repository.php:281
+msgid "The ban source \"%s\" does not support deleting a ban."
+msgstr "Die dauerhafte Aussperrungsquelle „%s“ unterstützt das Löschen einer dauerhaften Aussperrung nicht."
+
+#: core/lib/ban-hosts/Multi_Repository.php:233
+#: core/lib/ban-hosts/Multi_Repository.php:255
+msgid "The ban source \"%s\" does not support saving bans."
+msgstr "Die dauerhafte Aussperrungsquelle „%s“ unterstützt das Abspeichern einer dauerhaften Aussperrung nicht."
+
+#: core/lib/ban-hosts/Multi_Repository.php:214
+msgid "The ban source \"%s\" does not support updating a ban."
+msgstr "Die dauerhafte Aussperrungsquelle „%s“ unterstützt das Aktualisieren einer dauerhaften Aussperrung nicht."
+
+#: core/lib/ban-hosts/Multi_Repository.php:186
+msgid "The ban source \"%s\" does not support creating a ban."
+msgstr "Die dauerhafte Aussperrungsquelle „%s“ unterstützt das Erstellen einer dauerhaften Aussperrung nicht."
+
+#: core/lib/ban-hosts/Legacy_Ban.php:30
+msgid "Dynamic ban added with the deprecated itsec_filter_blacklisted_ips filter."
+msgstr "Eine dynamische, dauerhafte Aussperrung wurde mit dem veralteten Filter itsec_filter_blacklisted_ips hinzugefügt."
+
+#: core/lib/ban-hosts/Multi_Repository.php:237
+msgid "The source \"%1$s\" does not match the previous ban source \"%2$s\"."
+msgstr "Die Quelle „%1$s“ stimmt nicht mit der vorherigen dauerhaften Aussperrungsquelle „%2$s“ überein."
+
+#: core/core.php:824
+msgid "Passing the log type as the second parameter is no longer supported. Pass a filters array instead."
+msgstr "Die Übergabe des Protokolltyps als zweiten Parameter wird nicht mehr unterstützt. Verwende stattdessen ein Filter-Array."
+
+#: module-strings.php:51
+msgid "Default Ban List"
+msgstr "Standardmäßige Sperrliste"
+
+#: core/lib.php:2441
+msgid "You must be running at least version %s of iThemes Security."
+msgstr "Du musst mindestens die Version %s von iThemes Security verwenden."
+
+#: module-strings.php:165
+msgid "Ban Threshold"
+msgstr "Dauerhafte Aussperrungsschwelle"
+
+#: module-strings.php:163
+msgid "Ban Repeat Offender"
+msgstr "Wiederholungstäter dauerhaft aussperren"
+
+#: core/modules/global/notices.php:77
+msgid "Update License"
+msgstr "Lizenz aktualisieren"
+
+#: core/modules/global/notices.php:56
+msgid "iThemes Security Pro couldn't verify the license for this site. An active license is required to authenticate the Site Scanner."
+msgstr "iThemes Security Pro konnte die Lizenz für diese Website nicht verifizieren. Eine gültige Lizenz ist erforderlich, um die Website-Überprüfung zu authentifizieren."
+
+#: core/modules/site-scanner/api.php:360
+msgid "Unknown Error"
+msgstr "Unbekannter Fehler"
+
+#: core/modules/site-scanner/api.php:306 core/modules/site-scanner/api.php:318
+msgid "iThemes Security Pro is not activated."
+msgstr "iThemes Security Pro ist nicht aktiviert."
+
+#: core/modules/site-scanner/Fixer/Vulnerability_Fixer.php:28
+msgid "You must have permission to update plugins to fix this issue."
+msgstr "Du musst die Berechtigung haben Plugins zu aktualisieren, um dieses Problem zu beheben."
+
+#: core/modules/site-scanner/Fixer/Vulnerability_Fixer.php:34
+msgid "You must have permission to update themes to fix this issue."
+msgstr "Du musst die Berechtigung haben Themes zu aktualisieren, um dieses Problem zu beheben."
+
+#: core/modules/site-scanner/Fixer/Vulnerability_Fixer.php:115
+msgid "Update Theme"
+msgstr "Theme aktualisieren"
+
+#: core/modules/site-scanner/Fixer/Vulnerability_Fixer.php:113
+msgid "Update Plugin"
+msgstr "Plugin aktualisieren"
+
+#: core/modules/site-scanner/mail.php:170
+msgid "Scan Errors"
+msgstr "Überprüfungsfehler"
+
+#: core/modules/site-scanner/util.php:62 core/modules/site-scanner/util.php:91
+msgid "Scan Error"
+msgstr "Überprüfungsfehler"
+
+#: core/modules/site-scanner/util.php:88
+msgid "Vulnerable Software"
+msgstr "Anfällige Software"
+
+#: core/modules/site-scanner/mail.php:110
+#: core/modules/site-scanner/mail.php:177
+msgid "View Report"
+msgstr "Bericht anzeigen"
+
+#: core/modules/site-scanner/mail.php:50
+msgid "Site Scan for %s"
+msgstr "Website-Überprüfung für %s"
+
+#: core/modules/site-scanner/api.php:312
+msgid "Failed to calculate hmac."
+msgstr "Die Berechnung von hmac ist fehlgeschlagen."
+
+#: core/modules/site-scanner/api.php:42
+msgid "Please %1$sconfirm%2$s your licensing details."
+msgstr "Bitte %1$sbestätige%2$s deine Lizenzangaben."
+
+#: core/modules/site-scanner/api.php:392
+msgid "Invalid JSON: %s."
+msgstr "Ungültige JSON-Daten: %s."
+
+#: core/modules/site-scanner/api.php:355
+msgid "Invalid JSON."
+msgstr "Die JSON-Daten sind ungültig."
+
+#: core/modules/site-scanner/api.php:297
+msgid "Could not find the iThemes updater."
+msgstr "Das Aktualisierungsprogramm von iThemes konnte nicht gefunden werden."
+
+#: core/modules/site-scanner/api.php:293
+msgid "Not an iThemes Security Pro install."
+msgstr "Dies ist keine iThemes Security Pro-Installation."
+
+#: core/modules/site-scanner/util.php:119
+msgid "Log item is of the incorrect type."
+msgstr "Der Protokolleintrag hat den falschen Typ."
+
+#: core/modules/site-scanner/util.php:111
+msgid "Could not find a log item with that id."
+msgstr "Es konnte kein Protokolleintrag mit dieser ID gefunden werden."
+
+#: core/modules/site-scanner/util.php:115
+msgid "Log item does not belong to the Site Scanner module."
+msgstr "Der Protokolleintrag gehört nicht zum Website-Überprüfungsmodul."
+
+#: core/modules/site-scanner/labels.php:4 module-strings.php:292
+msgid "Site Scanner"
+msgstr "Website-Überprüfung"
+
+#: core/modules/site-scanner/Repository/LatestScanRepository.php:40
+msgid "No recent site scan."
+msgstr "Keine aktuelle Website-Überprüfung."
+
+#: core/modules/site-scanner/REST/Muted_Issues.php:143
+msgid "Sorry, you cannot unmute issues."
+msgstr "Du kannst die Ausblendung von Problemen leider nicht aufheben."
+
+#: core/modules/site-scanner/REST/Muted_Issues.php:105
+msgid "Sorry, you cannot mute issues."
+msgstr "Du kannst Probleme leider nicht ausblenden."
+
+#: core/modules/site-scanner/REST/Muted_Issues.php:89
+msgid "This issue has not been muted."
+msgstr "Dieses Problem ist nicht ausgeblendet worden."
+
+#: core/modules/site-scanner/REST/Muted_Issues.php:56
+#: core/modules/site-scanner/REST/Muted_Issues.php:81
+msgid "Sorry, you cannot view muted issues."
+msgstr "Du kannst dir ausgeblendete Probleme leider nicht anzeigen lassen."
+
+#: core/modules/site-scanner/REST/Issues.php:228
+msgid "No issue was found with that id."
+msgstr "Es wurde kein Problem mit dieser ID gefunden."
+
+#: core/modules/site-scanner/util.php:85
+msgid "On Blocklist"
+msgstr "Auf der Sperrliste"
+
+#: core/modules/site-scanner/REST/Muted_Issues.php:113
+#: core/modules/site-scanner/util.php:213
+msgid "This issue has already been muted."
+msgstr "Dieses Problem wurde bereits ausgeblendet."
+
+#: core/modules/site-scanner/REST/Muted_Issues.php:151
+#: core/modules/site-scanner/util.php:254
+msgid "This issue is not muted."
+msgstr "Dieses Problem ist nicht ausgeblendet."
+
+#: core/modules/site-scanner/util.php:161
+#: core/modules/site-scanner/util.php:165
+#: core/modules/site-scanner/util.php:169
+#: core/modules/site-scanner/util.php:175
+msgid "Malformed token."
+msgstr "Fehlerhaftes Token."
+
+#: core/modules/site-scanner/util.php:82
+msgid "Found Malware"
+msgstr "Malware gefunden"
+
+#: core/modules/site-scanner/Fixer/Multi_Fixer.php:31
+#: core/modules/site-scanner/Fixer/Multi_Fixer.php:41
+#: core/modules/site-scanner/Fixer/Vulnerability_Fixer.php:19
+#: core/modules/site-scanner/Fixer/Vulnerability_Fixer.php:36
+#: core/modules/site-scanner/Fixer/Vulnerability_Fixer.php:87
+#: core/modules/site-scanner/Fixer/Vulnerability_Fixer.php:100
+#: core/modules/site-scanner/REST/Issues.php:172
+msgid "This issue cannot be automatically fixed."
+msgstr "Dieses Problem kann nicht automatisch behoben werden."
+
+#: core/modules/site-scanner/REST/Scans.php:95
+msgid "Sorry, you cannot view site scans."
+msgstr "Du kannst dir leider keine Website-Überprüfungen anzeigen lassen."
+
+#: core/modules/site-scanner/REST/Scans.php:72
+msgid "Sorry, you cannot perform site scans."
+msgstr "Du kannst leider keine Website-Überprüfungen durchführen."
+
+#: core/modules/site-scanner/logs.php:32
+msgid "Site Verification Succeeded"
+msgstr "Die Website-Verifizierung wurde erfolgreich durchgeführt"
+
+#: core/modules/site-scanner/logs.php:93
+msgid "Please %1$sreview the logs%2$s to make sure your system is secure."
+msgstr "Bitte %1$süberprüfe die Protokolle%2$s, um sicherzustellen, dass dein System sicher ist."
+
+#: core/modules/site-scanner/logs.php:81
+msgid "iThemes Security found %s issue during a site scan."
+msgid_plural "iThemes Security found %s issues during a site scan."
+msgstr[0] "iThemes Security hat während einer Website-Überprüfung %s Problem gefunden."
+msgstr[1] "iThemes Security hat während einer Website-Überprüfung %s Probleme gefunden."
+
+#: core/modules/site-scanner/REST/Issues.php:160
+msgid "Sorry, you cannot fix site scan issues."
+msgstr "Du kannst leider keine Probleme der Website-Überprüfung beheben."
+
+#: core/modules/site-scanner/REST/Issues.php:93
+#: core/modules/site-scanner/REST/Issues.php:127
+msgid "Sorry, you cannot view site scan issues."
+msgstr "Sie können sich leider keine Probleme der Website-Überprüfung anzeigen lassen."
+
+#: core/modules/site-scanner/mail.php:83
+msgid "Scheduled site scan found warnings"
+msgstr "Die geplante Website-Überprüfung hat Warnungen festgestellt"
+
+#: core/modules/site-scanner/mail.php:80
+msgid "Scheduled site scan report: %l"
+msgstr "Geplanter Website-Überprüfungsbericht: %l"
+
+#: core/modules/site-scanner/mail.php:75
+msgid "Scheduled site scan found no issues."
+msgstr "Die geplante Website-Überprüfung fand keine Probleme."
+
+#: core/modules/site-scanner/logs.php:75
+msgid "The iThemes Security site scan encountered an error."
+msgstr "Bei der iThemes Security-Website-Überprüfung ist ein Fehler aufgetreten."
+
+#: core/modules/site-scanner/logs.php:30
+msgid "Scan Verification Failed: Invalid Secret"
+msgstr "Überprüfungsverifizierung fehlgeschlagen: Ungültiges Geheimnis"
+
+#: core/modules/site-scanner/mail.php:73
+msgid "Scheduled site scan resulted in an error"
+msgstr "Die geplante Website-Überprüfung ist mit einem Fehler beendet worden."
+
+#. translators: 1. Site name.
+#: core/modules/site-scanner/mail.php:104
+msgid "An error occurred while running the scheduled site scan on %s:"
+msgstr "Bei der Ausführung der geplanten Website-Überprüfung für %s ist ein Fehler aufgetreten:"
+
+#: core/modules/site-scanner/mail.php:123
+msgid "The scheduled site scan found %1$s issue when scanning %2$s."
+msgid_plural "The scheduled site scan found %1$s issues when scanning %2$s."
+msgstr[0] "Die geplante Website-Überprüfung hat beim Überprüfen von %2$s %1$s Problem gefunden."
+msgstr[1] "Die geplante Website-Überprüfung hat beim Überprüfen von %2$s %1$s Probleme gefunden."
+
+#: core/modules/site-scanner/mail.php:144
+msgid "The scheduled site scan encountered %1$s error when scanning %2$s."
+msgid_plural "The scheduled site scan encountered %1$s errors when scanning %2$s."
+msgstr[0] "Die geplante Website-Überprüfung ist beim Überprüfen von %2$s auf %1$s Fehler gestoßen."
+msgstr[1] "Die geplante Website-Überprüfung ist beim Überprüfen von %2$s auf %1$s Fehler gestoßen."
+
+#: core/modules/site-scanner/mail.php:135
+msgid "The scanner encountered %s additional error."
+msgid_plural "The scanner encountered %s additional errors."
+msgstr[0] "Die Überprüfung ist auf %s zusätzlichen Fehler gestoßen."
+msgstr[1] "Die Überprüfung ist auf %s zusätzliche Fehler gestoßen."
+
+#: core/modules/malware-scheduling/labels.php:4
+#: core/modules/security-check/scanner.php:19
+#: core/modules/security-check/scanner.php:77 module-strings.php:240
+msgid "Site Scan Scheduling"
+msgstr "Geplante Website-Überprüfung"
+
+#: core/modules/site-scanner/Model/Factory.php:42
+msgid "Log item is malformed."
+msgstr "Der Protokolleintrag ist fehlerhaft."
+
+#: core/modules/site-scanner/Model/Factory.php:163
+msgid "Blocklist"
+msgstr "Sperrliste"
+
+#: core/modules/site-scanner/Model/Blacklist.php:15
+msgid "Domain blocked by %s"
+msgstr "Domäne gesperrt durch %s"
+
+#: core/modules/site-scanner/Model/Factory.php:19
+msgid "Logs must be stored in the database to retrieve past scans."
+msgstr "Die Protokolle müssen in der Datenbank gespeichert werden, um frühere Überprüfungen abrufen zu können."
+
+#: core/lib/class-itsec-lib-upgrader.php:134
+msgid "Unable to update the theme: %l"
+msgstr "Aktualisierung des Themes nicht möglich: %l"
+
+#: core/lib/class-itsec-lib-upgrader.php:94
+msgid "Unable to update the plugin: %l"
+msgstr "Aktualisierung des Plugins nicht möglich: %l"
+
+#: core/lib/class-itsec-lib-jwt.php:111
+msgid "Signature verification failed"
+msgstr "Signaturprüfung fehlgeschlagen"
+
+#: core/lib/class-itsec-lib-upgrader.php:53
+msgid "No update is listed for the theme."
+msgstr "Für das Theme ist keine Aktualisierung verfügbar."
+
+#: core/lib/class-itsec-lib-upgrader.php:33
+#: core/lib/class-itsec-lib-upgrader.php:59
+msgid "An available update is listed, but automatic updates are not configured."
+msgstr "Eine verfügbare Aktualisierung ist verfügbar, aber die automatischen Aktualisierungen sind nicht konfiguriert."
+
+#: core/lib/class-itsec-lib-upgrader.php:100
+#: core/lib/class-itsec-lib-upgrader.php:140
+msgid "An unknown issue prevented the update from completing."
+msgstr "Aufgrund eines unbekannten Fehlers konnte die Aktualisierung nicht abgeschlossen werden."
+
+#: core/lib/class-itsec-lib-upgrader.php:16
+msgid "No update is listed for the plugin."
+msgstr "Für das Plugin ist keine Aktualisierung verfügbar."
+
+#: core/lib/class-itsec-lib-jwt.php:261
+msgid "OpenSSL unable to sign data"
+msgstr "OpenSSL kann die Daten nicht signieren"
+
+#: core/lib/class-itsec-lib-jwt.php:88
+msgid "Algorithm not allowed"
+msgstr "Der Algorithmus ist nicht zugelassen."
+
+#: core/lib/class-itsec-lib-jwt.php:84 core/lib/class-itsec-lib-jwt.php:248
+#: core/lib/class-itsec-lib-jwt.php:267 core/lib/class-itsec-lib-jwt.php:283
+msgid "Algorithm not supported"
+msgstr "Der Algorithmus wird nicht unterstützt."
+
+#: core/lib/class-itsec-lib-jwt.php:79
+msgid "Empty algorithm"
+msgstr "Leerer Algorithmus"
+
+#: core/lib/class-itsec-lib-jwt.php:67
+msgid "Key may not be empty"
+msgstr "Schlüssel darf nicht leer sein"
+
+#: core/lib/upgrader-skin.php:12
+msgid "Unable to update the %1$s plugin. %2$s"
+msgstr "Das Plugin %1$s kann nicht aktualisiert werden. %2$s"
+
+#: core/lib/class-itsec-scheduler.php:236
+msgid "An iThemes Security module's scheduling.php file must return a callable."
+msgstr "Die Datei scheduling.php eines iThemes Security Moduls muss ein abrufbar zurückgeben."
+
+#: core/lib/class-itsec-lib-upgrader.php:23
+msgid "An update to version %1$s is available, but it doesn&#8217;t work with your version of PHP. %2$sLearn more about updating PHP%3$s."
+msgstr "Eine Aktualisierung auf Version %1$s ist verfügbar, aber sie funktioniert nicht mit deiner PHP-Version. %2$sWeiteres über die Aktualisierung von PHP erfahren%3$s."
+
+#: core/lib/class-itsec-lib-jwt.php:177
+msgid "Invalid signature encoding"
+msgstr "Ungültige Signaturkodierung"
+
+#: core/lib/class-itsec-lib-jwt.php:173
+msgid "Invalid claims encoding"
+msgstr "Ungültige Forderungscodierung"
+
+#: core/lib/class-itsec-lib-jwt.php:169
+msgid "Invalid header encoding"
+msgstr "Ungültige Header-Kodierung"
+
+#: core/lib/class-itsec-lib-jwt.php:163
+msgid "Wrong number of segments"
+msgstr "Falsche Anzahl an Segmenten"
+
+#: core/lib/class-itsec-lib-jwt.php:146
+msgid "Expired token"
+msgstr "Abgelaufener Token"
+
+#: core/rest.php:333
+msgid "Pass through Authorization header."
+msgstr "Den Autorisierungs-Header durchreichen."
+
+#: core/lib/class-itsec-lib-jwt.php:63
+msgid "Did not confirm that \"none\" is an allowed algorithm."
+msgstr "Es konnte nicht bestätigt werden, dass „none“ ein erlaubter Algorithmus ist."
+
+#: core/lockout.php:1467
+msgid "Authorized Host Triggered Ban Conditions"
+msgstr "Autorisierter Host hat die Bedingungen einer dauerhaften Aussperrung ausgelöst"
+
+#: core/lockout.php:1469
+msgid "Host Triggered Ban Conditions"
+msgstr "Host hat die Bedingungen einer dauerhaften Aussperrung ausgelöst"
+
+#: core/lib/class-itsec-lib-jwt.php:99
+msgid "\"kid\" empty, unable to lookup correct key"
+msgstr "„kid“ ist leer, es konnte nicht nach dem richtigen Schlüssel gesucht werden"
+
+#: core/lib/class-itsec-lib-jwt.php:94
+msgid "\"kid\" invalid, unable to lookup correct key"
+msgstr "„kid“ ist ungültig, es konnte nicht nach dem richtigen Schlüssel gesucht werden"
+
+#. translators: %s Date/Time the JWT is valid.
+#: core/lib/class-itsec-lib-jwt.php:122 core/lib/class-itsec-lib-jwt.php:137
+msgid "Cannot handle token prior to %s."
+msgstr "Der Token kann nicht vor %s verarbeitet werden."
+
+#: core/modules.php:997 core/admin-pages/entries/settings/pages/index.js:29
+#: core/admin-pages/entries/settings/pages/modules/index.js:126
+#: core/admin-pages/entries/settings/pages/modules/index.js:362
+#: core/admin-pages/entries/settings/search.js:21
+#: core/modules/user-groups/entries/settings/components/manage-group/index.js:74
+#: core/modules/user-groups/entries/settings/components/manage-multiple-groups/index.js:33
+#: dist/pages/settings.js:1 dist/user-groups/settings.js:1
+msgid "Features"
+msgstr "Funktionen"
+
+#: core/modules/backup/labels.php:4
+msgid "Backup"
+msgstr "Backup"
+
+#: core/modules/hibp/HIBP_Requirement.php:76
+#: core/modules/strong-passwords/Strength_Requirement.php:66
+msgid "User Group"
+msgstr "Benutzergruppe"
+
+#: core/modules/user-groups/Upgrader.php:158
+msgid "%s Users"
+msgstr "%s-Benutzer"
+
+#: core/modules/sync-connect/templates/connect-unauthorized.php:4
+msgid "Your user account does not have the ability to install or activate plugins. Please ask your site administrator to install Sync."
+msgstr "Dein Benutzerkonto hat nicht die Berechtigung, Plugins zu installieren oder zu aktivieren. Bitte wende dich an deinen Website-Administrator, um Sync zu installieren."
+
+#: core/modules/site-scanner/cards/class-itsec-dashboard-card-malware-scan.php:89
+msgid "Scan Now"
+msgstr "Jetzt überprüfen"
+
+#: core/modules/site-scanner/logs.php:18 core/modules/site-scanner/mail.php:48
+msgid "Site Scan"
+msgstr "Website-Überprüfung"
+
+#: core/modules/sync-connect/templates/connect-prompt.php:4
+msgid "This will install the iThemes Sync plugin and connect the plugin to your Sync account."
+msgstr "Dies führt zur Installation des iThemes Sync-Plugins und verbindet das Plugin mit Ihrem Sync-Konto."
+
+#: core/modules/sync-connect/templates/connect-prompt.php:3
+msgid "Connecting iThemes Sync"
+msgstr "Verbinden von iThemes Sync"
+
+#: core/modules/sync-connect/templates/connect-unauthorized.php:8
+#: core/modules/sync-connect/templates/fallback.php:7
+msgid "Take me back to Sync"
+msgstr "Zu Sync zurückkehren"
+
+#: core/modules/sync-connect/labels.php:4 module-strings.php:314
+msgid "Sync Connect"
+msgstr "Sync verbinden"
+
+#: core/modules/sync-connect/class-itsec-sync-connect-interstitial.php:67
+msgid "The plugin could not be installed. Please manually install the plugin. Error: %s"
+msgstr "Das Plugin konnte nicht installiert werden. Bitte installiere das Plugin manuell. Fehler: %s"
+
+#: core/modules/sync-connect/class-itsec-sync-connect-interstitial.php:83
+msgid "The plugin could not be activated. Please manually activate the plugin. Error: %s"
+msgstr "Das Plugin konnte nicht aktiviert werden. Bitte aktiviere das Plugin manuell. Fehler: %s"
+
+#: core/modules/sync-connect/templates/or.php:2
+msgid "Or"
+msgstr "Oder"
+
+#: core/modules/sync-connect/templates/connect-unauthorized.php:3
+msgid "Account is not authorized"
+msgstr "Das Konto ist nicht autorisiert"
+
+#: core/modules/sync-connect/class-itsec-sync-connect-interstitial.php:98
+msgid "Missing sync connect token."
+msgstr "Fehlendes Synchronisationsverbindungs-Token"
+
+#: core/modules/sync-connect/templates/prompt-link.php:2
+msgid "Connect Sync"
+msgstr "Synchronisation verbinden"
+
+#: core/modules/sync-connect/class-itsec-sync-connect.php:73
+msgid "Installation failed for an unknown reason."
+msgstr "Die Installation ist aus einem unbekannten Grund fehlgeschlagen."
+
+#: core/modules/feature-flags/settings.php:49
+msgid "Disabled reason: %s"
+msgstr "Grund der Deaktivierung: %s"
+
+#: core/modules/feature-flags/settings.php:47
+msgid "Enabled reason: %s"
+msgstr "Grund der Aktivierung: %s"
+
+#: core/modules/user-groups/REST/User_Groups.php:360
+msgid "Sorry, no user group exists with that id."
+msgstr "Leider existiert keine Benutzergruppe mit dieser ID."
+
+#: core/modules/user-groups/REST/User_Groups.php:300
+msgid "A user group must have a minimum role, list of roles, or list of users to be created."
+msgstr "Eine Benutzergruppe muss mindestens eine Rolle, eine Liste von Rollen oder eine Liste von Benutzern haben, die erstellt werden sollen."
+
+#: core/modules/user-groups/Upgrader.php:87
+msgid "No default group called %s"
+msgstr "Keine Standardgruppe namens %s"
+
+#: core/modules/sync-connect/class-itsec-sync-connect.php:134
+msgid "Invalid response from the server (Code: %d). Please manually activate the plugin."
+msgstr "Ungültige Antwort vom Server (Code: %d). Bitte aktiviere das Plugin manuell."
+
+#: core/lib/upgrader-skin.php:28
+#: core/modules/sync-connect/includes/upgrader-skin.php:18
+msgid "Could not request filesystem credentials."
+msgstr "Es konnten keine Anmeldeinformationen für das Dateisystem abgefragt werden."
+
+#: module-strings.php:116
+msgid "Feature Flags in iThemes Security allow you to try experimental features before they are released."
+msgstr "Funktionsmarkierungen in iThemes Security ermöglichen es dir, experimentelle Funktionen auszuprobieren, bevor sie veröffentlicht werden."
+
+#: core/modules/sync-connect/class-itsec-sync-connect.php:140
+msgid "Invalid JSON response from Sync API. Please manually activate the plugin."
+msgstr "Ungültige JSON-Antwort von der Synchronisations-API. Bitte aktiviere das Plugin manuell."
+
+#: core/modules/security-check-pro/utility.php:294
+msgid "The response body is missing the \"ips\" entry."
+msgstr "Im Antwortkörper fehlt der Eintrag „ips“."
+
+#: core/setup.php:134
+msgid "Failed to acquire a mutex."
+msgstr "Der Erwerb einer Mutex ist fehlgeschlagen."
+
+#: core/modules/strong-passwords/Strength_Requirement.php:72
+msgid "Force users in the selected groups to use strong passwords."
+msgstr "Benutzer in den ausgewählten Gruppen zwingen, starke Passwörter zu verwenden."
+
+#: core/lib/rest/Modules_Controller.php:329
+#: core/modules/user-groups/labels.php:4
+#: core/modules/user-groups/Module/Module.php:155 module-strings.php:361
+#: core/admin-pages/entries/settings/pages/configure/index.js:518
+#: core/modules/user-groups/entries/settings/app.js:26
+#: core/modules/user-groups/entries/settings/components/group-nav/index.js:148
+#: core/modules/user-groups/entries/settings/components/group-nav/index.js:294
+#: core/modules/user-groups/entries/settings/components/multi-group-selector/index.js:95
+#: core/modules/user-groups/entries/settings/utils.js:262
+#: dist/pages/settings.js:1 dist/user-groups/settings.js:1
+msgid "User Groups"
+msgstr "Benutzergruppen"
+
+#: core/modules/user-groups/All_Users.php:11
+msgid "All Users"
+msgstr "Alle Benutzer"
+
+#: core/modules/user-groups/Repository/DB_Repository.php:96
+msgid "Failed to delete group."
+msgstr "Die Gruppe konnte nicht gelöscht werden."
+
+#: core/modules/user-groups/Repository/DB_Repository.php:27
+#: core/modules/user-groups/Repository/DB_Repository.php:44
+#: core/modules/user-groups/Repository/Eager_Loading_Decorator.php:20
+#: core/modules/user-groups/Repository/Eager_Loading_Decorator.php:34
+#: core/modules/user-groups/Repository/Object_Caching_Decorator.php:23
+#: core/modules/user-groups/Repository/Object_Caching_Decorator.php:40
+msgid "Id must be a string."
+msgstr "Die ID muss eine Zeichenfolge sein."
+
+#: core/modules/user-groups/Everybody_Else.php:36
+msgid "Everybody Else"
+msgstr "Alle anderen"
+
+#: core/modules/user-groups/Repository/In_Memory_Repository.php:25
+msgid "uuid must be a string."
+msgstr "uuid muss eine Zeichenfolge sein."
+
+#: module-strings.php:207
+msgid "Manage iThemes Security"
+msgstr "iThemes Security verwalten"
+
+#: core/modules/global/validator.php:13
+msgid "The configuration you have chosen removes your capability to manage iThemes Security."
+msgstr "Die von dir gewählte Konfiguration entfernt deine Berechtigung, iThemes Security zu verwalten."
+
+#: core/lib/schema.php:236
+msgid "The %s table is not installed."
+msgstr "Die Tabelle %s ist nicht eingerichtet."
+
+#: core/lib/log.php:249
+msgid "Process Stop"
+msgstr "Prozess-Stopp"
+
+#: core/lib/log.php:248
+msgid "Process Update"
+msgstr "Prozess-Aktualisierung"
+
+#: core/modules/user-groups/User_Group.php:297
+msgid "This user group contains %l."
+msgstr "Diese Benutzergruppe beinhaltet %l."
+
+#: core/modules/user-groups/User_Group.php:294
+msgid "This user group contains no users."
+msgstr "Diese Benutzergruppe enthält keine Benutzer."
+
+#: core/lib/class-itsec-lib-remote-messages.php:98
+msgid "Invalid json response."
+msgstr "Ungültige JSON-Rückmeldung."
+
+#: core/lib/class-itsec-lib-feature-flags.php:200
+msgid "Remotely disabled by iThemes."
+msgstr "Aus der Ferne durch iThemes deaktiviert."
+
+#: core/lib/class-itsec-lib-feature-flags.php:196
+msgid "Manually configured with a constant."
+msgstr "Manuell durch eine Konstante konfiguriert."
+
+#: core/lib.php:2229
+msgid "Failed to update settings."
+msgstr "Die Einstellungen konnten nicht aktualisiert werden."
+
+#: core/modules/user-groups/REST/User_Groups.php:133
+msgid "Sorry, you are not allowed to create user groups."
+msgstr "Du darfst leider keine Benutzergruppen anlegen."
+
+#: core/modules/user-groups/REST/User_Groups.php:117
+msgid "Sorry, you are not allowed to view this user group."
+msgstr "Du darfst dir diese Benutzergruppe leider nicht anzeigen lassen."
+
+#: core/modules/user-groups/REST/User_Groups.php:113
+#: core/modules/user-groups/REST/User_Groups.php:170
+msgid "Sorry, you are not allowed to edit this user group."
+msgstr "Du darfst diese Benutzergruppe leider nicht bearbeiten."
+
+#: core/modules/user-groups/REST/User_Groups.php:91
+msgid "Sorry, you are not allowed to list user groups."
+msgstr "Du darfst dir leider keine Benutzergruppen auflisten lassen."
+
+#: core/modules/user-groups/REST/User_Groups.php:87
+msgid "Sorry, you are not allowed to edit user groups."
+msgstr "Du darfst leider keine Benutzergruppen bearbeiten."
+
+#: core/modules/user-groups/REST/Matchables.php:36
+msgid "Sorry, you are not allowed to list user matchables."
+msgstr "Du darfst dir leider keine Benutzerabgleiche auflisten lassen."
+
+#: core/modules/user-groups/REST/Settings.php:142
+#: core/modules/user-groups/REST/Settings.php:210
+#: core/modules/user-groups/REST/User_Groups.php:160
+#: core/modules/user-groups/REST/User_Groups.php:219
+#: core/modules/user-groups/REST/User_Groups.php:294
+#: core/admin-pages/entries/settings/components/error-renderer/index.js:34
+#: core/modules/dashboard/entries/dashboard/cards/active-lockouts/index.js:104
+#: core/modules/dashboard/entries/dashboard/cards/active-lockouts/index.js:156
+#: dist/dashboard/dashboard.js:1 dist/pages/settings.js:1
+msgid "An unexpected error occurred."
+msgstr "Ein unerwarteter Fehler ist aufgetreten."
+
+#: core/modules/user-groups/REST/User_Groups.php:194
+msgid "Another user group with this configuration already exists."
+msgstr "Es existiert bereits eine andere Benutzergruppe mit dieser Konfiguration."
+
+#: core/modules/user-groups/REST/User_Groups.php:229
+msgid "Sorry, you are not allowed to delete this user group."
+msgstr "Du darfst diese Benutzergruppe leider nicht löschen."
+
+#: core/modules/user-groups/REST/User_Groups.php:254
+msgid "A user group already exists with the id '%s'."
+msgstr "Es existiert bereits eine Benutzergruppe mit der ID „%s“."
+
+#: core/modules/global/labels.php:4
+msgid "Global"
+msgstr "Allgemein"
+
+#: core/modules/user-groups/REST/Settings.php:119
+msgid "No user group found."
+msgstr "Keine Benutzergruppe gefunden."
+
+#: core/modules/user-groups/Repository/DB_Repository.php:36
+#: core/modules/user-groups/Repository/Eager_Loading_Decorator.php:26
+#: core/modules/user-groups/Repository/In_Memory_Repository.php:29
+msgid "No user group found for '%s'"
+msgstr "Keine Benutzergruppe für „%s“ gefunden"
+
+#: core/modules/user-groups/Settings/Settings_Registration.php:37
+msgid "Type must be either single or multiple."
+msgstr "Der Typ muss entweder einfach oder mehrfach sein."
+
+#: core/lib/validator.php:512
+msgid "The user group selected for %1$s is invalid."
+msgstr "Die für %1$s ausgewählte Benutzergruppe ist ungültig."
+
+#: core/lib/class-itsec-lib-remote-messages.php:92
+#: core/modules/site-scanner/api.php:385
+msgid "Empty response body."
+msgstr "Leerer Antwortkörper."
+
+#: core/core.php:238
+msgid "Cannot run iThemes Security. Error encountered during setup. Please try deactivating and reactivating iThemes Security. Contact support if the error persists."
+msgstr "iThemes Security kann nicht ausgeführt werden. Während des Einrichtens ist ein Fehler aufgetreten. Bitte versuche, iThemes Security zu deaktivieren und erneut zu aktivieren. Kontaktiere den Support, wenn der Fehler weiterhin besteht."
+
+#: core/rest.php:138
+msgid "Return results for users across the entire network, not just the current site."
+msgstr "Ergebnisse für Benutzer im gesamten Netzwerk, nicht nur für den aktuellen Standort, liefern."
+
+#: core/modules/user-groups/User_Group.php:290
+msgid "the following users: %l"
+msgstr "die folgenden Benutzer: %l"
+
+#: core/modules/user-groups/User_Group.php:286
+msgid "roles greater than %s"
+msgstr "Rollen größer als %s"
+
+#: core/modules/user-groups/REST/User_Groups.php:267
+msgid "No user found for %d."
+msgstr "Kein Benutzer für %d gefunden."
+
+#: core/modules/user-groups/User_Group.php:278
+msgid "the following roles: %l"
+msgstr "die folgenden Rollen: %l"
+
+#: core/lib/class-itsec-lib-feature-flags.php:206
+msgid "Gradually rolling out."
+msgstr "Wird nach und nach ausgerollt."
+
+#: core/lib/class-itsec-lib-feature-flags.php:33
+msgid "Invalid flag name."
+msgstr "Ungültiger Markierungsname."
+
+#: core/lib/class-itsec-lib-feature-flags.php:186
+msgid "Unknown flag"
+msgstr "Unbekannte Markierung"
+
+#: core/modules/user-groups/User_Group.php:282
+msgid "the following canonical roles: %l"
+msgstr "die folgenden kanonischen Rollen: %l"
+
+#: better-wp-security.php:29
+msgid "iThemes Security requires WordPress 5.9 or later."
+msgstr "iThemes Security erfordert WordPress 5.9 oder höher."
+
+#: core/modules/security-check-pro/labels.php:4 module-strings.php:286
+msgid "Security Check Pro"
+msgstr "Sicherheitsüberprüfung Pro"
+
+#: core/modules/security-check-pro/utility.php:177
+#: core/modules/sync-connect/class-itsec-sync-connect.php:127
+msgid "The server was unable to be contacted."
+msgstr "Der Server konnte nicht kontaktiert werden."
+
+#: core/modules/security-check-pro/class-itsec-security-check-pro.php:97
+msgid "Requests for http pages are redirected to https as recommended."
+msgstr "Anfragen für http-Seiten werden wie empfohlen nach https umgeleitet."
+
+#: core/modules/security-check-pro/class-itsec-security-check-pro.php:90
+msgid "Identified remote IP entry to protect against IP spoofing."
+msgstr "Identifizierter Remote-IP-Eintrag zum Schutz vor IP-Spoofing."
+
+#: core/modules/security-check-pro/utility.php:198
+msgid "The iThemes Security Check server could not contact your site. Please wait a few minutes and try again."
+msgstr "Der iThemes-Sicherheitsüberprüfungs-Server konnte deine Website nicht erreichen. Bitte warte ein paar Minuten und versuche es erneut."
+
+#: core/modules/security-check-pro/utility.php:194
+msgid "An error occurred when communicating with the iThemes Security Check server: %s (%s)"
+msgstr "Bei der Kommunikation mit dem iThemes-Sicherheitsüberprüfungs-Server ist ein Fehler aufgetreten: %s (%s)"
+
+#: core/modules/security-check-pro/utility.php:190
+msgid "An error occurred when communicating with the iThemes Security Check server: The server did not return JSON data when JSON data was expected."
+msgstr "Bei der Kommunikation mit dem iThemes-Sicherheitsüberprüfungs-Server ist ein Fehler aufgetreten: Der Server hat keine JSON-Daten zurückgegeben, obwohl JSON-Daten erwartet wurden."
+
+#: core/modules/security-check-pro/utility.php:184
+msgid "An error occurred when communicating with the iThemes Security Check server: The server returned a blank response."
+msgstr "Bei der Kommunikation mit dem iThemes-Sicherheitsüberprüfungs-Server ist ein Fehler aufgetreten: Der Server hat eine leere Antwort zurückgegeben."
+
+#: core/modules/global/rest.php:34
+msgid "Could not detect IP header."
+msgstr "Der IP-Header konnte nicht erkannt werden."
+
+#: core/modules/global/rest.php:45
+msgid "Identified IP was invalid."
+msgstr "Die ermittelte IP-Adresse war ungültig."
+
+#: core/modules/security-check/scanner.php:21
+#: core/modules/security-check/scanner.php:81
+msgid "Passwordless Login"
+msgstr "Passwortlose Anmeldung"
+
+#: core/lib/class-itsec-lib-login.php:49
+msgid "Username or Email Address"
+msgstr "Benutzername oder E-Mail-Adresse"
+
+#: core/templates/lockout/lockout.php:28
+msgid "You have been locked out."
+msgstr "Du wurdest ausgesperrt."
+
+#: core/lib/class-itsec-lib-opaque-tokens.php:45
+msgid "Token not found."
+msgstr "Der Token wurde nicht gefunden."
+
+#: core/lib/class-itsec-lib-opaque-tokens.php:51
+msgid "Token expired."
+msgstr "Der Token ist abgelaufen."
+
+#. translators: 1: Username
+#: core/lib/class-itsec-mail.php:339
+msgid "<b>Username:</b> %1$s"
+msgstr "<b>Benutzername:</b> %1$s"
+
+#: core/lib/class-itsec-lib-login-interstitial.php:835
+msgid "Please Verify the Login Request"
+msgstr "Bitte verifiziere die Anmeldeanfrage"
+
+#: core/templates/lockout/lockout.php:19
+msgid "Forbidden"
+msgstr "Unzulässig"
+
+#: core/lib/class-itsec-lib-opaque-tokens.php:27
+#: core/lib/class-itsec-lib-opaque-tokens.php:33
+#: core/lib/class-itsec-lib-opaque-tokens.php:55
+msgid "Invalid token."
+msgstr "Ungültiger Token."
+
+#: core/lib/class-itsec-lib-opaque-tokens.php:77
+msgid "Failed to generate token and hash."
+msgstr "Das Erzeugen von Token und Hash ist fehlgeschlagen."
+
+#: core/lib/lockout/class-lockout.php:163
+msgid "Unable to generate context for lockout."
+msgstr "Der Kontext für die Aussperrung konnte nicht erzeugt werden."
+
+#: core/lib/class-itsec-lib-login-interstitial.php:843
+msgid "Deny Login"
+msgstr "Anmeldung verweigern"
+
+#: core/lib/class-itsec-lib-login-interstitial.php:840
+msgid "Confirm Login"
+msgstr "Anmeldung bestätigen"
+
+#: better-wp-security.php:19
+msgid "iThemes Security requires PHP 7.3 or higher."
+msgstr "iThemes Security erfordert PHP 7.3 oder höher."
+
+#: core/modules/file-change/sync-verbs/itsec-latest-file-scan.php:9
+msgid "File Change module is not active."
+msgstr "Das Modul „Dateiänderung“ ist nicht aktiv."
+
+#: core/modules/site-scanner/Model/Factory.php:121
+#: core/modules/site-scanner/Model/Factory.php:138
+msgid "Known Vulnerabilities"
+msgstr "Bekannte Schwachstellen"
+
+#: core/modules/site-scanner/Model/Blacklist.php:17
+msgid "Domain clean by %s"
+msgstr "Domain bereinigt durch %s"
+
+#. translators: 1. Error code.
+#: core/modules/site-scanner/mail.php:106
+#: core/modules/site-scanner/template.php:109
+#: core/packages/components/src/site-scan-results/wp-error-details.js:33
+#: dist/144.js:1
+msgid "Error Code: %s"
+msgstr "Fehlercode: %s"
+
+#: core/modules/site-scanner/template.php:142
+#: core/packages/components/src/site-scan-results/wrapped-section.js:36
+#: dist/144.js:1
+msgid "Warn"
+msgstr "Warnung"
+
+#: core/lib/admin-notices/class-itsec-admin-notice-remind-me.php:55
+msgid "Remind Me Later"
+msgstr "Später daran erinnern"
+
+#: core/modules/core/class-rest-core-admin-notices-controller.php:35
+#: core/modules/core/class-rest-core-admin-notices-controller.php:114
+msgid "You must be logged-in to view notices."
+msgstr "Du musst angemeldet sein, damit Notizen angezeigt werden."
+
+#: core/lib/admin-notices/class-itsec-admin-notice-highlighted-log.php:59
+msgid "Created At"
+msgstr "Erstellt am"
+
+#: core/modules/core/class-itsec-admin-notices.php:195
+#: core/modules/core/class-rest-core-admin-notices-controller.php:124
+#: core/modules/dashboard/rest/class-itsec-rest-dashboard-card-controller.php:467
+msgid "Action not found."
+msgstr "Aktion wurde nicht gefunden."
+
+#: core/modules/security-check/scanner.php:126
+msgid "Receive email updates about WordPress Security and marketing news from iThemes: %1$s"
+msgstr "Informations-E-Mails über WordPress-Sicherheit und Marketing-Nachrichten von iThemes erhalten: %1$s"
+
+#: core/modules/file-change/logs.php:117
+msgid "Please %1$sreview the logs%2$s to make sure your system has not been compromised."
+msgstr "Bitte %1$süberprüfe die Protokolle%2$s, um sicherzustellen, dass dein System nicht kompromittiert wurde."
+
+#: core/modules/file-change/logs.php:112
+msgid "iThemes Security noticed file changes in your WordPress site."
+msgstr "iThemes Security hat Dateiänderungen deiner WordPress-Website festgestellt."
+
+#: core/modules/core/class-itsec-admin-notices.php:189
+#: core/modules/core/class-rest-core-admin-notices-controller.php:118
+msgid "Notice not found."
+msgstr "Hinweis wurde nicht gefunden."
+
+#: core/modules/two-factor/includes/template.php:74
+#: core/admin-pages/entries/settings/pages/configure/index.js:249
+#: core/admin-pages/entries/settings/pages/index.js:38
+#: core/modules/core/entries/admin-notices/components/panel/index.js:63
+#: dist/core/admin-notices-dashboard-admin-bar.js:2
+#: dist/core/admin-notices.js:2 dist/core/settings.js:2
+#: dist/pages/settings.js:1
+msgid "Configure"
+msgstr "Konfigurieren"
+
+#: core/lib/admin-notices/class-itsec-admin-notice-highlighted-log.php:102
+msgid "Dismiss Permanently"
+msgstr "Dauerhaft verwerfen"
+
+#: core/modules/notification-center/logs.php:104
+msgid "Failed sending notification."
+msgstr "Das Senden der Benachrichtigung ist fehlgeschlagen."
+
+#: core/modules/notification-center/logs.php:113
+msgid "Failed sending %s notification."
+msgstr "Das Senden der %s-Benachrichtigung ist fehlgeschlagen."
+
+#: core/modules/core/class-itsec-admin-notices.php:167
+msgid "Invalid request format."
+msgstr "Ungültiges Anfrageformat."
+
+#: core/modules/feature-flags/labels.php:4 module-strings.php:115
+msgid "Feature Flags"
+msgstr "Funktionsmarkierungen"
+
+#: core/lib/validator.php:254
+msgid "The %1$s value must be a number."
+msgstr "Der %1$s-Wert muss eine Nummer sein."
+
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:236
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:267
+msgid "Session expired."
+msgstr "Die Sitzung ist abgelaufen."
+
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:246
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:277
+msgid "Invalid signature."
+msgstr "Die Signatur ist ungültig."
+
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:250
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:281
+msgid "Invalid user."
+msgstr "Der Benutzer ist ungültig."
+
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:330
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:374
+msgid "Could not calculate signature."
+msgstr "Die Signatur konnte nicht berechnet werden."
+
+#: core/modules/security-check/scanner.php:290
+msgid "Identified loopback IP."
+msgstr "Ermittelte Loopback-IP."
+
+#: core/modules/global/active.php:256
+#: core/modules/security-check/scanner.php:282
+msgid "Invalid IP returned: %s"
+msgstr "Ungültige IP-Adresse wurde zurückgegeben: %s"
+
+#: core/modules/core/labels.php:4 core/modules/global/logs.php:15
+#: core/modules/global/logs.php:26 module-strings.php:82
+msgid "Core"
+msgstr "Kern"
+
+#: core/modules/security-check/scanner.php:271
+msgid "Skipping loopback test: %s"
+msgstr "Überspringen des Loopback-Tests: %s"
+
+#: core/lib/class-itsec-lib-login-interstitial.php:552
+msgid "Action Processed"
+msgstr "Aktion verarbeitet"
+
+#: core/lib/class-itsec-lib-login-interstitial.php:551
+msgid "Action processed. Please continue in your original browser."
+msgstr "Aktion verarbeitet. Bitte fahre in deinem ursprünglichen Browser fort."
+
+#: core/lib/class-itsec-lib-config-file.php:475
+msgid "Empty file encountered when attempting to update <code>%1$s</code>. Manual configuration for the <code>%1$s</code> file can be found on the Security > Settings page in the Advanced section."
+msgstr "Beim Versuch, <code>%1$s</code> zu aktualisieren, wurde eine leere Datei gefunden. Die manuelle Konfiguration für die Datei <code>%1$s</code> findest du auf der Seite Sicherheit > Einstellungen im Abschnitt Erweitert."
+
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:563
+msgid "Interstitial state not found."
+msgstr "Es wurde kein interstitieller Status gefunden."
+
+#: core/lib/login-interstitial/class-itsec-login-interstitial-session.php:534
+msgid "Failed to create interstitial state."
+msgstr "Der interstitielle Zustand konnte nicht erstellt werden."
+
+#: core/modules/security-check/scanner.php:251
+msgid "Identified server IPs to determine loopback requests."
+msgstr "Identifizierte IP-Adressen von Servern zur Ermittlung von Loopback-Anfragen."
+
+#: core/modules/global/logs.php:45
+msgid "Empty file encountered when attempting to update %s config file."
+msgstr "Beim Versuch, die Konfigurationsdatei %s zu aktualisieren, wurde eine leere Datei festgestellt."
+
+#: core/modules/file-change/logs.php:62
+msgid "Rescheduling: No Lock"
+msgstr "Neuplanung: Keine Sperre"
+
+#: core/lib/class-itsec-lib-login-interstitial.php:497
+#: core/lib/class-itsec-lib-login-interstitial.php:503
+#: core/lib/class-itsec-lib-login-interstitial.php:532
+msgid "Unsupported Interstitial. Please login again."
+msgstr "Nicht-unterstütztes Interstitial. Bitte melde dich erneut an."
+
+#: core/lib/class-itsec-lib-ip-detector.php:15
+msgid "Manual"
+msgstr "Manuell"
+
+#: module-strings.php:191
+msgid "Proxy Header"
+msgstr "Proxy-Header"
+
+#: module-strings.php:192
+msgid "Select the header your Proxy Server uses to forward the client IP address. If you don’t know the header, you can contact your hosting provider or select the header that has your IP Address."
+msgstr "Wähle den Header aus, den dein Proxy-Server zur Weiterleitung der Client-IP-Adresse verwendet. Wenn du den Header nicht kennst, kannst du dich an deinen Hosting-Provider wenden oder den Header auswählen, der deine IP-Adresse enthält."
+
+#: module-strings.php:189
+msgid "Proxy Detection"
+msgstr "Proxy-Erkennung"
+
+#: core/lib/class-itsec-lib-geolocation.php:28
+msgid "Tried to geolocate a private IP address."
+msgstr "Es wurde versucht, eine private IP-Adresse zu geo-lokalisieren."
+
+#: core/lib/class-itsec-lib-geolocation.php:24
+msgid "Tried to geolocate an invalid IP address."
+msgstr "Es wurde versucht, eine ungültige IP-Adresse zu geo-lokalisieren."
+
+#: core/lib/class-itsec-lib-static-map-api.php:118
+msgid "The download_url() function was not found."
+msgstr "Die Funktion „download_url()“ wurde nicht gefunden."
+
+#: core/lib/fingerprinting/class-itsec-fingerprint.php:686
+msgid "Device near %1$s"
+msgstr "Gerät in der Nähe von %1$s"
+
+#: core/lib/fingerprinting/class-itsec-fingerprint.php:688
+msgid "Device running %1$s on %2$s"
+msgstr "Gerät wird mit %1$s auf %2$s betrieben"
+
+#: core/lib/class-itsec-lib-static-map-api.php:60
+msgid "Maximum map dimensions is 1000px."
+msgstr "Die maximale Kartengröße beträgt 1000px."
+
+#: core/lib/fingerprinting/class-itsec-fingerprint.php:684
+msgid "Device running %1$s on %2$s near %3$s"
+msgstr "Gerät wird mit %1$s unter %2$s betrieben und ist in der Nähe von %3$s"
+
+#: core/lib/geolocation/class-itsec-geolocator-chain.php:28
+msgid "No geolocator found a valid location."
+msgstr "Kein Geolokalisierer hat einen gültigen Standort gefunden."
+
+#: core/lib/class-itsec-lib-static-map-api.php:36
+msgid "No provider was found to generate a static map image."
+msgstr "Es wurde kein Dienstanbieter gefunden, um ein statisches Kartenbild zu erzeugen."
+
+#: core/lib/class-itsec-lib-static-map-api.php:32
+msgid "Invalid configuration for retrieving a static map image."
+msgstr "Ungültige Konfiguration zum Abrufen eines statischen Kartenbildes."
+
+#: core/admin-pages/logs-list-table.php:436
+msgid "Filter"
+msgstr "Filtern"
+
+#: core/admin-pages/logs-list-table.php:426
+msgid "Filter by Module"
+msgstr "Nach Modulen filtern"
+
+#: core/admin-pages/logs-list-table.php:428
+msgid "All Modules"
+msgstr "Alle Module"
+
+#: module-strings.php:261
+#: core/modules/notification-center/entries/settings/components/settings/index.js:109
+#: dist/notification-center/settings.js:1
+msgid "From Email"
+msgstr "E-Mail-Adresse des Absenders"
+
+#: core/modules/notification-center/validator.php:17 module-strings.php:263
+#: core/modules/notification-center/entries/settings/components/notification/index.js:287
+#: core/modules/notification-center/entries/settings/components/settings/index.js:115
+#: dist/notification-center/settings.js:1
+msgid "Default Recipients"
+msgstr "Standardmäßige Empfänger"
+
+#: module-strings.php:264
+#: core/modules/notification-center/entries/settings/components/settings/index.js:117
+#: dist/notification-center/settings.js:1
+msgid "Set the default recipients for any admin-facing notifications."
+msgstr "Lege die standardmäßigen Empfänger für alle administrativen Benachrichtigungen fest."
+
+#: module-strings.php:262
+#: core/modules/notification-center/entries/settings/components/settings/index.js:110
+#: dist/notification-center/settings.js:1
+msgid "iThemes Security will send notifications from this email address. Leave blank to use the WordPress default."
+msgstr "iThemes Security wird Benachrichtigungen von dieser E-Mail-Adresse aus versenden. Lass das Feld leer, um den WordPress-Standard zu verwenden."
+
+#: core/lib/class-itsec-scheduler-cron.php:16
+msgid "Twice Hourly"
+msgstr "Zweimal pro Stunde"
+
+#: core/lib/validator.php:539
+msgid "The %1$s value must be an array."
+msgstr "Der %1$s-Wert muss ein Array sein."
+
+#: core/modules/notification-center/validator.php:21
+msgid "Selecting \"Default Recipients\" is required."
+msgstr "Die Auswahl von „Standardmäßige Empfänger“ ist erforderlich."
+
+#: core/modules/notification-center/logs.php:57
+#: core/modules/notification-center/logs.php:71
+msgid "Notification"
+msgstr "Benachrichtigung"
+
+#: core/modules/notification-center/logs.php:33
+msgid "Sending %s Failed"
+msgstr "Senden von %s ist fehlgeschlagen"
+
+#: core/modules/notification-center/logs.php:24
+msgid "Sending %s"
+msgstr "%s wird versendet"
+
+#: core/modules/notification-center/logs.php:36
+msgid "Sending scheduled notifications"
+msgstr "Geplante Benachrichtigungen wird versendet"
+
+#: core/modules/notification-center/logs.php:69
+msgid "Sending Notification Failed"
+msgstr "Senden der Benachrichtigung ist fehlgeschlagen"
+
+#: core/modules/notification-center/logs.php:82
+msgid "Sending Scheduled Notification"
+msgstr "Senden von geplanten Benachrichtigungen"
+
+#: core/modules/notification-center/logs.php:55
+msgid "Sending Notification"
+msgstr "Benachrichtigung senden"
+
+#: core/modules/notification-center/validator.php:127
+msgid "Unknown recipient type for %s."
+msgstr "Unbekannter Empfängertyp für %s."
+
+#: core/modules/security-check/scanner.php:70
+msgid "A 3rd-party Backup Plugin, %s, is being used."
+msgstr "Es wird ein Backup-Plugin, %s, eines Drittanbieters verwendet."
+
+#: module-strings.php:199
+msgid "Enable Grade Report"
+msgstr "Notenbericht aktivieren"
+
+#: module-strings.php:200
+msgid "The Grade Report feature can help you identify vulnerabilities on the site. Visit the Notification Center to select which users receive emails from this feature."
+msgstr "Die Funktion „Notenbericht“ kann dir dabei helfen, Schwachstellen auf der Website zu identifizieren. Besuche das Benachrichtigungszentrale, um auszuwählen, welche Benutzer E-Mails von dieser Funktion erhalten."
+
+#: core/modules/notification-center/validator.php:51
+msgid "Unknown Default Recipients contacts, %l."
+msgstr "Unbekannte Standard-Empfängerkontakte, %l."
+
+#: core/modules/security-check/scanner.php:85
+msgid "Changed the Disabled Force Two-Factor for Certain Users to \"None\"."
+msgstr "Die Option zur Deaktivierung der Erzwingung der Zwei-Faktor-Authentifizierung für bestimmte Benutzer wurde auf „Keine“ geändert."
+
+#: core/modules/notification-center/debug.php:76
+msgid "Force"
+msgstr "Erzwingen"
+
+#: core/admin-pages/page-debug.php:206
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: core/admin-pages/page-debug.php:195
+#: core/admin-pages/entries/settings/components/primary-form/index.js:22
+#: core/admin-pages/entries/settings/components/primary-schema-form/index.js:95
+#: core/modules/dashboard/entries/dashboard/cards/banned-users-list/index.js:100
+#: core/modules/user-groups/entries/settings/components/manage-group/index.js:171
+#: core/modules/user-groups/entries/settings/components/manage-multiple-groups/index.js:74
+#: dist/dashboard/dashboard.js:1 dist/pages/settings.js:1
+#: dist/user-groups/settings.js:1
+msgid "Save"
+msgstr "Speichern"
+
+#: core/admin-pages/page-debug.php:194
+msgid "Load"
+msgstr "Laden"
+
+#: core/admin-pages/page-debug.php:125
+msgid "Module settings updated."
+msgstr "Die Moduleinstellungen wurden aktualisiert."
+
+#: core/admin-pages/page-debug.php:181
+msgid "System Info Summary"
+msgstr "Zusammenfassung der Systeminformationen"
+
+#: core/admin-pages/page-debug.php:180
+msgid "System Info"
+msgstr "Systeminformationen"
+
+#: core/lib/rest/Modules_Controller.php:335
+#: core/modules/password-requirements/labels.php:4 module-strings.php:268
+msgid "Password Requirements"
+msgstr "Passwortanforderungen"
+
+#: core/admin-pages/page-debug.php:245
+#: core/admin-pages/entries/settings/pages/tools/index.js:191
+#: dist/pages/settings.js:1
+msgid "Run"
+msgstr "Ausführen"
+
+#: core/modules/file-change/logs.php:56
+msgid "Scan Cancelled by %s"
+msgstr "Überprüfung durch %s abgebrochen"
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:118
+#: core/modules/password-requirements/class-itsec-password-requirements.php:295
+msgid "The provided password does not meet this site's requirements."
+msgstr "Das angegebene Passwort entspricht nicht den Voraussetzungen dieser Website."
+
+#: core/admin-pages/page-debug.php:197
+#: core/admin-pages/entries/settings/pages/modules/index.js:261
+#: core/admin-pages/entries/settings/pages/modules/index.js:267
+#: dist/pages/settings.js:1
+msgid "Edit Settings"
+msgstr "Einstellungen bearbeiten"
+
+#: core/admin-pages/init.php:50
+msgid "iThemes Security Debug"
+msgstr "iThemes Security-Fehlersuche"
+
+#: core/modules/notification-center/debug.php:34
+msgid "Notification sent."
+msgstr "Benachrichtigung wurde versandt."
+
+#: core/modules/notification-center/debug.php:30
+msgid "The server could not send the requested notification."
+msgstr "Der Server konnte die angeforderte Benachrichtigung nicht senden."
+
+#: core/modules/notification-center/debug.php:20
+msgid "The server did not receive a valid request. The notification id is missing."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Die Benachrichtigungs-ID fehlt."
+
+#: module-strings.php:271
+msgid "Requirement Settings"
+msgstr "Anforderungseinstellungen"
+
+#: core/admin-pages/page-debug.php:99 core/admin-pages/page-debug.php:105
+msgid "Event successfully run."
+msgstr "Das Ereignis wurde erfolgreich ausgeführt."
+
+#: core/admin-pages/page-debug.php:86
+msgid "Scheduler reset."
+msgstr "Der Zeitplaner wurde zurückgesetzt."
+
+#: core/admin-pages/page-debug.php:89
+msgid "The server did not receive a valid request. The required \"data.id\" argument for the \"run_event\" method is missing."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Das erforderliche Argument „data.id“ für die Methode „run_event“ fehlt."
+
+#: core/admin-pages/page-debug.php:94
+msgid "The server did not receive a valid request. The \"data.data\" argument for the \"run_event\" method is an invalid string."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Das Argument „data.data“ für die Methode „run_event“ ist eine ungültige Zeichenfolge."
+
+#: core/admin-pages/page-debug.php:114
+msgid "The server did not receive a valid request. The \"data\" argument for the \"save_settings\" method is invalid."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Das Argument „data“ für die Methode „save_settings“ ist ungültig."
+
+#: core/admin-pages/page-debug.php:202
+msgid "Scheduler"
+msgstr "Zeitplaner"
+
+#: core/lib/class-itsec-lib-password-requirements.php:166
+msgid "<strong>ERROR</strong>: The password you have chosen appears to have been used before. You must choose a new password."
+msgstr "<strong>FEHLER</strong>: Das Passwort, das du gewählt hast, scheint bereits verwendet worden zu sein. Du musst ein neues Passwort wählen."
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:440
+msgid "Confirm use of weak password"
+msgstr "Verwendung eines schwachen Passworts bestätigen"
+
+#: core/modules/notification-center/debug.php:79
+msgid "Silent"
+msgstr "Stummgeschaltet"
+
+#: core/modules/notification-center/debug.php:61
+msgid "Next Send"
+msgstr "Nächstes Versenden"
+
+#: core/modules/notification-center/debug.php:60
+msgid "Last Sent"
+msgstr "Zuletzt gesendet"
+
+#: core/admin-pages/page-debug.php:225
+msgid "Fire At"
+msgstr "Ausführung"
+
+#: core/modules/security-check/scanner.php:97
+msgid "Enabled Online Files Comparison in File Change Detection."
+msgstr "Der Online-Dateivergleich der Dateiänderungserkennung wurde aktiviert."
+
+#: module-strings.php:184
+msgid "The number of days database logs should be kept."
+msgstr "Die Anzahl der Tage, für die die Datenbankprotokolle aufbewahrt werden sollten."
+
+#: module-strings.php:186
+msgid "The number of days file logs should be kept. File logs will additionally be rotated once the file hits 10MB. Set to 0 to only use log rotation."
+msgstr "Die Anzahl der Tage, für die die Dateiprotokolle aufbewahrt werden sollen. Die Dateiprotokolle werden zusätzlich rotiert, sobald die Datei 10&nbsp;MB erreicht. Setze den Wert auf 0, um nur die Protokollrotation zu verwenden."
+
+#: module-strings.php:185
+msgid "Days to Keep File Logs"
+msgstr "Anzahl der Tage zur Aufbewahrung der Dateiprotokolle"
+
+#: core/modules/file-change/lib/package-core.php:50
+msgid "WordPress Core %s"
+msgstr "WordPress-Kern %s"
+
+#: core/modules/file-change/scanner.php:235
+msgid "Checking for malware..."
+msgstr "Überprüfung auf Malware..."
+
+#: core/modules/file-change/scanner.php:229
+msgid "Comparing files..."
+msgstr "Dateien vergleichen..."
+
+#: core/modules/file-change/logs.php:58
+msgid "Scan Failed"
+msgstr "Überprüfung fehlgeschlagen"
+
+#: core/modules/file-change/scanner.php:224
+msgid "Scanning files..."
+msgstr "Überprüfung von Dateien..."
+
+#: core/modules/file-change/scanner.php:232
+msgid "Verifying file changes..."
+msgstr "Verifizierung von Dateiänderungen..."
+
+#: core/modules/file-change/scanner.php:211
+msgid "Scanning theme files..."
+msgstr "Überprüfung von Theme-Dateien..."
+
+#: core/modules/file-change/scanner.php:214
+msgid "Scanning plugin files..."
+msgstr "Überprüfung von Plugin-Dateien..."
+
+#: core/modules/file-change/scanner.php:220
+msgid "Scanning media files..."
+msgstr "Überprüfung von Mediendateien..."
+
+#: core/modules/file-change/scanner.php:208
+msgid "Scanning includes files..."
+msgstr "Überprüfung der Includes-Dateien..."
+
+#: core/modules/file-change/scanner.php:217
+msgid "Scanning content files..."
+msgstr "Überprüfung der Content-Dateien..."
+
+#: core/modules/file-change/scanner.php:205
+msgid "Scanning admin files..."
+msgstr "Überprüfung der Admin-Dateien..."
+
+#: core/modules/file-change/scanner.php:262
+msgid "Preparing..."
+msgstr "Vorbereitung..."
+
+#: core/modules/file-change/logs.php:87
+msgid "Total Memory"
+msgstr "Gesamter Arbeitsspeicher"
+
+#. translators: 1. Theme name 2. Theme version
+#: core/modules/file-change/lib/package-theme.php:93
+msgid "%1$s theme %2$s"
+msgstr "%1$s-Theme %2$s"
+
+#. translators: 1. Plugin name 2. Plugin version
+#: core/modules/file-change/lib/package-plugin.php:106
+msgid "%1$s plugin %2$s"
+msgstr "%1$s-Plugin %2$s"
+
+#: core/modules/file-change/logs.php:43
+msgid "Recovery Failed: Retry Limit"
+msgstr "Wiederherstellung fehlgeschlagen: Wiederholversuchsgrenze"
+
+#: core/modules/file-change/logs.php:45
+msgid "Recovery Failed: First Loop"
+msgstr "Wiederherstellung fehlgeschlagen: Erste Schleife"
+
+#: core/modules/file-change/logs.php:41
+msgid "Recovery Failed: No Step"
+msgstr "Wiederherstellung fehlgeschlagen: Kein Schritt"
+
+#: core/modules/file-change/logs.php:38
+msgid "Attempting Recovery"
+msgstr "Versuch der Wiederherstellung"
+
+#: core/modules/file-change/logs.php:36
+msgid "Attempting Recovery: Invalid Job"
+msgstr "Versuch der Wiederherstellung: Ungültiger Auftrag"
+
+#: core/modules/file-change/logs.php:32
+msgid "Skipping Recovery"
+msgstr "Überspringen der Wiederherstellung"
+
+#: core/modules/file-change/logs.php:28 core/modules/file-change/logs.php:30
+msgid "Skipping Recovery: No Lock"
+msgstr "Überspringen der Wiederherstellung: Keine Sperre"
+
+#. translators: 1. The name of the comparator. 2. The name of the package, for
+#. example "iThemes Security Pro v4.5.0".
+#: core/modules/file-change/lib/hash-loading-failed-exception.php:22
+msgid "The %1$s comparator failed to load hashes for %2$s."
+msgstr "Der Komparator %1$s konnte keine Hashes für %2$s laden."
+
+#: core/modules/core/class-itsec-admin-notices.php:171
+msgid "Request Expired. Please refresh and try again."
+msgstr "Anfrage ist abgelaufen. Bitte aktualisiere und versuche es erneut."
+
+#: core/modules/file-change/scanner.php:104
+msgid "A File Change scan is currently in progress."
+msgstr "Es wird gerade eine Dateiänderungsüberprüfung durchgeführt."
+
+#: core/modules/file-change/scanner.php:257
+msgid "Scan could not be completed. Please contact support if this error persists."
+msgstr "Der Überprüfungsvorgang konnte nicht abgeschlossen werden. Bitte kontaktiere den Support, wenn dieser Fehler weiterhin besteht."
+
+#: core/modules/file-change/scanner.php:238
+msgid "Wrapping up..."
+msgstr "Wird abgeschlossen..."
+
+#: core/modules/file-change/logs.php:64
+msgid "Rescheduling"
+msgstr "Neuplanung"
+
+#: core/modules/file-change/logs.php:47
+msgid "Recovery Scheduled"
+msgstr "Wiederherstellung geplant"
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:473
+msgid "Please enter your new password."
+msgstr "Bitte gib dein neues Passwort ein."
+
+#: core/lib/class-itsec-lib-login-interstitial.php:711
+msgid "You have logged in successfully."
+msgstr "Du hast dich erfolgreich angemeldet."
+
+#: core/lib/class-itsec-lib-login-interstitial.php:319
+#: core/lib/class-itsec-lib-login-interstitial.php:1029
+#: core/lib/class-itsec-lib-login-interstitial.php:1062
+msgid "Sorry, this request has expired. Please log in again."
+msgstr "Entschuldigung, diese Anfrage ist abgelaufen. Bitte melde dich erneut an."
+
+#: core/lib/class-itsec-lib-login-interstitial.php:589
+#: core/lib/class-itsec-lib-login-interstitial.php:595
+msgid "Invalid Interstitial Action"
+msgstr "Ungültige interstitielle Aktion"
+
+#: core/admin-pages/page-logs.php:231
+msgid "WP-CLI Command"
+msgstr "WP-CLI-Befehl"
+
+#: core/admin-pages/page-logs.php:233
+msgid "WP-Cron Scheduled Task"
+msgstr "Geplante WP-Cron-Aufgabe"
+
+#: core/admin-pages/logs-list-table.php:340
+msgid "Warnings (%s)"
+msgstr "Warnungen (%s)"
+
+#. translators: 1. The site URL.
+#: core/modules/site-scanner/template.php:29
+#: core/packages/components/src/site-scan-results/index.js:36 dist/144.js:1
+msgid "Site: %s"
+msgstr "Website: %s"
+
+#: core/modules/brute-force/logs.php:14
+msgid "Invalid Login"
+msgstr "Ungültige Anmeldung"
+
+#: core/modules/brute-force/logs.php:37
+#: core/modules/network-brute-force/logs.php:45
+msgid "Login Page"
+msgstr "Anmeldeseite"
+
+#: core/modules/brute-force/logs.php:41
+#: core/modules/network-brute-force/logs.php:49
+msgid "Login Source"
+msgstr "Anmeldequelle"
+
+#: core/admin-pages/logs-list-table.php:158 core/admin-pages/page-logs.php:247
+msgid "Type"
+msgstr "Typ"
+
+#: core/admin-pages/logs-list-table.php:157 core/admin-pages/page-debug.php:188
+#: core/admin-pages/page-logs.php:242
+#: core/lib/admin-notices/class-itsec-admin-notice-highlighted-log.php:68
+msgid "Module"
+msgstr "Modul"
+
+#: core/admin-pages/logs-list-table.php:156 core/admin-pages/page-debug.php:224
+#: core/modules/notification-center/debug.php:59
+msgid "ID"
+msgstr "ID"
+
+#: core/admin-pages/logs-list-table.php:80
+#: core/lib/admin-notices/class-itsec-admin-notice-highlighted-log.php:93
+msgid "View Details"
+msgstr "Details anzeigen"
+
+#. translators: 1: date and time, 2: time difference
+#: core/admin-pages/logs-list-table.php:44
+msgid "%1$s - %2$s ago"
+msgstr "%1$s - vor %2$s"
+
+#: core/admin-pages/logs-list-table.php:339
+msgid "Errors (%s)"
+msgstr "Fehler (%s)"
+
+#: core/admin-pages/logs-list-table.php:341
+msgid "Actions (%s)"
+msgstr "Aktionen (%s)"
+
+#: core/admin-pages/page-logs.php:383
+msgid "Colors"
+msgstr "Farben"
+
+#: core/modules/file-change/logs.php:95
+msgid "Changed"
+msgstr "Geändert"
+
+#: core/modules/file-change/logs.php:94
+msgid "Removed"
+msgstr "Entfernt"
+
+#: core/modules/file-change/logs.php:22
+msgid "Changes Found"
+msgstr "Änderungen gefunden"
+
+#: core/lib/class-itsec-wp-list-table.php:807
+msgid "Last page"
+msgstr "Letzte Seite"
+
+#: core/lib/class-itsec-wp-list-table.php:797
+msgid "Next page"
+msgstr "Nächste Seite"
+
+#: core/lib/class-itsec-wp-list-table.php:774
+msgid "Previous page"
+msgstr "Vorherige Seite"
+
+#: core/lib/class-itsec-wp-list-table.php:764
+msgid "First page"
+msgstr "Erste Seite"
+
+#: core/lib/class-itsec-wp-list-table.php:628
+#: core/lib/class-itsec-wp-list-table.php:640
+#: core/lib/class-itsec-wp-list-table.php:653
+msgid "No comments"
+msgstr "Keine Kommentare"
+
+#: core/modules/site-scanner/logs.php:25
+msgid "Scan"
+msgstr "Überprüfung"
+
+#: core/modules/file-change/logs.php:17
+msgid "No Changes Found"
+msgstr "Keine Änderungen gefunden"
+
+#: core/modules/file-change/logs.php:20
+msgid "%1$d Added, %2$d Removed, %3$d Changed"
+msgstr "%1$d hinzugefügt, %2$d entfernt, %3$d geändert"
+
+#: core/admin-pages/logs-list-table.php:447
+msgid "No events."
+msgstr "Keine Ereignisse"
+
+#: core/admin-pages/logs-list-table.php:127
+#: core/lib/class-itsec-wp-list-table.php:494
+#: core/lib/class-itsec-wp-list-table.php:1271
+msgid "Show more details"
+msgstr "Weitere Details anzeigen"
+
+#: core/admin-pages/logs-list-table.php:335
+msgid "Important Events (%s)"
+msgstr "Wichtige Ereignisse (%s)"
+
+#: core/admin-pages/logs-list-table.php:336
+msgid "All Events (%s)"
+msgstr "Alle Ereignisse (%s)"
+
+#: core/admin-pages/logs-list-table.php:337
+msgid "Critical Issues (%s)"
+msgstr "Kritische Probleme (%s)"
+
+#: core/admin-pages/logs-list-table.php:342
+msgid "Notices (%s)"
+msgstr "Hinweise (%s)"
+
+#: core/admin-pages/page-logs.php:374
+msgid "All Events"
+msgstr "Alle Ereignisse"
+
+#: core/admin-pages/page-logs.php:370
+msgid "Important Events"
+msgstr "Wichtige Ereignisse"
+
+#: core/admin-pages/page-logs.php:378
+msgid "Critical Issues"
+msgstr "Kritische Probleme"
+
+#: core/admin-pages/page-logs.php:410
+msgid "Show All Entries"
+msgstr "Alle Ereignisse anzeigen"
+
+#: core/modules/network-brute-force/labels.php:4
+#: core/modules/network-brute-force/logs.php:10 module-strings.php:245
+msgid "Network Brute Force"
+msgstr "Netzwerk-Brute-Force"
+
+#: core/modules/brute-force/class-itsec-brute-force.php:100
+#: core/modules/brute-force/labels.php:4 core/modules/brute-force/logs.php:11
+msgid "Brute Force"
+msgstr "Brute-Force"
+
+#: core/modules/backup/logs.php:21
+msgid "File Created"
+msgstr "Datei erstellt"
+
+#: core/lib/log.php:240
+msgid "Critical Issue"
+msgstr "Kritisches Problem"
+
+#: core/lib/class-itsec-wp-list-table.php:653
+msgid "No pending comments"
+msgstr "Keine ausstehenden Kommentare"
+
+#: core/lib/class-itsec-wp-list-table.php:623
+msgid "%s pending comment"
+msgid_plural "%s pending comments"
+msgstr[0] "%s ausstehender Kommentar"
+msgstr[1] "%s ausstehende Kommentare"
+
+#: core/lib/class-itsec-wp-list-table.php:621
+msgid "%s comment"
+msgid_plural "%s comments"
+msgstr[0] "%s Kommentar"
+msgstr[1] "%s Kommentare"
+
+#: core/lib/class-itsec-wp-list-table.php:556
+msgid "Filter by date"
+msgstr "Nach Datum filtern"
+
+#: core/lib/class-itsec-wp-list-table.php:434
+msgid "Select bulk action"
+msgstr "Sammelaktion auswählen"
+
+#: core/admin-pages/page-logs.php:360
+msgid "Pagination"
+msgstr "Seitennummerierung"
+
+#: core/admin-pages/page-logs.php:176
+msgid "Refresh Page"
+msgstr "Seite aktualisieren"
+
+#: core/admin-pages/page-logs.php:366
+msgid "View Mode"
+msgstr "Anzeigemodus"
+
+#: core/lockout.php:1488
+msgid "User Lockout"
+msgstr "Benutzersperrung"
+
+#: core/lockout.php:1486
+msgid "User Lockout: <code>%s</code>"
+msgstr "Benutzersperrung: <code>%s</code>"
+
+#: core/lockout.php:1496
+msgid "Username Lockout"
+msgstr "Benutzernamenssperre"
+
+#: core/lockout.php:1494
+msgid "Username Lockout: <code>%s</code>"
+msgstr "Benutzernamenssperre: <code>%s</code>"
+
+#: core/lockout.php:1476
+msgid "Host Lockout"
+msgstr "Host-Aussperrung"
+
+#: core/lockout.php:1474
+msgid "Host Lockout: <code>%s</code>"
+msgstr "Host-Aussperrung: <code>%s</code>"
+
+#: core/modules/backup/logs.php:13
+msgid "File Created but Email Send Failed"
+msgstr "Datei erstellt; aber E-Mail-Versand ist fehlgeschlagen"
+
+#: core/modules/backup/logs.php:15
+msgid "File Created and Emails Sent"
+msgstr "Datei erstellt und E-Mails gesendet"
+
+#: core/modules/backup/logs.php:17
+msgid "Email Send Failed"
+msgstr "E-Mail-Versand ist fehlgeschlagen"
+
+#: core/modules/backup/logs.php:19
+msgid "Email Send Succeeded"
+msgstr "E-Mail wurde erfolgreich gesendet"
+
+#: core/modules/brute-force/logs.php:32
+#: core/modules/network-brute-force/logs.php:43
+msgid "REST API Authentication"
+msgstr "REST-API-Authentifizierung"
+
+#: core/lib/log.php:136
+msgid "Failed to insert log entry: %s"
+msgstr "Fehler beim Einfügen des Protokolleintrags: %s"
+
+#: core/lib/class-itsec-wp-list-table.php:558
+msgid "All dates"
+msgstr "Alle Daten"
+
+#: core/lib/class-itsec-wp-list-table.php:622
+msgid "%s approved comment"
+msgid_plural "%s approved comments"
+msgstr[0] "%s genehmigter Kommentar"
+msgstr[1] "%s genehmigte Kommentare"
+
+#: core/lib/class-itsec-wp-list-table.php:640
+msgid "No approved comments"
+msgstr "Kein genehmigter Kommentar"
+
+#: core/admin-pages/page-logs.php:408
+msgid "Hide Current Entries"
+msgstr "Aktuelle Einträge ausblenden"
+
+#: core/admin-pages/page-logs.php:391
+msgid "Advanced Entries for Support and Developers"
+msgstr "Erweiterte Einträge für den Support und Entwickler"
+
+#: core/admin-pages/page-logs.php:456
+msgid "The log file can be found at: <code>%s</code>"
+msgstr "Die Protokolldatei findest du unter: <code>%s</code>"
+
+#: core/admin-pages/page-logs.php:277
+msgid "Raw Details"
+msgstr "Unverarbeitete Details"
+
+#: core/admin-pages/page-logs.php:298
+msgid "Too large to display"
+msgstr "Zu groß zum Anzeigen"
+
+#: core/admin-pages/page-logs.php:408
+msgid "Hide existing entries from view without deleting them."
+msgstr "Vorhandene Einträge aus der Ansicht ausblenden, ohne diese zu löschen."
+
+#: core/admin-pages/page-logs.php:197
+msgid "The server did not receive a valid request. The required \"id\" argument is missing. Please try again."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Das erforderliche „id“-Argument fehlt. Bitte versuche es erneut."
+
+#: core/admin-pages/init.php:50 core/lib/log.php:246
+msgid "Debug"
+msgstr "Fehlersuche"
+
+#: core/admin-pages/page-logs.php:394
+msgid "Show Debug entries."
+msgstr "Fehlersucheinträge anzeigen"
+
+#: core/admin-pages/logs-list-table.php:343
+msgid "Debug (%s)"
+msgstr "Fehlersuche (%s)"
+
+#: core/admin-pages/page-logs.php:97
+msgid "Your screen options saved successfully."
+msgstr "Deine Ansichtsoptionen wurden erfolgreich gespeichert."
+
+#: core/lib/log-util.php:247
+msgid "A query failure prevented the log data from being accessed: %s"
+msgstr "Ein Abfragefehler verhinderte den Zugriff auf die Protokolldaten: %s"
+
+#: core/modules/network-brute-force/logs.php:15
+msgid "Blocked Host Attempted Login With Good Credentials"
+msgstr "Blockierter Host versuchte eine Anmeldung mit geeigneten Anmeldeinformationen"
+
+#: core/modules/network-brute-force/logs.php:17
+msgid "Blocked Host Attempted Login"
+msgstr "Blockierter Host versuchte Anmeldung"
+
+#: core/admin-pages/page-logs.php:361
+msgid "Number of items per page:"
+msgstr "Anzahl der Einträge pro Seite:"
+
+#: core/lib/class-itsec-wp-list-table.php:727
+#: core/lib/class-itsec-wp-list-table.php:1295
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s Eintrag"
+msgstr[1] "%s Einträge"
+
+#: core/admin-pages/page-logs.php:53
+#: core/modules/site-scanner/entries/dashboard/index.js:138
+#: dist/site-scanner/dashboard.js:1
+msgid "Hide Raw Details"
+msgstr "Unverarbeitete Details verstecken"
+
+#: core/admin-pages/page-logs.php:52
+#: core/modules/site-scanner/entries/dashboard/index.js:142
+#: dist/site-scanner/dashboard.js:1
+msgid "Show Raw Details"
+msgstr "Unverarbeitete Details anzeigen"
+
+#: core/modules/file-change/logs.php:15 core/modules/site-scanner/logs.php:23
+msgid "Scan Performance"
+msgstr "Überprüfungsleistung"
+
+#: core/modules/brute-force/logs.php:16
+msgid "Banned Use of \"admin\" Username"
+msgstr "Verwendung des „Admin“-Benutzernamens gesperrt"
+
+#: core/admin-pages/logs-list-table.php:124
+msgid "Show only entries for this %s"
+msgstr "Nur Einträge von diesem %s anzeigen"
+
+#: core/admin-pages/logs-list-table.php:108
+msgid "Show only entries for this day"
+msgstr "Nur Einträge von diesem Tag anzeigen"
+
+#: core/modules/network-brute-force/logs.php:34
+msgid "Block Expiration"
+msgstr "Ablauf der Blockierung"
+
+#: core/admin-pages/page-logs.php:386
+msgid "Use colors to indicate the severity of each entry."
+msgstr "Farben verwenden, um den Schweregrad jedes Eintrags zu kennzeichnen."
+
+#: core/admin-pages/logs-list-table.php:344
+msgid "Process (%s)"
+msgstr "Vorgänge (%s)"
+
+#: core/admin-pages/page-logs.php:399
+msgid "Show Process entries."
+msgstr "Vorgänge anzeigen"
+
+#: core/lib/log.php:247
+msgid "Process"
+msgstr "Vorgang"
+
+#: core/modules/file-change/logs.php:82 core/modules/file-change/logs.php:88
+msgctxt "Megabytes of memory used"
+msgid "%s MB"
+msgstr "%s&nbsp;MB"
+
+#: core/admin-pages/page-logs.php:111
+msgid "Log entries shown."
+msgstr "Protokolleinträge sind eingeblendet."
+
+#: core/admin-pages/page-logs.php:104
+msgid "Log entries hidden."
+msgstr "Protokolleinträge sind ausgeblendet."
+
+#: core/modules/brute-force/logs.php:30
+#: core/modules/network-brute-force/logs.php:41
+msgid "XMLRPC Authentication"
+msgstr "XML-RPC-Authentifizierung"
+
+#: core/lib/log.php:179
+msgid "Unable to write to the log file. This could indicate that there is no space available, that there is a permissions issue, or that the server is not configured properly."
+msgstr "In die Protokolldatei konnte nicht geschrieben werden. Dies könnte darauf hinweisen, dass kein Speicherplatz verfügbar ist, dass ein Berechtigungsproblem vorliegt oder dass der Server nicht ordnungsgemäß konfiguriert ist."
+
+#: core/admin-pages/page-logs.php:175
+msgid "Migration complete. Please refresh the page to see all log entries."
+msgstr "Die Migration wurde abgeschlossen. Bitte aktualisiere die Seite, um alle Protokolleinträge ansehen zu können."
+
+#. translators: 1: loading gif image
+#: core/admin-pages/page-logs.php:56
+msgid "%1$s Migrating log entries from an older format. This message will update when the migration is complete."
+msgstr "Es werden %1$s Protokolleinträge von einem älteren Format migriert. Diese Nachricht wird aktualisiert, sobald die Migration abgeschlossen ist."
+
+#: core/admin-pages/logs-list-table.php:338
+msgid "Fatal Errors (%s)"
+msgstr "Schwere Fehler (%s)"
+
+#: core/lib/log.php:242
+msgid "Fatal Error"
+msgstr "Schwerer Fehler"
+
+#: core/admin-pages/page-logs.php:410
+msgid "Show all entries, including ones that were previously hidden."
+msgstr "Alle Einträge, einschließlich derer, die zuvor ausgeblendet wurden, anzeigen."
+
+#: core/lockout.php:1479
+msgid "Authorized Host Triggered User Lockout"
+msgstr "Autorisierter Host löste Benutzersperrung aus"
+
+#: core/lockout.php:1471
+msgid "Authorized Host Triggered Host Lockout"
+msgstr "Autorisierter Host löste Host-Sperrung aus"
+
+#: core/lockout.php:1491
+msgid "Authorized Host Triggered Username Lockout"
+msgstr "Autorisierter Host löste Benutzernamenssperre aus"
+
+#: core/admin-pages/page-logs.php:57
+msgid "The log entry migration failed. Reload the page to try again."
+msgstr "Die Protokolleintragsmigration ist fehlgeschlagen. Lade die Seite neu, um es erneut zu versuchen."
+
+#: core/modules/network-brute-force/logs.php:13
+msgid "IP Blocked"
+msgstr "IP-Adresse blockiert"
+
+#: core/admin-pages/page-logs.php:257 core/modules/privacy/util.php:140
+msgid "Timestamp"
+msgstr "Zeitstempel"
+
+#: core/admin-pages/page-logs.php:54
+msgid "Loading..."
+msgstr "Wird geladen …"
+
+#: core/modules/dashboard/container.php:30
+msgid "Usernames"
+msgstr "Benutzernamen"
+
+#: core/lib/class-itsec-scheduler-cron.php:20
+msgid "Four Times per Day"
+msgstr "Viermal pro Tag"
+
+#. translators: 1: user display name, 2: user login
+#: core/modules/notification-center/validator.php:306
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#: core/modules/hide-backend/settings.php:46
+msgid "New Login URL"
+msgstr "Neue Anmelde-URL"
+
+#: core/lib/class-itsec-scheduler-cron.php:28
+#: core/modules/notification-center/class-notification-center.php:1137
+msgid "Monthly"
+msgstr "Monatlich"
+
+#: core/lib/class-itsec-scheduler-cron.php:24
+#: core/modules/notification-center/class-notification-center.php:1136
+msgid "Weekly"
+msgstr "Wöchentlich"
+
+#: core/admin-pages/page-debug.php:226
+#: core/modules/notification-center/debug.php:62
+#: core/modules/notification-center/entries/settings/components/notification/index.js:193
+#: dist/notification-center/settings.js:1
+msgid "Schedule"
+msgstr "Zeitplan"
+
+#: core/notify.php:45
+msgid "During periods of heavy attack, iThemes Security can generate a LOT of email."
+msgstr "In Zeiten eines massiven Angriffs kann iThemes Security VIELE E-Mails erzeugen."
+
+#: core/modules/notification-center/class-notification-center.php:625
+#: core/modules/notification-center/debug.php:45
+#: core/modules/notification-center/labels.php:4
+#: core/modules/notification-center/logs.php:14
+#: core/modules/notification-center/logs.php:45 module-strings.php:258
+#: core/modules/notification-center/entries/settings/components/settings/index.js:72
+#: dist/notification-center/settings.js:1
+msgid "Notification Center"
+msgstr "Benachrichtigungszentrale"
+
+#: core/notify.php:54 core/notify.php:120
+msgid "Security Digest"
+msgstr "Sicherheitsbericht"
+
+#: core/notify.php:93
+msgid "Weekly Security Digest"
+msgstr "Wöchentlicher Sicherheitsbericht"
+
+#: core/notify.php:110
+msgid "Monthly Security Digest"
+msgstr "Monatlicher Sicherheitsbericht"
+
+#: core/notify.php:121
+msgid "Your Security Digest for %s"
+msgstr "Dein Sicherheitsbericht für %s"
+
+#: core/notify.php:111
+msgid "Your Monthly Security Digest for %s"
+msgstr "Dein monatlicher Sicherheitsbericht für %s"
+
+#: core/notify.php:94
+msgid "Your Weekly Security Digest for %s"
+msgstr "Dein wöchentlicher Sicherheitsbericht für %s"
+
+#: core/modules/notification-center/validator.php:114
+msgid "Unknown contacts for %1$s, %2$l."
+msgstr "Unbekannte Kontakte für %1$s, %2$l."
+
+#: core/modules/notification-center/validator.php:195
+msgid "Unknown schedule for %1$s, %2$s."
+msgstr "Unbekannter Zeitplan für %1$s, %2$s."
+
+#: core/response.php:318
+msgid "New notifications available in the %1$sNotification Center%2$s."
+msgstr "Neue Benachrichtigungen sind in der %1$sBenachrichtigungszentrale%2$s verfügbar."
+
+#: core/modules/notification-center/logs.php:84
+#: core/modules/notification-center/validator.php:61
+#: core/modules/core/entries/admin-notices/components/toolbar-button/index.js:53
+#: core/modules/notification-center/entries/settings/app.js:46
+#: core/modules/notification-center/entries/settings/app.js:68
+#: core/modules/notification-center/entries/settings/components/page/index.js:183
+#: core/modules/notification-center/entries/settings/components/settings/index.js:134
+#: dist/core/admin-notices-dashboard-admin-bar.js:2 dist/core/settings.js:2
+#: dist/notification-center/settings.js:1
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+#: module-strings.php:259
+#: core/modules/notification-center/entries/settings/components/settings/index.js:73
+#: dist/notification-center/settings.js:1
+msgid "Manage and configure email notifications sent by iThemes Security related to various settings modules."
+msgstr "Verwalte und konfiguriere die von iThemes Security gesendeten E-Mail-Benachrichtigungen für verschiedene Einstellungsmodule."
+
+#: core/modules/hide-backend/settings.php:52
+msgid "Login Now"
+msgstr "Jetzt anmelden"
+
+#: core/modules/notification-center/validator.php:149
+msgid "The %1$s email list must be a string with each entry separated by a new line."
+msgstr "Die %1$s-E-Mail-Liste muss eine Zeichenfolge sein, bei der jeder Eintrag durch eine neue Zeile getrennt ist."
+
+#. translators: %1$s notification label, %2$l list of unknown tags.
+#: core/modules/notification-center/validator.php:254
+msgid "Unknown tags for %1$s, %2$l."
+msgstr "Unbekannte Befehle für %1$s, %2$l."
+
+#: core/modules/notification-center/class-notification-center.php:695
+msgid "Cannot get lock."
+msgstr "Konnte nicht gesperrt werden."
+
+#: core/notify.php:48
+msgid "The Security Digest reduces the number of emails sent so you can receive a summary of lockouts, file change detection scans, and privilege escalations."
+msgstr "Der Sicherheitsbericht reduziert die Anzahl der gesendeten E-Mails, sodass du eine Zusammenfassung der Aussperrungen, der Berechtigungseskalationen und der Überprüfungen der Dateiänderungserkennung erhältst."
+
+#: core/notify.php:50
+msgid "The Security Digest reduces the number of emails sent so you can receive a summary of lockouts and file change detection scans."
+msgstr "Der Sicherheitsbericht reduziert die Anzahl der gesendeten E-Mails, sodass du eine Zusammenfassung der Aussperrungen und der Überprüfungen der Dateiänderungserkennung erhältst."
+
+#: core/notify.php:204
+msgid "For more details, %1$svisit your security logs%2$s"
+msgstr "%1$sBetrachte deine Sicherheitsprotokolle%2$s für weitere Details"
+
+#: core/modules/file-change/scanner.php:1094
+msgid "Scan Summary"
+msgstr "Zusammenfassung der Überprüfung"
+
+#: core/modules/hide-backend/class-itsec-hide-backend.php:432
+msgid "The URL to your website."
+msgstr "Die URL zu deiner Website."
+
+#: core/modules/hide-backend/class-itsec-hide-backend.php:430
+msgid "The new login link."
+msgstr "Der neue Anmelde-Link."
+
+#: core/modules/hide-backend/class-itsec-hide-backend.php:421
+msgid "Hide Backend – New Login URL"
+msgstr "Backend verstecken - Neue Anmelde-URL"
+
+#: core/modules/file-change/scanner.php:1112
+msgid "Changed Files"
+msgstr "Geänderte Dateien"
+
+#: core/modules/file-change/scanner.php:1107
+msgid "Removed Files"
+msgstr "Gelöschte Dateien"
+
+#: core/modules/file-change/scanner.php:1102
+msgid "Added Files"
+msgstr "Hinzugefügte Dateien"
+
+#: core/modules/backup/class-itsec-backup.php:282
+msgid "Site Database Backup for %s"
+msgstr "Website-Datenbank-Backup für %s"
+
+#: core/lib/class-itsec-mail.php:282
+msgctxt "Files added"
+msgid "Added"
+msgstr "Hinzugefügt"
+
+#: core/lib/class-itsec-mail.php:283
+msgctxt "Files removed"
+msgid "Removed"
+msgstr "Gelöscht"
+
+#: core/lib/class-itsec-mail.php:284
+msgctxt "Files modified"
+msgid "Modified"
+msgstr "Geändert"
+
+#: core/modules/file-change/class-itsec-file-change.php:149
+#: core/modules/file-change/labels.php:4 core/modules/file-change/logs.php:12
+#: module-strings.php:122
+msgid "File Change"
+msgstr "Dateiänderung"
+
+#: core/modules/file-change/class-itsec-file-change.php:155
+#: core/modules/file-change/scanner.php:1089
+msgid "File Change Warning"
+msgstr "Dateiänderungswarnung"
+
+#: core/modules/file-change/scanner.php:1090
+msgid "File Scan Report for %s"
+msgstr "Dateiüberprüfungsbericht für %s"
+
+#: core/lib/class-itsec-mail.php:141
+msgid "This email was generated by the iThemes Security plugin on behalf of %s."
+msgstr "Diese E-Mail wurde im Namen von %s durch das iThemes Security-Plugin erstellt."
+
+#: core/lib/class-itsec-mail.php:143
+msgid "To unsubscribe from these notifications, please %1$scontact the site administrator%2$s."
+msgstr "Um dich von diesen Benachrichtigungen abzumelden, kontaktiere bitte %1$sden Website-Administrator%2$s."
+
+#: core/lib/class-itsec-mail.php:664
+msgid "New Notification from iThemes Security"
+msgstr "Neue Benachrichtigung von iThemes Security"
+
+#: core/lockout.php:1367
+msgid "Site Lockouts"
+msgstr "Website-Aussperrungen"
+
+#: core/lockout.php:1368
+msgid "Various modules send emails to notify you when a user or host is locked out of your website."
+msgstr "Verschiedene Module versenden E-Mails, um dich darüber zu informieren, wenn ein Benutzer oder Host von deiner Website ausgesperrt wurde."
+
+#: core/modules/backup/class-itsec-backup.php:338
+msgid "The %1$sDatabase Backup%2$s module will send a copy of any backups to the email addresses listed below."
+msgstr "Das %1$sDatenbank-Backup-Modul%2$s sendet eine Kopie aller Sicherungen an die unten aufgeführten E-Mail-Adressen."
+
+#: core/modules/file-change/class-itsec-file-change.php:151
+msgid "The %1$sFile Change Detection%2$s module will email a file scan report after changes have been detected."
+msgstr "Das Modul %1$sDateiänderungserkennung%2$s sendet einen E-Mail-Überprüfungsbericht, nachdem Änderungen erkannt wurden."
+
+#: core/modules/hide-backend/class-itsec-hide-backend.php:423
+msgid "%1$sHide Backend%2$s will notify the chosen recipients whenever the login URL is changed."
+msgstr "%1$sBackend verstecken%2$s benachrichtigt die ausgewählten Empfänger, sobald die Anmelde-URL geändert wurde."
+
+#: core/modules/file-change/scanner.php:1092
+msgid "A file (or files) on your site have been changed. Please review the report below to verify changes are not the result of a compromise."
+msgstr "Eine Datei (oder Dateien) deiner Website wurde geändert. Bitte überprüfe den folgenden Bericht, um zu bestätigen, dass die Änderungen nicht das Ergebnis einer Kompromittierung sind."
+
+#: core/modules/hide-backend/class-itsec-hide-backend.php:428
+msgid "The login address for {{ $site_title }} has changed. The new login address is {{ $login_url }}. You will be unable to use the old login address."
+msgstr "Die Anmeldeadresse für {{ $site_title }} wurde geändert. Die neue Anmeldeadresse lautet {{ $login_url }}. Du kannst die alte Anmeldeadresse nicht mehr verwenden."
+
+#: module-strings.php:388
+msgid "Login with Email Address or Username"
+msgstr "Mit E-Mail-Adresse oder Benutzername anmelden"
+
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:189
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>FEHLER</strong>: Ungültiger Benutzername oder falsches Passwort."
+
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:187
+msgid "<strong>ERROR</strong>: Invalid email address or incorrect password."
+msgstr "<strong>FEHLER</strong>: Ungültige E-Mail-Adresse oder falsches Passwort."
+
+#: core/modules/security-check/scanner.php:18
+#: core/modules/security-check/scanner.php:76
+msgid "Magic Links"
+msgstr "Magische Links"
+
+#: core/lockout.php:854
+msgid "Error."
+msgstr "Fehler"
+
+#: module-strings.php:389
+msgid "By default, WordPress allows users to log in using either an email address or username. This setting allows you to restrict logins to only accept email addresses or usernames."
+msgstr "Standardmäßig erlaubt WordPress Benutzern sich entweder mit einer E-Mail-Adresse oder einem Benutzernamen anzumelden. Diese Einstellung ermöglicht es dir Anmeldungen einzuschränken, um nur E-Mail-Adressen oder Benutzernamen zu akzeptieren."
+
+#: module-strings.php:392
+msgid "Email Address Only"
+msgstr "Nur die E-Mail-Adresse"
+
+#: module-strings.php:394
+msgid "Username Only"
+msgstr "Nur der Benutzername"
+
+#: module-strings.php:298
+msgid "Require SSL"
+msgstr "SSL voraussetzen"
+
+#: module-strings.php:299
+msgid "Redirect All HTTP Page Requests to HTTPS"
+msgstr "Weiterleitung aller HTTP-Seitenanfragen zu HTTPS"
+
+#: core/lib/class-itsec-lib-ip-detector.php:16
+#: core/modules/two-factor/class-itsec-two-factor-on-board.php:246
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: core/modules/site-scanner/api.php:51
+msgid "Site Scanning is temporarily unavailable, please try again later."
+msgstr "Die Website-Überprüfung ist vorübergehend nicht verfügbar. Bitte versuche es später noch einmal."
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:308
+msgid "The password has not been updated."
+msgstr "Das Passwort wurde nicht aktualisiert."
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:305
+msgid "Your profile has not been updated."
+msgstr "Dein Profil wurde nicht aktualisiert."
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:299
+msgid "The user has not been created."
+msgstr "Der Benutzer wurde nicht angelegt."
+
+#: core/lib/includes/function.login-header.php:85
+msgid "https://wordpress.org/"
+msgstr "https://de.wordpress.org/"
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:454
+msgid "Update Password"
+msgstr "Passwort aktualisieren"
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:446
+msgid "Confirm new password"
+msgstr "Neues Passwort bestätigen"
+
+#: core/modules/security-check/scanner.php:200
+msgid "The email value is missing."
+msgstr "Der E-Mail-Wert fehlt."
+
+#: core/modules/security-check/scanner.php:205
+msgid "The updates_optin value is missing."
+msgstr "Der updates_optin-Wert fehlt."
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:302
+msgid "The user changes have not been saved."
+msgstr "Die Benutzeränderungen wurden nicht gespeichert."
+
+#: core/lib/class-itsec-lib-login-interstitial.php:683
+#: core/lib/class-itsec-lib-login-interstitial.php:756
+#: core/lib/class-itsec-lib-login-interstitial.php:849
+msgid "&larr; Back to %s"
+msgstr "&larr; Zurück zu %s"
+
+#: core/lib/class-itsec-lib-password-requirements.php:136
+msgid "A password change is required for your account."
+msgstr "Für dein Konto ist eine Passwortänderung erforderlich."
+
+#: core/lib/class-itsec-lib-password-requirements.php:160
+msgid "Invalid User"
+msgstr "Ungültiger Benutzer"
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:427
+msgid "New Password"
+msgstr "Neues Passwort"
+
+#: core/lib/includes/function.login-header.php:86
+msgid "Powered by WordPress"
+msgstr "Powered by WordPress"
+
+#: core/lib/class-itsec-lib-login-interstitial.php:682
+#: core/lib/class-itsec-lib-login-interstitial.php:755
+#: core/lib/class-itsec-lib-login-interstitial.php:848
+msgid "Are you lost?"
+msgstr "Hast du dich verirrt?"
+
+#: core/modules/global/notices.php:147
+msgid "The ITSEC_DISABLE_MODULES define is set. All iThemes Security protections are disabled. Please make the necessary settings changes and remove the define as quickly as possible."
+msgstr "Die Definition von ITSEC_DISABLE_MODULES ist gesetzt. Alle Schutzvorkehrungen von iThemes Security sind deaktiviert. Bitte nimm die notwendigen Einstellungen vor und entferne die Definition so schnell wie möglich."
+
+#: core/modules/password-requirements/class-itsec-password-requirements.php:436
+msgid "Strength indicator"
+msgstr "Stärke-Indikator"
+
+#: core/lib/class-itsec-lib-config-file.php:413
+msgid "Added by W3 Total Cache"
+msgstr "Hinzugefügt von W3 Total Cache"
+
+#: core/modules/backup/class-itsec-backup.php:128
+msgid "Unable to create the backup directory due to an unknown error."
+msgstr "Das Backup-Verzeichnis konnte aufgrund eines unbekannten Fehlers nicht erstellt werden."
+
+#: core/modules/backup/class-itsec-backup.php:134
+msgid "Unable to write the backup file. This may be due to a permissions or disk space issue."
+msgstr "Die Backup-Datei konnte nicht geschrieben werden. Dies kann auf fehlende Berechtigungen oder ein Speicherplatzproblem zurückzuführen sein."
+
+#: core/modules/security-check/scanner.php:86
+msgid "Enabled the Vulnerable User Protection setting in Two-Factor Authentication."
+msgstr "Die Einstellung „Sicherheitsanfälliger Benutzer“ der Zwei-Faktor-Authentifizierung aktiviert."
+
+#: core/modules/security-check/scanner.php:87
+msgid "Enabled the Vulnerable Site Protection setting in Two-Factor Authentication."
+msgstr "Die Einstellung „Sicherheitsanfällige Website“ der Zwei-Faktor-Authentifizierung aktiviert."
+
+#: core/modules/security-check/scanner.php:84
+msgid "Changed the Authentication Methods Available to Users setting in Two-Factor Authentication to \"All Methods\"."
+msgstr "Die Einstellung „Authentifizierungsmethoden für Benutzer“ der Zwei-Faktor-Authentifizierung wurde auf „Alle Methoden“ geändert."
+
+#: module-strings.php:384
+msgid "Default Access"
+msgstr "Standardzugriff"
+
+#: core/modules/security-check/scanner.php:93
+msgid "Changed the REST API setting in WordPress Tweaks to \"Restricted Access\"."
+msgstr "Die REST-API-Einstellung wurde unter WordPress-Optimierungen auf „Eingeschränkter Zugriff“ geändert."
+
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:235
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:368
+msgid "You do not have sufficient permission to access this endpoint. Access to REST API requests is restricted by iThemes Security settings."
+msgstr "Du hast keine ausreichenden Berechtigungen, um auf diesen Punkt zuzugreifen. Der Zugriff auf die REST-API-Anfragen ist durch die Einstellungen von iThemes Security eingeschränkt."
+
+#: core/modules/two-factor/application-passwords-util.php:176
+#: core/modules/two-factor/Application_Passwords_Core.php:77
+#: core/modules/two-factor/Application_Passwords_Core.php:106
+#: core/modules/two-factor/Application_Passwords_Core.php:146
+#: module-strings.php:382
+msgid "REST API"
+msgstr "REST-API"
+
+#. translators: 1: Hostname
+#: core/lib/class-itsec-mail.php:342
+msgid "<b>Host:</b> %1$s"
+msgstr "<b>Host:</b> %1$s"
+
+#. translators: 1: Username
+#: core/lib/class-itsec-mail.php:336
+msgid "<b>User:</b> %1$s"
+msgstr "<b>Benutzer:</b> %1$s"
+
+#: core/lib/class-itsec-mail.php:351
+msgid "Host/User"
+msgstr "Host/Benutzer"
+
+#: core/lockout.php:1446
+msgid "Visit Settings Page"
+msgstr "Einstellungsseite besuchen"
+
+#. translators: 1: site URL, 2: email subject
+#: core/lib/class-itsec-mail.php:660
+#: core/modules/two-factor/providers/class.two-factor-email.php:148
+msgid "[%1$s] %2$s"
+msgstr "[%1$s] %2$s"
+
+#: core/lib/class-itsec-mail.php:353
+msgid "Reason"
+msgstr "Ursache"
+
+#: core/lib/class-itsec-mail.php:352
+msgid "Lockout in Effect Until"
+msgstr "Aussperrung aktiv bis"
+
+#: core/lockout.php:1445
+msgid "Release lockouts from the Active Lockouts section of the settings page."
+msgstr "Aussperrungen können unter dem Abschnitt „Aktive Aussperrungen“ der Einstellungsseite freigegeben werden."
+
+#: core/lockout.php:1451
+msgid "Visit Banned Users Settings"
+msgstr "Dauerhafte Benutzeraussperrungseinstellungen anzeigen"
+
+#: core/lockout.php:1450
+msgid "Release the permanent host ban from Ban Hosts list in the Banned Users section of the settings page."
+msgstr "Dauerhafte Host-Aussperrungen können von der Liste „Hosts dauerhaft aussperren“ im Abschnitt dauerhafte Benutzeraussperrung der Einstellungsseite freigegeben werden."
+
+#: core/modules/file-change/admin.php:14
+msgid "Changes were detected. Please check the <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">logs</a> for details."
+msgstr "Änderungen wurden festgestellt. Weitere Informationen findest du auf der <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Protokollseite</a>."
+
+#: core/modules/backup/class-itsec-backup.php:286
+msgid "Website"
+msgstr "Website"
+
+#: core/modules/backup/class-itsec-backup.php:282
+#: core/modules/backup/class-itsec-backup.php:336
+#: core/modules/backup/class-itsec-backup.php:342
+msgid "Database Backup"
+msgstr "Datenbank-Backup"
+
+#: core/modules/backup/class-itsec-backup.php:283
+msgid "Attached is the database backup file for your site."
+msgstr "Im Anhang befindet sich die Datenbank-Backup-Datei deiner Website."
+
+#: module-strings.php:326
+msgid "Disable PHP execution in the uploads directory. This blocks requests to maliciously uploaded PHP files in the uploads directory."
+msgstr "Die Ausführung von PHP im Upload-Verzeichnis deaktivieren. Dies blockiert Anfragen auf böswillig hochgeladene PHP-Dateien im Upload-Verzeichnis."
+
+#: module-strings.php:327
+msgid "Disable PHP in Plugins"
+msgstr "PHP unter Plugins deaktivieren"
+
+#: module-strings.php:329
+msgid "Disable PHP in Themes"
+msgstr "PHP unter Themes deaktivieren"
+
+#: module-strings.php:330
+msgid "Disable PHP execution in the themes directory. This blocks requests to PHP files inside theme directories that can be exploited directly."
+msgstr "Die Ausführung von PHP im Theme-Verzeichnis deaktivieren. Dies blockiert Anfragen auf PHP-Dateien innerhalb des Theme-Verzeichnisses, die direkt ausgenutzt werden könnten."
+
+#: module-strings.php:328
+msgid "Disable PHP execution in the plugins directory. This blocks requests to PHP files inside plugin directories that can be exploited directly."
+msgstr "Die Ausführung von PHP im Plugin-Verzeichnis deaktivieren. Dies blockiert Anfragen auf PHP-Dateien innerhalb des Plugin-Verzeichnisses, die direkt ausgenutzt werden könnten. "
+
+#: core/modules/system-tweaks/config-generators.php:106
+#: core/modules/system-tweaks/config-generators.php:193
+msgid "Disable PHP in Themes - Security > Settings > System Tweaks > PHP in Themes"
+msgstr "PHP unter Themes deaktivieren - Sicherheit > Einstellungen > Systemoptimierungen > PHP unter Themes"
+
+#: core/modules/system-tweaks/config-generators.php:94
+#: core/modules/system-tweaks/config-generators.php:180
+msgid "Disable PHP in Plugins - Security > Settings > System Tweaks > PHP in Plugins"
+msgstr "PHP unter Plugins deaktivieren - Sicherheit > Einstellungen > Systemoptimierungen > PHP unter Plugins"
+
+#: core/lib/class-itsec-mail.php:267
+#: core/lib/site-types/Question/Client_Question_Pack.php:68
+#: core/lib/site-types/Question/Client_Question_Pack.php:127
+#: core/modules/dashboard/container.php:26 module-strings.php:401
+msgid "Users"
+msgstr "Benutzer"
+
+#: core/lib/class-itsec-mail.php:268 core/modules/dashboard/container.php:22
+msgid "Hosts"
+msgstr "Hosts"
+
+#: core/lib/class-itsec-mail.php:125
+msgid "Learn simple WordPress security tips — including 3 kinds of security your site needs and 4 best security practices for keeping your WordPress site safe with our <a href=\"%s\">free guide</a>."
+msgstr "Erfahre einfache WordPress-Sicherheitstipps durch unser <a href=\"%s\">kostenloses Handbuch</a> — darunter 3 Sicherheitsarten, die deine Website benötigt und den 4 besten Sicherheitspraktiken, die deine WordPress-Website sicher halten."
+
+#: core/lib/class-itsec-mail.php:123
+msgid "Free WordPress Security Guide"
+msgstr "Kostenloses WordPress-Sicherheitshandbuch"
+
+#: core/lib/class-itsec-mail.php:122
+msgid "This email was generated by the iThemes Security plugin."
+msgstr "Diese E-Mail wurde vom iThemes Security-Plugin erzeugt."
+
+#: core/lib/class-itsec-mail.php:122
+msgid "To unsubscribe from these updates, visit the %1$sSettings page%2$s in the iThemes Security plugin menu."
+msgstr "Um dich von diesen Nachrichten abzumelden, besuche die %1$sEinstellungsseite%2$s im iThemes Security-Plugin-Menü."
+
+#: core/lib/class-itsec-mail.php:109
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: core/lib/class-itsec-mail.php:102
+msgid "Tutorials"
+msgstr "Anleitungen"
+
+#: core/lib/class-itsec-mail.php:108
+msgid "Help & Support"
+msgstr "Hilfe und Support"
+
+#: core/notify.php:188
+msgid "Messages"
+msgstr "Nachrichten"
+
+#: core/notify.php:161
+msgid "File Changes"
+msgstr "Dateiänderungen"
+
+#: core/lib/class-itsec-mail.php:83
+msgid "Why go Pro? <a href=\"%s\">Check out the Free/Pro comparison chart.</a>"
+msgstr "Warum zu Pro wechseln? <a href=\"%s\">Schaue dir die Free/Pro Vergleichstabelle an.</a>"
+
+#: core/notify.php:162
+msgid "File changes detected on the site."
+msgstr "Dateiänderungen auf der Website festgestellt."
+
+#: core/notify.php:157
+msgid "No lockouts since the last email check."
+msgstr "Keine Aussperrungen seit der letzten E-Mail-Überprüfung."
+
+#: core/notify.php:84
+msgid "Your Daily Security Digest for %s"
+msgstr "Dein täglicher Sicherheitsbericht für %s"
+
+#: core/notify.php:130
+msgid "The following is a summary of security related activity on your site: %s"
+msgstr "Im Folgenden findest du eine Zusammenfassung der sicherheitsrelevanten Aktivitäten auf deiner Website: %s"
+
+#: core/lib/class-itsec-mail.php:603
+msgid "Debug info (source page): %s"
+msgstr "Fehlersuchinformation (Quellseite): %s"
+
+#: core/lib/class-itsec-mail.php:81
+msgid "Want two-factor authentication, scheduled site scanning, ticketed support and more?"
+msgstr "Möchtest du die Zwei-Faktor-Authentifizierung, geplante Website-Überprüfungen, Ticket-Unterstützung und mehr?"
+
+#: core/modules/security-check/scanner.php:121
+msgid "Email Address: %1$s"
+msgstr "E-Mail-Adresse: %1$s"
+
+#: core/modules/security-check/scanner.php:134
+msgid "Activate Network Brute Force Protection"
+msgstr "Netzwerk-Brute-Force-Schutz aktivieren"
+
+#: core/modules/security-check/scanner.php:223
+msgid "Your site is now using Network Brute Force Protection."
+msgstr "Deine Website verwendet jetzt den Netzwerk-Brute-Force-Schutz."
+
+#. Translators: 1: feature name
+#: core/modules/security-check/scanner.php:175
+msgid "Enabled %1$s."
+msgstr "%1$s aktiviert."
+
+#. Translators: 1: feature name
+#: core/modules/security-check/scanner.php:169
+msgid "%1$s is enabled as recommended."
+msgstr "%1$s ist, wie empfohlen, aktiviert."
+
+#: core/modules/security-check/scanner.php:119
+msgid "With Network Brute Force Protection, your site is protected against attackers found by other sites running iThemes Security. If your site identifies a new attacker, it automatically notifies the network so that other sites are protected as well. To join this site to the network and enable the protection, click the button below."
+msgstr "Mit dem Netzwerk-Brute-Force-Schutz wird deine Website vor Angreifern geschützt, die durch andere mit iThemes Security geschützte Websites gefunden wurden. Wenn deine Website einen neuen Angreifer identifiziert, benachrichtigt sie automatisch das Netzwerk, sodass andere Websites ebenfalls geschützt sind. Klicke auf den Button unterhalb, um diese Website mit dem Netzwerk zu verbinden und den Schutz zu aktivieren."
+
+#: core/modules/security-check/scanner.php:137
+msgid "Activating Network Brute Force Protection..."
+msgstr "Netzwerk-Brute-Force-Schutz wird aktiviert..."
+
+#: core/modules/security-check/scanner.php:91
+msgid "Disabled the File Editor in WordPress Tweaks."
+msgstr "Datei-Editor unter WordPress-Optimierungen deaktiviert."
+
+#: core/modules/security-check/scanner.php:92
+msgid "Changed the Multiple Authentication Attempts per XML-RPC Request setting in WordPress Tweaks to \"Block\"."
+msgstr "Einstellung für mehrfache Authentifizierungsversuche mittels XML-RPC-Anfrage unter WordPress-Optimierungen auf „Blockieren“ gesetzt."
+
+#: core/modules/security-check/scanner.php:95
+msgid "Enabled the Write to Files setting in Global Settings."
+msgstr "Einstellung „Schreibzugriff auf Dateien“ unter Globale Einstellungen aktiviert."
+
+#: core/modules/security-check/scanner.php:52
+msgid "Enabled the Enable Ban Lists setting in Banned Users."
+msgstr "Die Einstellung „Dauerhafte Sperrlisten aktivieren“ unter dauerhafte Benutzeraussperrung wurde aktiviert."
+
+#: module-strings.php:137
+msgid "Lists file and directory permissions of key areas of the site."
+msgstr "Listet von Schlüsselbereichen der Website die Datei- und Verzeichnisberechtigungen auf."
+
+#: core/modules/file-permissions/labels.php:4 module-strings.php:136
+msgid "File Permissions"
+msgstr "Dateiberechtigungen"
+
+#: core/modules/security-check/scanner.php:82
+msgid "Strong Password Enforcement"
+msgstr "Starke Passwörter erzwingen"
+
+#: core/modules/ssl/labels.php:4
+msgid "SSL"
+msgstr "SSL"
+
+#: core/modules/security-check/scanner.php:23
+#: core/modules/security-check/scanner.php:83
+msgid "Two-Factor Authentication"
+msgstr "Zwei-Faktor-Authentifizierung"
+
+#: core/modules/salts/utilities.php:48
+msgid "Unable to read the <code>wp-config.php</code> file in order to update the salts. You will need to manually update the file. Error details as follows: %1$s (%2$s)"
+msgstr "Es ist nicht möglich die <code>wp-config.php</code>-Datei zu lesen, um die Salts zu aktualisieren. Du musst die Datei manuell aktualisieren. Fehlerdetails wie folgt: %1$s (%2$s)"
+
+#: core/modules/salts/utilities.php:70
+msgid "Unable to update the <code>wp-config.php</code> file in order to update the salts. You will need to manually update the file. Error details as follows: %1$s (%2$s)"
+msgstr "Es ist nicht möglich die <code>wp-config.php</code>-Datei zu aktualisieren, um die Salts zu aktualisieren. Du musst die Datei manuell aktualisieren. Fehlerdetails wie folgt: %1$s (%2$s)"
+
+#: core/modules/salts/active.php:19
+msgid "The WordPress salts were successfully regenerated."
+msgstr "Die WordPress-Salts wurden erfolgreich erneuert."
+
+#: core/modules/security-check/scanner.php:24
+#: core/modules/security-check/scanner.php:89
+msgid "User Logging"
+msgstr "Benutzerprotokollierung"
+
+#: module-strings.php:337
+msgid "Two-Factor Authentication greatly increases the security of your WordPress user account by requiring additional information beyond your username and password in order to log in."
+msgstr "Die Zwei-Faktor-Authentifizierung erhöht die Sicherheit deines WordPress-Benutzerkontos, indem beim Anmelden außer deinem Benutzernamen und Passwort zusätzliche Informationen erforderlich sind."
+
+#: core/modules/network-brute-force/utilities.php:221
+#: core/modules/network-brute-force/utilities.php:268
+msgid "There was an error returned from the Network Brute Force Protection API: %1$s"
+msgstr "Von der Netzwerk-Brute-Force-Schutz-API wurde ein Fehler zurückgegeben: %1$s"
+
+#: core/modules/network-brute-force/utilities.php:277
+msgid "An unknown error prevented the API key secrete request from succeeding. The request for an API key secret returned an empty key secret. Please wait a few minutes and try again."
+msgstr "Ein unbekannter Fehler verhinderte, dass die geheime API-Schlüsselanfrage erfolgreich war. Die Anfrage für einen geheimen API-Schlüssel hat einen leeren geheimen Schlüssel zurückgegeben. Bitte warte ein paar Minuten und versuche es erneut."
+
+#: core/modules/network-brute-force/utilities.php:260
+msgid "An unknown error prevented the API key secret request from succeeding. This problem could be due to a server configuration or plugin compatibility issue. Please wait a few minutes and try again."
+msgstr "Ein unbekannter Fehler verhinderte, dass die geheime API-Schlüsselanfrage erfolgreich war. Dieses Problem könnte auf ein Serverkonfigurationsproblem oder ein Plugin-Kompatibilitätsproblem zurückzuführen sein. Bitte warte ein paar Minuten und versuche es erneut."
+
+#: core/modules/network-brute-force/utilities.php:247
+msgid "An unknown error prevented the API key secret request from succeeding. The request for an API key submitted an empty key. Please wait a few minutes and try again."
+msgstr "Ein unbekannter Fehler verhinderte, dass die geheime API-Schlüsselanfrage erfolgreich war. Die Anfrage für einen API-Schlüssel übermittelte einen leeren Schlüssel. Bitte warte ein paar Minuten und versuche es erneut."
+
+#: core/modules/network-brute-force/utilities.php:271
+msgid "An unknown error prevented the API key secret request from succeeding. The request for an API key secret returned an unrecognized response. Please wait a few minutes and try again."
+msgstr "Ein unbekannter Fehler verhinderte, dass die geheime API-Schlüsselanfrage erfolgreich war. Die Anfrage für einen geheimen API-Schlüssel gab eine unbekannte Antwort zurück. Bitte warte ein paar Minuten und versuche es erneut."
+
+#: core/modules/network-brute-force/utilities.php:209
+msgid "An unknown error prevented the API key request from succeeding. This problem could be due to a server configuration or plugin compatibility issue. Please wait a few minutes and try again."
+msgstr "Ein unbekannter Fehler verhinderte, dass die API-Schlüsselanfrage erfolgreich war. Dieses Problem könnte auf ein Serverkonfigurationsproblem oder ein Plugin-Kompatibilitätsproblem zurückzuführen sein. Bitte warte ein paar Minuten und versuche es erneut."
+
+#: core/modules/network-brute-force/utilities.php:215
+msgid "An unknown error prevented the API key request from succeeding. The request for an API key returned an unrecognized response. Please wait a few minutes and try again."
+msgstr "Ein unbekannter Fehler verhinderte, dass die API-Schlüsselanfrage erfolgreich war. Die Anfrage für einen API-Schlüssel gab eine unbekannte Antwort zurück. Bitte warte ein paar Minuten und versuche es erneut."
+
+#: core/modules/network-brute-force/utilities.php:228
+msgid "An unknown error prevented the API key request from succeeding. The request for an API key returned an empty key. Please wait a few minutes and try again."
+msgstr "Ein unbekannter Fehler verhinderte, dass die API-Schlüsselanfrage erfolgreich war. Die Anfrage für einen API-Schlüssel hat einen leeren Schlüssel zurückgegeben. Bitte warte ein paar Minuten und versuche es erneut."
+
+#: module-strings.php:250
+msgid "API Key"
+msgstr "API-Schlüssel"
+
+#: module-strings.php:252
+msgid "Receive Email Updates"
+msgstr "Informations-E-Mails erhalten"
+
+#: module-strings.php:249
+msgid "Automatically ban IPs reported as a problem by the network."
+msgstr "IP-Adressen, die vom Netzwerk als Problem gemeldet werden, automatisch sperren."
+
+#: core/modules/security-check/scanner.php:20
+#: core/modules/security-check/scanner.php:113
+msgid "Network Brute Force Protection"
+msgstr "Netzwerk-Brute-Force-Schutz"
+
+#: core/modules/network-brute-force/utilities.php:196
+msgid "The supplied email address (%s) is invalid. A valid email address is required in order to sign up for the Network Bruteforce Protection by iThemes."
+msgstr "Die angegebene E-Mail-Adresse (%s) ist ungültig. Eine gültige E-Mail-Adresse ist erforderlich, um sich bei dem Netzwerk-Brute-Force-Schutz von iThemes anzumelden."
+
+#: module-strings.php:246
+msgid "Join a network of sites that reports and protects against bad actors on the internet."
+msgstr "Nimm an einem Netzwerk von Websites teil, welches schlechte Akteure im Internet meldet und dich vor diesen schützt."
+
+#: module-strings.php:248
+msgid "Ban Reported IPs"
+msgstr "Gemeldete IP-Adressen dauerhaft aussperren"
+
+#: module-strings.php:197
+msgid "Show Error Codes"
+msgstr "Fehlercode anzeigen"
+
+#: module-strings.php:153
+msgid "Configure basic settings that control how iThemes Security functions."
+msgstr "Konfiguriere die Grundeinstellungen, die bestimmen wie iThemes Security funktioniert."
+
+#: module-strings.php:143
+msgid "Server Config Rules"
+msgstr "Serverkonfigurationsregeln"
+
+#: module-strings.php:123
+msgid "Monitor the site for unexpected file changes."
+msgstr "Überwache die Website auf unerwartete Dateiänderungen."
+
+#: core/modules/file-change/admin.php:16
+msgid "A scan is already in progress. Please check the <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">logs page</a> at a later time for the results of the scan."
+msgstr "Eine Prüfung wird bereits ausgeführt. Bitte überprüfe zu einem späteren Zeitpunkt die <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Protokollseite</a> für die Ergebnisse der Prüfung."
+
+#: core/modules/database-prefix/active.php:71
+msgid "Could not rename table %1$s. You may have to rename the table manually."
+msgstr "Die Tabelle %1$s konnte nicht umbenannt werden. Möglicherweise musst du die Tabelle manuell umbenennen."
+
+#: module-strings.php:105
+msgid "Change Database Table Prefix"
+msgstr "Datenbanktabellenpräfix ändern"
+
+#: core/modules/content-directory/utility.php:8
+msgid "The content directory cannot be changed to a blank directory name."
+msgstr "Das Content-Verzeichnis kann nicht in einen leeren Verzeichnisnamen geändert werden."
+
+#. translators: 1: Specific error details
+#: core/modules/content-directory/utility.php:93
+msgid "Unable to update the <code>wp-config.php</code> file. No directory or config file changes have been made. The error that prevented the file from updating is as follows: %1$s"
+msgstr "Die Datei <code>wp-config.php</code> konnte nicht aktualisiert werden. Es wurden keine Verzeichnis- oder Konfigurationsdateiänderungen vorgenommen. Der Fehler, der die Aktualisierung der Datei verhindert, lautet wie folgt: %1$s"
+
+#: core/modules/content-directory/utility.php:27
+msgid "The new directory name cannot be the same as the current directory name. Please supply a new directory name."
+msgstr "Der neue Verzeichnisname kann nicht der gleiche wie der aktuelle sein. Bitte gib einen neuen Verzeichnisnamen an."
+
+#: module-strings.php:78
+msgid "Advanced feature to rename the wp-content directory to a different name."
+msgstr "Erweiterte Funktion zum Umbenennen des Verzeichnisses wp-content zu einem anderen Namen."
+
+#: core/modules/salts/utilities.php:38
+msgid "The \"Write to Files\" setting is disabled in Global Settings. In order to use this feature, you must enable the \"Write to Files\" setting."
+msgstr "Die „Schreibzugriff auf Dateien“ Einstellung ist in den Globalen Einstellungen deaktiviert. Um diese Funktion nutzen zu können, musst du die „Schreibzugriff auf Dateien“-Einstellung aktivieren."
+
+#: core/modules/backup/class-itsec-backup.php:97
+msgid "Backup complete. The backup was saved locally."
+msgstr "Backup abgeschlossen. Das Backup wurde lokal gespeichert."
+
+#: core/modules/backup/class-itsec-backup.php:91
+msgid "Backup complete. The backup was sent to the selected email recipients and was saved locally."
+msgstr "Backup abgeschlossen. Das Backup wurde an die ausgewählten E-Mail-Empfänger gesendet und wurde lokal gespeichert."
+
+#: module-strings.php:48
+msgid "Block specific IP addresses and user agents from accessing the site."
+msgstr "Bestimmten IP-Adressen und User Agents den Zugriff auf die Website verwehren."
+
+#: module-strings.php:63
+msgid "Protect your site against attackers that try to randomly guess login details to your site."
+msgstr "Schütze deine Website vor Angreifern, die versuchen die Zugangsdaten deiner Website zufällig zu erraten."
+
+#: core/modules/backup/class-itsec-backup.php:78
+msgid "Unable to create a backup at this time since a backup is currently being created. If you wish to create an additional backup, please wait a few minutes before trying again."
+msgstr "Es kann zu diesem Zeitpunkt kein Backup erstellt werden, da gerade eines erstellt wird. Wenn du ein zusätzliches Backup erstellen möchtest, warte bitte einige Minuten, bevor du es erneut versuchst."
+
+#: module-strings.php:36
+msgid "Last Run"
+msgstr "Letzte Ausführung"
+
+#: core/modules/backup/class-itsec-backup.php:94
+msgid "Backup complete. The backup was sent to the selected email recipients."
+msgstr "Backup abgeschlossen. Das Backup wurde an die ausgewählten E-Mail-Empfänger gesendet."
+
+#: module-strings.php:53
+msgid "Enable Ban Lists"
+msgstr "Dauerhafte Sperrlisten aktivieren"
+
+#: core/lib/validator.php:387 core/lib/validator.php:413
+msgid "The valid value for %1$s is: %2$l."
+msgid_plural "The valid values for %1$s are: %2$l."
+msgstr[0] "Der gültige Wert für %1$s ist: %2$l."
+msgstr[1] "Die gültigen Werte für %1$s sind: %2$l."
+
+#: core/lib/validator.php:362 core/lib/validator.php:383
+#: core/lib/validator.php:410 core/lib/validator.php:506
+#: core/lib/validator.php:561 core/lib/validator.php:628
+msgid "The following entry in %1$s is invalid: %2$l"
+msgid_plural "The following entries in %1$s are invalid: %2$l"
+msgstr[0] "Der folgende Eintrag in %1$s ist ungültig: %2$l"
+msgstr[1] "Die folgenden Einträge in %1$s sind ungültig: %2$l"
+
+#: core/lib/validator.php:444
+#: core/modules/notification-center/validator.php:167
+msgid "The following email in %1$s is invalid: %2$l"
+msgid_plural "The following emails in %1$s are invalid: %2$l"
+msgstr[0] "Die folgende E-Mail in %1$s ist ungültig: %2$l"
+msgstr[1] "Die folgenden E-Mails in %1$s sind ungültig: %2$l"
+
+#: core/lib/validator.php:531
+msgid "The following extension in %1$s is invalid: %2$l"
+msgid_plural "The following extensions in %1$s are invalid: %2$l"
+msgstr[0] "Die folgende Erweiterung in %1$s ist ungültig: %2$l"
+msgstr[1] "Die folgenden Erweiterungen in %1$s sind ungültig: %2$l"
+
+#: core/lib/validator.php:338 core/lib/validator.php:420
+#: core/lib/validator.php:426 core/lib/validator.php:451
+#: core/lib/validator.php:518
+msgid "The %1$s value must be a string with each entry separated by a new line."
+msgstr "Der %1$s Wert muss eine gültige Zeichenfolge sein, bei der jeder Eintrag durch eine neue Zeile getrennt ist."
+
+#. translators: 1: sanitize type, 2: input name
+#: core/lib/validator.php:567
+msgid "An invalid sanitize type of \"%1$s\" was received for the %2$s input."
+msgstr "Ein ungültiger desinfizierender Typ von „%1$s“ wurde für die Eingabe %2$s empfangen."
+
+#: core/lib/validator.php:330
+msgid "The file path supplied in %1$s is not writable. Please supply a file path that can be written to."
+msgstr "Der in %1$s übermittelte Dateipfad ist nicht beschreibbar. Bitte gib einen Dateipfad an, der beschrieben werden kann."
+
+#: core/lib/validator.php:327
+msgid "The file path supplied in %1$s was successfully created, but it cannot be updated. Please supply a file path that can be written to."
+msgstr "Der in %1$s übermittelte Dateipfad wurde erfolgreich erstellt, konnte aber nicht aktualisiert werden. Bitte gib einen Dateipfad ein, der beschrieben werden kann."
+
+#: core/lib/validator.php:476
+msgid "The following IP in %1$s is invalid: %2$l"
+msgid_plural "The following IPs in %1$s are invalid: %2$l"
+msgstr[0] "Die folgende IP-Adresse unter %1$s ist ungültig: %2$l"
+msgstr[1] "Die folgenden IP-Adressen unter %1$s sind ungültig: %2$l"
+
+#: core/lib/validator.php:241
+msgid "The %1$s value must be an integer."
+msgstr "Der %1$s Wert muss eine ganze Zahl sein."
+
+#: core/lib/validator.php:197 core/lib/validator.php:205
+#: core/lib/validator.php:218
+msgid "The %1$s value cannot be empty."
+msgstr "Der %1$s Wert kann nicht leer sein."
+
+#: core/lib/validator.php:248
+msgid "The %1$s value must be a positive integer."
+msgstr "Der %1$s Wert muss eine positive ganze Zahl sein."
+
+#: core/lib/validator.php:296
+msgctxt "%1$s is the input name. %2$s is the error message."
+msgid "The directory supplied in %1$s cannot be used as a valid directory. %2$s"
+msgstr "Das übermittelte Verzeichnis in %1$s kann nicht als ein gültiges Verzeichnis verwendet werden. %2$s"
+
+#: core/lib/validator.php:301
+msgid "The directory supplied in %1$s is not writable. Please select a directory that can be written to."
+msgstr "Das übermittelte Verzeichnis in %1$s ist nicht beschreibbar. Bitte wähle ein beschreibbares Verzeichnis aus."
+
+#: core/lib/validator.php:260
+msgid "The %1$s value must be a valid email address."
+msgstr "Der %1$s-Wert muss eine gültige E-Mail-Adresse sein."
+
+#: core/lib/validator.php:320
+msgctxt "%1$s is the input name. %2$s is the error message."
+msgid "The file path supplied in %1$s cannot be used as the parent directory cannot be created. %2$s"
+msgstr "Der in %1$s übermittelte Dateipfad kann nicht verwendet, da das übergeordnete Verzeichnis nicht erstellt werden kann. %2$s"
+
+#: core/lib/validator.php:282
+msgid "The %1$s value must be a valid date in the format of YYYY-MM-DD."
+msgstr "Der %1$s Wert muss ein gültiges Datum in dem Format YYYY-MM-DD sein."
+
+#: core/lib/validator.php:279
+msgid "The %1$s value must be a valid date."
+msgstr "Der %1$s Wert muss ein gültiges Datum sein."
+
+#: core/lib/validator.php:266
+msgid "The %1$s value is not a valid username."
+msgstr "Der %1$s Wert muss ein gültiger Benutzernamen sein."
+
+#: core/lib/validator.php:71
+msgid "A validation function for %1$s received data that did not have the required entry for %2$s."
+msgstr "Eine Validierungsfunktion für %1$s empfing Daten, die nicht den erforderlichen Eintrag für %2$s hatte."
+
+#: core/lib/validator.php:78
+msgid "A validation function for %1$s received data that has an entry for %2$s when no such entry exists."
+msgstr "Eine Validierungsfunktion für %1$s empfing Daten, die einen Eintrag für %2$s hatte, wobei kein entsprechender Eintrag vorhanden ist."
+
+#: core/lib/settings.php:282
+msgid "The data validator for %1$s is missing. Data for the module cannot be saved without the validator. This error could indicate a bad install of iThemes Security. Please remove the plugin and reinstall it. If this message persists, please contact support and send them this error message."
+msgstr "Der Daten-Validator für %1$s fehlt. Daten für die Module können ohne Validator nicht gespeichert werden. Dieser Fehler könnte auf eine fehlerhafte Installation von iThemes Security hindeuten. Bitte entferne das Plugin und installiere es erneut. Wenn diese Meldung weiterhin besteht, kontaktiere bitte den Support und sende ihm diese Fehlermeldung."
+
+#: core/lib/validator.php:286 core/lib/validator.php:310
+msgid "The %1$s value must be a string."
+msgstr "Der %1$s Wert muss eine gültige Zeichenfolge sein."
+
+#: core/lib/validator.php:100
+msgid "A validation function for %1$s received data that does not match the expected data type for the %2$s entry. A data type of %3$s was expected, but a data type of %4$s was received."
+msgstr "Eine Validierungsfunktion für %1$s empfing Daten, die nicht mit dem erwarteten Datentyp für den Eintrag %2$s übereinstimmt. Ein Datentyp von %3$s wurde erwartet, aber ein Datentyp %4$s wurde empfangen."
+
+#: core/lib/validator.php:180
+msgid "A validation check for %1$s failed. The %2$s value is missing. This could be due to a problem with the iThemes Security installation or an invalid modification. Please reinstall iThemes Security and try again."
+msgstr "Eine Validierungsprüfung für %1$s ist fehlgeschlagen. Der Wert %2$s fehlt. Dies könnte ein Problem mit der Installation von iThemes Security oder eine ungültige Änderung sein. Bitte installiere iThemes Security neu und versuche es erneut."
+
+#: core/lib/validator.php:325
+msgid "The file path supplied in %1$s could not be created. Please supply a file path that can be written to."
+msgstr "Der in %1$s übermittelte Dateipfad kann nicht erstellt werden. Bitte gib einen Dateipfad ein, der beschrieben werden kann."
+
+#: core/lib/validator.php:315
+msgid "The file path supplied in %1$s cannot be used as it already exists but is not a file. Please supply a valid file path."
+msgstr "Der in %1$s übermittelte Dateipfad kann nicht verwendet werden, da er bereits existiert und keine Datei ist. Bitte gib einen gültigen Dateipfad an."
+
+#: core/lib/class-itsec-lib-directory.php:300
+msgid "The directory %s could not be protected from file listing as the directory does not exist."
+msgstr "Für das Verzeichnis %s konnte kein Schutz gegen Inhaltsauflistung eingerichtet werden, da es nicht existiert."
+
+#: core/lib/class-itsec-lib-directory.php:278
+msgid "This is a test file generated by iThemes Security. It can be removed."
+msgstr "Dies ist eine von iThemes Security erzeugte Testdatei. Sie kann entfernt werden."
+
+#: core/lib/class-itsec-lib-config-file.php:454
+msgid "The \"Write to Files\" setting is disabled. Manual configuration for the <code>%s</code> file can be found on the Security > Settings page in the Advanced section."
+msgstr "Die Einstellung „Schreibzugriff auf Dateien“ ist deaktiviert. Die manuelle Konfiguration der <code>%s</code>-Datei findest du unter Sicherheit > Einstellungen im Erweiterten Abschnitt."
+
+#. translators: 1: error message, 2: error code
+#: core/response.php:393
+msgid "%1$s <span class=\"itsec-error-code\">(%2$s)</span>"
+msgstr "%1$s <span class=\"itsec-error-code\">(%2$s)</span>"
+
+#: core/sync-verbs/itsec-set-temp-whitelist.php:19
+msgid "The ip argument is missing."
+msgstr "Das IP-Argument fehlt."
+
+#: core/modules/two-factor/includes/template.php:142
+#: core/modules/two-factor/includes/template.php:170
+#: core/modules/two-factor/includes/template.php:207
+#: core/modules/two-factor/includes/template.php:246
+#: core/admin-pages/entries/settings/components/primary-form/index.js:27
+#: core/admin-pages/entries/settings/components/primary-schema-form/index.js:98
+#: core/modules/dashboard/entries/dashboard/cards/banned-users-list/index.js:88
+#: dist/dashboard/dashboard.js:1 dist/pages/settings.js:1
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: core/sync-verbs/itsec-set-temp-whitelist.php:26
+msgid "An empty ip argument was submitted."
+msgstr "Ein leeres IP-Argument wurde eingereicht."
+
+#: core/admin-pages/page-debug.php:130
+msgid "The server did not receive a valid request. An unknown \"method\" argument was supplied. Please try again."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Ein unbekanntes „method“-Argument wurde übermittelt. Bitte versuche es erneut."
+
+#: core/admin-pages/page-debug.php:80
+msgid "The server did not receive a valid request. The required \"data\" argument for the module is missing. Please try again."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Das erforderliche „data“-Argument für das Modul fehlt. Bitte versuche es erneut."
+
+#: core/admin-pages/page-debug.php:65
+msgid "The server did not receive a valid request. The required \"module\" argument is missing. Please try again."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Das erforderliche „module“-Argument fehlt. Bitte versuche es erneut."
+
+#: core/admin-pages/page-debug.php:63
+msgid "The server did not receive a valid request. The required \"method\" argument is missing. Please try again."
+msgstr "Der Server hat keine gültige Anfrage erhalten. Das erforderliche „method“-Argument fehlt. Bitte versuche es erneut."
+
+#: core/modules.php:327
+msgid "Unable to find a valid settings object for %s. Settings were unable to be saved."
+msgstr "Es konnte kein gültiges Einstellungsobjekt für %s gefunden werden. Die Einstellungen konnten nicht gespeichert werden."
+
+#: core/modules.php:592 core/modules.php:648
+msgid "The %s module is a Core module and cannot be activated or deactivated."
+msgstr "Das %s Modul ist ein Kernmodul und kann nicht aktiviert oder deaktiviert werden."
+
+#: core/modules.php:352
+msgid "Unable to find a valid settings object for %s. Setting was unable to be saved."
+msgstr "Es ist nicht möglich eine gültige Einstellung für %s zu finden. Die Einstellung konnte nicht gespeichert werden."
+
+#: core/admin-pages/page-debug.php:61 core/admin-pages/page-logs.php:195
+msgid "A permissions security check failed, preventing the request from completing as expected. The currently logged in user does not have sufficient permissions to make this request. Please try reloading the page and trying again."
+msgstr "Eine Überprüfung der Berechtigungssicherheit ist fehlgeschlagen und verhindert, dass die Anfrage wie erwartet abgeschlossen wird. Der aktuell angemeldete Benutzer verfügt nicht über ausreichende Berechtigungen, um diese Anfrage zu stellen. Bitte versuche die Seite neu zu laden und es erneut auszuführen."
+
+#: core/response.php:415
+msgid "Unknown error type received: %1$s."
+msgstr "Unbekannten Fehlertyp erhalten: %1$s."
+
+#: core/sync-verbs/itsec-set-temp-whitelist.php:38
+msgid "The direction argument must be either \"add\", \"clear\", or \"remove\"."
+msgstr "Das Weisungsargument muss entweder „add“, „clear“ oder „remove“ sein."
+
+#: core/modules.php:94
+msgid "An attempt to register the %1$s module failed since the supplied path (%2$s) is invalid. This could indicate an invalid modification or incomplete installation of the iThemes Security plugin. Please reinstall the plugin and try again."
+msgstr "Ein Versuch das Modul %1$s zu registrieren ist fehlgeschlagen, da der übermittelte Pfad (%2$s) ungültig ist. Dies könnte auf eine ungültige Änderung oder eine unvollständige Installation von iThemes Security hinweisen. Bitte installiere das Plugin neu und versuche es noch einmal."
+
+#: core/admin-pages/page-debug.php:171 core/admin-pages/page-logs.php:435
+msgid "Manage Settings"
+msgstr "Einstellungen verwalten"
+
+#: core/modules/global/notices.php:121
+#: core/modules/two-factor/class-itsec-two-factor.php:171
+#: core/modules/two-factor/includes/template.php:65
+msgid "Enable"
+msgstr "Aktivieren"
+
+#: core/modules/two-factor/includes/template.php:59
+msgid "Disable"
+msgstr "Deaktivieren"
+
+#: core/admin-pages/page-logs.php:137
+msgid "The settings saved successfully."
+msgstr "Die Einstellungen wurden erfolgreich gespeichert."
+
+#: core/modules/core/notices.php:155
+msgid "Learn More"
+msgstr "Mehr erfahren"
+
+#: core/admin-pages/page-logs.php:146
+msgid "The settings could not be saved. Due to an unknown error. Please try refreshing the page and trying again."
+msgstr "Die Einstellungen konnten aufgrund eines unbekannten Fehlers nicht gespeichert werden. Bitte aktualisiere diese Seite und versuche es erneut."
+
+#: core/admin-pages/page-debug.php:173 core/admin-pages/page-logs.php:436
+#: core/lib/class-itsec-mail.php:114
+msgid "Support"
+msgstr "Support"
+
+#: core/admin-pages/page-logs.php:144
+msgid "The settings could not be saved. Please correct the error above and try again."
+msgid_plural "The settings could not be saved. Please correct the errors above and try again."
+msgstr[0] "Die Einstellung konnte nicht gespeichert werden. Bitte korrigiere den obigen Fehler und versuche es erneut."
+msgstr[1] "Die Einstellungen konnten nicht gespeichert werden. Bitte korrigiere die obigen Fehler und versuche es erneut."
+
+#: core/admin-pages/page-logs.php:68 core/lib.php:1308
+msgid "An unknown error prevented the request from completing as expected. This could be due to a plugin/theme conflict or a server configuration issue."
+msgstr "Ein unbekannter Fehler verhinderte, dass die Anfrage wie erwartet fertiggestellt werden konnte. Dies könnte aufgrund eines Plugin-/Theme-Konflikts oder ein Serverkonfigurationsproblem sein."
+
+#: core/admin-pages/page-logs.php:70 core/lib.php:1309
+msgid "A timeout error prevented the request from completing as expected. The site took too long to respond. This could be due to a plugin/theme conflict or a server configuration issue."
+msgstr "Ein Zeitüberschreitungsfehler verhinderte, dass die Anfrage wie erwartet fertiggestellt wurde. Die Website braucht zu lange, um zu antworten. Dies könnte aufgrund eines Plugin-/Theme-Konflikts oder eines Serverkonfigurationsproblems sein."
+
+#: core/admin-pages/page-logs.php:72 core/lib.php:1310
+msgid "A parser error prevented the request from completing as expected. The site sent a response that jQuery could not process. This could be due to a plugin/theme conflict or a server configuration issue."
+msgstr "Ein Parser-Fehler verhinderte, dass die Anfrage wie erwartet abgeschlossen wurde. Die Website hat eine Antwort gesendet, die jQuery nicht verarbeiten konnte. Dies könnte auf ein Plugin-/Theme-Konflikt oder auf ein Serverkonfigurationsproblem zurückzuführen sein."
+
+#: core/admin-pages/page-debug.php:59 core/admin-pages/page-logs.php:193
+msgid "A nonce security check failed, preventing the request from completing as expected. Please try reloading the page and trying again."
+msgstr "Eine einmalige Sicherheitsüberprüfung ist fehlgeschlagen, das verhindert, dass die Anfrage wie erwartet abgeschlossen wird. Bitte versuche die Seite neu zu laden und es erneut auszuführen."
+
+#: core/admin-pages/page-logs.php:66 core/lib.php:1307
+msgid "A \"internal server\" error prevented the request from completing as expected. The server returned a 500 status code, indicating that the server was unable to complete the request due to a fatal PHP error or a server problem. This could be due to a plugin/theme conflict, a server configuration issue, a temporary hosting issue, or invalid custom PHP modifications. Please check your server's error logs for details about the source of the error and contact your hosting company for assistance if required."
+msgstr "Ein „interner Server“-Fehler verhinderte, dass die Anfrage wie erwartet abgeschlossen wurde. Der Server gab einen Statuscode 500 zurück, der darauf hinweist, dass der Server die Anfrage aufgrund eines schwerwiegenden PHP-Fehlers oder eines Serverproblems nicht abschließen konnte. Dies könnte auf ein Plugin-/Theme-Konflikt, ein Serverkonfigurationsproblem, ein temporäres Hosting-Problem oder eine ungültige, individuelle PHP-Modifikation zurückzuführen sein. Bitte überprüfe die Fehlerprotokolle deines Servers für Details über die Ursache des Fehlers und wende dich bei Bedarf an deinen Hosting-Anbieter."
+
+#: core/admin-pages/page-logs.php:64 core/lib.php:1306
+msgid "A \"not found\" error prevented the request from completing as expected. The server returned a 404 status code, indicating that the server was unable to find the requested admin-ajax.php file. This could be due to a plugin/theme conflict, a server configuration issue, or an incomplete WordPress installation. Please try refreshing the page and trying again. If the request continues to fail, you may have to alter plugin settings, alter server configurations, or reinstall WordPress."
+msgstr "Ein „nicht gefunden“-Fehler verhinderte, dass die Anfrage wie erwartet abgeschlossen wurde. Der Server gab den Statuscode 404 zurück, der darauf hinweist, dass der Server die angeforderte admin-ajax.php Datei nicht finden konnte. Dies könnte auf ein Plugin-/Theme-Konflikt, ein Serverkonfigurationsproblem oder auf eine unvollständige WordPress-Installation zurückzuführen sein. Versuche bitte diese Seite zu aktualisieren und es erneut zu versuchen. Wenn die Anfrage weiterhin fehlschlägt, musst du möglicherweise die Plugin-Einstellungen ändern, die Serverkonfigurationen ändern oder WordPress neu installieren."
+
+#: core/admin-pages/page-logs.php:62 core/lib.php:1305
+msgid "A \"request forbidden\" error prevented the request from completing as expected. The server returned a 403 status code, indicating that the server configuration is prohibiting this request. This could be due to a plugin/theme conflict or a server configuration issue. Please try refreshing the page and trying again. If the request continues to fail, you may have to alter plugin settings or server configuration that could account for this AJAX request being blocked."
+msgstr "Ein „Anfrage unzulässig“-Fehler verhinderte, dass die Anfrage wie erwartet abgeschlossen wurde. Der Server gab einen 403er-Statuscode zurück, der darauf hinweist, dass die Serverkonfiguration diese Anfrage verbietet. Dies könnte auf ein Plugin-/Theme-Konflikt oder ein Serverkonfigurationsproblem zurückzuführen sein. Bitte versuche die Seite zu aktualisieren und versuche es erneut. Wenn die Anfrage weiterhin fehlschlägt, musst du möglicherweise die Plugin-Einstellungen oder die Serverkonfigurationen ändern, die für die Blockierung dieser AJAX-Anfrage verantwortlich sein könnten."
+
+#: core/admin-pages/init.php:37
+msgid "iThemes Security Settings"
+msgstr "iThemes Security-Einstellungen"
+
+#: core/admin-pages/init.php:42
+msgid "iThemes Security Logs"
+msgstr "iThemes Security-Protokolle"
+
+#: core/admin-pages/page-logs.php:60 core/lib.php:1304
+msgid "An \"invalid format\" error prevented the request from completing as expected. The format of data returned could not be recognized. This could be due to a plugin/theme conflict or a server configuration issue."
+msgstr "Ein „ungültiges Format“-Fehler verhinderte, dass die Anfrage wie erwartet fertiggestellt wurde. Das Format der zurückgegebenen Daten konnte nicht erkannt werden. Dies könnte auf ein Plugin-/Theme-Konflikt oder auf ein Serverkonfigurationsproblem zurückzuführen sein."
+
+#: core/modules/hide-backend/class-itsec-hide-backend.php:232
+msgid "This has been disabled."
+msgstr "Dies wurde deaktiviert."
+
+#: module-strings.php:230
+msgid "Redirection Slug"
+msgstr "Umleitungstitelform"
+
+#: module-strings.php:228
+msgid "Enable Redirection"
+msgstr "Weiterleitung aktivieren"
+
+#: module-strings.php:231
+msgid "The slug to redirect users to when they attempt to access wp-admin while not logged in."
+msgstr "Die Titelform, auf die unangemeldete Benutzer umgeleitet werden, wenn sie versuchen auf wp-admin zuzugreifen."
+
+#: module-strings.php:229
+msgid "Redirect users to a custom location on your site, instead of throwing a 403 (forbidden) error."
+msgstr "Leite Benutzer zu einem individuellen Ort auf deiner Website um, statt einen 403er-Fehler (Unzulässig) auszugeben."
+
+#. Description of the plugin
+msgid "Take the guesswork out of WordPress security. iThemes Security offers 30+ ways to lock down WordPress in an easy-to-use WordPress security plugin."
+msgstr "Kein Rätselraten mehr über deine WordPress-Sicherheit! iThemes Security bietet über 30 Einstellungen in einem einfach zu bedienenden WordPress-Sicherheits-Plugin."
+
+#: core/admin-pages/page-logs.php:235
+#: core/modules/dashboard/cards/class-itsec-dashboard-card-active-lockouts.php:206
+#: core/modules/dashboard/cards/class-itsec-dashboard-card-active-lockouts.php:288
+#: core/modules/file-change/lib/package-unknown.php:40
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: core/show-multiple-version-notice.php:5
+msgid "Multiple versions of iThemes Security are active. Please disable all extra versions of iThemes Security."
+msgstr "Es sind mehrere Versionen von iThemes Security aktiv. Bitte deaktiviere alle zusätzlichen Versionen von iThemes Security."
+
+#: core/modules/site-scanner/template.php:112
+#: core/packages/components/src/site-scan-results/wp-error-details.js:41
+#: dist/144.js:1
+msgid "If you contact support about this error, please provide the following debug details:"
+msgstr "Wenn du dich mit diesem Fehler an den Support wendest, stelle bitte die folgenden Fehlersuchdetails zur Verfügung:"
+
+#. Author of the plugin
+msgid "iThemes"
+msgstr "iThemes"
+
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:434
+msgid "XML-RPC services are disabled on this site."
+msgstr "Die XML-RPC-Dienste sind auf dieser Website deaktiviert."
+
+#: module-strings.php:376
+msgid "Disable Pingbacks"
+msgstr "Pingbacks deaktivieren"
+
+#: module-strings.php:321
+msgid "Protect System Files"
+msgstr "Systemdateien schützen"
+
+#: core/modules/two-factor/application-passwords-util.php:174
+#: core/modules/two-factor/Application_Passwords_Core.php:75
+#: core/modules/two-factor/Application_Passwords_Core.php:108
+#: core/modules/two-factor/Application_Passwords_Core.php:147
+#: module-strings.php:372
+msgid "XML-RPC"
+msgstr "XML-RPC"
+
+#. Plugin URI of the plugin
+msgid "https://ithemes.com/security"
+msgstr "https://ithemes.com/security"
+
+#. Author URI of the plugin
+msgid "https://ithemes.com"
+msgstr "https://ithemes.com"
+
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:495
+msgid "A Nickname is required. Please choose a nickname or fill out your first and last name."
+msgstr "Ein Spitzname ist erforderlich. Bitte wähle einen Spitznamen oder fülle es mit deinem Vor- und Nachnamen aus."
+
+#: module-strings.php:324
+msgid "Prevents users from seeing a list of files in a directory when no index file is present."
+msgstr "Verhindert, dass Benutzer eine Liste von Dateien im Verzeichnis zu sehen bekommen, wenn keine Index-Datei vorhanden ist. "
+
+#: core/modules/file-change/lib/package-system.php:40
+msgid "System Files"
+msgstr "Systemdateien"
+
+#: module-strings.php:280
+msgid "Change WordPress Salts"
+msgstr "WordPress-Salts ändern"
+
+#: core/modules/security-check/scanner.php:25
+#: core/modules/security-check/scanner.php:90
+#: core/modules/wordpress-tweaks/labels.php:4 module-strings.php:367
+msgid "WordPress Tweaks"
+msgstr "WordPress-Optimierungen"
+
+#: core/modules/salts/labels.php:4 module-strings.php:279
+msgid "WordPress Salts"
+msgstr "WordPress-Salt-Werte (Sicherheitsschlüssel)"
+
+#: module-strings.php:323
+msgid "Disable Directory Browsing"
+msgstr "Verzeichnisse durchsuchen deaktivieren"
+
+#: core/modules/wordpress-tweaks/config-generators.php:23
+#: core/modules/wordpress-tweaks/config-generators.php:52
+msgid "Disable XML-RPC - Security > Settings > WordPress Tweaks > XML-RPC"
+msgstr "XML-RPC deaktivieren - Sicherheit > Einstellungen > WordPress-Optimierungen > XML-RPC"
+
+#: module-strings.php:396
+msgid "Force Unique Nickname"
+msgstr "Einzigartige Spitznamen erzwingen"
+
+#: module-strings.php:398
+msgid "Disable Extra User Archives"
+msgstr "Extra Benutzerarchive deaktivieren"
+
+#: module-strings.php:302
+msgid "SSL for Dashboard"
+msgstr "SSL für das Dashboard"
+
+#: core/modules/site-scanner/template.php:166
+#: core/modules/site-scanner/js/scanner.js:20
+#: core/packages/components/src/site-scan-results/wrapped-section.js:81
+#: dist/144.js:1
+msgid "Show Details"
+msgstr "Details anzeigen"
+
+#: module-strings.php:303
+msgid "Forces all dashboard access to be served only over an SSL connection."
+msgstr "Erzwingt, dass alle Zugriffe auf das Dashboard über eine SSL-Verbindung erfolgen."
+
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:477
+msgid "Your Nickname must be different than your login name. Please choose a different Nickname."
+msgstr "Dein Spitzname muss sich von deinem Anmeldenamen unterscheiden. Bitte wähle einen anderen Spitznamen."
+
+#: module-strings.php:370
+msgid "Disable File Editor"
+msgstr "Datei-Editor deaktivieren"
+
+#: core/modules/wordpress-tweaks/config-generators.php:8
+msgid "Disable File Editor - Security > Settings > WordPress Tweaks > File Editor"
+msgstr "Datei-Editor deaktivieren - Sicherheit > Einstellungen > WordPress-Optimierungen > Datei-Editor"
+
+#: module-strings.php:325
+msgid "Disable PHP in Uploads"
+msgstr "PHP unter Uploads deaktivieren"
+
+#: module-strings.php:300
+msgid "Front End SSL Mode"
+msgstr "Frontend-SSL-Modus"
+
+#: module-strings.php:301
+msgid "Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on \"Per Content\" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you to turn on SSL for selected pages or posts. Selecting \"Whole Site\" will force the whole site to use SSL."
+msgstr "Aktiviert die sichere SSL-Verbindung für das Frontend (der öffentliche Teil deiner Website). Wenn du diese Option deaktivierst, wird die Frontend-SSL-Steuerung deaktiviert. Für den Fall, dass du die Option „Je Inhalt“ aktivierst, wird für alle Beiträge und Seiten auf der Bearbeitungsseite (in der Nähe der Veröffentlichungseinstellungen) ein Kontrollkästchen aktiviert, mit dem du SSL für ausgewählte Seiten oder Beiträge aktivieren kannst. Wenn du „gesamte Website“ auswählst erzwingst du, dass SSL für die gesamte Website verwendet wird."
+
+#: core/modules/system-tweaks/config-generators.php:82
+#: core/modules/system-tweaks/config-generators.php:167
+msgid "Disable PHP in Uploads - Security > Settings > System Tweaks > PHP in Uploads"
+msgstr "PHP unter Uploads deaktivieren - Sicherheit > Einstellungen > Systemoptimierungen > PHP unter Uploads"
+
+#: core/modules/system-tweaks/config-generators.php:49
+msgid "Disable Directory Browsing - Security > Settings > System Tweaks > Directory Browsing"
+msgstr "Verzeichnisse durchsuchen deaktivieren - Sicherheit > Einstellungen > Systemoptimierungen > Verzeichnisse durchsuchen"
+
+#: core/modules/system-tweaks/config-generators.php:23
+#: core/modules/system-tweaks/config-generators.php:57
+#: core/modules/system-tweaks/config-generators.php:138
+msgid "Protect System Files - Security > Settings > System Tweaks > System Files"
+msgstr "Systemdateien schützen - Sicherheit > Einstellungen > Systemoptimierungen > Systemdateien"
+
+#: core/modules/system-tweaks/labels.php:4 module-strings.php:318
+msgid "System Tweaks"
+msgstr "Systemoptimierungen"
+
+#: module-strings.php:322
+msgid "Prevent public access to readme.html, readme.txt, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed."
+msgstr "Öffentlichen Zugriff auf readme.html, readme.txt, wp-config.php, install.php, wp-includes und .htaccess verhindern. Diese Dateien können wichtige Informationen deiner Website verraten und dienen keinem Zweck für die Öffentlichkeit, sobald WordPress erfolgreich installiert wurde."
+
+#: core/modules/security-check/scanner.php:22
+#: core/modules/strong-passwords/labels.php:4 module-strings.php:307
+#: module-strings.php:309
+msgid "Strong Passwords"
+msgstr "Starke Passwörter"
+
+#: module-strings.php:308 module-strings.php:310
+msgid "Force users to use strong passwords as rated by the WordPress password meter."
+msgstr "Benutzer, entsprechend der Einstufung der WordPress-Passwortbewertung, zwingen starke Passwörter zu verwenden."
+
+#: core/lib/log.php:243 core/modules/notification-center/logs.php:76
+#: core/modules/site-scanner/template.php:145
+#: core/packages/components/src/site-scan-results/wrapped-section.js:39
+#: dist/144.js:1
+msgid "Error"
+msgstr "Fehler"
+
+#: core/modules/file-change/scanner.php:1099
+msgid "File"
+msgstr "Datei"
+
+#: core/modules/backup/class-itsec-backup.php:289
+#: core/modules/backup/entries/dashboard/index.js:81 dist/backup/dashboard.js:1
+msgid "Date"
+msgstr "Datum"
+
+#: core/modules/file-change/logs.php:93
+msgid "Added"
+msgstr "Hinzugefügt"
+
+#: core/lib/log.php:244
+#: core/modules/file-permissions/entries/settings/app.js:60
+#: dist/file-permissions/settings.js:1
+msgid "Warning"
+msgstr "Warnung"
+
+#: core/lib/class-itsec-lib-login.php:56
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:183
+msgid "Username"
+msgstr "Benutzername"
+
+#: core/lib/log.php:241
+msgid "Action"
+msgstr "Aktion"
+
+#: core/modules/site-scanner/logs.php:61
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: core/modules/site-scanner/Model/Factory.php:175
+#: core/modules/site-scanner/Model/Factory.php:184
+msgid "Malware"
+msgstr "Malware"
+
+#. translators: 1. Error message.
+#: core/modules/site-scanner/mail.php:105
+#: core/modules/site-scanner/template.php:108
+#: core/packages/components/src/site-scan-results/wp-error-details.js:26
+#: dist/144.js:1
+msgid "Error Message: %s"
+msgstr "Fehlermeldung: %s"
+
+#: core/modules/file-change/admin.php:15
+msgid "An unknown error occured. Please try again later"
+msgstr "Ein unbekannter Fehler ist aufgetreten. Bitte versuche es später noch einmal."
+
+#: core/modules/content-directory/labels.php:4 module-strings.php:77
+msgid "Change Content Directory"
+msgstr "Content-Verzeichnis ändern"
+
+#: core/modules/file-change/admin.php:13
+msgid "No changes were detected."
+msgstr "Es wurden keine Änderungen festgestellt."
+
+#: core/modules/file-change/scanner.php:1099
+msgid "Modified"
+msgstr "Geändert"
+
+#: core/modules/security-check/scanner.php:16
+#: core/modules/security-check/scanner.php:75
+msgid "Local Brute Force Protection"
+msgstr "Lokaler Brute-Force-Schutz"
+
+#: core/lib/class-itsec-lib-login.php:53
+#: core/modules/wordpress-tweaks/class-itsec-wordpress-tweaks.php:181
+#: module-strings.php:251
+msgid "Email Address"
+msgstr "E-Mail-Adresse"
+
+#: core/modules/site-scanner/template.php:139
+#: core/modules/site-scanner/util.php:64
+#: core/packages/components/src/site-scan-results/wrapped-section.js:33
+#: dist/144.js:1
+msgid "Clean"
+msgstr "Sauber"
+
+#: core/modules/file-change/scanner.php:1097
+msgid "Scan Details"
+msgstr "Prüfungsdetails"
+
+#: core/modules/file-change/scanner.php:1099
+msgid "File Hash"
+msgstr "Datei-Hash"
+
+#: core/modules/file-change/admin.php:11
+msgid "Scan Files Now"
+msgstr "Dateien jetzt prüfen"
+
+#: core/lib/class-itsec-mail.php:82
+msgid "Get iThemes Security Pro"
+msgstr "iThemes Security Pro besorgen"
+
+#: core/modules/hide-backend/labels.php:4 module-strings.php:220
+#: module-strings.php:223
+msgid "Hide Backend"
+msgstr "Backend verstecken"
+
+#: module-strings.php:224
+msgid "Enable the hide backend feature."
+msgstr "Die Funktion Backend verstecken aktivieren."
+
+#: module-strings.php:127
+msgid "Ignore File Types"
+msgstr "Dateitypen ignorieren"
+
+#: core/modules/site-scanner/template.php:95
+#: core/modules/site-scanner/template.php:123
+#: core/packages/components/src/site-scan-results/system-error-details.js:18
+#: core/packages/components/src/site-scan-results/wp-error-details.js:18
+#: dist/144.js:1
+msgid "The scan failed to properly scan the site."
+msgstr "Die Prüfung konnte die Website nicht ordnungsgemäß durchsuchen."
+
+#: module-strings.php:69
+msgid "Max Login Attempts Per User"
+msgstr "Max. Anmeldeversuche pro Benutzer"
+
+#: module-strings.php:67
+msgid "Max Login Attempts Per Host"
+msgstr "Max. Anmeldeversuche pro Host"
+
+#: module-strings.php:71
+msgid "Minutes to Remember Bad Login (check period)"
+msgstr "Speicherdauer von Anmeldefehlversuchen in Minuten (Prüfzeitraum)"
+
+#: core/modules/content-directory/utility.php:31
+msgid "A file or directory already exists at <code>%s</code>. No Directory Name changes have been made. Please choose a new Directory Name or remove the existing file or directory and try again."
+msgstr "Eine Datei oder ein Verzeichnis existiert bereits unter <code>%s</code>. Es wurden keine Änderungen am Verzeichnisnamen vorgenommen. Bitte wähle einen neuen Verzeichnisnamen oder entferne die vorhandene Datei oder das Verzeichnis und versuche es erneut."
+
+#: module-strings.php:68
+msgid "The number of login attempts a user has before their host or computer is locked out of the system. Set to 0 to record bad login attempts without locking out the host."
+msgstr "Die Anzahl der fehlgeschlagenen Anmeldeversuche, die ein Benutzer hat bevor dieser Host oder Computer von dem System ausgesperrt wird. Mit dem Wert 0 werden Anmeldefehlversuche aufgezeichnet, aber es erfolgt keine Aussperrung."
+
+#. translators: 1: Old directory path, 2: New directory path
+#: core/modules/content-directory/utility.php:43
+msgid "Unable to rename the <code>%1$s</code> directory to <code>%2$s</code>. This could indicate a file permission issue or that your server does not support the supplied name as a valid directory name. No config file or directory changes have been made."
+msgstr "Das Verzeichnis <code>%1$s</code> konnte nicht in <code>%2$s</code> umbenannt werden. Dies könnte auf ein Problem mit den Dateiberichtigungen hinweisen oder dein Server unterstützt den angegebenen Namen nicht als gültigen Verzeichnisnamen. Es wurden keine Konfigurationsdatei- oder Verzeichnisänderungen vorgenommen."
+
+#. translators: 1: Directory path, 2: Directory permissions
+#: core/modules/content-directory/utility.php:60
+msgid "Unable to set the permissions of the new Directory Name (<code>%1$s</code>) to match the permissions of the old Directory Name. You may have to manually change the permissions of the directory to <code>%2$s</code> in order for your site to function properly."
+msgstr "Die Berechtigungen des neuen Verzeichnisnamens (<code>%1$s</code>) konnten nicht so festgelegt werden, dass sie mit den Berechtigungen des alten Verzeichnisses übereinstimmen. Möglicherweise musst du die Berechtigungen des Verzeichnisses manuell auf <code>%2$s</code> ändern, damit deine Website ordnungsgemäß funktioniert."
+
+#: module-strings.php:70
+msgid "The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself. Set to 0 to log bad login attempts per user without ever locking the user out (this is not recommended)."
+msgstr "Die Anzahl der fehlgeschlagenen Anmeldeversuche, die ein Benutzer hat, bevor sein Benutzername von dem System ausgesperrt wird. Beachte, dass dies nach Hosts unterscheidet, falls ein Angreifer mehrere Computer verwendet. Darüber hinaus kannst du selbst ausgesperrt werden, wenn sie deinen Anmeldenamen verwenden. Mit dem Wert 0 werden Anmeldefehlversuche aufgezeichnet, aber es erfolgt keine Aussperrung (dies wird nicht empfohlen)."
+
+#: core/modules/brute-force/class-itsec-brute-force.php:99
+msgid "too many bad login attempts"
+msgstr "zu viele fehlgeschlagene Anmeldeversuche"
+
+#: core/modules/backup/cards/class-itsec-dashboard-card-database-backup.php:104
+#: core/modules/site-scanner/cards/class-itsec-dashboard-card-malware-scan.php:83
+msgid "View Logs"
+msgstr "Protokolle anzeigen"
+
+#: core/modules/core/class-itsec-core-admin.php:65
+msgid "Get Support"
+msgstr "Support erhalten"
+
+#: core/modules/security-check/scanner.php:17
+msgid "File Change Detection"
+msgstr "Dateiänderungserkennung"
+
+#: module-strings.php:227
+msgid "Register Slug"
+msgstr "Registriertitelform"
+
+#: core/modules/file-change/logs.php:81
+msgid "Memory Used"
+msgstr "Verwendeter Arbeitsspeicher"
+
+#: core/modules/hide-backend/class-itsec-hide-backend.php:427
+msgid "WordPress Login Address Changed"
+msgstr "Die WordPress-Anmeldeadresse wurde geändert"
+
+#: module-strings.php:232
+msgid "Custom Login Action"
+msgstr "Individuelle Anmeldeaktion"
+
+#: core/modules/content-directory/utility.php:12
+msgid "The new directory name cannot be an absolute path. Please supply a path that is relative to <code>ABSPATH</code> (<code>%s</code>)."
+msgstr "Der neue Verzeichnisname darf kein absoluter Pfad sein. Bitte gib einen Pfad an, der relativ zu <code>ABSPATH</code> (<code>%s</code>) ist."
+
+#: core/modules/brute-force/class-itsec-brute-force.php:108
+msgid "user tried to login as \"admin.\""
+msgstr "Der Benutzer hat versucht sich als „admin“ anzumelden."
+
+#: module-strings.php:72
+msgid "The number of minutes in which bad logins should be remembered."
+msgstr "Die Anzahl an Minuten, in denen Anmeldefehlversuche gespeichert bleiben sollen."
+
+#. translators: 1: Old directory path, 2: New directory path, 3: Specific error
+#. details
+#: core/modules/content-directory/utility.php:96
+msgid "CRITICAL ERROR: The <code>%1$s</code> directory was successfully renamed to the new name (<code>%2$s</code>). However, an error occurred when updating the <code>wp-config.php</code> file to configure WordPress to use the new content directory. iThemes Security attempted to rename the directory back to its original name, but an unknown error prevented the rename from working as expected. In order for your site to function properly, you will either need to manually rename the <code>%2$s</code> directory back to <code>%1$s</code> or manually update the <code>wp-config.php</code> file with the necessary modifications. The error that prevented the file from updating is as follows: %3$s"
+msgstr "KRITISCHER FEHLER: Das Verzeichnis <code>%1$s</code> wurde erfolgreich zum neuen Namen umbenannt (<code>%2$s</code>). Jedoch trat ein Fehler beim Aktualisieren der Datei <code>wp-config.php</code> auf, um WordPress anzuweisen das neue Content-Verzeichnis zu verwenden. iThemes Security versuchte das Verzeichnis wieder in seinen ursprünglichen Namen umzubenennen. Ein unbekannter Fehler verhinderte jedoch, dass die Ausführung der Umbenennung wie erwartet funktioniert. Damit deine Website richtig funktioniert musst du entweder das Verzeichnis <code>%2$s</code> manuell in <code>%1$s</code> umbenennen oder die Datei <code>wp-config.php</code> manuell mit den notwendigen Modifikationen aktualisieren. Der Fehler, der die Aktualisierung der Datei verhindert hat, lautet wie folgt: %3$s"
+
+#: module-strings.php:128
+msgid "File types listed here will not be checked for changes. While it is possible to change files such as images it is quite rare and nearly all known WordPress attacks exploit php, js and other text files."
+msgstr "Die hier aufgeführten Dateitypen werden nicht auf Änderungen überprüft. Obwohl es möglich ist Dateien, wie z.&nbsp;B. Bilder zu ändern, ist dies ziemlich selten und nahezu alle bekannten Angriffe auf WordPress nutzen php-, js- und andere Textdateien aus."
+
+#: core/modules/database-prefix/labels.php:4
+msgid "Change Database Prefix"
+msgstr "Datenbankpräfix ändern"
+
+#: core/modules/ban-users/config-generators.php:104
+#: core/modules/ban-users/config-generators.php:123
+#: core/modules/ban-users/config-generators.php:135
+msgid "Ban Hosts - Security > Settings > Banned Users"
+msgstr "Hosts dauerhaft aussperren - Sicherheit > Einstellungen > Dauerhafte Benutzeraussperrung"
+
+#: core/modules/ban-users/config-generators.php:21
+msgid "Enable HackRepair.com's blocklist feature - Security > Settings > Banned Users > Default Blocklist"
+msgstr "Die Sperrlistenfunktion von HackRepair.com aktivieren - Sicherheit > Einstellungen > Dauerhafte Benutzeraussperrung > Vorgegebene Sperrliste"
+
+#: core/modules/ban-users/Database_Repository.php:392
+#: core/modules/dashboard/cards/class-itsec-dashboard-card-banned-users.php:9
+#: core/modules/security-check/scanner.php:14
+#: core/modules/security-check/scanner.php:51
+msgid "Banned Users"
+msgstr "Dauerhafte Benutzeraussperrung"
+
+#: core/modules/ban-users/config-generators.php:188
+msgid "Ban User Agents - Security > Settings > Banned Users"
+msgstr "User Agents dauerhaft aussperren - Sicherheit > Einstellungen > Dauerhafte Benutzeraussperrung"
+
+#: module-strings.php:56
+msgid "Ban User Agents"
+msgstr "User Agents dauerhaft aussperren"
+
+#: core/modules/ban-users/labels.php:4 module-strings.php:47
+msgid "Ban Users"
+msgstr "Benutzer dauerhaft aussperren"
+
+#: core/modules/file-change/admin.php:12
+#: core/modules/file-change/scanner.php:241
+msgid "Scanning..."
+msgstr "Überprüfung..."
+
+#: core/modules/database-prefix/active.php:108
+msgid "Could not update prefix references in usermeta table."
+msgstr "Die Präfix-Referenzen in der Tabelle „usermeta“ konnten nicht aktualisiert werden."
+
+#: core/modules/database-prefix/active.php:92
+msgid "Could not update prefix references in options table."
+msgstr "Die Präfix-Referenzen in der Tabelle „options“ konnten nicht aktualisiert werden."
+
+#: module-strings.php:225
+msgid "Login Slug"
+msgstr "Anmeldetitelform"
+
+#: core/modules/content-directory/utility.php:118
+msgid "Do not remove. Removing this line could break your site. Added by Security > Settings > Change Content Directory."
+msgstr "Nicht entfernen. Das Entfernen dieser Zeile könnte deine Website zerstören. Hinzugefügt von Sicherheit > Einstellungen > Content-Verzeichnis ändern."
+
+#: core/admin-pages/logs-list-table.php:159 core/admin-pages/page-logs.php:252
+#: core/lib/admin-notices/class-itsec-admin-notice-highlighted-log.php:73
+msgid "Description"
+msgstr "Beschreibung"
+
+#: core/modules/notification-center/class-notification-center.php:1135
+msgid "Daily"
+msgstr "Täglich"
+
+#: core/modules/dashboard/cards/class-itsec-dashboard-card-active-lockouts.php:96
+#: core/modules/dashboard/entries/dashboard/cards/active-lockouts/index.js:271
+#: dist/dashboard/dashboard.js:1
+msgid "Release Lockout"
+msgstr "Aussperrung aufheben"
+
+#: core/lib/log.php:245
+msgid "Notice"
+msgstr "Hinweis"
+
+#: core/admin-pages/page-logs.php:272
+msgid "URL"
+msgstr "URL"
+
+#: core/modules/security-check/scanner.php:127
+msgid "Yes"
+msgstr "Ja"
+
+#: core/modules/security-check/scanner.php:127
+msgid "No"
+msgstr "Nein"
+
+#: core/modules/two-factor/class-itsec-two-factor-on-board.php:245
+#: core/modules/two-factor/class-itsec-two-factor.php:154
+#: core/modules/two-factor/class-itsec-two-factor.php:197
+#: core/modules/notification-center/entries/settings/components/notification/index.js:74
+#: dist/notification-center/settings.js:1
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: core/lib/class-itsec-wp-list-table.php:790
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s von %2$s"
+
+#: core/lib/class-itsec-wp-list-table.php:312
+msgid "No items found."
+msgstr "Keine Einträge gefunden."
+
+#. translators: 1: month name, 2: 4-digit year
+#: core/lib/class-itsec-wp-list-table.php:571
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: core/lib/class-itsec-wp-list-table.php:151
+msgid "List View"
+msgstr "Listenansicht"
+
+#: core/lib/class-itsec-wp-list-table.php:781
+#: core/lib/class-itsec-wp-list-table.php:784
+msgid "Current Page"
+msgstr "Aktuelle Seite"
+
+#: core/lib/class-itsec-lib-directory.php:131
+msgid "The directory %s could not be created as a file with that name already exists."
+msgstr "Das Verzeichnis %s konnte nicht erstellt werden, da eine Datei mit diesem Namen bereits existiert."
+
+#: core/lib/class-itsec-lib-directory.php:146
+msgid "The directory %s could not be created as an existing parent directory could not be found."
+msgstr "Das Verzeichnis %s konnte nicht erstellt werden, da ein vorhandenes übergeordnetes Verzeichnis nicht gefunden werden konnte."
+
+#: core/lib/class-itsec-lib-directory.php:166
+msgid "The directory %s could not be created due to an unknown error. This could be due to a permissions issue."
+msgstr "Das Verzeichnis %s konnte aufgrund eines unbekannten Fehlers nicht erstellt werden. Dies könnte aufgrund eines Berechtigungsproblems sein."
+
+#: core/lib/class-itsec-lib-file.php:29
+msgid "%s could not be read. It does not appear to be a file."
+msgstr "%s konnte nicht gelesen werden. Es scheint keine Datei zu sein."
+
+#: core/admin-pages/page-logs.php:404
+#: core/lib/class-itsec-wp-list-table.php:446
+#: core/modules/dashboard/entries/dashboard/components/card/header/date.js:211
+#: dist/dashboard/dashboard.js:1
+msgid "Apply"
+msgstr "Anwenden"
+
+#: core/admin-pages/logs-list-table.php:163 core/modules/backup/logs.php:23
+msgid "Details"
+msgstr "Details"
+
+#: core/lib/class-itsec-lib-file.php:349
+msgid "Permissions for the file %s could not be read as the file could not be found."
+msgstr "Berechtigungen für die Datei %s konnten nicht gelesen werden, da die Datei nicht gefunden wurde."
+
+#: core/lib/class-itsec-lib-config-file.php:574
+#: core/lib/class-itsec-lib-config-file.php:577
+msgid "Do not modify or remove this line"
+msgstr "Diese Zeile nicht verändern oder entfernen"
+
+#: module-strings.php:32
+msgid "Compress Backup Files"
+msgstr "Backup-Dateien komprimieren"
+
+#: module-strings.php:23
+msgid "Backup Method"
+msgstr "Backup-Methode"
+
+#: module-strings.php:28
+msgid "Backup Location"
+msgstr "Backup-Speicherort"
+
+#: module-strings.php:21
+msgid "Backup Interval"
+msgstr "Backup-Intervall"
+
+#: core/modules/backup/cards/class-itsec-dashboard-card-database-backup.php:16
+#: core/modules/backup/logs.php:10 core/modules/security-check/scanner.php:15
+#: core/modules/security-check/scanner.php:72 module-strings.php:17
+msgid "Database Backups"
+msgstr "Datenbank-Backups"
+
+#: core/lib/class-itsec-lib-directory.php:215
+msgid "Unable to remove %1$s due to the following error: %2$s"
+msgstr "Es ist nicht möglich %1$s zu entfernen aufgrund des folgenden Fehlers: %2$s"
+
+#: core/lib/class-itsec-lib-config-file.php:66
+#: core/lib/class-itsec-lib-config-file.php:182
+msgid "iThemes Security preserved the following settings as removing them could prevent the site from functioning correctly."
+msgstr "iThemes Security hat die nachfolgenden Einstellungen beibehalten. Diese zu löschen könnte die korrekte Funktion der Website beeinträchtigen. "
+
+#: core/lib/class-itsec-wp-list-table.php:1027
+#: core/modules/user-groups/entries/settings/components/multi-group-selector/index.js:98
+#: dist/user-groups/settings.js:1
+msgid "Select All"
+msgstr "Alles auswählen"
+
+#: module-strings.php:22
+msgid "The number of days between database backups."
+msgstr "Die Anzahl der Tage zwischen Datenbank-Backups."
+
+#: module-strings.php:20
+msgid "Schedule Database Backups"
+msgstr "Datenbank-Backups planen"
+
+#: core/modules/security-check/labels.php:4
+msgid "Security Check"
+msgstr "Sicherheitsüberprüfung"
+
+#: core/lib/class-itsec-lib-directory.php:89
+#: core/lib/class-itsec-lib-file.php:101
+msgid "%s could not be read due to an unknown error."
+msgstr "%s konnte aufgrund eines unbekannten Fehlers nicht gelesen werden."
+
+#: core/notify.php:56 core/notify.php:83
+msgid "Daily Security Digest"
+msgstr "Täglicher Sicherheitsbericht"
+
+#: module-strings.php:27
+msgid "Save Locally Only"
+msgstr "Nur lokal speichern"
+
+#: core/lib/class-itsec-lib-config-file.php:258
+#: core/lib/class-itsec-lib-config-file.php:279
+msgid "Updates to <code>wp-config.php</code> are disabled via a filter."
+msgstr "Aktualisierungen der <code>wp-config.php</code> sind per Filter ausgeschaltet. "
+
+#: module-strings.php:24
+msgid "Select what we should do with your backup file. You can have it emailed to you, saved locally or both."
+msgstr "Wähle aus, was mit deiner Backup-Datei geschehen soll. Du kannst sie dir per E-Mail zusenden lassen, lokal speichern oder beides."
+
+#: core/lib/class-itsec-lib-directory.php:193
+#: core/lib/class-itsec-lib-file.php:284
+msgid "Unable to remove %s due to an unknown error."
+msgstr "Aufgrund eines unbekannten Fehlers ist es nicht möglich %s zu entfernen."
+
+#: core/lib/class-itsec-lib-file.php:299
+msgid "The file %1$s could not have its permissions updated as non-integer permissions were sent: (%2$s) %3$s"
+msgstr "Die Berechtigungen der Datei %1$s konnten nicht aktualisiert werden, da nicht-ganzzahlige Berechtigungen gesendet wurden: (%2$s) %3$s"
+
+#: core/lib/class-itsec-lib-directory.php:322
+msgid "Permissions for the directory %s could not be read as the directory could not be found."
+msgstr "Die Berechtigungen für das Verzeichnis %s konnten nicht gelesen werden, da das Verzeichnis nicht gefunden wurde."
+
+#: core/admin-pages/page-logs.php:455
+msgid "To view logs within the plugin you must enable database logging in the Global Settings. File logging is not available for access within the plugin itself."
+msgstr "Um Protokolle im Plugin anzuzeigen, musst du die Datenbankprotokollierung in den globalen Einstellungen aktivieren. Der Zugriff auf die Dateiprotokollierung ist innerhalb des Plugins nicht verfügbar."
+
+#: module-strings.php:11
+msgid "Change User ID 1"
+msgstr "Benutzer-ID 1 ändern"
+
+#: core/lib/class-itsec-lib-file.php:130
+msgid "%s could not be written as a file. The requested path already exists as a directory. The directory must be removed or a new file name must be chosen before the file can be written."
+msgstr "%s konnte nicht als Datei geschrieben werden. Der angeforderte Pfad existiert bereits als Verzeichnis. Das Verzeichnis muss entfernt werden oder ein neuer Dateiname gewählt werden, bevor die Datei geschrieben werden kann."
+
+#: core/lib/class-itsec-lib-config-file.php:302
+msgid "Unable to read %1$s due to the following error: %2$s"
+msgstr "%1$s konnte aufgrund des folgenden Fehlers nicht gelesen werden: %2$s"
+
+#: core/admin-pages/logs-list-table.php:160
+#: core/modules/dashboard/entries/dashboard/cards/banned-users-list/list.js:80
+#: core/modules/site-scanner/entries/dashboard/index.js:56
+#: dist/dashboard/dashboard.js:1 dist/site-scanner/dashboard.js:1
+msgid "Time"
+msgstr "Zeitpunkt"
+
+#: core/lockout.php:1369 core/lockout.php:1441
+msgid "Site Lockout Notification"
+msgstr "Website-Aussperrungsbenachrichtigung"
+
+#: core/lib/class-itsec-lib-file.php:125
+msgid "%s could not be written. Both the fopen/fwrite/flock and file_put_contents functions are disabled on the server. This is a server configuration issue that must be resolved before iThemes Security can write files."
+msgstr "%s konnte nicht geschrieben werden. Sowohl die fopen / fwrite / flock und file_put_contents Funktionen sind auf dem Server deaktiviert. Dies ist ein Serverkonfigurationsproblem, das gelöst werden muss, bevor iThemes Security Dateien schreiben kann."
+
+#: core/lib/class-itsec-lib-utility.php:159
+msgid "Unable to strip comments from the source code as the token_get_all() function returned an unrecognized value (type: %s)"
+msgstr "Es können keine Kommentare aus dem Quelltext entfernt werden, da die Funktion token_get_all() einen unbekannten Wert zurückgegeben hat (Typ: %s)"
+
+#: module-strings.php:25
+msgid "Save Locally and Email"
+msgstr "Lokal speichern und per E-Mail senden"
+
+#: core/lib/class-itsec-lib-file.php:43
+msgid "%s could not be read. Both the fopen/feof/fread/flock and file_get_contents functions are disabled on the server."
+msgstr "%s konnte nicht gelesen werden. Sowohl die fopen / feof / fread / flock und file_get_contents Funktionen sind auf dem Server deaktiviert."
+
+#: module-strings.php:30
+msgid "Backups to Retain"
+msgstr "Anzahl der Backups, die aufbewahrt werden sollen"
+
+#: core/modules/file-change/scanner.php:272
+msgid "Complete!"
+msgstr "Erledigt!"
+
+#: core/lib/class-itsec-lib-file.php:303
+msgid "The file %s could not have its permissions updated as the chmod() function is disabled. This is a system configuration issue."
+msgstr "Die Berechtigungen der Datei %s konnten nicht aktualisiert werden, da die Funktion chmod() deaktiviert ist. Dies ist ein Systemkonfigurationsproblem."
+
+#: core/lib/class-itsec-lib-file.php:264
+msgid "The file %s could not be removed as the unlink() function is disabled. This is a system configuration issue."
+msgstr "Die Datei %s konnte nicht entfernt werden, da die Funktion unlink() deaktiviert ist. Dies ist ein Systemkonfigurationsproblem."
+
+#: core/lib/class-itsec-lib-directory.php:326
+msgid "Permissions for the directory %s could not be read as the fileperms() function is disabled. This is a system configuration issue."
+msgstr "Die Berechtigungen für das Verzeichnis %s konnten nicht gelesen werden, da die Funktion fileperms() deaktiviert ist. Dies ist ein Systemkonfigurationsproblem."
+
+#: core/lib/class-itsec-lib-directory.php:209
+msgid "The directory %s could not be removed as the rmdir() function is disabled. This is a system configuration issue."
+msgstr "Das Verzeichnis %s konnte nicht entfernt werden, da die Funktion rmdir() deaktiviert ist. Dies ist ein Systemkonfigurationsproblem."
+
+#: core/lib/class-itsec-lib-file.php:353
+msgid "Permissions for the file %s could not be read as the fileperms() function is disabled. This is a system configuration issue."
+msgstr "Die Berechtigungen für die Datei %s konnten nicht gelesen werden, da die Funktion fileperms() deaktiviert ist. Dies ist ein Systemkonfigurationsproblem."
+
+#: core/lib/class-itsec-lib-directory.php:135
+msgid "The directory %s could not be created as the mkdir() function is disabled. This is a system configuration issue."
+msgstr "Das Verzeichnis %s konnte nicht erstellt werden, da die Funktion mkdir() deaktiviert ist. Dies ist ein Systemkonfigurationsproblem."
+
+#: core/lockout.php:1425
+msgid "Permanently"
+msgstr "Dauerhaft"
+
+#: core/admin-pages/logs-list-table.php:162 core/admin-pages/page-logs.php:267
+#: core/lib/actor/User_Factory.php:21
+msgid "User"
+msgstr "Benutzer"
+
+#: core/admin-pages/page-debug.php:228
+msgid "Data"
+msgstr "Daten"
+
+#: core/admin-pages/logs-list-table.php:161 core/admin-pages/page-logs.php:262
+#: core/modules/ban-users/Database_Repository.php:203
+#: core/modules/dashboard/entries/dashboard/cards/banned-users-list/list.js:78
+#: core/modules/dashboard/entries/dashboard/cards/banned-users-list/list.js:167
+#: dist/dashboard/dashboard.js:1
+msgid "Host"
+msgstr "Host"
+
+#: core/lib/class-itsec-lib-utility.php:152
+msgid "Unable to strip comments from the source code as the token_get_all() function is disabled. This is a system configuration issue."
+msgstr "Kommentare konnten nicht aus dem Quelltext entfernt werden, da die Funktion token_get_all() deaktiviert ist. Dies ist ein Problem der Systemkonfiguration."
+
+#: module-strings.php:26
+msgid "Email Only"
+msgstr "Nur per E-Mail"
+
+#: core/lib/class-itsec-lib-file.php:235
+msgid "%s could not be written. This could be due to a permissions issue. Ensure that PHP runs as a user that has permission to write to this location."
+msgstr "%s konnte nicht geschrieben werden. Dies könnte auf ein Berechtigungsproblem zurückzuführen sein. Stelle sicher, dass PHP als Benutzer ausgeführt wird, der an diesem Speicherort die Berechtigung zum Schreiben hat."
+
+#: core/lib/class-itsec-wp-list-table.php:152
+msgid "Excerpt View"
+msgstr "Textauszugsansicht"
+
+#: core/lib/class-itsec-lib-directory.php:38
+msgid "%s could not be read. Both the opendir/readdir/closedir and glob functions are disabled on the server."
+msgstr "%s konnte nicht gelesen werden. Sowohl die Funktionen opendir / readdir / closedir als auch glob sind auf dem Server deaktiviert."
+
+#: core/lib/class-itsec-wp-list-table.php:436
+msgid "Bulk Actions"
+msgstr "Mehrfachaktionen"
+
+#: core/modules/admin-user/labels.php:4 module-strings.php:4
+msgid "Admin User"
+msgstr "Administrator"
+
+#. Plugin Name of the plugin
+#: core/admin-pages/page-debug.php:170 core/admin-pages/page-logs.php:434
+msgid "iThemes Security"
+msgstr "iThemes Security"
+
+#: core/admin-pages/init.php:37 core/admin-pages/page-debug.php:186
+#: core/core.php:526
+#: core/admin-pages/entries/settings/pages/secure-site/heading/index.js:67
+#: core/admin-pages/entries/settings/search.js:56
+#: core/modules/dashboard/entries/dashboard/components/toolbar/index.js:48
+#: dist/dashboard/dashboard.js:1 dist/pages/settings.js:1
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: module-strings.php:236
+#: core/admin-pages/entries/settings/components/advanced-navigation/index.js:28
+#: core/admin-pages/entries/settings/utils.js:382 dist/pages/settings.js:1
+msgid "Advanced"
+msgstr "Erweitert"
+
+#: core/lib/class-itsec-mail.php:115
+msgid "Pro"
+msgstr "Pro"
+
+#: core/admin-pages/init.php:31 core/modules/dashboard/labels.php:4
+#: core/admin-pages/entries/settings/components/toolbar/index.js:83
+#: core/admin-pages/entries/settings/pages/secure-site/heading/index.js:62
+#: dist/pages/settings.js:1
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: core/admin-pages/init.php:30 core/admin-pages/init.php:34
+#: core/modules/core/class-itsec-core-admin.php:44
+#: core/modules/core/entries/admin-notices/components/toolbar/index.js:40
+#: core/modules/core/entries/admin-notices/components/toolbar/index.js:57
+#: dist/core/admin-notices.js:2
+msgid "Security"
+msgstr "Sicherheit"
+
+#: module-strings.php:180
+msgid "Database Only"
+msgstr "Nur Datenbank"
+
+#: module-strings.php:182
+msgid "Both"
+msgstr "Beides"
+
+#: module-strings.php:152
+msgid "Global Settings"
+msgstr "Globale Einstellungen"
+
+#: module-strings.php:155
+msgid "Write to Files"
+msgstr "Schreibzugriff auf Dateien"
+
+#: core/modules/dashboard/container.php:19 core/notify.php:148
+#: module-strings.php:201 core/admin-pages/entries/settings/utils.js:370
+#: dist/pages/settings.js:1
+msgid "Lockouts"
+msgstr "Aussperrungen"
+
+#: core/modules/dashboard/cards/class-itsec-dashboard-card-active-lockouts.php:19
+msgid "Active Lockouts"
+msgstr "Aktive Aussperrungen"
+
+#: core/lockout.php:1464
+msgid "Lockout"
+msgstr "Aussperrung"
+
+#: module-strings.php:167
+msgid "Host Lockout Message"
+msgstr "Aussperrungsmeldung für Hosts"
+
+#: module-strings.php:181
+msgid "File Only"
+msgstr "Nur Datei"
+
+#: core/admin-pages/init.php:42
+msgid "Logs"
+msgstr "Protokolle"
+
+#: core/admin-pages/page-logs.php:115
+msgid "Security error!"
+msgstr "Sicherheitsfehler!"
+
+#: module-strings.php:146
+msgid "wp-config.php Rules"
+msgstr "wp-config.php-Regeln"
+
+#: core/modules/global/notices.php:13
+msgid "New! Take your site security to the next level by activating iThemes Brute Force Network Protection."
+msgstr "Neu! Verbessere die Sicherheit deiner Website durch die Aktivierung des iThemes Brute-Force-Netzwerk-Schutzes."
+
+#: module-strings.php:178
+msgid "How should event logs be kept"
+msgstr "Wie sollen Ereignisprotokolle aufbewahrt werden?"
+
+#: module-strings.php:171
+msgid "Community Lockout Message"
+msgstr "Aussperrungsmeldung für die Community"
+
+#: core/modules/global/notices.php:39
+msgid "Get Free API Key"
+msgstr "Einen kostenlosen API-Schlüssel erhalten"
+
+#: module-strings.php:170
+msgid "The message to display to a user when their account has been locked out."
+msgstr "Die Nachricht, die einem Benutzer angezeigt wird, wenn sein Konto gesperrt wurde."
+
+#: module-strings.php:169
+msgid "User Lockout Message"
+msgstr "Benutzer-Aussperrungsmeldung"
+
+#: module-strings.php:187
+msgid "Path to Log Files"
+msgstr "Pfad zu den Protokolldateien"
+
+#: module-strings.php:195
+msgid "Hide Security Menu in Admin Bar"
+msgstr "Sicherheitsmenü in der Adminleiste verbergen"
+
+#: core/files.php:73
+msgid "You must restart your NGINX server for the changes to take effect."
+msgstr "Du musst deinen NGINX-Server neu starten, damit die Regeln in Kraft treten können."
+
+#: module-strings.php:158 module-strings.php:188
+msgid "This path must be writable by your website. For added security, it is recommended you do not include it in your website root folder."
+msgstr "Dieser Pfad muss für deine Website beschreibbar sein. Aus Sicherheitsgründen sollte der Pfad außerhalb des Stammverzeichnisses deiner Website liegen."
+
+#: core/lockout.php:841
+msgid "Your IP address has been flagged as a threat by the iThemes Security network."
+msgstr "Deine IP-Adresse wurde durch das Netzwerk von iThemes Security als Bedrohung markiert."
+
+#: module-strings.php:172
+msgid "The message to display to a user when their IP has been flagged as bad by the iThemes network."
+msgstr "Die Nachricht, die einem Benutzer angezeigt wird, wenn dessen IP-Adresse vom iThemes-Netzwerk als schlecht markiert wurde."
+
+#: core/lockout.php:848
+msgid "You have been locked out due to too many invalid login attempts."
+msgstr "Du wurdest aufgrund zu vieler Anmeldefehlversuche ausgesperrt."
+
+#: module-strings.php:157
+msgid "NGINX Conf File"
+msgstr "NGINX-Konfigurationsdatei"
+
+#: module-strings.php:168
+msgid "The message to display when a computer (host) has been locked out."
+msgstr "Die Meldung, die angezeigt wird, wenn ein Computer (Host) gesperrt wurde."
+
+#: module-strings.php:179
+msgid "iThemes Security can log events in multiple ways, each with advantages and disadvantages. Database Only puts all events in the database with your posts and other WordPress data. This makes it easy to retrieve and process but can be slower if the database table gets very large. File Only is very fast but the plugin does not process the logs itself as that would take far more resources. For most users or smaller sites Database Only should be fine. If you have a very large site or a log processing software then File Only might be a better option."
+msgstr "iThemes Security kann Ereignisse auf mehrere Arten protokollieren, jeweils mit Vor- und Nachteilen. Die Einstellung „Nur Datenbank“ legt alle Ereignisse in der Datenbank mit deinen Beiträgen und anderen WordPress-Daten ab. Damit sind sie leicht abrufbar und auswertbar. Dies kann aber langsamer sein, wenn die Datenbanktabelle sehr groß ist. „Nur Datei“ ist sehr schnell. Das Plugin verarbeitet die Protokolle aber nicht selbst, da es weit mehr Ressourcen in Anspruch nehmen würde. Für die meisten Benutzer oder kleinere Websites sollte „Nur Datenbank“ in Ordnung sein. Bei sehr großen Websites oder wenn eine Protokollauswertungssoftware zur Hand genommen wird, wäre „Nur Datei“ die bessere Option."
+
+#: core/lib/admin-notices/class-itsec-admin-notice-globally-dismissible.php:48
+#: core/lib/admin-notices/class-itsec-admin-notice-highlighted-log.php:88
+#: core/lib/admin-notices/class-itsec-admin-notice-user-dismissible.php:49
+#: core/modules/promos/entries/dashboard/app.js:85 dist/promos/dashboard.js:1
+msgid "Dismiss"
+msgstr "Ausblenden"
+
+#: module-strings.php:183
+msgid "Days to Keep Database Logs"
+msgstr "Anzahl der Tage zur Aufbewahrung der Datenbankprotokolle"
+
+#: module-strings.php:194
+msgid "Allow iThemes to track plugin usage via anonymous data."
+msgstr "iThemes erlauben die Plugin-Nutzung mittels anonymer Daten zu verfolgen."
+
+#: module-strings.php:193
+msgid "Allow Data Tracking"
+msgstr "Datennachverfolgung erlauben"
