@@ -1,0 +1,30 @@
+{
+  "name": "Enfold",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config_js.js",
+    "bundle": "webpack --config webpack.config_bundle_gulp.js",
+    "gbuild": "gulp build"
+  },
+  "keywords": [],
+  "author": "kriesi.at",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
+    "babel-loader": "^8.2.5",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-terser": "^2.1.0",
+    "gulp-rename": "^2.0.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "webpack-node-externals": "^3.0.0"
+  }
+}

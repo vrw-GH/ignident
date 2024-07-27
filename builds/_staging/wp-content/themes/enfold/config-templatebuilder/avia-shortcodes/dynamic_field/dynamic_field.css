@@ -1,0 +1,23 @@
+.av-dynamic-field-container,
+.av-dynamic-field-container p{
+	line-height: normal;
+	font-size: inherit;
+}
+
+.av-dynamic-field-container a{
+	color: inherit !important;
+	text-decoration: none;
+	transition: all 0.3s ease-in-out;
+}
+
+.av-dynamic-field-container a:hover{
+	opacity: 0.5;
+}
+
+.pricing-table .av-dynamic-field-container .av-dynamic-field-inner{
+	display: inline-block;
+}
+
+.av-dynamic-field-container .av-dynamic-field-inner .av-acf-gallery{
+	float: left;
+}

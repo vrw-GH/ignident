@@ -1,0 +1,1 @@
+!function(i){"use strict";i.fn.avia_sc_testimonial=function(t){return this.each((function(){var t=i(this),a=t.find(".avia-testimonial");t.on("avia_start_animation",(function(){a.each((function(t){var a=i(this);setTimeout((function(){a.addClass("avia_start_animation")}),150*t)}))}))}))}}(jQuery);

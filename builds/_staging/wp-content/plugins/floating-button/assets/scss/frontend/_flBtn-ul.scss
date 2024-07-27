@@ -1,0 +1,7 @@
+.flBtn-first,
+.flBtn-second {
+  position: absolute;
+  display: flex;
+  gap: var(--flBtn-gap);
+  visibility: hidden;
+}

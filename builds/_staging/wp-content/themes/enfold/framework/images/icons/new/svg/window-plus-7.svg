@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30" xml:space="preserve">
+    <g transform="translate(-90 -620)">
+        <g xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="window-plus-7">
+		<rect x="99" y="626" width="1" height="1"/>
+		<rect x="97" y="626" width="1" height="1"/>
+		<rect x="95" y="626" width="1" height="1"/>
+		<path d="M117,636.51V624H93v22h12.869c1.258,2.378,3.754,4,6.631,4c4.143,0,7.5-3.357,7.5-7.5    C120,640.049,118.818,637.879,117,636.51z M94,625h22v3H94V625z M94,645v-16h22v6.869c-1.045-0.553-2.235-0.869-3.5-0.869    c-4.143,0-7.5,3.357-7.5,7.5c0,0.878,0.158,1.717,0.436,2.5H94z M112.5,649c-3.59,0-6.5-2.91-6.5-6.5s2.91-6.5,6.5-6.5    s6.5,2.91,6.5,6.5S116.09,649,112.5,649z"/>
+		<polygon points="113,642 113,638 112,638 112,642 108,642 108,643 112,643 112,647 113,647 113,643 117,643 117,642   "/>
+	</g>
+	
+    </g>
+</svg>

@@ -1,0 +1,12 @@
+[class^="w_boxes"] {
+  display: grid;
+  gap: 22px;
+}
+
+.w_boxes {
+
+  &__3-col {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+
+}
