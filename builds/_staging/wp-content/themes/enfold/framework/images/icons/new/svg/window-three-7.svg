@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30" xml:space="preserve">
+    <g transform="translate(-150 -680)">
+        <g xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="window-three-7">
+		<path d="M164,687h9h4v8h-4v1h5v-14h-15v5H164z M164,683h13v3h-13V683z"/>
+		<rect x="169" y="684" width="1" height="1"/>
+		<rect x="167" y="684" width="1" height="1"/>
+		<rect x="165" y="684" width="1" height="1"/>
+		<path d="M172,688h-15v5h1h10h3v8h-3v1h4V688z M158,692v-3h13v3H158z"/>
+		<rect x="163" y="690" width="1" height="1"/>
+		<rect x="161" y="690" width="1" height="1"/>
+		<rect x="159" y="690" width="1" height="1"/>
+		<path d="M167,694h-15v14h15V694z M153,695h11h2v3h-13V695z M166,707h-13v-8h13V707z"/>
+		<rect x="158" y="696" width="1" height="1"/>
+		<rect x="156" y="696" width="1" height="1"/>
+		<rect x="154" y="696" width="1" height="1"/>
+	</g>
+	
+    </g>
+</svg>

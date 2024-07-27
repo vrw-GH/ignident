@@ -1,0 +1,80 @@
+.wowp-header-border {
+  height: 5px;
+  background: linear-gradient(to right, var(--wowp-blue),  var(--wowp-yellow));
+  margin-left: -20px;
+}
+
+.wowp-header {
+  position: relative;
+  padding: 32px 20px;
+  margin-left: -20px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+
+.wowp-logo {
+  display: flex;
+  align-items: center;
+}
+
+.wowp-logo img {
+  width: 40px;
+}
+
+.wowp-header h1 {
+  position: relative;
+  margin: 0 35px 0 0 ;
+}
+
+.wowp-version {
+  position: absolute;
+  transform: translateY(-50%) translateX(50%);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.wowp-links {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  display: flex;
+  border-radius: 0 0 4px 4px;
+  border: 2px solid;
+  border-top: none;
+  background-color: #DFE2FC;
+  border-image: linear-gradient(to right, #14102C, #E86E2C);
+  border-image-slice: 1;
+  @media screen and (max-width: 850px) {
+    display: none;
+  }
+  img{
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.wowp-links a {
+  text-decoration: none;
+  color: #14102C;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  align-items: center;
+  padding: 5px;
+  transition: all 0.15s linear;
+}
+
+.wowp-links a:hover {
+  background-color: #F6C8AF;
+}
+
+.wowp-links .dashicons {
+  width: 15px;
+  height: 15px;
+  font-size: 15px;
+  color: #596FF9;
+}

@@ -1,0 +1,63 @@
+.wowp-settings {
+  h4{
+    display: flex;
+    width: max-content;
+    gap: 8px;
+    align-items: center;
+    margin: 0 0 1.5rem 0;
+    font-weight: 800;
+    box-sizing: border-box;
+    color:  var(--wowp-blue);
+    font-size: 16px;
+    letter-spacing: -1.08px;
+    line-height: 18px;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--wowp-bg);
+    padding: 4px 8px;
+    border-radius: 25px;
+  }
+  .wp-picker-container {
+    margin-top: 8px;
+  }
+}
+
+.wowp-icon {
+  color: var(--wowp-orange);
+}
+
+.nav-tab-wrapper.wowp-tab {
+  cursor: pointer;
+}
+
+.wowp-tab .nav-tab-active {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ffffff;
+}
+
+.wowp-tab-content {
+  padding: 1.5rem 1.25rem;
+  background-color: #ffffff;
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient( to bottom,  var(--wowp-blue),  var(--wowp-yellow) ) 1 100%;
+
+  .tab-content {
+    display: none;
+    &.tab-content-active {
+      display: block;
+    }
+  }
+
+}
+
+.wowp-text-helper {
+  width: 100%;
+}
+
+.CodeMirror {
+  border: 1px solid var(--wowp-border);
+  font-size: 13px;
+  resize: vertical;
+  overflow: auto;
+}

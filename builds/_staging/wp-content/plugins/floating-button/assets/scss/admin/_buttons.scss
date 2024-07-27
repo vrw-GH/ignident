@@ -1,0 +1,174 @@
+.button._is-success {
+  background-color: var(--wowp-success);
+  border-color: var(--wowp-success);
+  color: #ffffff;
+
+  &:focus,
+  &:hover {
+    background-color: #007602;
+    border-color: #007602;
+    color: #ffffff;
+  }
+}
+
+.button._is-danger {
+  background-color: var(--wowp-danger);
+  border-color: var(--wowp-danger);
+  color: #ffffff;
+
+  &:focus,
+  &:hover {
+    background-color: #760200;
+    border-color: #760200;
+    color: #ffffff;
+  }
+}
+
+
+.has-tooltip {
+  position: relative;
+  cursor: help;
+
+  &::before,
+  &::after {
+    color: #efefef;
+    font-family: monospace;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color: #2B222A;
+    border-radius: 5px;
+    color: #fff;
+    content: attr(data-tooltip); //This pulls in the text from the element with the tooltip
+    padding: 5px 10px;
+    text-transform: none;
+    transition: all 0.5s ease;
+    width: 160px;
+    transform: translateY(calc(-100% - 7px)) translateX(-50%);
+    word-wrap: break-word;
+    white-space: break-spaces;
+    line-height: 1.1;
+  }
+
+  //Tooltip arrow
+  &::after {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #2B222A;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+    margin-left: -5px;
+    width: 0;
+    transform: translateX(-50%);
+  }
+
+  &:focus::before,
+  &:focus::after,
+  &:hover::before,
+  &:hover::after {
+    opacity: 1;
+    transition: all 0.75s ease;
+  }
+
+  &.on-right {
+    &::before{
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%) translateX(4px);
+    }
+    &::after{
+      top: 50%;
+      left: calc(100% + 2px);
+      rotate: 90deg;
+      transform: translateX(calc(-50% + 2.5px));
+    }
+  }
+
+  &.on-left {
+    &::before{
+      top: 50%;
+      left: -2px;
+      transform: translateY(-50%) translateX(-100%);
+    }
+    &::after{
+      top: 50%;
+      left: 0;
+      rotate: -90deg;
+      transform: translateX(calc(-50% + 7px));
+    }
+  }
+
+}
+
+.wowp-toogle {
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  width: 40px;
+  height: 28px;
+  border-radius: 50px;
+  padding: 0 4px;
+
+  &:focus,
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.wowp-toogle span {
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 8px;
+}
+
+.wowp-toogle.is-on {
+  background-color: #BFFFC0;
+}
+
+.wowp-toogle.is-on {
+  span {
+    background-color: #00BF04;
+  }
+
+  &:focus,
+  &:hover {
+    span {
+      background-color: #007602;
+    }
+  }
+}
+
+.wowp-toogle.is-off {
+  flex-direction: row-reverse;
+  background-color: #FFC0BF;
+}
+
+.wowp-toogle.is-off {
+  span {
+    background-color: #BF0400;
+  }
+
+  &:focus,
+  &:hover {
+    span {
+      background-color: #760200;
+    }
+  }
+}

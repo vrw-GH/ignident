@@ -1,0 +1,191 @@
+/*
+	Contains vendor prefixed CSS rules that have been removed from core files because no longer needed
+	Cannot be minified because old rules are removed !!!!
+
+	@source			enfold/framework
+	@since 5.6.3
+*/
+
+root{}
+
+/* sidebar */
+.avia-add-widget{
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* admin */
+.avia_options_page_inner{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.avia_preview_pic img{
+	-webkit-box-shadow: 0 0 7px #999999;
+	-moz-box-shadow: 0 0 7px #999999;
+}
+
+.av-import-with-image{
+	-webkit-transition: all 0.3s ease-out;
+}
+
+.avia_import_overlay {
+	-webkit-transition: all 0.3s ease-out;
+}
+
+.avia_notification{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+#wpwrap .avia_button {
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+.avia_style_wrap{
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+
+#wpwrap .avia_style_wrap .avia_select_unify{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+#menu_content_content_scn_button_menu_tbl{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.avia-row-portlet-header{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+.avia-portlet-content{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+#wpwrap #avia_options_page .avia_pseudo_sortable{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.ui-sortable-placeholder {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+
+.link_controller_list a{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+#wpwrap .slideshow_video_input {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+}
+
+.avia_sortable_gallery_container .ui-sortable-placeholder {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+}
+
+
+.inactive_visible .avia_inactive_overlay span{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+.avia-update-count{
+	-webkit-box-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
+}
+
+
+#wpwrap .av-highlight{
+	-webkit-animation: 	avia_simple_highlight 1.7s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	-moz-animation: 	avia_simple_highlight 1.7s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	-o-animation: 		avia_simple_highlight 1.7s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+
+@-webkit-keyframes avia_simple_highlight {
+  0%   {  opacity:0.5; background-color: #6FAF2A;}
+  100% {  opacity:1;  background-color: #fff;}
+}
+@-moz-keyframes avia_simple_highlight {
+  0%   {  opacity:0.5; background-color: #6FAF2A;}
+  100% {  opacity:1;  background-color: #fff;}
+}
+@-o-keyframes avia_simple_highlight {
+  0%   {  opacity:0.5; background-color: #6FAF2A;}
+  100% {  opacity:1;  background-color: #fff;}
+}
+
+.avia-popup {
+	-webkit-animation: avia_simple_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	-moz-animation: avia_simple_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	-o-animation: avia_simple_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+
+.av-modal-window-autoposition{
+	-webkit-transform: 	translate(-50%, -50%);
+	-moz-transform: 	translate(-50%, -50%);
+	-ms-transform: 		translate(-50%, -50%);
+	-o-transform: 		translate(-50%, -50%);
+	-webkit-animation: none;
+	-moz-animation: none;
+	-o-animation: none;
+}
+
+@-webkit-keyframes avia_simple_pop {
+  0%   { -webkit-transform:scale(0.8); opacity:0; }
+  100% { -webkit-transform:scale(1); opacity:1;  }
+}
+@-moz-keyframes avia_simple_pop {
+  0%   { -moz-transform:scale(0.8); opacity:0; }
+  100% { -moz-transform:scale(1); opacity:1;  }
+}
+@-o-keyframes avia_simple_pop {
+  0%   { -o-transform:scale(0.8); opacity:0; }
+  100% { -o-transform:scale(1); opacity:1;  }
+}
+
+/* avia admin modern */
+#avia_options_page *{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+#wpwrap .avia_style_wrap select{
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+#avia_options_page .avia_select_fake_val{
+    -webkit-box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+}
+
+#wpwrap .avia_button.avia_button_inactive,
+#wpwrap .avia_button.avia_button_inactive:hover,
+#wpwrap .avia_button.avia_button_inactive:focus{
+	-webkit-box-shadow: none;
+}
+
+.avia_loading,
+.avia_clone_loading{
+	-webkit-animation: av-rotate 0.8s infinite linear;
+}
+
+@-webkit-keyframes av-rotate {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+.avia_notification{
+	-webkit-transform: translate(50%, -50%);
+}
+
+#avia_options_page .av-toggle-switch.active{
+	-webkit-animation: avia-fadein 1s 1 ease-in; /* Safari 4+ */
+}
