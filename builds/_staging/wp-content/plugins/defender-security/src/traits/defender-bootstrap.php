@@ -39,6 +39,7 @@ use WP_Defender\Controller\Password_Protection;
 use WP_Defender\Component\Logger\Rotation_Logger;
 use WP_Defender\Component\Firewall as Firewall_Component;
 use WP_Defender\Controller\Firewall as Firewall_Controller;
+use WP_Defender\Model\Onboard as Onboard_Model;
 
 trait Defender_Bootstrap {
 
@@ -354,7 +355,7 @@ SQL;
 		 * @var HUB
 		 */
 		$hub_class = wd_di()->get( HUB::class );
-		$hub_class->set_onboarding_status( $this->maybe_show_onboarding() );
+		$hub_class->set_onboarding_status( Onboard_Model::maybe_show_onboarding() );
 		if ( $hub_class->get_onboarding_status() && ! defender_is_wp_cli() ) {
 			// If it's cli we should start this normally.
 			Array_Cache::set( 'onboard', wd_di()->get( Onboard::class ) );
@@ -386,33 +387,6 @@ SQL;
 		wd_di()->get( Data_Tracking::class );
 		wd_di()->get( General_Notice::class );
 	}
-
-	/**
-	 * Checks if the site is newly created.
-	 *
-	 * @return bool Returns true if the site is newly created, false otherwise.
-	 */
-	private function maybe_show_onboarding(): bool {
-		// First we need to check if the site is newly create.
-		global $wpdb;
-		if ( ! is_multisite() ) {
-			$res = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = 'wp_defender_shown_activator'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		} else {
-			$res = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$wpdb->prepare(
-					"SELECT meta_value FROM $wpdb->sitemeta WHERE meta_key = 'wp_defender_shown_activator' AND site_id = %d",
-					get_current_network_id()
-				)
-			);
-		}
-		// Get '1' for direct SQL request if Onboarding was already.
-		if ( empty( $res ) ) {
-			return true;
-		}
-
-		return false;
-	}
-
 
 	/**
 	 * Adds a specific class to the body tag if the current page is a Defender page.

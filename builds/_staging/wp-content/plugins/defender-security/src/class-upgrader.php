@@ -395,6 +395,9 @@ class Upgrader {
 		if ( version_compare( $db_version, '4.7.2', '<' ) ) {
 			$this->upgrade_4_7_2();
 		}
+		if ( version_compare( $db_version, '4.8.2', '<' ) ) {
+			$this->upgrade_4_8_2();
+		}
 		// This is not a new installation. Make a mark.
 		defender_no_fresh_install();
 		// Don't run any function below this line.
@@ -1631,6 +1634,21 @@ Your temporary password is {{passcode}}. To finish logging in, copy and paste th
 Your temporary password is {{passcode}}
 To complete your login, copy and paste the temporary password into the Password field on the login screen.';
 			$model->save();
+		}
+	}
+
+	/**
+	 * Upgrade to 4.8.2.
+	 *
+	 * @return void
+	 */
+	private function upgrade_4_8_2(): void {
+		$xff = defender_get_data_from_request( 'HTTP_X_FORWARDED_FOR', 's' );
+		if (
+			! ( is_string( $xff ) && 0 < strlen( $xff ) ) &&
+			Firewall::is_switched_ip_detection_notice( Firewall::IP_DETECTION_XFF_SHOW_SLUG )
+		) {
+			delete_site_option( Firewall::IP_DETECTION_XFF_SHOW_SLUG );
 		}
 	}
 }

@@ -20,6 +20,7 @@ use WP_Defender\Traits\Scan_Upsell;
 use WP_Defender\Model\Scan_Item;
 use WP_Defender\Behavior\WPMUDEV;
 use WP_Defender\Model\Scan as Model_Scan;
+use WP_Defender\Model\Setting\Scan as Scan_Settings;
 use WP_Defender\Model\Notification\Malware_Report;
 use WP_Defender\Component\Config\Config_Hub_Helper;
 use WP_Defender\Helper\Analytics\Scan as Scan_Analytics;
@@ -76,7 +77,7 @@ class Scan extends Event {
 			$this->parent_slug
 		);
 
-		$this->model   = new \WP_Defender\Model\Setting\Scan();
+		$this->model   = new Scan_Settings();
 		$this->service = wd_di()->get( \WP_Defender\Component\Scan::class );
 
 		if ( class_exists( 'WP_Defender\Controller\Quarantine' ) ) {
@@ -659,7 +660,6 @@ class Scan extends Event {
 		);
 	}
 
-
 	/**
 	 * Handle notice.
 	 * Send the notice to the admin dashboard of the site.
@@ -842,7 +842,7 @@ class Scan extends Event {
 	 * Removes settings for all submodules.
 	 */
 	public function remove_settings(): void {
-		( new \WP_Defender\Model\Setting\Scan() )->delete();
+		( new Scan_Settings() )->delete();
 	}
 
 	/**
@@ -867,7 +867,7 @@ class Scan extends Event {
 		} else {
 			$scan = is_object( $scan ) ? $scan->to_array( $per_page, $paged ) : $last->to_array( $per_page, $paged );
 		}
-		$settings    = new \WP_Defender\Model\Setting\Scan();
+		$settings    = new Scan_Settings();
 		$report      = wd_di()->get( Malware_Report::class );
 		$report_text = esc_html__( 'Automatic scans are disabled', 'defender-security' );
 		if ( $settings->scheduled_scanning && isset( $settings->frequency ) ) {
@@ -962,7 +962,7 @@ class Scan extends Event {
 	 * @return bool True if any scan is active, false otherwise.
 	 */
 	private function is_any_active( bool $is_pro ): bool {
-		$settings          = new \WP_Defender\Model\Setting\Scan();
+		$settings          = new Scan_Settings();
 		$file_change_check = $settings->is_checked_any_file_change_types();
 
 		if ( $is_pro ) {

@@ -132,7 +132,6 @@ class Scan extends DB {
 	 */
 	public $is_automation = false;
 
-
 	/**
 	 * Prepare and fetch issues with various counts.
 	 * This method retrieves active and ignored issues based on the specified type, page, and items per page.
@@ -163,8 +162,7 @@ class Scan extends DB {
 		$count_total           = count( $active_models );
 		$count_issues_filtered = 0;
 
-		$scan_item_group_total = wd_di()->get( Scan_Item::class )
-										->get_types_total( $this->id, Scan_Item::STATUS_ACTIVE );
+		$scan_item_group_total = wd_di()->get( Scan_Item::class )->get_types_total( $this->id, Scan_Item::STATUS_ACTIVE );
 
 		$count_issues  = ! empty( $scan_item_group_total['all'] ) ?
 			$scan_item_group_total['all'] : 0;
@@ -177,8 +175,7 @@ class Scan extends DB {
 		$count_vuln    = ! empty( $scan_item_group_total[ Scan_Item::TYPE_VULNERABILITY ] ) ?
 			$scan_item_group_total[ Scan_Item::TYPE_VULNERABILITY ] : 0;
 
-		$scan_item_ignore_total = wd_di()->get( Scan_Item::class )
-										->get_types_total( $this->id, Scan_Item::STATUS_IGNORE );
+		$scan_item_ignore_total = wd_di()->get( Scan_Item::class )->get_types_total( $this->id, Scan_Item::STATUS_IGNORE );
 
 		$count_ignored = ! empty( $scan_item_ignore_total['all'] ) ?
 			$scan_item_ignore_total['all'] : 0;
@@ -212,7 +209,6 @@ class Scan extends DB {
 			'count_vuln'            => $count_vuln,
 		);
 	}
-
 
 	/**
 	 * Retrieves scan issues based on provided filters.
@@ -322,13 +318,12 @@ class Scan extends DB {
 		return $builder->count();
 	}
 
-
 	/**
 	 * Allow a specific issue by updating its status and removing it from the global ignore indexer.
 	 *
-	 * @param  int $id  The ID of the issue to Allow.
+	 * @param int $id The ID of the issue to Allow.
 	 *
-	 * @return bool Returns false if the issue does not exist, otherwise void.
+	 * @return bool|void Returns false if the issue does not exist, otherwise void.
 	 */
 	public function unignore_issue( $id ) {
 		$issue = $this->get_issue( $id );
@@ -362,13 +357,12 @@ class Scan extends DB {
 		return in_array( $slug, $ignore_lists, true );
 	}
 
-
 	/**
 	 * Ignore a specific issue by updating its status and adding it to the global ignore indexer.
 	 *
-	 * @param  int $id  The ID of the issue to ignore.
+	 * @param int $id The ID of the issue to ignore.
 	 *
-	 * @return bool Returns false if the issue does not exist, otherwise void.
+	 * @return bool|void Returns false if the issue does not exist, otherwise void.
 	 */
 	public function ignore_issue( $id ) {
 		$issue = $this->get_issue( $id );
@@ -390,7 +384,6 @@ class Scan extends DB {
 		$this->update_ignore_list( $ignore_lists );
 	}
 
-
 	/**
 	 * Retrieves a Scan_Item object based on the given ID.
 	 *
@@ -401,8 +394,8 @@ class Scan extends DB {
 	public function get_issue( $id ) {
 		$orm   = self::get_orm();
 		$model = $orm->get_repository( Scan_Item::class )
-					->where( 'id', $id )
-					->first();
+			->where( 'id', $id )
+			->first();
 
 		if ( is_object( $model ) ) {
 			switch ( $model->type ) {
@@ -460,7 +453,7 @@ class Scan extends DB {
 			$total_count           = (int) $this->count( null, Scan_Item::STATUS_ACTIVE );
 
 			$scan_item_ignore_total = wd_di()->get( Scan_Item::class )
-											->get_types_total( $this->id, Scan_Item::STATUS_IGNORE );
+				->get_types_total( $this->id, Scan_Item::STATUS_IGNORE );
 
 			$count_ignored = ! empty( $scan_item_ignore_total['all'] ) ?
 				$scan_item_ignore_total['all'] : 0;
@@ -478,7 +471,7 @@ class Scan extends DB {
 			}
 
 			$scan_item_group_total = wd_di()->get( Scan_Item::class )
-											->get_types_total( $this->id, Scan_Item::STATUS_ACTIVE );
+				->get_types_total( $this->id, Scan_Item::STATUS_ACTIVE );
 
 			$count_issues  = ! empty( $scan_item_group_total['all'] ) ?
 				$scan_item_group_total['all'] : 0;
@@ -518,6 +511,8 @@ class Scan extends DB {
 					'per_page' => $per_page,
 				),
 			);
+		} else {
+			return array();
 		}
 	}
 
@@ -526,7 +521,7 @@ class Scan extends DB {
 	 *
 	 * @param  bool $from_report  Is this a scan from report.
 	 *
-	 * @return bool|WP_Error
+	 * @return bool|WP_Error|Scan
 	 */
 	public static function create( $from_report = false ) {
 		$orm    = self::get_orm();
@@ -536,8 +531,8 @@ class Scan extends DB {
 		}
 		$model                = new Scan();
 		$model->status        = self::STATUS_INIT;
-		$model->date_start    = wp_date( 'Y-m-d H:i:s' );
-		$model->date_end      = wp_date( 'Y-m-d H:i:s' );
+		$model->date_start    = gmdate( 'Y-m-d H:i:s' );
+		$model->date_end      = gmdate( 'Y-m-d H:i:s' );
 		$model->is_automation = $from_report;
 
 		$orm->save( $model );
@@ -576,8 +571,8 @@ class Scan extends DB {
 		$orm = self::get_orm();
 
 		return $orm->get_repository( self::class )
-					->where( 'status', 'NOT IN', array( self::STATUS_FINISH, self::STATUS_ERROR, self::STATUS_IDLE ) )
-					->first();
+			->where( 'status', 'NOT IN', array( self::STATUS_FINISH, self::STATUS_ERROR, self::STATUS_IDLE ) )
+			->first();
 	}
 
 	/**
@@ -589,9 +584,9 @@ class Scan extends DB {
 		$orm = self::get_orm();
 
 		return $orm->get_repository( self::class )
-					->where( 'status', 'IN', array( self::STATUS_FINISH, self::STATUS_IDLE ) )
-					->order_by( 'id', 'desc' )
-					->first();
+			->where( 'status', 'IN', array( self::STATUS_FINISH, self::STATUS_IDLE ) )
+			->order_by( 'id', 'desc' )
+			->first();
 	}
 
 	/**
@@ -603,9 +598,9 @@ class Scan extends DB {
 		$orm = self::get_orm();
 
 		return $orm->get_repository( self::class )
-					->where( 'status', 'IN', array( self::STATUS_FINISH, self::STATUS_IDLE ) )
-					->order_by( 'id', 'desc' )
-					->get();
+			->where( 'status', 'IN', array( self::STATUS_FINISH, self::STATUS_IDLE ) )
+			->order_by( 'id', 'desc' )
+			->get();
 	}
 
 	/**
@@ -651,7 +646,6 @@ class Scan extends DB {
 				return esc_html__( 'The scan is running', 'defender-security' );
 		}
 	}
-
 
 	/**
 	 * Calculates the percentage of a task based on its progress and position.
@@ -772,9 +766,9 @@ class Scan extends DB {
 		$mysql_date = $this->threshold_date_time_mysql();
 
 		return $orm->get_repository( self::class )
-					->where( 'status', 'NOT IN', array( self::STATUS_FINISH, self::STATUS_ERROR ) )
-					->where( 'date_start', '<', $mysql_date )
-					->first();
+			->where( 'status', 'NOT IN', array( self::STATUS_FINISH, self::STATUS_ERROR ) )
+			->where( 'date_start', '<', $mysql_date )
+			->first();
 	}
 
 	/**
@@ -784,9 +778,9 @@ class Scan extends DB {
 	 */
 	public function delete_idle() {
 		$idle_scans = self::get_orm()
-							->get_repository( self::class )
-							->where( 'status', self::STATUS_IDLE )
-							->get();
+			->get_repository( self::class )
+			->where( 'status', self::STATUS_IDLE )
+			->get();
 
 		foreach ( $idle_scans as $idle_scan ) {
 			$this->delete( $idle_scan->id );

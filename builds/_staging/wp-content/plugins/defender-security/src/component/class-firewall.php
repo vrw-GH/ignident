@@ -14,6 +14,7 @@ use WP_Defender\Component;
 use WP_Defender\Model\Lockout_Ip;
 use WP_Defender\Behavior\WPMUDEV;
 use WP_Defender\Model\Lockout_Log;
+use WP_Defender\Model\Onboard;
 use MaxMind\Db\Reader\InvalidDatabaseException;
 use WP_Defender\Model\Setting\Firewall as Model_Firewall;
 use WP_Defender\Component\Trusted_Proxy_Preset\Cloudflare_Proxy;
@@ -395,10 +396,11 @@ class Firewall extends Component {
 	 */
 	public function maybe_show_misconfigured_ip_detection_option_notice(): void {
 		$model = wd_di()->get( Model_Firewall::class );
+		$xff   = defender_get_data_from_request( 'HTTP_X_FORWARDED_FOR', 's' );
 
 		if (
 			'HTTP_X_FORWARDED_FOR' !== $model->http_ip_header &&
-			defender_get_data_from_request( 'HTTP_X_FORWARDED_FOR', 's' ) !== null &&
+			( is_string( $xff ) && 0 < strlen( $xff ) ) &&
 			! $this->is_cloudflare_request() &&
 			! self::is_xff_notice_ready()
 		) {
@@ -423,7 +425,8 @@ class Firewall extends Component {
 	 * @return bool
 	 */
 	public static function is_xff_notice_ready(): bool {
-		return self::is_switched_ip_detection_notice( self::IP_DETECTION_XFF_SHOW_SLUG )
+		return ! Onboard::maybe_show_onboarding() &&
+				self::is_switched_ip_detection_notice( self::IP_DETECTION_XFF_SHOW_SLUG )
 				&& ! self::is_switched_ip_detection_notice( self::IP_DETECTION_XFF_DISMISS_SLUG );
 	}
 

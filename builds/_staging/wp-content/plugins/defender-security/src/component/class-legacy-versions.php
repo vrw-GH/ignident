@@ -274,8 +274,8 @@ class Legacy_Versions extends Component {
 		$scan_model->total_tasks     = 1;
 		$scan_model->task_checkpoint = '';
 		$scan_model->status          = Scan::STATUS_FINISH;
-		$scan_model->date_start      = wp_date( 'Y-m-d H:i:s' );
-		$scan_model->date_end        = wp_date( 'Y-m-d H:i:s' );
+		$scan_model->date_start      = gmdate( 'Y-m-d H:i:s' );
+		$scan_model->date_end        = gmdate( 'Y-m-d H:i:s' );
 		$scan_model->is_automation   = false;
 		$last_id                     = $scan_model->save();
 		$this->log( 'Scan ID during data migration: ' . $last_id, 'scan.log' );

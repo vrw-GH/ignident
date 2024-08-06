@@ -197,6 +197,7 @@ return array(
     'WP_Defender\\Model\\Notification\\Malware_Notification' => $baseDir . '/src/model/notification/class-malware-notification.php',
     'WP_Defender\\Model\\Notification\\Malware_Report' => $baseDir . '/src/model/notification/class-malware-report.php',
     'WP_Defender\\Model\\Notification\\Tweak_Reminder' => $baseDir . '/src/model/notification/class-tweak-reminder.php',
+    'WP_Defender\\Model\\Onboard' => $baseDir . '/src/model/class-onboard.php',
     'WP_Defender\\Model\\Scan' => $baseDir . '/src/model/class-scan.php',
     'WP_Defender\\Model\\Scan_Item' => $baseDir . '/src/model/class-scan-item.php',
     'WP_Defender\\Model\\Setting\\Audit_Logging' => $baseDir . '/src/model/setting/class-audit-logging.php',
