@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License (Version 2 - GPLv2).
 msgid ""
 msgstr ""
-"Project-Id-Version: Defender Pro 4.8.1\n"
+"Project-Id-Version: Defender Pro 4.8.2\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
-"POT-Creation-Date: 2024-07-23 08:33:18+00:00\n"
+"POT-Creation-Date: 2024-07-31 08:23:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2758,7 +2758,7 @@ msgid "Malware Scan Issues"
 msgstr ""
 
 #: languages/vue-js.php:2169 src/component/class-backup-settings.php:1300
-#: src/component/class-mail.php:60 src/controller/class-scan.php:70
+#: src/component/class-mail.php:60 src/controller/class-scan.php:71
 #: src/model/notification/class-malware-notification.php:245
 msgid "Malware Scanning"
 msgstr ""
@@ -5398,45 +5398,45 @@ msgid ""
 "enable %2$s."
 msgstr ""
 
-#: src/class-upgrader.php:703
+#: src/class-upgrader.php:706
 msgid "Basic config"
 msgstr ""
 
-#: src/class-upgrader.php:704 src/component/class-backup-settings.php:610
+#: src/class-upgrader.php:707 src/component/class-backup-settings.php:610
 msgid "Basic Config"
 msgstr ""
 
-#: src/class-upgrader.php:1320
+#: src/class-upgrader.php:1323
 msgid "Scan of {SITE_URL} complete."
 msgstr ""
 
-#: src/class-upgrader.php:1321
+#: src/class-upgrader.php:1324
 msgid "Malware Scan of {SITE_URL} is complete."
 msgstr ""
 
-#: src/class-upgrader.php:1326
+#: src/class-upgrader.php:1329
 msgid "{ISSUES_COUNT} issues found."
 msgstr ""
 
-#: src/class-upgrader.php:1327
+#: src/class-upgrader.php:1330
 msgid "{ISSUES_COUNT} issue(s) found."
 msgstr ""
 
-#: src/class-upgrader.php:1361
+#: src/class-upgrader.php:1364
 msgid ""
 "{ISSUES_COUNT} vulnerabilities were identified for {SITE_URL} during a "
 "Malware Scan."
 msgstr ""
 
-#: src/class-upgrader.php:1362
+#: src/class-upgrader.php:1365
 msgid "Malware Scan identified {ISSUES_COUNT} issue(s) on {SITE_URL}."
 msgstr ""
 
-#: src/class-upgrader.php:1367
+#: src/class-upgrader.php:1370
 msgid "See details for each issue below."
 msgstr ""
 
-#: src/class-upgrader.php:1368
+#: src/class-upgrader.php:1371
 msgid "The identified issue(s) is/are listed below."
 msgstr ""
 
@@ -6276,7 +6276,7 @@ msgstr ""
 msgid "Get it now"
 msgstr ""
 
-#: src/component/class-firewall.php:504
+#: src/component/class-firewall.php:507
 msgid "Cloudflare"
 msgstr ""
 
@@ -6350,67 +6350,67 @@ msgstr ""
 msgid "Confirmed"
 msgstr ""
 
-#: src/component/class-quarantine.php:294
+#: src/component/class-quarantine.php:293
 #. translators: 1: Filename with extension
 msgid "Failed to quarantine the file %1$s."
 msgstr ""
 
-#: src/component/class-quarantine.php:311
+#: src/component/class-quarantine.php:310
 #. translators: 1: Filename with extension
 msgid "Failed to add quarantine record in DB for the file %1$s."
 msgstr ""
 
-#: src/component/class-quarantine.php:324
+#: src/component/class-quarantine.php:323
 #. translators: 1: Filename with extension
 msgid "Quarantined the file %1$s and deleted the source file successfully."
 msgstr ""
 
-#: src/component/class-quarantine.php:341
+#: src/component/class-quarantine.php:340
 #. translators: 1: Filename with extension
 msgid "Quarantined the file %1$s and repaired the source file successfully."
 msgstr ""
 
-#: src/component/class-quarantine.php:396
+#: src/component/class-quarantine.php:395
 msgid "Record not exists in DB."
 msgstr ""
 
-#: src/component/class-quarantine.php:409
+#: src/component/class-quarantine.php:408
 msgid "Quarantined file doesn't exist in the quarantine directory."
 msgstr ""
 
-#: src/component/class-quarantine.php:427
+#: src/component/class-quarantine.php:426
 #. translators: 1: Filename with extension
 msgid "Plugin main file missing for %1$s file."
 msgstr ""
 
-#: src/component/class-quarantine.php:446
+#: src/component/class-quarantine.php:445
 msgid "Failed to restore quarantined file."
 msgstr ""
 
-#: src/component/class-quarantine.php:459
+#: src/component/class-quarantine.php:458
 msgid "Failed to remove quarantine record from DB."
 msgstr ""
 
-#: src/component/class-quarantine.php:471
+#: src/component/class-quarantine.php:470
 #. translators: 1: Filename with extension
 msgid "Restored %1$s"
 msgstr ""
 
-#: src/component/class-quarantine.php:568
+#: src/component/class-quarantine.php:567
 msgid "Make sure plugin exists in WordPress plugin repository."
 msgstr ""
 
-#: src/component/class-quarantine.php:580
+#: src/component/class-quarantine.php:579
 #. translators: 1: Filename with extension
 msgid "Failed to write the file %1$s."
 msgstr ""
 
-#: src/component/class-quarantine.php:604
+#: src/component/class-quarantine.php:603
 #. translators: 1: Filename with extension
 msgid "Writes the file %1$s successfully."
 msgstr ""
 
-#: src/component/class-quarantine.php:621
+#: src/component/class-quarantine.php:620
 #. translators: 1: WordPress API error message
 msgid "WordPress remote error: %1$s"
 msgstr ""
@@ -6418,7 +6418,7 @@ msgstr ""
 #: src/component/class-rate.php:143
 #. translators: %d - Number of completed scans.
 msgid ""
-"You've completed %d malware scans - that's a lot of scans! We are happy to "
+"You`ve completed %d malware scans - that`s a lot of scans! We are happy to "
 "be a part of helping you secure your site and we would appreciate it if you "
 "dropped us a rating on wp.org to help us spread the word and boost our "
 "motivation."
@@ -6427,7 +6427,7 @@ msgstr ""
 #: src/component/class-rate.php:155
 #. translators: %d - Number of completed scans.
 msgid ""
-"You've successfully resolved %d malware scan issues! We are happy to be a "
+"You`ve successfully resolved %d malware scan issues! We are happy to be a "
 "part of helping you secure your site, and we would appreciate it if you "
 "dropped us a rating on wp.org to help us spread the word and boost our "
 "motivation."
@@ -7314,7 +7314,7 @@ msgstr ""
 #: src/controller/class-mask-login.php:1184
 #: src/controller/class-password-protection.php:244
 #: src/controller/class-password-reset.php:223
-#: src/controller/class-scan.php:547
+#: src/controller/class-scan.php:548
 #: src/controller/class-security-headers.php:118
 #: src/controller/class-two-factor.php:903 src/traits/setting.php:24
 #: src/traits/setting.php:29
@@ -7798,27 +7798,27 @@ msgid ""
 "valid, and you've listed your domain name while generating the keys."
 msgstr ""
 
-#: src/controller/class-scan.php:163
+#: src/controller/class-scan.php:164
 msgid "A scan is already in progress"
 msgstr ""
 
-#: src/controller/class-scan.php:228
+#: src/controller/class-scan.php:229
 msgid "Error during scanning"
 msgstr ""
 
-#: src/controller/class-scan.php:483
+#: src/controller/class-scan.php:484
 #. translators: %s: Vulnerability item(es)
 msgid "Defender doesn't have enough permission to remove this file: %s"
 msgid_plural "Defender doesn't have enough permission to remove these files: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/controller/class-scan.php:494
+#: src/controller/class-scan.php:495
 #. translators: %s: Vulnerability item(es)
 msgid "%s has (have) been deleted"
 msgstr ""
 
-#: src/controller/class-scan.php:534
+#: src/controller/class-scan.php:535
 #. translators: 1. Open tag. 2. Close tag. 3. Open tag. 4. Close tag.
 msgid ""
 "To reduce false-positive results, we recommend enabling %1$sFile change "
@@ -7881,7 +7881,7 @@ msgstr ""
 #: src/controller/class-security-tweaks.php:512
 #. translators: %d - Total number.
 msgid ""
-"You've resolved all %d security recommendations - that's impressive! We are "
+"You`ve resolved all %d security recommendations - that`s impressive! We are "
 "happy to be a part of helping you secure your site, and we would appreciate "
 "it if you dropped us a rating on wp.org to help us spread the word and "
 "boost our motivation."
@@ -8225,35 +8225,35 @@ msgstr ""
 msgid "Email %s is invalid format"
 msgstr ""
 
-#: src/model/class-scan.php:535
+#: src/model/class-scan.php:530
 msgid "A scan is already in progress."
 msgstr ""
 
-#: src/model/class-scan.php:639
+#: src/model/class-scan.php:634
 msgid "Initializing..."
 msgstr ""
 
-#: src/model/class-scan.php:641
+#: src/model/class-scan.php:636
 msgid "Gathering information..."
 msgstr ""
 
-#: src/model/class-scan.php:643
+#: src/model/class-scan.php:638
 msgid "Analyzing WordPress Core..."
 msgstr ""
 
-#: src/model/class-scan.php:645
+#: src/model/class-scan.php:640
 msgid "Analyzing WordPress Plugins..."
 msgstr ""
 
-#: src/model/class-scan.php:647
+#: src/model/class-scan.php:642
 msgid "Checking for any published vulnerabilities in your plugins and themes..."
 msgstr ""
 
-#: src/model/class-scan.php:649
+#: src/model/class-scan.php:644
 msgid "Analyzing WordPress Content..."
 msgstr ""
 
-#: src/model/class-scan.php:651
+#: src/model/class-scan.php:646
 msgid "The scan is running"
 msgstr ""
 
@@ -8849,7 +8849,7 @@ msgstr ""
 msgid "Polynesia"
 msgstr ""
 
-#: src/traits/defender-bootstrap.php:570
+#: src/traits/defender-bootstrap.php:544
 msgid "UPGRADE TO PRO"
 msgstr ""
 

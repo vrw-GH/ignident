@@ -43,7 +43,7 @@ function defender_drop_custom_fk_constraint( string $table_name ): void {
 
 	if ( $results ) {
 		foreach ( $results as $fk ) {
-			$wpdb->query( "ALTER TABLE {$table_name} DROP FOREIGN KEY {$fk->CONSTRAINT_NAME}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE {$table_name} DROP FOREIGN KEY {$fk->CONSTRAINT_NAME}" );
 		}
 	}
 }

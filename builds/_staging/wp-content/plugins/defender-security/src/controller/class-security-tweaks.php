@@ -510,7 +510,7 @@ class Security_Tweaks extends Event {
 				'rating_text'         => sprintf(
 				/* translators: %d - Total number. */
 					esc_html__(
-						'You\'ve resolved all %d security recommendations - that\'s impressive! We are happy to be a part of helping you secure your site, and we would appreciate it if you dropped us a rating on wp.org to help us spread the word and boost our motivation.',
+						'You`ve resolved all %d security recommendations - that`s impressive! We are happy to be a part of helping you secure your site, and we would appreciate it if you dropped us a rating on wp.org to help us spread the word and boost our motivation.',
 						'defender-security'
 					),
 					$total_tweaks

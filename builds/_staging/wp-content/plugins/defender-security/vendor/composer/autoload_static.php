@@ -502,6 +502,7 @@ class ComposerStaticInitf0eb055c08a2deead8b913944120dc0a
         'WP_Defender\\Model\\Notification\\Malware_Notification' => __DIR__ . '/../..' . '/src/model/notification/class-malware-notification.php',
         'WP_Defender\\Model\\Notification\\Malware_Report' => __DIR__ . '/../..' . '/src/model/notification/class-malware-report.php',
         'WP_Defender\\Model\\Notification\\Tweak_Reminder' => __DIR__ . '/../..' . '/src/model/notification/class-tweak-reminder.php',
+        'WP_Defender\\Model\\Onboard' => __DIR__ . '/../..' . '/src/model/class-onboard.php',
         'WP_Defender\\Model\\Scan' => __DIR__ . '/../..' . '/src/model/class-scan.php',
         'WP_Defender\\Model\\Scan_Item' => __DIR__ . '/../..' . '/src/model/class-scan-item.php',
         'WP_Defender\\Model\\Setting\\Audit_Logging' => __DIR__ . '/../..' . '/src/model/setting/class-audit-logging.php',

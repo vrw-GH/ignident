@@ -4,7 +4,8 @@ define('WP_CACHE', getenv('ENV_WP_DEBUG')?false:true ); // Added by W3 Total Cac
 
 define( 'ITSEC_ENCRYPTION_KEY', 'IHpufDIkT191VTolelFVcn1wMmBdSzFmYWlUIzhAZVhrJD0vRllsMmxzMF5IQXVgUm8mbUw3WyN0L2AoTSp0KA==' );
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/includes/get_dotenvs/get-dotenvs.php';  // vw- added env variables
+#---------------------------------  vw- added local .env variables
+include_once $_SERVER['HTTP_DOCSBASE'].'/includes/get_dotenvs/get-dotenvs.php'; // HTTP_DOCSBASE is set in httpd.conf 
 
 /**
  * The base configuration for WordPress
@@ -88,12 +89,14 @@ define( 'WP_DEBUG', getenv('ENV_WP_DEBUG')?true:false );
 /* -------------------------------------------------------------------- */
 /* Add any custom values between this line and the "stop editing" line. */
 
-   define( 'WP_HOME', getenv('ENV_WP_HOME') 
+   define( 'WP_HOME', 
+      getenv('ENV_WP_HOME') 
       ? getenv('ENV_WP_HOME')
       : 'http://' . $_SERVER['SERVER_NAME'] . pathinfo($_SERVER['PHP_SELF'],PATHINFO_DIRNAME)
    );
 
-   define( 'WP_SITEURL', getenv('ENV_WP_SITEURL') 
+   define( 'WP_SITEURL', 
+      getenv('ENV_WP_SITEURL') 
       ? getenv('ENV_WP_SITEURL')
       : 'http://' . $_SERVER['SERVER_NAME'] . pathinfo($_SERVER['PHP_SELF'],PATHINFO_DIRNAME)
    );

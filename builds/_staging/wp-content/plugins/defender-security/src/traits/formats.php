@@ -19,7 +19,7 @@ trait Formats {
 	 * @param  mixed $timestamp  Timestamp to convert.
 	 * @param  bool  $i18n  Should return date in localized format.
 	 *
-	 * @return false|string
+	 * @return bool|string
 	 */
 	public function format_date_time( $timestamp, $i18n = true ) {
 		if ( ! filter_var( $timestamp, FILTER_VALIDATE_INT ) ) {
@@ -30,9 +30,9 @@ trait Formats {
 		}
 		$format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
 		if ( false === $i18n ) {
-			return wp_date( $format, $timestamp );
+			return gmdate( $format, $timestamp );
 		}
-		$time = get_date_from_gmt( wp_date( 'Y-m-d H:i:s', $timestamp ) );
+		$time = get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $timestamp ) );
 
 		return date_i18n( $format, strtotime( $time ) );
 	}
@@ -42,10 +42,10 @@ trait Formats {
 	 *
 	 * @param  int $timestamp  Unix timestamp that defaults to the current local time.
 	 *
-	 * @return string|false
+	 * @return string|bool
 	 */
 	public function persistent_hub_datetime_format( $timestamp ) {
-		return wp_date( 'Y-m-d g:i a', $timestamp );
+		return gmdate( 'Y-m-d g:i a', $timestamp );
 	}
 
 	/**
@@ -168,7 +168,6 @@ trait Formats {
 		return $time->getTimestamp();
 	}
 
-
 	/**
 	 * Returns the timezone string based on the given offset.
 	 *
@@ -204,14 +203,14 @@ trait Formats {
 	/**
 	 * Get days of week.
 	 *
-	 * @return mixed|void
+	 * @return array
 	 */
 	public function get_days_of_week() {
 		$timestamp = strtotime( 'next Sunday' );
 		$days      = array();
 		for ( $i = 0; $i < 7; $i++ ) {
-			$days[ strtolower( wp_date( 'l', $timestamp ) ) ] = date_i18n( 'l', $timestamp );
-			$timestamp                                        = strtotime( '+1 day', $timestamp );
+			$days[ strtolower( gmdate( 'l', $timestamp ) ) ] = date_i18n( 'l', $timestamp );
+			$timestamp                                       = strtotime( '+1 day', $timestamp );
 		}
 
 		return $days;
@@ -271,9 +270,8 @@ trait Formats {
 	/**
 	 * Calculates the date interval based on the given date.
 	 *
-	 * @param  string $date  The date to calculate the interval for. Can be '24 hours', '7 days', '30 days', '3
-	 *   months',
-	 *                   '6 months', or '12 months'.
+	 * @param  string $date  The date to calculate the interval for. Can be '24 hours', '7 days', '30 days',
+	 *   '3 months', '6 months' or '12 months'.
 	 *
 	 * @return string The date interval in ISO 8601 format. Returns an empty string if the given date is not
 	 *     recognized.

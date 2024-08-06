@@ -1,13 +1,13 @@
 === Defender Security - Malware Scanner, Login Security & Firewall ===
 Plugin Name: Defender Security - Malware Scanner, Login Security & Firewall
-Version: 4.8.1
+Version: 4.8.2
 Author: WPMU DEV
 Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
 Tags: security, malware, firewall, malware scanner, login security
 Requires at least: 5.2
 Tested up to: 6.6
-Stable tag: 4.8.1
+Stable tag: 4.8.2
 Requires PHP: 7.4
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -242,6 +242,13 @@ Please open a new thread in Defender's [support forum](https://wordpress.org/sup
 
 == Changelog ==
 
+= 4.8.2 ( 2024-07-31 ) =
+
+- Fix: Incorrect IP header detection on WPMU DEV hosting
+- Fix: Malware Scanning is not working for specific timezones
+- Fix: Can not set notification schedule after changing the site language
+- Fix: Quarantine feature improvements
+
 = 4.8.1 ( 2024-07-23 ) =
 
 - Enhance: Improvements for Known vulnerabilities
@@ -290,27 +297,6 @@ Please open a new thread in Defender's [support forum](https://wordpress.org/sup
 = 4.7.1 ( 2024-05-01 ) =
 
 - Enhance: UI enhancements in the Malware Scanning screen
-
-= 4.7.0 ( 2024-04-22 ) =
-
-- Enhance: Create a dropdown for Trusted Proxy Preset
-- Enhance: Add .well-known to scan allowlist
-- Fix: Undefined array key 'path' after update
-- Fix: Fix Validation gets bypassed in Google reCAPTCHA
-- Fix: Add malware signature
-- Fix: Unlock time overlaps with the Defender logo in the footer
-
-= 4.6.0 ( 2024-03-18 ) =
-
-- New: Introducing the "Unlock Me" feature to unblock admin on lockout
-- Fix: False positive with BuddyBoss plugin on Malware scan
-- Fix: Undefined variable in two-fa.php
-
-= 4.5.1 ( 2024-02-26 ) =
-
-- Enhance: Improve IP detection with auto-detection for Cloudflare and notices for proxy configurations
-- Enhance: Compatibility with WordPress 6.5
-- Enhance: Replace the old Twitter logo with the new logo in emails
 
 [Changelog for previous versions](https://wpmudev.com/project/wp-defender/#view-changelog).
 

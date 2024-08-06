@@ -141,7 +141,7 @@ class Rate extends Component {
 				'text' => sprintf(
 				/* translators: %d - Number of completed scans. */
 					esc_html__(
-						'You\'ve completed %d malware scans - that\'s a lot of scans! We are happy to be a part of helping you secure your site and we would appreciate it if you dropped us a rating on wp.org to help us spread the word and boost our motivation.',
+						'You`ve completed %d malware scans - that`s a lot of scans! We are happy to be a part of helping you secure your site and we would appreciate it if you dropped us a rating on wp.org to help us spread the word and boost our motivation.',
 						'defender-security'
 					),
 					self::NUMBER_COMPLETED_SCANS
@@ -153,7 +153,7 @@ class Rate extends Component {
 				'text' => sprintf(
 				/* translators: %d - Number of completed scans. */
 					esc_html__(
-						'You\'ve successfully resolved %d malware scan issues! We are happy to be a part of helping you secure your site, and we would appreciate it if you dropped us a rating on wp.org to help us spread the word and boost our motivation.',
+						'You`ve successfully resolved %d malware scan issues! We are happy to be a part of helping you secure your site, and we would appreciate it if you dropped us a rating on wp.org to help us spread the word and boost our motivation.',
 						'defender-security'
 					),
 					self::NUMBER_FIXED_SCANS

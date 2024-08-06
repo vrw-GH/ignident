@@ -153,7 +153,7 @@ class Scan extends Component {
 					$this->log( sprintf( 'queue %s for next', $runner->key() ), 'scan.log' );
 					$this->scan->status          = $runner->key();
 					$this->scan->task_checkpoint = '';
-					$this->scan->date_end        = wp_date( 'Y-m-d H:i:s' );
+					$this->scan->date_end        = gmdate( 'Y-m-d H:i:s' );
 					$this->scan->save();
 
 					// Queue for next run.
