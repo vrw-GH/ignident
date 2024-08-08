@@ -98,13 +98,12 @@ class Ays_Pb {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-
         if ( !class_exists('WP_List_Table') ) {
             require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
         }
 
 		/**
-		 * The class responsible for all plugin data
+		 * The class responsible for defining all functions for using anywhere.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ays-pb-data.php';
 
@@ -160,9 +159,8 @@ class Ays_Pb {
 		 * The class is responsible for showing PB Categories Shortdodes
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/class-pb-category-shortcode.php';
-		
-		$this->loader = new Ays_Pb_Loader();
 
+		$this->loader = new Ays_Pb_Loader();
 	}
 
 	/**
@@ -190,7 +188,6 @@ class Ays_Pb {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
 		$plugin_admin = new Ays_Pb_Admin( $this->get_plugin_name(), $this->get_version() );
 		$data_admin = new Ays_Pb_Data( $this->get_plugin_name(), $this->get_version() );
 
@@ -265,6 +262,14 @@ class Ays_Pb {
 		// Close popup and caches plugins conflict warning note for 1 month
 		$this->loader->add_action( 'wp_ajax_close_warning_note_permanently', $plugin_admin, 'close_warning_note_permanently' );
         $this->loader->add_action( 'wp_ajax_nopriv_close_warning_note_permanently', $plugin_admin, 'close_warning_note_permanently' );
+
+		// Our Products | Install plugin
+		$this->loader->add_action( 'wp_ajax_ays_pb_install_plugin', $plugin_admin, 'ays_pb_install_plugin' );
+        $this->loader->add_action( 'wp_ajax_nopriv_ays_pb_install_plugin', $plugin_admin, 'ays_pb_install_plugin' );
+
+		// Our Products | Activate plugin
+        $this->loader->add_action( 'wp_ajax_ays_pb_activate_plugin', $plugin_admin, 'ays_pb_activate_plugin' );
+        $this->loader->add_action( 'wp_ajax_nopriv_ays_pb_activate_plugin', $plugin_admin, 'ays_pb_activate_plugin' );
     }
 
 	/**

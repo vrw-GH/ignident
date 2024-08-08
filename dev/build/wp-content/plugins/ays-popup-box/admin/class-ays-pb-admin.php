@@ -140,6 +140,8 @@ class Ays_Pb_Admin {
             'pleaseEnterMore' => __( "Please select more", "ays-popup-box" ),
             'errorMsg' => __( "Error", "ays-popup-box" ),
             'somethingWentWrong' => __( "Maybe something went wrong.", "ays-popup-box" ),
+            'activated' => __( "Activated", "ays-popup-box" ),
+            'loadResource' => __( "Can't load resource.", "ays-popup-box" ),
             'pbBannerDate' => $pb_banner_date,
         );
 
@@ -266,6 +268,111 @@ class Ays_Pb_Admin {
         add_action( "load-$hook_categories", array($this, 'add_tabs') );
     }
 
+    public function add_plugin_custom_fields_submenu() {
+        $hook_popup_attributes = add_submenu_page(
+            $this->plugin_name,
+            __('Custom Fields', "ays-popup-box"),
+            __('Custom Fields', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-attributes',
+            array($this, 'display_plugin_attributes_page')
+        );
+
+        add_action( "load-$hook_popup_attributes", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_reports_submenu() {
+        $hook_reports = add_submenu_page(
+            $this->plugin_name,
+            __('Analytics', "ays-popup-box"),
+            __('Analytics', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-reports',
+            array($this, 'display_plugin_results_page')
+        );
+
+        add_action( "load-$hook_reports", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_subscribes_submenu() {
+        $hook_subscribes = add_submenu_page(
+            $this->plugin_name,
+            __('Submissions', "ays-popup-box"),
+            __('Submissions', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-subscribes',
+            array($this, 'display_plugin_subscribes_page')
+        );
+
+        add_action( "load-$hook_subscribes", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_export_import_submenu() {
+        $hook_export_import = add_submenu_page(
+            $this->plugin_name,
+            __('Export/Import', "ays-popup-box"),
+            __('Export/Import', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-export-import',
+            array($this, 'display_plugin_export_import_page')
+        );
+
+        add_action( "load-$hook_export_import", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_settings_submenu() {
+        $hook_settings = add_submenu_page(
+            $this->plugin_name,
+            __('General Settings', "ays-popup-box"),
+            __('General Settings', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-settings',
+            array($this, 'display_plugin_settings_page')
+        );
+
+        add_action( "load-$hook_settings", array($this, 'screen_option_settings') );
+        add_action( "load-$hook_settings", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_how_to_use_submenu() {
+        $hook_how_to_use = add_submenu_page(
+            $this->plugin_name,
+            __('How to use', "ays-popup-box"),
+            __('How to use', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-how-to-use',
+            array($this, 'display_plugin_how_to_use_page')
+        );
+
+        add_action( "load-$hook_how_to_use", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_featured_plugins_submenu() {
+        $hook_featured_plugins = add_submenu_page(
+            $this->plugin_name,
+            __('Our Products', "ays-popup-box"),
+            __('Our Products', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-featured-plugins',
+            array($this, 'display_plugin_featured_plugins_page')
+        );
+
+        add_action("load-$hook_featured_plugins", array($this, 'add_tabs') );
+    }
+
+    public function add_plugin_pro_features_submenu() {
+        $hook_pro_features = add_submenu_page(
+            $this->plugin_name,
+            __('PRO Features', "ays-popup-box"),
+            __('PRO Features', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name . '-pb-features',
+            array($this, 'display_plugin_pro_features_page')
+        );
+
+        add_action( "load-$hook_pro_features", array($this, 'add_tabs') );
+    }
+
     public function display_plugin_setup_page() {
 		$action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
 
@@ -293,6 +400,38 @@ class Ays_Pb_Admin {
         }
     }
 
+    public function display_plugin_attributes_page() {
+        include_once('partials/attributes/actions/ays-pb-attributes-actions.php');
+    }
+
+    public function display_plugin_results_page() {
+        include_once('partials/reports/ays-pb-reports-display.php');
+    }
+
+    public function display_plugin_subscribes_page() {
+        include_once('partials/subscribes/ays-pb-subscribes-display.php');
+    }
+
+    public function display_plugin_export_import_page() {
+        include_once('partials/export-import/ays-pb-export-import.php');
+    }
+
+    public function display_plugin_settings_page() {
+        include_once('partials/settings/popup-box-settings.php');
+    }
+
+    public function display_plugin_how_to_use_page() {
+        include_once('partials/how-to-use/ays-pb-how-to-use.php');
+    }
+
+    public function display_plugin_featured_plugins_page() {
+        include_once('partials/features/ays-pb-plugin-featured-display.php');
+    }
+
+    public function display_plugin_pro_features_page() {
+        include_once 'partials/features/popup-box-pro-features-display.php';
+    }
+
     public function screen_option_popupbox() {
 		$option = 'per_page';
 		$args = array(
@@ -316,6 +455,10 @@ class Ays_Pb_Admin {
 
         add_screen_option($option, $args);
         $this->popup_categories_obj = new Popup_Categories_List_Table($this->plugin_name);
+        $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
+    }
+
+    public function screen_option_settings() {
         $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
     }
 
@@ -436,111 +579,6 @@ class Ays_Pb_Admin {
         }
     }
 
-    public function add_plugin_pro_features_submenu(){
-        $hook_pro_features = add_submenu_page(
-            $this->plugin_name,
-            __('PRO Features', "ays-popup-box"),
-            __('PRO Features', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-pb-features',
-            array($this, 'pb_display_plugin_pro_features_page')
-        );
-
-        add_action( "load-$hook_pro_features", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_reports_submenu(){
-        $results_text = __('Analytics', "ays-popup-box");
-        $hook_reports = add_submenu_page(
-            $this->plugin_name,
-            $results_text,
-            $results_text,
-            'manage_options',
-            $this->plugin_name . '-reports',
-            array($this, 'display_plugin_results_page')
-        );
-
-        add_action( "load-$hook_reports", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_custom_fields_submenu(){
-        $hook_popup_attributes = add_submenu_page(
-            $this->plugin_name,
-            __('Custom Fields', "ays-popup-box"),
-            __('Custom Fields', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-attributes',
-            array($this, 'display_plugin_attributes_page')
-        );
-
-        // add_action("load-$hook_popup_attributes", array($this, 'screen_option_attributes'));
-        add_action("load-$hook_popup_attributes", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_export_import_submenu(){
-        $results_text = __('Export/Import', "ays-popup-box");
-        $hook_export_import = add_submenu_page(
-            $this->plugin_name,
-            $results_text,
-            $results_text,
-            'manage_options',
-            $this->plugin_name . '-export-import',
-            array($this, 'display_plugin_export_import_page')
-        );
-
-        add_action( "load-$hook_export_import", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_subscribes_submenu(){
-        $results_text = __('Submissions', "ays-popup-box");
-        $hook_subscribes = add_submenu_page(
-            $this->plugin_name,
-            $results_text,
-            $results_text,
-            'manage_options',
-            $this->plugin_name . '-subscribes',
-            array($this, 'display_plugin_subscribes_page')
-        );
-
-        add_action( "load-$hook_subscribes", array( $this, 'add_tabs' ));
-    }
-
-
-    public function add_plugin_settings_submenu(){
-        $hook_settings = add_submenu_page( $this->plugin_name,
-            __('General Settings', "ays-popup-box"),
-            __('General Settings', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-settings',
-            array($this, 'display_plugin_settings_page') 
-        );
-        add_action("load-$hook_settings", array($this, 'screen_option_settings'));
-        add_action( "load-$hook_settings", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_how_to_use_submenu(){
-        $hook_how_to_use = add_submenu_page( $this->plugin_name,
-            __('How to use', "ays-popup-box"),
-            __('How to use', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-how-to-use',
-            array($this, 'display_plugin_how_to_use_page') 
-        );
-        add_action("load-$hook_how_to_use", array($this, 'screen_option_settings'));
-        add_action( "load-$hook_how_to_use", array( $this, 'add_tabs' ));
-    }
-
-    public function add_plugin_featured_plugins_submenu(){
-        $hook_featured_plugins = add_submenu_page( $this->plugin_name,
-            __('Our Products', "ays-popup-box"),
-            __('Our Products', "ays-popup-box"),
-            'manage_options',
-            $this->plugin_name . '-featured-plugins',
-            array($this, 'display_plugin_featured_plugins_page') 
-        );
-        add_action( "load-$hook_featured_plugins", array( $this, 'add_tabs' ));
-    }
-
     /**
      * Add settings action link to the plugins page.
      *
@@ -566,50 +604,6 @@ class Ays_Pb_Admin {
         }
 
         return $meta;
-    }
-
-    public function display_plugin_attributes_page(){
-        $action = (isset($_GET['action'])) ? sanitize_text_field($_GET['action']) : '';
-
-        switch ($action) {
-            case 'add':
-                include_once('partials/attributes/actions/ays-pb-attributes-actions.php');
-                break;
-            case 'edit':
-                include_once('partials/attributes/actions/ays-pb-attributes-actions.php');
-                break;
-            default:
-                include_once('partials/attributes/actions/ays-pb-attributes-actions.php');
-        }
-    }
-
-    public function pb_display_plugin_pro_features_page() {
-        include_once 'partials/features/popup-box-pro-features-display.php';
-    }
-
-    public function display_plugin_settings_page(){        
-        include_once('partials/settings/popup-box-settings.php');
-    }
-
-    public function display_plugin_how_to_use_page(){        
-        include_once('partials/how-to-use/ays-pb-how-to-use.php');
-    }
-
-    public function display_plugin_results_page(){
-        include_once('partials/reports/ays-pb-reports-display.php');
-    }
-    public function display_plugin_export_import_page(){
-        include_once('partials/export-import/ays-pb-export-import.php');
-    }
-    public function display_plugin_subscribes_page(){
-        include_once('partials/subscribes/ays-pb-subscribes-display.php');
-    }
-    public function display_plugin_featured_plugins_page(){
-        include_once('partials/features/ays-pb-plugin-featured-display.php');
-    }
-
-    public function screen_option_settings() {
-        $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
     }
 
     public function deactivate_plugin_option() {
@@ -839,5 +833,483 @@ class Ays_Pb_Admin {
         }
 
         return $res;
+    }
+
+    /**
+     * Display the Our Products content.
+     *
+     * @since 4.7.0
+     */
+    public function ays_pb_output_our_products_content() {
+        if (!function_exists('get_plugins')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        $all_plugins = get_plugins();
+        $am_plugins = $this->ays_pb_get_our_plugins();
+        $can_install_plugins = self::ays_pb_can_install('plugin');
+        $can_activate_plugins = self::ays_pb_can_activate('plugin');
+
+        $content = '';
+        $content.= '<div class="ays-pb-cards-block">';
+
+        foreach ($am_plugins as $plugin => $details) {
+            $plugin_data = $this->ays_pb_get_plugin_data($plugin, $details, $all_plugins);
+            $plugin_ready_to_activate = $can_activate_plugins && isset($plugin_data['status_class']) && $plugin_data['status_class'] === 'status-installed';
+            $plugin_not_activated = !isset($plugin_data['status_class']) || $plugin_data['status_class'] !== 'status-active';
+            $plugin_action_class = ( isset($plugin_data['action_class']) && esc_attr($plugin_data['action_class']) != "" ) ? esc_attr($plugin_data['action_class']) : "";
+            $plugin_action_class_disbaled = strpos($plugin_action_class, 'status-active') !== false ? "disbaled='true'" : "";
+
+            $content .= '
+                <div class="ays-pb-card">
+                    <div class="ays-pb-card__content flexible">
+                        <div class="ays-pb-card__content-img-box">
+                            <img class="ays-pb-card__img" src="' . esc_url($plugin_data['details']['icon']) . '" alt="' . esc_attr($plugin_data['details']['name'] ) . '">
+                        </div>
+                        <div class="ays-pb-card__text-block">
+                            <h5 class="ays-pb-card__title">' . esc_html($plugin_data['details']['name']) . '</h5>
+                            <p class="ays-pb-card__text">' . wp_kses_post($plugin_data['details']['desc']) . '
+                                <span class="ays-pb-card__text-hidden">
+                                    ' . wp_kses_post($plugin_data['details']['desc_hidden']) . '
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ays-pb-card__footer">';
+                        if ($can_install_plugins || $plugin_ready_to_activate || !$details['wporg']) {
+                            $content .= '<button class="' . esc_attr($plugin_data['action_class']) . '" data-plugin="' . esc_attr($plugin_data['plugin_src']) . '" data-type="plugin" ' . $plugin_action_class_disbaled . '>
+                                ' . wp_kses_post($plugin_data['action_text']) . '
+                                <span class="ays_pb_loader display_none"><img src=' . AYS_PB_ADMIN_URL . '/images/loaders/loading.gif></span>
+                            </button>';
+                        } elseif ($plugin_not_activated) {
+                            $content .= '<a href="' . esc_url($details['wporg']) . '" target="_blank" rel="noopener noreferrer">
+                                ' . esc_html_e('WordPress.org', "ays-popup-box") . '
+                                <span aria-hidden="true" class="dashicons dashicons-external"></span>
+                            </a>';
+                        }
+            $content .='
+                        <a target="_blank" href="' . esc_url($plugin_data['details']['buy_now']) . '" class="ays-pb-card__btn-primary">' . __('Buy Now', "ays-popup-box") . '</a>
+                    </div>
+                </div>';
+        }
+
+        $install_plugin_nonce = wp_create_nonce($this->plugin_name . '-install-plugin-nonce');
+        $content.= '<input type="hidden" id="ays_pb_ajax_install_plugin_nonce" name="ays_pb_ajax_install_plugin_nonce" value="' . $install_plugin_nonce . '">';
+        $content.= '</div>';
+
+        echo $content;
+    }
+
+    /**
+     * List of AM plugins that we propose to install.
+     *
+     * @since 4.7.0
+     *
+     * @return array
+     */
+    protected function ays_pb_get_our_plugins() {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $images_url = AYS_PB_ADMIN_URL . '/images/icons/';
+        $plugin_url_arr = array();
+
+        $plugin_slug = array(
+            'quiz-maker',
+            'poll-maker',
+            'survey-maker',
+            'gallery-photo-gallery',
+            'secure-copy-content-protection',
+            'personal-dictionary',
+            'chart-builder',
+        );
+
+        foreach ($plugin_slug as $key => $slug) {
+            if ( isset($_SESSION['ays_pd_our_product_links']) && !empty($_SESSION['ays_pd_our_product_links']) && isset($_SESSION['ays_pd_our_product_links'][$slug]) && !empty($_SESSION['ays_pd_our_product_links'][$slug]) ) {
+                $plugin_url = ( isset($_SESSION['ays_pd_our_product_links'][$slug]) && $_SESSION['ays_pd_our_product_links'][$slug] != "" ) ? esc_url($_SESSION['ays_pd_our_product_links'][$slug]) : "";
+            } else {
+                $latest_version = $this->ays_pb_get_latest_plugin_version($slug);
+                $plugin_url = 'https://downloads.wordpress.org/plugin/' . $slug . '.zip';
+                if ($latest_version != '') {
+                    $plugin_url = 'https://downloads.wordpress.org/plugin/' . $slug . '.' . $latest_version . '.zip';
+                    $_SESSION['ays_pd_our_product_links'][$slug] = $plugin_url;
+                }
+            }
+
+            $plugin_url_arr[$slug] = $plugin_url;
+        }
+
+        $plugins_array = array(
+           'quiz-maker/quiz-maker.php' => array(
+                'icon' => $images_url . 'icon-quiz-128x128.png',
+                'name' => __('Quiz Maker', "ays-popup-box"),
+                'desc' => __('With our Quiz Maker plugin it’s easy to make a quiz in a short time.', "ays-popup-box"),
+                'desc_hidden' => __('You to add images to your quiz, order unlimited questions. Also you can style your quiz to satisfy your visitors.', "ays-popup-box"),
+                'wporg' => 'https://wordpress.org/plugins/quiz-maker/',
+                'buy_now' => 'https://ays-pro.com/wordpress/quiz-maker/',
+                'url' => $plugin_url_arr['quiz-maker'],
+            ),
+            'poll-maker/poll-maker-ays.php' => array(
+                'icon' => $images_url . 'icon-poll-128x128.png',
+                'name' => __('Poll Maker', "ays-popup-box"),
+                'desc' => __('Create amazing online polls for your WordPress website super easily.', "ays-popup-box"),
+                'desc_hidden' => __('Build up various types of polls in a minute and get instant feedback on any topic or product.', "ays-popup-box"),
+                'wporg' => 'https://wordpress.org/plugins/poll-maker/',
+                'buy_now' => 'https://ays-pro.com/wordpress/poll-maker/',
+                'url' => $plugin_url_arr['poll-maker'],
+            ),
+            'survey-maker/survey-maker.php' => array(
+                'icon' => $images_url . 'icon-survey-128x128.png',
+                'name' => __('Survey Maker', "ays-popup-box"),
+                'desc' => __('Make amazing online surveys and get real-time feedback quickly and easily.', "ays-popup-box"),
+                'desc_hidden' => __('Learn what your website visitors want, need, and expect with the help of Survey Maker. Build surveys without limiting your needs.', "ays-popup-box"),
+                'wporg' => 'https://wordpress.org/plugins/survey-maker/',
+                'buy_now' => 'https://ays-pro.com/wordpress/survey-maker',
+                'url' => $plugin_url_arr['survey-maker'],
+            ),
+            'gallery-photo-gallery/gallery-photo-gallery.php' => array(
+                'icon' => $images_url . 'icon-gallery-128x128.png',
+                'name' => __('Gallery Photo Gallery', "ays-popup-box"),
+                'desc' => __('Create unlimited galleries and include unlimited images in those galleries.', "ays-popup-box"),
+                'desc_hidden' => __('Represent images in an attractive way. Attract people with your own single and multiple free galleries from your photo library.', "ays-popup-box"),
+                'wporg' => 'https://wordpress.org/plugins/gallery-photo-gallery/',
+                'buy_now' => 'https://ays-pro.com/wordpress/photo-gallery/',
+                'url' => $plugin_url_arr['gallery-photo-gallery'],
+            ),
+            'secure-copy-content-protection/secure-copy-content-protection.php' => array(
+                'icon' => $images_url . 'icon-sccp-128x128.png',
+                'name' => __('Secure Copy Content Protection', "ays-popup-box"),
+                'desc' => __('Disable the right click, copy paste, content selection and copy shortcut keys on your website.', "ays-popup-box"),
+                'desc_hidden' => __('Protect web content from being plagiarized. Prevent plagiarism from your website with this easy to use plugin.', "ays-popup-box"),
+                'wporg' => 'https://wordpress.org/plugins/secure-copy-content-protection/',
+                'buy_now' => 'https://ays-pro.com/wordpress/secure-copy-content-protection/',
+                'url' => $plugin_url_arr['secure-copy-content-protection'],
+            ),
+            'personal-dictionary/personal-dictionary.php' => array(
+                'icon' => $images_url . 'icon-pd-128x128.png',
+                'name' => __('Personal Dictionary', 'quiz-maker' ),
+                'desc' => __('Allow your students to create personal dictionary, study and memorize the words.', 'quiz-maker' ),
+                'desc_hidden' => __('Allow your users to create their own digital dictionaries and learn new words and terms as fastest as possible.', 'quiz-maker' ),
+                'wporg' => 'https://wordpress.org/plugins/personal-dictionary/',
+                'buy_now' => 'https://ays-pro.com/wordpress/personal-dictionary/',
+                'url' => $plugin_url_arr['personal-dictionary'],
+            ),
+            'chart-builder/chart-builder.php' => array(
+                'icon' => $images_url . 'icon-chart-128x128.png',
+                'name' => __('Chart Builder', "ays-popup-box"),
+                'desc' => __('Chart Builder plugin allows you to create beautiful charts', "ays-popup-box"),
+                'desc_hidden' => __(' and graphs easily and quickly.', "ays-popup-box"),
+                'wporg' => 'https://wordpress.org/plugins/chart-builder/',
+                'buy_now' => 'https://ays-pro.com/wordpress/chart-builder/',
+                'url' => $plugin_url_arr['chart-builder'],
+            ),
+        );
+
+        return $plugins_array;
+    }
+
+    protected function ays_pb_get_latest_plugin_version($slug) {
+        if ( is_null($slug) || empty($slug) ) {
+            return "";
+        }
+
+        $version_latest = "";
+
+        if (!function_exists('plugins_api')) {
+            require_once(ABSPATH . 'wp-admin/includes/plugin-install.php');
+        }
+
+        // set the arguments to get latest info from repository via API ##
+        $args = array(
+            'slug' => $slug,
+            'fields' => array(
+                'version' => true,
+            )
+        );
+
+        /** Prepare our query */
+        $call_api = plugins_api('plugin_information', $args);
+
+        /** Check for Errors & Display the results */
+        if (is_wp_error($call_api)) {
+            $api_error = $call_api->get_error_message();
+        } else {
+            //echo $call_api; // everything ##
+            if (!empty($call_api->version)) {
+                $version_latest = $call_api->version;
+            }
+        }
+
+        return $version_latest;
+    }
+
+    /**
+     * Determine if the plugin/addon installations are allowed.
+     *
+     * @since 4.7.0
+     *
+     * @param string $type Should be `plugin` or `addon`.
+     *
+     * @return bool
+     */
+    public static function ays_pb_can_install($type) {
+        return self::ays_pb_can_do('install', $type);
+    }
+
+    /**
+     * Determine if the plugin/addon activations are allowed.
+     *
+     * @since 4.7.0
+     *
+     * @param string $type Should be `plugin` or `addon`.
+     *
+     * @return bool
+     */
+    public static function ays_pb_can_activate($type) {
+        return self::ays_pb_can_do('activate', $type);
+    }
+
+    /**
+     * Determine if the plugin/addon installations/activations are allowed.
+     *
+     * @since 4.7.0
+     *
+     * @param string $what Should be 'activate' or 'install'.
+     * @param string $type Should be `plugin` or `addon`.
+     *
+     * @return bool
+     */
+    public static function ays_pb_can_do($what, $type) {
+        if ( !in_array($what, array('install', 'activate'), true) ) {
+            return false;
+        }
+
+        if ($type != 'plugin') {
+            return false;
+        }
+
+        $capability = $what . '_plugins';
+
+        if (!current_user_can($capability)) {
+            return false;
+        }
+
+        // Determine whether file modifications are allowed and it is activation permissions checking.
+        if ( $what === 'install' && ! wp_is_file_mod_allowed('ays_pb_can_install') ) {
+            return false;
+        }
+
+        // All plugin checks are done.
+        if ($type === 'plugin') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get AM plugin data to display in the Our Products section.
+     *
+     * @since 4.7.0
+     *
+     * @param string $plugin      Plugin slug.
+     * @param array  $details     Plugin details.
+     * @param array  $all_plugins List of all plugins.
+     *
+     * @return array
+     */
+    protected function ays_pb_get_plugin_data($plugin, $details, $all_plugins) {
+        $have_pro = (!empty($details['pro']) && !empty($details['pro']['plug']));
+        $show_pro = false;
+        $plugin_data = array();
+
+        if ($have_pro) {
+            if (array_key_exists($plugin, $all_plugins)) {
+                if (is_plugin_active($plugin)) {
+                    $show_pro = true;
+                }
+            }
+
+            if (array_key_exists($details['pro']['plug'], $all_plugins)) {
+                $show_pro = true;
+            }
+
+            if ($show_pro) {
+                $plugin = $details['pro']['plug'];
+                $details = $details['pro'];
+            }
+        }
+
+        if (array_key_exists($plugin, $all_plugins)) {
+            if ( is_plugin_active( $plugin ) ) {
+                // Status text/status.
+                $plugin_data['status_class'] = 'status-active';
+                $plugin_data['status_text'] = esc_html__('Active', "ays-popup-box");
+                // Button text/status.
+                $plugin_data['action_class'] = $plugin_data['status_class'] . ' ays-pb-card__btn-info disabled';
+                $plugin_data['action_text'] = esc_html__('Activated', "ays-popup-box");
+                $plugin_data['plugin_src'] = esc_attr($plugin);
+            } else {
+                // Status text/status.
+                $plugin_data['status_class'] = 'status-installed';
+                $plugin_data['status_text'] = esc_html__('Inactive', "ays-popup-box");
+                // Button text/status.
+                $plugin_data['action_class'] = $plugin_data['status_class'] . ' ays-pb-card__btn-info';
+                $plugin_data['action_text'] = esc_html__('Activate', "ays-popup-box");
+                $plugin_data['plugin_src'] = esc_attr($plugin);
+            }
+        } else {
+            // Doesn't exist, install.
+            // Status text/status.
+            $plugin_data['status_class'] = 'status-missing';
+
+            if ( isset($details['act']) && 'go-to-url' === $details['act'] ) {
+                $plugin_data['status_class'] = 'status-go-to-url';
+            }
+
+            $plugin_data['status_text'] = esc_html__('Not Installed', "ays-popup-box");
+            // Button text/status.
+            $plugin_data['action_class'] = $plugin_data['status_class'] . ' ays-pb-card__btn-info';
+            $plugin_data['action_text'] = esc_html__('Install Plugin', "ays-popup-box");
+            $plugin_data['plugin_src'] = esc_url($details['url']);
+        }
+
+        $plugin_data['details'] = $details;
+
+        return $plugin_data;
+    }
+
+    /**
+     * Activate plugin.
+     *
+     * @since 4.7.0
+     */
+    public function ays_pb_activate_plugin() {
+        // Run a security check.
+        check_ajax_referer( $this->plugin_name . '-install-plugin-nonce', sanitize_key($_REQUEST['_ajax_nonce']) );
+
+        // Check for permissions.
+        if (!current_user_can('activate_plugins')) {
+            wp_send_json_error( esc_html__('Plugin activation is disabled for you on this site.', "ays-popup-box") );
+        }
+
+        if (isset($_POST['plugin'])) {
+            $plugin = sanitize_text_field( wp_unslash($_POST['plugin']) );
+            $activate = activate_plugins($plugin);
+
+            if (!is_wp_error($activate)) {
+                wp_send_json_success( esc_html__('Plugin activated.', "ays-popup-box") );
+            }
+        }
+
+        wp_send_json_error( esc_html__('Could not activate the plugin. Please activate it on the Plugins page.', "ays-popup-box") );
+    }
+
+    /**
+     * Install plugin.
+     *
+     * @since 4.7.0
+     */
+    public function ays_pb_install_plugin() {
+        // Run a security check.
+        check_ajax_referer( $this->plugin_name . '-install-plugin-nonce', sanitize_key($_REQUEST['_ajax_nonce']) );
+
+        $generic_error = esc_html__('There was an error while performing your request.', "ays-popup-box");
+        $type = !empty($_POST['type']) ? sanitize_key($_POST['type']) : 'plugin';
+
+        // Check if new installations are allowed.
+        if (!self::ays_pb_can_install($type)) {
+            wp_send_json_error($generic_error);
+        }
+
+        $error = $type === 'plugin' ? esc_html__('Could not install the plugin. Please download and install it manually.', "ays-popup-box") : "";
+
+        $plugin_url = !empty($_POST['plugin']) ? esc_url_raw( wp_unslash($_POST['plugin']) ) : '';
+
+        if (empty($plugin_url)) {
+            wp_send_json_error($error);
+        }
+
+        // Prepare variables.
+        $url = esc_url_raw(
+            add_query_arg(
+                [
+                    'page' => 'ays-pb-featured-plugins',
+                ],
+                admin_url('admin.php')
+            )
+        );
+
+        ob_start();
+        $creds = request_filesystem_credentials($url, '', false, false, null);
+
+        // Hide the filesystem credentials form.
+        ob_end_clean();
+
+        // Check for file system permissions.
+        if ($creds === false) {
+            wp_send_json_error($error);
+        }
+
+        if (!WP_Filesystem($creds)) {
+            wp_send_json_error($error);
+        }
+
+        /*
+         * We do not need any extra credentials if we have gotten this far, so let's install the plugin.
+         */
+        require_once AYS_PB_DIR . 'includes/admin/class-ays-pb-upgrader.php';
+        require_once AYS_PB_DIR . 'includes/admin/class-ays-pb-install-skin.php';
+        require_once AYS_PB_DIR . 'includes/admin/class-ays-pb-skin.php';
+
+        // Do not allow WordPress to search/download translations, as this will break JS output.
+        remove_action( 'upgrader_process_complete', array('Language_Pack_Upgrader', 'async_upgrade'), 20 );
+
+        // Create the plugin upgrader with our custom skin.
+        $installer = new AysPb\Helpers\AysPbPluginSilentUpgrader( new Ays_Pb_Install_Skin() );
+
+        // Error check.
+        if (!method_exists($installer, 'install')) {
+            wp_send_json_error($error);
+        }
+
+        $installer->install($plugin_url);
+
+        // Flush the cache and return the newly installed plugin basename.
+        wp_cache_flush();
+
+        $plugin_basename = $installer->plugin_info();
+
+        if (empty($plugin_basename)) {
+            wp_send_json_error($error);
+        }
+
+        $result = array(
+            'msg' => $generic_error,
+            'is_activated' => false,
+            'basename' => $plugin_basename,
+        );
+
+        // Check for permissions.
+        if (!current_user_can('activate_plugins')) {
+            $result['msg'] = $type === 'plugin' ? esc_html__('Plugin installed.', "ays-popup-box") : "";
+
+            wp_send_json_success($result);
+        }
+
+        // Activate the plugin silently.
+        $activated = activate_plugin($plugin_basename);
+        remove_action( 'activated_plugin', array('ays_sccp_activation_redirect_method', 'gallery_p_gallery_activation_redirect_method', 'poll_maker_activation_redirect_method'), 100 );
+
+        if (!is_wp_error($activated)) {
+            $result['is_activated'] = true;
+            $result['msg'] = esc_html__('Plugin installed and activated.', "ays-popup-box");
+
+            wp_send_json_success($result);
+        }
+
+        // Fallback error just in case.
+        wp_send_json_error($result);
     }
 }

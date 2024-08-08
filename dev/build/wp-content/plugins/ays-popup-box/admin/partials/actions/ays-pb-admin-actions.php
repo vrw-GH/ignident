@@ -1,27 +1,34 @@
 <?php
-$action = (isset($_GET['action'])) ? sanitize_text_field( $_GET['action'] ) : '';
-$id = ( isset( $_GET['popupbox'] ) ) ? absint( intval( $_GET['popupbox'] ) ) : null;
+$action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+$id = isset($_GET['popupbox']) ? absint( intval($_GET['popupbox']) ) : null;
 $ays_pb_tab = isset($_GET['ays_pb_tab']) ? sanitize_text_field($_GET['ays_pb_tab']) : 'tab1';
 
-$show_warning_note = false;
-if (!isset($_COOKIE['ays_pb_show_warning_note'])) {
-    $show_warning_note = true;
-}
-
-$args = array(
-    'public'   => true
-);
-$all_post_types = get_post_types( $args, 'objects' );
-
-// All popups
-$get_all_popups = Ays_Pb_Data::get_popups();
-
-// Popup categories
-$popup_categories = $this->popupbox_obj->get_popup_categories();
+$show_warning_note = !isset($_COOKIE['ays_pb_show_warning_note']);
 
 $heading = '';
 $loader_image  = "<span class='display_none'><img width='20' height='20' src=" . AYS_PB_ADMIN_URL . "/images/loaders/loading.gif></span>";
 $ays_pb_page_url = sprintf('?page=%s', 'ays-pb');
+
+// All popups
+$get_all_popups = Ays_Pb_Data::get_popups();
+
+$args = array(
+    'public' => true
+);
+$all_post_types = get_post_types($args, 'objects');
+
+// Popup categories
+$popup_categories = $this->popupbox_obj->get_popup_categories();
+
+$default_notification_type_components = array(
+    'main_content' => 'main_content',
+    'button_1' => 'button_1',
+);
+
+$default_notification_type_component_names = array(
+    'main_content' => __('Content', "ays-popup-box"),
+    'button_1' => __('Button', "ays-popup-box"),
+);
 
 $user_id = get_current_user_id();
 $user = get_userdata($user_id);
@@ -30,17 +37,8 @@ $author = array(
     'name' => $user->data->display_name
 );
 
-$default_notification_type_components = array(
-    'main_content' => 'main_content',
-    'button_1' => 'button_1',
-);
-
-$default_notification_type_component_names = array(
-    'main_content' => __( 'Content', "ays-popup-box" ),
-    'button_1' => __( 'Button', "ays-popup-box" ),
-);
-
 $x = '✕';
+
 $options = array(
     // General
     'author' => $author,
@@ -274,7 +272,7 @@ $popupbox = array(
     'options' => json_encode($options),
 );
 
-switch( $action ) {
+switch ($action) {
     case 'add':
         $heading = 'Add new PopupBox';
         break;
@@ -2534,6 +2532,87 @@ $ays_users_roles = $wp_roles->roles;
                     </div>
                 </div>
                 <!-- Close by clicking outside the box end -->
+                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">   
+                <!-- close popup by scroll start-->
+                <div class="col-sm-12 ays-pro-features-v2-main-box ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                    <div class="ays-pro-features-v2-small-buttons-box">
+                        <div>
+                            <a href="https://youtu.be/6TVU_KYDE8Q" target="_blank" class="ays-pro-features-v2-video-button">
+                                <div>
+                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
+                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
+                                </div>
+                                <div class="ays-pro-features-v2-video-text">
+                                    <?php echo __("Watch video" , "ays-popup-box"); ?>
+                                </div>
+                            </a>
+                        </div>
+                        <a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                            <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                            <div class="ays-pro-features-v2-upgrade-text">
+                                <?php echo __("Upgrade" , "ays-popup-box"); ?>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="form-group row ays-pb-pro-feature-row" style="margin-bottom:0;">
+                        <div class="col-sm-3">
+                            <label for="ays_close_popup_scroll" style="line-height: 50px;">
+                                <span><?php echo __('Close the popup on scroll', "ays-popup-box"); ?></span>
+                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Define the scroll length by pixels to close the popup when scrolling.", "ays-popup-box"); ?>">
+                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                </a>
+                            </label>
+                        </div>
+                        <div class="col-sm-9" style="padding:10px 0;">
+                                <input type="text" name="close_popup_scroll" class="ays-pb-onoffswitch-checkbox" id="ays_close_popup_scroll" value=""/>
+                        </div>
+                    </div>
+                </div>
+                <!-- close popup by scroll end-->
+                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                <!-- close popup by clicking submit btn by classname start -->
+                <div class="col-sm-12 ays-pro-features-v2-main-box ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                    <div class="ays-pro-features-v2-small-buttons-box">
+                        <div>
+                            <a href="https://www.youtube.com/watch?v=z6TfjOR2CVM" target="_blank" class="ays-pro-features-v2-video-button">
+                                <div>
+                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
+                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
+                                </div>
+                                <div class="ays-pro-features-v2-video-text">
+                                    <?php echo __("Watch video" , "ays-popup-box"); ?>
+                                </div>
+                            </a>
+                        </div>
+                        <a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                            <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                            <div class="ays-pro-features-v2-upgrade-text">
+                                <?php echo __("Upgrade" , "ays-popup-box"); ?>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="form-group row ays_toggle_parent" style="padding: 10px 0; margin:0;">
+                        <div class="col-sm-3">
+                            <label for="ays_close_popup_by_classname">
+                                <?php echo __('Close by classname (onclick)', "ays-popup-box")?>
+                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Copy the given classname, assign it to any tag in the content as well as inside the popup. And the popup will close when the user clicks on the classname.Note: Save your popup before copying the given classname.',"ays-popup-box")?>">
+                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                </a>
+                            </label>
+                        </div>
+                        <div class="col-sm-1">
+                            <input type="checkbox" name="ays_enable_close_by_classname" class="ays-pb-onoffswitch-checkbox ays-enable-timer1 ays_toggle_checkbox" id="ays_close_popup_by_classname" checked/>
+                        </div>
+                        <div class="col-sm-8 ays_toggle_target ays_divider_left">
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <input type="text" name="ays_pb_close_by_classname_".$id id="ays_pb_close_by_classname" class="ays-enable-timerl ays-text-input" value="<?php echo "ays_pb_close_by_classname_".$id ;?>" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- close popup by clicking submit btn by classname end -->
                 <hr>
                 <!-- Hide close button start -->
                 <div class="form-group row">
@@ -2836,87 +2915,6 @@ $ays_users_roles = $wp_roles->roles;
                         </div>
                     </div>
                 </div>
-                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">   
-                <!-- close popup by scroll start-->
-                <div class="col-sm-12 ays-pro-features-v2-main-box ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                    <div class="ays-pro-features-v2-small-buttons-box">
-                        <div>
-                            <a href="https://youtu.be/6TVU_KYDE8Q" target="_blank" class="ays-pro-features-v2-video-button">
-                                <div>
-                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
-                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
-                                </div>
-                                <div class="ays-pro-features-v2-video-text">
-                                    <?php echo __("Watch video" , "ays-popup-box"); ?>
-                                </div>
-                            </a>
-                        </div>
-                        <a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pro-features-v2-upgrade-button">
-                            <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
-                            <div class="ays-pro-features-v2-upgrade-text">
-                                <?php echo __("Upgrade" , "ays-popup-box"); ?>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="form-group row ays-pb-pro-feature-row" style="margin-bottom:0;">
-                        <div class="col-sm-3">
-                            <label for="ays_close_popup_scroll" style="line-height: 50px;">
-                                <span><?php echo __('Close the popup on scroll', "ays-popup-box"); ?></span>
-                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Define the scroll length by pixels to close the popup when scrolling.", "ays-popup-box"); ?>">
-                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                </a>
-                            </label>
-                        </div>
-                        <div class="col-sm-9" style="padding:10px 0;">
-                                <input type="text" name="close_popup_scroll" class="ays-pb-onoffswitch-checkbox" id="ays_close_popup_scroll" value=""/>
-                        </div>
-                    </div>
-                </div>
-                <!-- close popup by scroll end-->
-                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                <!-- close popup by clicking submit btn by classname start -->
-                <div class="col-sm-12 ays-pro-features-v2-main-box ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                    <div class="ays-pro-features-v2-small-buttons-box">
-                        <div>
-                            <a href="https://www.youtube.com/watch?v=z6TfjOR2CVM" target="_blank" class="ays-pro-features-v2-video-button">
-                                <div>
-                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
-                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
-                                </div>
-                                <div class="ays-pro-features-v2-video-text">
-                                    <?php echo __("Watch video" , "ays-popup-box"); ?>
-                                </div>
-                            </a>
-                        </div>
-                        <a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pro-features-v2-upgrade-button">
-                            <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
-                            <div class="ays-pro-features-v2-upgrade-text">
-                                <?php echo __("Upgrade" , "ays-popup-box"); ?>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="form-group row ays_toggle_parent" style="padding: 10px 0; margin:0;">
-                        <div class="col-sm-3">
-                            <label for="ays_close_popup_by_classname">
-                                <?php echo __('Close by classname (onclick)', "ays-popup-box")?>
-                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Copy the given classname, assign it to any tag in the content as well as inside the popup. And the popup will close when the user clicks on the classname.Note: Save your popup before copying the given classname.',"ays-popup-box")?>">
-                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                </a>
-                            </label>
-                        </div>
-                        <div class="col-sm-1">
-                            <input type="checkbox" name="ays_enable_close_by_classname" class="ays-pb-onoffswitch-checkbox ays-enable-timer1 ays_toggle_checkbox" id="ays_close_popup_by_classname" checked/>
-                        </div>
-                        <div class="col-sm-8 ays_toggle_target ays_divider_left">
-                            <div class="form-group row">
-                                <div class="col-sm-10">
-                                    <input type="text" name="ays_pb_close_by_classname_".$id id="ays_pb_close_by_classname" class="ays-enable-timerl ays-text-input" value="<?php echo "ays_pb_close_by_classname_".$id ;?>" readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- close popup by clicking submit btn by classname end -->
                 <hr>
                 <p class="ays-subtitle"><?php echo  __('Advanced Settings', "ays-popup-box") ?></p>
                 <hr>
@@ -3284,182 +3282,7 @@ $ays_users_roles = $wp_roles->roles;
                         </div>
                     </div>
                 </div>
-                <!-- scedule start -->
-                <hr>
-                <div class="form-group row">
-                    <div class="col-sm-3">
-                        <label>
-                            <?php echo __('Change the popup creation date',"ays-popup-box"); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Change the popup creation date to the preferred date.',"ays-popup-box"); ?>">
-                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="input-group mb-3 ays_pb_change_creation_date_container">
-                            <input type="text" class="ays-text-input ays-pb-text-input ays-pb-text-input-short ays-pb-date-create" id="ays_pb_change_creation_date" name="ays_pb_change_creation_date" value="<?php echo $pb_create_date; ?>" placeholder="<?php echo current_time( 'mysql' ); ?>">
-                            <div class="input-group-append">
-                                <label for="ays_pb_change_creation_date" class="input-group-text ays_pb_change_creation_date_icon">
-                                    <span><img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/calendar.svg"?>"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- Change current pb creation date -->
-                <hr>
-                <div class="form-group row">
-                    <div class="col-sm-3">
-                        <label for="ays_pb_create_author">
-                            <?php echo __('Change the popup author',"ays-popup-box"); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Change the popup author to the preferred one. Write the User ID in the field. To find the ID, go to the WordPress User's section and hover on the user. You can find the user ID in the link below. Please note, that in case you write an ID, by which there are no users found, the changes will not be applied and the previous author will remain the same.","ays-popup-box"); ?>">
-                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-9">
-                    <select id="ays_pb_create_author" class="" name="ays_pb_create_author">
-                        <option value=""><?php echo __('Select User',"ays-popup-box")?></option>
-                        <?php
-                            $pb_user_id = ( isset($get_current_popup_author_data->ID) && $get_current_popup_author_data->ID != '' ) ? absint( sanitize_text_field($get_current_popup_author_data->ID) ) : 0;
-                            $pb_user_display_name = ( isset($get_current_popup_author_data->display_name) && $get_current_popup_author_data->display_name != '' ) ? stripslashes( esc_html($get_current_popup_author_data->display_name) ) : '';
-                            $selected = '';
-                            if ($pb_user_id == $change_pb_create_author) {
-                                $selected = 'selected';
-                            }
-                        ?>
-                            <option value="<?php echo $pb_user_id;?>" <?php echo $selected; ?>>
-                                <?php echo $pb_user_display_name; ?>
-                            </option>
-                    </select>
-                    </div>
-                </div> <!-- Change the author of the current popup box -->
-                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                    <div class="col-sm-3">
-                         <label for="ays_pb_disable_scroll">
-                            <span><?php echo __('Disable page scrolling', "ays-popup-box"); ?></span>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("The page will not be scrolled while the popup is displaying. Note: When the option is enabled, the system hides the scrolling of the HTML tag. As the scrolling is hidden, it is automatically scrolling the popup to the top and the plugin doesn't have a connection to this. ", "ays-popup-box"); ?>">
-                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
-                            <div class="ays_pb_option_for_desktop">
-                                <span class="ays_pb_current_device_name" style="<?php echo ($disable_scroll_mobile || $disable_scroll) ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
-                                <p class="onoffswitch">
-                                    <input type="checkbox" name="disable_scroll" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll" <?php echo ($disable_scroll) ? 'checked' : ''; ?> />
-                                </p>
-                            </div>
-                            <div class="ays_pb_option_for_mobile_device ays_pb_option_for_mobile_device_cb ays_divider_left <?php echo ($disable_scroll_mobile || $disable_scroll) ? 'show' : '' ?>">
-                                <span class="ays_pb_current_device_name" style="<?php echo ($disable_scroll_mobile || $disable_scroll) ? 'display: block' : '' ?>"><?php echo __('Mobile', "ays-popup-box") ?></span>
-                                <p class="onoffswitch" style="margin:0;">
-                                    <input type="checkbox" name="disable_scroll_mobile" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll_mobile" <?php if($disable_scroll_mobile){ echo 'checked';} ?>/>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                <!-- Enable dismiss ad start -->
-                <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                    <div class="col-sm-3">
-                         <label for="ays_pb_enable_dismiss">
-                            <span><?php echo __('Enable dismiss ad', "ays-popup-box"); ?></span>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("After enabling this option the dismiss ad button will be displayed in the popup. After clicking on the button the ads will be dismissed for 1 month.", "ays-popup-box"); ?>">
-                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-9 row ays_toggle_parent ays_pb_enable_dismiss_ad_box">
-                        <div class="col-sm-3">
-                            <input type="checkbox" name="ays_pb_enable_dismiss" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_dismiss" <?php echo ($enable_dismiss) ? 'checked' : ''; ?> />
-                        </div>
-                        <div class="col-sm-9 ays_toggle_target ays_divider_left" style=" <?php echo ( $enable_dismiss ) ? '' : 'display:none'; ?>" >
-                            <div class="ays_toggle_parent_dismiss_option">
-                                <div class="ays_pb_current_device_name show ays_toggle_target_dismiss_option" style="<?php echo ($enable_dismiss_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px"><?php echo __('PC', "ays-popup-box") ?></div>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_pb_enable_dismiss_text">
-                                            <span><?php echo __('Dismiss ad text', "ays-popup-box"); ?></span>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Write the text that you want to be displayed on the dismiss ad button.", "ays-popup-box"); ?>">
-                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="ays_pb_enable_dismiss_text" class="ays-text-input" id="ays_pb_enable_dismiss_text" value="<?php echo $enable_dismiss_text; ?>" />
-                                    </div>
-                                </div>
-                                <div class="ays_toggle_target_dismiss_option"  style=" <?php echo ( $enable_dismiss_mobile ) ? '' : 'display:none'; ?>">
-                                    <hr>
-                                    <div class="ays_pb_current_device_name show" style="text-align: center; margin-bottom: 10px"><?php echo __('Mobile', "ays-popup-box") ?></div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-3">
-                                            <label for="ays_pb_enable_dismiss_text_mobile">
-                                                <span><?php echo __('Dismiss ad text', "ays-popup-box"); ?></span>
-                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Write the text that you want to be displayed on the dismiss ad button.", "ays-popup-box"); ?>">
-                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                                </a>
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" name="ays_pb_enable_dismiss_text_mobile" class="ays-text-input" id="ays_pb_enable_dismiss_text_mobile" value="<?php echo $enable_dismiss_text_mobile; ?>" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ays_pb_mobile_settings_container">
-                                    <input type="checkbox" class="ays_toggle_checkbox_dismiss_option ays-pb-onoffswitch-checkbox" id="ays_pb_enable_dismiss_mobile" name="ays_pb_enable_dismiss_mobile" <?php echo $enable_dismiss_mobile ? 'checked' : '' ?>>
-                                    <label for="ays_pb_enable_dismiss_mobile" class="<?php echo $enable_dismiss_mobile ? 'active' : '' ?>" ><?php echo __('Use a different setting for Mobile', "ays-popup-box") ?></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Enable dismiss ad end -->
-                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                <!-- Disable popup scrolling start -->
-                <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                    <div class="col-sm-3">
-                         <label for="ays_pb_disable_scroll_on_popup">
-                            <span><?php echo __('Disable popup scrolling', "ays-popup-box"); ?></span>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("After enabling this option the content in the popup will not be scrolled.", "ays-popup-box"); ?>">
-                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
-                            <div class="ays_pb_option_for_desktop">
-                                <span class="ays_pb_current_device_name" style="<?php echo ($ays_pb_disable_scroll_on_popup_mobile || $ays_pb_disable_scroll_on_popup) ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
-                                <p class="onoffswitch">
-                                    <input type="checkbox" name="ays_pb_disable_scroll_on_popup" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll_on_popup" <?php echo ($ays_pb_disable_scroll_on_popup) ? 'checked' : ''; ?> />
-                                </p>
-                            </div>
-                            <div class="ays_pb_option_for_mobile_device ays_pb_option_for_mobile_device_cb ays_divider_left <?php echo ($ays_pb_disable_scroll_on_popup_mobile || $ays_pb_disable_scroll_on_popup) ? 'show' : '' ?>">
-                                <span class="ays_pb_current_device_name" style="<?php echo ($ays_pb_disable_scroll_on_popup_mobile || $ays_pb_disable_scroll_on_popup) ? 'display: block' : '' ?>"><?php echo __('Mobile', "ays-popup-box") ?></span>
-                                <p class="onoffswitch" style="margin:0;">
-                                    <input type="checkbox" name="ays_pb_disable_scroll_on_popup_mobile" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll_on_popup_mobile" <?php if($ays_pb_disable_scroll_on_popup_mobile){ echo 'checked';} ?>/>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Disable popup scrolling end -->
-                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                    <div class="col-sm-3">
-                         <label for="ays_pb_show_scrollbar">
-                            <span><?php echo __('Show scrollbar', "ays-popup-box"); ?></span>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Enable this option to display the popup scrollbar.", "ays-popup-box"); ?>">
-                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-9">
-                        <input type="checkbox" name="ays_pb_show_scrollbar" class="ays-pb-onoffswitch-checkbox" id="ays_pb_show_scrollbar" <?php echo ($ays_pb_show_scrollbar) ? 'checked' : ''; ?> />
-                    </div>
-                </div>
+                <!-- scedule end -->
                 <hr>
                 <div class="col-sm-12 ays-pro-features-v2-main-box">
                     <div class="ays-pro-features-v2-small-buttons-box">
@@ -3654,7 +3477,181 @@ $ays_users_roles = $wp_roles->roles;
                     </div>
                 </div>
                 <!-- action click end -->
-                <!-- </div> -->
+                <hr>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <label>
+                            <?php echo __('Change the popup creation date',"ays-popup-box"); ?>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Change the popup creation date to the preferred date.',"ays-popup-box"); ?>">
+                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="input-group mb-3 ays_pb_change_creation_date_container">
+                            <input type="text" class="ays-text-input ays-pb-text-input ays-pb-text-input-short ays-pb-date-create" id="ays_pb_change_creation_date" name="ays_pb_change_creation_date" value="<?php echo $pb_create_date; ?>" placeholder="<?php echo current_time( 'mysql' ); ?>">
+                            <div class="input-group-append">
+                                <label for="ays_pb_change_creation_date" class="input-group-text ays_pb_change_creation_date_icon">
+                                    <span><img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/calendar.svg"?>"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Change current pb creation date -->
+                <hr>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <label for="ays_pb_create_author">
+                            <?php echo __('Change the popup author',"ays-popup-box"); ?>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Change the popup author to the preferred one. Write the User ID in the field. To find the ID, go to the WordPress User's section and hover on the user. You can find the user ID in the link below. Please note, that in case you write an ID, by which there are no users found, the changes will not be applied and the previous author will remain the same.","ays-popup-box"); ?>">
+                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm-9">
+                    <select id="ays_pb_create_author" class="" name="ays_pb_create_author">
+                        <option value=""><?php echo __('Select User',"ays-popup-box")?></option>
+                        <?php
+                            $pb_user_id = ( isset($get_current_popup_author_data->ID) && $get_current_popup_author_data->ID != '' ) ? absint( sanitize_text_field($get_current_popup_author_data->ID) ) : 0;
+                            $pb_user_display_name = ( isset($get_current_popup_author_data->display_name) && $get_current_popup_author_data->display_name != '' ) ? stripslashes( esc_html($get_current_popup_author_data->display_name) ) : '';
+                            $selected = '';
+                            if ($pb_user_id == $change_pb_create_author) {
+                                $selected = 'selected';
+                            }
+                        ?>
+                            <option value="<?php echo $pb_user_id;?>" <?php echo $selected; ?>>
+                                <?php echo $pb_user_display_name; ?>
+                            </option>
+                    </select>
+                    </div>
+                </div> <!-- Change the author of the current popup box -->
+                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                <!-- Enable dismiss ad start -->
+                <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                    <div class="col-sm-3">
+                         <label for="ays_pb_enable_dismiss">
+                            <span><?php echo __('Enable dismiss ad', "ays-popup-box"); ?></span>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("After enabling this option the dismiss ad button will be displayed in the popup. After clicking on the button the ads will be dismissed for 1 month.", "ays-popup-box"); ?>">
+                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm-9 row ays_toggle_parent ays_pb_enable_dismiss_ad_box">
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="ays_pb_enable_dismiss" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_dismiss" <?php echo ($enable_dismiss) ? 'checked' : ''; ?> />
+                        </div>
+                        <div class="col-sm-9 ays_toggle_target ays_divider_left" style=" <?php echo ( $enable_dismiss ) ? '' : 'display:none'; ?>" >
+                            <div class="ays_toggle_parent_dismiss_option">
+                                <div class="ays_pb_current_device_name show ays_toggle_target_dismiss_option" style="<?php echo ($enable_dismiss_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px"><?php echo __('PC', "ays-popup-box") ?></div>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="ays_pb_enable_dismiss_text">
+                                            <span><?php echo __('Dismiss ad text', "ays-popup-box"); ?></span>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Write the text that you want to be displayed on the dismiss ad button.", "ays-popup-box"); ?>">
+                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="ays_pb_enable_dismiss_text" class="ays-text-input" id="ays_pb_enable_dismiss_text" value="<?php echo $enable_dismiss_text; ?>" />
+                                    </div>
+                                </div>
+                                <div class="ays_toggle_target_dismiss_option"  style=" <?php echo ( $enable_dismiss_mobile ) ? '' : 'display:none'; ?>">
+                                    <hr>
+                                    <div class="ays_pb_current_device_name show" style="text-align: center; margin-bottom: 10px"><?php echo __('Mobile', "ays-popup-box") ?></div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_enable_dismiss_text_mobile">
+                                                <span><?php echo __('Dismiss ad text', "ays-popup-box"); ?></span>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Write the text that you want to be displayed on the dismiss ad button.", "ays-popup-box"); ?>">
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="ays_pb_enable_dismiss_text_mobile" class="ays-text-input" id="ays_pb_enable_dismiss_text_mobile" value="<?php echo $enable_dismiss_text_mobile; ?>" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ays_pb_mobile_settings_container">
+                                    <input type="checkbox" class="ays_toggle_checkbox_dismiss_option ays-pb-onoffswitch-checkbox" id="ays_pb_enable_dismiss_mobile" name="ays_pb_enable_dismiss_mobile" <?php echo $enable_dismiss_mobile ? 'checked' : '' ?>>
+                                    <label for="ays_pb_enable_dismiss_mobile" class="<?php echo $enable_dismiss_mobile ? 'active' : '' ?>" ><?php echo __('Use a different setting for Mobile', "ays-popup-box") ?></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Enable dismiss ad end -->
+                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                    <div class="col-sm-3">
+                         <label for="ays_pb_disable_scroll">
+                            <span><?php echo __('Disable page scrolling', "ays-popup-box"); ?></span>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("The page will not be scrolled while the popup is displaying. Note: When the option is enabled, the system hides the scrolling of the HTML tag. As the scrolling is hidden, it is automatically scrolling the popup to the top and the plugin doesn't have a connection to this. ", "ays-popup-box"); ?>">
+                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
+                            <div class="ays_pb_option_for_desktop">
+                                <span class="ays_pb_current_device_name" style="<?php echo ($disable_scroll_mobile || $disable_scroll) ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                <p class="onoffswitch">
+                                    <input type="checkbox" name="disable_scroll" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll" <?php echo ($disable_scroll) ? 'checked' : ''; ?> />
+                                </p>
+                            </div>
+                            <div class="ays_pb_option_for_mobile_device ays_pb_option_for_mobile_device_cb ays_divider_left <?php echo ($disable_scroll_mobile || $disable_scroll) ? 'show' : '' ?>">
+                                <span class="ays_pb_current_device_name" style="<?php echo ($disable_scroll_mobile || $disable_scroll) ? 'display: block' : '' ?>"><?php echo __('Mobile', "ays-popup-box") ?></span>
+                                <p class="onoffswitch" style="margin:0;">
+                                    <input type="checkbox" name="disable_scroll_mobile" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll_mobile" <?php if($disable_scroll_mobile){ echo 'checked';} ?>/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                <!-- Disable popup scrolling start -->
+                <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                    <div class="col-sm-3">
+                         <label for="ays_pb_disable_scroll_on_popup">
+                            <span><?php echo __('Disable popup scrolling', "ays-popup-box"); ?></span>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("After enabling this option the content in the popup will not be scrolled.", "ays-popup-box"); ?>">
+                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
+                            <div class="ays_pb_option_for_desktop">
+                                <span class="ays_pb_current_device_name" style="<?php echo ($ays_pb_disable_scroll_on_popup_mobile || $ays_pb_disable_scroll_on_popup) ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                <p class="onoffswitch">
+                                    <input type="checkbox" name="ays_pb_disable_scroll_on_popup" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll_on_popup" <?php echo ($ays_pb_disable_scroll_on_popup) ? 'checked' : ''; ?> />
+                                </p>
+                            </div>
+                            <div class="ays_pb_option_for_mobile_device ays_pb_option_for_mobile_device_cb ays_divider_left <?php echo ($ays_pb_disable_scroll_on_popup_mobile || $ays_pb_disable_scroll_on_popup) ? 'show' : '' ?>">
+                                <span class="ays_pb_current_device_name" style="<?php echo ($ays_pb_disable_scroll_on_popup_mobile || $ays_pb_disable_scroll_on_popup) ? 'display: block' : '' ?>"><?php echo __('Mobile', "ays-popup-box") ?></span>
+                                <p class="onoffswitch" style="margin:0;">
+                                    <input type="checkbox" name="ays_pb_disable_scroll_on_popup_mobile" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll_on_popup_mobile" <?php if($ays_pb_disable_scroll_on_popup_mobile){ echo 'checked';} ?>/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Disable popup scrolling end -->
+                <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                    <div class="col-sm-3">
+                         <label for="ays_pb_show_scrollbar">
+                            <span><?php echo __('Show scrollbar', "ays-popup-box"); ?></span>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Enable this option to display the popup scrollbar.", "ays-popup-box"); ?>">
+                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="checkbox" name="ays_pb_show_scrollbar" class="ays-pb-onoffswitch-checkbox" id="ays_pb_show_scrollbar" <?php echo ($ays_pb_show_scrollbar) ? 'checked' : ''; ?> />
+                    </div>
+                </div>
             </div>
             <div id="tab3" class="ays-pb-tab-content  <?php echo ($ays_pb_tab == 'tab3') ? 'ays-pb-tab-content-active' : ''; ?>">
                 <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>"/>
@@ -4812,43 +4809,13 @@ $ays_users_roles = $wp_roles->roles;
                         <!-- title styles end -->
                         <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>"> 
                         <p class="ays-subtitle ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>"><?php echo  __('Opening and Closing effects', "ays-popup-box") ?></p>
-                        <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>" >
-                        <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                            <div class="col-sm-4">
-                                <label for="ays_pb_animation_speed">
-                                    <span>
-                                        <?php echo  __('Opening animation speed',"ays-popup-box") ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the entry effect speed of the popup in seconds.", "ays-popup-box"); ?>">
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="col-sm-8 ays_divider_left">
-                                <div class="ays_toggle_parent">
-                                    <div>
-                                        <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animation_speed_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
-                                        <input id="ays_pb_animation_speed" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_animation_speed" value="<?php echo $animation_speed; ?>" step="0.1" <?php echo $animate_in == 'none' ? 'disabled' : ''; ?>>
-                                    </div>
-                                    <div class="ays_toggle_target ays_pb_animation_speed_mobile_container" style=" <?php echo ( $enable_animation_speed_mobile ) ? '' : 'display:none'; ?>">
-                                        <hr>
-                                        <div class="ays_pb_current_device_name show" style="text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Mobile', "ays-popup-box") ?></div>
-                                        <input id="ays_pb_animation_speed_mobile" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_animation_speed_mobile" value="<?php echo $animation_speed_mobile; ?>" step="0.1" <?php echo $animate_in_mobile == 'none' ? 'disabled' : ''; ?> />
-                                    </div>
-                                    <div class="ays_pb_mobile_settings_container">
-                                        <input type="checkbox" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_animation_speed_mobile" name="ays_pb_enable_animation_speed_mobile" <?php echo $enable_animation_speed_mobile ? 'checked' : '' ?>>
-                                        <label for="ays_pb_enable_animation_speed_mobile" class="<?php echo $enable_animation_speed_mobile ? 'active' : '' ?>" ><?php echo __('Use a different setting for Mobile', "ays-popup-box") ?></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
                         <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
                             <div class="col-sm-4">
-                                <label for="ays_pb_close_animation_speed">
+                                <label for="<?php echo $this->plugin_name; ?>-animate_in">
                                     <span>
-                                        <?php echo  __('Closing animation speed',"ays-popup-box") ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the ending animation speed of the popup in seconds.", "ays-popup-box"); ?>">
+                                        <?php echo  __('Opening animation',"ays-popup-box") ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Choose the entry effect for the popup opening.", "ays-popup-box"); ?>">
                                             <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                         </a>
                                     </span>
@@ -4857,17 +4824,105 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-8 ays_divider_left">
                                 <div class="ays_toggle_parent">
                                     <div>
-                                        <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_close_animation_speed_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
-                                        <input id="ays_pb_close_animation_speed" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_close_animation_speed" value="<?php echo $close_animation_speed; ?>" step="0.1" <?php echo $animate_out == 'none' ? 'disabled' : ''; ?>>
+                                        <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animate_in_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                        <select id="<?php echo $this->plugin_name; ?>-animate_in" class="ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" name="<?php echo $this->plugin_name; ?>[animate_in]">
+                                            <optgroup label="Fading Entrances">
+                                                <option <?php echo 'fadeIn' == $animate_in ? 'selected' : ''; ?> value="fadeIn">Fade In</option>
+                                                <option <?php echo 'fadeInDown' == $animate_in ? 'selected' : ''; ?> value="fadeInDown">Fade In Down</option>
+                                                <option <?php echo 'fadeInDownBig' == $animate_in ? 'selected' : ''; ?> value="fadeInDownBig">Fade In Down Big</option>
+                                                <option <?php echo 'fadeInLeft' == $animate_in ? 'selected' : ''; ?> value="fadeInLeft">Fade In Left</option>
+                                                <option <?php echo 'fadeInLeftBig' == $animate_in ? 'selected' : ''; ?> value="fadeInLeftBig">Fade In Left Big</option>
+                                                <option <?php echo 'fadeInRight' == $animate_in ? 'selected' : ''; ?> value="fadeInRight">Fade In Right</option>
+                                                <option <?php echo 'fadeInRightBig' == $animate_in ? 'selected' : ''; ?> value="fadeInRightBig">Fade In Right Big</option>
+                                                <option <?php echo 'fadeInUp' == $animate_in ? 'selected' : ''; ?> value="fadeInUp">Fade In Up</option>
+                                                <option <?php echo 'fadeInUpBig' == $animate_in ? 'selected' : ''; ?> value="fadeInUpBig">Fade In Up Big</option>
+                                            </optgroup>
+                                            <optgroup label="Bouncing Entrances">
+                                                <option <?php echo 'bounceIn' == $animate_in ? 'selected' : ''; ?> value="bounceIn">Bounce In</option>
+                                                <option <?php echo 'bounceInDown' == $animate_in ? 'selected' : ''; ?> value="bounceInDown">Bounce In Down</option>
+                                                <option <?php echo 'bounceInLeft' == $animate_in ? 'selected' : ''; ?> value="bounceInLeft">Bounce In Left</option>
+                                                <option <?php echo 'bounceInRight' == $animate_in ? 'selected' : ''; ?> value="bounceInRight">Bounce In Right</option>
+                                                <option <?php echo 'bounceInUp' == $animate_in ? 'selected' : ''; ?> value="bounceInUp">Bounce In Up</option>
+                                            </optgroup>
+                                            <optgroup label="Sliding Entrances">
+                                                <option <?php echo 'slideInUp' == $animate_in ? 'selected' : ''; ?> value="slideInUp">Slide In Up</option>
+                                                <option <?php echo 'slideInDown' == $animate_in ? 'selected' : ''; ?> value="slideInDown">Slide In Down</option>
+                                                <option <?php echo 'slideInLeft' == $animate_in ? 'selected' : ''; ?> value="slideInLeft">Slide In Left</option>
+                                                <option <?php echo 'slideInRight' == $animate_in ? 'selected' : ''; ?> value="slideInRight">Slide In Right</option>
+                                            </optgroup>
+                                            <optgroup label="Zoom Entrances">
+                                                <option <?php echo 'zoomIn' == $animate_in ? 'selected' : ''; ?> value="zoomIn">Zoom In</option>
+                                                <option <?php echo 'zoomInDown' == $animate_in ? 'selected' : ''; ?> value="zoomInDown">Zoom In Down</option>
+                                                <option <?php echo 'zoomInLeft' == $animate_in ? 'selected' : ''; ?> value="zoomInLeft">Zoom In Left</option>
+                                                <option <?php echo 'zoomInRight' == $animate_in ? 'selected' : ''; ?> value="zoomInRight">Zoom In Right</option>
+                                                <option <?php echo 'zoomInUp' == $animate_in ? 'selected' : ''; ?> value="zoomInUp">Zoom In Up</option>
+                                            </optgroup>
+                                            <optgroup label="Rotating Entrances">
+                                                <option <?php echo 'rotateIn' == $animate_in ? 'selected' : ''; ?> value="rotateIn">Rotating In</option>
+                                                <option <?php echo 'rotateInDownLeft' == $animate_in ? 'selected' : ''; ?> value="rotateInDownLeft">Rotating In Down Left</option>
+                                                <option <?php echo 'rotateInDownRight' == $animate_in ? 'selected' : ''; ?> value="rotateInDownRight">Rotating In Down Right</option>
+                                                <option <?php echo 'rotateInUpLeft' == $animate_in ? 'selected' : ''; ?> value="rotateInUpLeft">Rotating In Up Left</option>
+                                                <option <?php echo 'rotateInUpRight' == $animate_in ? 'selected' : ''; ?> value="rotateInUpRight">Rotating In Up Right</option>
+                                            </optgroup>
+                                            <optgroup label="Fliping Entrances">
+                                                <option <?php echo 'flipInY' == $animate_in ? 'selected' : ''; ?> value="flipInY">Flip In Y</option>
+                                                <option <?php echo 'flipInX' == $animate_in ? 'selected' : ''; ?> value="flipInX">Flip In X</option>
+                                            </optgroup>
+                                            <option <?php echo  $animate_in == 'none' ? 'selected' : ''; ?> value="none">None</option>
+                                        </select>
                                     </div>
-                                    <div class="ays_toggle_target ays_pb_close_animation_speed_mobile_container" style=" <?php echo ( $enable_close_animation_speed_mobile ) ? '' : 'display:none'; ?>">
+                                    <div class="ays_toggle_target ays_pb_animate_in_mobile_container" style=" <?php echo ( $enable_animate_in_mobile ) ? '' : 'display:none'; ?>">
                                         <hr>
                                         <div class="ays_pb_current_device_name show" style="text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Mobile', "ays-popup-box") ?></div>
-                                        <input id="ays_pb_close_animation_speed_mobile" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_close_animation_speed_mobile" value="<?php echo $close_animation_speed_mobile; ?>" step="0.1" <?php echo $animate_out_mobile == 'none' ? 'disabled' : ''; ?> />
+                                        <select id="<?php echo $this->plugin_name; ?>-animate_in_mobile" class="ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" name="ays_pb_animate_in_mobile">
+                                            <optgroup label="Fading Entrances">
+                                                <option <?php echo 'fadeIn' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeIn">Fade In</option>
+                                                <option <?php echo 'fadeInDown' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInDown">Fade In Down</option>
+                                                <option <?php echo 'fadeInDownBig' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInDownBig">Fade In Down Big</option>
+                                                <option <?php echo 'fadeInLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInLeft">Fade In Left</option>
+                                                <option <?php echo 'fadeInLeftBig' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInLeftBig">Fade In Left Big</option>
+                                                <option <?php echo 'fadeInRight' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInRight">Fade In Right</option>
+                                                <option <?php echo 'fadeInRightBig' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInRightBig">Fade In Right Big</option>
+                                                <option <?php echo 'fadeInUp' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInUp">Fade In Up</option>
+                                                <option <?php echo 'fadeInUpBig' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInUpBig">Fade In Up Big</option>
+                                            </optgroup>
+                                            <optgroup label="Bouncing Entrances">
+                                                <option <?php echo 'bounceIn' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceIn">Bounce In</option>
+                                                <option <?php echo 'bounceInDown' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceInDown">Bounce In Down</option>
+                                                <option <?php echo 'bounceInLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceInLeft">Bounce In Left</option>
+                                                <option <?php echo 'bounceInRight' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceInRight">Bounce In Right</option>
+                                                <option <?php echo 'bounceInUp' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceInUp">Bounce In Up</option>
+                                            </optgroup>
+                                            <optgroup label="Sliding Entrances">
+                                                <option <?php echo 'slideInUp' == $animate_in_mobile ? 'selected' : ''; ?> value="slideInUp">Slide In Up</option>
+                                                <option <?php echo 'slideInDown' == $animate_in_mobile ? 'selected' : ''; ?> value="slideInDown">Slide In Down</option>
+                                                <option <?php echo 'slideInLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="slideInLeft">Slide In Left</option>
+                                                <option <?php echo 'slideInRight' == $animate_in_mobile ? 'selected' : ''; ?> value="slideInRight">Slide In Right</option>
+                                            </optgroup>
+                                            <optgroup label="Zoom Entrances">
+                                                <option <?php echo 'zoomIn' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomIn">Zoom In</option>
+                                                <option <?php echo 'zoomInDown' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomInDown">Zoom In Down</option>
+                                                <option <?php echo 'zoomInLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomInLeft">Zoom In Left</option>
+                                                <option <?php echo 'zoomInRight' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomInRight">Zoom In Right</option>
+                                                <option <?php echo 'zoomInUp' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomInUp">Zoom In Up</option>
+                                            </optgroup>
+                                            <optgroup label="Rotating Entrances">
+                                                <option <?php echo 'rotateIn' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateIn">Rotating In</option>
+                                                <option <?php echo 'rotateInDownLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateInDownLeft">Rotating In Down Left</option>
+                                                <option <?php echo 'rotateInDownRight' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateInDownRight">Rotating In Down Right</option>
+                                                <option <?php echo 'rotateInUpLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateInUpLeft">Rotating In Up Left</option>
+                                                <option <?php echo 'rotateInUpRight' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateInUpRight">Rotating In Up Right</option>
+                                            </optgroup>
+                                            <optgroup label="Fliping Entrances">
+                                                <option <?php echo 'flipInY' == $animate_in_mobile ? 'selected' : ''; ?> value="flipInY">Flip In Y</option>
+                                                <option <?php echo 'flipInX' == $animate_in_mobile ? 'selected' : ''; ?> value="flipInX">Flip In X</option>
+                                            </optgroup>
+                                            <option <?php echo  $animate_in_mobile == 'none' ? 'selected' : ''; ?> value="none">None</option>
+                                        </select>
                                     </div>
                                     <div class="ays_pb_mobile_settings_container">
-                                        <input type="checkbox" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_close_animation_speed_mobile" name="ays_pb_enable_close_animation_speed_mobile" <?php echo $enable_close_animation_speed_mobile ? 'checked' : '' ?>>
-                                        <label for="ays_pb_enable_close_animation_speed_mobile" class="<?php echo $enable_close_animation_speed_mobile ? 'active' : '' ?>" ><?php echo __('Use a different setting for Mobile', "ays-popup-box") ?></label>
+                                        <input type="checkbox" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_animate_in_mobile" name="ays_pb_enable_animate_in_mobile" <?php echo $enable_animate_in_mobile ? 'checked' : '' ?>>
+                                        <label for="ays_pb_enable_animate_in_mobile" class="<?php echo $enable_animate_in_mobile ? 'active' : '' ?>" ><?php echo __('Use a different setting for Mobile', "ays-popup-box") ?></label>
                                     </div>
                                 </div>
                             </div>
@@ -4990,13 +5045,13 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                             </div>
                         </div>
-                        <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                        <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>" >
                         <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
                             <div class="col-sm-4">
-                                <label for="<?php echo $this->plugin_name; ?>-animate_in">
+                                <label for="ays_pb_animation_speed">
                                     <span>
-                                        <?php echo  __('Opening animation',"ays-popup-box") ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Choose the entry effect for the popup opening.", "ays-popup-box"); ?>">
+                                        <?php echo  __('Opening animation speed',"ays-popup-box") ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the entry effect speed of the popup in seconds.", "ays-popup-box"); ?>">
                                             <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                         </a>
                                     </span>
@@ -5005,105 +5060,47 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-8 ays_divider_left">
                                 <div class="ays_toggle_parent">
                                     <div>
-                                        <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animate_in_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
-                                        <select id="<?php echo $this->plugin_name; ?>-animate_in" class="ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" name="<?php echo $this->plugin_name; ?>[animate_in]">
-                                            <optgroup label="Fading Entrances">
-                                                <option <?php echo 'fadeIn' == $animate_in ? 'selected' : ''; ?> value="fadeIn">Fade In</option>
-                                                <option <?php echo 'fadeInDown' == $animate_in ? 'selected' : ''; ?> value="fadeInDown">Fade In Down</option>
-                                                <option <?php echo 'fadeInDownBig' == $animate_in ? 'selected' : ''; ?> value="fadeInDownBig">Fade In Down Big</option>
-                                                <option <?php echo 'fadeInLeft' == $animate_in ? 'selected' : ''; ?> value="fadeInLeft">Fade In Left</option>
-                                                <option <?php echo 'fadeInLeftBig' == $animate_in ? 'selected' : ''; ?> value="fadeInLeftBig">Fade In Left Big</option>
-                                                <option <?php echo 'fadeInRight' == $animate_in ? 'selected' : ''; ?> value="fadeInRight">Fade In Right</option>
-                                                <option <?php echo 'fadeInRightBig' == $animate_in ? 'selected' : ''; ?> value="fadeInRightBig">Fade In Right Big</option>
-                                                <option <?php echo 'fadeInUp' == $animate_in ? 'selected' : ''; ?> value="fadeInUp">Fade In Up</option>
-                                                <option <?php echo 'fadeInUpBig' == $animate_in ? 'selected' : ''; ?> value="fadeInUpBig">Fade In Up Big</option>
-                                            </optgroup>
-                                            <optgroup label="Bouncing Entrances">
-                                                <option <?php echo 'bounceIn' == $animate_in ? 'selected' : ''; ?> value="bounceIn">Bounce In</option>
-                                                <option <?php echo 'bounceInDown' == $animate_in ? 'selected' : ''; ?> value="bounceInDown">Bounce In Down</option>
-                                                <option <?php echo 'bounceInLeft' == $animate_in ? 'selected' : ''; ?> value="bounceInLeft">Bounce In Left</option>
-                                                <option <?php echo 'bounceInRight' == $animate_in ? 'selected' : ''; ?> value="bounceInRight">Bounce In Right</option>
-                                                <option <?php echo 'bounceInUp' == $animate_in ? 'selected' : ''; ?> value="bounceInUp">Bounce In Up</option>
-                                            </optgroup>
-                                            <optgroup label="Sliding Entrances">
-                                                <option <?php echo 'slideInUp' == $animate_in ? 'selected' : ''; ?> value="slideInUp">Slide In Up</option>
-                                                <option <?php echo 'slideInDown' == $animate_in ? 'selected' : ''; ?> value="slideInDown">Slide In Down</option>
-                                                <option <?php echo 'slideInLeft' == $animate_in ? 'selected' : ''; ?> value="slideInLeft">Slide In Left</option>
-                                                <option <?php echo 'slideInRight' == $animate_in ? 'selected' : ''; ?> value="slideInRight">Slide In Right</option>
-                                            </optgroup>
-                                            <optgroup label="Zoom Entrances">
-                                                <option <?php echo 'zoomIn' == $animate_in ? 'selected' : ''; ?> value="zoomIn">Zoom In</option>
-                                                <option <?php echo 'zoomInDown' == $animate_in ? 'selected' : ''; ?> value="zoomInDown">Zoom In Down</option>
-                                                <option <?php echo 'zoomInLeft' == $animate_in ? 'selected' : ''; ?> value="zoomInLeft">Zoom In Left</option>
-                                                <option <?php echo 'zoomInRight' == $animate_in ? 'selected' : ''; ?> value="zoomInRight">Zoom In Right</option>
-                                                <option <?php echo 'zoomInUp' == $animate_in ? 'selected' : ''; ?> value="zoomInUp">Zoom In Up</option>
-                                            </optgroup>
-                                            <optgroup label="Rotating Entrances">
-                                                <option <?php echo 'rotateIn' == $animate_in ? 'selected' : ''; ?> value="rotateIn">Rotating In</option>
-                                                <option <?php echo 'rotateInDownLeft' == $animate_in ? 'selected' : ''; ?> value="rotateInDownLeft">Rotating In Down Left</option>
-                                                <option <?php echo 'rotateInDownRight' == $animate_in ? 'selected' : ''; ?> value="rotateInDownRight">Rotating In Down Right</option>
-                                                <option <?php echo 'rotateInUpLeft' == $animate_in ? 'selected' : ''; ?> value="rotateInUpLeft">Rotating In Up Left</option>
-                                                <option <?php echo 'rotateInUpRight' == $animate_in ? 'selected' : ''; ?> value="rotateInUpRight">Rotating In Up Right</option>
-                                            </optgroup>
-                                            <optgroup label="Fliping Entrances">
-                                                <option <?php echo 'flipInY' == $animate_in ? 'selected' : ''; ?> value="flipInY">Flip In Y</option>
-                                                <option <?php echo 'flipInX' == $animate_in ? 'selected' : ''; ?> value="flipInX">Flip In X</option>
-                                            </optgroup>
-                                            <option <?php echo  $animate_in == 'none' ? 'selected' : ''; ?> value="none">None</option>
-                                        </select>
+                                        <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animation_speed_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                        <input id="ays_pb_animation_speed" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_animation_speed" value="<?php echo $animation_speed; ?>" step="0.1" <?php echo $animate_in == 'none' ? 'disabled' : ''; ?>>
                                     </div>
-                                    <div class="ays_toggle_target ays_pb_animate_in_mobile_container" style=" <?php echo ( $enable_animate_in_mobile ) ? '' : 'display:none'; ?>">
+                                    <div class="ays_toggle_target ays_pb_animation_speed_mobile_container" style=" <?php echo ( $enable_animation_speed_mobile ) ? '' : 'display:none'; ?>">
                                         <hr>
                                         <div class="ays_pb_current_device_name show" style="text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Mobile', "ays-popup-box") ?></div>
-                                        <select id="<?php echo $this->plugin_name; ?>-animate_in_mobile" class="ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" name="ays_pb_animate_in_mobile">
-                                            <optgroup label="Fading Entrances">
-                                                <option <?php echo 'fadeIn' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeIn">Fade In</option>
-                                                <option <?php echo 'fadeInDown' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInDown">Fade In Down</option>
-                                                <option <?php echo 'fadeInDownBig' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInDownBig">Fade In Down Big</option>
-                                                <option <?php echo 'fadeInLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInLeft">Fade In Left</option>
-                                                <option <?php echo 'fadeInLeftBig' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInLeftBig">Fade In Left Big</option>
-                                                <option <?php echo 'fadeInRight' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInRight">Fade In Right</option>
-                                                <option <?php echo 'fadeInRightBig' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInRightBig">Fade In Right Big</option>
-                                                <option <?php echo 'fadeInUp' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInUp">Fade In Up</option>
-                                                <option <?php echo 'fadeInUpBig' == $animate_in_mobile ? 'selected' : ''; ?> value="fadeInUpBig">Fade In Up Big</option>
-                                            </optgroup>
-                                            <optgroup label="Bouncing Entrances">
-                                                <option <?php echo 'bounceIn' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceIn">Bounce In</option>
-                                                <option <?php echo 'bounceInDown' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceInDown">Bounce In Down</option>
-                                                <option <?php echo 'bounceInLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceInLeft">Bounce In Left</option>
-                                                <option <?php echo 'bounceInRight' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceInRight">Bounce In Right</option>
-                                                <option <?php echo 'bounceInUp' == $animate_in_mobile ? 'selected' : ''; ?> value="bounceInUp">Bounce In Up</option>
-                                            </optgroup>
-                                            <optgroup label="Sliding Entrances">
-                                                <option <?php echo 'slideInUp' == $animate_in_mobile ? 'selected' : ''; ?> value="slideInUp">Slide In Up</option>
-                                                <option <?php echo 'slideInDown' == $animate_in_mobile ? 'selected' : ''; ?> value="slideInDown">Slide In Down</option>
-                                                <option <?php echo 'slideInLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="slideInLeft">Slide In Left</option>
-                                                <option <?php echo 'slideInRight' == $animate_in_mobile ? 'selected' : ''; ?> value="slideInRight">Slide In Right</option>
-                                            </optgroup>
-                                            <optgroup label="Zoom Entrances">
-                                                <option <?php echo 'zoomIn' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomIn">Zoom In</option>
-                                                <option <?php echo 'zoomInDown' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomInDown">Zoom In Down</option>
-                                                <option <?php echo 'zoomInLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomInLeft">Zoom In Left</option>
-                                                <option <?php echo 'zoomInRight' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomInRight">Zoom In Right</option>
-                                                <option <?php echo 'zoomInUp' == $animate_in_mobile ? 'selected' : ''; ?> value="zoomInUp">Zoom In Up</option>
-                                            </optgroup>
-                                            <optgroup label="Rotating Entrances">
-                                                <option <?php echo 'rotateIn' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateIn">Rotating In</option>
-                                                <option <?php echo 'rotateInDownLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateInDownLeft">Rotating In Down Left</option>
-                                                <option <?php echo 'rotateInDownRight' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateInDownRight">Rotating In Down Right</option>
-                                                <option <?php echo 'rotateInUpLeft' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateInUpLeft">Rotating In Up Left</option>
-                                                <option <?php echo 'rotateInUpRight' == $animate_in_mobile ? 'selected' : ''; ?> value="rotateInUpRight">Rotating In Up Right</option>
-                                            </optgroup>
-                                            <optgroup label="Fliping Entrances">
-                                                <option <?php echo 'flipInY' == $animate_in_mobile ? 'selected' : ''; ?> value="flipInY">Flip In Y</option>
-                                                <option <?php echo 'flipInX' == $animate_in_mobile ? 'selected' : ''; ?> value="flipInX">Flip In X</option>
-                                            </optgroup>
-                                            <option <?php echo  $animate_in_mobile == 'none' ? 'selected' : ''; ?> value="none">None</option>
-                                        </select>
+                                        <input id="ays_pb_animation_speed_mobile" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_animation_speed_mobile" value="<?php echo $animation_speed_mobile; ?>" step="0.1" <?php echo $animate_in_mobile == 'none' ? 'disabled' : ''; ?> />
                                     </div>
                                     <div class="ays_pb_mobile_settings_container">
-                                        <input type="checkbox" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_animate_in_mobile" name="ays_pb_enable_animate_in_mobile" <?php echo $enable_animate_in_mobile ? 'checked' : '' ?>>
-                                        <label for="ays_pb_enable_animate_in_mobile" class="<?php echo $enable_animate_in_mobile ? 'active' : '' ?>" ><?php echo __('Use a different setting for Mobile', "ays-popup-box") ?></label>
+                                        <input type="checkbox" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_animation_speed_mobile" name="ays_pb_enable_animation_speed_mobile" <?php echo $enable_animation_speed_mobile ? 'checked' : '' ?>>
+                                        <label for="ays_pb_enable_animation_speed_mobile" class="<?php echo $enable_animation_speed_mobile ? 'active' : '' ?>" ><?php echo __('Use a different setting for Mobile', "ays-popup-box") ?></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                        <div class="form-group row ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                            <div class="col-sm-4">
+                                <label for="ays_pb_close_animation_speed">
+                                    <span>
+                                        <?php echo  __('Closing animation speed',"ays-popup-box") ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the ending animation speed of the popup in seconds.", "ays-popup-box"); ?>">
+                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="col-sm-8 ays_divider_left">
+                                <div class="ays_toggle_parent">
+                                    <div>
+                                        <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_close_animation_speed_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                        <input id="ays_pb_close_animation_speed" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_close_animation_speed" value="<?php echo $close_animation_speed; ?>" step="0.1" <?php echo $animate_out == 'none' ? 'disabled' : ''; ?>>
+                                    </div>
+                                    <div class="ays_toggle_target ays_pb_close_animation_speed_mobile_container" style=" <?php echo ( $enable_close_animation_speed_mobile ) ? '' : 'display:none'; ?>">
+                                        <hr>
+                                        <div class="ays_pb_current_device_name show" style="text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Mobile', "ays-popup-box") ?></div>
+                                        <input id="ays_pb_close_animation_speed_mobile" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_close_animation_speed_mobile" value="<?php echo $close_animation_speed_mobile; ?>" step="0.1" <?php echo $animate_out_mobile == 'none' ? 'disabled' : ''; ?> />
+                                    </div>
+                                    <div class="ays_pb_mobile_settings_container">
+                                        <input type="checkbox" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_close_animation_speed_mobile" name="ays_pb_enable_close_animation_speed_mobile" <?php echo $enable_close_animation_speed_mobile ? 'checked' : '' ?>>
+                                        <label for="ays_pb_enable_close_animation_speed_mobile" class="<?php echo $enable_close_animation_speed_mobile ? 'active' : '' ?>" ><?php echo __('Use a different setting for Mobile', "ays-popup-box") ?></label>
                                     </div>
                                 </div>
                             </div>
@@ -6357,43 +6354,45 @@ $ays_users_roles = $wp_roles->roles;
                                 </a>
                             </label>
                         </div>
-                        <div class="col-sm-9 row">
-                            <div class="onoffswitch col-sm-2">
-                                <input type="checkbox" name="<?php echo $this->plugin_name; ?>[log_user]" class="ays-pb-onoffswitch-checkbox ays_toggle_checkbox" id="<?php echo $this->plugin_name; ?>-log-user" <?php if($log_user == 'On'){ echo 'checked';} else { echo '';} ?> />
-                            </div>
-                            <div class="col-sm-10 ays_toggle_target ays_divider_left" style="<?php echo ($log_user == 'On') ? '' : 'display:none;' ?>:">
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="<?php echo $this->plugin_name; ?>-users_role">
-                                            <span><?php echo __('Display for certain user roles', "ays-popup-box"); ?></span>
-                                            <a class="ays_help" data-toggle="tooltip"
-                                            title="<?php echo __('Show the popup only to certain user role(s) mentioned in the list. Leave it blank for showing the popup to all user roles.', "ays-popup-box") ?>">
-                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9 ays-pb-users-roles ays_pb_users_roles">
-                                        <select name="<?php echo $this->plugin_name; ?>[ays_users_roles][]" id="ays_users_roles" multiple class="">
-                                            <?php
-                                            foreach ($ays_users_roles as $key => $user_role) {
-                                                $selected_role = "";
-                                                if(is_array($users_role)){
-                                                    if(in_array($user_role['name'], $users_role)){
-                                                        $selected_role = 'selected';
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="onoffswitch col-sm-2">
+                                    <input type="checkbox" name="<?php echo $this->plugin_name; ?>[log_user]" class="ays-pb-onoffswitch-checkbox ays_toggle_checkbox" id="<?php echo $this->plugin_name; ?>-log-user" <?php if($log_user == 'On'){ echo 'checked';} else { echo '';} ?> />
+                                </div>
+                                <div class="col-sm-10 ays_toggle_target ays_divider_left" style="<?php echo ($log_user == 'On') ? '' : 'display:none;' ?>:">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="<?php echo $this->plugin_name; ?>-users_role">
+                                                <span><?php echo __('Display for certain user roles', "ays-popup-box"); ?></span>
+                                                <a class="ays_help" data-toggle="tooltip"
+                                                title="<?php echo __('Show the popup only to certain user role(s) mentioned in the list. Leave it blank for showing the popup to all user roles.', "ays-popup-box") ?>">
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9 ays-pb-users-roles ays_pb_users_roles">
+                                            <select name="<?php echo $this->plugin_name; ?>[ays_users_roles][]" id="ays_users_roles" multiple class="">
+                                                <?php
+                                                foreach ($ays_users_roles as $key => $user_role) {
+                                                    $selected_role = "";
+                                                    if(is_array($users_role)){
+                                                        if(in_array($user_role['name'], $users_role)){
+                                                            $selected_role = 'selected';
+                                                        }else{
+                                                            $selected_role = '';
+                                                        }
                                                     }else{
-                                                        $selected_role = '';
+                                                        if($users_role == $user_role['name']){
+                                                            $selected_role = 'selected';
+                                                        }else{
+                                                            $selected_role = '';
+                                                        }
                                                     }
-                                                }else{
-                                                    if($users_role == $user_role['name']){
-                                                        $selected_role = 'selected';
-                                                    }else{
-                                                        $selected_role = '';
-                                                    }
+                                                    echo "<option value='" . $user_role['name'] . "' " . $selected_role . ">" . $user_role['name'] . "</option>";
                                                 }
-                                                echo "<option value='" . $user_role['name'] . "' " . $selected_role . ">" . $user_role['name'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

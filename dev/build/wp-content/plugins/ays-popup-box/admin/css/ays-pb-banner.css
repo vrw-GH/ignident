@@ -377,15 +377,6 @@ div#ays-pb-new-mega-bundle-dicount-month-main button.notice-dismiss:before {
     #ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dismiss-buttons-container-for-form{
         position: static !important;
     }
-
-    .comparison .product img {
-        width: 70px;
-    }
-
-    .ays-pb-features-wrap .comparison a.price-buy{
-        padding: 8px 5px;
-        font-size: 11px;
-    }
 }
 
 @media screen and (max-width: 1305px) and (min-width: 768px) {

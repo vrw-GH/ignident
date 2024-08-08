@@ -4,15 +4,17 @@ $actions = $this->settings_obj;
 if (isset($_REQUEST['ays_submit'])) {
     $actions->store_data($_REQUEST);
 }
+
 if (isset($_GET['ays_pb_tab'])) {
     $ays_pb_tab = sanitize_text_field($_GET['ays_pb_tab']);
 } else {
     $ays_pb_tab = 'tab1';
 }
 
-if(isset($_GET['action']) && $_GET['action'] == 'update_duration'){
+if (isset($_GET['action']) && $_GET['action'] == 'update_duration') {
     $actions->update_duration_data();
 }
+
 $loader_iamge = "<span class='display_none ays_quiz_loader_box'><img src=". AYS_PB_ADMIN_URL ."/images/loaders/loading.gif></span>";
 $db_data = $actions->get_db_data();
 
