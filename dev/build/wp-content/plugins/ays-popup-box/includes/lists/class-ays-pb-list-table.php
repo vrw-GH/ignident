@@ -141,8 +141,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $conditions[] = 'modal_content = "' . $ays_pb_type . '"';
         }
 
-        if (isset($_GET['s']) && $_GET['s'] != '') {
-            $search = esc_sql(sanitize_text_field($_GET['s']));
+        if (isset($_REQUEST['s']) && $_REQUEST['s'] != '') {
+            $search = esc_sql(sanitize_text_field($_REQUEST['s']));
             $conditions[] = sprintf("title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)));
         }
 
@@ -194,7 +194,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         ) );
 
         $search = isset($_REQUEST['s']) ? esc_sql( sanitize_text_field($_REQUEST['s']) ) : false;
-        $do_search = $search ? sprintf(" title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)) ) : '';
+        $do_search = $search ? sprintf( " title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)) ) : '';
 
         $this->items = self::get_ays_popupboxes($per_page, $current_page, $do_search);
     }
@@ -270,7 +270,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                 return $item[$column_name];
                 break;
             default:
-                return print_r($item, true); //Show the whole array for troubleshooting purposes
+                return print_r($item, true); // Show the whole array for troubleshooting purposes
         }
     }
 
@@ -540,7 +540,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $nonce = esc_attr($_REQUEST["_wpnonce"]);
 
             if ( !wp_verify_nonce($nonce, $this->plugin_name . "-delete-popupbox") ) {
-                die( "Go get a life script kiddies" );
+                die("Go get a life script kiddies");
             } else {
                 self::delete_popupboxes( absint($_GET["popupbox"]) );
 
@@ -574,7 +574,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")) ) . "&status=" . $message . "&type=success";
             wp_redirect($url);
         } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-unpublished') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-unpublished') ) {
-            $unpublished_ids = ( isset($_POST['bulk-delete']) && ! empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+            $unpublished_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
             $message = 'unpublished';
 
             // loop over the array of record IDs and unpublish them
@@ -831,7 +831,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             </select>
             <input type="button" id="doaction-<?php echo esc_attr($which); ?>" class="ays-popup-question-tab-all-filter-button-<?php echo esc_attr($which); ?> button" value="<?php echo __("Filter", "ays-popup-box"); ?>">
         </div>
-        <a href="?page=<?php echo esc_attr($_REQUEST['page']); ?>" class="button"><?php echo __("Clear filters", "ays-popup-box"); ?></a>
+        <a href="?page=<?php echo esc_attr($_REQUEST['page']); ?>" class="button ays-pb-clear-filters"><?php echo __("Clear filters", "ays-popup-box"); ?></a>
         <?php
     }
 
@@ -997,6 +997,16 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         $sql = "SELECT * FROM {$wpdb->prefix}ays_pb WHERE id=" . absint( sanitize_text_field($id) ) . " ORDER BY id ASC";
         $result = $wpdb->get_row($sql, "ARRAY_A");
+
+        return $result;
+    }
+
+    public function get_popup_categories() {
+        global $wpdb;
+
+        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories";
+
+        $result = $wpdb->get_results($sql, 'ARRAY_A');
 
         return $result;
     }
@@ -2119,15 +2129,5 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                 wp_redirect( $url );
             }
 		}
-    }
-
-    public function get_popup_categories(){
-        global $wpdb;
-
-        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories";
-
-        $result = $wpdb->get_results($sql, 'ARRAY_A');
-
-        return $result;
     }
 }

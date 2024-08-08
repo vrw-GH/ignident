@@ -28,6 +28,18 @@ class Ays_Pb_Data {
         return $result;
     }
 
+    public static function get_popups() {
+        global $wpdb;
+        $popups_table = esc_sql($wpdb->prefix . 'ays_pb');
+
+        $sql = "SELECT id, title
+                FROM {$popups_table}";
+
+        $popups = $wpdb->get_results($sql , "ARRAY_A");
+
+        return $popups;
+    }
+
     public static function get_pb_by_id( $id ){
         global $wpdb;
 
@@ -40,18 +52,6 @@ class Ays_Pb_Data {
         }
 
         return $results;
-    }
-
-    public static function get_popups(){
-        global $wpdb;
-        $popups_table = esc_sql( $wpdb->prefix . 'ays_pb' );
-
-        $sql = "SELECT id,title
-                FROM {$popups_table}";
-
-        $popups = $wpdb->get_results( $sql , "ARRAY_A" );
-
-        return $popups;
     }
 
     public static function get_pb_options_by_id( $id ){

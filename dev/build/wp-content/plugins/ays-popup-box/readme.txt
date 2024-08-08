@@ -3,8 +3,8 @@ Contributors: ays-pro
 Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
-Tested up to: 6.6
-Stable tag: 4.6.5
+Tested up to: 6.6.1
+Stable tag: 4.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -334,6 +334,25 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 4.7.0 =
+* Added: Automatic activation/installation of the plugin on the Our Products submenu
+
+= 4.6.9 =
+* Fixed: Some issues on PRO Features page
+* Updated: POT file
+
+= 4.6.8 =
+* Fixed: Some style issues on the admin dashboard
+
+= 4.6.7 =
+* Added: Confirmation Box before deleting the popup categories
+* Fixed: Some style issues on the admin dashboard
+
+= 4.6.6 =
+* Fixed: Some style issues on the admin dashboard
+* Fixed: Issue connected to the popup categories list table search box
+* Tested: Compatible up to 6.6.1
 
 = 4.6.5 =
 * Added: Button letter spacing option for notification popup type

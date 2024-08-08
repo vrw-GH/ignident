@@ -515,7 +515,7 @@ span.select2-container {
     height: 100% !important;
 }
 
-@media screen and (max-width: 782px){
+@media screen and (max-width: 782px) {
     .wp-picker-container .color-alpha {
         width: 40px !important;
     }
@@ -989,6 +989,12 @@ img.ays-popup-image-list-table-img-column {
 .ays-pb-enable-switch-list-table .ays-pb-enable-switch-slider:before {
     width: 15px;
     height: 15px;
+}
+
+@media screen and (max-width: 782px) {
+    .tablenav.top .ays-pb-clear-filters {
+        display: none;
+    }
 }
 /* Popup list table styles end */
 
@@ -3741,6 +3747,10 @@ blockquote.ays-pb-integration-tab-note > p {
 /* General Settings page styles end */
 
 /* How to use page | Steps section styles start */
+div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb-heart-beat-main-heading-container h1 {
+    display: block;
+}
+
 h1.ays-popup-box-wrapper {
     text-align: center;
     font-size: 40px;
@@ -3797,10 +3807,6 @@ div.ays-pb-faq-main p {
 /* How to use page | Steps section styles end */
 
 /* How to use page | Comunity section styles start */
-div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb-heart-beat-main-heading-container h1 {
-    display: block;
-}
-
 .ays-pb-community-wrap {
     text-align: center;
     width: 70%;
@@ -3837,21 +3843,6 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     height: 120px;
     position: relative;
     display: block
-}
-
-.ays-pb-community-wrap .ays-pb-community-item-img {
-    width: auto;
-    height: auto;
-    max-width: 80px;
-    max-height: 80px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    font-size: 70px;
-    line-height: 80px;
 }
 
 .ays-pb-community-wrap .ays-pb-community-item-title {
@@ -3913,10 +3904,6 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     div.ays-pb-community-wrap .ays-pb-community-item {
         width:100%;
         margin-right: 0
-    }
-
-    div.ays-pb-community-youtube-video iframe {
-        width: 100%;
     }
 }
 /* How to use page | Comunity section styles end */
@@ -3998,6 +3985,11 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     border-radius: 2px;
     transition: background-color 0.3s ease-in-out, text-decoration 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out;
     margin-right: 10px;
+    min-width: 105px;
+}
+
+.ays-pb-card__btn-info:not(.ays-pb-card__btn-info.disabled) {
+    cursor: pointer;
 }
 
 .ays-pb-card__btn-primary {
@@ -4023,6 +4015,20 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     text-decoration: none;
     background-color: #0067c9;
     color: #ffffff;
+}
+
+.ays-pb-card__btn-info.disabled {
+    color: #a7aaad !important;
+    border-color: #dcdcde !important;
+    background: #f6f7f7 !important;
+    box-shadow: none !important;
+    cursor: default;
+    transform: none !important;
+    outline: unset;
+}
+
+.flexible {
+    flex-grow: 1;
 }
 
 .ays-pb-see-all {
@@ -4376,15 +4382,11 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     background: #F7F7F7;
 }
 
-.comparison .ays_fa-check {
-    color: #69C7F1;
-}
-
 .comparison th {
     font-weight: normal;
     padding: 0;
-    border-top: 0px solid #E8E8E8;
-    border-bottom: 0px solid #E8E8E8;
+    border-top: 0px;
+    border-bottom: 0px;
 }
 
 .comparison tr td:first-child {
@@ -4415,21 +4417,9 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     padding: 15px;
 }
 
-.comparison .price-now,
-.comparison .price-now span {
-    color: #808080;
-}
-
 .comparison .price-now span {
     font-size: 36px;
     color: #545454;
-}
-
-.comparison .price-now p {
-    font-size: 14px;
-    text-align: center;
-    line-height: 16px;
-    display: inline;
 }
 
 .comparison .price-buy {
@@ -4453,16 +4443,6 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
 }
 
 @media screen and (max-width: 720px) {
-    .table_ul {
-        padding: 0px;
-    }
-
-    .table_ul li {
-        font-size: 10px;
-        line-height: 16px;
-        padding: 3px 0;
-    }
-
     .comparison {
         max-width: 100%;
         padding-left: 0;
@@ -4487,6 +4467,7 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
         border: 1px solid #CCC;
         border-top: none;
         padding: 10px;
+        font-size: 14px;
     }
 
     .price-info {
@@ -4494,37 +4475,8 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
         padding: 10px 0 !important;
     }
 
-    .price-info p {
-        line-height: 8px;
-        font-size: 8px !important;
-    }
-
-    .comparison .compare-row {
-        background: #ffffff;
-    }
-
-    .comparison .price-now p {
-        display: block;
-    }
-
     .comparison .price-now span {
         font-size: 24px;
-    }
-
-    .comparison .qbse {
-        font-size: 1.2em;
-    }
-
-    .comparison td {
-        font-size: 14px;
-    }
-
-    .comparison th {
-        font-size: 14px;
-    }
-
-    .ays_pb_ask_question_content {
-        display: none !important;
     }
 }
 /* PRO Features page | Comparison table end */
@@ -4548,7 +4500,7 @@ div#wpbody div#wpbody-content div.wrap div.ays-pb-heart-beat-main-heading.ays-pb
     margin: 50px 0;
 }
 
-.ays-pb-guarantee-text-container{
+.ays-pb-guarantee-text-container {
     flex-basis: 500px;
 }
 
