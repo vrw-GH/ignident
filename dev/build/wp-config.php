@@ -1,1 +1,1 @@
-X:/.Settings/_configs/wordpress/wp-config.php
+X:/.Settings/_configs/wordpress/WP-Configs/wp-config.php
