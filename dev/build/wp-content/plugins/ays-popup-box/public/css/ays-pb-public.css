@@ -877,8 +877,15 @@ div[class*=ays-pb-modal_].ays_minimal_window {
     box-sizing: border-box;
 }
 
+.ays_pb_notification_logo img {
+    max-width: 100px;
+    width: 100%;
+    min-width: 45px;
+}
+
 .ays_pb_notification_main_content {
-    width: 80%;
+    max-width: 80%;
+    width: 100%;
 }
 
 .ays_pb_notification_button_1 {

@@ -4044,13 +4044,9 @@ class Ays_Pb_Public_Templates {
         $message_data = $this->ays_pb_generate_message_variables_arr($popup['ays_pb_title'], $options);
 
         $default_notification_type_components = array(
-            'main_content' => 'main_content',
-            'button_1' => 'button_1',
-        );
-        
-        $default_notification_type_component_names = array(
-            'main_content' => __( 'Content', "ays-popup-box" ),
-            'button_1' => __( 'Button', "ays-popup-box" ),
+            'logo' => 'off',
+            'main_content' => 'on',
+            'button_1' => 'on',
         );
 
         // Height
@@ -4164,21 +4160,29 @@ class Ays_Pb_Public_Templates {
 
         foreach ($default_notification_type_components as $key => $value) {
             if ( !isset($notification_type_components[$key]) ) {
-                $notification_type_components[$key] = '';
+                $notification_type_components[$key] = 'off';
             }
 
             if ( !isset($notification_type_components_order[$key]) ) {
-                $notification_type_components_order[$key] = $key;
+                $notification_type_components_order[$key] = 'off';
             }
         }
 
         foreach ($notification_type_components_order as $key => $value) {
             if ( !isset($notification_type_components[$key]) ) {
-                if ( isset($notification_type_components[$value]) ) {
-                    $notification_type_components_order[$value] = $value;
-                }
+                $notification_type_components_order[$key] = 'off';
+
                 unset($notification_type_components_order[$key]);
             }
+        }
+
+        // Notification logo image src
+        $notification_logo_image_src = (isset($options->notification_logo_image) && $options->notification_logo_image != '') ? stripslashes($options->notification_logo_image) : '';
+
+        // Notification logo image
+        $notification_logo = "";
+        if ($notification_logo_image_src != '') {
+            $notification_logo = "<img src='" . $notification_logo_image_src . "'>";
         }
 
         // Notification main content
@@ -4202,6 +4206,10 @@ class Ays_Pb_Public_Templates {
         }
 
         $notification_components = array(
+            'logo' => "
+                <div class='ays_pb_notification_logo'>
+                    " . $notification_logo . "
+                </div>",
             'main_content' => "
                 <div class='ays_pb_notification_main_content'>
                     " . $main_content . "
@@ -4216,7 +4224,9 @@ class Ays_Pb_Public_Templates {
             <div class='ays_notification_content_box ays_content_box' style='padding: {$pb_padding}'>";
 
         foreach($notification_type_components_order as $key) {
-            $popupbox_view .= $notification_components[$key];
+            if ($key == 'main_content' || $key == 'button_1' || $notification_type_components[$key] == 'on') {
+                $popupbox_view .= $notification_components[$key];
+            }
         }
 
         $popupbox_view .= "
