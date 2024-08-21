@@ -16,7 +16,7 @@ ob_start();
  * Plugin Name:       Popup Box
  * Plugin URI:        http://ays-pro.com/wordpress/popup-box
  * Description:       Pop up anything you want! Create informative and promotional popups all in one plugin. Boost your website traffic with eye-catching popups. 
- * Version:           4.7.0
+ * Version:           4.7.1
  * Author:            Popup Box Team
  * Author URI:        http://ays-pro.com/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'AYS_PB_NAME_VERSION', '4.7.0' );
+define( 'AYS_PB_NAME_VERSION', '4.7.1' );
 define( 'AYS_PB_NAME', 'ays-pb' );
 
 if( ! defined( 'AYS_PB_ADMIN_URL' ) ) {

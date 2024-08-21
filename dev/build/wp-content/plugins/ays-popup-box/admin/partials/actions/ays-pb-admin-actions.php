@@ -21,11 +21,13 @@ $all_post_types = get_post_types($args, 'objects');
 $popup_categories = $this->popupbox_obj->get_popup_categories();
 
 $default_notification_type_components = array(
-    'main_content' => 'main_content',
-    'button_1' => 'button_1',
+    'logo' => 'off',
+    'main_content' => 'on',
+    'button_1' => 'on',
 );
 
 $default_notification_type_component_names = array(
+    'logo' => __('Logo', "ays-popup-box"),
     'main_content' => __('Content', "ays-popup-box"),
     'button_1' => __('Button', "ays-popup-box"),
 );
@@ -38,6 +40,16 @@ $author = array(
 );
 
 $x = '✕';
+
+$social_links_default = array(
+    'linkedin_link' => '',
+    'facebook_link' => '',
+    'twitter_link' => '',
+    'vkontakte_link' => '',
+    'youtube_link' => '',
+    'instagram_link' => '',
+    'behance_link' => '',
+);
 
 $options = array(
     // General
@@ -109,23 +121,15 @@ $options = array(
     'enable_pb_sound' => 'off',
     'enable_social_links' => 'off',
     'social_buttons_heading' => '',
-    'social_links' => array(
-        'linkedin_link'  =>  '',
-        'facebook_link'  =>  '',
-        'twitter_link'   =>  '',
-        'vkontakte_link' =>  '',
-        'youtube_link'   =>  '',
-        'instagram_link' =>  '',
-        'behance_link'   =>  '',
-    ),
+    'social_links' => $social_links_default,
     'create_date' => current_time( 'mysql' ),
     'create_author' => $user_id,
-    'disable_scroll' => 'off',
-    'disable_scroll_mobile' => 'off',
     'enable_dismiss' => 'off',
     'enable_dismiss_text' => 'Dismiss ad',
     'enable_dismiss_moible' => 'off',
     'enable_dismiss_text_mobile' => 'Dismiss ad',
+    'disable_scroll' => 'off',
+    'disable_scroll_mobile' => 'off',
     'disable_scroll_on_popup' => 'off',
     'disable_scroll_on_popup_mobile' => 'off',
     'show_scrollbar' => 'off',
@@ -159,16 +163,16 @@ $options = array(
     'pb_title_text_shadow_x_offset_mobile' => 2,
     'pb_title_text_shadow_y_offset_mobile' => 2,
     'pb_title_text_shadow_z_offset_mobile' => 0,
+    'enable_animate_in_mobile' => 'off',
+    'animate_in_mobile' => 'fadeIn',
+    'enable_animate_out_mobile' => 'off',
+    'animate_out_mobile' => 'fadeOut',
     'animation_speed' => 1,
     'enable_animation_speed_mobile' => 'off',
     'animation_speed_mobile' => 1,
     'close_animation_speed' => 1,
     'enable_close_animation_speed_mobile' => 'off',
     'close_animation_speed_mobile' => 1,
-    'enable_animate_out_mobile' => 'off',
-    'animate_out_mobile' => 'fadeOut',
-    'enable_animate_in_mobile' => 'off',
-    'animate_in_mobile' => 'fadeIn',
     'enable_bgcolor_mobile' => 'off',
     'bgcolor_mobile' => '#ffffff',
     'enable_bg_image_mobile' => 'off',
@@ -287,7 +291,7 @@ switch ($action) {
 }
 
 // General Settings | options
-$gen_options = ($this->settings_obj->ays_get_setting('options') === false) ? array() : json_decode( stripcslashes($this->settings_obj->ays_get_setting('options')), true);
+$gen_options = ($this->settings_obj->ays_get_setting('options') === false) ? array() : json_decode( stripcslashes($this->settings_obj->ays_get_setting('options')), true );
 
 // WP Editor height
 $pb_wp_editor_height = (isset($gen_options['pb_wp_editor_height']) && $gen_options['pb_wp_editor_height'] != '') ? absint( sanitize_text_field($gen_options['pb_wp_editor_height']) ) : 150;
@@ -299,7 +303,7 @@ $options = (isset($popupbox['options']) && $popupbox['options'] != '') ? json_de
 $pb_create_date = (isset($options['create_date']) && $options['create_date'] != '') ? $options['create_date'] : current_time( 'mysql' );
 
 // Popup author
-if (isset($options['author']) && $options['author'] != 'null') {
+if (isset($options['author']) && $options['author'] != '') {
     if ( !is_array($options['author']) ) {
         $options['author'] = json_decode($options['author'], true);
     }
@@ -307,9 +311,6 @@ if (isset($options['author']) && $options['author'] != 'null') {
 } else {
     $pb_author = array('name' => 'Unknown');
 }
-
-// Popup title
-$title = (isset($popupbox['title']) && $popupbox['title'] != '') ? stripslashes( esc_attr($popupbox['title']) ) : 'Default title';
 
 // Popup type
 $modal_content = (isset($popupbox['modal_content']) && $popupbox['modal_content'] != '') ? stripslashes( esc_attr($popupbox['modal_content']) ) : '';
@@ -342,8 +343,11 @@ switch ($modal_content) {
         break;
 }
 
+// Popup title
+$title = (isset($popupbox['title']) && $popupbox['title'] != '') ? stripslashes( esc_attr($popupbox['title']) ) : 'Default title';
+
 // Enable popup
-$onoffswitch = (isset($popupbox['onoffswitch']) && $popupbox['onoffswitch'] != '') ? esc_attr($popupbox['onoffswitch']) : 'On' ;
+$onoffswitch = (isset($popupbox['onoffswitch']) && $popupbox['onoffswitch'] != '') ? esc_attr($popupbox['onoffswitch']) : 'On';
 
 // Shortcode type | Shortcode
 $shortcode = (isset($popupbox['shortcode']) && $popupbox['shortcode'] != '') ? htmlentities($popupbox['shortcode']) : '';
@@ -355,7 +359,7 @@ $custom_html = (isset($popupbox['custom_html']) && $popupbox['custom_html'] != '
 $ays_video_theme_bg = (isset($options['video_theme_url']) && !empty($options['video_theme_url'])) ? esc_url($options['video_theme_url']) : '';
 
 // Video type | Live container video src
-$ays_video_src = ($ays_video_theme_bg != '') ? $ays_video_theme_bg : AYS_PB_ADMIN_URL . '/videos/video_theme.mp4';
+$live_container_video_src = ($ays_video_theme_bg != '') ? $ays_video_theme_bg : AYS_PB_ADMIN_URL . '/videos/video_theme.mp4';
 
 // Image type | Main image
 $image_type_img_src = (isset($options['image_type_img_src']) && $options['image_type_img_src'] != '') ? esc_url($options['image_type_img_src']) : '';
@@ -381,22 +385,22 @@ $notification_type_components = (isset($options['notification_type_components'])
 $notification_type_components_order = (isset($options['notification_type_components_order']) && !empty($options['notification_type_components_order'])) ? $options['notification_type_components_order'] : $default_notification_type_components;
 foreach ($default_notification_type_components as $key => $value) {
     if ( !isset($notification_type_components[$key]) ) {
-        $notification_type_components[$key] = '';
+        $notification_type_components[$key] = 'off';
     }
 
     if ( !isset($notification_type_components_order[$key]) ) {
-        $notification_type_components_order[$key] = $key;
+        $notification_type_components_order[$key] = 'off';
     }
 }
 
 foreach ($notification_type_components_order as $key => $value) {
     if ( !isset($notification_type_components[$key]) ) {
-        if ( isset($notification_type_components[$value]) ) {
-            $notification_type_components_order[$value] = $value;
-        }
-        unset($notification_type_components_order[$key]);
+        $notification_type_components_order[$key] = 'off';
     }
 }
+
+// Notification type | Logo
+$notification_logo_image = (isset($options['notification_logo_image']) && $options['notification_logo_image'] != '') ? esc_url($options['notification_logo_image']) : '';
 
 // Notification type | Main content
 $notification_main_content = (isset($options['notification_main_content']) && $options['notification_main_content'] != '') ? stripslashes($options['notification_main_content']) : 'Write the custom notification banner text here.';
@@ -504,7 +508,7 @@ $enable_pb_position_mobile = (isset($options['enable_pb_position_mobile']) && $o
 $pb_position_mobile = (isset($options['pb_position_mobile']) && $options['pb_position_mobile'] != 'center-center') ?  stripslashes( esc_attr($options['pb_position_mobile']) ) : 'center-center';
 
 // Popup margin (px)
-$pb_margin = (isset($popupbox['pb_margin']) && $popupbox['pb_margin'] != '' ? absint( intval($popupbox['pb_margin']) ) : 0);
+$pb_margin = (isset($popupbox['pb_margin']) && $popupbox['pb_margin'] != '') ? absint( intval($popupbox['pb_margin']) ) : 0;
 
 // Open delay
 $open_delay = (isset($popupbox['delay']) && $popupbox['delay'] != '') ? abs( intval($popupbox['delay']) ) : 0;
@@ -516,13 +520,13 @@ $enable_open_delay_mobile = (isset($options['enable_open_delay_mobile']) && $opt
 $open_delay_mobile = (isset($options['open_delay_mobile']) && $options['open_delay_mobile'] != '') ? abs( intval($options['open_delay_mobile']) ) : 0;
 
 // Open by scrolling down
-$scroll_top = (isset($popupbox['scroll_top']) && $popupbox['scroll_top'] != '') ? esc_attr( abs(intval($popupbox['scroll_top'])) ) : 0;
+$scroll_top = (isset($popupbox['scroll_top']) && $popupbox['scroll_top'] != '') ? abs( intval($popupbox['scroll_top']) ) : 0;
 
 // Enable different open by scrolling down for mobile
 $enable_scroll_top_mobile = (isset($options['enable_scroll_top_mobile']) && $options['enable_scroll_top_mobile'] == 'on') ? true : false;
 
 // Open by scrolling down mobile
-$scroll_top_mobile = (isset($options['scroll_top_mobile']) && $options['scroll_top_mobile'] != '') ? esc_attr( abs(intval($options['scroll_top_mobile'])) ) : 0;
+$scroll_top_mobile = (isset($options['scroll_top_mobile']) && $options['scroll_top_mobile'] != '') ? abs( intval($options['scroll_top_mobile']) ) : 0;
 
 // Close by pressing ESC
 $close_popup_esc = (isset($options['close_popup_esc']) && $options['close_popup_esc'] == 'on') ? 'on' : 'off';
@@ -536,11 +540,193 @@ $close_popup_overlay_mobile = (isset($options['close_popup_overlay_mobile']) && 
 // Hide close button
 $close_button = (isset($popupbox['close_button']) && $popupbox['close_button'] != '') ? stripslashes( esc_attr($popupbox['close_button']) ) : 'off';
 
-$ays_pb_sound = (isset($gen_options['ays_pb_sound']) && $gen_options['ays_pb_sound'] != '') ? true : false;
-$ays_pb_sound_status = false;
-if($ays_pb_sound){
-    $ays_pb_sound_status = true;
+// Activate close button while hovering on popup
+$options['ays_pb_hover_show_close_btn'] = (isset($options['ays_pb_hover_show_close_btn']) && $options['ays_pb_hover_show_close_btn'] == "on") ? "on" : "off";
+$ays_pb_hover_show_close_btn = (isset($options['ays_pb_hover_show_close_btn']) && $options['ays_pb_hover_show_close_btn'] == "on") ? true : false;
+
+// Close button position
+$close_button_position = (isset($options['close_button_position']) && $options['close_button_position'] != '') ? stripslashes( esc_attr($options['close_button_position']) ) : 'right-top';
+
+// Enable different close button position for mobile
+$enable_close_button_position_mobile = (isset($options['enable_close_button_position_mobile']) && $options['enable_close_button_position_mobile'] == 'on') ? true : false;
+
+// Close button position mobile
+$close_button_position_mobile = (isset($options['close_button_position_mobile']) && $options['close_button_position_mobile'] != '') ? stripslashes( esc_attr($options['close_button_position_mobile']) ) : 'right-top';
+
+// Close button text
+$close_button_text = (isset($options['close_button_text']) && $options['close_button_text'] != '') ? stripslashes( esc_attr($options['close_button_text']) ) : '✕';
+
+// Enable different close button text for mobile
+$enable_close_button_text_mobile = (isset($options['enable_close_button_text_mobile']) && $options['enable_close_button_text_mobile'] != '') ? true : false;
+
+// Close button text mobile
+$close_button_text_mobile = (isset($options['close_button_text_mobile']) && $options['close_button_text_mobile'] != '') ? stripslashes( esc_attr($options['close_button_text_mobile']) ) : '✕';
+
+// Close button hover text
+$close_button_hover_text = (isset($options['close_button_hover_text']) && $options['close_button_hover_text'] != '') ? stripslashes( esc_attr($options['close_button_hover_text']) ) : '';
+
+// Autoclose delay (in seconds)
+$autoclose_default_value = ($modal_content == 'image_type') ? 0 : 20;
+$autoclose = (isset($popupbox['autoclose']) && $popupbox['autoclose'] != "") ? abs( intval($popupbox['autoclose']) ) : $autoclose_default_value;
+
+// Enable autoclose delay mobile
+$enable_autoclose_delay_text_mobile = (isset($options['enable_autoclose_delay_text_mobile']) && $options['enable_autoclose_delay_text_mobile'] == 'on') ? true : false;
+
+// Autoclose delay mobile (in seconds)
+$ays_pb_autoclose_mobile = (isset($options['pb_autoclose_mobile']) && $options['pb_autoclose_mobile'] != "") ? abs( intval($options['pb_autoclose_mobile']) ) : $autoclose;
+
+// Hide timer
+$ays_pb_hide_timer = (isset($options['enable_hide_timer']) && $options['enable_hide_timer'] == 'on') ? 'on' : 'off';
+
+// Hide timer mobile
+if (isset($options['enable_hide_timer_mobile'])) {
+    $ays_pb_hide_timer_mobile = $options['enable_hide_timer_mobile'] == 'on' ? 'on' : 'off';
+} else {
+    $ays_pb_hide_timer_mobile = $ays_pb_hide_timer;
 }
+
+// Autoclose on video completion
+$ays_pb_autoclose_on_completion = (isset($options['enable_autoclose_on_completion']) && $options['enable_autoclose_on_completion'] == 'on') ? 'on' : 'off';
+
+// Close button delay
+$close_button_delay = (isset($options['close_button_delay']) && $options['close_button_delay'] != '') ? abs( intval($options['close_button_delay']) ) : 0;
+
+// Enable close button delay mobile
+$enable_close_button_delay_for_mobile = (isset($options['enable_close_button_delay_for_mobile']) && $options['enable_close_button_delay_for_mobile'] == 'on') ? true : false;
+
+// Close button delay mobile
+$close_button_delay_for_mobile = (isset($options['close_button_delay_for_mobile']) && $options['close_button_delay_for_mobile'] != '') ? abs( intval($options['close_button_delay_for_mobile']) ) : $close_button_delay;
+
+// Popup name
+$popup_name = (isset($popupbox['popup_name']) && $popupbox['popup_name'] != '') ? stripslashes( esc_attr($popupbox['popup_name']) ) : '';
+
+// Popup category
+$category_id = (isset($popupbox['category_id']) && $popupbox['category_id'] != '') ? abs( intval($popupbox['category_id']) ) : 1;
+
+// Enable Overlay
+$onoffoverlay = (isset($popupbox['onoffoverlay']) && $popupbox['onoffoverlay'] != '') ? esc_attr( stripslashes($popupbox['onoffoverlay']) ) : 'on';
+
+// Enable Overlay | Opacity
+$overlay_opacity = (isset($popupbox['overlay_opacity']) && ($popupbox['overlay_opacity'])!= '') ? esc_attr( stripslashes($popupbox['overlay_opacity']) ) : '0.5';
+
+// Enable Overlay | Enable different opacity mobile
+$enable_overlay_text_mobile = (isset($options['enable_overlay_text_mobile']) && $options['enable_overlay_text_mobile'] == 'on') ? true : false;
+
+// Enable Overlay | Opacity mobile
+$ays_pb_overlay_mobile_opacity = (isset($options['overlay_mobile_opacity']) && $options['overlay_mobile_opacity'] != '') ? esc_attr( stripslashes($options['overlay_mobile_opacity']) ) : '0.5';
+
+// Enable blured overlay
+$options['blured_overlay'] = (isset($options['blured_overlay']) && $options['blured_overlay'] == 'on') ? esc_attr( stripslashes($options['blured_overlay']) ) : 'off';
+$blured_overlay = (isset($options['blured_overlay']) && $options['blured_overlay'] == 'on') ? true : false;
+
+// Enable blured overlay mobile
+if (isset($options['blured_overlay_mobile'])) {
+    $blured_overlay_mobile = $options['blured_overlay_mobile'] == 'on' ? true : false;
+} else {
+    $blured_overlay_mobile = $blured_overlay;
+}
+
+// Enable popup sound
+$options['enable_pb_sound'] = (isset($options['enable_pb_sound']) && $options['enable_pb_sound'] != '') ? esc_attr($options['enable_pb_sound']) : 'off';
+$enable_pb_sound = (isset($options['enable_pb_sound']) && $options['enable_pb_sound'] == 'on') ? true : false;
+
+// Popup opening sound
+$ays_pb_sound = (isset($gen_options['ays_pb_sound']) && $gen_options['ays_pb_sound'] != '') ? true : false;
+
+// Enable social media links
+$enable_social_links = (isset($options['enable_social_links']) && $options['enable_social_links'] == 'on') ? true : false;
+
+// Enable social media links | Heading for share buttons
+$social_buttons_heading = (isset($options['social_buttons_heading']) && $options['social_buttons_heading'] != '') ? stripslashes( $options['social_buttons_heading'] ) : '';
+
+// Enable social media links | Social media link buttons
+$social_links = (isset($options['social_links']) && $options['social_links'] != '') ? $options['social_links'] : $social_links_default;
+
+// Enable social media links | LinkedIn link
+$linkedin_link = (isset($social_links['linkedin_link']) && $social_links['linkedin_link'] != '') ? esc_url($social_links['linkedin_link']) : '';
+
+// Enable social media links | Facebook link
+$facebook_link = (isset($social_links['facebook_link']) && $social_links['facebook_link'] != '') ? esc_url($social_links['facebook_link']) : '';
+
+// Enable social media links | X (Twitter) link
+$twitter_link = (isset($social_links['twitter_link']) && $social_links['twitter_link'] != '') ? esc_url($social_links['twitter_link']) : '';
+
+// Enable social media links | VKontakte link
+$vkontakte_link = (isset($social_links['vkontakte_link']) && $social_links['vkontakte_link'] != '') ? esc_url($social_links['vkontakte_link']) : '';
+
+// Enable social media links | Youtube link
+$youtube_link = (isset($social_links['youtube_link']) && $social_links['youtube_link'] != '') ? esc_url($social_links['youtube_link']) : '';
+
+// Enable social media links | Instagram link
+$instagram_link = (isset($social_links['instagram_link']) && $social_links['instagram_link'] != '') ? esc_url($social_links['instagram_link']) : '';
+
+// Enable social media links | Behance link
+$behance_link = (isset($social_links['behance_link']) && $social_links['behance_link'] != '') ? esc_url($social_links['behance_link']) : '';
+
+// Schedule the popup
+$popupbox['active_date_check'] = (isset($popupbox['active_date_check']) && $popupbox['active_date_check'] != '') ? esc_attr( stripslashes($popupbox['active_date_check']) ) : 'off';
+$active_date_check = (isset($popupbox['active_date_check']) && $popupbox['active_date_check'] == 'on') ? true : false;
+if ($active_date_check) {
+    $activateTime = strtotime($popupbox['activeInterval']);
+    $activePopup = date('Y-m-d H:i:s', $activateTime);
+    $deactivateTime = strtotime($popupbox['deactiveInterval']);
+    $deactivePopup = date('Y-m-d H:i:s', $deactivateTime);
+} else {
+    $activePopup = current_time('mysql');
+    $deactivePopup = current_time('mysql');
+}
+
+// Change the popup author
+$change_pb_create_author = (isset($options['create_author']) && $options['create_author'] != '') ? absint( sanitize_text_field($options['create_author']) ) : $user_id;
+$get_current_popup_author_data = get_userdata($change_pb_create_author);
+
+// Enable dismiss ad
+$options['enable_dismiss'] = (isset($options['enable_dismiss']) && $options['enable_dismiss'] == 'on') ? 'on' : 'off';
+$enable_dismiss = (isset($options['enable_dismiss']) && $options['enable_dismiss'] == 'on') ? true : false;
+
+// Enable dismiss ad | Dismiss ad text
+$enable_dismiss_text = (isset($options['enable_dismiss_text']) && $options['enable_dismiss_text'] != '') ? esc_attr( stripslashes($options['enable_dismiss_text']) ) : __('Dismiss ad', "ays-popup-box");
+
+// Enable dismiss ad | Enable different dismiss ad text mobile
+if (isset($options['enable_dismiss_mobile'])) {
+    $options['enable_dismiss_mobile'] = $options['enable_dismiss_mobile'] == 'on' ? 'on' : 'off';
+} else {
+    $options['enable_dismiss_mobile'] = $options['enable_dismiss'];
+}
+$enable_dismiss_mobile = (isset($options['enable_dismiss_mobile']) && $options['enable_dismiss_mobile'] == 'on') ? true : false;
+
+// Enable dismiss ad | Dismiss ad text mobile
+if (isset($options['enable_dismiss_text_mobile'])) {
+    $enable_dismiss_text_mobile = $options['enable_dismiss_text_mobile'] != '' ? esc_attr( stripslashes($options['enable_dismiss_text_mobile']) ) : __('Dismiss ad', "ays-popup-box");
+} else {
+    $enable_dismiss_text_mobile = $enable_dismiss_text;
+}
+
+// Disable page scrolling
+$options['disable_scroll'] = (isset($options['disable_scroll']) && $options['disable_scroll'] != '') ? sanitize_text_field($options['disable_scroll']) : 'off';
+$disable_scroll = (isset($options['disable_scroll']) && $options['disable_scroll'] == 'on') ? true : false;
+
+// Disable page scrolling mobile
+if (isset($options['disable_scroll_mobile'])) {
+    $disable_scroll_mobile = $options['disable_scroll_mobile'] == 'on' ? true : false;
+} else {
+    $disable_scroll_mobile = $disable_scroll;
+}
+
+// Disable popup scrolling
+$options['disable_scroll_on_popup'] = (isset($options['disable_scroll_on_popup']) && $options['disable_scroll_on_popup'] != '') ? esc_attr( stripslashes($options['disable_scroll_on_popup']) ) : 'off';
+$ays_pb_disable_scroll_on_popup = (isset($options['disable_scroll_on_popup']) && $options['disable_scroll_on_popup'] == 'on') ? true : false;
+
+// Disable popup scrolling mobile
+if (isset($options['disable_scroll_on_popup_mobile'])) {
+    $ays_pb_disable_scroll_on_popup_mobile = $options['disable_scroll_on_popup_mobile'] == 'on' ? true : false;
+} else {
+    $ays_pb_disable_scroll_on_popup_mobile = $ays_pb_disable_scroll_on_popup;
+}
+
+//Show scrolblar
+$options['show_scrollbar'] = (isset($options['show_scrollbar']) && $options['show_scrollbar'] != '') ? esc_attr( stripslashes($options['show_scrollbar']) ) : 'off';
+$ays_pb_show_scrollbar = (isset($options['show_scrollbar']) && $options['show_scrollbar'] == 'on') ? true : false;
 
 // Custom class for quiz container
 $custom_class = (isset($popupbox['custom_class']) && $popupbox['custom_class'] != "") ? esc_attr( stripslashes($popupbox['custom_class']) ) : '';
@@ -599,15 +785,6 @@ if ( isset($options['pb_gradient_direction_mobile']) ) {
     $pb_gradient_direction_mobile = $pb_gradient_direction;
 }
 
-$close_button_delay =  (isset($options['close_button_delay']) && $options['close_button_delay'] != '') ? abs(intval($options['close_button_delay'])) : '0';
-
-$close_button_delay_for_mobile =  (isset($options['close_button_delay_for_mobile']) && $options['close_button_delay_for_mobile'] != '') ? abs(intval($options['close_button_delay_for_mobile'])) : $close_button_delay;
-$enable_close_button_delay_for_mobile = (isset($options['enable_close_button_delay_for_mobile']) && $options['enable_close_button_delay_for_mobile'] == 'on') ? true : false;
-
-$onoffoverlay      = (isset($popupbox["onoffoverlay"]) && $popupbox["onoffoverlay"] != "") ? esc_attr($popupbox["onoffoverlay"]) : "on";
-$overlay_opacity   = (isset($popupbox["overlay_opacity"]) && ($popupbox["overlay_opacity"])!= "") ? esc_attr($popupbox["overlay_opacity"]) : "0.5";
-$enable_overlay_text_mobile = (isset($options['enable_overlay_text_mobile']) && $options['enable_overlay_text_mobile'] == 'on') ? true : false;
-$ays_pb_overlay_mobile_opacity = (isset($options['overlay_mobile_opacity']) && $options['overlay_mobile_opacity'] != '') ? esc_attr($options['overlay_mobile_opacity']) : '0.5';
 $log_user          = (isset($popupbox["log_user"]) && $popupbox["log_user"] != "") ? $popupbox["log_user"] : "off";
 $guest             = (isset($popupbox["guest"]) && $popupbox["guest"] != "") ? $popupbox["guest"] : "off";
 
@@ -662,10 +839,6 @@ if (isset($options['bordersize_mobile'])) {
 
 // Box header background color
 $header_bgcolor = (isset($popupbox['header_bgcolor']) && $popupbox['header_bgcolor'] != '') ? esc_attr( stripslashes( $popupbox['header_bgcolor'] )) : '#ffffff';
-
-// Enable PopupBox sound option
-$options['enable_pb_sound'] = isset($options['enable_pb_sound']) ? esc_attr($options['enable_pb_sound']) : 'off';
-$enable_pb_sound = (isset($options['enable_pb_sound']) && $options['enable_pb_sound'] == "on") ? true : false;
 
 //Overlay Color
 $overlay_color = (isset($options['overlay_color']) && $options['overlay_color'] != '') ? esc_attr( stripslashes( $options['overlay_color'] )) : '#000';
@@ -725,32 +898,11 @@ if (isset($options['close_animation_speed_mobile'])) {
 //Hide popupbox on mobile
 $ays_pb_mobile = (isset($options['pb_mobile']) && $options['pb_mobile'] == 'on') ? esc_attr($options['pb_mobile']) : 'off';
 
-//Close button text
-$close_button_text = (isset($options['close_button_text']) && $options['close_button_text'] != '') ? stripslashes( esc_attr( $options['close_button_text'] ) ) : '✕';
-
-// Enable different close button text for mobile
-$enable_close_button_text_mobile = (isset($options['enable_close_button_text_mobile']) && $options['enable_close_button_text_mobile'] != '') ? true : false;
-
-//Close button text mobile
-$close_button_text_mobile = (isset($options['close_button_text_mobile']) && $options['close_button_text_mobile'] != '') ? stripslashes( esc_attr($options['close_button_text_mobile'] ) ) : '✕';
-
-//Close button hover text
-$close_button_hover_text = (isset($options['close_button_hover_text']) && $options['close_button_hover_text'] != '') ? stripslashes( esc_attr($options['close_button_hover_text'] ) ): '';
-
 // PopupBox width for mobile option
 $mobile_width = (isset($options['mobile_width']) && $options['mobile_width'] != '') ? abs(intval($options['mobile_width'])) : '';
 
 // PopupBox max-width for mobile option
 $mobile_max_width = (isset($options['mobile_max_width']) && $options['mobile_max_width'] != '') ? abs(intval($options['mobile_max_width'])) : '';
-
-//Close Button Position on Container
-$close_button_position = (isset($options['close_button_position']) && $options['close_button_position'] != '') ? stripslashes( esc_attr($options['close_button_position'] ) ) : 'right-top';
-
-// Enable different close button position for mobile 
-$enable_close_button_position_mobile = (isset($options['enable_close_button_position_mobile']) && $options['enable_close_button_position_mobile'] == 'on') ? true : false;
-
-//Close Button Position on Container Mobile
-$close_button_position_mobile = (isset($options['close_button_position_mobile']) && $options['close_button_position_mobile'] != '') ? stripslashes( esc_attr( $options['close_button_position_mobile'] ) ) : 'right-top';
 
 //Show PopupBox only once
 $show_only_once = (isset($options['show_only_once']) && $options['show_only_once'] == 'on') ? 'on' : 'off';
@@ -764,13 +916,8 @@ $popup_width_by_percentage_px_mobile = (isset($options['popup_width_by_percentag
 //close button size
 $ays_close_button_size = (isset($options['close_button_size']) && $options['close_button_size'] != '') ? esc_attr( abs($options['close_button_size']) ) : '1';
 
-$enable_autoclose_delay_text_mobile = (isset($options['enable_autoclose_delay_text_mobile']) && $options['enable_autoclose_delay_text_mobile'] == 'on') ? true : false;
 $cookie             = (isset($popupbox['cookie']) && $popupbox['cookie'] != "") ? esc_attr( abs($popupbox['cookie']) ) : "";
 $view_type          = (isset($popupbox['view_type']) && $popupbox['view_type'] != "") ? stripslashes( esc_attr($popupbox['view_type']) ) : "";
-
-$autoclose_default_value = $modal_content == 'image_type' ? 0 : 20;
-$autoclose = (isset($popupbox['autoclose']) && $popupbox['autoclose'] != "") ? esc_attr( abs($popupbox['autoclose']) ) : $autoclose_default_value;
-$ays_pb_autoclose_mobile = (isset($options['pb_autoclose_mobile']) && $options['pb_autoclose_mobile'] != "") ? esc_attr( abs($options['pb_autoclose_mobile']) ) : $autoclose;
 
 //Popup Background Color
 $bgcolor = (isset($popupbox['bgcolor']) && $popupbox['bgcolor'] != "") ? esc_attr( stripslashes(  $popupbox['bgcolor'] )) : "";
@@ -950,20 +1097,6 @@ if ( isset($options['bordercolor_mobile']) ) {
     $bordercolor_mobile = $bordercolor;
 }
 
-//Schedule of Popup
-$popupbox['active_date_check'] = isset($popupbox['active_date_check']) ? esc_attr( stripslashes($popupbox['active_date_check']) ) : 'off';
-$active_date_check = (isset($popupbox['active_date_check']) && $popupbox['active_date_check'] == 'on') ? true : false;
-if ($active_date_check) {
-    $activateTime    = strtotime($popupbox['activeInterval']);
-    $activePopup     = date('Y-m-d H:i:s', $activateTime);
-    $deactivateTime  = strtotime($popupbox['deactiveInterval']);
-    $deactivePopup   = date('Y-m-d H:i:s', $deactivateTime);
-} else {
-    $activePopup   = current_time( 'mysql' );
-    $deactivePopup = current_time( 'mysql' );
-
-}
-
 //font-family option
 $font_families = array(
     'inherit'             => __('Inherit', "ays-popup-box"),
@@ -986,16 +1119,6 @@ $font_family_option = (isset($options['pb_font_family']) && $options['pb_font_fa
 //open full screen
 $ays_enable_pb_fullscreen = (isset($options['enable_pb_fullscreen']) && $options['enable_pb_fullscreen'] == 'on') ? 'on' : 'off';
 
-//hide timer
-$ays_pb_hide_timer = (isset($options['enable_hide_timer']) && $options['enable_hide_timer'] == 'on') ? 'on' : 'off';
-
-// hide timer mobile
-if ( isset($options['enable_hide_timer_mobile']) ) {
-    $ays_pb_hide_timer_mobile = $options['enable_hide_timer_mobile'] == 'on' ? 'on' : 'off';
-} else {
-    $ays_pb_hide_timer_mobile = $ays_pb_hide_timer;
-}
-
 $ays_pb_show_hide_timer_box = true;
 if ($enable_autoclose_delay_text_mobile) {
     if ($autoclose == '0' && $ays_pb_autoclose_mobile == '0') {
@@ -1012,30 +1135,6 @@ if($ays_pb_hide_timer == 'on' || $autoclose == 0) {
 }else{
     $ays_pb_timer_desc = "<p class='ays_pb_timer' style='visibility:visible'>".__('This will close in',"ays-popup-box")." <span data-seconds='20'>20</span> ".__('seconds',"ays-popup-box")."</p>";
 }
-
-$ays_pb_autoclose_on_completion = (isset($options['enable_autoclose_on_completion']) && $options['enable_autoclose_on_completion'] == 'on') ? 'on' : 'off';
-
-// Social Media links
-$enable_social_links = (isset($options['enable_social_links']) && $options['enable_social_links'] == "on") ? true : false;
-$social_links = (isset($options['social_links'])) ? $options['social_links'] : array(
-    'linkedin_link'   => '',
-    'facebook_link'   => '',
-    'twitter_link'    => '',
-    'vkontakte_link'  => '',
-    'youtube_link'    => '',
-    'instagram_link'  => '',
-    'behance_link'    => '',
-);
-$linkedin_link = isset($social_links['linkedin_link']) && $social_links['linkedin_link'] != '' ? esc_url($social_links['linkedin_link']) : '';
-$facebook_link = isset($social_links['facebook_link']) && $social_links['facebook_link'] != '' ? esc_url($social_links['facebook_link']) : '';
-$twitter_link = isset($social_links['twitter_link']) && $social_links['twitter_link'] != '' ? esc_url($social_links['twitter_link']) : '';
-$vkontakte_link = isset($social_links['vkontakte_link']) && $social_links['vkontakte_link'] != '' ? esc_url($social_links['vkontakte_link']) : '';
-$youtube_link = isset($social_links['youtube_link']) && $social_links['youtube_link'] != '' ? esc_url($social_links['youtube_link']) : '';
-$instagram_link = isset($social_links['instagram_link']) && $social_links['instagram_link'] != '' ? esc_url($social_links['instagram_link']) : '';
-$behance_link = isset($social_links['behance_link']) && $social_links['behance_link'] != '' ? esc_url($social_links['behance_link']) : '';
-
-// Heading for social buttons
-$social_buttons_heading = (isset($options['social_buttons_heading']) && $options['social_buttons_heading'] != '') ? stripslashes( $options['social_buttons_heading'] ) : "";
 
 //Enable for selected user OS
 $ays_users_os_array = array(
@@ -1128,22 +1227,6 @@ if ( isset($options['border_style_mobile']) ) {
     $ays_pb_border_style_mobile = $ays_pb_border_style;
 }
 
-//ays_pb_hover_show_close_btn
-$options['ays_pb_hover_show_close_btn'] = (isset($options['ays_pb_hover_show_close_btn']) && $options['ays_pb_hover_show_close_btn'] == "on") ? "on" : "off";
-$ays_pb_hover_show_close_btn = (isset($options['ays_pb_hover_show_close_btn']) && $options['ays_pb_hover_show_close_btn'] == "on") ? true : false;
-
-
-// Disable page scrolling
-$options['disable_scroll'] = isset($options['disable_scroll']) ? sanitize_text_field( $options['disable_scroll'] ) : 'off';
-$disable_scroll  = (isset($options['disable_scroll']) && $options['disable_scroll'] == 'on') ? true : false;
-
-// Disable page scrolling mobile
-if (isset($options['disable_scroll_mobile'])) {
-    $disable_scroll_mobile = $options['disable_scroll_mobile'] == 'on' ? true : false;
-} else {
-    $disable_scroll_mobile = $disable_scroll;
-}
-
 // Max-Height
 $popup_max_height = ( isset($options['pb_max_height']) && $options['pb_max_height'] != '' && $options['pb_max_height'] != 0 ) ? absint( intval($options['pb_max_height']) ) : '';
 
@@ -1224,13 +1307,6 @@ if ( isset($options['pb_title_text_shadow_z_offset_mobile']) ) {
     $pb_title_text_shadow_z_offset_mobile = $pb_title_text_shadow_z_offset;
 }
 
-//Change Create Author
-$change_pb_create_author = (isset($options['create_author']) && $options['create_author'] != '') ? absint( sanitize_text_field( $options['create_author'] ) ) : $user_id;
-$get_current_popup_author_data = get_userdata($change_pb_create_author);
-
-$category_id = ( isset( $popupbox['category_id'] ) && $popupbox['category_id'] != '' ) ? intval( $popupbox['category_id'] ) : 1;
-
-
 $next_popup_id = "";
 $prev_popup_id = "";
 if ( isset( $id ) && !is_null( $id ) ) {
@@ -1243,24 +1319,6 @@ if ( isset( $id ) && !is_null( $id ) ) {
 
 //Mobile height
 $mobile_height = (isset($options['mobile_height']) && $options['mobile_height'] != "") ? absint( esc_attr($options['mobile_height']) ) : "";
-
-//Enable dismiss
-$options['enable_dismiss'] = (isset($options['enable_dismiss']) && $options['enable_dismiss'] == "on") ? "on" : "off";
-$enable_dismiss = (isset($options['enable_dismiss']) && $options['enable_dismiss'] == "on") ? true : false;
-
-if ( isset($options['enable_dismiss_mobile']) ) {
-    $options['enable_dismiss_mobile'] = $options['enable_dismiss_mobile'] == "on" ? "on" : "off";
-} else {
-    $options['enable_dismiss_mobile'] = $options['enable_dismiss'];
-}
-$enable_dismiss_mobile = (isset($options['enable_dismiss_mobile']) && $options['enable_dismiss_mobile'] == "on") ? true : false;
-
-$enable_dismiss_text = (isset($options['enable_dismiss_text']) && $options['enable_dismiss_text'] != "") ? esc_attr(stripslashes($options['enable_dismiss_text'])) : __("Dismiss ad", "ays-popup-box");
-if ( isset($options['enable_dismiss_text_mobile']) ) {
-    $enable_dismiss_text_mobile = $options['enable_dismiss_text_mobile'] != "" ? esc_attr(stripslashes($options['enable_dismiss_text_mobile'])) : __("Dismiss ad", "ays-popup-box");
-} else {
-    $enable_dismiss_text_mobile = $enable_dismiss_text;
-}
 
 $not_default_view_types = array(
     'mac'       => 'mac',
@@ -1322,27 +1380,6 @@ if ( isset($options['pb_box_shadow_z_offset_mobile']) ) {
     $pb_box_shadow_z_offset_mobile = $pb_box_shadow_z_offset;
 }
 
-// Popup name
-$popup_name = isset($popupbox['popup_name']) && $popupbox['popup_name'] ? stripslashes( esc_attr( $popupbox['popup_name'] ) ) : '';
-
-//Disabel scroll on popup
-$options['disable_scroll_on_popup'] = ( isset( $options['disable_scroll_on_popup'] ) && $options['disable_scroll_on_popup'] != '' ) ? esc_attr($options['disable_scroll_on_popup']) : 'off';
-$ays_pb_disable_scroll_on_popup = ( isset( $options['disable_scroll_on_popup'] ) && $options['disable_scroll_on_popup'] == 'on' ) ? true : false;
-
-//Disabel scroll on popup mobile
-if (isset($options['disable_scroll_on_popup_mobile'])) {
-    $ays_pb_disable_scroll_on_popup_mobile = $options['disable_scroll_on_popup_mobile'] == 'on' ? true : false;
-} else {
-    $ays_pb_disable_scroll_on_popup_mobile = $ays_pb_disable_scroll_on_popup;
-}
-
-
-//Show scrolblar
-$options['show_scrollbar'] = ( isset( $options['show_scrollbar'] ) && $options['show_scrollbar'] != '' ) ? esc_attr($options['show_scrollbar']) : 'off';
-$ays_pb_show_scrollbar = ( isset( $options['show_scrollbar'] ) && $options['show_scrollbar'] == 'on' ) ? true : false;
-
-// $ays_pb_wp_users = get_users();
-
 //Hide on PC
 $options['hide_on_pc'] = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] != "" ) ? esc_attr($options['hide_on_pc']) : "off";
 $ays_pb_hide_on_pc = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] == "on" ) ? true : false;
@@ -1363,16 +1400,6 @@ if($view_type == 'lil'){
 $close_button_color = (isset($options['close_button_color']) && $options['close_button_color'] != "") ? esc_attr( stripslashes( $options['close_button_color'] )) : $empty_closebtn_color;
 
 $close_button_hover_color = (isset($options['close_button_hover_color']) && $options['close_button_hover_color'] != "") ? esc_attr( stripslashes( $options['close_button_hover_color'] )) : $close_button_color;
-
-$options['blured_overlay'] = ( isset( $options['blured_overlay'] ) && $options['blured_overlay'] == "on") ? esc_attr($options['blured_overlay']) : 'off';
-$blured_overlay = ( isset( $options['blured_overlay']) && $options['blured_overlay'] == "on") ? true : false;
-
-//enable blured overlay mobile 
-if (isset($options['blured_overlay_mobile'])) {
-    $blured_overlay_mobile = $options['blured_overlay_mobile'] == 'on' ? true : false;
-} else {
-    $blured_overlay_mobile = $blured_overlay;
-}
 
 $show_popup_triggers_tooltip = array(
     'pageLoaded' => 'On page load - Trigger displays the popup automatically on the page load. Define the time delay of the popup in Open Delay option.',
@@ -1722,30 +1749,6 @@ $ays_users_roles = $wp_roles->roles;
                     </div>
                 </div>
                 <!-- Use small FB header end -->
-                <hr class="ays_pb_hide_for_video_type ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'video_type' || $modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                <div class="form-group row ays-field ays_pb_hide_for_video_type ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'video_type' || $modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>" id="ays-popup-box-description">
-                    <div class="col-sm-3">
-                        <label for="<?php echo $this->plugin_name; ?>-popup_description">
-                            <span><?php echo __('Popup description', "ays-popup-box"); ?></span>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("The option is not being displayed on the front-end by default. Please activate it from the Styles tab.", "ays-popup-box"); ?>">
-                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                            </a>
-                        </label>
-                        <div class="ays-pb-description-small-hint <?php echo $show_popup_desc == 'On' ? 'display_none' : ''; ?>">
-                            <p class="ays-pb-small-hint-text">
-                                <?php echo __("This option is currently unavailable as the 'Show Description' option is disabled.", "ays-popup-box"); ?>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        <?php
-                            $content = $description;
-                            $editor_id = $this->plugin_name . '-popup_description';
-                            $settings = array('editor_height'=> $pb_wp_editor_height,'textarea_name'=> $this->plugin_name . '[popup_description]', 'editor_class'=>'ays-textarea', 'media_buttons' => true);
-                            wp_editor($content,$editor_id,$settings);
-                        ?>
-                    </div>                                       
-                </div>
                 <hr class="ays_notification_type_hr <?php echo $modal_content == 'notification_type' ? '' : 'display_none'; ?>">
                 <div class="form-group ays_notification_type_option <?php echo $modal_content == 'notification_type' ? '' : 'display_none'; ?>">
                     <div class="ays_notification_type_components_sortable_wrap">
@@ -1753,16 +1756,16 @@ $ays_users_roles = $wp_roles->roles;
                             <?php
                                 foreach ($notification_type_components_order as $key => $val) {
                                     $checked = '';
-                                    if (isset($notification_type_components[$key]) && $notification_type_components[$key] != '') {
+                                    if (isset($notification_type_components[$key]) && $notification_type_components[$key] == 'on') {
                                         $checked = 'checked';
                                     }
 
                                     $default_notification_type_component_names_label = '';
-                                    if( isset( $default_notification_type_component_names[$val] ) && $default_notification_type_component_names[$val] != '' ){
-                                        $default_notification_type_component_names_label = $default_notification_type_component_names[$val];
+                                    if ( isset($default_notification_type_component_names[$key]) && $default_notification_type_component_names[$key] != '' ) {
+                                        $default_notification_type_component_names_label = $default_notification_type_component_names[$key];
                                     }
 
-                                    if( $default_notification_type_component_names_label == '' ){
+                                    if ($default_notification_type_component_names_label == '') {
                                         continue;
                                     }
                             ?>
@@ -1772,7 +1775,13 @@ $ays_users_roles = $wp_roles->roles;
                                             <img class="close_component_img display_none" src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/close-component.svg"?>">
                                         </div>
                                         <input type="hidden" value="<?php echo $key; ?>" name="ays_notification_type_components_order[<?php echo $key; ?>]"/>
-                                        <!-- <input type="checkbox" id="ays_show_<?php // echo $key; ?>" value="<?php // echo $key; ?>" name="ays_notification_type_components[<?php // echo $key; ?>]" <?php // echo $checked; ?>/> -->
+                                        <?php
+                                            if($key != 'main_content' && $key != 'button_1'):
+                                        ?>
+                                        <input type="checkbox" id="ays_show_<?php echo $key; ?>" name="ays_notification_type_components[<?php echo $key; ?>]" <?php echo $checked; ?>/>
+                                        <?php 
+                                            endif;
+                                        ?>
                                         <label for="ays_show_<?php echo $key; ?>">
                                             <?php echo $default_notification_type_component_names_label; ?>
                                         </label>
@@ -1781,6 +1790,31 @@ $ays_users_roles = $wp_roles->roles;
                                 }
                             ?>
                         </ul>
+                        <div class="ays_pb_component_option" style="display: none;" data-window="logo">
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="ays_pb_notification_logo_image">
+                                        <?php  echo __('Banner logo', "ays-popup-box" ) ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Add a logo for the notification banner.", "ays-popup-box"); ?>" >
+                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="button ays-pb-notification-type-add-logo-img">
+                                        <?php echo $notification_logo_image != '' ? __('Edit Image', "ays-popup-box") : __('Add Image', "ays-popup-box"); ?>
+                                    </a>
+                                    <div class="<?php echo $notification_logo_image != '' ? '' : 'display_none'; ?> ays-pb-notification-logo-container-main">
+                                        <div class="ays-pb-notification-logo-container">
+                                            <span class="ays-remove-notification-type-logo-img"></span>
+                                            <img src="<?php echo $notification_logo_image ?>" id="ays_pb_notification_logo">
+                                            <input type="hidden" name="ays_pb_notification_logo_image" id="ays_pb_notification_logo_image" value="<?php echo $notification_logo_image ; ?>"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="ays_pb_component_option" style="display: none;" data-window="main_content">
                             <?php
                                 $content = $notification_main_content;
@@ -2066,6 +2100,30 @@ $ays_users_roles = $wp_roles->roles;
                             </div>
                         </div>
                     </div>
+                </div>
+                <hr class="ays_pb_hide_for_video_type ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'video_type' || $modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                <div class="form-group row ays-field ays_pb_hide_for_video_type ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'video_type' || $modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>" id="ays-popup-box-description">
+                    <div class="col-sm-3">
+                        <label for="<?php echo $this->plugin_name; ?>-popup_description">
+                            <span><?php echo __('Popup description', "ays-popup-box"); ?></span>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("The option is not being displayed on the front-end by default. Please activate it from the Styles tab.", "ays-popup-box"); ?>">
+                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </label>
+                        <div class="ays-pb-description-small-hint <?php echo $show_popup_desc == 'On' ? 'display_none' : ''; ?>">
+                            <p class="ays-pb-small-hint-text">
+                                <?php echo __("This option is currently unavailable as the 'Show Description' option is disabled.", "ays-popup-box"); ?>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <?php
+                            $content = $description;
+                            $editor_id = $this->plugin_name . '-popup_description';
+                            $settings = array('editor_height'=> $pb_wp_editor_height,'textarea_name'=> $this->plugin_name . '[popup_description]', 'editor_class'=>'ays-textarea', 'media_buttons' => true);
+                            wp_editor($content,$editor_id,$settings);
+                        ?>
+                    </div>                                       
                 </div>
                 <hr>
                 <!-- Enable popup for author only start-->
@@ -3068,7 +3126,7 @@ $ays_users_roles = $wp_roles->roles;
                                value="on" <?php echo $enable_pb_sound ? 'checked' : ''; ?>/>
                     </div>
                     <div class="col-sm-7 ays_toggle_target ays_divider_left" style="<?php echo $enable_pb_sound ? '' : 'display:none;' ?>">
-                        <?php if($ays_pb_sound_status): ?>
+                        <?php if($ays_pb_sound): ?>
                         <blockquote class=""><?php echo __('Sounds are selected. For change sounds go to', "ays-popup-box"); ?> <a href="?page=ays-pb-settings" target="_blank"><?php echo __('General Settings', "ays-popup-box"); ?></a> <?php echo __('page', "ays-popup-box"); ?></blockquote>
                         <?php else: ?>
                         <blockquote class=""><?php echo __('Sounds are not selected. For selecting sounds go to', "ays-popup-box"); ?> <a href="?page=ays-pb-settings" target="_blank"><?php echo __('General Settings', "ays-popup-box"); ?></a> <?php echo __('page', "ays-popup-box"); ?></blockquote>
@@ -6230,7 +6288,7 @@ $ays_users_roles = $wp_roles->roles;
                                             <a class="close-video-btn ays-close-button-on-off ays-close-button-text close_btn_text" style='<?php echo $close_btn_text_display;?>'><?php echo $close_button_text ?></a></label>
                                     </div>
                                     <div class="ays_modal_content ays_video_content"> 
-                                        <video controls autoplay src="<?php echo $ays_video_src; ?>" class="video_theme" style="border-radius:<?php echo wp_unslash( $border_radius );?>px; width:680px;" ></video>
+                                        <video controls autoplay src="<?php echo $live_container_video_src; ?>" class="video_theme" style="border-radius:<?php echo wp_unslash( $border_radius );?>px; width:680px;" ></video>
                                     </div>
                                     <div class="ays_pb_timer_container">
                                         <p class='ays_pb_timer'><?php echo __("This will close in ", "ays-popup-box"); ?><span data-seconds='20'>20</span> <?php echo __("seconds", "ays-popup-box"); ?></p>
@@ -6629,6 +6687,43 @@ $ays_users_roles = $wp_roles->roles;
                     </div>
                 </div>
                 <hr/>
+                <div class="form-group row" style="margin:0px;">
+                    <div class="col-sm-12 ays-pro-features-v2-main-box">
+                        <div class="ays-pro-features-v2-small-buttons-box">
+                            <!-- <div>
+                                <a href="https://youtu.be/q6ai1WhpLfc?list=PL4ufu1uAjjWQTYn0O_72TLzmqgmVIYKI2" target="_blank" class="ays-pro-features-v2-video-button">
+                                    <div>
+                                        <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
+                                        <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
+                                    </div>
+                                    <div class="ays-pro-features-v2-video-text">
+                                        <?php echo __("Watch Video" , "ays-popup-box"); ?>
+                                    </div>
+                                </a>
+                            </div> -->
+                            <a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                                <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                                <div class="ays-pro-features-v2-upgrade-text">
+                                    <?php echo __("Upgrade" , "ays-popup-box"); ?>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="form-group row ">
+                            <div class="col-sm-3">
+                                <label for="enable_limit_by_country">
+                                    <?php echo __('Dismiss by closing', "ays-popup-box"); ?> 
+                                        <a class="ays_help" data-toggle="tooltip"
+                                            title="<?php echo __('After clicking on the x button the popup will not be displayed for the user.', "ays-popup-box") ?>">
+                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="checkbox" class="ays-enable-timer1">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
             </div>
             <!-- Limitation user end -->
             <!-- Integrations start -->
@@ -7869,9 +7964,7 @@ $ays_users_roles = $wp_roles->roles;
                             break;
                     }
                 });
-                $('[data-toggle="tooltip"]').tooltip({
-                    template: '<div class="tooltip ays-pb-custom-class-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
-                });
+
                 $(ays_pb_view_type).css({
                     'background-color': $("#<?php echo $this->plugin_name; ?>-bgcolor").val(),
                     'color': $("#<?php echo $this->plugin_name; ?>-ays_pb_textcolor").val() + ' !important',

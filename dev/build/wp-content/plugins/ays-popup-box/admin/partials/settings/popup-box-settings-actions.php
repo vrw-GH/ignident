@@ -6,6 +6,20 @@ class Ays_PopupBox_Settings_Actions {
         $this->plugin_name = $plugin_name;
     }
 
+    public function ays_get_setting($meta_key) {
+        global $wpdb;
+        $settings_table = $wpdb->prefix . "ays_pb_settings";
+
+        $sql = "SELECT meta_value FROM " . $settings_table . " WHERE meta_key = '" . $meta_key . "'";
+        $result = $wpdb->get_var($sql);
+
+        if ($result != "") {
+            return $result;
+        }
+
+        return false;
+    }
+
     public function store_data($data){
         global $wpdb;
         $settings_table = $wpdb->prefix . "ays_pb_settings";
@@ -64,17 +78,6 @@ class Ays_PopupBox_Settings_Actions {
         }else{
             return array();
         }
-    }
-
-    public function ays_get_setting($meta_key){
-        global $wpdb;
-        $settings_table = $wpdb->prefix . "ays_pb_settings";
-        $sql = "SELECT meta_value FROM ".$settings_table." WHERE meta_key = '".$meta_key."'";
-        $result = $wpdb->get_var($sql);
-        if($result != ""){
-            return $result;
-        }
-        return false;
     }
 
     public function ays_add_setting($meta_key, $meta_value, $note = "", $options = ""){

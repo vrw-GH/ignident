@@ -349,6 +349,7 @@ class Ays_Pb_Activator {
             'use_small_fb_header' => 'on',
             'notification_type_components' => array(),
             'notification_type_components_order' => array(),
+            'notification_logo_image' => '',
             'notification_main_content' => '',
             'notification_button_1_text' => 'Click!',
             'notification_button_1_redirect_url' => '',

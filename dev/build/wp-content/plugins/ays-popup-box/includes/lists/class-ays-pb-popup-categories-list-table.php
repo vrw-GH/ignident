@@ -475,10 +475,10 @@ class Popup_Categories_List_Table extends WP_List_Table {
         return $actions;
     }
 
-    public function get_popup_category( $id ) {
+    public function get_popup_category($id) {
         global $wpdb;
 
-        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories WHERE id=" . absint( sanitize_text_field( $id ) );
+        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories WHERE id=" . absint( sanitize_text_field($id) );
 
         $result = $wpdb->get_row($sql, 'ARRAY_A');
 

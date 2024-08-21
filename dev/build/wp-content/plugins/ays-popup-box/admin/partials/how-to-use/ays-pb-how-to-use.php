@@ -51,7 +51,7 @@
     </div>
     <br>
     <div class="ays-pb-community-wrap">
-        <div class="ays-pb-community-title">
+        <div>
             <h4><?php echo __("Community", "ays-popup-box"); ?></h4>
         </div>
         <div class="ays-pb-community-container">
@@ -82,7 +82,7 @@
                 <h3 class="ays-pb-community-item-title"><?php echo __("Premium support", "ays-popup-box"); ?></h3>
                 <p class="ays-pb-community-item-desc"><?php echo __("Get 12 months updates and support for the Business package and lifetime updates and support for the Developer package.", "ays-popup-box"); ?></p>
                 <div class="ays-pb-community-item-footer">
-                    <a href="https://ays-pro.com/contact" target="_blank" class="button">Contact</a>
+                    <a href="https://ays-pro.com/contact" target="_blank" class="button"><?php echo __("Contact", "ays-popup-box"); ?></a>
                 </div>
             </div>
         </div>

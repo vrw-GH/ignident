@@ -755,12 +755,27 @@
         });
         // Image type | Remove popup image end
 
+        // Notification type | Add banner logo start
+        $(document).on('click', 'a.ays-pb-notification-type-add-logo-img', function(e) {
+            openMediaUploaderNotificationLogoImg(e, $(this));
+        });
+        // Notification type | Add banner logo start
+
+        // Notification type | Remove banner logo start
+        $(document).on('click','.ays-remove-notification-type-logo-img', function() {
+            $('img#ays_pb_notification_logo').attr('src', '');
+            $('input#ays_pb_notification_logo_image').val('');
+            $('.ays-pb-notification-logo-container-main').fadeOut();
+            $('a.ays-pb-notification-type-add-logo-img').text(pb.addImage);
+        });
+        // Notification type | Remove banner logo end
+
         // Notification type components section start
         $(document).on('click', 'div.open_component_options', openComponentOptions);
         $(document).on('click', 'div.close_component_options', closeComponentOptions);
         // Notification type components section end
 
-        // Change post taype start
+        // Change post type start
         $(document).on('change', '#ays_pb_post_types', function() {
             var selected = $('.select2-selection__choice');
             var arr = pb.post_types;
@@ -812,7 +827,7 @@
                 },
             });
         });
-        // Change post taype end
+        // Change post type end
 
         // Change popup trigger start
         $(document).on('change', '#ays-pb-action_button_type', function() {
@@ -2070,6 +2085,31 @@
             $('.ays-pb-image-type-img-settings-container').removeClass('display_none');
             $('input#ays_pb_image_type_img_src').val(attachment.url);
             $('img.image_type_img_live').attr('src', attachment.url);
+        }).open();
+
+        return false;
+    }
+
+    function openMediaUploaderNotificationLogoImg(e, element) {
+        e.preventDefault();
+
+        let aysUploader = wp.media({
+            title: 'Upload',
+            button: {
+                text: 'Upload'
+            },
+            library: {
+                type: 'image'
+            },
+            multiple: false
+        }).on('select', function () {
+            let attachment = aysUploader.state().get('selection').first().toJSON();
+
+            element.text(pb.editImage);
+
+            $('.ays-pb-notification-logo-container-main').fadeIn();
+            $('img#ays_pb_notification_logo').attr('src', attachment.url);
+            $('input#ays_pb_notification_logo_image').val(attachment.url);
         }).open();
 
         return false;
