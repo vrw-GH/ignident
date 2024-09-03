@@ -5,7 +5,7 @@ define('WP_CACHE', getenv('ENV_WP_DEBUG')?false:true ); // Added by W3 Total Cac
 define( 'ITSEC_ENCRYPTION_KEY', 'IHpufDIkT191VTolelFVcn1wMmBdSzFmYWlUIzhAZVhrJD0vRllsMmxzMF5IQXVgUm8mbUw3WyN0L2AoTSp0KA==' );
 
 #---------------------------------  vw- added local .env variables
-include_once $_SERVER['HTTP_DOCSBASE'].'/includes/get_dotenvs/get-dotenvs.php'; // HTTP_DOCSBASE is set in httpd.conf 
+include_once $_SERVER['HTTP_BASEDIR'].'/includes/get_dotenvs/get-dotenvs.php'; // HTTP_DOCSBASE is set in httpd.conf 
 
 /**
  * The base configuration for WordPress

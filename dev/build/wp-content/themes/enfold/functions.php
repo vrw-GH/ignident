@@ -444,6 +444,7 @@ $avia_config['font_icons'] = apply_filters( 'avf_default_icons', array(
 	'digg'			=> array( 'font' => 'entypo-fontello', 'icon' => 'ue928' ),
 	'delicious'		=> array( 'font' => 'entypo-fontello', 'icon' => 'ue929' ),
 	'mail' 			=> array( 'font' => 'entypo-fontello', 'icon' => 'ue805' ),
+	'threads'		=> array( 'font' => 'entypo-fontello', 'icon' => 'uf231', 'display_name' => 'Threads' ),
 
 	//woocomemrce
 	'cart' 			=> array( 'font' => 'entypo-fontello', 'icon' => 'ue859' ),

@@ -118,6 +118,18 @@ if( have_posts() )
 
 		$current_post['title'] = get_the_title();
 
+
+		$aria_label = 'aria-label="' . __( 'Post:', 'avia_framework' ) . ' ' . esc_attr( $current_post['title'] ) . '"';
+
+		/**
+		 * @since 6.0.3
+		 * @param string $aria_label
+		 * @param string $context
+		 * @param array $current_post
+		 * @return string
+		 */
+		$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, $current_post );
+
 		/**
 		 * Allow 3rd party to hook and return a plugin specific content.
 		 * This returned content replaces Enfold's standard content building procedure.
@@ -313,7 +325,7 @@ if( have_posts() )
 		echo '</div>';
 
 		echo "<div class='entry-content-wrapper clearfix {$post_format}-content'>";
-			echo '<header class="entry-content-header">';
+			echo '<header class="entry-content-header" ' . $aria_label . '>';
 
 				if( $blog_style == 'bloglist-compact' )
 				{
@@ -646,9 +658,21 @@ else
 
 	$heading = ! empty( $args['heading'] ) ? $args['heading'] : $default_heading;
 	$css = ! empty( $args['extra_class'] ) ? $args['extra_class'] : '';
+
+	$aria_label = 'aria-label="' . __( 'No Posts Found', 'avia_framework' ) . '"';
+
+	/**
+	 * @since 6.0.3
+	 * @param string $aria_label
+	 * @param string $context
+	 * @param array $nothing_found
+	 * @return string
+	 */
+	$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, [] );
+
 ?>
 	<article class="entry">
-		<header class="entry-content-header">
+		<header class="entry-content-header" <?php echo $aria_label; ?> >
 <?php
 			echo "<{$heading} class='post-title entry-title {$css}'>" . __( 'Nothing Found', 'avia_framework' ) . "</{$heading}>";
 ?>

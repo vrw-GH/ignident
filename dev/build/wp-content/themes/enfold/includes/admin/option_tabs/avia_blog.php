@@ -29,6 +29,7 @@ $avia_config['social_icon_array'] = array(
 						'Twitter'			=> 'twitter',
 						'Square-X-Twitter'	=> 'square-x-twitter',
 						'TikTok'			=> 'tiktok',
+						'Threads'			=> 'threads',
 						'Vimeo'				=> 'vimeo',
 						'Vk'				=> 'vk',
 						'Xing'				=> 'xing',

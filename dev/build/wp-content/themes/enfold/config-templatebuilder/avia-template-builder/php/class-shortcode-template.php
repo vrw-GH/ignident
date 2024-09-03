@@ -1889,7 +1889,7 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 									'id'				=> 'aria_label',
 									'container_class'	=> $class,
 									'type'				=> 'input',
-									'std'				=> ''
+									'std'				=> ! empty( $config['aria_label_def'] ) ? $config['aria_label_def'] : ''
 								);
 			}
 

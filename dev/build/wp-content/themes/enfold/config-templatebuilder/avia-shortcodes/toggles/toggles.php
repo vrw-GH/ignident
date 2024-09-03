@@ -763,7 +763,7 @@ if( ! class_exists( 'avia_sc_toggle', false ) )
 			$desc  = __( 'Enter a toggle title here when it is open. Leave empty if not needed (better keep it short). ', 'avia_framework' );
 			$desc .= '<br /><br /><strong>';
 			$desc .=	__( 'LIMITATION: Will be ignored when HTML markup is used in Toggle Title and do not use HTML markup !!!', 'avia_framework' );
-			$desc .= '<strong>';
+			$desc .= '</strong>';
 
 			$c = array(
 						array(
@@ -838,12 +838,28 @@ if( ! class_exists( 'avia_sc_toggle', false ) )
 
 			$c = array(
 						array(
-							'name'		=> __( 'For Developers: Custom Toggle ID','avia_framework' ),
+							'name'		=> __( 'For Developers: Custom Toggle ID', 'avia_framework' ),
 							'desc'		=> __( 'Insert a custom ID for the element here. Make sure to only use allowed characters (latin characters, underscores, dashes and numbers, no special characters can be used)','avia_framework' ),
 							'id'		=> 'custom_id',
 							'type'		=> 'input',
 							'std'		=> '',
 							'container_class'	=> $class,
+						),
+
+						array(
+							'name'		=> __( 'Collapsed Aria-Label Text', 'avia_framework' ),
+							'desc'		=> __( 'Enter a complete text to be used in aria-label attribute when the toggle is collapsed. Leave empty to use toggle title.','avia_framework' ),
+							'id'		=> 'aria_collapsed',
+							'type'		=> 'input',
+							'std'		=> ''
+						),
+
+						array(
+							'name'		=> __( 'Expanded Aria-Label Text', 'avia_framework' ),
+							'desc'		=> __( 'Enter a complete text to be used in aria-label attribute when the toggle is expanded. Leave empty to use toggle title.','avia_framework' ),
+							'id'		=> 'aria_expanded',
+							'type'		=> 'input',
+							'std'		=> ''
 						)
 				);
 
@@ -1265,7 +1281,7 @@ if( ! class_exists( 'avia_sc_toggle', false ) )
 			$element_styling->add_classes( 'titleClass', $title_pos_styling );
 			$element_styling->add_classes( 'contentClass', $title_pos_styling );
 
-			if( empty( $toggle_atts['title'] ) )
+			if( ! isset( $toggle_atts['title'] ) || trim( $toggle_atts['title'] ) == '' )
 			{
 				$toggle_atts['title'] = avia_sc_toggle::$counter;
 			}
@@ -1278,6 +1294,16 @@ if( ! class_exists( 'avia_sc_toggle', false ) )
 			else
 			{
 				$toggle_atts['custom_id'] = AviaHelper::save_string( $toggle_atts['custom_id'], '-' );
+			}
+
+			if( trim( $toggle_atts['aria_collapsed'] ) == '' )
+			{
+				$toggle_atts['aria_collapsed'] = __( 'Click to expand:','avia_framework' ) . " {$toggle_atts['title']}";
+			}
+
+			if( trim( $toggle_atts['aria_expanded'] ) == '' )
+			{
+				$toggle_atts['aria_expanded'] = __( 'Click to collapse:','avia_framework' ) . " {$toggle_atts['title']}";
 			}
 
 
@@ -1301,6 +1327,8 @@ if( ! class_exists( 'avia_sc_toggle', false ) )
 			$element_styling->add_data_attributes( 'item_titleClass', [ 'slide-speed' => $data_slide_speed ] );
 			$element_styling->add_data_attributes( 'item_titleClass', [ 'title' => $toggle_atts['title'] ] );
 			$element_styling->add_data_attributes( 'item_titleClass', [ 'title-open' => $toggle_atts['title_open'] ] );
+			$element_styling->add_data_attributes( 'item_titleClass', [ 'aria_collapsed' => $toggle_atts['aria_collapsed'] ] );
+			$element_styling->add_data_attributes( 'item_titleClass', [ 'aria_expanded' => $toggle_atts['aria_expanded'] ] );
 
 
 			$this->subitem_inline_styles .= $element_styling->get_style_tag( $element_id, 'rules_only' );

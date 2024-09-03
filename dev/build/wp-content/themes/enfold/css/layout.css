@@ -2434,6 +2434,12 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #FF0050;
 }
 
+#top #wrap_all .av-social-link-threads:hover a,
+#top #wrap_all .av-social-link-threads a:focus{
+	color: #ffffff;
+	background-color: #000000;
+}
+
 #top #wrap_all .av-social-link-whatsapp:hover a,
 #top #wrap_all .av-social-link-whatsapp a:focus{
 	color: #fff;

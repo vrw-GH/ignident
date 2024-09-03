@@ -9,16 +9,29 @@ $post_class = 'post-entry-' . avia_get_the_id();
 
 
 // check if we got posts to display:
-if( have_posts() ) :
+if( have_posts() )
+{
+	while( have_posts() )
+	{
+		the_post();
 
-	while( have_posts()) : the_post();
+		$aria_label = 'aria-label="' . __( 'Page Content for:', 'avia_framework' ) . ' ' . esc_attr( get_the_title() ) . '"';
+
+		/**
+		 * @since 6.0.3
+		 * @param string $aria_label
+		 * @param string $context
+		 * @param WP_Post|null $current_post
+		 * @return string
+		 */
+		$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, get_post() );
+
 ?>
-
 		<article class='post-entry post-entry-type-page <?php echo $post_class; ?>' <?php avia_markup_helper( array( 'context' => 'entry' ) ); ?>>
 
 			<div class="entry-content-wrapper clearfix">
                 <?php
-				echo '<header class="entry-content-header">';
+				echo '<header class="entry-content-header" ' . $aria_label . '>';
 
 					$thumb = get_the_post_thumbnail( get_the_ID(), $avia_config['size'] );
 
@@ -64,10 +77,10 @@ if( have_posts() ) :
 		}
 
 		$post_loop_count++;
-	endwhile;
-
-else:
-
+	}
+}
+else
+{
 	$default_heading = 'h1';
 	$args = array(
 				'heading'		=> $default_heading,
@@ -83,10 +96,21 @@ else:
 	$heading = ! empty( $args['heading'] ) ? $args['heading'] : $default_heading;
 	$css = ! empty( $args['extra_class'] ) ? $args['extra_class'] : '';
 
+	$aria_label = 'aria-label="' . __( 'No Page Found', 'avia_framework' ) . '"';
+
+	/**
+	 * @since 6.0.3
+	 * @param string $aria_label
+	 * @param string $context
+	 * @param array $nothing_found
+	 * @return string
+	 */
+	$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, [] );
+
 ?>
 
     <article class="entry">
-        <header class="entry-content-header">
+        <header class="entry-content-header" <?php echo $aria_label; ?> >
             <?php echo "<{$heading} class='post-title entry-title {$css}'>" . __( 'Nothing Found', 'avia_framework' ) . "</{$heading}>"; ?>
         </header>
 
@@ -97,5 +121,4 @@ else:
 
 <?php
 
-endif;
-
+}

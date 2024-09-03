@@ -1724,6 +1724,17 @@ if( ! function_exists( 'avia_woocommerce_parallax_banner' ) )
 
 			if( $is_responsive )
 			{
+				/**
+				 * Do not display anything when no image is selected in theme shop options
+				 *
+				 * @link https://kriesi.at/support/topic/woocommerce-category-styling/#post-1463280
+				 * @since 6.0.3
+				 */
+				if( trim( $bg ) == '' )
+				{
+					return '';
+				}
+
 				//	find attachment id - remove width and height
 				$full = preg_replace('/-\d+[Xx]\d+\./', ".", $bg );
 				$att_id = attachment_url_to_postid( esc_url( $full ) );

@@ -229,9 +229,20 @@ global $avia_config;
 			if( in_array( $footer_option, array( 'all', 'nofooterwidgets', 'page_in_footer_socket' ) ) )
 			{
 
+				$aria_label = 'aria-label="' . __( 'Copyright and company info', 'avia_framework' ) . '"';
+
+				/**
+				 * @since 6.0.3
+				 * @param string $aria_label
+				 * @param string $context
+				 * @param mixed $additional_args
+				 * @return string
+				 */
+				$aria_label = apply_filters( 'avf_aria_label_for_footer', $aria_label, __FILE__, null );
+
 			?>
 
-				<footer class='container_wrap socket_color' id='socket' <?php avia_markup_helper( array( 'context' => 'footer' ) ); ?>>
+				<footer class='container_wrap socket_color' id='socket' <?php echo $aria_label . ' ' . avia_markup_helper( array( 'context' => 'footer' ) ); ?>>
                     <div class='container'>
 
                         <span class='copyright'><?php echo $copyright . $kriesi_at_backlink; ?></span>

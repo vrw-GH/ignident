@@ -946,6 +946,24 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 				$markup_time = avia_markup_helper( array( 'context' => 'entry_time', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) );
 				$markup_content = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) );
 
+				$aria_label = __( 'Slide', 'avia_framework' );
+
+				if( ! empty( $entry->post_title ) )
+				{
+					$aria_label .= ': ' . esc_attr( $entry->post_title );
+				}
+
+				$aria_label = 'aria-label="' . $aria_label . '"';
+
+				/**
+				 * @since 6.0.3
+				 * @param string $aria_label
+				 * @param string $context
+				 * @param WP_Post $entry
+				 * @return string
+				 */
+				$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $entry );
+
 				$post_format = get_post_format( $the_id ) ? get_post_format( $the_id ) : 'standard';
 
 				if( $loop_counter == 1 )
@@ -976,7 +994,7 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 				$output .= '<div class="slide-content">';
 
 
-				$output .= '<header class="entry-content-header">';
+				$output .= '<header class="entry-content-header" ' . $aria_label . '>';
 				$meta_out = '';
 
 				if( ! empty( $title ) || in_array( $show_meta_data_post, array( 'always', 'on_empty_title' ) ) )

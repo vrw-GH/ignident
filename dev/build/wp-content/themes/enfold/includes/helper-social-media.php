@@ -450,6 +450,16 @@ if( ! class_exists( 'avia_social_share_links', false ) )
 								'encode_urls'	=> false,
 								'profile_only'	=> true
 							),
+				'threads'	=> array(
+								'encode'		=> false,
+								'encode_urls'	=> false,
+								'profile_only'	=> true
+							),
+				'tiktok'	=> array(
+								'encode'		=> false,
+								'encode_urls'	=> false,
+								'profile_only'	=> true
+							),
 				'xing'		=> array(
 								'encode'		=> false,
 								'encode_urls'	=> false,

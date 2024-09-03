@@ -2243,6 +2243,17 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 			$markup_sub = avia_markup_helper( array( 'context' => 'entry_subtitle', 'echo' => false, 'custom_markup' => $atts['custom_markup'] ) );
 			$markup_text  = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'custom_markup' => $atts['custom_markup'] ) );
 
+			$aria_label = 'aria-label="' . __( 'Icon:', 'avia_framework' ) . ' ' . esc_attr( $atts['title'] ) . '"';
+
+			/**
+			 * @since 6.0.3
+			 * @param string $aria_label
+			 * @param string $context
+			 * @param array $atts
+			 * @return string
+			 */
+			$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $atts );
+
 			/**
 			 * @since 4.8.8
 			 * @param string $heading_tag
@@ -2274,7 +2285,7 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 				$output .=				'</div>';
 			}
 
-			$output .=					'<header class="entry-content-header">';
+			$output .=					'<header class="entry-content-header" ' . $aria_label . '>';
 
 			if( ! empty( $atts['title'] ) )
 			{
