@@ -531,6 +531,7 @@ function ls_require_builder_assets() {
 	wp_register_script('ls-ui-overrides', LS_ROOT_URL.'/static/admin/js/jquery-ui-overrides.js', ['jquery', 'json2'], LS_PLUGIN_VERSION, true );
 	wp_register_script('ls-project-editor-search', LS_ROOT_URL.'/static/admin/js/ls-project-editor-search.js', ['jquery'], LS_PLUGIN_VERSION, true );
 	wp_register_script('ls-project-editor-buttons', LS_ROOT_URL.'/static/admin/js/ls-button-presets-min.js', ['jquery'], LS_PLUGIN_VERSION, true );
+	wp_register_script('ls-project-editor-countdowns', LS_ROOT_URL.'/static/admin/js/ls-countdown-presets-min.js', ['jquery'], LS_PLUGIN_VERSION, true );
 
 	wp_register_style('ls-project-editor', LS_ROOT_URL.'/static/admin/css/editor.css', false, LS_PLUGIN_VERSION );
 
@@ -541,6 +542,7 @@ function ls_require_builder_assets() {
 	wp_enqueue_script('ls-ui-overrides');
 	wp_enqueue_script('ls-project-editor-search');
 	wp_enqueue_script('ls-project-editor-buttons');
+	wp_enqueue_script('ls-project-editor-countdowns');
 	wp_enqueue_style('ls-project-editor');
 
 	// 3rd party: GSAP Morph SVG Plugin

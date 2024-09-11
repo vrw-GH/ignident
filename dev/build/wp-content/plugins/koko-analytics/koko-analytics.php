@@ -3,7 +3,7 @@
 /*
 Plugin Name: Koko Analytics
 Plugin URI: https://www.kokoanalytics.com/#utm_source=wp-plugin&utm_medium=koko-analytics&utm_campaign=plugins-page
-Version: 1.3.10
+Version: 1.3.12
 Description: Privacy-friendly analytics for your WordPress site.
 Author: ibericode
 Author URI: https://www.ibericode.com/
@@ -34,7 +34,7 @@ phpcs:disable PSR1.Files.SideEffects
 
 namespace KokoAnalytics;
 
-\define('KOKO_ANALYTICS_VERSION', '1.3.10');
+\define('KOKO_ANALYTICS_VERSION', '1.3.12');
 \define('KOKO_ANALYTICS_PLUGIN_FILE', __FILE__);
 \define('KOKO_ANALYTICS_PLUGIN_DIR', __DIR__);
 
@@ -44,38 +44,20 @@ require __DIR__ . '/autoload.php';
 if (\defined('DOING_AJAX') && DOING_AJAX) {
     maybe_collect_request();
 } elseif (is_admin()) {
-    $admin = new Admin();
-    $admin->init();
-
-    $dashboard_widget = new Dashboard_Widget();
-    $dashboard_widget->init();
+    new Admin();
+    new Dashboard_Widget();
 } else {
-    $loader = new Script_Loader();
-    $loader->init();
-
-    add_action('admin_bar_menu', 'KokoAnalytics\admin_bar_menu', 40);
+    new Script_Loader();
+    add_action('admin_bar_menu', 'KokoAnalytics\admin_bar_menu', 40, 1);
 }
 
-$dashboard = new Dashboard();
-$dashboard->add_hooks();
-
+new Dashboard();
 $aggregator = new Aggregator();
-$aggregator->init();
-
-$plugin = new Plugin($aggregator);
-$plugin->init();
-
-$rest = new Rest();
-$rest->init();
-
-$shortcode = new Shortcode_Most_Viewed_Posts();
-$shortcode->init();
-
-$site_counter_shortcode = new ShortCode_Site_Counter();
-$site_counter_shortcode->init();
-
-$pruner = new Pruner();
-$pruner->init();
+new Plugin($aggregator);
+new Rest();
+new Shortcode_Most_Viewed_Posts();
+new ShortCode_Site_Counter();
+new Pruner();
 
 if (\class_exists('WP_CLI')) {
     \WP_CLI::add_command('koko-analytics', 'KokoAnalytics\Command');

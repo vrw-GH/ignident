@@ -214,8 +214,12 @@ function lsGetInput($default, $current = null, $attrs = [], $return = false) {
 	$attributes['data-default'] = $default['value'];
 
 	if( empty( $attributes['placeholder'] ) ) {
-		//if( ! is_string( $default['value'] ) || ! empty( $default['value'] ) ) {
+
+		if( ! isset( $attributes['placeholder'] ) || $attributes['placeholder'] !== '0' ) {
 			$attributes['placeholder'] = $default['value'];
+		}
+		//if( ! is_string( $default['value'] ) || ! empty( $default['value'] ) ) {
+			// $attributes['placeholder'] = $default['value'];
 		//}
 	}
 

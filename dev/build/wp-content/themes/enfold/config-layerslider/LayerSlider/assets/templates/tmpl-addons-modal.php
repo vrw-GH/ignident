@@ -39,6 +39,46 @@
 			</ls-b>
 
 
+			<!-- Countdown -->
+			<ls-b data-tab="countdown">
+
+				<ls-box class="ls--show-if-not-registered ls-show-activation-box">
+					<ls-b>
+					<?= __('Register license to use this feature.', 'LayerSlider') ?>
+					</ls-b>
+				</ls-box>
+
+				<ls-b class="ls--addon-desc">
+					<ls-p>
+						<?= sprintf(__('Elevate your website with alluring countdowns that engage your audience. With the %sCountdown Add-On%s, you can effortlessly create stunning timers to build anticipation for events, product launches, or special offers. Customize with ease, choose from a variety of styles, and get your visitors’ attention with urgency and style.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>' ) ?>
+					</ls-p>
+				</ls-b>
+
+				<ls-h5><?= __('Examples', 'LayerSlider') ?></ls-h5>
+				<ls-p class="ls--form-control ls--text-center">
+					<ls-button-group class="ls--vertical">
+
+						<a target="_blank" href="https://layerslider.com/sliders/ride-with-us/" class="ls--button">
+							<?= __('RIDE with US', 'LayerSlider') ?>
+						</a>
+						<a target="_blank" href="https://layerslider.com/popups/#big-sale-countdown" class="ls--button">
+							<?= __('Big Sale Countdown', 'LayerSlider') ?>
+						</a>
+						<a target="_blank" href="https://layerslider.com/popups/webshopworks/#black-friday-premium" class="ls--button">
+							<?= __('Black Friday Premium', 'LayerSlider') ?>
+						</a>
+						<a target="_blank" href="https://layerslider.com/popups/webshopworks/#sidebar-countdown-sale" class="ls--button">
+							<?= __('Sidebar Countdown Sale', 'LayerSlider') ?>
+						</a>
+						<a target="_blank" href="https://layerslider.com/popups/webshopworks/#christmas-sidebar-countdown" class="ls--button">
+							<?= __('Christmas Sidebar Countdown', 'LayerSlider') ?>
+						</a>
+					</ls-button-group>
+				</ls-p>
+
+			</ls-b>
+
+
 			<!-- 404 -->
 			<ls-b data-tab="404">
 
@@ -385,6 +425,19 @@
 
 			<ls-row class="km-tabs-list" data-target="#ls-addons-content" data-disable-auto-rename>
 
+				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="countdown">
+					<ls-box>
+						<ls-b class="ls--container">
+							<video class="ls--video ls--allowstop" muted src="https://layerslider.com/media/premium/countdown.mp4"></video>
+						</ls-b>
+					</ls-box>
+					<ls-b class="ls--title">
+						<?= __('Countdown', 'LayerSlider') ?>
+					</ls-b>
+					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
+				</ls-col>
+
 				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="404">
 					<ls-box>
 						<ls-b class="ls--container">
@@ -447,7 +500,7 @@
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="popups">
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="popups">
 					<ls-box>
 						<ls-b class="ls--container ls--nozoom">
 							<video class="ls--video" muted src="https://layerslider.com/media/premium/popups.mp4"></video>

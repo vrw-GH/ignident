@@ -101,6 +101,41 @@ if( ! function_exists( 'avia_search_query_filter' ) )
 	add_filter( 'pre_get_posts', 'avia_search_query_filter' );
 }
 
+if( ! function_exists( 'avia_remove_search_parameter' ) )
+{
+	/**
+	 * Allow ?s=xxx only with homepage url or search page to avoid sql injection
+	 * @link https://kriesi.at/support/topic/cgi-generic-sql-injection-blind/
+	 *
+	 * @since 6.0.4
+	 * @param WP_Query $query
+	 * @return WP_Query
+	 */
+	function avia_remove_search_parameter( WP_Query $query )
+	{
+		if( is_admin() )
+		{
+			return $query;
+		}
+
+		if( ! $query->is_main_query()  )
+		{
+			return $query;
+		}
+
+		if( $query->is_home() || $query->is_search() )
+		{
+			return $query;
+		}
+
+		$query->set( 's' , '' );
+
+		return $query;
+	}
+
+	add_action( 'pre_get_posts', 'avia_remove_search_parameter', 5000, 1 );
+}
+
 if( ! function_exists( 'avia_modify_breadcrumb' ) )
 {
 	/**

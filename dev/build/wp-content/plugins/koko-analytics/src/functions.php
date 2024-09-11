@@ -8,6 +8,7 @@
 
 namespace KokoAnalytics;
 
+use WP_Admin_Bar;
 use WP_Query;
 
 function maybe_collect_request()
@@ -166,7 +167,7 @@ function get_settings(): array
     );
     $settings         = (array) get_option('koko_analytics_settings', array());
     $settings         = array_merge($default_settings, $settings);
-    return $settings;
+    return apply_filters('koko_analytics_settings', $settings);
 }
 
 function get_most_viewed_posts(array $args = array()): array
@@ -230,7 +231,7 @@ function get_most_viewed_posts(array $args = array()): array
     return $r->posts;
 }
 
-function admin_bar_menu($wp_admin_bar)
+function admin_bar_menu(WP_Admin_Bar $wp_admin_bar)
 {
     // only show on frontend
     if (is_admin()) {

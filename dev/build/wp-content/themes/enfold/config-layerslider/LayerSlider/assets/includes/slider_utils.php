@@ -10,9 +10,9 @@ function layerslider_builder_convert_numbers(&$item, $key) {
 }
 
 function ls_ordinal_number($number) {
-    $ends = ['th','st','nd','rd','th','th','th','th','th','th'];
-    $mod100 = $number % 100;
-    return $number . ($mod100 >= 11 && $mod100 <= 13 ? 'th' :  $ends[$number % 10]);
+	$ends = ['th','st','nd','rd','th','th','th','th','th','th'];
+	$mod100 = $number % 100;
+	return $number . ($mod100 >= 11 && $mod100 <= 13 ? 'th' :  $ends[$number % 10]);
 }
 
 

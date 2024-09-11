@@ -12,10 +12,10 @@ use WP_User;
 
 class Script_Loader
 {
-    public function init()
+    public function __construct()
     {
-        add_action('wp_enqueue_scripts', array( $this, 'maybe_enqueue_script' ));
-        add_action('amp_print_analytics', array( $this, 'print_amp_analytics_tag' ));
+        add_action('wp_enqueue_scripts', array($this, 'maybe_enqueue_script'), 10, 0);
+        add_action('amp_print_analytics', array($this, 'print_amp_analytics_tag'), 10, 0);
     }
 
     /**
@@ -98,11 +98,7 @@ class Script_Loader
     private function get_cookie_path(): string
     {
         $home_url = home_url();
-        // 8 characters for protocol
-        // 1 or more characters for domain name
-        // = 9 char offset
-        $pos = strpos($home_url, '/', 9);
-        return $pos !== false ? substr($home_url, $pos) : '/';
+        return parse_url($home_url, PHP_URL_PATH) ?? '/';
     }
 
     public function print_js_object()
@@ -111,6 +107,7 @@ class Script_Loader
         $script_config = array(
             // the URL of the tracking endpoint
             'url'   => $this->get_tracker_url(),
+            'site_url' => get_home_url(),
 
             // ID of the current post (or -1 in case of non-singular type)
             'post_id'       => (int) $this->get_post_id(),
@@ -151,6 +148,10 @@ class Script_Loader
         echo sprintf('<amp-analytics><script type="application/json">%s</script></amp-analytics>', json_encode($config));
     }
 
+    /**
+     * @param string $tag
+     * @param string $handle
+     */
     public function add_async_attribute($tag, $handle)
     {
         if ($handle !== 'koko-analytics' || stripos($tag, 'defer') !== false) {

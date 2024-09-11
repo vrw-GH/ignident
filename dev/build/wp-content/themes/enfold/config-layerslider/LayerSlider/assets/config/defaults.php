@@ -2307,6 +2307,186 @@ $lsDefaults = [
 			]
 		],
 
+		'affixBefore' => [
+			'value' => '',
+			'name' => __('Countdown Text Before', 'LayerSlider'),
+			'keys' => 'affixBefore',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixAfter' => [
+			'value' => '',
+			'name' => __('Countdown Text After', 'LayerSlider'),
+			'keys' => 'affixAfter',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixFloat' => [
+			'value' => false,
+			'name' => __('Free Floating', 'LayerSlider'),
+			'keys' => 'affixFloat',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixNewLine' => [
+			'value' => false,
+			'name' => __('New Line', 'LayerSlider'),
+			'keys' => 'affixNewLine',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixColor' => [
+			'value' => '',
+			'name' => __('Text Color', 'LayerSlider'),
+			'keys' => 'affixColor',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixFontSize' => [
+			'value' => 1,
+			'name' => __('Font Size', 'LayerSlider'),
+			'keys' => 'affixFontSize',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 0.05,
+				'min' => 0.2
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixFontFamily' => [
+			'value' => '',
+			'name' => __('Font Family', 'LayerSlider'),
+			'keys' => 'affixFontFamily',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixFontWeight' => [
+			'value' => '',
+			'name' => __('Font Weight', 'LayerSlider'),
+			'keys' => 'affixFontWeight',
+			'attrs' => [
+				'min' => 100,
+				'max' => 900,
+				'step' => 100
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixHA' => [
+			'value' => 0,
+			'name' => __('Horizontal Adjusment', 'LayerSlider'),
+			'keys' => 'affixHA',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 0.1,
+				'min' => 0
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixVA' => [
+			'value' => 0,
+			'name' => __('Vertical Adjustment', 'LayerSlider'),
+			'keys' => 'affixVA',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 0.025
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownDueDate' => [
+			'value' => '',
+			'name' => __('Countdown Due Date', 'LayerSlider'),
+			'keys' => 'countdownDueDate',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownID' => [
+			'value' => '',
+			'keys' => 'countdownID',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownType' => [
+			'value' => false,
+			'name' => __('Countdown Day', 'LayerSlider'),
+			'keys' => 'countdownType',
+			'options' => [
+				'duedate' => __('Due Date', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownRepeat' => [
+			'value' => '',
+			'name' => __('Countdown Repeat', 'LayerSlider'),
+			'keys' => 'countdownRepeat',
+			'options' => [
+				'' => 'None',
+				'daily' => __('Every Day', 'LayerSlider'),
+				'weekly' => __('Every Week', 'LayerSlider'),
+				'monthly' => __('Every Month', 'LayerSlider'),
+				'yearly' => __('Every Year', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownComponent' => [
+			'value' => '',
+			'name' => __('Component', 'LayerSlider'),
+			'keys' => 'countdownComponent',
+			'options' => [
+				'days' => __('Days', 'LayerSlider'),
+				'hours' => __('Hours', 'LayerSlider'),
+				'minutes' => __('Minutes', 'LayerSlider'),
+				'seconds' => __('Seconds', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownLeadingZeros' => [
+			'value' => true,
+			'name' => __('Use Leading Zeros', 'LayerSlider'),
+			'keys' => 'countdownLeadingZeros',
+			'props' => [
+				'meta' => true,
+				'output' => true
+			]
+		],
+
+
 		'actions' => [
 			'value' => '',
 			'keys' => 'actions',
@@ -4227,6 +4407,42 @@ $lsDefaults = [
 			'value' => '',
 			'name' => __('Height', 'LayerSlider'),
 			'keys' => 'height',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'minWidth' => [
+			'value' => '',
+			'name' => __('Minimum Width', 'LayerSlider'),
+			'keys' => 'min-width',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'minHeight' => [
+			'value' => '',
+			'name' => __('Minimum Height', 'LayerSlider'),
+			'keys' => 'min-height',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'maxWidth' => [
+			'value' => '',
+			'name' => __('Maximum Width', 'LayerSlider'),
+			'keys' => 'max-width',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'maxHeight' => [
+			'value' => '',
+			'name' => __('Maximum Height', 'LayerSlider'),
+			'keys' => 'max-height',
 			'props' => [
 				'meta' => true
 			]

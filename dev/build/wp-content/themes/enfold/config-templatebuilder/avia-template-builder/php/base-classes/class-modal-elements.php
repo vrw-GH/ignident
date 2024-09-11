@@ -1428,7 +1428,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 			}
 
 			//$output .= AviaHtmlHelper::$element['data']['save_to']($element);
-			$output .= call_user_func( array( 'self', $element['data']['save_to'] ), $element );
+			$output .= call_user_func( array( 'AviaHtmlHelper', $element['data']['save_to'] ), $element );
 
 			//fake img for multi_image element
 			if( isset( $fetch ) && ! isset( $element['is_locked_area'] ) )

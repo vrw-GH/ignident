@@ -95,6 +95,15 @@ const LS_SearchActions = [
 				action: function() {
 					LayerSlider.addFormattedLayer('post');
 				}
+			},
+
+			{
+				name: 'Countdown',
+				icon: 'countdown',
+				keywords: 'add new create',
+				action: function() {
+					LayerSlider.addFormattedLayer('countdown');
+				}
 			}
 
 		]

@@ -1273,7 +1273,7 @@ function ls_import_online() {
 
 	// Load importUtil & import the slider
 	require_once LS_ROOT_PATH.'/classes/class.ls.importutil.php';
-	$import = new LS_ImportUtil( $downloadPath, null, $name );
+	$import = new LS_ImportUtil( $downloadPath, null, $name, true );
 	$id = $import->lastImportId;
 	$sliderCount = (int)$import->sliderCount;
 

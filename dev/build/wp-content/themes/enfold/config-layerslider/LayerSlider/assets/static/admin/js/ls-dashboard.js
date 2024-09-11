@@ -796,6 +796,17 @@ jQuery(function($) {
 		}
 	};
 
+	// Templates Store: Template Inspector
+	$( document ).on( 'click', '.ls-open-inspector-button', function( e ){
+		e.preventDefault();
+		$( 'div#ls-import-modal-window' ).addClass( 'ls-show-templates-inspector' );
+	});
+
+	$( document ).on( 'click', 'ls-templates-inspector-overlay, .ls-templates-inspector-close', function( e ){
+		e.preventDefault();
+		$( 'div#ls-import-modal-window' ).removeClass( 'ls-show-templates-inspector' );
+	});
+
 
 
 	// Auto-update and License registration

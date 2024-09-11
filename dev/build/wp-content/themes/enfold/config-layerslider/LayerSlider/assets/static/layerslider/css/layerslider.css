@@ -368,6 +368,60 @@
 		background: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7) !important;
 	}
 
+	/* Countdown */
+
+	.ls-l[data-prefix]:before,
+	.ls-layer[data-prefix]:before {
+		position: relative;
+		display: inline-block;
+		content: attr(data-prefix);
+	}
+
+	.ls-l[data-suffix]:after,
+	.ls-layer[data-suffix]:after {
+		position: relative;
+		display: inline-block;
+		content: attr(data-suffix);
+	}
+
+	.ls-l[data-prefix]:before,
+	.ls-layer[data-prefix]:before,
+	.ls-l[data-suffix]:after,
+	.ls-layer[data-suffix]:after {
+		color: var( --ls-affix-color, currentColor );
+		transform: translateY( var( --ls-affix-va, 0em ) );
+		font-size: var( --ls-affix-fs, 1em );
+		font-family: var( --ls-affix-ff, inherit );
+		font-weight: var( --ls-affix-fw, inherit );
+	}
+
+	.ls-l[data-prefix]:before,
+	.ls-layer[data-prefix]:before,
+	.ls-l[data-suffix]:after,
+	.ls-layer[data-suffix]:after {
+		display: var( --ls-affix-nl, inline-block );
+	}
+
+	.ls-l[data-prefix].ls-affix-float:before,
+	.ls-layer[data-prefix].ls-affix-float:before,
+	.ls-l[data-suffix].ls-affix-float:after,
+	.ls-layer[data-suffix].ls-affix-float:after {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate( calc( -50% + var( --ls-affix-ha, 0em ) ) , calc( -50% + var( --ls-affix-va, 0em ) ) );
+	}
+
+	.ls-l[data-prefix]:before,
+	.ls-layer[data-prefix]:before {
+		margin-right: var( --ls-affix-ha, 0em );
+	}
+
+	.ls-l[data-suffix]:after,
+	.ls-layer[data-suffix]:after {
+		margin-left: var( --ls-affix-ha, 0em );
+	}
+
 
 
 /* GUI */
@@ -1256,6 +1310,22 @@
 		cursor: pointer;
 	}
 
+	.ls-container:not(.ls-hidden) .ls-wrapper:not(.ls-force-display-block) picture.ls-layer img,
+	.ls-container:not(.ls-hidden) .ls-wrapper:not(.ls-force-display-block) picture.ls-l img {
+		width: inherit !important;
+		height: inherit !important;
+	}
+
+	.ls-container.ls-hidden picture {
+		display: flex !important;
+	}
+
+	.ls-container.ls-hidden picture.ls-layer img,
+	.ls-container.ls-hidden picture.ls-l img {
+		width: auto;
+		height: auto;
+	}
+
 /* Smart BG */
 
 	.ls-l[data-ls-smart-bg],
@@ -1350,8 +1420,8 @@
 		line-height: normal;
 		outline: none;
 		background: none;
-		min-width: 0 !important;
-		max-width: none !important;
+		min-width: 0;
+		max-width: none;
 		border-radius: 0;
 		box-shadow: none;
 		border-width: 0;
