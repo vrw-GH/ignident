@@ -738,6 +738,18 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			$markup_content = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'custom_markup' => $meta['custom_markup'] ) );
 
 
+			$aria_label = 'aria-label="' . __( 'Icon:', 'avia_framework' ) . ' ' . esc_attr( $atts['title'] ) . '"';
+
+			/**
+			 * @since 6.0.3
+			 * @param string $aria_label
+			 * @param string $context
+			 * @param array $atts
+			 * @return string
+			 */
+			$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $atts );
+
+
 
 			$style_tag = $element_styling->get_style_tag( $element_id );
 			$container_class = $element_styling->get_class_string( 'container' );
@@ -754,7 +766,7 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			}
 
 			$output .= 		'<div class="iconbox_content">';
-			$output .= 			'<header class="entry-content-header">';
+			$output .= 			'<header class="entry-content-header" ' . $aria_label . '>';
 			$output .=				$icon_html;
 
 

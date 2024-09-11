@@ -1,0 +1,41 @@
+Dear Petra and Cedric,
+
+I hope you are both doing well.
+
+Here are my thoughts re. the zoom meeting with Cedric on the subject of DMD-Aligner data transfer:
+
+A. Procedure (please clarify):
+   1. Zahnarzt will login on our website.
+   2. He creates a folder for a patient.
+   3. He uploads patient files there.
+   4. He will share it to our "Expert" (Expert will get an email notification.)
+   5. Our Expert logs in, and gets the files, and makes the Manufacturing Diagram.
+   5b. The diagram is shared to the Zahnarzt, with a document.
+   5c. The Zahnarzt signs the document.
+   6. Our Expert will share that file/folder to the Manufacturer (Manufacturer will get a email notification).
+   7. Manufacturer will then produce the item, and send it to us physically.
+   8. We will then send it to the Zahnarzt.
+
+B. We need a basic "file-sharing" plugin for this purpose. 
+   - Free versions are limited, but should be quite usable!
+   - I have found two, which I will need to check out.
+
+C. Our WordPress website has a built-in "users" database, which is protected by login password and 2FA, and with email notifications.
+   - It is a common secure system, which is used generally for sites.
+   - We create for each Zahnarzt a special account (on request?).
+   - He will then have access to his "own" folder.
+
+D. Notes:
+   • Initially we could make a trial this way.
+   • Security is handled by the WordPress "User Login".
+      - If needed, we could make an audit by a Security Specialist (if it is secure enough for this type of data/work).
+      - Some options for better security:-
+        1. IONOS security addon - cost: ??
+        2. Pro versions of Plugins - cost: ??
+        3. Additional security plugins for WP - ??
+   • Online Storage of Data:
+      - It depends on how big each data is.
+      - If we have sufficient space with the IONOS package, and if not we will need to increase space as needed. - cost: ??
+   • using DropBox or similar - this might not work, since there could be a folder-management problem requiring manually creating and sharing "user" folders for each "practice" and "patient" etc. (not automated like in the plugin)
+
+

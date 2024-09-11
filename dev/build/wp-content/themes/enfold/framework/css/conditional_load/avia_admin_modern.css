@@ -795,7 +795,7 @@ Toggles Backend
 	clear: both;
 	vertical-align: bottom;
 	float: left;
-	transition: all .1s ease-in;
+	transition: all .4s ease-in;
 }
 
 #avia_options_page .av-toggle-switch .toggle-track:before{
@@ -808,7 +808,7 @@ Toggles Backend
 	position: absolute;
 	top: 0;
 	right: 27px;
-	transition: right .1s ease-in;
+	transition: right .4s ease-in;
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 1px;
 }
 

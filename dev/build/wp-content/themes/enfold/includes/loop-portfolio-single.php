@@ -13,10 +13,22 @@ if( have_posts() )
 	while( have_posts() )
 	{
 		the_post();
+
+		$aria_label = 'aria-label="' . __( 'Portfolio Content for:', 'avia_framework' ) . ' ' . esc_attr( get_the_title() ) . '"';
+
+		/**
+		 * @since 6.0.3
+		 * @param string $aria_label
+		 * @param string $context
+		 * @param WP_Post|null $current_post
+		 * @return string
+		 */
+		$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, get_post() );
+
 ?>
 		<article class='post-entry post-entry-type-page <?php echo $post_class; ?>' <?php avia_markup_helper( array( 'context' => 'entry' ) ); ?>>
 			<div class="entry-content-wrapper clearfix">
-				<header class="entry-content-header">
+				<header class="entry-content-header" <?php echo $aria_label; ?> >
 <?php
 					if( '1' != get_post_meta( get_the_ID(), '_avia_hide_featured_image', true ) )
 					{
@@ -77,9 +89,21 @@ else
 
 	$heading = ! empty( $args['heading'] ) ? $args['heading'] : $default_heading;
 	$css = ! empty( $args['extra_class'] ) ? $args['extra_class'] : '';
+
+	$aria_label = 'aria-label="' . __( 'No Portfolio Found', 'avia_framework' ) . '"';
+
+	/**
+	 * @since 6.0.3
+	 * @param string $aria_label
+	 * @param string $context
+	 * @param array $nothing_found
+	 * @return string
+	 */
+	$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, [] );
+
 ?>
 	<article class="entry">
-		<header class="entry-content-header">
+		<header class="entry-content-header" <?php echo $aria_label; ?> >
 			<?php echo "<{$heading} class='post-title entry-title {$css}'>" . __( 'Nothing Found', 'avia_framework' ) . "</{$heading}>"; ?>
 		</header>
 

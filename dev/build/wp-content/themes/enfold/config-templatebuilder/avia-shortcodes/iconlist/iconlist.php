@@ -1148,6 +1148,19 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 			$markup_title = avia_markup_helper( array( 'context' => 'entry_title', 'echo' => false, 'custom_markup' => $atts['custom_markup'] ) );
 			$markup_content = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'custom_markup' => $atts['custom_markup'] ) );
 
+
+			$aria_label = 'aria-label="' . __( 'Icon:', 'avia_framework' ) . ' ' . esc_attr( $atts['title'] ) . '"';
+
+			/**
+			 * @since 6.0.3
+			 * @param string $aria_label
+			 * @param string $context
+			 * @param array $atts
+			 * @return string
+			 */
+			$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $atts );
+
+			
 //			$this->subitem_inline_styles .= $element_styling->get_style_tag( $element_id, 'rules_only' );
 			$container_class = $element_styling->get_class_string( 'container' );
 
@@ -1159,7 +1172,7 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 			$output .=          '<article class="article-icon-entry ' . $contentClass . '" ' . $markup_entry . '>';
 			$output .=              '<div class="iconlist_content_wrap">';
 
-			$output .=                  '<header class="entry-content-header">';
+			$output .=                  '<header class="entry-content-header" ' . $aria_label . '>';
 
 			if( ! empty( $atts['title'] ) )
 			{

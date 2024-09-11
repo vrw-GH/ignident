@@ -307,3 +307,4 @@ $chars['entypo-fontello']['uf16a'] = 'uf16a';
 $chars['entypo-fontello']['ue930'] = 'ue930';
 $chars['entypo-fontello']['ue932'] = 'ue932';
 $chars['entypo-fontello']['ue933'] = 'ue933';
+$chars['entypo-fontello']['uf231'] = 'uf231';

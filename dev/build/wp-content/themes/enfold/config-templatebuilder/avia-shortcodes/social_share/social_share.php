@@ -455,6 +455,28 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						),
 
 						array(
+							'name'		=> __( 'Threads Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_threads',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'TikTok Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_tiktok',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
 							'name'		=> __( 'Vimeo Link', 'avia_framework' ),
 							'desc'		=> $check_profile,
 							'id'		=> 'share_vimeo',
@@ -533,6 +555,26 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 							'name'		=> __( 'X Profile Link', 'avia_framework' ),
 							'desc'		=> $desc_link,
 							'id'		=> 'twitter_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'Threads Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'threads_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'TikTok Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'tiktok_profile',
 							'type'		=> 'input',
 							'std'		=> '',
 							'lockable'	=> true,
@@ -812,6 +854,8 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						'share_youtube'		=> '',
 						'facebook_profile'	=> '',
 						'twitter_profile'	=> '',
+						'threads_profile'	=> '',
+						'tiktok_profile'	=> '',
 						'whatsapp_profile'	=> '',
 						'vk_profile'		=> '',
 						'tumblr_profile'	=> '',
@@ -820,7 +864,7 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						'mail_profile'		=> '',
 						'reddit_profile'	=> '',
 						'yelp_link'			=> '',
-						'telegram_link'			=> '',
+						'telegram_link'		=> '',
 						'yelp_profile'		=> '',
 						'five_100_px_profile' => '',
 						'behance_profile'	=> '',

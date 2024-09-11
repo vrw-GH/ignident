@@ -260,7 +260,7 @@ $chars['entypo-fontello'][] = 'uf16a';
 $chars['entypo-fontello'][] = 'ue930';
 $chars['entypo-fontello'][] = 'ue932';
 $chars['entypo-fontello'][] = 'ue933';
-
+$chars['entypo-fontello'][] = 'uf231';
 
 
 

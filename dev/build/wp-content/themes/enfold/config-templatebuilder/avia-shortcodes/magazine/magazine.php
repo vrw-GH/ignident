@@ -1558,8 +1558,21 @@ if( ! class_exists( 'avia_magazine', false ) )
 			 */
 			$header_content = apply_filters( 'avf_magazine_header_content', $header_content, $entry );
 
+
+			$aria_label = 'aria-label="' . __( 'Post:', 'avia_framework' ) . ' ' . esc_attr( $entry->post_title ) . '"';
+
+			/**
+			 * @since 6.0.3
+			 * @param string $aria_label
+			 * @param string $context
+			 * @param WP_Post $entry
+			 * @return string
+			 */
+			$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $entry );
+
+
 			$output .= 		'<div class="av-magazine-content-wrap">';
-			$output .=			'<header class="entry-content-header">';
+			$output .=			'<header class="entry-content-header" ' . $aria_label . '>';
 			$output .=				implode( '', $header_content );
 			$output .=			'</header>';
 			if( $excerpt )

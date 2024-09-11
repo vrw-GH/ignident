@@ -1556,6 +1556,17 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 				$title_class = "class='av-milestone-title {$css}'";
 				$headline_wrap = array();
 
+				$aria_label = 'aria-label="' . __( 'Milestone:', 'avia_framework' ) . ' ' . esc_attr( $atts['title'] ) . '"';
+
+				/**
+				 * @since 6.0.3
+				 * @param string $aria_label
+				 * @param string $context
+				 * @param array $atts
+				 * @return string
+				 */
+				$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $atts );
+
 				if( in_array( $atts['linkelement'], array( 'all', 'icon_head', 'date_head' ) ) &&  ! empty( $atts['link'] ) )
 				{
 					$headline_wrap['start'] = "<{$heading} {$title_class}><a href='{$atts['link']}' {$linktarget} {$title_attr_markup}>";
@@ -1567,7 +1578,7 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 					$headline_wrap['end'] = "</{$heading}>";
 				}
 
-				$article .= '<header class="entry-content-header">';
+				$article .= '<header class="entry-content-header" ' . $aria_label . '>';
 				$article .=		$headline_wrap['start'];
 				$article .=			$atts['title'];
 				$article .=		$headline_wrap['end'];
