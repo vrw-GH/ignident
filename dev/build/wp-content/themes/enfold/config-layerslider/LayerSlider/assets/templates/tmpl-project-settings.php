@@ -20,6 +20,8 @@ $sProps =& $slider['properties'];
 			<kmw-menuitem data-deeplink="publish">
 				<?= lsGetSVGIcon('calendar-alt', false, false, 'kmw-icon') ?>
 				<kmw-menutext><?= __('Publish', 'LayerSlider') ?></kmw-menutext>
+				<lse-badge class="lse-unpublished-project-indicator" data-tt>!</lse-badge>
+				<lse-tt><?= __('Unpublished projects won’t appear on front-end pages.', 'LayerSlider') ?></lse-tt>
 			</kmw-menuitem>
 
 			<kmw-menuitem class="kmw-active" data-deeplink="layout">

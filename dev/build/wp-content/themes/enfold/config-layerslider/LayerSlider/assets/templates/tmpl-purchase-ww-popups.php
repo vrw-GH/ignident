@@ -18,7 +18,7 @@
 		<lse-b class="lse-webshopworks-benefits">
 			<lse-p><?= __('This is an additional content pack that’s being sold separately from your LayerSlider license. It was created by another party and we don’t have the ownership to distribute it for free. However, we absolutely love their work and we felt the urge to share it with the world. So we’ve partnered with them to bring this content pack to you.', 'LayerSlider') ?></lse-p>
 
-			<lse-p><?= __('For $10 you receive unlimited use. Purchase once and use it on any current and future sites. This pack will grow and buyers will automatically receive any additional content for free.', 'LayerSlider') ?></lse-p>
+			<lse-p><?= __('Unlimited use for a small price. Purchase once and use it on any current and future sites. This pack will grow and buyers will automatically receive any additional content for free.', 'LayerSlider') ?></lse-p>
 
 			<lse-p><?= sprintf(__('Already purchased and believe you’re seeing this message mistakenly? Please make sure you’ve imported your previous Envato licenses (if there’s any) on the %sYour Account%s page using the same email address that you’ve provided during the checkout. If you need assistance, please %scontact us%s and we will gladly help.', 'LayerSlider'), '<a target="_blank" href="https://account.kreaturamedia.com/">', '</a>', '<a target="_blank" href="https://layerslider.com/contact/">', '</a>') ?></lse-p>
 		</lse-b>

@@ -155,6 +155,10 @@ $l10n_ls = [
 			'title' => __('Slide thumbnail', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('image')
 		],
+		'COUNTDOWN_SETTINGS' 		=> [
+			'title' => __('Countdown settings', 'LayerSlider'),
+			'icon' 	=> lsGetSVGIcon('timer')
+		],
 		'LAYER_SELECT' 			=> [
 			'title' => __('Select layer', 'LayerSlider'),
 			'icon' => lsGetSVGIcon('square-dashed')
@@ -300,6 +304,8 @@ $l10n_ls = [
 	'SBSearchTitle' 			=> __('Search', 'LayerSlider'),
 	'SBSearchSlide' 			=> __('Slide', 'LayerSlider'),
 	'SBSearchLayers' 			=> __('Layers', 'LayerSlider'),
+	'SBSearchTemplateCategory' 	=> __('Template', 'LayerSlider'),
+	'SBSearchTemplateShowInst' 	=> __('Open Template Instructions', 'LayerSlider'),
 
 	'SBUsedFonts' 				=> __('Used Fonts', 'LayerSlider'),
 	'SBDragMe' 					=> __('Drag me :)', 'LayerSlider'),
@@ -359,15 +365,19 @@ $l10n_ls = [
 
 	'SBConfirmApplyToAllSlides' => __('Are you sure you want to apply this setting on all slides? You won’t be able to undo this.', 'LayerSlider'),
 
-	'SBLayerTypeImg' 			=> __('Image', 'LayerSlider'),
-	'SBLayerTypeIcon' 			=> __('Icon', 'LayerSlider'),
-	'SBLayerTypeText' 			=> __('Text', 'LayerSlider'),
-	'SBLayerTypeButton' 		=> __('Button', 'LayerSlider'),
-	'SBLayerTypeMedia' 			=> __('Video / Audio', 'LayerSlider'),
-	'SBLayerTypeHTML' 			=> __('HTML', 'LayerSlider'),
-	'SBLayerTypePost' 			=> __('Dynamic', 'LayerSlider'),
-	'SBLayerTypeShape' 			=> __('Shape', 'LayerSlider'),
-	'SBLayerTypeSVG' 			=> __('SVG', 'LayerSlider'),
+	'SBLayerTypeImg' 				=> __('Image', 'LayerSlider'),
+	'SBLayerTypeIcon' 				=> __('Icon', 'LayerSlider'),
+	'SBLayerTypeText' 				=> __('Text', 'LayerSlider'),
+	'SBLayerTypeButton' 			=> __('Button', 'LayerSlider'),
+	'SBLayerTypeMedia' 				=> __('Video / Audio', 'LayerSlider'),
+	'SBLayerTypeHTML' 				=> __('HTML', 'LayerSlider'),
+	'SBLayerTypePost' 				=> __('Dynamic', 'LayerSlider'),
+	'SBLayerTypeShape' 				=> __('Shape', 'LayerSlider'),
+	'SBLayerTypeSVG' 				=> __('SVG', 'LayerSlider'),
+	'SBLayerTypeCountdownDays' 		=> __('Countdown %d (Days)', 'LayerSlider'),
+	'SBLayerTypeCountdownHours' 	=> __('Countdown %d (Hours)', 'LayerSlider'),
+	'SBLayerTypeCountdownMinutes' 	=> __('Countdown %d (Mins)', 'LayerSlider'),
+	'SBLayerTypeCountdownSeconds' 	=> __('Countdown %d (Secs)', 'LayerSlider'),
 
 	'SBInvalidSVGSource' 		=> __('The entered SVG code doesn’t seem to be valid.', 'LayerSlider'),
 	'SBInsertObjectTitle' 		=> __('Insert SVG', 'LayerSlider'),
@@ -391,12 +401,18 @@ $l10n_ls = [
 	'SBApplyTransitionPresetOK' 			=> __('Apply Recommendation', 'LayerSlider'),
 	'SBApplyTransitionPresetBoth' 			=> __('Keep Transitions', 'LayerSlider'),
 
+	'SBTemplateInstructionsTitle' => __('Template Instructions', 'LayerSlider'),
+
 	'SBMediaAutoplayNoticeTitle' => __('Audio prevents autoplay', 'LayerSlider'),
 	'SBMediaAutoplayNoticeText' => __('Modern web browsers don’t allow autoplay with sound in most cases since it was deemed undesirable. Some exceptions exist. For example, if a user frequently visits a website or interacts with it first by clicking on an element before attempting to autoplay with sound.
 <br><br>
 There’s no way to circumvent this restriction. You should either autoplay videos muted and offer an unmute button, or wait for visitors to start playback with sound on their own.
 <br><br>
 LayerSlider will attempt to start playback with sound if you select “Auto” for “Play Muted”. If that’s not possible, it’ll autoplay without sound, and visitors are prompted with an unmute button.', 'LayerSlider'),
+
+	// Countdown Presets
+	'SBChooseCountdownPreset' 	=> __('Choose Preset', 'LayerSlider'),
+	'SBCountdownSettings'	 	=> __('Countdown Settings', 'LayerSlider'),
 
 	// Transition Builder
 	'TBTransitionName' 			=> __('Type transition name', 'LayerSlider'),

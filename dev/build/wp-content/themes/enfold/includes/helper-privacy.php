@@ -988,6 +988,7 @@ if( ! class_exists( 'av_privacy_class', false ) )
 
 			$out = '';
 			$tag = 'a';
+			$atts = $this->array_esc_attr( $atts );
 
 			if( 'disabled' == $this->get_cookie_consent_message_bar_option() )
 			{
@@ -1026,6 +1027,7 @@ if( ! class_exists( 'av_privacy_class', false ) )
 
 			$out = '';
 			$tag = 'a';
+			$atts = $this->array_esc_attr( $atts );
 
 			if( 'disabled' == $this->get_cookie_consent_message_bar_option() )
 			{
@@ -1064,6 +1066,7 @@ if( ! class_exists( 'av_privacy_class', false ) )
 
 			$out = '';
 			$tag = 'a';
+			$atts = $this->array_esc_attr( $atts );
 
 			$content = ! empty( $content ) ? $content : __( 'Do not allow to use cookies', 'avia_framework' );
 			$class = 'avia-button avia-cookie-consent-button avia-color-theme-color-subtle av-extra-cookie-btn avia-cookie-hide-notification ' . $atts['class'];
@@ -1102,6 +1105,7 @@ if( ! class_exists( 'av_privacy_class', false ) )
 
 			$out = '';
 			$tag = 'a';
+			$atts = $this->array_esc_attr( $atts );
 
 			$content = ! empty( $content ) ? $content : __( 'Learn more about our privacy policy', 'avia_framework' );
 			$class = 'avia-button avia-cookie-consent-button av-extra-cookie-btn avia-cookie-info-btn ' . $atts['class'];
@@ -1182,6 +1186,7 @@ if( ! class_exists( 'av_privacy_class', false ) )
 							), $atts, $shortcodename );
 
 			$out = '';
+			$atts = $this->array_esc_attr( $atts );
 
 			$id = ! empty( $atts['id'] ) ? " id='{$atts['id']}'" : '';
 
@@ -2263,6 +2268,25 @@ if( ! class_exists( 'av_privacy_class', false ) )
 			}
 
 			return true;
+		}
+
+		/**
+		 * Wrapper function to sanitize shortcode array values
+		 * XSS Vulnerabilities Wrapper Class and Class reports by Wordfence, ....
+		 *
+		 * @link https://github.com/KriesiMedia/wp-themes/issues/4514
+		 * @since 6.0.4
+		 * @param array $data
+		 * @return array
+		 */
+		protected function array_esc_attr( array $data )
+		{
+			foreach( $data as $key => &$value )
+			{
+				$value = esc_attr( $value );
+			}
+
+			return $data;
 		}
 	}
 }

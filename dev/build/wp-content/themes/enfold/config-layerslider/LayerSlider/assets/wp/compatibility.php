@@ -423,6 +423,9 @@ function ls_normalize_slider_data( $slider ) {
 			$slideVal['properties']['parallaxtransformorigin'] = implode(' ', $toParams);
 		}
 
+		// v7.12.0: countdowns
+		$slideVal['countdowns'] = !empty($slideVal['countdowns']) ? (object) $slideVal['countdowns'] : new stdClass;
+
 		$slider['layers'][$slideKey] = $slideVal;
 
 		if(!empty($slideVal['sublayers']) && is_array($slideVal['sublayers'])) {
@@ -591,6 +594,14 @@ function ls_normalize_slider_data( $slider ) {
 		foreach( $slider['callbacks'] as $key => $callback ) {
 			$slider['callbacks'][$key] = stripslashes($callback);
 		}
+	}
+
+	if( ! empty( $slider['meta']['templateInstructions'] ) ) {
+		$slider['meta']['templateInstructions'] = stripslashes($slider['meta']['templateInstructions']);
+	}
+
+	if( ! empty( $slider['meta']['templateInstructionsData'] ) ) {
+		$slider['meta']['templateInstructionsData'] = stripslashes($slider['meta']['templateInstructionsData']);
 	}
 
 	// v6.6.8: Set slider type to responsive in case of Popup

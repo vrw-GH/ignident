@@ -118,7 +118,8 @@
 			'html' 			=> lsGetSVGIcon('code'),
 			'post' 			=> lsGetSVGIcon('database'),
 			'import' 		=> lsGetSVGIcon('file-import'),
-			'audio' 		=> lsGetSVGIcon('volume')
+			'audio' 		=> lsGetSVGIcon('volume'),
+			'countdown' 	=> lsGetSVGIcon('timer')
 		],
 
 		'notifications' => [
@@ -163,7 +164,8 @@
 			'facebook' 			=> lsGetSVGIcon('facebook-f', 'brands'),
 			'twitter' 			=> lsGetSVGIcon('twitter', 'brands'),
 			'youtube' 			=> lsGetSVGIcon('youtube', 'brands'),
-			'chevronRight' 		=> lsGetSVGIcon('chevron-right')
+			'chevronRight' 		=> lsGetSVGIcon('chevron-right'),
+			'layer-group' 		=> lsGetSVGIcon('layer-group')
 		]
 	]);
 
@@ -1062,6 +1064,25 @@
 									</lse-sidebar-content>
 
 								</lse-sidebar-body>
+
+								<lse-sidebar-subnav class="lse-dark-theme lse-dn" id="lse-template-instructions">
+
+									<lse-grid class="lse-form-elements">
+										<lse-row>
+											<lse-col>
+												<lse-ib class="lse-half lse-jcc">
+													<lse-button data-search-name="<?= __('Open Template Instructions', 'LayerSlider') ?>" class="lse-giant lse-aic lse-open-template-instructions">
+														<?= lsGetSVGIcon('circle-info') ?>
+														<lse-text>
+														<?= __('Open Template Instructions', 'LayerSlider') ?>
+														</lse-text>
+													</lse-button>
+												</lse-ib>
+											</lse-col>
+										</lse-row>
+									</lse-grid>
+
+								</lse-sidebar-subnav>
 
 								<lse-sidebar-subnav class="lse-jcc" id="lse-layers-extra-settings">
 
@@ -2210,7 +2231,7 @@
 
 										<?php lsGetInput( $lsDefaults['layers']['media'], null, [ 'type' => 'hidden' ]) ?>
 										<lse-sidebar-content-nav id="lse-set-layer-type" class="lse-smart-dropdown-wrapper lse-max-clicks" data-max-clicks="3" data-max-clicks-namespace="layerTypeSelector" data-tt>
-											<lse-text></lse-text>
+											<lse-text data-mixed-layer-type-text="<?= __('Mixed Layer Types Selected', 'LayerSlider') ?>"></lse-text>
 											<lse-options class="lse-icons-only">
 												<?= lsGetSVGIcon('sort-down',false,['class' => 'lse-open']) ?>
 												<?= lsGetSVGIcon('times',false,['class' => 'lse-close lse-it-fix']) ?>
@@ -2228,6 +2249,7 @@
 														<lse-li data-name="svg"><?= lsGetSVGIcon('stars') ?><ls-text><?= __('SVG', 'LayerSlider') ?></ls-text></lse-li>
 														<lse-li data-name="html"><?= lsGetSVGIcon('code') ?><ls-text><?= __('HTML', 'LayerSlider') ?></ls-text></lse-li>
 														<lse-li data-name="post"><?= lsGetSVGIcon('database') ?><ls-text><?= __('Dynamic Layer', 'LayerSlider') ?></ls-text></lse-li>
+														<lse-li data-name="countdown"><?= lsGetSVGIcon('timer') ?><ls-text><?= __('Countdown', 'LayerSlider') ?></ls-text></lse-li>
 													</lse-ul>
 												</lse-smart-dropdown-inner>
 											</lse-smart-dropdown>
@@ -2237,7 +2259,7 @@
 
 										<lse-sidebar-content>
 
-											<lse-sidebar-section class="lse-scrollbar lse-scrollbar-light">
+											<lse-sidebar-section id="lse-sidebar-layer-content" class="lse-scrollbar lse-scrollbar-light">
 
 												<lse-sidebar-section-body>
 
@@ -2246,28 +2268,54 @@
 
 															<!-- COMMON -->
 
-															<lse-col class="lse-full">
+															<lse-col class="lse-full lse-show-on-mixed-layer-selection">
 																<lse-ib>
 																	<lse-text class="lse-tac">
-																		<?= __('Toggle device visibility', 'LayerSlider') ?>
+																		<?= __('This layer is visible on', 'LayerSlider') ?>
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-jcc lse-it-fix">
 																	<lse-button-group id="lse-layer-device-types" class="lse-min-one lse-toggle-all">
-																		<lse-button data-type="desktop" class="lse-active">
+																		<lse-button data-type="desktop" class="lse-active" data-tt=".tt-desktop-view">
 																			<?= lsGetSVGIcon('desktop') ?>
 																		</lse-button>
-																		<lse-button data-type="tablet" class="lse-active">
+																		<lse-button data-type="tablet" class="lse-active" data-tt=".tt-tablet-view">
 																			<?= lsGetSVGIcon('tablet-alt') ?>
 																		</lse-button>
-																		<lse-button data-type="phone" class="lse-active">
+																		<lse-button data-type="phone" class="lse-active" data-tt=".tt-mobile-view">
 																			<?= lsGetSVGIcon('mobile-alt') ?>
 																		</lse-button>
 																	</lse-button-group>
+																	<lse-tt class="tt-desktop-view">
+																	<?= __('Desktop', 'LayerSlider') ?>
+																	</lse-tt>
+																	<lse-tt class="tt-tablet-view">
+																	<?= __('Tablet', 'LayerSlider') ?>
+																	</lse-tt>
+																	<lse-tt class="tt-mobile-view">
+																	<?= __('Mobile', 'LayerSlider') ?>
+																	</lse-tt>
 																</lse-ib>
 															</lse-col>
 
-															<lse-separator class="lse-hide-on-filter-type"></lse-separator>
+															<lse-col class="lse-mt-s lse-wide lse-col-notice lse-mixed-layer-selection-notice lse-show-on-mixed-layer-selection">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Layer content options are not available when mixed layer types are selected.', 'LayerSlider') ?>
+																	</lse-text>
+																</lse-ib>
+															</lse-col>
+
+															<lse-separator class="lse-hide-on-filter-type lse-hide-on-countdown-type">
+																<!-- <lse-button-group id="lse-toggled-content" class="lse-toggle-type-only lse-max-one lse-min-one lse-toggle-all">
+																	<lse-button data-type="untoggled" class="lse-active">
+																		<lse-text id="lse-switch-to-untoggled"><?= _x('default', 'The layer’s default content.', 'LayerSlider') ?></lse-text>
+																	</lse-button>
+																	<lse-button data-type="toggled">
+																		<lse-text id="lse-switch-to-toggled"><?= _x('toggled', 'The layer’s toggled content when clicked', 'LayerSlider') ?></lse-text>
+																	</lse-button>
+																</lse-button-group> -->
+															</lse-separator>
 
 															<!-- IMAGE LAYER -->
 
@@ -2302,7 +2350,7 @@
 
 
 															<!-- COMMON (CONTENT BOX) -->
-															<lse-col class="lse-content-box-type-only lse-wide lse-hide-on-filter-type">
+															<lse-col id="lse-layer-content-box" class="lse-content-box-type-only lse-wide lse-hide-on-filter-type">
 																<lse-ib>
 																	<textarea name="html" data-prop="html" data-default="" data-search-name="<?= __('Content', 'LayerSlider') ?>" id="lse-layer-content" placeholder="<?= __('Type / add your layer content here', 'LayerSlider') ?>"></textarea>
 																</lse-ib>
@@ -2324,7 +2372,7 @@
 
 
 															<!-- MEDIA WITH ATTACHMENTS -->
-															<lse-col id="lse-media-layer-preview-wrapper" class="lse-media-type-only lse-wide">
+															<lse-col id="lse-media-layer-preview-wrapper" class="lse-media-type-only lse-wide lse-hide-on-multiple-selection">
 																<lse-ib id="lse-media-layer-preview">
 																</lse-ib>
 																<?= lsGetSVGIcon('times', null, [
@@ -2497,11 +2545,243 @@
 													</lse-grid>
 												</lse-sidebar-section-body>
 
+												<!-- COUNTDOWN LAYER -->
+												<lse-sidebar-section-head class="lse-countdown-type-only">
+													<lse-text>
+														<?= __('Countdown Settings', 'LayerSlider') ?>
+													</lse-text>
+												</lse-sidebar-section-head>
+
+												<lse-sidebar-section-body class="lse-countdown-type-only">
+													<lse-grid class="lse-form-elements">
+														<lse-row>
+
+															<lse-col class="lse-full lse-dn">
+																<lse-ib>
+																	<lse-text><?= __('Type', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<lse-fe-wrapper class="lse-select">
+																		<?php lsGetSelect( $lsDefaults['layers']['countdownType'] ) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col class="lse-full lse-undomanager-exclude">
+																<lse-ib>
+																	<lse-text><?= __('Due Date', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<?php lsGetInput( $lsDefaults['layers']['countdownDueDate'], null, [
+																		'class' => 'lse-datepicker-input lse-countdown-datepicker-input',
+																		'data-datepicker-classes' => 'lse-datepicker-floating',
+																		'data-lse-update-data-exclude' => 1
+																	] ) ?>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col class="lse-full lse-undomanager-exclude">
+																<lse-ib>
+																	<lse-text><?= __('Repeat', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<lse-fe-wrapper class="lse-select">
+																		<?php lsGetSelect( $lsDefaults['layers']['countdownRepeat'] ) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col class="lse-full">
+																<lse-ib>
+																	<lse-text><?= __('Show Component', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<lse-fe-wrapper class="lse-select">
+																		<?php lsGetSelect( $lsDefaults['layers']['countdownComponent'] ) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Leading Zeros', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<?php lsGetCheckbox( $lsDefaults['layers']['countdownLeadingZeros'] ) ?>
+																</lse-ib>
+															</lse-col>
+
+														</lse-row>
+													</lse-grid>
+												</lse-sidebar-section-body>
+
+												<lse-sidebar-section-head class="lse-countdown-type-only">
+													<lse-text>
+														<?= __('Affix Settings', 'LayerSlider') ?>
+													</lse-text>
+												</lse-sidebar-section-head>
+
+												<lse-sidebar-section-body class="lse-countdown-type-only">
+													<lse-grid class="lse-form-elements">
+														<lse-row>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Text Before', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<lse-fe-wrapper>
+																		<?php lsGetInput( $lsDefaults['layers']['affixBefore'] ) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Text After', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<lse-fe-wrapper>
+																		<?php lsGetInput( $lsDefaults['layers']['affixAfter'] ) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Free Floating', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<?php lsGetCheckbox( $lsDefaults['layers']['affixFloat'] ) ?>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('New Line', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<?php lsGetCheckbox( $lsDefaults['layers']['affixNewLine'] ) ?>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col-placeholder></lse-col-placeholder>
+
+															<lse-separator></lse-separator>
+
+															<lse-col class="lse-full">
+																<lse-ib>
+																	<lse-text><?= __('Horizontal Adjustment', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-range-inputs lse-2-1">
+																	<?php lsGetInput( $lsDefaults['layers']['affixHA'], null, [
+																		'name' => '',
+																		'type' => 'range',
+																		'min' => -3,
+																		'max' => 3,
+																		'class' => 'lse-small'
+																	]) ?>
+
+																	<?php lsGetInput( $lsDefaults['layers']['affixHA'] ) ?>
+																	<lse-unit>em</lse-unit>
+																</lse-ib>
+															</lse-col>
+															<lse-col class="lse-full">
+																<lse-ib>
+																	<lse-text><?= __('Vertical Adjustment', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-range-inputs lse-2-1">
+																	<?php lsGetInput( $lsDefaults['layers']['affixVA'], null, [
+																		'name' => '',
+																		'type' => 'range',
+																		'min' => -3,
+																		'max' => 3,
+																		'class' => 'lse-small'
+																	]) ?>
+
+																	<?php lsGetInput( $lsDefaults['layers']['affixVA'] ) ?>
+																	<lse-unit>em</lse-unit>
+																</lse-ib>
+															</lse-col>
+
+															<lse-separator></lse-separator>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Text Color', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-smart-help lse-color-input" data-smart-help="affixColor" data-smart-help-title="<?= __('Text Color', 'LayerSlider') ?>" data-smart-load="lse-color-picker">
+																		<?php lsGetInput( $lsDefaults['layers']['affixColor'] ) ?>
+																		<?= lsGetSVGIcon('times', null, [
+																			'class' => 'lse-remove lse-it-0'
+																		]) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Font Family', 'LayerSlider') ?>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="fontfamily" data-smart-help-title="<?= __('Font family', 'LayerSlider') ?>" data-smart-options="fontfamily" data-hide-smart-options-title>
+																		<?php lsGetInput( $lsDefaults['layers']['affixFontFamily'], null, [
+																			'class' => 'lse-layer-font-family',
+																			'placeholder' => 'inherit'
+																		]) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Font Size', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-range-inputs lse-1-2">
+																	<?php lsGetInput( $lsDefaults['layers']['affixFontSize'], null, [
+																		'name' => '',
+																		'type' => 'range',
+																		'max' => 10,
+																		'class' => 'lse-small'
+																	]) ?>
+
+																	<?php lsGetInput( $lsDefaults['layers']['affixFontSize'] ) ?>
+																	<lse-unit>em</lse-unit>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col>
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Font weight', 'LayerSlider') ?>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib class="lse-range-inputs lse-1-2">
+																	<?php lsGetInput( $lsDefaults['layers']['affixFontWeight'], null, [
+																		'name' => '',
+																		'type' => 'range',
+																		'class' => 'lse-small'
+																	]) ?>
+
+																	<?php lsGetInput( $lsDefaults['layers']['affixFontWeight'], null, [
+																	]) ?>
+																</lse-ib>
+															</lse-col>
+
+
+
+														</lse-row>
+													</lse-grid>
+												</lse-sidebar-section-body>
+
 												<!-- LAYER ICON -->
 
 												<lse-sidebar-section-head class="lse-add-replace-icon">
 													<lse-text>
-														<?= __('Additional Options', 'LayerSlider') ?>
+														<?= __('Icon Settings', 'LayerSlider') ?>
 													</lse-text>
 												</lse-sidebar-section-head>
 
@@ -2606,7 +2886,7 @@
 
 												<lse-sidebar-section-head class="lse-media-type-only">
 													<lse-text>
-														<?= __('Media Options', 'LayerSlider') ?>
+														<?= __('Media Settings', 'LayerSlider') ?>
 													</lse-text>
 												</lse-sidebar-section-head>
 
@@ -2634,7 +2914,7 @@
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
-															<lse-col>
+															<lse-col class="lse-hide-on-multiple-selection">
 																<lse-ib>
 																	<lse-text><?= __('background video', 'LayerSlider') ?></lse-text>
 																</lse-ib>
@@ -2991,7 +3271,61 @@
 																</lse-ib>
 															</lse-col>
 
+															<lse-col-placeholder></lse-col-placeholder>
+
 															<lse-separator></lse-separator>
+
+															<lse-col class="lse-full">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Minimum Size', 'LayerSlider') ?><lse-props><?= __('width', 'LayerSlider') ?>, <?= __('height', 'LayerSlider') ?></lse-props><lse-cur-prop></lse-cur-prop><lse-units>px % em rem</lse-units>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib class="lse-half">
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="min-width" data-smart-help-title="<?= __('Minimum Width', 'LayerSlider') ?>" data-smart-operations>
+																		<?php lsGetInput( $lsDefaults['layers']['minWidth'], null, [
+																			'class' 			=> 'lse-style-prop',
+																			'placeholder' 		=> '0px',
+																			'data-prop-type' 	=> __('width', 'LayerSlider'),
+																			'data-get' 			=> 'style-min-width'
+																		]) ?>
+																	</lse-fe-wrapper>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="min-height" data-smart-help-title="<?= __('Minimum Height', 'LayerSlider') ?>" data-smart-operations>
+																		<?php lsGetInput( $lsDefaults['layers']['minHeight'], null, [
+																			'class' 			=> 'lse-style-prop',
+																			'placeholder' 		=> '0px',
+																			'data-prop-type' 	=> __('height', 'LayerSlider'),
+																			'data-get' 			=> 'style-min-height'
+																		]) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col class="lse-full">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Maximum Size', 'LayerSlider') ?><lse-props><?= __('width', 'LayerSlider') ?>, <?= __('height', 'LayerSlider') ?></lse-props><lse-cur-prop></lse-cur-prop><lse-units>px % em rem</lse-units>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib class="lse-half">
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="max-width" data-smart-help-title="<?= __('Maximum Width', 'LayerSlider') ?>" data-smart-operations>
+																		<?php lsGetInput( $lsDefaults['layers']['maxWidth'], null, [
+																			'class' 			=> 'lse-style-prop',
+																			'placeholder' 		=> 'none',
+																			'data-prop-type' 	=> __('width', 'LayerSlider'),
+																			'data-get' 			=> 'style-max-width'
+																		]) ?>
+																	</lse-fe-wrapper>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="max-height" data-smart-help-title="<?= __('Maximum Height', 'LayerSlider') ?>" data-smart-operations>
+																		<?php lsGetInput( $lsDefaults['layers']['maxHeight'], null, [
+																			'class' 			=> 'lse-style-prop',
+																			'placeholder' 		=> 'none',
+																			'data-prop-type' 	=> __('height', 'LayerSlider'),
+																			'data-get' 			=> 'style-max-height'
+																		]) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
 
 															<lse-col class="lse-full">
 																<lse-ib>
@@ -3263,7 +3597,11 @@
 																	]) ?>
 																</lse-ib>
 															</lse-col>
+
+															<lse-col-placeholder></lse-col-placeholder>
+
 															<lse-separator></lse-separator>
+
 															<lse-col class="lse-wide lse-jcfe lse-it-fix lse-set-text-sample">
 																<lse-ib>
 																	<lse-button-group class="lse-icons-only lse-max-one lse-min-one lse-toggle-all" data-style="text-align" data-set-hidden-input-to="value">
@@ -3472,7 +3810,7 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0" data-default="0">
+																	<input class="lse-small" type="range" min="-50" max="50" value="0" data-default="0">
 																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="1" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
@@ -3483,7 +3821,7 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0" data-default="0">
+																	<input class="lse-small" type="range" min="-50" max="50" value="0" data-default="0">
 																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="2" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
@@ -3494,7 +3832,7 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="0" max="100" value="0" data-default="0">
+																	<input class="lse-small" type="range" min="0" max="100" value="0" data-default="0">
 																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="3" type="number" min="0" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
@@ -3769,7 +4107,6 @@
 															<lse-col class="lse-full">
 																<lse-ib>
 																	<lse-text><?= __('Smart Background Behavior', 'LayerSlider') ?></lse-text>
-																	<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 																</lse-ib>
 																<lse-ib class="lse-jcc">
 																	<lse-fe-wrapper class="lse-select lse-smart-help" data-smart-help="smartbg" data-smart-help-title="<?= __('Smart Background Behavior', 'LayerSlider') ?>">
@@ -4001,7 +4338,7 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0" data-default="0">
+																	<input class="lse-small" type="range" min="-50" max="50" value="0" data-default="0">
 																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="2" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
@@ -4012,7 +4349,7 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0"  data-default="0">
+																	<input class="lse-small" type="range" min="-50" max="50" value="0"  data-default="0">
 																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="3" type="number" value="0"  data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
@@ -4023,7 +4360,7 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="0" max="100" value="0" data-default="0">
+																	<input class="lse-small" type="range" min="0" max="100" value="0" data-default="0">
 																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="4" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
@@ -4034,7 +4371,7 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0" data-default="0">
+																	<input class="lse-small" type="range" min="-50" max="50" value="0" data-default="0">
 																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="5" type="number" min="0" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
@@ -4365,6 +4702,17 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 													<lse-grid class="lse-form-elements">
 														<lse-row class="lse-wide-cols">
+
+															<lse-col class="lse-mt-s lse-wide lse-col-notice lse-transition-preset-bg-notice" data-max-clicks-namespace="applyTransitionPreset">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Click a preset for preview, then the checkmark on the right to apply it.', 'LayerSlider') ?>
+																		<lse-b>
+																			<lse-button class="lse-max-clicks" data-max-clicks="1" data-max-clicks-namespace="applyTransitionPreset"><?= __('I understand', 'LayerSlider') ?></lse-button>
+																		</lse-b>
+																	</lse-text>
+																</lse-ib>
+															</lse-col>
 															<lse-col class="lse-full lse-transition-presets-cnt">
 																<lse-b class="lse-transition-presets">
 																	<lse-b class="lse-transition-presets-box">
@@ -4963,6 +5311,18 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 													<lse-grid class="lse-form-elements">
 														<lse-row class="lse-wide-cols">
+
+															<lse-col class="lse-mt-s lse-wide lse-col-notice lse-transition-preset-bg-notice" data-max-clicks-namespace="applyTransitionPreset">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Click a preset for preview, then the checkmark on the right to apply it.', 'LayerSlider') ?>
+																		<lse-b>
+																			<lse-button class="lse-max-clicks" data-max-clicks="1" data-max-clicks-namespace="applyTransitionPreset"><?= __('I understand', 'LayerSlider') ?></lse-button>
+																		</lse-b>
+																	</lse-text>
+																</lse-ib>
+															</lse-col>
+
 															<lse-col class="lse-full lse-transition-presets-cnt">
 																<lse-b class="lse-transition-presets">
 																	<lse-b class="lse-transition-presets-box">
@@ -5413,6 +5773,18 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 													<lse-grid class="lse-form-elements">
 														<lse-row class="lse-wide-cols">
+
+															<lse-col class="lse-mt-s lse-wide lse-col-notice lse-transition-preset-bg-notice" data-max-clicks-namespace="applyTransitionPreset">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Click a preset for preview, then the checkmark on the right to apply it.', 'LayerSlider') ?>
+																		<lse-b>
+																			<lse-button class="lse-max-clicks" data-max-clicks="1" data-max-clicks-namespace="applyTransitionPreset"><?= __('I understand', 'LayerSlider') ?></lse-button>
+																		</lse-b>
+																	</lse-text>
+																</lse-ib>
+															</lse-col>
+
 															<lse-col class="lse-full lse-transition-presets-cnt">
 																<lse-b class="lse-transition-presets">
 																	<lse-b class="lse-transition-presets-box">
@@ -5873,6 +6245,18 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 													<lse-grid class="lse-form-elements">
 														<lse-row class="lse-wide-cols">
+
+															<lse-col class="lse-mt-s lse-wide lse-col-notice lse-transition-preset-bg-notice" data-max-clicks-namespace="applyTransitionPreset">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Click a preset for preview, then the checkmark on the right to apply it.', 'LayerSlider') ?>
+																		<lse-b>
+																			<lse-button class="lse-max-clicks" data-max-clicks="1" data-max-clicks-namespace="applyTransitionPreset"><?= __('I understand', 'LayerSlider') ?></lse-button>
+																		</lse-b>
+																	</lse-text>
+																</lse-ib>
+															</lse-col>
+
 															<lse-col class="lse-full lse-transition-presets-cnt">
 																<lse-b class="lse-transition-presets">
 																	<lse-b class="lse-transition-presets-box">
@@ -6322,6 +6706,18 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 													<lse-grid class="lse-form-elements">
 														<lse-row class="lse-wide-cols">
+
+															<lse-col class="lse-mt-s lse-wide lse-col-notice lse-transition-preset-bg-notice" data-max-clicks-namespace="applyTransitionPreset">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Click a preset for preview, then the checkmark on the right to apply it.', 'LayerSlider') ?>
+																		<lse-b>
+																			<lse-button class="lse-max-clicks" data-max-clicks="1" data-max-clicks-namespace="applyTransitionPreset"><?= __('I understand', 'LayerSlider') ?></lse-button>
+																		</lse-b>
+																	</lse-text>
+																</lse-ib>
+															</lse-col>
+
 															<lse-col class="lse-full lse-transition-presets-cnt">
 																<lse-b class="lse-transition-presets">
 																	<lse-b class="lse-transition-presets-box">
@@ -6841,6 +7237,18 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 													<lse-grid class="lse-form-elements">
 														<lse-row class="lse-wide-cols">
+
+															<lse-col class="lse-mt-s lse-wide lse-col-notice lse-transition-preset-bg-notice" data-max-clicks-namespace="applyTransitionPreset">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Click a preset for preview, then the checkmark on the right to apply it.', 'LayerSlider') ?>
+																		<lse-b>
+																			<lse-button class="lse-max-clicks" data-max-clicks="1" data-max-clicks-namespace="applyTransitionPreset"><?= __('I understand', 'LayerSlider') ?></lse-button>
+																		</lse-b>
+																	</lse-text>
+																</lse-ib>
+															</lse-col>
+
 															<lse-col class="lse-full lse-transition-presets-cnt">
 																<lse-b class="lse-transition-presets">
 																	<lse-b class="lse-transition-presets-box">
@@ -9755,6 +10163,7 @@ include LS_ROOT_PATH . '/templates/tmpl-insert-icons-modal.php';
 include LS_ROOT_PATH . '/templates/tmpl-insert-media-modal.php';
 include LS_ROOT_PATH . '/templates/tmpl-assets-library-modal.php';
 include LS_ROOT_PATH . '/templates/tmpl-button-presets.php';
+include LS_ROOT_PATH . '/templates/tmpl-countdown-presets.php';
 include LS_ROOT_PATH . '/templates/tmpl-import-slide.php';
 include LS_ROOT_PATH . '/templates/tmpl-import-layer.php';
 include LS_ROOT_PATH . '/templates/tmpl-slide-tab.php';

@@ -3,8 +3,8 @@ Contributors: Ibericode, DvanKooten
 Donate link: https://wordpress.org/support/plugin/koko-analytics/reviews/#new-post
 Tags: analytics, statistics, stats, privacy, counter
 Requires at least: 6.0
-Tested up to: 6.5
-Stable tag: 1.3.10
+Tested up to: 6.6
+Stable tag: 1.3.12
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.3
@@ -124,6 +124,22 @@ You can [purchase Koko Analytics Pro](https://www.kokoanalytics.com/pricing/) to
 
 
 == Changelog ==
+
+#### 1.3.12 - Aug 18, 2024
+
+- Fix double pageview counts introduced in version 1.3.11.
+- Fix same-site showing up as referrer
+
+
+#### 1.3.11 - Aug 16, 2024
+
+- Only use referrer detection for determining returning visitors if cookie is disabled.
+- Add referrer aggregation rule for Brevo email campaign links.
+- Add referrer aggregation rule for Reddit links.
+- Add filter hook for easily adding or modifying Koko Analytics settings.
+- Add action hook for adding settings to Koko Analytics.
+- Explicitly get rid of all ES6 code in tracking script.
+
 
 #### 1.3.10 - Jun 20, 2024
 

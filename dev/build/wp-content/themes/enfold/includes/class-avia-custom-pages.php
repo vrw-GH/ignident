@@ -62,7 +62,6 @@ if( ! class_exists( 'Avia_Custom_Pages', false ) )
 			add_filter( 'ava_page_template_after_header', array( $this, 'handler_modified_main_query' ), 999 );
 		}
 
-
 		/**
 		 * Error 404 - Reroute to a Custom Page
 		 * Hooks into the 404_template filter and performs a redirect to that page.
@@ -732,7 +731,6 @@ if( ! class_exists( 'Avia_Custom_Pages', false ) )
 			return $params;
 		}
 
-
 		/**
 		 * Post state filter
 		 * On the Page Overview screen in the backend ( wp-admin/edit.php?post_type=page ) this functions appends a descriptive post state to a page for easier recognition
@@ -805,7 +803,7 @@ if( ! class_exists( 'Avia_Custom_Pages', false ) )
 		}
 
 		/**
-		 * Query the page - this allows translation pluginsto hook into and return a translated page
+		 * Query the page - this allows translation plugins to hook into and return a translated page
 		 *
 		 * @since 4.5.4
 		 * @param mixed $page_id

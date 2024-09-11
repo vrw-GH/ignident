@@ -34,9 +34,11 @@ class LS_ImportUtil {
 	// Imported images
 	private $imported = [];
 
+	private $isTemplate = false;
+
 
 	// Accepts $_FILES
-	public function __construct( $archive, $name = null, $groupName = null ) {
+	public function __construct( $archive, $name = null, $groupName = null, $isTemplate = false ) {
 
 		// Attempt to workaround memory limit & execution time issues
 		@ini_set( 'max_execution_time', 0 );
@@ -58,6 +60,7 @@ class LS_ImportUtil {
 		$this->uploadsDir 	= $uploads['basedir'];
 		$this->uploadsURL 	= $uploads['baseurl'];
 		$this->tmpDir 		= $uploads['basedir'].'/layerslider/tmp';
+		$this->isTemplate 	= $isTemplate;
 
 		$type = wp_check_filetype( basename( $name ), [
 			'zip' => 'application/zip',

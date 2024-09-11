@@ -197,9 +197,6 @@ if( $needsSceneWrapper ) {
 }
 
 
-
-
-
 // Start of slider container
 $lsContainer[] = '<div id="'.$sliderID.'" '.( ! empty( $sliderSlug ) ? 'data-ls-slug="'.$sliderSlug.'"' : '' ).' class="ls-wp-container fitvidsignore'.$customClasses.'" style="'.implode('', $sliderStyleAttr).'">';
 
@@ -399,6 +396,10 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				if( ! $GLOBALS['lsIsActivatedSite'] ) {
 
 					if( $layer['props']['media'] === 'shape' ) {
+						continue;
+					}
+
+					if( $layer['props']['media'] === 'countdown' ) {
 						continue;
 					}
 
@@ -832,6 +833,65 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				// v7.9.9: Added clip-path support
 				if( ! empty( $layer['props']['styles']['clip-path'] ) ) {
 					$layer['props']['styles']['clip-path'] = 'polygon('.$layer['props']['styles']['clip-path'].')';
+				}
+
+				// v7.12.0: Countdowns
+				if( $layer['props']['media'] === 'countdown' ) {
+
+					$countdownID = ! empty( $layer['props']['countdownID'] ) ? $layer['props']['countdownID'] : '';
+					$countdownData = ! empty( $slide['countdowns'][ $countdownID ] ) ? $slide['countdowns'][ $countdownID ] : (object)[];
+					$countdownComponent = ! empty( $layer['props']['countdownComponent'] ) ? $layer['props']['countdownComponent'] : 'days';
+					$useLeadingZeroes = isset( $layer['props']['countdownLeadingZeros'] ) ? $layer['props']['countdownLeadingZeros'] : false;
+
+					$layer['props']['html'] = $useLeadingZeroes ? '00' : '0';
+					$countdownStyles = [];
+
+					$innerAttributes['data-countdown'] = json_encode( array_merge( $countdownData, [
+						'component' => $countdownComponent,
+						'leadingZeros' => $useLeadingZeroes
+					]));
+
+					if( ! empty( $layer['props']['affixBefore'] ) ) {
+						$innerAttributes['data-prefix'] = $layer['props']['affixBefore'];
+					}
+
+					if( ! empty( $layer['props']['affixAfter'] ) ) {
+						$innerAttributes['data-suffix'] = $layer['props']['affixAfter'];
+					}
+
+					if( ! empty( $layer['props']['affixFloat'] ) ) {
+						$innerAttributes['class'] .=  ' ls-affix-float';
+					}
+
+					if( ! empty( $layer['props']['affixNewLine'] ) ) {
+						$countdownStyles['--ls-affix-nl'] = 'block';
+					}
+
+					if( ! empty( $layer['props']['affixColor'] ) ) {
+						$countdownStyles['--ls-affix-color'] = $layer['props']['affixColor'];
+					}
+
+					if( ! empty( $layer['props']['affixFontSize'] ) ) {
+						$countdownStyles['--ls-affix-fs'] = $layer['props']['affixFontSize'].'em';
+					}
+
+					if( ! empty( $layer['props']['affixFontFamily'] ) ) {
+						$countdownStyles['--ls-affix-ff'] = $layer['props']['affixFontFamily'];
+					}
+
+					if( ! empty( $layer['props']['affixFontWeight'] ) ) {
+						$countdownStyles['--ls-affix-fw'] = $layer['props']['affixFontWeight'];
+					}
+
+					if( ! empty( $layer['props']['affixHA'] ) ) {
+						$countdownStyles['--ls-affix-ha'] = $layer['props']['affixHA'].'em';
+					}
+
+					if( ! empty( $layer['props']['affixVA'] ) ) {
+						$countdownStyles['--ls-affix-va'] = $layer['props']['affixVA'].'em';
+					}
+
+					$innerAttributes['style'] .= ls_array_to_attr($countdownStyles, 'css');
 				}
 
 
