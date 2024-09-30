@@ -685,6 +685,12 @@
         });
         // Close cache note start
 
+        // Options accordion effect start
+        $(document).on('click', '.ays-pb-accordion-arrow-box', function() {
+            toggleOptionsAccordion($(this));
+        });
+        // Options accordion effect end
+
         // Toggle mobile settings start
         $(document).find('.ays_pb_different_settings_for_mobile').on('change', toggleMobileSettings);
         $(document).find('.ays_pb_option_for_desktop, .ays_pb_option_for_mobile_device_cb').on('click', toggleMobileSettingsCb);
@@ -766,6 +772,7 @@
             $('img#ays_pb_notification_logo').attr('src', '');
             $('input#ays_pb_notification_logo_image').val('');
             $('.ays-pb-notification-logo-container-main').fadeOut();
+            $('.ays-pb-notification-logo-settings-container').addClass('display_none');
             $('a.ays-pb-notification-type-add-logo-img').text(pb.addImage);
         });
         // Notification type | Remove banner logo end
@@ -1885,6 +1892,15 @@
         });
     }
 
+    function toggleOptionsAccordion(arrowBtn) {
+        var arrowSvg = arrowBtn.find('svg');
+        var accordionMainContainer = arrowBtn.parents('.ays-pb-accordion-options-main-container');
+        var accordionBody = accordionMainContainer.find('.ays-pb-accordion-body');
+
+        arrowSvg.toggleClass('ays-pb-accordion-arrow-active');
+        accordionBody.slideToggle();
+    }
+
     function toggleMobileSettings() {
         var optionDiv = $(this).parents('.ays_pb_pc_and_mobile_container');
         var deviceNames = optionDiv.find('.ays_pb_current_device_name');
@@ -2109,6 +2125,7 @@
 
             $('.ays-pb-notification-logo-container-main').fadeIn();
             $('img#ays_pb_notification_logo').attr('src', attachment.url);
+            $('.ays-pb-notification-logo-settings-container').removeClass('display_none');
             $('input#ays_pb_notification_logo_image').val(attachment.url);
         }).open();
 

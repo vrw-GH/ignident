@@ -229,7 +229,7 @@ class Ays_Pb_Public {
             }
         }
 
-        //Hide on PC
+        //Hide on desktop
         $options['hide_on_pc'] = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] == "on" ) ? "on" : "off";
         $ays_pb_hide_on_pc = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] == "on" ) ? true : false;
 
@@ -1351,6 +1351,15 @@ class Ays_Pb_Public {
 
             $screen_shade = $ays_pb_template == 'notification' ? '' : "<div id='ays-pb-screen-shade_" . $id . "' overlay='overlay_" . $id . "' data-mobile-overlay='" . $enable_overlay_text_mobile . "'></div>";
 
+            // Notification type | Logo width
+            $notification_logo_width = (isset($options['notification_logo_width']) && $options['notification_logo_width'] != '') ? absint( esc_attr($options['notification_logo_width']) ) . '%' : '100%';
+
+            // Notification type | Logo max-width
+            $notification_logo_max_width = (isset($options['notification_logo_max_width']) && $options['notification_logo_max_width'] != '') ? absint( esc_attr($options['notification_logo_max_width']) ) . 'px' : '100px';
+
+            // Notification type | Logo min-width
+            $notification_logo_min_width = (isset($options['notification_logo_min_width']) && $options['notification_logo_min_width'] != '') ? absint( esc_attr($options['notification_logo_min_width']) ) . 'px' : '50px';
+
             // Notification type | Button 1 background color
             $notification_button_1_bg_color = (isset($options['notification_button_1_bg_color']) && $options['notification_button_1_bg_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_bg_color']) ) : '#F66123';
 
@@ -1363,11 +1372,20 @@ class Ays_Pb_Public {
             // Notification type | Button 1 text hover color
             $notification_button_1_text_hover_color = (isset($options['notification_button_1_text_hover_color']) && $options['notification_button_1_text_hover_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_hover_color']) ) : $notification_button_1_text_color;
 
+            // Notification type | Button 1 text transformation
+            $notification_button_1_text_transformation = (isset($options['notification_button_1_text_transformation']) && $options['notification_button_1_text_transformation'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_transformation']) ) : 'none';
+
+            // Notification type | Button 1 text decoration
+            $notification_button_1_text_decoration = (isset($options['notification_button_1_text_decoration']) && $options['notification_button_1_text_decoration'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_decoration']) ) : 'none';
+
             // Notification type | Button 1 letter spacing
             $notification_button_1_letter_spacing = (isset($options['notification_button_1_letter_spacing']) && $options['notification_button_1_letter_spacing'] != '') ? absint( esc_attr($options['notification_button_1_letter_spacing']) ) . 'px' : 0;
 
             // Notification type | Button 1 font size
             $notification_button_1_font_size = (isset($options['notification_button_1_font_size']) && $options['notification_button_1_font_size'] != '') ? absint( esc_attr($options['notification_button_1_font_size']) ) . 'px' : '15px';
+
+            // Notification type | Button 1 font weight
+            $notification_button_1_font_weight = (isset($options['notification_button_1_font_weight']) && $options['notification_button_1_font_weight'] != '') ? stripslashes( esc_attr($options['notification_button_1_font_weight']) ) : 'normal';
 
             // Notification type | Button 1 border radius
             $notification_button_1_border_radius = (isset($options['notification_button_1_border_radius']) && $options['notification_button_1_border_radius'] != '') ? absint( esc_attr($options['notification_button_1_border_radius']) ) . 'px' : '6px';
@@ -1435,15 +1453,24 @@ class Ays_Pb_Public {
                             pointer-events: auto;
                         }
 
+                        .ays_notification_window.ays-pb-modal_".$id." .ays_pb_notification_logo img {
+                            width: " . $notification_logo_width . ";
+                            max-width: " . $notification_logo_max_width . ";
+                            min-width: " . $notification_logo_min_width . ";
+                        }
+
                         .ays_notification_window.ays-pb-modal_".$id." div.ays_pb_notification_button_1 button {
                             background: " . $notification_button_1_bg_color . ";
                             color: " . $notification_button_1_text_color . ";
                             font-size: " . $notification_button_1_font_size . ";
+                            font-weight: " . $notification_button_1_font_weight . ";
                             border-radius: " . $notification_button_1_border_radius . ";
                             border: " . $notification_button_1_border . ";
                             padding: " . $notification_button_1_padding . ";
                             box-shadow: " . $notification_button_1_box_shadow . ";
                             letter-spacing: " . $notification_button_1_letter_spacing . ";
+                            text-transform: " . $notification_button_1_text_transformation . ";
+                            text-decoration: " . $notification_button_1_text_decoration . ";
                         }
 
                         .ays_notification_window.ays-pb-modal_".$id." div.ays_pb_notification_button_1 button:hover {

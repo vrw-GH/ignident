@@ -61,7 +61,7 @@ class Option
             'store_ua'                  => false,
             'consent_level_integration' => 'disabled',
             'anonymous_tracking'        => false,
-            'do_not_track'              => true,
+            'do_not_track'              => false,
             'exclude_administrator'     => true,
             'referrerspam'              => true,
             'disable_se_clearch'        => true,
@@ -74,7 +74,7 @@ class Option
             'exclude_404s'              => false,
             'exclude_feeds'             => true,
             'schedule_dbmaint'          => true,
-            'schedule_dbmaint_days'     => '180'
+            'schedule_dbmaint_days'     => '180',
         );
 
         return $options;

@@ -1,14 +1,32 @@
-= 14.9.4 - 12.08.2024 =
-* Enhancement: Redesigned Mini Charts in content lists for better clarity.
-* Enhancement: Updated the automated report email template for improved readability.
-* Enhancement: Display query parameters alongside page names on the single visitor page.
-* Enhancement: Optimized GeoIP functionality for better performance.
-* Enhancement: Added validation for Visit/Online request parameters before saving to the database.
-* Enhancement: Updated DatePicker options to improve report accuracy within specific time frames.
-* Fix: Corrected the sorting order in custom post type lists when sorted by views.
-* Fix: Resolved inaccurate view counts displayed in the admin bar.
-* Fix: Corrected incorrect Category Page Views in Category Analytics.
-* Fix: Fixed broken author and category page URLs in the Top Pages widget.
+= 14.10.1 - 11.09.2024 =
+* **Enhancement:** UX improvement for visitor information when users are logged in.
+* **Enhancement:** Corrected sorting issues in bar charts.
+* **Enhancement:** Fixed font override conflicts.
+* **Enhancement:** Enhanced object cache handling for better performance.
+* **Enhancement:** Improved compatibility with PHP versions 5.6 ~ 7.2.
+* **Enhancement:** Resolved style tweaks in charts and fixed various JavaScript issues.
+* **Fix:** Resolved issue with showing previous period data on hover when turned off.
+* **Fix:** Resolved chart shrinking issue in Chrome.
+* **Fix:** Fixed the “User Online” link in the Traffic Overview section.
+* **Fix:** Addressed issue where the top referral was not displaying in the “Your Performance at a Glance” section.
+* **Fix:** Resolved an issue with the report email option during some upgrades.
+* **Fix:** Fixed date filter issue on the “Single Browser” and “Visitor Insights” pages.
+* **Fix:** Fixed incorrect dates in the `monthly` schedule.
+* **Fix:** Fixed incorrect order in taxonomy lists when sorted by hits.
+* **Update:** Upgraded ChartJS to v4.4.4.
+* **Dev:** Added function `wp_statistics_needs_consent()` to check if user consent is required.
+* **Dev:** Removed `Admin_Post` and `Admin_Taxonomy` classes and replaced them with `HitColumnHandler`.
+
+= 14.10 - 28.08.2024 =
+* New: Introduced the Visitor Insights menu by merging the Visitors, Views, Online Visitors, and Top Visitors reports into one centralized Visitors page.
+* New: Created the Page Insights menu by combining the Contents, Category Pages, and Author Pages reports into one unified Pages page for better organization.
+* New: Redesigned Single Visitor page with more detailed and better-organized visitor information.
+* New: Date filter settings now stored globally in user meta, allowing the selected date range to be used across all report pages.
+* New: Updated the content statistics widget in the editor to show visitor numbers directly on the edit post page.
+* New: Added plugin information to the Site Health Info section for easier diagnostics.
+* Enhancement: Redesigned charts with a modern look and added a Previous Period Indicator for easier data comparison.
+* Enhancement: Various improvements to the settings area for better clarity, including renaming options and removing unnecessary ones.
+* Enhancement: Performance enhancements and bug fixes for overall smoother operation.
 
 = 14.9.3 - 28.07.2024 =
 * Enhancement: Enhanced IP Method Detection mechanism and updated the settings page for better user experience and simplicity.

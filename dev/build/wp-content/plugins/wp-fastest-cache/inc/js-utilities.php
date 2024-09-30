@@ -59,6 +59,8 @@
 										$this->mergeJs($prev_content, $this->jsLinks[$key - 1]);
 										$prev_content = "";
 										continue;
+									}else{
+										continue;
 									}
 								}
 

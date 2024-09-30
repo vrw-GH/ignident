@@ -51,9 +51,10 @@ h1.ka-logo,
   margin-left: auto;
 }
 .ka-admin-container {
-  max-width: 620px;
+  max-width: 720px;
   font-size: 14px;
 }
+.ka-admin-container p { font-size: 14px; }
 .ka-admin-nav--link {
   display: inline-block;
   text-decoration: none;
@@ -66,7 +67,7 @@ h1.ka-logo,
   margin-right: 0;
 }
 .ka-margin-s {
-  margin: 12px 0;
+  margin: 1em 0;
 }
 .ka-margin-m {
   margin: 2em 0;
@@ -411,6 +412,15 @@ h1.ka-logo,
 }
 .ka-fade {
   animation: koko-fadein .4s
+}
+.ka-ul li {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ka-ul span {
+  min-width: 24px;
+  display: inline-block;
 }
 
 @keyframes koko-fadein {

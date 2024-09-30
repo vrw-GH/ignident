@@ -75,11 +75,65 @@ class GeoIP
      */
     public static function active()
     {
-        if (file_exists(self::get_geo_ip_path())) {
+        if (self::isExist()) {
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * Is exist in the GeoIP database.
+     *
+     * @return bool
+     */
+    public static function isExist()
+    {
+        return file_exists(self::get_geo_ip_path());
+    }
+
+    /**
+     * Retrieves the last update date for the GeoIP database.
+     *
+     * @return false|string|void
+     */
+    public static function getLastUpdate()
+    {
+        if (self::isExist()) {
+            return date('Y-m-d H:i:s', filemtime(self::get_geo_ip_path()));
+        }
+    }
+
+    /**
+     * Retrieves the database size for the GeoIP database.
+     *
+     * @param bool $format Whether to format the size for readability.
+     */
+    public static function getDatabaseSize($format = true)
+    {
+        if (self::isExist()) {
+            if ($format) {
+                return size_format(filesize(self::get_geo_ip_path()));
+            } else {
+                return filesize(self::get_geo_ip_path());
+            }
+        }
+    }
+
+    /**
+     * Retrieves the database type for the GeoIP database.
+     *
+     * @return string|bool The database type or false on failure.
+     */
+    public static function getDatabaseType()
+    {
+        $reader = self::Loader();
+
+        if ($reader === false) {
+            return false;
+        }
+
+        return $reader->metadata()->databaseType;
     }
 
     /**
@@ -151,9 +205,9 @@ class GeoIP
 
         $defaultLocation = [
             'country'   => self::getDefaultCountryCode(),
-            'city'      => __('Unknown', 'wp-statistics'),
-            'continent' => __('Unknown', 'wp-statistics'),
-            'region'    => __('Unknown', 'wp-statistics'),
+            'city'      => 'Unknown',
+            'continent' => 'Unknown',
+            'region'    => 'Unknown',
         ];
 
         // Add compatibility for hash IP addresses.
@@ -266,7 +320,7 @@ class GeoIP
             wp_delete_file($gzFilePath); // Clean up the temporary file
 
             $result['status'] = true;
-            $result['notice'] = __('GeoIP Database successfully updated!', 'wp-statistics');
+            $result['notice'] = __('GeoIP Database successfully updated.', 'wp-statistics');
 
             if ($type === 'update') {
                 Option::update('last_geoip_dl', time());
@@ -332,6 +386,11 @@ class GeoIP
          * If so, extract the database file from the archive.
          */
         if (Option::get('geoip_license_type') === "user-license" && Option::get('geoip_license_key')) {
+            // Check if the PharData class is available.
+            if (!class_exists('PharData')) {
+                throw new Exception(__('PharData class not found.', 'wp-statistics'));
+            }
+
             $tarGz         = new \PharData($gzFilePath);
             $fileInArchive = trailingslashit($tarGz->current()->getFileName()) . self::$library['file'] . '.' . self::$file_extension;
 

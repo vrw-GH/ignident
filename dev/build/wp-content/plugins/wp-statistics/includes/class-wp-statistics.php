@@ -11,8 +11,11 @@ use WP_Statistics\Service\Admin\Posts\PostsManager;
 use WP_Statistics\Service\Admin\PrivacyAudit\PrivacyAuditManager;
 use WP_Statistics\Service\Admin\CategoryAnalytics\CategoryAnalyticsManager;
 use WP_Statistics\Service\Analytics\AnalyticsManager;
+use WP_Statistics\Service\Integrations\IntegrationsManager;
 use WP_Statistics\Service\Integrations\WpConsentApi;
 use WP_Statistics\Service\Admin\Devices\DevicesManager;
+use WP_Statistics\Service\Admin\VisitorInsights\VisitorInsightsManager;
+use WP_Statistics\Service\Admin\PageInsights\PageInsightsManager;
 
 defined('ABSPATH') || exit;
 
@@ -160,9 +163,7 @@ final class WP_Statistics
             require_once WP_STATISTICS_DIR . 'includes/admin/class-wp-statistics-admin-export.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/class-wp-statistics-admin-network.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/class-wp-statistics-admin-assets.php';
-            require_once WP_STATISTICS_DIR . 'includes/admin/class-wp-statistics-admin-post.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/class-wp-statistics-admin-user.php';
-            require_once WP_STATISTICS_DIR . 'includes/admin/class-wp-statistics-admin-taxonomy.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/class-wp-statistics-admin-privacy.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/TinyMCE/class-wp-statistics-tinymce.php';
 
@@ -171,22 +172,19 @@ final class WP_Statistics
             require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-optimization.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-plugins.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-overview.php';
-            require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-online.php';
-            require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-hits.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-refer.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-searches.php';
-            require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-visitors.php';
-            require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-top-visitors-today.php';
             require_once WP_STATISTICS_DIR . 'includes/admin/pages/class-wp-statistics-admin-page-exclusions.php';
 
-            $analytics         = new AnalyticsManager();
-            $authorAnalytics   = new AuthorAnalyticsManager();
-            $privacyAudit      = new PrivacyAuditManager();
-            $geographic        = new GeographicManager();
-            $devices           = new DevicesManager();
-            $categoryAnalytics = new CategoryAnalyticsManager();
-
-            $wpConsentApi = new WpConsentApi();
+            $analytics           = new AnalyticsManager();
+            $authorAnalytics     = new AuthorAnalyticsManager();
+            $privacyAudit        = new PrivacyAuditManager();
+            $geographic          = new GeographicManager();
+            $devices             = new DevicesManager();
+            $categoryAnalytics   = new CategoryAnalyticsManager();
+            $pageInsights        = new PageInsightsManager();
+            $visitorInsights     = new VisitorInsightsManager();
+            $integrationsManager = new IntegrationsManager();
         }
 
         // WordPress ShortCode and Widget

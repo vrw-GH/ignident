@@ -877,15 +877,19 @@ div[class*=ays-pb-modal_].ays_minimal_window {
     box-sizing: border-box;
 }
 
-.ays_pb_notification_logo img {
-    max-width: 100px;
+.ays_pb_notification_logo {
+    max-width: 10%;
     width: 100%;
-    min-width: 45px;
+    text-align: center;
 }
 
 .ays_pb_notification_main_content {
     max-width: 80%;
     width: 100%;
+}
+
+.ays_notification_content_box_with_logo .ays_pb_notification_main_content {
+    max-width: 70%;
 }
 
 .ays_pb_notification_button_1 {
@@ -908,6 +912,7 @@ div[class*=ays-pb-modal_].ays_minimal_window {
     margin: 0;
     cursor: pointer;
     transition: 0.3s;
+    word-break: keep-all;
 }
 
 .ays_minimal_header .ays_popup_minimal_title h2 {

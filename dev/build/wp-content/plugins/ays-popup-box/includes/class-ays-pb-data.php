@@ -193,7 +193,7 @@ class Ays_Pb_Data {
             $ays_popup_box_flag = intval(get_option('ays_pb_sale_btn'));
             if ($ays_popup_box_flag == 0 ) {
                 if (isset($_GET['page']) && strpos($_GET['page'], AYS_PB_NAME) !== false) {
-                    $this->ays_pb_new_banner_message_2024($ays_popup_box_flag);
+                    $this->ays_pb_new_banner_message($ays_popup_box_flag);
                 }
             }
         }
@@ -703,39 +703,24 @@ class Ays_Pb_Data {
             $content[] = '<div id="ays-pb-new-mega-bundle-dicount-month-main" class="notice notice-success is-dismissible ays_pb_dicount_info">';
                 $content[] = '<div id="ays-pb-dicount-month" class="ays_pb_dicount_month">';
                     // $content[] = '<a href="https://ays-pro.com/mega-bundle" target="_blank" class="ays-pb-sale-banner-link"><img src="' . AYS_pb_ADMIN_URL . '/images/mega_bundle_logo_box.png"></a>';
-
                     $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-text-box">';
                         $content[] = '<div>';
-
-                            // $content[] = '<span class="ays-pb-new-mega-bundle-title">';
-                            //     $content[] = __( "<span><a href='https://ays-pro.com/mega-bundle' target='_blank' style='color:#ffffff; text-decoration: underline;'>Mega Bundle</a></span> (pb + Survey + Poll)", AYS_PB_NAME );
-                            // $content[] = '</span>';
                             $content[] = '<span class="ays-pb-new-mega-bundle-title">';
-                            $content[] = __( "Limited Time <span style='color:#ffffff;'>20%</span> SALE on <span><a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner' target='_blank' style='color:#ffffff; text-decoration: underline;'>Popup Box</a></span>", "ays-popup-box" );
-                        $content[] = '</span>';
+                                $content[] = __( "Limited Time 30% SALE on <span><a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner' target='_blank' style='color:#ffffff; text-decoration: underline;'>Popup Box</a></span>", "ays-popup-box" );
+                            $content[] = '</span>';
                             $content[] = '</br>';
                             $content[] = '<div class="ays-pb-new-mega-bundle-mobile-image-display-block display_none">';
-                                $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-20-guaranteeicon.svg" style="width: 70px;">';
+                                $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-30-guaranteeicon.svg" style="width: 70px;">';
                             $content[] = '</div>';
-
                             $content[] = '<span class="ays-pb-new-mega-bundle-desc">';
                                 $content[] = '<img class="ays-pb-new-mega-bundle-guaranteeicon" src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-maker-guaranteeicon.svg" style="width: 30px;">';
                                 $content[] = __( "30 Day Money Back Guarantee", "ays-popup-box" );
                             $content[] = '</span>';
                         $content[] = '</div>';
-
                         $content[] = '<div>';
-                            $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-20-guaranteeicon.svg" class="ays-pb-new-mega-bundle-mobile-image-display-none" style="width: 70px;">';
+                            $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-30-guaranteeicon.svg" class="ays-pb-new-mega-bundle-mobile-image-display-none" style="width: 70px;">';
                         $content[] = '</div>';
-
-                        // $content[] = '<br>';
-
-                        // $content[] = '<strong>';
-                        //         $content[] = __( "Hurry up! <a href='https://ays-pro.com/mega-bundle' target='_blank'>Check it out!</a>", "ays-popup-box" );
-                        // $content[] = '</strong>';
-
                         $content[] = '<div style="position: absolute;right: 10px;bottom: 1px;" class="ays-pb-dismiss-buttons-container-for-form">';
-
                             $content[] = '<form action="" method="POST">';
                                 $content[] = '<div id="ays-pb-dismiss-buttons-content">';
                                 if( current_user_can( 'manage_options' ) ){

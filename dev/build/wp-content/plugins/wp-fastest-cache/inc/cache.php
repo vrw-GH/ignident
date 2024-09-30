@@ -180,43 +180,55 @@
 		}
 
 		public function remove_url_paramters(){
-			$action = false;
-
-			//to remove query strings for cache if Google Click Identifier are set
-			if(preg_match("/gclid\=/i", $this->cacheFilePath)){
-				$action = true;
-			}
-
-			//to remove query strings for cache if Yandex parameters are set
-			if(preg_match("/y(ad|s)?clid\=/i", $this->cacheFilePath)){
-				// yclid
-				// yadclid
-				// ysclid
+			if(isset($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"]){
 				
+				$query_params = explode("&", $_SERVER["QUERY_STRING"]);
+
 				$action = true;
-			}
 
-			//to remove query strings for cache if facebook parameters are set
-			if(preg_match("/fbclid\=/i", $this->cacheFilePath)){
-				$action = true;
-			}
+				foreach ($query_params as $key => $query_param) {
 
-			//to remove query strings for cache if google analytics parameters are set
-			if(preg_match("/utm_(source|medium|campaign|content|term)/i", $this->cacheFilePath)){
-				$action = true;
-			}
+					//to remove query strings for cache if Google Click Identifier are set
+					if(preg_match("/^gclid\=/i", $query_param)){
+						continue;
+					}
 
-			if($action){
-				if(strlen($_SERVER["REQUEST_URI"]) > 1){ // for the sub-pages
+					//to remove query strings for cache if Yandex parameters are set
+					if(preg_match("/^y(ad|s)?clid\=/i", $query_param)){
+						// yclid
+						// yadclid
+						// ysclid
+						
+						continue;
+					}
 
-					$this->cacheFilePath = preg_replace("/\/*\?.+/", "", $this->cacheFilePath);
-					$this->cacheFilePath = $this->cacheFilePath."/";
+					//to remove query strings for cache if facebook parameters are set
+					if(preg_match("/^fbclid\=/i", $query_param)){
+						continue;
+					}
 
-					if(!defined('WPFC_CACHE_QUERYSTRING')){
-						define('WPFC_CACHE_QUERYSTRING', true);
+					//to remove query strings for cache if google analytics parameters are set
+					if(preg_match("/^utm_(source|medium|campaign|content|term)/i", $query_param)){
+						continue;
+					}
+
+					$action = false;
+
+				}
+
+				if($action){
+					if(strlen($_SERVER["REQUEST_URI"]) > 1){ // for the sub-pages
+
+						$this->cacheFilePath = preg_replace("/\/*\?.+/", "", $this->cacheFilePath);
+						$this->cacheFilePath = $this->cacheFilePath."/";
+
+						if(!defined('WPFC_CACHE_QUERYSTRING')){
+							define('WPFC_CACHE_QUERYSTRING', true);
+						}
 					}
 				}
 			}
+			
 		}
 
 		public function set_cdn(){
@@ -752,8 +764,11 @@
 				}
 			}
 
-			// for iThemes Security: not to cache 403 pages
-			if(defined('DONOTCACHEPAGE') && $this->isPluginActive('better-wp-security/better-wp-security.php')){
+			// Prevent caching of 403 Forbidden error pages.
+			// This is particularly important for compatibility with the following security plugins:
+			// 1. iThemes Security
+			// 2. Defender Security
+			if(defined('DONOTCACHEPAGE')){
 				if(function_exists("http_response_code") && http_response_code() == 403){
 					return $buffer."<!-- DONOTCACHEPAGE is defined as TRUE -->";
 				}
@@ -1108,11 +1123,16 @@
 				$comment = "<!-- WP Fastest Cache file was created in ".$this->creationTime()." seconds, on ".date("d-m-y G:i:s", current_time('timestamp'))." -->";
 			}
 
-			if(defined('WPFC_REMOVE_FOOTER_COMMENT') && WPFC_REMOVE_FOOTER_COMMENT){
-				return $buffer;
-			}else{
-				return $buffer.$comment;
+			if(apply_filters( 'wpfc_remove_footer_comment', false )){
+				$comment = "";
 			}
+
+			if(defined('WPFC_REMOVE_FOOTER_COMMENT') && WPFC_REMOVE_FOOTER_COMMENT){
+				$comment = "";
+			}
+
+			return $buffer.$comment;
+			
 		}
 
 		public function creationTime(){

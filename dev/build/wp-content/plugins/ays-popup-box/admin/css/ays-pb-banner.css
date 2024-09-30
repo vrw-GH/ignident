@@ -1,5 +1,5 @@
 /* New Popup Box PRO banner start */
-/* div#ays-pb-new-mega-bundle-dicount-month-main {
+div#ays-pb-new-mega-bundle-dicount-month-main {
     border: 0;
     background: #FFF;
     border-radius: 20px;
@@ -40,7 +40,7 @@ div#ays-pb-new-mega-bundle-dicount-month-main .btn-link {
 }
 
 div#ays-pb-new-mega-bundle-dicount-month-main.ays_pb_dicount_info {
-    background-image: url("../images/icons/new-pb-banner-background.svg"); 
+    background-image: url("../images/icons/new-pb-banner-background-30.svg"); 
     background-position: center right;
     background-repeat: no-repeat;
     background-size: cover;
@@ -417,11 +417,11 @@ div#ays-pb-new-mega-bundle-dicount-month-main button.notice-dismiss:before {
     div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box {
         width: 35%;
     }
-} */
+}
 /* New Popup Box PRO banner end */
 
 /* New Popup PRO Banner by Emma | Start */
-div#ays-pb-new-pb-banner-dicount-month-main-2024 {
+/* div#ays-pb-new-pb-banner-dicount-month-main-2024 {
     border: 0;
     background: #FFF;
     border-radius: 20px;
@@ -830,5 +830,5 @@ div#ays-pb-new-pb-banner-dicount-month-main-2024 button.notice-dismiss:before {
         height: 110px;
         margin-bottom: 25px;
     }
-}
+} */
 /* New Popup PRO Banner | End */

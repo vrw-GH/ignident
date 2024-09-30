@@ -399,6 +399,15 @@
 				}
 			}
 
+			if($this->isPluginActive('elementor/elementor.php')){
+				// Elementor Plugin - Element Caching
+				if($elementor_cache = get_option("elementor_experiment-e_element_cache")){
+					if($elementor_cache != "inactive"){
+						return array("You have to set the <u><a target='_blank' href='https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/'>Element Caching</a></u> option of the Elementor plugin to Inactive", "error");
+					}
+				}
+			}
+
 			if(file_exists($path.".htaccess")){
 				$htaccess = @file_get_contents($path.".htaccess");
 			}else{

@@ -94,6 +94,11 @@ blockquote span {
     margin-top: 1em;
 }
 
+#wpwrap hr.ays-pb-bolder-hr {
+    border-top: 1px solid #c9c9c9;
+    box-shadow: 0px 1px 2px #0000001f;
+}
+
 div[class*='ays-pb-'] input[type=text]:not(#current-page-selector),
 div[class*='ays-pb-'] input[type=search],
 div[class*='ays-pb-'] input[type=tel],
@@ -174,10 +179,8 @@ textarea.ays-textarea {
 }
 
 #ays-button,
-#ays-button-top-apply,
 #ays-button-apply,
-#ays-cat-button-apply,
-#ays-button-top {
+#ays-cat-button-apply {
     margin-left: 10px;
 }
 
@@ -226,6 +229,17 @@ label.ays-pb-label-style {
 
 h1.wp-heading-inline {
     margin: 20px 0;
+}
+
+.ays-pb-heading-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 5px 20px;
+    font-size: 24px;
+    font-weight: 400;
+    padding: 9px 0 4px;
+    line-height: 1.3;
+    gap: 10px;
 }
 
 .submit {
@@ -336,28 +350,28 @@ span.select2-container {
     overflow: visible;
 }
 
-.ays-pb-tab-content  .select2-search.select2-search--inline {
+.ays-pb-tab-content .select2-search.select2-search--inline {
     margin-top: 0!important;
     padding: 5px!important;
     margin-bottom:  0!important;
 }
 
 .select2 {
-    display: inline-block!important;
+    display: inline-block !important;
 }
 
 .select2-selection.select2-selection--single {
-    height: 40px!important;
-    border: 1px solid #ddd!important;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.07)!important;
+    height: 40px !important;
+    border: 1px solid #ddd !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07) !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 39px!important;
+    line-height: 39px !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 40px!important;
+    height: 40px !important;
 }
 
 .ays-pb-tab-content .select2-container--default .select2-search--inline .select2-search__field {
@@ -370,19 +384,9 @@ span.select2-container {
 .ays-pb-tab-content .select2-selection__choice {
     cursor: pointer;
 }
-
-.ays-pb-tab-content .ays-pb-export-conteiner .select2.select2-container,
-.ays-pb-tab-content .ays_pb_view_place_tr .select2.select2-container, 
-.ays-pb-tab-content .ays-pb-users-roles .select2.select2-container {
-    width: 100% !important;
-}
-
-.who_have_permission .select2.select2-container {
-    width: 100% !important;
-}
 /* Select2 styles end */
 
-/* Date picker start*/
+/* Date picker start */
 #ui-datepicker-div {
     font-size: 16px;
     z-index: 99999999999999 !important;
@@ -468,7 +472,7 @@ span.select2-container {
 }
 
 .ui-datepicker .ui-datepicker-calendar {
-  table-layout: fixed;
+    table-layout: fixed;
 	width: 100%;
 }
 
@@ -554,9 +558,9 @@ div.ays-notice-banner.ays-pb-notice {
 }
 
 .ays-notice-banner.ays-pb-notice .logo-container .popup-box-upgrade-to-pro {
-    color: #10a37f;
+    color: #fff;
+    background-color: #10a37f;
     font-weight: 700;
-    border: 1px solid #10a37f;
     border-radius: 25px;
     width: 125px;
     height: 30px;
@@ -574,16 +578,10 @@ div.ays-notice-banner.ays-pb-notice {
 }
 
 .ays-notice-banner.ays-pb-notice .logo-container .popup-box-upgrade-to-pro:hover {
-    background-color: #10a37f;
-	color: #fff;
+    background-color: #10876b;
 }
 
-.ays-notice-banner.ays-pb-notice .logo-container .popup-box-upgrade-to-pro img.popup-box-upgrade-white-icon,
-.ays-notice-banner.ays-pb-notice .logo-container .popup-box-upgrade-to-pro:hover img.popup-box-upgrade-green-icon {
-    display: none;
-}
-
-.ays-notice-banner.ays-pb-notice .logo-container .popup-box-upgrade-to-pro:hover img.popup-box-upgrade-white-icon {
+.ays-notice-banner.ays-pb-notice .logo-container .popup-box-upgrade-to-pro img.popup-box-upgrade-white-icon {
     display: inline-block;
 }
 
@@ -765,12 +763,12 @@ div.ays_ask_question_content .ays-ask-question-content-inner-question-mark-text 
         display: none;
     }
 }
-/* Ask a question box styless end */
+/* Ask a question box styles end */
 
 /* Header view documentation link styles start */
 .ays-pb-heading-box {
     float: right;
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .ays-pb-heading-box a {
@@ -1605,7 +1603,7 @@ div.ays_notification_type_components_sortable_wrap {
     align-items: center;
     flex-direction: column;
     gap: 20px;
-    max-width: 800px;
+    max-width: 830px;
     margin: auto;
 }
 
@@ -1751,6 +1749,35 @@ span.ays-pb-small-hint-text.ays-pb-show-only-for-author-hint-text {
 }
 /* Popups page | General tab styles end */
 
+/* Popups page | Options accordion styles start */
+.ays-pb-accordion-header:not(.ays-pb-accordion-header.display_none) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.ays-pb-accordion-header p.ays-subtitle {
+    margin: 0px;
+}
+
+.ays-pb-accordion-header .ays-pb-accordion-arrow-box {
+    cursor: pointer;
+}
+
+.ays-pb-accordion-header .ays-pb-accordion-arrow {
+    transition: .3s ease;
+}
+
+.ays-pb-accordion-header .ays-pb-accordion-arrow-active {
+    transform: rotate(90deg);
+}
+
+.ays-pb-accordion-header .ays-pb-accordion-arrow.ays-pb-accordion-arrow-active path {
+    fill: #008cff;
+}
+/* Popups page | Options accordion styles end */
+
 /* Popups page | Settings tab styles start */
 label.active_deactive_date {
     margin-bottom: 5px;
@@ -1821,6 +1848,11 @@ a.ays_pb_plus_schedule:hover {
 /* Popups page | Settings tab styles end */
 
 /* Popups page | Template section styles start */
+.pb_theme_img_box {
+    max-width: 1400px;
+    margin: auto;
+}
+
 .ays-pb-template-content {
     position: relative;
     margin: 10px 0;
@@ -2233,7 +2265,7 @@ label.ays_switch_toggle:hover:after {
 }
 /* Popups page | Limitation users styles end */
 
-/* Popups page | Options for PC and mobile styles start  */
+/* Popups page | Options for desktop and mobile styles start */
 .ays_pb_pc_and_mobile_container,
 .ays_pb_pc_and_mobile_box {
     display: flex;
@@ -2330,7 +2362,7 @@ label.ays_switch_toggle:hover:after {
     }
 
 }
-/* Popups page | Options for PC and mobile styles end  */
+/* Popups page | Options for desktop and mobile styles end */
 
 /* Popups, Categories Pages | Bottom buttons styles start */
 .ays-pb-bottom-buttons-content {
@@ -2782,7 +2814,7 @@ img.close_btn_img {
 /* Live preview | Template(Sale) theme styles end */
 
 /* Live preview | MacOS theme styles start */
- .ays_window {
+.ays_window {
     transition: all 0.2s;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.43);
     max-width: 95%;
@@ -2919,7 +2951,7 @@ img.close_btn_img {
 /* Live preview | MacOS theme styles end */
 
 /* Live preview | Ubuntu theme styles start */
- .ays_ubuntu_window {
+.ays_ubuntu_window {
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.43);
     border-top-right-radius: 12px;
     border-top-left-radius: 12px;
@@ -3074,7 +3106,7 @@ img.close_btn_img {
 /* Live preview | Ubuntu theme styles end */
 
 /* Live preview | WinXP theme styles start */
- .ays_winxp_window {
+.ays_winxp_window {
     position: absolute;
     max-width: 85%;
     max-height: 95%;
@@ -3232,7 +3264,7 @@ img.close_btn_img {
 /* Live preview | WinXP theme styles end */
 
 /* Live preview | Win98 theme styles start */
- .ays_win98_window {
+.ays_win98_window {
     position: absolute;
     top: 0;
     left: 0;
