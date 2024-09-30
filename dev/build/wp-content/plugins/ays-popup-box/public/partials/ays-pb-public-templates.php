@@ -4181,8 +4181,20 @@ class Ays_Pb_Public_Templates {
 
         // Notification logo image
         $notification_logo = "";
-        if ($notification_logo_image_src != '') {
+        $notification_with_logo_class = '';
+        if (isset($notification_type_components['logo']) && $notification_type_components['logo'] == 'on' && $notification_logo_image_src != '') {
+            $notification_with_logo_class = 'ays_notification_content_box_with_logo';
             $notification_logo = "<img src='" . $notification_logo_image_src . "'>";
+        }
+
+        // Notification logo redirect URL
+        $notification_logo_redirect_url = (isset($options->notification_logo_redirect_url) && $options->notification_logo_redirect_url != '') ? esc_url($options->notification_logo_redirect_url) : '';
+
+        // Notification logo redirect to the new tab
+        $notification_logo_redirect_to_new_tab = (isset($options->notification_logo_redirect_to_new_tab) && $options->notification_logo_redirect_to_new_tab == 'on') ? true : false;
+
+        if ($notification_logo_redirect_url != '') {
+            $notification_logo = $this->ays_pb_wrap_into_link($notification_logo_redirect_url, $notification_logo, $notification_logo_redirect_to_new_tab);
         }
 
         // Notification main content
@@ -4192,8 +4204,11 @@ class Ays_Pb_Public_Templates {
         // Notification button 1 text
         $notification_button_1_text = (isset($options->notification_button_1_text) && $options->notification_button_1_text != '') ? stripslashes( esc_attr($options->notification_button_1_text) ) : 'Click!';
 
-        //Notification button 1
-        $notification_button_1 = "<button>" . $notification_button_1_text . "</button>";
+        // Notification button 1 hover text
+        $notification_button_1_hover_text = (isset($options->notification_button_1_hover_text) && $options->notification_button_1_hover_text != '') ? stripslashes( esc_attr($options->notification_button_1_hover_text) ) : '';
+
+        // Notification button 1
+        $notification_button_1 = "<button title='" . $notification_button_1_hover_text  . "'>" . $notification_button_1_text . "</button>";
 
         // Notification button 1 redirect URL
         $notification_button_1_redirect_url = (isset($options->notification_button_1_redirect_url) && $options->notification_button_1_redirect_url != '') ? esc_url($options->notification_button_1_redirect_url) : '';
@@ -4221,7 +4236,7 @@ class Ays_Pb_Public_Templates {
         );
 
         $popupbox_view = "<div class='ays_notification_window ays-pb-modal_" . $popup['id'] . " " . $popup['custom_class'] . "ays-pb-bg-styles-mobile_" . $popup['id'] . " ays-pb-border-mobile_" . $popup['id'] . "' data-ays-flag='false' style='" . $popup['ays_pb_bg_image']."; height: {$pb_height}; background-color:" .  $popup['ays_pb_bgcolor'] . "; color: " . $popup['ays_pb_textcolor'] . " !important; border: ".$popup['ays_pb_bordersize']."px  $border_style " . $popup['ays_pb_bordercolor'] . "; border-radius: " . $popup['ays_pb_border_radius'] . "px;font-family:{$ays_pb_font_family};{$box_shadow};' >
-            <div class='ays_notification_content_box ays_content_box' style='padding: {$pb_padding}'>";
+            <div class='ays_notification_content_box ays_content_box " . $notification_with_logo_class . "' style='padding: {$pb_padding}'>";
 
         foreach($notification_type_components_order as $key) {
             if ($key == 'main_content' || $key == 'button_1' || $notification_type_components[$key] == 'on') {

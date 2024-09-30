@@ -9,9 +9,10 @@
  * @var array $date_presets
  */
 $tab          = 'settings';
-$public_dashboard_url = add_query_arg(array('koko-analytics-dashboard' => 1), home_url());
+$public_dashboard_url = add_query_arg(['koko-analytics-dashboard' => 1], home_url());
 ?>
-<link rel="stylesheet" href="<?php echo plugins_url('assets/dist/css/dashboard.css', KOKO_ANALYTICS_PLUGIN_FILE); ?>">
+<link rel="stylesheet" href="<?php echo esc_attr(plugins_url('assets/dist/css/dashboard.css', KOKO_ANALYTICS_PLUGIN_FILE)); ?>?v=<?php echo KOKO_ANALYTICS_VERSION; ?>">
+
 <div class="wrap" id="koko-analytics-admin">
     <?php require __DIR__ . '/nav.php'; ?>
 
@@ -30,14 +31,18 @@ $public_dashboard_url = add_query_arg(array('koko-analytics-dashboard' => 1), ho
             </div>
         <?php } ?>
 
-        <form method="POST" action="<?php echo add_query_arg(array('koko_analytics_action' => 'save_settings')); ?>">
+        <form method="POST" action="<?php echo esc_attr(add_query_arg(['koko_analytics_action' => 'save_settings'])); ?>">
             <?php wp_nonce_field('koko_analytics_save_settings'); ?>
             <div class="ka-margin-m">
                 <label for="ka-exclude-user-roles" class="ka-settings--label"><?php esc_html_e('Exclude pageviews from these user roles', 'koko-analytics'); ?></label>
                 <select id="ka-exclude-user-roles" multiple="" name="koko_analytics_settings[exclude_user_roles][]" style="min-height: <?php echo count($user_roles) * 30; ?>px; min-width: 240px;">
                     <?php
                     foreach ($user_roles as $key => $value) {
-                        echo sprintf('<option value="%s" %s>%s</option>', esc_attr($key), selected(in_array($key, $settings['exclude_user_roles']), true, false), esc_html($value));
+                        $key = esc_attr($key);
+                        $value = esc_html($value);
+                        $selected = (in_array($key, $settings['exclude_user_roles']) ? 'selected' : '');
+
+                        echo "<option value=\"{$key}\" {$selected}>{$value}</option>";
                     }
                     ?>
                 </select>
@@ -51,7 +56,7 @@ $public_dashboard_url = add_query_arg(array('koko-analytics-dashboard' => 1), ho
                 <label for="ka-exclude-ip-addresses" class="ka-settings--label"><?php esc_html_e('Exclude pageviews from these IP addresses', 'koko-analytics'); ?></label>
                 <?php
                 echo '<textarea id="ka-exclude-ip-addresses" name="koko_analytics_settings[exclude_ip_addresses]" class="widefat" rows="6">';
-                echo join(PHP_EOL, $settings['exclude_ip_addresses']);
+                echo esc_textarea(join(PHP_EOL, $settings['exclude_ip_addresses']));
                 echo '</textarea>';
                 ?>
                 <p class="description">
@@ -80,7 +85,7 @@ $public_dashboard_url = add_query_arg(array('koko-analytics-dashboard' => 1), ho
                     <label class="ka-setings--cb-label"><input type="radio" name="koko_analytics_settings[is_dashboard_public]" value="0" <?php checked($settings['is_dashboard_public'], 0); ?>> <?php esc_html_e('No'); ?></label>
                 </fieldset>
                 <p class="description">
-                    <?php echo sprintf(__('Set to "yes" if you want your dashboard to be publicly accessible. With this setting enabled, you can <a href="%s">find your public dashboard here</a>.', 'koko-analytics'), $public_dashboard_url); ?>
+                    <?php echo wp_kses(sprintf(__('Set to "yes" if you want your dashboard to be publicly accessible. With this setting enabled, you can <a href="%s">find your public dashboard here</a>.', 'koko-analytics'), esc_attr($public_dashboard_url)), [ 'a' => [ 'href' => [] ] ]); ?>
                 </p>
             </div>
             <div class="ka-margin-m">
@@ -88,7 +93,8 @@ $public_dashboard_url = add_query_arg(array('koko-analytics-dashboard' => 1), ho
                 <select id="ka-default-date-period" name="koko_analytics_settings[default_view]">
                     <?php
                     foreach ($date_presets as $key => $label) {
-                        echo sprintf('<option value="%s" %s>%s</option>', esc_attr($key), selected($key === $settings['default_view'], true, false), esc_html($label));
+                        $selected = ($key === $settings['default_view'] ? 'selected' : '');
+                        echo "<option value=\"{$key}\" {$selected}>{$label}</option>";
                     }
                     ?>
                 </select>
@@ -99,6 +105,44 @@ $public_dashboard_url = add_query_arg(array('koko-analytics-dashboard' => 1), ho
                 <input id="ka-prune-after-input" name="koko_analytics_settings[prune_data_after_months]" type="number" step="1" min="0" max="600" value="<?php echo esc_attr($settings['prune_data_after_months']); ?>"> <?php esc_html_e('months', 'koko-analytics'); ?>
                 <p class="description"><?php esc_html_e('Statistics older than the number of months configured here will automatically be deleted. Set to 0 to disable.', 'koko-analytics'); ?></p>
             </div>
+
+            <?php if (! defined('KOKO_ANALYTICS_PRO_VERSION')) { ?>
+            <div class="ka-margin-m">
+                <fieldset>
+                    <legend class="ka-settings--label">Track all outbound link clicks?</legend>
+                    <label class="ka-setings--cb-label"><input type="radio" disabled><?php esc_html_e('Yes'); ?></label>
+                    <label class="ka-setings--cb-label"><input type="radio" disabled checked> <?php esc_html_e('No'); ?></label>
+                </fieldset>
+                <p class="description">
+                    Select "yes" if you want Koko Analytics to count all clicks on links to external websites. <br>This feature is only available in <a href="https://www.kokoanalytics.com/pricing/">Koko Analytics Pro</a>.
+               </p>
+            </div>
+
+            <div class="ka-margin-m">
+                <fieldset>
+                    <legend class="ka-settings--label">Track form submissions?</legend>
+                    <label class="ka-setings--cb-label"><input type="radio" disabled><?php esc_html_e('Yes'); ?></label>
+                    <label class="ka-setings--cb-label"><input type="radio" disabled checked> <?php esc_html_e('No'); ?></label>
+                </fieldset>
+                <p class="description">
+                    Select "yes" if you want Koko Analytics to count all form submissions. <br>This feature is only available in <a href="https://www.kokoanalytics.com/pricing/">Koko Analytics Pro</a>.
+               </p>
+            </div>
+
+            <div class="ka-margin-m">
+                <fieldset>
+                    <legend class="ka-settings--label">Send periodic email reports?</legend>
+                    <ul>
+                    <li><label class="ka-setings--cb-label"><input type="checkbox" disabled>Daily</label></li>
+                    <li><label class="ka-setings--cb-label"><input type="checkbox" disabled>Weekly</label></li>
+                    <li><label class="ka-setings--cb-label"><input type="checkbox" disabled>Monthly</label></li>
+                    </ul>
+                </fieldset>
+                <p class="description">
+                    Select the timeframes for which you want to receive an email report summarising your most important statistics. <br>This feature is only available in <a href="https://www.kokoanalytics.com/pricing/">Koko Analytics Pro</a>.
+               </p>
+            </div>
+            <?php } // end if not Koko Analytics Pro ?>
 
             <div class="ka-margin-m">
                 <?php submit_button(null, 'primary', 'submit', false); ?>
@@ -134,8 +178,8 @@ $public_dashboard_url = add_query_arg(array('koko-analytics-dashboard' => 1), ho
             <p>
                 <?php $seconds_since_last_aggregation = (time() - (int) get_option('koko_analytics_last_aggregation_at', 0)); ?>
                 <?php esc_html_e('Last aggregation:', 'koko-analytics'); ?>
-                <span style="<?php echo $seconds_since_last_aggregation > 300 ? 'color: red;' : ''; ?>">
-                    <?php printf(__('%d seconds ago', 'koko-analytics'), $seconds_since_last_aggregation); ?>
+                <span <?php echo $seconds_since_last_aggregation > 300 ? 'style="color: red;"' : ''; ?>>
+                    <?php echo esc_html(sprintf(__('%d seconds ago', 'koko-analytics'), $seconds_since_last_aggregation)); ?>
                 </span>
             </p>
             <div class="ka-margin-m">
@@ -150,16 +194,21 @@ $public_dashboard_url = add_query_arg(array('koko-analytics-dashboard' => 1), ho
 
         <div class="ka-margin-l">
             <h2><?php esc_html_e('Help', 'koko-analytics'); ?></h2>
-            <p><?php printf(__('Have a look at our <a href="%1s">knowledge base</a> for help with configuring and using Koko Analytics.', 'koko-analytics'), 'https://www.kokoanalytics.com/kb/'); ?></p>
+            <p><?php echo wp_kses(sprintf(__('Have a look at our <a href="%1s">knowledge base</a> for help with configuring and using Koko Analytics.', 'koko-analytics'), 'https://www.kokoanalytics.com/kb/'), [ 'a' => [ 'href' => [] ] ]); ?></p>
         </div>
 
-        <?php if (! defined('KOKO_ANALYTICS_PRO_VERSION')) { ?>
-        <div class="ka-margin-l">
-            <h2>Koko Analytics Pro</h2>
-            <p>We developed Koko Analytics Pro to add certain advanced features to Koko Analytics, like custom event tracking and periodic email reports.</p>
-            <p><a href="https://www.kokoanalytics.com/pricing/">Purchase a Koko Analytics Pro license</a> to help us continue developing and supporting Koko Analytics.</p>
+         <?php if (! defined('KOKO_ANALYTICS_PRO_VERSION')) { ?>
+        <div class="ka-margin-l" style="background: white; border: 1px solid #ddd; padding: 1em;">
+            <h2 style="margin-top: 0;">Upgrade to Koko Analytics Pro</h2>
+            <p>Koko Analytics Pro adds several advanced features:</p>
+            <ul class="ul-square">
+                <li>Track outbound link clicks</li>
+                <li>Track form submissions</li>
+                <li><a href="https://www.kokoanalytics.com/kb/tracking-events/">Custom event tracking</a></li>
+                <li><a href="https://www.kokoanalytics.com/2024/08/21/setting-up-email-reports-with-koko-analytics-pro/">Periodic email report of your most important statistics</a></li>
+            </ul>
+            <p style="margin-bottom: 0;"><a href="https://www.kokoanalytics.com/pricing/">Purchase a Koko Analytics Pro license</a> to benefit from these features while simultaneously helping us continue developing and supporting Koko Analytics.</p>
         </div>
-        <?php } ?>
-
+         <?php } ?>
     </div>
 </div>

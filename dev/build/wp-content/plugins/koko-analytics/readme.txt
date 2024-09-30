@@ -4,7 +4,7 @@ Donate link: https://wordpress.org/support/plugin/koko-analytics/reviews/#new-po
 Tags: analytics, statistics, stats, privacy, counter
 Requires at least: 6.0
 Tested up to: 6.6
-Stable tag: 1.3.12
+Stable tag: 1.3.14
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.3
@@ -37,7 +37,14 @@ Koko Analytics lets you focus on the important metrics, while respecting the pri
 - **Open-Source**: The plugin code is [open-sourced](https://github.com/ibericode/koko-analytics) under the GPL-3.0-or-later license.
 - **Tested**: Ready for PHP 8.3, but compatible down to PHP 7.3.
 - **AMP**: Tracks AMP powered pages too ([official AMP plugin](https://wordpress.org/plugins/amp/) only).
-- **Event Tracking**: You can set up custom event tracking through [Koko Analytics Pro](https://www.kokoanalytics.com/pricing/).
+
+### Pro features
+
+The following features are available through [Koko Analytics Pro](https://www.kokoanalytics.com/pricing):
+
+- **Event Tracking**: Built-in events like outbound link clicks, form submissions plus the ability to [track any type of custom event](https://www.kokoanalytics.com/kb/tracking-events/).
+- **Email reports**: Daily, weekly or monthly [email reports](https://www.kokoanalytics.com/2024/08/21/setting-up-email-reports-with-koko-analytics-pro/).
+
 
 ### Contributing
 
@@ -124,6 +131,20 @@ You can [purchase Koko Analytics Pro](https://www.kokoanalytics.com/pricing/) to
 
 
 == Changelog ==
+
+#### 1.3.14 - Sep 23, 2024
+
+- Explicitly call `sprintf` from global namespace to benefit from upcoming sprintf related performance improvements in PHP 8.4.
+- Demo settings from [Koko Analytics Pro](https://www.kokoanalytics.com/pricing/) on plugin settings page.
+
+
+#### 1.3.13 - Sep 17, 2024
+
+- Ensure `Stats::get_totals` always returns a valid object.
+- Escape return values from `add_query_arg` to prevent reflected XSS attacks.
+- Use correct IP address even if client is behind proxy.
+- Various minor template performance improvements.
+
 
 #### 1.3.12 - Aug 18, 2024
 

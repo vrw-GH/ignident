@@ -3,8 +3,8 @@ Contributors: ays-pro
 Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
-Tested up to: 6.6.1
-Stable tag: 4.7.1
+Tested up to: 6.6.2
+Stable tag: 4.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -334,6 +334,51 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 4.8.4 =
+* Added: Min-width option for notification popup logo
+
+= 4.8.3 =
+* Added: Width option for notification popup logo
+
+= 4.8.2 =
+* Fixed: Security issue on the admin dashboard
+* Improved: Styles on the admin dashboard
+
+= 4.8.1 =
+* Added: Max-width option for notification popup logo
+
+= 4.8.0 =
+* Added: Font weight option for notification popup button
+* Tested: Compatible up to 6.6.2
+
+= 4.7.9 =
+* Added: Button hover text option for notification popup type
+
+= 4.7.8 =
+* Added: Text decoration option for notification popup button
+* Fixed: Security issue connected to the change creation date option
+
+= 4.7.7 =
+* Added: Text transformation option for notification popup button
+
+= 4.7.6 =
+* Improved: Styles on the admin dashboard
+* Updated: POT file
+
+= 4.7.5 =
+* Added: Expand/Collapse functionality for popup options on the Popups page
+
+= 4.7.4 =
+* Added: Redirect to the new tab option for notification popup logo
+* Fixed: Style issue on the admin dashboard
+
+= 4.7.3 =
+* Improved: Styles on the admin dashboard
+
+= 4.7.2 =
+* Added: Logo redirect URL option for notification popup type
+* Fixed: Some styles on the front end
 
 = 4.7.1 =
 * Added: Logo option for notification popup type

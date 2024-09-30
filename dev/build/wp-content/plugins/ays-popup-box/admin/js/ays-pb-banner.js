@@ -29,7 +29,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
     $(document).ready(function() {
-        var checkCountdownIsExists = $(document).find('#ays-pb-new-pb-banner-dicount-month-main-2024');
+        var checkCountdownIsExists = $(document).find('#ays-pb-new-mega-bundle-dicount-month-main');
 
         if (checkCountdownIsExists.length > 0) {
             var second = 1000,

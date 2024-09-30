@@ -643,8 +643,13 @@
 				die("No sitemap detected!");
 			}
 
+			if(defined("WPFC_PRELOAD_NUMBER") && WPFC_PRELOAD_NUMBER){
+				$number = WPFC_PRELOAD_NUMBER;
+			}else{
+				$number = $options->wpFastestCachePreload_number;
+			}
+
 			$urls = array();
-			$number = $options->wpFastestCachePreload_number;
 
 			if(isset($options->wpFastestCacheMobileTheme) && $options->wpFastestCacheMobileTheme){
 				$mobile_theme = true;

@@ -654,10 +654,23 @@ class Install
             Option::saveByAddon(array_merge(['email_top_metrics' => 1], $advancedReportingOptions), 'advanced_reporting');
         }
 
-        // Disable Stats Report by default
-        if (!Option::get('stats_report') && Option::get('time_report') != '0') {
-            Option::update('time_report', '0');
-            Option::update('stats_report', true);
+        /**
+         * Update old DataPlus options.
+         *
+         * @version 14.10
+         */
+        if (version_compare($installed_version, '14.10', '<') && (Option::get('link_tracker') || Option::get('download_tracker'))) {
+            Option::saveByAddon([
+                'link_tracker'            => Option::get('link_tracker'),
+                'download_tracker'        => Option::get('download_tracker'),
+                'latest_visitors_metabox' => '1',
+            ], 'data_plus');
+        }
+
+        // Clear not used scheduled.
+        if (function_exists('wp_clear_scheduled_hook')) {
+            // Remove unused cron job for purging high hit count visitors daily
+            wp_clear_scheduled_hook('wp_statistics_dbmaint_visitor_hook');
         }
 
         // Store the new version information.

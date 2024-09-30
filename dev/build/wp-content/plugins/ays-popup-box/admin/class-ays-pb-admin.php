@@ -51,7 +51,7 @@ class Ays_Pb_Admin {
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version) {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
 
@@ -61,12 +61,12 @@ class Ays_Pb_Admin {
             'popup_categories_per_page',
         );
 
-        foreach($per_page_array as $option_name){
-            add_filter('set_screen_option_'.$option_name, array(__CLASS__, 'set_screen'), 10, 3);
+        foreach ($per_page_array as $option_name) {
+            add_filter('set_screen_option_' . $option_name, array(__CLASS__, 'set_screen'), 10, 3);
         }
     }
 
-    public static function set_screen( $status, $option, $value ) {
+    public static function set_screen($status, $option, $value) {
         return $value;
     }
 
@@ -84,13 +84,13 @@ class Ays_Pb_Admin {
 
         // Extended styles
         wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( $this->plugin_name . '-animate', plugin_dir_url( __FILE__ ) . 'css/animate.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
-        wp_enqueue_style( $this->plugin_name . '-select2', plugin_dir_url( __FILE__ ) . 'css/ays-pb-select2.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name . '-animate', plugin_dir_url(__FILE__) . 'css/animate.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
+        wp_enqueue_style( $this->plugin_name . '-select2', plugin_dir_url(__FILE__) . 'css/ays-pb-select2.min.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name . '-jquery-datetimepicker', plugin_dir_url(__FILE__) . 'css/jquery-ui-timepicker-addon.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name . '-codemirror', plugin_dir_url(__FILE__) . 'css/ays-pb-codemirror.css', array(), $this->version, 'all');
-        wp_enqueue_style( $this->plugin_name . '-dropdown', plugin_dir_url(__FILE__) .  '/css/dropdown.min.css', array(), $this->version, 'all');
-        wp_enqueue_style( $this->plugin_name . '-transition', plugin_dir_url(__FILE__) .  '/css/transition.min.css', array(), $this->version, 'all');
+        wp_enqueue_style( $this->plugin_name . '-dropdown', plugin_dir_url(__FILE__) .  'css/dropdown.min.css', array(), $this->version, 'all');
+        wp_enqueue_style( $this->plugin_name . '-transition', plugin_dir_url(__FILE__) .  'css/transition.min.css', array(), $this->version, 'all');
 
         // Manual styles
         wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ays-pb-admin.css', array(), $this->version, 'all' );
@@ -128,7 +128,7 @@ class Ays_Pb_Admin {
 
         $pb_ajax_data = array(
             'ajax' => admin_url('admin-ajax.php'),
-            'post_types' => $all_post_types,   
+            'post_types' => $all_post_types,
             'nextPopupPage' => __( 'Are you sure you want to go to the next popup page?', "ays-popup-box"),
             'prevPopupPage' => __( 'Are you sure you want to go to the previous popup page?', "ays-popup-box"),
             'AYS_PB_ADMIN_URL' => AYS_PB_ADMIN_URL,
@@ -138,10 +138,10 @@ class Ays_Pb_Admin {
             'addImage' => __( "Add Image", "ays-popup-box" ),
             'editImage' => __( "Edit Image", "ays-popup-box" ),
             'pleaseEnterMore' => __( "Please select more", "ays-popup-box" ),
+            'loadResource' => __( "Can't load resource.", "ays-popup-box" ),
             'errorMsg' => __( "Error", "ays-popup-box" ),
             'somethingWentWrong' => __( "Maybe something went wrong.", "ays-popup-box" ),
             'activated' => __( "Activated", "ays-popup-box" ),
-            'loadResource' => __( "Can't load resource.", "ays-popup-box" ),
             'pbBannerDate' => $pb_banner_date,
         );
 
@@ -163,8 +163,8 @@ class Ays_Pb_Admin {
 		wp_enqueue_script( $this->plugin_name . '-bootstrap', plugin_dir_url(__FILE__) . '/js/bootstrap.min.js', array( 'jquery' ), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-select2', plugin_dir_url(__FILE__) . '/js/select2.min.js', array('jquery'), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-sweetalert', plugin_dir_url(__FILE__) . '/js/ays-pb-sweetalert2.all.min.js', array('jquery'), $this->version, true );
-        wp_enqueue_script( $this->plugin_name . '-jquery.datetimepicker', plugin_dir_url( __FILE__ ) . 'js/jquery-ui-timepicker-addon.js', array( 'jquery' ), $this->version, true );
-        wp_enqueue_script( $this->plugin_name . '-wp-color-picker-alpha', plugin_dir_url( __FILE__ ) . 'js/wp-color-picker-alpha.min.js',array( 'wp-color-picker' ),$this->version, true );
+        wp_enqueue_script( $this->plugin_name . '-jquery.datetimepicker', plugin_dir_url(__FILE__) . 'js/jquery-ui-timepicker-addon.js', array( 'jquery' ), $this->version, true );
+        wp_enqueue_script( $this->plugin_name . '-wp-color-picker-alpha', plugin_dir_url(__FILE__) . 'js/wp-color-picker-alpha.min.js',array( 'wp-color-picker' ),$this->version, true );
         wp_enqueue_script( $this->plugin_name . '-dropdown-min', plugin_dir_url(__FILE__) . '/js/dropdown.min.js', array('jquery'), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-transition-min', plugin_dir_url(__FILE__) . '/js/transition.min.js', array('jquery'), $this->version, true );
         wp_localize_script( $this->plugin_name . '-wp-color-picker-alpha', 'wpColorPickerL10n', $color_picker_strings );
@@ -175,8 +175,8 @@ class Ays_Pb_Admin {
         wp_enqueue_script( $this->plugin_name . 'custom-dropdown-adapter', plugin_dir_url( __FILE__ ) . 'js/ays-select2-dropdown-adapter.js', array('jquery'), $this->version, true );
         wp_localize_script( $this->plugin_name, 'pb', $pb_ajax_data );
 
-        if( Ays_Pb_Data::ays_version_compare( $wp_version, '>=', '5.5' ) ){
-            wp_enqueue_script( $this->plugin_name . 'ays-wp-load-scripts', plugin_dir_url(__FILE__) . 'js/ays-wp-load-scripts.js', array(), $this->version, true );
+        if (Ays_Pb_Data::ays_version_compare($wp_version, '>=', '5.5')) {
+            wp_enqueue_script( $this->plugin_name . '-wp-load-scripts', plugin_dir_url(__FILE__) . 'js/ays-wp-load-scripts.js', array(), $this->version, true );
         }
 	}
 
@@ -294,7 +294,7 @@ class Ays_Pb_Admin {
         add_action( "load-$hook_reports", array($this, 'add_tabs') );
     }
 
-    public function add_plugin_subscribes_submenu() {
+    public function add_plugin_submissions_submenu() {
         $hook_subscribes = add_submenu_page(
             $this->plugin_name,
             __('Submissions', "ays-popup-box"),

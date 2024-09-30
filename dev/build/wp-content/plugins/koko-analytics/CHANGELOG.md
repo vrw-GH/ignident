@@ -1,5 +1,19 @@
 # Changelog
 
+#### 1.3.14 - Sep 23, 2024
+
+- Explicitly call `sprintf` from global namespace to benefit from upcoming sprintf related performance improvements in PHP 8.4.
+- Demo settings from [Koko Analytics Pro](https://www.kokoanalytics.com/pricing/) on plugin settings page.
+
+
+#### 1.3.13 - Sep 17, 2024
+
+- Ensure `Stats::get_totals` always returns a valid object.
+- Escape return values from `add_query_arg` to prevent reflected XSS attacks.
+- Use correct IP address even if client is behind proxy.
+- Various minor template performance improvements.
+
+
 #### 1.3.12 - Aug 18, 2024
 
 - Fix double pageview counts introduced in version 1.3.11.

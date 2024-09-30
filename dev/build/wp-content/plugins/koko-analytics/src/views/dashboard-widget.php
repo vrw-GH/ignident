@@ -17,7 +17,7 @@
 <div id="ka-dashboard-widget-realtime">
     <h3><?php echo esc_html__('Realtime', 'koko-analytics'); ?></h3>
     <p>
-        <?php echo sprintf(esc_html__('Your site had a total of %s pageviews today, %s of which  were in the last hour.', 'koko-analytics'), '<strong>' . $totals->pageviews . '</strong>', '<strong>' . $realtime . '</strong>'); ?>
+        <?php echo \sprintf(esc_html__('Your site had a total of %s pageviews today, %s of which  were in the last hour.', 'koko-analytics'), '<strong>' . $totals->pageviews . '</strong>', '<strong>' . $realtime . '</strong>'); ?>
     </p>
 </div>
 
@@ -30,18 +30,6 @@
         If nothing shows up, check your browser console for any error messages.
     </div>
 </div>
-
-<style>
-    .ka-ul li {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-    .ka-ul span {
-        min-width: 24px;
-        display: inline-block;
-    }
-</style>
 
 <?php if ($number_of_top_items > 0 && (count($posts) > 0 || count($referrers) > 0)) { ?>
 <div id="ka-dashboard-widget-top-pages">
@@ -79,7 +67,7 @@
 </div>
 <?php } ?>
 
-<p style="margin-top: 2em;">
+<p>
     <a href="<?php echo esc_attr(admin_url('index.php?page=koko-analytics')); ?>">
         <?php echo esc_html__('View all statistics', 'koko-analytics'); ?>
     </a>

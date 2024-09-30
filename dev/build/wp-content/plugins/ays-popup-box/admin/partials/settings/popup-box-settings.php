@@ -232,7 +232,7 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                                 </div>
                             </fieldset>
                             <hr>
-                            <fieldset class="who_have_permission"> 
+                            <fieldset> 
                                 <legend>
                                     <strong style="font-size:30px;"><img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/globe.svg"?>"></strong>
                                     <h5><?php echo __('Who will have permission to Popup menu',"ays-popup-box")?></h5>

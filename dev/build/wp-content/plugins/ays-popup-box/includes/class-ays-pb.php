@@ -211,7 +211,7 @@ class Ays_Pb {
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_reports_submenu', 90 );
 
         // Add Subscribes submenu
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_subscribes_submenu', 95 );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_submissions_submenu', 95 );
 
 		// Add Export/Import submenu
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_export_import_submenu', 100 );
