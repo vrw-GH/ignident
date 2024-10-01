@@ -1240,6 +1240,69 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Open by scrolling down mobile
         $pb_scroll_top_mobile = (isset($_POST['ays_pb_scroll_top_mobile']) && $_POST['ays_pb_scroll_top_mobile'] != '') ? wp_unslash( sanitize_text_field($_POST['ays_pb_scroll_top_mobile']) ) : 0;
 
+        // Close by pressing ESC
+        $close_popup_esc = (isset($_POST['close_popup_esc']) && $_POST['close_popup_esc'] == 'on') ? 'on' : 'off';
+
+        // Close by clicking outside the box
+        $close_popup_overlay = (isset($_POST['close_popup_overlay']) && $_POST['close_popup_overlay'] == 'on') ? stripslashes( sanitize_text_field($_POST['close_popup_overlay']) ) : 'off';
+
+        // Close by clicking outside the box mobile
+        $close_popup_overlay_mobile = (isset($_POST['close_popup_overlay_mobile']) && $_POST['close_popup_overlay_mobile'] == 'on') ? stripslashes( sanitize_text_field($_POST['close_popup_overlay_mobile']) ) : 'off';
+
+        // Hide close button
+        $closeButton = (isset($_POST['ays-pb']['close_button']) && $_POST['ays-pb']['close_button'] == 'on') ? 'on' : 'off';
+
+        // Activate close button while hovering on popup
+        $ays_pb_hover_show_close_btn = (isset($_POST['ays_pb_show_close_btn_hover_container']) && $_POST['ays_pb_show_close_btn_hover_container'] == 'on') ? 'on' : 'off';
+
+        // Close button position
+        $close_button_position = (isset($_POST['ays_pb_close_button_position']) && $_POST['ays_pb_close_button_position'] != '') ? stripslashes( sanitize_text_field($_POST['ays_pb_close_button_position']) ) : 'right-top';
+
+        // Enable different close button position for mobile
+        $enable_close_button_position_mobile = (isset($_POST['ays_pb_enable_close_button_position_mobile']) && $_POST['ays_pb_enable_close_button_position_mobile'] == 'on') ? 'on' : 'off';
+
+        // Close button position mobile
+        $close_button_position_mobile = (isset($_POST['ays_pb_close_button_position_mobile']) && $_POST['ays_pb_close_button_position_mobile'] != '') ? stripslashes( sanitize_text_field($_POST['ays_pb_close_button_position_mobile']) ) : 'right-top';
+
+        // Close button text
+        $close_button_text = (isset($_POST['ays_pb_close_button_text']) && $_POST['ays_pb_close_button_text'] != '') ? sanitize_text_field($_POST['ays_pb_close_button_text']) : '✕';
+
+        // Enable different close button text for mobile
+        $enable_close_button_text_mobile = (isset($_POST['ays_pb_enable_close_button_text_mobile']) && $_POST['ays_pb_enable_close_button_text_mobile'] == 'on') ? 'on' : 'off';
+
+        // Close button text mobile
+        $close_button_text_mobile = (isset($_POST['ays_pb_close_button_text_mobile']) && $_POST['ays_pb_close_button_text_mobile'] != '') ? sanitize_text_field($_POST['ays_pb_close_button_text_mobile']) : '✕';
+
+        // Close button hover text
+        $close_button_hover_text = (isset($_POST['ays_pb_close_button_hover_text']) && $_POST['ays_pb_close_button_hover_text'] != '') ? sanitize_text_field($_POST['ays_pb_close_button_hover_text']) : '';
+
+        // Autoclose delay (in seconds)
+		$autoclose = (isset($_POST['ays-pb']['autoclose']) && $_POST['ays-pb']['autoclose'] != '') ? absint( intval($_POST['ays-pb']['autoclose']) ) : '';
+
+        // Enable different autoclose delay mobile
+        $enable_autoclose_delay_text_mobile = (isset($_POST['ays_pb_enable_autoclose_delay_text_mobile']) && $_POST['ays_pb_enable_autoclose_delay_text_mobile'] == 'on') ? 'on' : 'off';
+
+        // Autoclose delay mobile (in seconds)
+		$autoclose_mobile = (isset($_POST['ays_pb_autoclose_mobile']) && $_POST['ays_pb_autoclose_mobile'] != '') ? sanitize_text_field($_POST['ays_pb_autoclose_mobile'])  : '';
+
+        // Hide timer
+        $enable_hide_timer = (isset($_POST['ays_pb_hide_timer']) && $_POST['ays_pb_hide_timer'] == 'on') ? 'on' : 'off';
+
+        // Hide timer mobile
+        $enable_hide_timer_mobile = (isset($_POST['ays_pb_hide_timer_mobile']) && $_POST['ays_pb_hide_timer_mobile'] == 'on') ? 'on' : 'off';
+
+        // Autoclose on video completion
+        $enable_autoclose_on_completion = (isset($_POST['ays_pb_autoclose_on_completion']) && $_POST['ays_pb_autoclose_on_completion'] == 'on') ? 'on' : 'off';
+
+        // Close button delay
+        $close_button_delay = (isset($_POST['ays_pb_close_button_delay']) && $_POST['ays_pb_close_button_delay'] != '') ? abs( intval($_POST['ays_pb_close_button_delay']) ) : '';
+
+        // Enable different close button delay mobile
+        $enable_close_button_delay_for_mobile = (isset($_POST['ays_pb_enable_close_button_delay_for_mobile']) && $_POST['ays_pb_enable_close_button_delay_for_mobile'] == 'on') ? 'on' : 'off';
+
+        // Close button delay mobile
+        $close_button_delay_for_mobile = (isset($_POST['ays_pb_close_button_delay_for_mobile']) && $_POST['ays_pb_close_button_delay_for_mobile'] != '') ? abs( intval($_POST['ays_pb_close_button_delay_for_mobile']) ) : '';
+
         // Width
 		$width = ( isset( $_POST['ays-pb']["width"] ) && $_POST['ays-pb']["width"] != '' ) ? absint( intval( $_POST['ays-pb']["width"] ) ) : '';
 
@@ -1261,15 +1324,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         // Max-Height Measurement Unit Mobile
         $popup_max_height_by_percentage_px_mobile = ( isset($_POST['ays_popup_max_height_by_percentage_px_mobile']) && $_POST['ays_popup_max_height_by_percentage_px_mobile'] != '' ) ? stripslashes( sanitize_text_field($_POST['ays_popup_max_height_by_percentage_px_mobile']) ) : 'pixels';
-
-        //Autoclose
-		$autoclose = ( isset( $_POST['ays-pb']["autoclose"] ) && $_POST['ays-pb']["autoclose"] != '' ) ? absint( intval( $_POST['ays-pb']["autoclose"] ) ) : '';
-
-        //Autoclose mobile
-		$autoclose_mobile = ( isset( $_POST["ays_pb_autoclose_mobile"] ) && $_POST["ays_pb_autoclose_mobile"] != '' ) ? sanitize_text_field( $_POST["ays_pb_autoclose_mobile"] )  : '';
-        
-        // Enable different autoclose mobile text for mobile
-        $enable_autoclose_delay_text_mobile = ( isset($_POST['ays_pb_enable_autoclose_delay_text_mobile']) && $_POST['ays_pb_enable_autoclose_delay_text_mobile'] == 'on' ) ? 'on' : 'off';
 
         //Show once per session
 		$cookie = ( isset( $_POST['ays-pb']["cookie"] ) && $_POST['ays-pb']["cookie"] != '' ) ? absint( intval( $_POST['ays-pb']["cookie"] ) ) : 0;
@@ -1393,15 +1447,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         $pb_background_gradient_color_2_mobile = !isset($_POST['ays_background_gradient_color_2_mobile']) ? '' : stripslashes(sanitize_text_field( $_POST['ays_background_gradient_color_2_mobile'] ));
         $pb_gradient_direction_mobile = !isset($_POST['ays_pb_gradient_direction_mobile']) ? '' : stripslashes( sanitize_text_field($_POST['ays_pb_gradient_direction_mobile']) );
 
-        //Close button delay
-        $close_button_delay = (isset($_POST['ays_pb_close_button_delay']) && $_POST['ays_pb_close_button_delay'] != '') ? abs(intval($_POST['ays_pb_close_button_delay'])) : '';
-
-        //Close button delay
-        $close_button_delay_for_mobile = (isset($_POST['ays_pb_close_button_delay_for_mobile']) && $_POST['ays_pb_close_button_delay_for_mobile'] != '') ? abs(intval($_POST['ays_pb_close_button_delay_for_mobile'])) : '';
-        
-        //Enable different Close button delay mobile text for mobile
-        $enable_close_button_delay_for_mobile = ( isset($_POST['ays_pb_enable_close_button_delay_for_mobile']) && $_POST['ays_pb_enable_close_button_delay_for_mobile'] == 'on' ) ? 'on' : 'off';
-
         //Enable PopupBox sound option
         $enable_pb_sound = (isset($_POST['ays_pb_enable_sounds']) && $_POST['ays_pb_enable_sounds'] == "on") ? 'on' : 'off';
 
@@ -1435,18 +1480,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         //Hide popup on mobile
         $pb_mobile = (isset($_POST['ays_pb_mobile']) && $_POST['ays_pb_mobile'] == 'on') ? 'on' : 'off';
 
-        //Close button text
-        $close_button_text = (isset($_POST['ays_pb_close_button_text']) && $_POST['ays_pb_close_button_text'] != '') ? sanitize_text_field($_POST['ays_pb_close_button_text']) : '✕';
-
-        // Enable different close button text for mobile
-        $enable_close_button_text_mobile = ( isset($_POST['ays_pb_enable_close_button_text_mobile']) && $_POST['ays_pb_enable_close_button_text_mobile'] == 'on' ) ? 'on' : 'off';
-
-        //Close button text mobile
-        $close_button_text_mobile = (isset($_POST['ays_pb_close_button_text_mobile']) && $_POST['ays_pb_close_button_text_mobile'] != '') ? sanitize_text_field($_POST['ays_pb_close_button_text_mobile']) : '✕';
-
-        //Close button hover text
-        $close_button_hover_text = (isset($_POST['ays_pb_close_button_hover_text']) && $_POST['ays_pb_close_button_hover_text'] != '') ? sanitize_text_field($_POST['ays_pb_close_button_hover_text']) : '';
-
         // PopupBox width for mobile option
         $mobile_width = (isset($_POST['ays_pb_mobile_width']) && $_POST['ays_pb_mobile_width'] != "") ?abs(intval($_POST['ays_pb_mobile_width']))  : '';
 
@@ -1456,20 +1489,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // PopupBox height for mobile option
         $mobile_height = (isset($_POST['ays_pb_mobile_height']) && $_POST['ays_pb_mobile_height'] != "") ? abs(intval($_POST['ays_pb_mobile_height']))  : '';
 
-        // Close button position option
-        $close_button_position = (isset($_POST['ays_pb_close_button_position']) && $_POST['ays_pb_close_button_position'] != '') ? stripslashes( sanitize_text_field($_POST['ays_pb_close_button_position']) ) : 'right-top';
-
-        // Enable different close button position for mobile
-        $enable_close_button_position_mobile = ( isset($_POST['ays_pb_enable_close_button_position_mobile']) && $_POST['ays_pb_enable_close_button_position_mobile'] == 'on' ) ? 'on' : 'off';
-
-        //Close button position option mobile
-        $close_button_position_mobile = ( isset($_POST['ays_pb_close_button_position_mobile']) && $_POST['ays_pb_close_button_position_mobile'] != '' ) ? stripslashes( sanitize_text_field($_POST['ays_pb_close_button_position_mobile']) ) : 'right-top';
-
         //Show PopupBox only once
         $show_only_once = (isset($_POST['ays_pb_show_only_once']) && $_POST['ays_pb_show_only_once'] == 'on') ? 'on' : 'off';
-
-        //close popup by esc
-        $close_popup_esc = (isset($_POST['close_popup_esc']) && $_POST['close_popup_esc'] == 'on') ? 'on' : 'off';
 
         //popup width with percentage
         $popup_width_by_percentage_px = (isset($_POST['ays_popup_width_by_percentage_px']) && $_POST['ays_popup_width_by_percentage_px'] != '') ? stripslashes( sanitize_text_field($_POST['ays_popup_width_by_percentage_px']) ) : 'pixels';
@@ -1486,24 +1507,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //font-family
         $pb_font_family = (isset($_POST['ays_pb_font_family']) && $_POST['ays_pb_font_family'] != '') ? stripslashes( sanitize_text_field($_POST['ays_pb_font_family']) ) : 'inherit';
-        
-        //close popup by clicking overlay
-        $close_popup_overlay = (isset($_POST['close_popup_overlay']) && $_POST['close_popup_overlay'] == 'on') ? stripslashes( sanitize_text_field($_POST['close_popup_overlay']) ) : 'off';
-
-        //close popup by clicking overlay mobile
-        $close_popup_overlay_mobile = (isset($_POST['close_popup_overlay_mobile']) && $_POST['close_popup_overlay_mobile'] == 'on') ? stripslashes( sanitize_text_field($_POST['close_popup_overlay_mobile']) ) : 'off';
 
         //open full screen
         $enable_pb_fullscreen = (isset($_POST['enable_pb_fullscreen']) && $_POST['enable_pb_fullscreen'] == 'on') ? 'on' : 'off';
-       
-        //hide timer
-        $enable_hide_timer = (isset($_POST['ays_pb_hide_timer']) && $_POST['ays_pb_hide_timer'] == 'on') ? 'on' : 'off';
-
-        //hide timer
-        $enable_hide_timer_mobile = (isset($_POST['ays_pb_hide_timer_mobile']) && $_POST['ays_pb_hide_timer_mobile'] == 'on') ? 'on' : 'off';
-
-        //autoclose on video compltion
-        $enable_autoclose_on_completion = (isset($_POST['ays_pb_autoclose_on_completion']) && $_POST['ays_pb_autoclose_on_completion'] == 'on') ? 'on' : 'off';
 
         // Social Media links
         $enable_social_links = (isset($_POST['ays_pb_enable_social_links']) && $_POST['ays_pb_enable_social_links'] == "on") ? 'on' : 'off';
@@ -1552,9 +1558,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //Border style mobile
         $border_style_mobile = ( isset($_POST['ays_pb_border_style_mobile']) && $_POST['ays_pb_border_style_mobile'] !== '' ) ? stripslashes( sanitize_text_field($_POST['ays_pb_border_style_mobile']) ) : '';
-       
-        //Show close button by hovering Popup Container
-        $ays_pb_hover_show_close_btn = (isset($_POST['ays_pb_show_close_btn_hover_container']) && $_POST['ays_pb_show_close_btn_hover_container'] == 'on' ) ? 'on' : 'off';
 
         // Disable scrolling
         $disable_scroll = (isset($_POST['disable_scroll']) && $_POST['disable_scroll'] == 'on') ? 'on' : 'off';
@@ -1660,10 +1663,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //Show Popup Desc Mobile
         $show_popup_desc_mobile = ( isset($_POST['show_popup_desc_mobile']) && $_POST['show_popup_desc_mobile'] == 'on' ) ? 'On' : 'Off';
-        
-		if(isset($_POST['ays-pb']["close_button"]) && $_POST['ays-pb']["close_button"] == 'on'){
-			$closeButton = 'on';
-		}else{ $closeButton = 'off';}
 
         if($show_all == 'yes'){
             $view_place = '';

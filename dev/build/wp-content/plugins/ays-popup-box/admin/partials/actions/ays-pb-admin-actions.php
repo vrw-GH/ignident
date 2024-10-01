@@ -2014,13 +2014,12 @@ $ays_users_roles = $wp_roles->roles;
                                             <input type="checkbox" id="ays_pb_notification_button_1_redirect_to_new_tab" name="ays_pb_notification_button_1_redirect_to_new_tab" <?php echo $notification_button_1_redirect_to_new_tab ? 'checked' : ''; ?>>
                                         </div>
                                     </div>
-                                    <hr>
                                 </div>
                             </div>
                             <div class="ays-pb-accordion-options-main-container">
                                 <div class="ays-pb-accordion-header">
                                     <?php echo $pb_acordion_svg_html; ?>
-                                    <p class="ays-subtitle"><?php echo  __('Styles', "ays-popup-box") ?></p>
+                                    <p class="ays-subtitle"><?php echo  __('Background styles', "ays-popup-box") ?></p>
                                 </div>
                                 <hr class="ays-pb-bolder-hr"/>
                                 <div class="ays-pb-accordion-body">
@@ -2051,7 +2050,15 @@ $ays_users_roles = $wp_roles->roles;
                                             <input type="text" id="ays_pb_notification_button_1_bg_hover_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_bg_hover_color" value="<?php echo $notification_button_1_bg_hover_color ?>" data-default-color="#F66123" data-alpha="true" />
                                         </div>
                                     </div>
-                                    <hr>
+                                </div>
+                            </div>
+                            <div class="ays-pb-accordion-options-main-container">
+                                <div class="ays-pb-accordion-header">
+                                    <?php echo $pb_acordion_svg_html; ?>
+                                    <p class="ays-subtitle"><?php echo  __('Font styles', "ays-popup-box") ?></p>
+                                </div>
+                                <hr class="ays-pb-bolder-hr"/>
+                                <div class="ays-pb-accordion-body">
                                     <div class="form-group row">
                                         <div class="col-sm-3">
                                             <label for="ays_pb_notification_button_1_text_color">
@@ -2191,7 +2198,15 @@ $ays_users_roles = $wp_roles->roles;
                                             </select>
                                         </div>
                                     </div>
-                                    <hr>
+                                </div>
+                            </div>
+                            <div class="ays-pb-accordion-options-main-container">
+                                <div class="ays-pb-accordion-header">
+                                    <?php echo $pb_acordion_svg_html; ?>
+                                    <p class="ays-subtitle"><?php echo  __('Border styles', "ays-popup-box") ?></p>
+                                </div>
+                                <hr class="ays-pb-bolder-hr"/>
+                                <div class="ays-pb-accordion-body">
                                     <div class="form-group row">
                                         <div class="col-sm-3">
                                             <label for="ays_pb_notification_button_1_border_radius">
@@ -2264,7 +2279,15 @@ $ays_users_roles = $wp_roles->roles;
                                             </select>
                                         </div>
                                     </div>
-                                    <hr>
+                                </div>
+                            </div>
+                            <div class="ays-pb-accordion-options-main-container">
+                                <div class="ays-pb-accordion-header">
+                                    <?php echo $pb_acordion_svg_html; ?>
+                                    <p class="ays-subtitle"><?php echo  __('Container styles', "ays-popup-box") ?></p>
+                                </div>
+                                <hr class="ays-pb-bolder-hr"/>
+                                <div class="ays-pb-accordion-body">
                                     <div class="form-group row">
                                         <div class="col-sm-3">
                                             <label for="ays_pb_notification_button_1_padding_left_right">
