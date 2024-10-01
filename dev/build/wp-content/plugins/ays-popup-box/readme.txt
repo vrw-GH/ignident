@@ -4,7 +4,7 @@ Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
 Tested up to: 6.6.2
-Stable tag: 4.8.4
+Stable tag: 4.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -334,6 +334,10 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 4.8.5 =
+* Improved: Styles on the admin dashboard
+* Updated: POT file
 
 = 4.8.4 =
 * Added: Min-width option for notification popup logo
