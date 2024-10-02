@@ -1513,24 +1513,24 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			return '';
 		}
 
-
 		/**
 		 * Get field label
 		 *
-		 * @param  string $key
+		 * @param string $key Field meta key
 		 *
 		 * @return string
 		 */
-		function get_label( $key ) {
-			$label = '';
+		public function get_label( $key ) {
+			$label      = '';
+			$fields     = UM()->builtin()->all_user_fields;
+			$field_data = array_key_exists( $key, $fields ) ? $fields[ $key ] : array();
 
-			$fields = UM()->builtin()->all_user_fields;
-			if ( isset( $fields[ $key ]['label'] ) ) {
-				$label = stripslashes( $fields[ $key ]['label'] );
+			if ( array_key_exists( 'label', $field_data ) ) {
+				$label = stripslashes( $field_data['label'] );
 			}
 
-			if ( empty( $label ) && isset( $fields[ $key ]['title'] ) ) {
-				$label = stripslashes( $fields[ $key ]['title'] );
+			if ( empty( $label ) && array_key_exists( 'title', $field_data ) ) {
+				$label = stripslashes( $field_data['title'] );
 			}
 
 			/**
@@ -1556,12 +1556,10 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			 * }
 			 * add_filter( 'um_change_field_label', 'my_change_field_label', 10, 3 );
 			 */
-			$label = apply_filters( 'um_change_field_label', $label, $key, $fields[ $key ] );
+			$label = apply_filters( 'um_change_field_label', $label, $key, $field_data );
 
-			$label = sprintf( __( '%s', 'ultimate-member' ), $label );
-			return $label;
+			return sprintf( __( '%s', 'ultimate-member' ), $label );
 		}
-
 
 		/**
 		 * Get field title
@@ -2112,7 +2110,6 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			return apply_filters( 'um_field_non_utf8_value', $option_value );
 		}
 
-
 		/**
 		 * Getting the fields that need to be disabled in edit mode (profile)
 		 *
@@ -2121,6 +2118,13 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @return array
 		 */
 		public function get_restricted_fields_for_edit( $_um_profile_id = false ) {
+			static $cache = array();
+
+			$cache_key = absint( $_um_profile_id );
+			if ( array_key_exists( $cache_key, $cache ) ) {
+				return $cache[ $cache_key ];
+			}
+
 			// fields that need to be disabled in edit mode (profile)
 			$arr_restricted_fields = array( 'user_email', 'username', 'user_login', 'user_password', '_um_last_login', 'user_registered' );
 			/**
@@ -2143,7 +2147,9 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			 * }
 			 * add_filter( 'um_user_profile_restricted_edit_fields', 'my_make_email_editable', 10, 2 );
 			 */
-			return apply_filters( 'um_user_profile_restricted_edit_fields', $arr_restricted_fields, $_um_profile_id );
+			$cache[ $cache_key ] = apply_filters( 'um_user_profile_restricted_edit_fields', $arr_restricted_fields, $_um_profile_id );
+
+			return $cache[ $cache_key ];
 		}
 
 		/**
@@ -2829,6 +2835,8 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 						 * add_filter( 'um_form_fields_textarea_settings', 'function_name', 10, 2 );
 						 */
 						$textarea_settings = apply_filters( 'um_form_fields_textarea_settings', $textarea_settings, $data );
+
+						$field_value = empty( $field_value ) ? '' : $field_value;
 
 						// turn on the output buffer
 						ob_start();
@@ -4297,6 +4305,11 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			// Get whole field data.
 			if ( is_array( $data ) ) {
 				$data = $this->get_field( $key );
+			}
+
+			// Invalid field data.
+			if ( ! is_array( $data ) ) {
+				return '';
 			}
 
 			//hide if empty type
