@@ -1,4 +1,0 @@
-**/*.mpg
-**/*.mp4
-!**/*media/*.mpg
-!**/*media/*.mp4

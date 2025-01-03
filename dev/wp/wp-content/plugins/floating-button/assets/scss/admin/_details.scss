@@ -1,0 +1,23 @@
+.wowp-details {
+  width: 100%;
+  box-sizing: border-box;
+
+  summary {
+    height: 20px;
+    color: var(--wowp-dark);
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  &[open] {
+    summary {
+      color: var(--wowp-orange);
+    }
+  }
+
+  > div {
+    padding: 0 10px;
+    margin: 15px 0;
+  }
+}

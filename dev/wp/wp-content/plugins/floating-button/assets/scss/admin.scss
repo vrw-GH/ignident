@@ -1,0 +1,50 @@
+:root {
+  --wowp-blue:  #005BBF;
+  --wowp-yellow: #FFD500;
+  --wowp-border: #cccccc;
+  --wowp-dark: #14102C;
+  --wowp-orange: #E86E2C;
+  --wowp-bg: #EEF3EB;
+  --wowp-success: #00BF04;
+  --wowp-danger: #BF0400;
+}
+
+.wowp-box {
+  padding: 1.5rem 1.25rem;
+  margin-top: 50px;
+  position: relative;
+  box-sizing: border-box;
+  background: #ffffff;
+  background-clip: padding-box;
+  border: solid 2px transparent;
+  border-radius: 4px;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -2px;
+    border-radius: inherit;
+    background: linear-gradient(to bottom,  var(--wowp-blue),  var(--wowp-yellow));
+  }
+}
+
+@import "admin/header";
+@import "admin/menu";
+@import "admin/list";
+@import "admin/form";
+@import "admin/notice";
+@import "admin/tools";
+@import "admin/settings";
+@import "admin/sidebar";
+@import "admin/buttons";
+@import "admin/details";
+@import "admin/helper";
+@import "admin/features";
+@import "admin/boxes";
+@import "admin/item";
+@import "admin/tabs";
+@import "admin/display";
+@import "admin/changelog";
+
+

@@ -1,0 +1,37 @@
+.flBtn {
+  --flBtn-label-size: calc(var(--flBtn-size) * 1.5);
+  --flBtn-label-box: calc(var(--flBtn-box) * 1.5);
+  --flBtn-tooltip-size: initial;
+  --flBtn-tooltip-ul-size: initial;
+
+  > ul a {
+    width: calc(var(--flBtn-box));
+    height: calc(var(--flBtn-box));
+    font-size: calc(var(--flBtn-size));
+    &[data-tooltip]:before {
+      font-size: var(--flBtn-tooltip-ul-size);
+    }
+  }
+
+  > .flBtn-label {
+    width: var(--flBtn-label-box);
+    height: var(--flBtn-label-box);
+    font-size: var(--flBtn-label-size);
+    &[data-tooltip]:before {
+      font-size: var(--flBtn-tooltip-size);
+    }
+  }
+
+  &.flBtn-size-small {
+    --flBtn-size: 12px;
+  }
+
+  &.flBtn-size-medium {
+    --flBtn-size: 16px;
+  }
+
+  &.flBtn-size-large {
+    --flBtn-size: 20px;
+  }
+
+}
