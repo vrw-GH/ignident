@@ -1,0 +1,578 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2023-07-08 14:05+0530\n"
+"PO-Revision-Date: 2023-07-08 14:05+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: esc_html;esc_attr_e;esc_html_e;esc_html__;esc_attr__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-autobackup-admin.php:108
+#: admin/class-autobackup-admin.php:109 admin/partials/dashboard.php:37
+msgid "Auto Backup"
+msgstr ""
+
+#: admin/class-autobackup-admin.php:119
+#: admin/class-autobackup-admin.php:120 admin/partials/cloud_storage.php:60
+msgid "Cloud Storage"
+msgstr ""
+
+#: admin/class-autobackup-admin.php:128
+#: admin/class-autobackup-admin.php:129
+msgid "Schedule"
+msgstr ""
+
+#: admin/class-autobackup-admin.php:137
+#: admin/class-autobackup-admin.php:138 admin/partials/import.php:26
+msgid "Import"
+msgstr ""
+
+#: admin/class-autobackup-admin.php:146
+#: admin/class-autobackup-admin.php:147
+msgid "Configuration"
+msgstr ""
+
+#: admin/class-autobackup-admin.php:196
+#: admin/class-autobackup-admin.php:894
+#: admin/class-autobackup-admin.php:1029
+msgid "Class ZipArchive not found, this is required for taking backup."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:352
+#: admin/class-autobackup-admin.php:1015
+#: admin/class-autobackup-admin.php:1154
+msgid "Backup has been created successfully."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:354
+#: admin/class-autobackup-admin.php:1017
+#: admin/class-autobackup-admin.php:1156
+#: admin/class-autobackup-admin.php:1212
+msgid "Something is going wrong."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:442
+#: admin/class-autobackup-admin.php:533
+msgid "Please connect your Dropbox account."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:452
+#: admin/class-autobackup-admin.php:545
+#: admin/class-autobackup-admin.php:555
+#: admin/class-autobackup-admin.php:569
+#: admin/class-autobackup-admin.php:579
+msgid "Please connect your Google Drive account."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:466
+msgid "Please connect your S3 account."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:478
+msgid "Please connect your NeevCloud account."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:489
+msgid "Please connect your FTP account."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:506
+#: admin/class-autobackup-admin.php:626
+#: admin/class-autobackup-admin.php:784
+msgid "success"
+msgstr ""
+
+#: admin/class-autobackup-admin.php:508
+msgid "file not found"
+msgstr ""
+
+#: admin/class-autobackup-admin.php:520
+#: admin/class-autobackup-admin.php:711
+msgid "Access is denied!"
+msgstr ""
+
+#: admin/class-autobackup-admin.php:565
+msgid "Bucket is not public or file does not exists."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:611
+msgid "Error caught: "
+msgstr ""
+
+#: admin/class-autobackup-admin.php:616
+msgid "File not found."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:780
+msgid "wrong selection, please check error."
+msgstr ""
+
+#: admin/class-autobackup-admin.php:1209
+msgid "File type not supported"
+msgstr ""
+
+#: admin/class-autobackup-ftp-api.php:82
+#: admin/class-autobackup-ftp-api.php:107
+msgid "Error uploading."
+msgstr ""
+
+#: admin/class-autobackup-ftp-api.php:128
+msgid "Could not delete"
+msgstr ""
+
+#: admin/class-autobackup-gdrive-api.php:58
+msgid "Failed to receieve access token"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:97
+msgid "Connect your cloud storage."
+msgstr ""
+
+#: admin/partials/cloud_storage.php:104
+msgid "NeevCloud Settings"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:111 admin/partials/cloud_storage.php:140
+msgid "Bucket Name"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:115 admin/partials/cloud_storage.php:145
+msgid "Access Key"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:119 admin/partials/cloud_storage.php:149
+msgid "Secret Key"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:125 admin/partials/cloud_storage.php:156
+#: admin/partials/cloud_storage.php:184 admin/partials/cloud_storage.php:213
+#: admin/partials/cloud_storage.php:245
+msgid "Submit"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:133
+msgid "AWS S3 Settings"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:142
+msgid "Bucket naming rules"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:151
+msgid "How to get credentials?"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:165
+msgid "Google Drive Settings"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:172
+msgid "Client ID"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:176
+msgid "Client secret"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:178 admin/partials/cloud_storage.php:207
+msgid "Click here to get credentials."
+msgstr ""
+
+#: admin/partials/cloud_storage.php:179 admin/partials/cloud_storage.php:208
+msgid "Note"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:179
+msgid ""
+"When you create your app, Google will ask you to add redirect URI. Please "
+"add following URI on that place"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:194
+msgid "Dropbox Settings"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:201
+msgid "App key"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:205
+msgid "App secret"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:208
+msgid ""
+"When you create your app, Dropbox will ask you to add redirect URI. Please "
+"add following URI on that place"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:223
+msgid "FTP Settings"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:230
+msgid "Host"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:232
+msgid "Enter the server host e.g. ftp.example.com"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:235
+msgid "FTP Username"
+msgstr ""
+
+#: admin/partials/cloud_storage.php:239
+msgid "FTP Password"
+msgstr ""
+
+#: admin/partials/dashboard.php:43
+msgid "Last Backup"
+msgstr ""
+
+#: admin/partials/dashboard.php:46 admin/partials/dashboard.php:55
+msgid "date-time"
+msgstr ""
+
+#: admin/partials/dashboard.php:52
+msgid "Last Restore"
+msgstr ""
+
+#: admin/partials/dashboard.php:61
+msgid "Create Backup"
+msgstr ""
+
+#: admin/partials/dashboard.php:66
+msgid "Backup Files"
+msgstr ""
+
+#: admin/partials/dashboard.php:70
+msgid "Backup Database"
+msgstr ""
+
+#: admin/partials/dashboard.php:74 admin/partials/schedule.php:52
+msgid "Backup Locations"
+msgstr ""
+
+#: admin/partials/dashboard.php:76 admin/partials/schedule.php:54
+msgid "Local Folder (Default)"
+msgstr ""
+
+#: admin/partials/dashboard.php:94
+msgid "Create"
+msgstr ""
+
+#: admin/partials/dashboard.php:103
+msgid "Backup History"
+msgstr ""
+
+#: admin/partials/dashboard.php:107 admin/partials/dashboard.php:193
+msgid "Delete"
+msgstr ""
+
+#: admin/partials/dashboard.php:108
+msgid "Select All"
+msgstr ""
+
+#: admin/partials/dashboard.php:116
+msgid "#"
+msgstr ""
+
+#: admin/partials/dashboard.php:118
+msgid "Backup Time"
+msgstr ""
+
+#: admin/partials/dashboard.php:119
+msgid "Backup Location"
+msgstr ""
+
+#: admin/partials/dashboard.php:120
+msgid "File Size"
+msgstr ""
+
+#: admin/partials/dashboard.php:121
+msgid "Backup Type"
+msgstr ""
+
+#: admin/partials/dashboard.php:122
+msgid "Action"
+msgstr ""
+
+#: admin/partials/dashboard.php:187
+msgid "Restore"
+msgstr ""
+
+#: admin/partials/dashboard.php:199
+msgid "Download"
+msgstr ""
+
+#: admin/partials/dashboard.php:241
+msgid "No backup has been created"
+msgstr ""
+
+#: admin/partials/import.php:11
+msgid "Import Data"
+msgstr ""
+
+#: admin/partials/import.php:17
+msgid "Select file to Import"
+msgstr ""
+
+#: admin/partials/import.php:19
+msgid "Choose a file from your computer: (Maximum size: "
+msgstr ""
+
+#: admin/partials/import.php:23
+msgid "Warning"
+msgstr ""
+
+#: admin/partials/import.php:23
+msgid ""
+"Please take full backup before importing because this is undone processs. It "
+"will replace all files and folders and database also if you are importing "
+"Database."
+msgstr ""
+
+#: admin/partials/schedule.php:16
+msgid "Schedule Backup"
+msgstr ""
+
+#: admin/partials/schedule.php:17
+msgid ""
+"The action will trigger when someone visits your WordPress site if the "
+"scheduled time has passed"
+msgstr ""
+
+#: admin/partials/schedule.php:23
+msgid "Files backup schedule"
+msgstr ""
+
+#: admin/partials/schedule.php:25 admin/partials/schedule.php:39
+msgid "Manual"
+msgstr ""
+
+#: admin/partials/schedule.php:26 admin/partials/schedule.php:41
+msgid "Every 2 hours"
+msgstr ""
+
+#: admin/partials/schedule.php:27 admin/partials/schedule.php:42
+msgid "Every 4 hours"
+msgstr ""
+
+#: admin/partials/schedule.php:28 admin/partials/schedule.php:43
+msgid "Every 8 hours"
+msgstr ""
+
+#: admin/partials/schedule.php:29 admin/partials/schedule.php:44
+msgid "Every 12 hours"
+msgstr ""
+
+#: admin/partials/schedule.php:30 admin/partials/schedule.php:45
+msgid "Daily"
+msgstr ""
+
+#: admin/partials/schedule.php:31 admin/partials/schedule.php:46
+msgid "Weekly"
+msgstr ""
+
+#: admin/partials/schedule.php:32 admin/partials/schedule.php:47
+msgid "Fortnightly"
+msgstr ""
+
+#: admin/partials/schedule.php:33 admin/partials/schedule.php:48
+msgid "Monthly"
+msgstr ""
+
+#: admin/partials/schedule.php:37
+msgid "Database backup schedule"
+msgstr ""
+
+#: admin/partials/schedule.php:40
+msgid "Every 1 hour"
+msgstr ""
+
+#: admin/partials/schedule.php:68
+msgid "Save Changes"
+msgstr ""
+
+#: admin/partials/system-requirements.php:6
+msgid "System Requirements"
+msgstr ""
+
+#: admin/partials/system-requirements.php:11
+#: admin/partials/system-requirements.php:12
+msgid "WordPress Configuration"
+msgstr ""
+
+#: admin/partials/system-requirements.php:19
+msgid "Home URL"
+msgstr ""
+
+#: admin/partials/system-requirements.php:19
+msgid "Home URL:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:23
+msgid "Site URL"
+msgstr ""
+
+#: admin/partials/system-requirements.php:23
+msgid "Site URL:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:27
+msgid "WP Version"
+msgstr ""
+
+#: admin/partials/system-requirements.php:27
+msgid "WP Version:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:35
+msgid "WP Multisite"
+msgstr ""
+
+#: admin/partials/system-requirements.php:35
+msgid "WP Multisite:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:39
+msgid "PHP Memory Limit"
+msgstr ""
+
+#: admin/partials/system-requirements.php:39
+msgid "PHP Memory Limit:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:67
+msgid "WP Debug Mode"
+msgstr ""
+
+#: admin/partials/system-requirements.php:67
+msgid "WP Debug Mode:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:71
+msgid "Yes"
+msgstr ""
+
+#: admin/partials/system-requirements.php:73
+msgid "No"
+msgstr ""
+
+#: admin/partials/system-requirements.php:78
+msgid "Language"
+msgstr ""
+
+#: admin/partials/system-requirements.php:78
+msgid "Language:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:88
+#: admin/partials/system-requirements.php:89
+msgid "Server Configuration"
+msgstr ""
+
+#: admin/partials/system-requirements.php:96
+msgid "Server Info"
+msgstr ""
+
+#: admin/partials/system-requirements.php:96
+msgid "Server Info:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:97
+msgid "Unknown"
+msgstr ""
+
+#: admin/partials/system-requirements.php:100
+msgid "PHP Version"
+msgstr ""
+
+#: admin/partials/system-requirements.php:100
+msgid "PHP Version:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:110
+msgid "PHP Version could not be detected."
+msgstr ""
+
+#: admin/partials/system-requirements.php:124
+msgid "PHP Post Max Size"
+msgstr ""
+
+#: admin/partials/system-requirements.php:124
+msgid "PHP Post Max Size:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:129
+msgid "Max Upload Size"
+msgstr ""
+
+#: admin/partials/system-requirements.php:129
+msgid "Max Upload Size:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:134
+msgid "PHP Time Limit"
+msgstr ""
+
+#: admin/partials/system-requirements.php:134
+msgid "PHP Time Limit:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:151
+msgid "PHP Max Input Vars"
+msgstr ""
+
+#: admin/partials/system-requirements.php:151
+msgid "PHP Max Input Vars:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:182
+msgid "MySQL Version"
+msgstr ""
+
+#: admin/partials/system-requirements.php:182
+msgid "MySQL Version:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:191
+msgid "ZipArchive"
+msgstr ""
+
+#: admin/partials/system-requirements.php:191
+msgid "ZipArchive:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:197
+msgid "Curl"
+msgstr ""
+
+#: admin/partials/system-requirements.php:197
+msgid "Curl:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:203
+msgid "GD Library"
+msgstr ""
+
+#: admin/partials/system-requirements.php:203
+msgid "GD Library:"
+msgstr ""
+
+#: admin/partials/system-requirements.php:207
+msgid "Not Installed"
+msgstr ""
+
+#: admin/partials/system-requirements.php:209
+msgid "Installed"
+msgstr ""

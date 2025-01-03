@@ -1,0 +1,37 @@
+.wowp-sidebar-pub-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.wowp-sidebar-pub-section .wowp-field {
+  width: 100%;
+}
+.wowp-sidebar-pub-section .wowp-field {
+  .is-addon {
+    height: 32px;
+    line-height: 32px;
+    .dashicons {
+      line-height: 32px;
+    }
+    a {
+      text-decoration: none;
+    }
+  }
+  input:not([type="checkbox"], [type="radio"]) {
+    height: 32px;
+  }
+}
+
+.wowp-sidebar-pub-section [list]::-webkit-calendar-picker-indicator {
+  display: none !important;
+}
+
+.wowp-sidebar #major-publishing-actions {
+  margin: 0 -12px -12px -12px;
+  padding: 12px 24px;
+}
+
+.wowp-sidebar #minor-publishing-actions {
+  padding: 0;
+}

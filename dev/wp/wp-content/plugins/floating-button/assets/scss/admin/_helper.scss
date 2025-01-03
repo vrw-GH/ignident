@@ -1,0 +1,33 @@
+.wowp-wrap {
+  .has-shadow {
+    box-shadow: 0 0 10px 3px rgba(0, 91, 191, 0.1);
+  }
+
+  .has-padding {
+    padding: 10px;
+    margin: 0 -10px;
+  }
+
+  .is-hidden {
+    display: none;
+  }
+
+  .has-radius {
+    border-radius: 4px;
+  }
+
+  .w_has-border {
+    border: 2px solid;
+    border-image: linear-gradient(to bottom,var(--wowp-blue),  var(--wowp-yellow)) 1;
+  }
+
+  .w_width-750 {
+    max-width: 750px;
+  }
+
+  .has-mt {
+    margin-top: 24px;
+  }
+
+}
+

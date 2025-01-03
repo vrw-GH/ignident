@@ -1,11 +1,19 @@
 <?php
+include_once
+   'X:/Apache-root/htdocs/common/includes/get_dotenvs/get-dotenvs.php'; 
+   #$_SERVER['DOCUMENT_ROOT'].'/common/includes/get_dotenvs/get-dotenvs.php'; 
+   #---------------------------------  vw- added local .env variables //see httpd.conf 
+   #$_SERVER['MY_BASEDIR'].'/common/includes/get_dotenvs/get-dotenvs.php'; 
+#
+### DEV_MODEs: 0-Prod, 1-Alert/NoCache, 2-&Debug, 3-&Die
+define('DEV_MODE',(int)getenv('ENV_DEV_MODE'));
+echo (DEV_MODE<>0) ? "DevMode:".DEV_MODE : "";
+#--------------------------------- 
+
 /** Enable W3 Total Cache */
-define('WP_CACHE', getenv('ENV_WP_DEBUG')?false:true ); // Added by W3 Total Cache ;// vw- cache if !debug
+define('WP_CACHE',DEV_MODE<1?true:false); // Added by W3 Total Cache; //vw-no Cache if debug;
 
 define( 'ITSEC_ENCRYPTION_KEY', 'IHpufDIkT191VTolelFVcn1wMmBdSzFmYWlUIzhAZVhrJD0vRllsMmxzMF5IQXVgUm8mbUw3WyN0L2AoTSp0KA==' );
-
-#---------------------------------  vw- added local .env variables
-include_once $_SERVER['HTTP_BASEDIR'].'/includes/get_dotenvs/get-dotenvs.php'; // HTTP_DOCSBASE is set in httpd.conf 
 
 /**
  * The base configuration for WordPress
@@ -68,10 +76,6 @@ $table_prefix = getenv('ENV_TABLE_PREFIX') ;
 
 #define('DISALLOW_FILE_EDIT', true);
 
-// define( 'WP_DEBUG', false ); // Added by Defender
-define( 'WP_DEBUG_LOG', false );
-define( 'WP_DEBUG_DISPLAY', false );
-
 /**
  * For developers: WordPress debugging mode.
  *
@@ -84,36 +88,55 @@ define( 'WP_DEBUG_DISPLAY', false );
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', getenv('ENV_WP_DEBUG')?true:false );
+# define( 'WP_DEBUG', false ); // Added by Defender;
+define( 'WP_DEBUG', DEV_MODE<>0?true:false ); // vw
+define( 'WP_DEBUG_LOG', WP_DEBUG );
+define( 'WP_DEBUG_DISPLAY', WP_DEBUG );
 
 /* -------------------------------------------------------------------- */
 /* Add any custom values between this line and the "stop editing" line. */
 
-   define( 'WP_HOME', 
-      getenv('ENV_WP_HOME') 
-      ? getenv('ENV_WP_HOME')
-      : 'http://' . $_SERVER['SERVER_NAME'] . pathinfo($_SERVER['PHP_SELF'],PATHINFO_DIRNAME)
+   define('WP_HOME', 
+      getenv('ENV_WP_HOME') ?
+         getenv('ENV_WP_HOME')
+         : "http://{$_SERVER['HTTP_HOST']}" .rtrim($_SERVER['REQUEST_URI'],"/")
+   );
+   define('WP_SITEURL', 
+      getenv('ENV_WP_SITEURL') ?
+         getenv('ENV_WP_SITEURL')
+         : "http://{$_SERVER['HTTP_HOST']}" .rtrim($_SERVER['REQUEST_URI'],"/")
    );
 
-   define( 'WP_SITEURL', 
-      getenv('ENV_WP_SITEURL') 
-      ? getenv('ENV_WP_SITEURL')
-      : 'http://' . $_SERVER['SERVER_NAME'] . pathinfo($_SERVER['PHP_SELF'],PATHINFO_DIRNAME)
-   );
-
-if (WP_DEBUG) echo '<script>alert("'.WP_HOME.'\n'.WP_SITEURL.'")</script>';
-#echo 'here10'; die;
 
 /* That's all, stop editing! Happy publishing. */
 /* ------------------------------------------- */
-
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
 
+
+#---------------------------------------- vw.Debug
+   echo (DEV_MODE>0)
+   ? '<script>alert("'
+         .'Host: '	    . $_SERVER['HTTP_HOST']
+         .'\nWPHome: '      . WP_HOME        // browser url
+         .'\nWPSite:     '  . WP_SITEURL
+         .'\nReqURI:   '    . $_SERVER['REQUEST_URI']
+         .'\nPHPSelf:  '    . $_SERVER['PHP_SELF']
+#         .'\n'
+         .'\nRootDir:  '    . __DIR__
+         .'\nFILEdir:   '   . dirname(__FILE__)
+         .'\nCWD:      '    . getcwd()      // Current Working Directory
+         .'\nAbsPath: '	    . ABSPATH
+         .'\nDatabase: '    . DB_NAME
+         .'\nDebug/Cache: ' . WP_DEBUG.'/'.(int)WP_CACHE
+      .'")</script>'
+   :'';
+   if (DEV_MODE>0) echo '>>here10 - WP-CONFIG loaded!';
+   if (DEV_MODE>2) die;
+#---------------------------------------- vw.
+
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
-
-#echo 'here20'; die;

@@ -1,0 +1,37 @@
+.wowp-list {
+  padding: 50px 0;
+}
+
+.wowp-list td.column-mode span {
+  //margin-left: 28px;
+}
+
+@media screen and (max-width: 782px) {
+  .wowp-list td.column-mode span:first-child {
+    margin-left: 0;
+  }
+}
+
+.wowp-list {
+  .row-actions .duplicate a{
+    color: green;
+  }
+  .row-actions .export a {
+    color: orange;
+  }
+}
+
+.wowp-status-on,
+.wowp-status-off {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.wowp-status-on {
+  background-color: green;
+}
+.wowp-status-off {
+  background-color: red;
+}
