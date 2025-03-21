@@ -61,3 +61,60 @@ function ls_normalize_hide_layer_value( $value = false ) {
 
 	return $value ? 'all' : false;
 }
+
+function ls_apply_affix_properties( $layerProps, &$innerAttributes ) {
+
+	$styles = [];
+
+	if( ! empty( $layerProps['affixBefore'] ) ) {
+		$innerAttributes['data-prefix'] = $layerProps['affixBefore'];
+	}
+
+	if( ! empty( $layerProps['affixAfter'] ) ) {
+		$innerAttributes['data-suffix'] = $layerProps['affixAfter'];
+	}
+
+	if( ! empty( $layerProps['affixFloat'] ) ) {
+		$innerAttributes['class'] .=  ' ls-affix-float';
+	}
+
+	if( ! empty( $layerProps['affixNewLine'] ) ) {
+		$styles['--ls-affix-nl'] = 'block';
+	}
+
+	if( ! empty( $layerProps['affixColor'] ) ) {
+		$styles['--ls-affix-color'] = $layerProps['affixColor'];
+	}
+
+	if( ! empty( $layerProps['affixFontSize'] ) ) {
+		$styles['--ls-affix-fs'] = $layerProps['affixFontSize'].'em';
+	}
+
+	if( ! empty( $layerProps['affixFontFamily'] ) ) {
+		$styles['--ls-affix-ff'] = $layerProps['affixFontFamily'];
+	}
+
+	if( ! empty( $layerProps['affixFontWeight'] ) ) {
+		$styles['--ls-affix-fw'] = $layerProps['affixFontWeight'];
+	}
+
+	if( ! empty( $layerProps['affixHA'] ) ) {
+		$styles['--ls-affix-ha'] = $layerProps['affixHA'].'em';
+	}
+
+	if( ! empty( $layerProps['affixVA'] ) ) {
+		$styles['--ls-affix-va'] = $layerProps['affixVA'].'em';
+	}
+
+	$innerAttributes['style'] .= ls_array_to_attr( $styles, 'css' );
+}
+
+function ls_get_decimal_places( $number ) {
+
+	if( ! is_numeric( $number ) ) {
+        return 0;
+    }
+
+    $parts = explode( '.', (string) $number );
+    return isset( $parts[1] ) ? strlen( $parts[1] ) : 0;
+}

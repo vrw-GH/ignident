@@ -355,7 +355,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'	=> 'menu',
 			'name'	=> __( 'Advanced Color And Styling Options', 'avia_framework' ),
-			'desc'	=> __( 'You can edit more and advanced color and styling options for the overlay/slideout menu items in' ) .
+			'desc'	=> __( 'You can edit more and advanced color and styling options for the overlay/slideout menu items in', 'avia_framework' ) .
 							" <a href='#goto_customizer'>" .
 							__( 'Advanced Styling', 'avia_framework' ) .
 							'</a>',

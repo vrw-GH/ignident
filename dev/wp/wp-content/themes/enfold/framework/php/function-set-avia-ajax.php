@@ -990,6 +990,12 @@ if( ! function_exists( 'avia_ajax_import_config_file' ) )
 
 				// currently no deletion. seems counter intuitive atm. also since the file upload button will only show txt files user can switch between settings easily
 				// wp_delete_attachment($attachment['id'], true);
+
+				/**
+				 * @used_by					aviaPostCssManagement::handler_ava_reset_css_files()	100
+				 * @since 6.0.6
+				 */
+				do_action( 'avia_ajax_after_save_options_page', $database_option );
 			}
 			else
 			{
@@ -1079,7 +1085,15 @@ if ( ! function_exists( 'avia_ajax_save_video_thumbnails_locally' ) )
 			if( false !== stripos( $video_url, 'youtube' ) )
 			{
 				$video_provider = 'youtube';
-				$video_id = explode( '?v=', $video_url );
+
+				if( false !== strpos( $video_url, '/shorts/' ) )
+				{
+					$video_id = explode( '/shorts/', $video_url );
+				}
+				else
+				{
+					$video_id = explode( '?v=', $video_url );
+				}
 
 				if( empty( $video_id[1] ) )
 				{
@@ -1088,6 +1102,7 @@ if ( ! function_exists( 'avia_ajax_save_video_thumbnails_locally' ) )
 				}
 
 				$video_id = $video_id[1];
+				
 				$video_thumb_id = 'https://img.youtube.com/vi/' . $video_id;
 				$video_thumb_hq = $video_thumb_id . '/maxresdefault.jpg';
 				$video_thumb = $video_thumb_id . '/0.jpg';

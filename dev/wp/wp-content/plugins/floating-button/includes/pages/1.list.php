@@ -58,9 +58,7 @@ $wp_plugins = [
 		$list_table->search_box( esc_attr__( 'Search', 'floating-button' ), WOW_Plugin::PREFIX );
 		$list_table->display();
 		?>
-        <input type="hidden" name="page" value="<?php
-		echo esc_attr( $table_page ); ?>"/>
-		<?php
-		wp_nonce_field( WOW_Plugin::PREFIX . '_nonce', WOW_Plugin::PREFIX . '_list_action' ); ?>
+        <input type="hidden" name="page" value="<?php echo esc_attr( $table_page ); ?>"/>
+		<?php wp_nonce_field( WOW_Plugin::PREFIX . '_nonce', WOW_Plugin::PREFIX . '_list_action' ); ?>
     </form>
 <?php

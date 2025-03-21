@@ -1,0 +1,7 @@
+Name Easybell
+Default route User 15 IGNIDENT, BackOffice // Digital Receptionist 80 Ignident Reception
+Account Details:
+Main Trunk Number *06217029240 Authentication ID (SIP User ID) 0049621702924 Authentication password nW763aQbSo
+Server Details:
+Registrar/Server voip.easybell.de Port 0
+

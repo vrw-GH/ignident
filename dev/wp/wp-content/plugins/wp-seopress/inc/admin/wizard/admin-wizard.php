@@ -462,21 +462,21 @@ class SEOPRESS_Admin_Setup_Wizard {
 					if ( wp_convert_hr_to_bytes($upload_max_filesize) / 1024 / 1024 < 24 ) {
 						$requirements[] = [
 							'title'  => __('PHP upload max filesize is too low.', 'wp-seopress'),
-							'desc'   => __('Please contact your host to increase this value to at least 24M.', 'wp-seopress')
+							'desc'   => sprintf(__('Please contact your host to increase this value to at least <code>24M</code> (current value: <code>%dM</code>).', 'wp-seopress'), absint(wp_convert_hr_to_bytes($upload_max_filesize) / 1024 / 1024))
 						];
 					}
 
 					if ( wp_convert_hr_to_bytes($post_max_size) / 1024 / 1024 < 23 ) {
 						$requirements[] = [
 							'title'  => __('PHP post max size is too low.', 'wp-seopress'),
-							'desc'   => __('Please contact your host to increase this value to at least 24M.', 'wp-seopress')
+							'desc'   => sprintf(__('Please contact your host to increase this value to at least <code>24M</code> (current value: <code>%dM</code>).', 'wp-seopress'), absint(wp_convert_hr_to_bytes($post_max_size) / 1024 / 1024))
 						];
 					}
 
 					if ( wp_convert_hr_to_bytes($memory_limit) / 1024 / 1024 < 256 ) {
 						$requirements[] = [
 							'title'  => __('PHP memory limit is too low.', 'wp-seopress'),
-							'desc'   => __('Please contact your host to increase this value to at least 256M.', 'wp-seopress')
+							'desc'   => sprintf(__('Please contact your host to increase this value to at least <code>256M</code> (current value: <code>%dM</code>).', 'wp-seopress'), absint(wp_convert_hr_to_bytes($memory_limit) / 1024 / 1024))
 						];
 					}
 				}
@@ -488,7 +488,7 @@ class SEOPRESS_Admin_Setup_Wizard {
 					<?php foreach($requirements as $key => $value) { ?>
 						<div class="seopress-notice is-warning">
 							<h4><?php echo esc_html($value['title']); ?></h4>
-							<p><?php echo esc_html($value['desc']); ?></p>
+							<p><?php echo wp_kses_post($value['desc']); ?></p>
 						</div>
 						<?php
 					}
@@ -525,79 +525,70 @@ class SEOPRESS_Admin_Setup_Wizard {
 								'wordpress-seo-premium/wp-seo-premium.php',
 							],
 							'name' => 'Yoast SEO',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/yoast.png',
 						],
 						'aio'              => [
 							'slug' => [
 								'all-in-one-seo-pack/all_in_one_seo_pack.php',
 							],
 							'name' => 'All In One SEO',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/aio.svg',
 						],
 						'seo-framework'    => [
 							'slug' => [
 								'autodescription/autodescription.php',
 							],
 							'name' => 'The SEO Framework',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/seo-framework.svg',
 						],
 						'rk'               => [
 							'slug' => [
 								'seo-by-rank-math/rank-math.php',
 							],
 							'name' => 'Rank Math',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/rk.svg',
 						],
 						'squirrly'         => [
 							'slug' => [
 								'squirrly-seo/squirrly.php',
 							],
 							'name' => 'Squirrly SEO',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/squirrly.png',
 						],
 						'seo-ultimate'     => [
 							'slug' => [
 								'seo-ultimate/seo-ultimate.php',
 							],
 							'name' => 'SEO Ultimate',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/seo-ultimate.svg',
 						],
 						'wp-meta-seo'      => [
 							'slug' => [
 								'wp-meta-seo/wp-meta-seo.php',
 							],
 							'name' => 'WP Meta SEO',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/wp-meta-seo.png',
 						],
 						'premium-seo-pack' => [
 							'slug' => [
 								'premium-seo-pack/plugin.php',
 							],
 							'name' => 'Premium SEO Pack',
-						],
-						'wpseo'            => [
-							'slug' => [
-								'wpseo/wpseo.php',
-							],
-							'name' => 'wpSEO',
-						],
-						'platinum-seo'     => [
-							'slug' => [
-								'platinum-seo-pack/platinum-seo-pack.php',
-							],
-							'name' => 'Platinum SEO Pack'
-
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/premium-seo-pack.png',
 						],
 						'smart-crawl'      => [
 							'slug' => [
 								'smartcrawl-seo/wpmu-dev-seo.php',
 							],
 							'name' => 'SmartCrawl',
-						],
-						'seopressor'       => [
-							'slug' => [
-								'seo-pressor/seo-pressor.php',
-							],
-							'name' => 'SEOPressor',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/smart-crawl.png',
 						],
 						'slim-seo'         => [
 							'slug' => [
 								'slim-seo/slim-seo.php',
 							],
 							'name' => 'Slim SEO',
+							'img' => SEOPRESS_URL_ASSETS . '/img/import/slim-seo.svg',
 						],
 					];
 
@@ -627,34 +618,46 @@ class SEOPRESS_Admin_Setup_Wizard {
 						<?php
 					} ?>
 
-					<p>
-						<select id="select-wizard-import" name="select-wizard-import">
-							<option value="none"><?php esc_attr_e('Select an option', 'wp-seopress'); ?></option>
-
-						<?php
-							foreach ($plugins as $plugin => $detail) {
-								?>
-									<option
-									<?php
-										if (!empty($active_seo_plugins)) {
-											if (in_array($detail['slug'], $active_seo_plugins['slug'])) {
-												echo 'selected';
-											}
-										}
+					<fieldset class="seopress-import-tools-wrapper" role="group" aria-labelledby="import-tools-legend">
+						<div class="seopress-notice">
+							<legend id="import-tools-legend"><?php esc_attr_e('Select an SEO plugin to migrate from (you don\'t have to enable the selected one to run the import):', 'wp-seopress'); ?></legend>
+						</div>
+						<div class="seopress-import-tools" role="radiogroup" aria-labelledby="import-tools-legend">
+							<?php
+								foreach ($plugins as $plugin => $detail) {
 									?>
-									value="<?php echo esc_attr($plugin); ?>-migration-tool"><?php echo esc_html($detail['name']); ?></option>
-								<?php
-							} ?>
-						</select>
-					</p>
+									<div class="seopress-import-tool">
+										<label for="<?php echo esc_attr($plugin); ?>-migration-tool" tabindex="0">
+											<input type="radio" id="<?php echo esc_attr($plugin); ?>-migration-tool" name="select-wizard-import" value="<?php echo esc_attr($plugin); ?>-migration-tool"
+											aria-describedby="<?php echo esc_attr($plugin); ?>-description"
+											aria-label="<?php echo esc_attr(sprintf(__('Select %s for migration', 'wp-seopress'), $detail['name'])); ?>"
+											<?php
+												if (!empty($active_seo_plugins) && in_array($detail['slug'], $active_seo_plugins['slug'])) {
+													echo 'checked';
+												}
+											?>
+											/>
+											<?php if (!empty($detail['img'])): ?>
+												<img src="<?php echo esc_url($detail['img']); ?>" alt="<?php echo esc_attr($detail['name']); ?> logo">
+											<?php endif; ?>
+											<span><?php echo esc_html($detail['name']); ?></span>
+										</label>
+										<p id="<?php echo esc_attr($plugin); ?>-description" class="screen-reader-text"><?php echo wp_kses_post(sprintf(__('Import metadata from %s, including titles and meta descriptions.', 'wp-seopress'), esc_html($detail['name']))); ?></p>
+									</div>
+								<?php } 
+							?>
+						</div>
 
-					<p class="description"><?php esc_attr_e('You don\'t have to enable the selected SEO plugin to run the import.', 'wp-seopress'); ?></p>
+						<div class="seopress-import-tools-details" aria-live="polite">
+							<?php
+								foreach ($plugins as $plugin => $detail) {
+									echo wp_kses_post(seopress_migration_tool($plugin, $detail['name']));
+								}
+							?>
+						</div>
+					</fieldset>
 
-					<?php
-						foreach ($plugins as $plugin => $detail) {
-							echo wp_kses_post(seopress_migration_tool($plugin, $detail['name']));
-						}
-					?>
+					<hr>
 
 					<p class="store-setup"><?php esc_html_e('No data to migrate? Click "Next step" button!', 'wp-seopress'); ?></p>
 
@@ -696,7 +699,7 @@ class SEOPRESS_Admin_Setup_Wizard {
 		$alt_site_title  = isset($seopress_titles_option['seopress_titles_home_site_title_alt']) ? $seopress_titles_option['seopress_titles_home_site_title_alt'] : null;
 		$knowledge_type  = isset($seopress_social_option['seopress_social_knowledge_type']) ? $seopress_social_option['seopress_social_knowledge_type'] : null;
 		$knowledge_name  = isset($seopress_social_option['seopress_social_knowledge_name']) ? $seopress_social_option['seopress_social_knowledge_name'] : null;
-		$knowledge_img   = isset($seopress_social_option['seopress_social_knowledge_img']) ? $seopress_social_option['seopress_social_knowledge_img'] : null;
+		$knowledge_img   = isset($seopress_social_option['seopress_social_knowledge_img']) ? $seopress_social_option['seopress_social_knowledge_img'] : '';
 		$knowledge_email = isset($seopress_social_option['seopress_social_knowledge_email']) ? $seopress_social_option['seopress_social_knowledge_email'] : $current_user_email;
 		$knowledge_phone = isset($seopress_social_option['seopress_social_knowledge_phone']) ? $seopress_social_option['seopress_social_knowledge_phone'] : null;
 		$knowledge_tax_id = isset($seopress_social_option['seopress_social_knowledge_tax_id']) ? $seopress_social_option['seopress_social_knowledge_tax_id'] : null;
@@ -845,12 +848,12 @@ class SEOPRESS_Admin_Setup_Wizard {
 	public function seopress_setup_social_accounts() {
 		$seopress_social_option = get_option('seopress_social_option_name');
 
-		$knowledge_fb    = isset($seopress_social_option['seopress_social_accounts_facebook']) ? $seopress_social_option['seopress_social_accounts_facebook'] : null;
-		$knowledge_tw    = isset($seopress_social_option['seopress_social_accounts_twitter']) ? $seopress_social_option['seopress_social_accounts_twitter'] : null;
-		$knowledge_pin   = isset($seopress_social_option['seopress_social_accounts_pinterest']) ? $seopress_social_option['seopress_social_accounts_pinterest'] : null;
-		$knowledge_insta = isset($seopress_social_option['seopress_social_accounts_instagram']) ? $seopress_social_option['seopress_social_accounts_instagram'] : null;
-		$knowledge_yt    = isset($seopress_social_option['seopress_social_accounts_youtube']) ? $seopress_social_option['seopress_social_accounts_youtube'] : null;
-		$knowledge_li    = isset($seopress_social_option['seopress_social_accounts_linkedin']) ? $seopress_social_option['seopress_social_accounts_linkedin'] : null;
+		$knowledge_fb    = isset($seopress_social_option['seopress_social_accounts_facebook']) ? $seopress_social_option['seopress_social_accounts_facebook'] : '';
+		$knowledge_tw    = isset($seopress_social_option['seopress_social_accounts_twitter']) ? $seopress_social_option['seopress_social_accounts_twitter'] : '';
+		$knowledge_pin   = isset($seopress_social_option['seopress_social_accounts_pinterest']) ? $seopress_social_option['seopress_social_accounts_pinterest'] : '';
+		$knowledge_insta = isset($seopress_social_option['seopress_social_accounts_instagram']) ? $seopress_social_option['seopress_social_accounts_instagram'] : '';
+		$knowledge_yt    = isset($seopress_social_option['seopress_social_accounts_youtube']) ? $seopress_social_option['seopress_social_accounts_youtube'] : '';
+		$knowledge_li    = isset($seopress_social_option['seopress_social_accounts_linkedin']) ? $seopress_social_option['seopress_social_accounts_linkedin'] : '';
 		$knowledge_extra = isset($seopress_social_option['seopress_social_accounts_extra']) ? $seopress_social_option['seopress_social_accounts_extra'] : null;
 		?>
 
@@ -1109,7 +1112,7 @@ class SEOPRESS_Admin_Setup_Wizard {
 						<?php }
 
 						if (empty($cpt)) { ?>
-						<p><?php esc_html_e('You don‘t have any post type archives, you can continue to the next step.','wp-seopress'); ?></p>
+						<p><?php esc_html_e('You don’t have any post type archives, you can continue to the next step.','wp-seopress'); ?></p>
 						<?php }
 					}
 
@@ -1347,7 +1350,8 @@ class SEOPRESS_Admin_Setup_Wizard {
 		$seopress_advanced_option         = get_option('seopress_advanced_option_name');
 		$attachments_file                 = isset($seopress_advanced_option['seopress_advanced_advanced_attachments_file']);
 		$category_url                     = isset($seopress_advanced_option['seopress_advanced_advanced_category_url']);
-		$product_category_url             = isset($seopress_advanced_option['seopress_advanced_advanced_product_cat_url']); ?>
+		$product_category_url             = isset($seopress_advanced_option['seopress_advanced_advanced_product_cat_url']);
+		$image_auto_alt_txt               = isset($seopress_advanced_option['seopress_advanced_advanced_image_auto_alt_txt']); ?>
 
 		<div class="seopress-setup-content seopress-option">
 
@@ -1373,6 +1377,19 @@ class SEOPRESS_Admin_Setup_Wizard {
 						</li>
 						<li class="description">
 							<?php /* translators: %s default: SEOPress */ printf(esc_html__('By default, %s redirects your Attachment pages to the parent post. Optimize this by redirecting the user directly to the URL of the media file.', 'wp-seopress'), esc_html($this->seo_title)); ?>
+						</li>
+
+						<!-- Automatically set alt text on already inserted image -->
+						<li class="seopress-wizard-service-item checkbox">
+							<label for="image_auto_alt_txt">
+								<input id="image_auto_alt_txt" class="location-input" name="image_auto_alt_txt" type="checkbox" <?php if ('1' == $image_auto_alt_txt) {
+							echo 'checked="yes"';
+						} ?> value="1"/>
+								<?php esc_html_e('Automatically set alt text on already inserted image', 'wp-seopress'); ?>
+							</label>
+						</li>
+						<li class="description">
+							<?php esc_html_e('By default, WordPress does not update image alt texts entered from the media library after they are inserted into the content of a post, page, or post type. By checking this box, this will be done when the page loads on the fly as long as this option remains active.', 'wp-seopress'); ?>
 						</li>
 
 						<!-- Remove /category/ in URLs -->
@@ -1449,6 +1466,7 @@ class SEOPRESS_Admin_Setup_Wizard {
 
 		//Advanced
 		$seopress_advanced_option['seopress_advanced_advanced_attachments_file']    = isset($_POST['attachments_file']) ? esc_attr(wp_unslash($_POST['attachments_file'])) : null;
+		$seopress_advanced_option['seopress_advanced_advanced_image_auto_alt_txt']    = isset($_POST['image_auto_alt_txt']) ? esc_attr(wp_unslash($_POST['image_auto_alt_txt'])) : null;
 		$seopress_advanced_option['seopress_advanced_advanced_category_url']        = isset($_POST['category_url']) ? esc_attr(wp_unslash($_POST['category_url'])) : null;
 
 		if (is_plugin_active('woocommerce/woocommerce.php')) {
@@ -1568,13 +1586,13 @@ class SEOPRESS_Admin_Setup_Wizard {
 					<?php if (! is_plugin_active('wp-seopress-pro/seopress-pro.php')) { ?>
 						<div class="col col-pro">
 							<h2>
-								<img alt="<?php esc_html_e('SEOPress PRO logo','wp-seopress'); ?>" width="50" height="50" src="https://www.seopress.org/wp-content/uploads/2021/06/logo-seopress-pro.svg" />
+								<img alt="<?php esc_html_e('SEOPress PRO logo','wp-seopress'); ?>" width="50" height="50" src="<?php echo esc_url(SEOPRESS_ASSETS_DIR . '/img/logo-seopress-pro.svg'); ?>" />
 								<a href="<?php echo esc_url($docs['addons']['pro']); ?>" target="_blank">
 									<?php esc_html_e('SEOPress PRO', 'wp-seopress'); ?>
 								</a>
 							</h2>
 
-							<img alt="" width="100%" style="max-width: 500px" src="https://www.seopress.org/wp-content/uploads/2021/06/seopress-pro-featured.png" />
+							<img alt="" width="100%" style="max-width: 500px" src="<?php echo esc_url(SEOPRESS_ASSETS_DIR . '/img/seopress-pro-featured.png'); ?>" />
 
 							<h3><?php esc_html_e('Premium SEO features to increase your rankings', 'wp-seopress'); ?></h3>
 
@@ -1582,13 +1600,16 @@ class SEOPRESS_Admin_Setup_Wizard {
 								<span class="dashicons dashicons-minus"></span><?php echo wp_kses_post(__('Generate automatically <strong>SEO metadata using AI</strong>.', 'wp-seopress')); ?>
 							</p>
 							<p class="seopress-setup-actions step">
-								<span class="dashicons dashicons-minus"></span><?php echo wp_kses_post(__('Receive <strong>SEO alerts by email / Slack</strong>, twice a day, as long as the problem persists. Act before it‘s too late!', 'wp-seopress')); ?>
+								<span class="dashicons dashicons-minus"></span><?php echo wp_kses_post(__('Site Audit to find and fix SEO issues.', 'wp-seopress')); ?>
+							</p>
+							<p class="seopress-setup-actions step">
+								<span class="dashicons dashicons-minus"></span><?php echo wp_kses_post(__('Receive <strong>SEO alerts by email / Slack</strong>, twice a day, as long as the problem persists. Act before it’t too late!', 'wp-seopress')); ?>
 							</p>
 							<p class="seopress-setup-actions step">
 								<span class="dashicons dashicons-minus"></span><?php echo wp_kses_post(__('Connect your site with <strong>Google Search Console</strong> to get relevant data: clicks, positions, impressions and CTR.', 'wp-seopress')); ?>
 							</p>
 							<p class="seopress-setup-actions step">
-								<span class="dashicons dashicons-minus"></span><?php echo wp_kses_post(__('Improve your business\'s presence in <strong>local search results</strong>.', 'wp-seopress')); ?>
+								<span class="dashicons dashicons-minus"></span><?php echo wp_kses_post(__('Improve your business’s presence in <strong>local search results</strong>.', 'wp-seopress')); ?>
 							</p>
 							<p class="seopress-setup-actions step">
 								<span class="dashicons dashicons-minus"></span><?php echo wp_kses_post(__('Optimize your SEO from your favorite e-commerce plugin: <strong>WooCommerce or Easy Digital Downloads</strong>.', 'wp-seopress')); ?>
@@ -1626,14 +1647,14 @@ class SEOPRESS_Admin_Setup_Wizard {
 					<?php if (! is_plugin_active('wp-seopress-insights/seopress-insights.php') && ! is_multisite()) { ?>
 						<div class="col col-insights">
 							<h2>
-								<img alt="<?php esc_html_e('SEOPress Insights logo','wp-seopress'); ?>" width="50" height="50" src="https://www.seopress.org/wp-content/uploads/2021/06/logo-seopress-insights.svg" />
+								<img alt="<?php esc_html_e('SEOPress Insights logo','wp-seopress'); ?>" width="50" height="50" src="<?php echo esc_url(SEOPRESS_ASSETS_DIR . '/img/logo-seopress-insights.svg'); ?>" />
 
 								<a href="<?php echo esc_url($docs['addons']['insights']); ?>" target="_blank">
 									<?php esc_html_e('SEOPress Insights', 'wp-seopress'); ?>
 								</a>
 							</h2>
 
-							<img alt="" width="100%" style="max-width: 500px" src="https://www.seopress.org/wp-content/uploads/2021/06/seopress-insights-featured.png" />
+							<img alt="" width="100%" style="max-width: 500px" src="<?php echo esc_url(SEOPRESS_ASSETS_DIR . '/img/seopress-insights-featured.png'); ?>" />
 
 							<h3><?php esc_html_e('Start monitoring your rankings and backlinks directly from your WordPress admin', 'wp-seopress'); ?></h3>
 

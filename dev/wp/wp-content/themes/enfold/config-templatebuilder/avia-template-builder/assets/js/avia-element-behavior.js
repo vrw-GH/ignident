@@ -128,7 +128,7 @@
             {
 	            executed = true;
 
-                if (status == google.maps.GeocoderStatus.OK)
+                if(status == google.maps.GeocoderStatus.OK)
                 {
                     coordinates.latitude = results[0].geometry.location.lat();
                     coordinates.longitude = results[0].geometry.location.lng();
@@ -136,9 +136,9 @@
                     data.long.val(coordinates.longitude);
                     data.lat.val( coordinates.latitude );
                 }
-                else if (status == google.maps.GeocoderStatus.ZERO_RESULTS)
+                else if(status == google.maps.GeocoderStatus.ZERO_RESULTS)
                 {
-                    if (!addressGeo.replace(/\s/g, '').length)
+                    if( !addressGeo.replace(/\s/g, '').length)
                     {
 	                    new $.AviaModalNotification({mode:'error', msg:avia_modal_L10n.insertaddress});
                     }
@@ -147,11 +147,11 @@
                          new $.AviaModalNotification({mode:'error', msg:avia_modal_L10n.notfound});
                     }
                 }
-                else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT)
+                else if(status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT)
                 {
 	                new $.AviaModalNotification({mode:'error', msg:avia_modal_L10n.toomanyrequests});
                 }
-                else if (status == google.maps.GeocoderStatus.REQUEST_DENIED)
+                else if(status == google.maps.GeocoderStatus.REQUEST_DENIED)
                 {
 	                new $.AviaModalNotification({mode:'error', msg:avia_modal_L10n.gmap_api_text});
                 }
@@ -159,7 +159,6 @@
                 data.coordinatcontainer.addClass('av-visible');
 
             });
-
 
             //check if the google geocoder has requested the data
             if(timeout_check === false)
@@ -177,21 +176,26 @@
 		};
 	};
 
-
-
 	// since css only tabs are not fully working by now this script adds tab behavior to a tab container of choice
-	$.AviaElementBehavior.tabs =  function(tab_container, mirror_container)
+	$.AviaElementBehavior.tabs = function(tab_container, mirror_container)
 	{
-		$(tab_container).each(function(i)
+		$( tab_container ).each(function(i)
 		{
 			var active_tab = 0,
 				id = "avia_post_"+ i + "_" + avia_globals.post_id,
-				storage = false;
+				storage = typeof sessionStorage !== 'undefined';
 
-			if(typeof(Storage)!=="undefined")
+			if( storage )
 			{
-				storage		= true;
-				active_tab  = sessionStorage[id] || 0;
+				try
+				{
+					active_tab = sessionStorage.getItem( id ) || 0;
+				}
+				catch( err )
+				{
+					avia_log( 'Info - Session Storage: Browser memory limit reached, blocked or not supported. We are not able to save the state of the last open options tabs in modal popup windows of ALB elements.' );
+					avia_log( err );
+				}
 			}
 
 			var current = $(this),
@@ -199,20 +203,30 @@
 				tabs = current.find('.avia-tab'),
 				currentLink;
 
-
-			links.off('click').on('click', function()
+			links.off( 'click' ).on( 'click', function()
 			{
 				links.removeClass('active-tab');
 				currentLink = $(this).addClass('active-tab');
 
-				var index = links.index(currentLink);
+				var index = links.index( currentLink );
 
-				tabs.css({display:'none'}).eq( index ).css({display:'block'});
+				tabs.css( {display:'none'} ).eq( index ).css( {display:'block'} );
 
-				if(storage) sessionStorage[id] = index;
+				if( storage )
+				{
+					try
+					{
+						sessionStorage.setItem( id, index );
+					}
+					catch( err )
+					{
+						avia_log( 'Info - Session Storage: Browser memory limit reached, blocked or not supported. We are not able to save the last open tab.' );
+						avia_log( err );
+					}
+				}
 
 				//mirror_container should be defined when the tab element is cloned for the fullscreen view
-				if(typeof mirror_container != "undefined")
+				if( typeof mirror_container != "undefined" )
 				{
 					mirror_container.find('.avia-tab-title-container a').eq(index).trigger('click');
 				}
@@ -223,11 +237,10 @@
 				return false;
 			});
 
-			if(!links.filter('.active-tab').length)
+			if( ! links.filter('.active-tab').length )
 			{
 				links.eq( active_tab ).addClass('active-tab').trigger('click');
 			}
-
 		});
 	};
 
@@ -237,7 +250,7 @@
 	{
 		$('.avia_scope input[type="radio"]:checked').parents('.avia_radio_wrap').eq( 0 ).addClass('avia_checked');
 
-		$("body").on("click", ".avia_scope input[type='radio']", function(event)
+		$("body").on( "click", ".avia_scope input[type='radio']", function(event)
 		{
 			var $parent = $(this).parents('.avia_radio_wrap').eq( 0 );
 			$parent.siblings('.avia_radio_wrap').removeClass('avia_checked').end().addClass('avia_checked');
@@ -292,9 +305,9 @@
 		}
 
 		// check if expand support for block editor is enabled
-        if ('enabled' == expand_support && is_block_editor)
+        if('enabled' == expand_support && is_block_editor)
         {
-            if (wp.data == 'undefined' &&
+            if(wp.data == 'undefined' &&
                 wp.data.subscribe == 'undefined')
             {
                 return;
@@ -338,9 +351,9 @@
 			return false;
 		});
 
-		function toggle_fullscreen_mode(mode, get_mode)
+		function toggle_fullscreen_mode( mode, get_mode )
         {
-            if (mode == true)
+            if( mode == true )
             {
                 // expand builder when fullscreen mode is enabled
                 avia_open_expand(mode);
@@ -353,11 +366,11 @@
 
                 full_screen_mode = current_mode;
 
-                if (mode_changed)
+                if(mode_changed)
                 {
-                    if (current_mode)
+                    if( current_mode )
                     {
-                        avia_open_expand(mode);
+                        avia_open_expand( mode );
                     } else
                     {
                         avia_close_expand();
@@ -379,7 +392,7 @@
 			the_body.addClass('avia-noscroll-box');
 			clone_tab = parent.find('.avia-tab-container').clone(true);
 
-			if(clone_tab.length)
+			if( clone_tab.length )
 			{
 				//create the cloned tab controls with buttons
 				button_container = $('<div class="avia-expanded-buttons"></div>').appendTo(clone_tab);
@@ -463,7 +476,10 @@
 			var current = $(this),
 				scope = current.parents('.avia-modal').eq( 0 );
 
-			if(!scope.length) scope = the_body;
+			if( ! scope.length )
+			{
+				scope = the_body;
+			}
 
 			var id			= this.id.replace(/aviaTB/g,""),
 				dependent	= scope.find('.avia-form-element-container[data-check-element="'+id+'"]'),
@@ -472,84 +488,92 @@
 				parent_val  = '',
 				locked_value = current.data( 'locked_value' );
 
-				//	check for a locked value - replaces entered value
-				if( 'undefined' != typeof locked_value && locked_value != '$$undefined$$' )
-				{
-					value1 = locked_value;
-				}
+			//	check for a locked value - replaces entered value
+			if( 'undefined' != typeof locked_value && locked_value != '$$undefined$$' )
+			{
+				value1 = locked_value;
+			}
 
-				if( '' == id )
-				{
-					return;
-				}
+			if( '' == id )
+			{
+				return;
+			}
 
-				if(current.is('input[type=checkbox]') && !current.prop('checked')) value1 = "";
-				if(current.is('input[type=radio]'))
-				{
-					var name = this.name.replace(/aviaTB/g,"");
-					dependent = scope.find('.avia-form-element-container[data-check-element="'+name+'"]');
-				}
+			if( current.is('input[type=checkbox]') && ! current.prop('checked') )
+			{
+				value1 = "";
+			}
 
-				//	Get value of parent element when depending subelements are changed
-				var parent_element = current.closest('.avia-form-element-container').find( '#' + this.id ).eq( 0 );
-				if( parent_element.is('input[type=checkbox]') )
+			if( current.is('input[type=radio]') )
+			{
+				var name = this.name.replace(/aviaTB/g,"");
+				dependent = scope.find('.avia-form-element-container[data-check-element="'+name+'"]');
+			}
+
+			//	Get value of parent element when depending subelements are changed
+			var parent_element = current.closest('.avia-form-element-container').find( '#' + this.id ).eq( 0 );
+
+			if( parent_element.is('input[type=checkbox]') )
+			{
+				parent_val = parent_element.prop('checked') ? parent_element.val() : '';
+			}
+			else if( parent_element.is('input[type=radio]' ) )
+			{
+				if( '' === parent_val )
 				{
-					parent_val = parent_element.prop('checked') ? parent_element.val() : '';
+					parent_val = parent_element.prop('checked');
 				}
-				else if( parent_element.is('input[type=radio]' ) )
+			}
+			else
+			{
+				parent_val = parent_element.val();
+			}
+
+			if( ! dependent.length )
+			{
+				return;
+			}
+
+			dependent.each( function()
+			{
+				var current		= $(this),
+					check_data	= current.data(),
+					value2		= check_data.checkValue.toString(),
+					show		= false;
+
+				if(! is_hidden )
 				{
-					if( '' === parent_val )
+					switch( check_data.checkComparison )
 					{
-						parent_val = parent_element.prop('checked');
+						case 'equals': 			if(value1 == value2) show = true; break;
+						case 'not': 			if(value1 != value2) show = true; break;
+						case 'is_larger': 		if(value1 >  value2) show = true; break;
+						case 'is_smaller': 		if(value1 <  value2) show = true; break;
+						case 'contains': 		if(value1.indexOf(value2) !== -1) show = true; break;
+						case 'doesnt_contain':  if(value1.indexOf(value2) === -1) show = true; break;
+						case 'starts_with':		if(value1.indexOf(value2) === 0) show = true; break;
+						case 'is_empty_or':  	if(value1 === "" || value1 === value2) show = true; break;
+						case 'not_empty_and':  	if(value1 !== "" && value1 !== value2) show = true; break;
+						case 'parent_in_array':
+							show = ( -1 !== $.inArray( parent_val, value2.split( ',' ) ) );
+							break;
+						case 'parent_not_in_array':
+							show = ( -1 === $.inArray( parent_val, value2.split( ',' ) ) );
+							break;
 					}
 				}
-				else
+
+				if( show === true && current.is('.avia-hidden') )
 				{
-					parent_val = parent_element.val();
+					current.css( {display:'none'} ).removeClass('avia-hidden').find('select, radio, input[type=checkbox]').trigger('change');
+					current.slideDown(300);
 				}
-
-				if(!dependent.length) return;
-
-				dependent.each(function()
+				else if( show === false  && ! current.is('.avia-hidden') )
 				{
-					var current		= $(this),
-						check_data	= current.data(),
-						value2		= check_data.checkValue.toString(),
-						show		= false;
-
-						if(!is_hidden)
-						{
-							switch(check_data.checkComparison)
-							{
-								case 'equals': 			if(value1 == value2) show = true; break;
-								case 'not': 			if(value1 != value2) show = true; break;
-								case 'is_larger': 		if(value1 >  value2) show = true; break;
-								case 'is_smaller': 		if(value1 <  value2) show = true; break;
-								case 'contains': 		if(value1.indexOf(value2) !== -1) show = true; break;
-								case 'doesnt_contain':  if(value1.indexOf(value2) === -1) show = true; break;
-								case 'starts_with':		if(value1.indexOf(value2) === 0) show = true; break;
-								case 'is_empty_or':  	if(value1 === "" || value1 === value2) show = true; break;
-								case 'not_empty_and':  	if(value1 !== "" && value1 !== value2) show = true; break;
-								case 'parent_in_array':
-									show = ( -1 !== $.inArray( parent_val, value2.split( ',' ) ) );
-									break;
-								case 'parent_not_in_array':
-									show = ( -1 === $.inArray( parent_val, value2.split( ',' ) ) );
-									break;
-							}
-						}
-
-						if(show === true && current.is('.avia-hidden'))
-						{
-							current.css({display:'none'}).removeClass('avia-hidden').find('select, radio, input[type=checkbox]').trigger('change');
-							current.slideDown(300);
-						}
-						else if(show === false  && !current.is('.avia-hidden'))
-						{
-							current.css({display:'block'}).addClass('avia-hidden').find('select, radio, input[type=checkbox]').trigger('change');
-							current.slideUp(300);
-						}
-				});
+					current.css( {display:'block'} ).addClass('avia-hidden').find('select, radio, input[type=checkbox]').trigger('change');
+					current.slideUp(300);
+				}
+			});
 		});
 	};
 
@@ -588,21 +612,28 @@
 				options = current.find('option').map( function(){ return this.value; } ).get().join(" ");
 			}
 
-			var target 		= the_body.find( data.targetElement ),
-				new_value 	= this.value;
+			var target = the_body.find( data.targetElement ),
+				new_value = this.value;
 
-				if(!target.length) return;
+			if( ! target.length )
+			{
+				return;
+			}
 
-				target.each(function()
+			target.each( function()
+			{
+				var current_target = $(this);
+
+				switch(data.targetProperty)
 				{
-					var current_target = $(this);
-
-					switch(data.targetProperty)
-					{
-						case 'class': current_target.removeClass(options).addClass(new_value); break;
-						case 'id': current_target.attr({'id': new_value}); break;
-					}
-				});
+					case 'class':
+						current_target.removeClass(options).addClass(new_value);
+						break;
+					case 'id':
+						current_target.attr({'id': new_value});
+						break;
+				}
+			});
 		});
 
 
@@ -612,7 +643,6 @@
 		});
 
 	};
-
 
 	//template fetchter for elements
 	$.AviaElementBehavior.tmpl_fetcher = function()
@@ -627,14 +657,21 @@
 				scope	= current.parents('.avia-modal').eq( 0 ),
 				target  = current.next('.template-container');
 
-			if(!scope.length) scope = the_body;
-			if(!target.length) return;
+			if( ! scope.length )
+			{
+				scope = the_body;
+			}
+
+			if( ! target.length )
+			{
+				return;
+			}
 
 			var new_value 	= this.value,
 				temp_string = "#avia-tmpl-"+css_id+'-'+new_value,
 				template	= $(temp_string);
 
-				if(!template.length)
+				if( ! template.length )
 				{
 					if(avia_globals.builderMode && avia_globals.builderMode == "debug")
 					{
@@ -645,7 +682,7 @@
 					template = $('<div />');
 				}
 
-				target.html(template.html()); //.find('select, input, radio').trigger('change');
+				target.html( template.html() ); //.find('select, input, radio').trigger('change');
 		});
 
 
@@ -653,19 +690,16 @@
 		{
 			window.modal.find(".avia-attach-templating select, .avia-attach-templating radio, .avia-attach-templating input[type=checkbox]").trigger('change');
 		});
-
-
 	};
-
 
 	//redo and undo buttons
 	$.AviaElementBehavior.redo_undo =  function()
 	{
-		var el_storage = new $.AviaElementBehavior.history({
-			monitor: "#aviaLayoutBuilder",
-			editor:	 "#_aviaLayoutBuilderCleanData",
-			buttons: ".layout-builder-wrap .avia-controll-bar"
-		});
+		var el_storage = new $.AviaElementBehavior.history( {
+						monitor: "#aviaLayoutBuilder",
+						editor:	 "#_aviaLayoutBuilderCleanData",
+						buttons: ".layout-builder-wrap .avia-controll-bar"
+					});
 	};
 
 })(jQuery);

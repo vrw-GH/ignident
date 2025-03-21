@@ -739,7 +739,6 @@ function um_profile_dynamic_meta_desc() {
 			'@context'     => 'https://schema.org',
 			'@type'        => 'ProfilePage',
 			'dateCreated'  => um_user( 'user_registered' ),
-			'dateModified' => gmdate( 'Y-m-d H:i:s', um_user( 'last_update' ) ),
 			'mainEntity'   => array(
 				'@type'         => 'Person',
 				'name'          => esc_attr( $title ),
@@ -751,6 +750,18 @@ function um_profile_dynamic_meta_desc() {
 				),
 			),
 		);
+		$user_last_update = um_user( 'last_update' );
+		if ( ! empty( $user_last_update ) ) {
+			if ( is_numeric( $user_last_update ) ) {
+				$user_last_update = (int) $user_last_update; // cast numeric type to int
+			} else {
+				$user_last_update = strtotime( $user_last_update ); // cast string date type to int
+			}
+			if ( ! empty( $user_last_update ) ) {
+				$person['dateModified'] = gmdate( 'Y-m-d H:i:s', $user_last_update );
+			}
+		}
+
 		/**
 		 * Filters changing the schema.org of profile's person.
 		 *
@@ -906,12 +917,9 @@ function um_profile_header_cover_area( $args ) {
 						$size = $get_cover_size;
 					}
 
-					if ( UM()->mobile()->isMobile() ) {
-
-						// set for mobile width = 300 by default but can be changed via filter
-						if ( ! UM()->mobile()->isTablet() ) {
-							$size = 300;
-						}
+					if ( wp_is_mobile() ) {
+						// Set for mobile width = 300 by default but can be changed via filter
+						$size = 300;
 
 						/**
 						 * UM hook
@@ -1188,8 +1196,8 @@ function um_profile_header( $args ) {
 						 * }
 						 * ?>
 						 */
-						do_action( 'um_after_profile_name_inline', $args ); ?>
-
+						do_action( 'um_after_profile_name_inline', $args, um_user( 'ID' ) );
+						?>
 					</div>
 				<?php } ?>
 
@@ -1215,7 +1223,7 @@ function um_profile_header( $args ) {
 				 * }
 				 * ?>
 				 */
-				do_action( 'um_after_profile_header_name_args', $args );
+				do_action( 'um_after_profile_header_name_args', $args, um_user( 'ID' ) );
 				/**
 				 * UM hook
 				 *
@@ -1318,11 +1326,11 @@ function um_profile_header( $args ) {
 			}
 			?>
 
-			<div class="um-profile-status <?php echo esc_attr( um_user( 'account_status' ) ); ?>">
+			<div class="um-profile-status <?php echo esc_attr( UM()->common()->users()->get_status( um_user( 'ID' ) ) ); ?>">
 				<span>
 					<?php
 					// translators: %s: profile status.
-					echo esc_html( sprintf( __( 'This user account status is %s', 'ultimate-member' ), um_user( 'account_status_name' ) ) );
+					echo esc_html( sprintf( __( 'This user account status is %s', 'ultimate-member' ), UM()->common()->users()->get_status( um_user( 'ID' ), 'formatted' ) ) );
 					?>
 				</span>
 			</div>

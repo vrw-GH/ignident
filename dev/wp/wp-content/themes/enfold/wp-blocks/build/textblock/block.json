@@ -1,0 +1,18 @@
+{
+  "apiVersion": 2,
+  "name": "enfold/custom-text-block",
+  "title": "Enfold Block",
+  "category": "text",
+  "icon": "edit",
+  "description": "A dummy Block for Enfold (to force v2 API).",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "source": "html",
+      "selector": "p"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./style.css",
+  "style": "file:./style.css"
+}

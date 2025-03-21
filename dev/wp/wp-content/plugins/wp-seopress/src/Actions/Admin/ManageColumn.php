@@ -31,8 +31,14 @@ class ManageColumn implements ExecuteHooksBackend
      */
     public function hooks()
     {
-        if ('1' == seopress_get_toggle_option('advanced')) {
-            add_action('init', [$this, 'setup'], 20); //priority is important for plugins compatibility like Toolset
+        global $pagenow;
+
+        $isEditPage = in_array($pagenow, ['edit.php', 'upload.php'], true);
+        $isAdvancedEnabled = '1' === seopress_get_toggle_option('advanced');
+
+        if (($isEditPage && $isAdvancedEnabled) || wp_doing_ajax()) {
+            // Priority is important for plugins compatibility like Toolset
+            add_action('init', [$this, 'setup'], 20);
         }
     }
 
@@ -243,24 +249,32 @@ class ManageColumn implements ExecuteHooksBackend
 
                 $score = seopress_get_service('ContentAnalysisDatabase')->getData($post_id, ["score"]);
 
-                if(!empty($score)){
-                    if(is_array($score)){
-                        $score = array_shift($score);
-                        echo '<div class="analysis-score">';
-                        if (in_array('medium', $score) || in_array('high', $score)) {
-                            echo '<p><svg role="img" aria-hidden="true" focusable="false" width="100%" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                            <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                            <circle id="bar" class="notgood" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0" style="stroke-dashoffset: 101.788px;"></circle>
-                        </svg><span class="screen-reader-text">' . esc_html__('Should be improved', 'wp-seopress') . '</span></p>';
-                        } else {
-                            echo '<p><svg role="img" aria-hidden="true" focusable="false" width="100%" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                            <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                            <circle id="bar" class="good" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                        </svg><span class="screen-reader-text">' . esc_html__('Good', 'wp-seopress') . '</span></p>';
-                        }
-                        echo '</div>';
+                if (!isset($score)) {
+                    return;
+                }
+
+                if (!empty($score) && is_array($score)) {
+                    $score = array_shift($score);
+                
+                    // Validate that $score contains the expected values
+                    if (!is_array($score)) {
                         return;
                     }
+                    
+                    echo '<div class="analysis-score">';
+                    if (in_array('medium', $score, true) || in_array('high', $score, true)) {
+                        echo '<p><svg role="img" aria-hidden="true" focusable="false" width="100%" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" class="notgood" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0" style="stroke-dashoffset: 101.788px;"></circle>
+                    </svg><span class="screen-reader-text">' . esc_html__('Should be improved', 'wp-seopress') . '</span></p>';
+                    } else {
+                        echo '<p><svg role="img" aria-hidden="true" focusable="false" width="100%" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" class="good" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                    </svg><span class="screen-reader-text">' . esc_html__('Good', 'wp-seopress') . '</span></p>';
+                    }
+                    echo '</div>';
+                    return;
                 }
 
                 /**

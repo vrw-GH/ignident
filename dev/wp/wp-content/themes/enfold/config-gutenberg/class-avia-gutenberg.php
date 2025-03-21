@@ -299,7 +299,31 @@ if( ! class_exists( 'Avia_Gutenberg', false ) )
 				$this->fix_wp50_broken_url();
 			}
 
-			wp_register_script( 'avia_blocks_front_script', "$template_url/config-gutenberg/js/avia_blocks_front{$min_js}.js", array( 'jquery' ), $vn, true );
+			wp_register_script( 'avia_blocks_front_script', "{$template_url}/config-gutenberg/js/avia_blocks_front{$min_js}.js", array( 'jquery' ), $vn, true );
+
+			/**
+			 * WP block editor uses v3 with iframe by default (Layerslider uses v2 -> this forces WP to load old API)
+			 * Currently we cannot support this because layout breaks due DOM structure.
+			 *
+			 *   - We are not able to stick ALB buttons in fullscreen mode
+			 *   - When switching to Default Block editor drag button also jumps around when dragging
+			 *
+			 * @since 6.0.7
+			 */			
+			if( ! Avia_Config_LayerSlider()->is_active() )
+			{
+				// Block-Skripte und Stile registrieren
+				wp_register_script( 'enfold-custom-block-js', "{$template_url}/wp-blocks/build/textblock/index.js", [ 'wp-blocks', 'wp-element', 'wp-editor' ], $vn, true );
+
+				wp_register_style( 'enfold-custom-block-css', "{$template_url}/wp-blocks/src/textblock/style.css", [], $vn );
+
+				// Block-Typ registrieren
+				register_block_type('enfold/custom-text-block', [
+											'editor_script' => 'enfold-custom-block-js',
+											'editor_style'  => 'enfold-custom-block-css',
+											'style'         => 'enfold-custom-block-css',
+									]);
+			}
 		}
 
 		/**

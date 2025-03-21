@@ -464,47 +464,22 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 			}
 			/*end edit*/
 
-			?>
-
+?>
 			<li id="menu-item-<?php echo $item_id; ?>" class="<?php echo $itemValue; echo implode( ' ', $classes ); ?>">
 				<dl class="menu-item-bar">
 					<dt class="menu-item-handle">
-						<span class="item-title"><?php echo esc_html( $title ); ?></span>
+						<label class="item-title" for="menu-item-checkbox-<?php echo $item_id; ?>">
+							<input type="checkbox" id="menu-item-checkbox-<?php echo $item_id; ?>" class="menu-item-checkbox" data-menu-item-id="<?php echo $item_id; ?>" name="menu-item-<?php echo $item_id; ?>" value="<?php echo esc_attr( $title ); ?>" />
+							<span class="item-title menu-item-title"><?php echo esc_html( $title ); ?></span>
+						</label>
 						<span class="item-controls">
-
 							<span class="item-type item-type-default"><?php echo esc_html( $item->type_label ); ?></span>
-							<span class="item-type item-type-avia"><?php _e( 'Column', 'avia_framework' ); ?></span>
-							<span class="item-type item-type-megafied"><?php _e( '(Mega Menu)', 'avia_framework' ); ?></span>
-							<span class="item-order">
-								<a href="<?php
-									echo wp_nonce_url(
-										add_query_arg(
-											array(
-												'action'	=> 'move-up-menu-item',
-												'menu-item'	=> $item_id
-											),
-											remove_query_arg( $removed_args, admin_url( 'nav-menus.php' ) )
-										),
-										'move-menu_item'
-									);
-								?>" class="item-move-up"><abbr title="<?php esc_attr_e( 'Move up', 'avia_framework' ); ?>">&#8593;</abbr></a>
-								|
-								<a href="<?php
-									echo wp_nonce_url(
-										add_query_arg(
-											array(
-												'action'	=> 'move-down-menu-item',
-												'menu-item'	=> $item_id
-											),
-											remove_query_arg( $removed_args, admin_url( 'nav-menus.php' ) )
-										),
-										'move-menu_item'
-									);
-								?>" class="item-move-down"><abbr title="<?php esc_attr_e( 'Move down', 'avia_framework' ); ?>">&#8595;</abbr></a>
-							</span>
+							<span class="item-type-av item-type-avia"><?php _e( 'Column', 'avia_framework' ); ?></span>
+							<span class="item-type-av item-type-megafied"><?php _e( '(Mega Menu)', 'avia_framework' ); ?></span>
 							<a class="item-edit" id="edit-<?php echo $item_id; ?>" title="<?php _e( 'Edit Menu Item', 'avia_framework' ); ?>" href="<?php
-								echo ( isset( $_GET['edit-menu-item'] ) && $item_id == $_GET['edit-menu-item'] ) ? admin_url( 'nav-menus.php' ) : add_query_arg( 'edit-menu-item', $item_id, remove_query_arg( $removed_args, admin_url( 'nav-menus.php#menu-item-settings-' . $item_id ) ) );
-							?>"><span class="screen-reader-text"><?php _e( 'Edit Menu Item', 'avia_framework', 'avia_framework' ); ?></span></a>
+								echo ( isset( $_GET['edit-menu-item'] ) && $item_id == $_GET['edit-menu-item'] ) ? admin_url( 'nav-menus.php' ) : add_query_arg( 'edit-menu-item', $item_id, remove_query_arg( $removed_args, admin_url( 'nav-menus.php#menu-item-settings-' . $item_id ) ) );?>">
+								<span class="screen-reader-text"><?php _e( 'Edit Menu Item', 'avia_framework' ); ?></span>
+							</a>
 						</span>
 					</dt>
 				</dl>
@@ -513,7 +488,7 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 					<?php if( 'custom' == $item->type ) : ?>
 						<p class="field-url description description-wide">
 							<label for="edit-menu-item-url-<?php echo $item_id; ?>">
-								<?php _e( 'URL' ); ?><br />
+								<?php _e( 'URL', 'avia_framework' ); ?><br />
 								<input type="text" id="edit-menu-item-url-<?php echo $item_id; ?>" class="widefat code edit-menu-item-url" name="menu-item-url[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->url ); ?>" />
 							</label>
 						</p>
@@ -521,7 +496,7 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 					<p class="description description-thin description-label avia_label_desc_on_active">
 						<label for="edit-menu-item-title-<?php echo $item_id; ?>">
 						<span class='avia_default_label'><?php _e( 'Navigation Label', 'avia_framework' ); ?></span>
-						<span class='avia_mega_label'><?php _e( 'Mega Menu Column Title <span class="avia_supersmall">(if you dont want to display a title just enter a single dash: "-" )</span>' ); ?></span>
+						<span class='avia_mega_label'><?php _e( 'Mega Menu Column Title <span class="avia_supersmall">(if you dont want to display a title just enter a single dash: "-" )</span>', 'avia_framework' ); ?></span>
 
 							<br />
 							<input type="text" id="edit-menu-item-title-<?php echo $item_id; ?>" class="widefat edit-menu-item-title" name="menu-item-title[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->title ); ?>" />
@@ -529,13 +504,13 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 					</p>
 					<p class="description description-thin description-title">
 						<label for="edit-menu-item-attr-title-<?php echo $item_id; ?>">
-							<?php _e( 'Title Attribute' ); ?><br />
+							<?php _e( 'Title Attribute', 'avia_framework' ); ?><br />
 							<input type="text" id="edit-menu-item-attr-title-<?php echo $item_id; ?>" class="widefat edit-menu-item-attr-title" name="menu-item-attr-title[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->post_excerpt ); ?>" />
 						</label>
 					</p>
 					<p class="field-link-target description description-thin">
 						<label for="edit-menu-item-target-<?php echo $item_id; ?>">
-							<?php _e( 'link Target' ); ?><br />
+							<?php _e( 'link Target', 'avia_framework' ); ?><br />
 							<select id="edit-menu-item-target-<?php echo $item_id; ?>" class="widefat edit-menu-item-target" name="menu-item-target[<?php echo $item_id; ?>]">
 								<option value="" <?php selected( $item->target, '' ); ?>><?php _e( 'Same window or tab', 'avia_framework' ); ?></option>
 								<option value="_blank" <?php selected( $item->target, '_blank' ); ?>><?php _e( 'New window or tab', 'avia_framework' ); ?></option>
@@ -544,13 +519,13 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 					</p>
 					<p class="field-css-classes description description-thin">
 						<label for="edit-menu-item-classes-<?php echo $item_id; ?>">
-							<?php _e( 'CSS Classes (optional)' ); ?><br />
+							<?php _e( 'CSS Classes (optional)', 'avia_framework' ); ?><br />
 							<input type="text" id="edit-menu-item-classes-<?php echo $item_id; ?>" class="widefat code edit-menu-item-classes" name="menu-item-classes[<?php echo $item_id; ?>]" value="<?php echo esc_attr( implode(' ', $item->classes ) ); ?>" />
 						</label>
 					</p>
 					<p class="field-xfn description description-thin">
 						<label for="edit-menu-item-xfn-<?php echo $item_id; ?>">
-							<?php _e( 'link Relationship (XFN)' ); ?><br />
+							<?php _e( 'link Relationship (XFN)', 'avia_framework' ); ?><br />
 							<input type="text" id="edit-menu-item-xfn-<?php echo $item_id; ?>" class="widefat code edit-menu-item-xfn" name="menu-item-xfn[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->xfn ); ?>" />
 						</label>
 					</p>
@@ -574,7 +549,7 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 					<!-- ################# avia custom code here ################# -->
 						<?php
 
-						$title = 'Use as Mega Menu';
+						$title = __( 'Use as Mega Menu', 'avia_framework' );
 						$key = 'menu-item-avia-megamenu';
 						$value = get_post_meta( $item->ID, '_' . $key, true);
 
@@ -587,13 +562,13 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 
 						<p class="description description-wide avia_checkbox avia_mega_menu avia_mega_menu_d0">
 							<label for="edit-<?php echo $key . '-' . $item_id; ?>">
-								<input type="checkbox" value="active" id="edit-<?php echo $key . '-' . $item_id; ?>" class=" <?php echo $key; ?>" name="<?php echo $key . "[" . $item_id . "]";?>" <?php echo $value; ?> /><?php _e( $title ); ?>
+								<input type="checkbox" value="active" id="edit-<?php echo $key . '-' . $item_id; ?>" class=" <?php echo $key; ?>" name="<?php echo $key . "[" . $item_id . "]";?>" <?php echo $value; ?> /><?php echo $title; ?>
 							</label>
 						</p>
 						<!-- ***************  end item *************** -->
 
 						<?php
-						$title = 'This column should start a new row';
+						$title = __( 'This column should start a new row', 'avia_framework' );
 						$key = 'menu-item-avia-division';
 						$value = get_post_meta( $item->ID, '_' . $key, true );
 
@@ -606,7 +581,7 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 
 						<p class="description description-wide avia_checkbox avia_mega_menu avia_mega_menu_d1">
 							<label for="edit-<?php echo $key . '-' . $item_id; ?>">
-								<input type="checkbox" value="active" id="edit-<?php echo $key . '-' . $item_id; ?>" class=" <?php echo $key; ?>" name="<?php echo $key . "[" . $item_id . "]";?>" <?php echo $value; ?> /><?php _e( $title ); ?>
+								<input type="checkbox" value="active" id="edit-<?php echo $key . '-' . $item_id; ?>" class=" <?php echo $key; ?>" name="<?php echo $key . "[" . $item_id . "]";?>" <?php echo $value; ?> /><?php echo $title; ?>
 							</label>
 						</p>
 						<!-- ***************  end item *************** -->
@@ -614,7 +589,7 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 
 
 						<?php
-						$title = 'Use the description to create a Text Block. Dont display this item as a link. (note: dont remove the label text, otherwise wordpress will delete the item)';
+						$title = __( 'Use the description to create a Text Block. Dont display this item as a link. (note: dont remove the label text, otherwise wordpress will delete the item)', 'avia_framework' );
 						$key = 'menu-item-avia-textarea';
 						$value = get_post_meta( $item->ID, '_' . $key, true );
 
@@ -627,13 +602,10 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 
 						<p class="description description-wide avia_checkbox avia_mega_menu avia_mega_menu_d2">
 							<label for="edit-<?php echo $key . '-' . $item_id; ?>">
-								<input type="checkbox" value="active" id="edit-<?php echo $key . '-' . $item_id; ?>" class=" <?php echo $key; ?>" name="<?php echo $key . "[" . $item_id . "]";?>" <?php echo $value; ?> /><span class='avia_long_desc'><?php _e( $title ); ?></span>
+								<input type="checkbox" value="active" id="edit-<?php echo $key . '-' . $item_id; ?>" class=" <?php echo $key; ?>" name="<?php echo $key . "[" . $item_id . "]";?>" <?php echo $value; ?> /><span class='avia_long_desc'><?php echo $title; ?></span>
 							</label>
 						</p>
 						<!-- ***************  end item *************** -->
-
-
-
 
 					</div>
 
@@ -661,10 +633,6 @@ if( ! class_exists( 'avia_backend_walker', false ) )
 						); ?>"><?php _e( 'Remove', 'avia_framework' ); ?></a> <span class="meta-sep"> | </span> <a class="item-cancel submitcancel" id="cancel-<?php echo $item_id; ?>" href="<?php	echo add_query_arg( array('edit-menu-item' => $item_id, 'cancel' => time()), remove_query_arg( $removed_args, admin_url( 'nav-menus.php' ) ) );
 							?>#menu-item-settings-<?php echo $item_id; ?>">Cancel</a>
 					</div>
-
-
-
-
 
 					<input class="menu-item-data-db-id" type="hidden" name="menu-item-db-id[<?php echo $item_id; ?>]" value="<?php echo $item_id; ?>" />
 					<input class="menu-item-data-object-id" type="hidden" name="menu-item-object-id[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->object_id ); ?>" />

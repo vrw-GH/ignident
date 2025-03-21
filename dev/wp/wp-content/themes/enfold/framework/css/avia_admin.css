@@ -980,6 +980,13 @@ div .item-type-avia{
 	max-width:390px;
 }
 
+.avia_mega_active .item-type-av{
+	padding: 12px 16px;
+	color: #646970;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
 .menu-item-depth-0 .avia_mega_menu_d0,
 .avia_mega_active.menu-item-depth-1 .avia_mega_menu_d1,
 .avia_mega_active.menu-item-depth-2 .avia_mega_menu_d2,
@@ -988,8 +995,7 @@ div .item-type-avia{
 .avia_mega_active.menu-item-depth-5 .avia_mega_menu_d2,
 .avia_mega_active.menu-item-depth-6 .avia_mega_menu_d2,
 .avia_mega_active.menu-item-depth-7 .avia_mega_menu_d2,
-.avia_mega_active.menu-item-depth-8 .avia_mega_menu_d2
-{
+.avia_mega_active.menu-item-depth-8 .avia_mega_menu_d2{
 	display:block;
 }
 
@@ -1552,6 +1558,17 @@ div #avia_options_page .avia_row .avia_section .avia_style_wrap{
 
 .menu-item-edit-inactive .ui-sortable-placeholder:not(.menu-item-handle){
 	margin: 0 5px;
+}
+
+#wpwrap .menu-item-handle .item-title{
+	display: initial;
+	position: relative;
+	z-index: 1;
+	margin-right: 0;
+}
+
+#wpwrap .menu-item-handle .item-controls{
+	top: -10px;
 }
 
 .ui-sortable-placeholder * {

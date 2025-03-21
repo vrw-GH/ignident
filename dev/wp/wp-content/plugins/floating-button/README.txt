@@ -3,9 +3,9 @@ Contributors: Wpcalc, lobov
 Donate link: https://wow-estore.com/item/floating-button-pro/
 Tags: floating button, floating menu, sticky button, sticky, nav menu
 Requires at least: 5.5
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 6.0.6
+Stable tag: 6.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,20 @@ Search for answers and ask your questions at [support center](https://wordpress.
 
 
 == Changelog ==
+= 6.0.10 =
+* Fixed: Nonce verification logic for improved security.
+
+= 6.0.9 =
+* Fixed: check footer page
+
+= 6.0.8 =
+* Updated: FontAwesome Icons to version 6.7.1
+
+= 6.0.7 =
+* Fixed: main icon in the admin menu.
+* Fixed: minor bugs
+* Update: translate file
+
 = 6.0.6 =
 * Fixed: minor bugs with sanitizing
 

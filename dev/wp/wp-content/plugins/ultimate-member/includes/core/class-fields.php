@@ -1,6 +1,8 @@
 <?php
 namespace um\core;
 
+use Exception;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -441,10 +443,14 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param array  $position
 		 */
 		private function add_field_from_predefined( $global_id, $form_id, $position = array() ) {
-			$fields      = UM()->query()->get_attr( 'custom_fields', $form_id );
-			$field_scope = UM()->builtin()->predefined_fields;
+			$fields = UM()->query()->get_attr( 'custom_fields', $form_id );
+			if ( empty( $fields ) || ! is_array( $fields ) ) {
+				$fields = array();
+			}
 
 			if ( ! isset( $fields[ $global_id ] ) ) {
+				$field_scope = UM()->builtin()->predefined_fields;
+
 				$count = 1;
 				if ( ! empty( $fields ) ) {
 					$count = count( $fields ) + 1;
@@ -745,13 +751,13 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			$output .= '</label>';
 
 			if ( ! empty( $data['help'] ) && false === $this->viewing && false === strpos( $key, 'confirm_user_pass' ) ) {
-				if ( ! UM()->mobile()->isMobile() ) {
+				if ( ! wp_is_mobile() ) {
 					if ( false === $this->disable_tooltips ) {
 						$output .= '<span class="um-tip um-tip-' . ( is_rtl() ? 'e' : 'w' ) . '" title="' . esc_attr__( $data['help'], 'ultimate-member' ) . '"><i class="um-icon-help-circled"></i></span>';
 					}
 				}
 
-				if ( false !== $this->disable_tooltips || UM()->mobile()->isMobile() ) {
+				if ( false !== $this->disable_tooltips || wp_is_mobile() ) {
 					$output .= '<span class="um-tip-text">' . __( $data['help'], 'ultimate-member' ) . '</span>';
 				}
 			}
@@ -1624,7 +1630,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param $key
 		 *
 		 * @return mixed
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function get_field( $key ) {
 			$fields = $this->get_fields();
@@ -2161,7 +2167,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param array  $args
 		 *
 		 * @return string|null
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function edit_field( $key, $data, $rule = false, $args = array() ) {
 			global $_um_profile_id;
@@ -2805,7 +2811,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 							'media_buttons' => false,
 							'wpautop'       => false,
 							'editor_class'  => $this->get_class( $key, $data ),
-							'editor_height' => $data['height'],
+							'editor_height' => absint( $data['height'] ),
 							'tinymce'       => array(
 								'toolbar1' => 'formatselect,bullist,numlist,bold,italic,underline,forecolor,blockquote,hr,removeformat,link,unlink,undo,redo',
 								'toolbar2' => '',
@@ -4030,7 +4036,6 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			return $arr;
 		}
 
-
 		/**
 		 * Get fields in row
 		 *
@@ -4038,8 +4043,8 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 *
 		 * @return string
 		 */
-		function get_fields_by_row( $row_id ) {
-			if ( ! isset( $this->get_fields ) ) {
+		public function get_fields_by_row( $row_id ) {
+			if ( ! isset( $this->get_fields ) || ! is_array( $this->get_fields ) ) {
 				return '';
 			}
 
@@ -4049,9 +4054,8 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 				}
 			}
 
-			return ( isset ( $results ) ) ? $results : '';
+			return isset( $results ) ? $results : '';
 		}
-
 
 		/**
 		 * Get fields by sub row
@@ -4119,7 +4123,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param array $args
 		 *
 		 * @return string|null
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function display( $mode, $args ) {
 			$output = null;
@@ -4289,7 +4293,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param bool $rule
 		 *
 		 * @return string|null
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function view_field( $key, $data, $rule = false ) {
 			if ( '_um_last_login' === $key ) {
@@ -4644,7 +4648,6 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			return apply_filters( "um_view_field_output_" . $data['type'], $data );
 		}
 
-
 		/**
 		 * Display fields ( view mode )
 		 *
@@ -4652,7 +4655,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param array $args
 		 *
 		 * @return string|null
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function display_view( $mode, $args ) {
 			$output = null;
@@ -4664,7 +4667,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			$this->set_mode = $mode;
 			$this->set_id   = absint( $this->global_args['form_id'] );
 
-			$this->field_icons = ( isset( $this->global_args['icons'] ) ) ? $this->global_args['icons'] : 'label';
+			$this->field_icons = isset( $this->global_args['icons'] ) ? $this->global_args['icons'] : 'label';
 
 			// start output here
 			$this->get_fields = $this->get_fields();
@@ -4694,8 +4697,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 				}
 			}
 
-			if ( ! empty( $this->get_fields ) ) {
-
+			if ( ! empty( $this->get_fields ) && is_array( $this->get_fields ) ) {
 				// find rows
 				foreach ( $this->get_fields as $key => $array ) {
 					if ( isset( $array['type'] ) && 'row' === $array['type'] ) {

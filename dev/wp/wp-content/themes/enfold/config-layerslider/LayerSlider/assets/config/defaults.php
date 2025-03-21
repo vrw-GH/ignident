@@ -1035,7 +1035,7 @@ $lsDefaults = [
 			'value' => '',
 			'name' => __('Open By Click', 'LayerSlider'),
 			'keys' => 'popupShowOnClick',
-			'desc' => __('Enter a jQuery selector to open the Popup by clicking on the target element(s). Acting as a toggle, a secondary click will close the Popup. Leave this field empty if you don’t want to use this trigger.', 'LayerSlider')
+			'desc' => __('Enter a CSS selector to trigger the Popup when clicking a target element. Use a dot for class (e.g., .popup-trigger) or a hashtag for ID (e.g., #popup-button). The Popup will toggle open/close with repeated clicks. Leave blank if no trigger is needed.', 'LayerSlider')
 		],
 
 		'popupShowOnScroll' => [
@@ -2415,6 +2415,163 @@ $lsDefaults = [
 				'meta' => true
 			]
 		],
+
+		'counterStart' => [
+			'value' => 0,
+			'name' => __('Starting Number', 'LayerSlider'),
+			'keys' => 'counterStart',
+			'attrs' => [
+				'type' => 'text'
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterEnd' => [
+			'value' => 100,
+			'name' => __('Ending Number', 'LayerSlider'),
+			'keys' => 'counterEnd',
+			'attrs' => [
+				'type' => 'text'
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterDecimals' => [
+			'value' => '',
+			'name' => __('Decimal Places', 'LayerSlider'),
+			'keys' => 'counterDecimals',
+			'attrs' => [
+				'type' => 'number',
+				'min' => 0,
+				'step' => 1,
+				'placeholder' => __('auto', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterDecimalSeparator' => [
+			'value' => '.',
+			'name' => __('Decimal Separator', 'LayerSlider'),
+			'keys' => 'counterDecimalSeparator',
+			'options' => [
+				'.' => __('Dot', 'LayerSlider'),
+				',' => __('Comma', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterThousandsSeparator' => [
+			'value' => '',
+			'name' => __('Thousand Separator', 'LayerSlider'),
+			'keys' => 'counterThousandsSeparator',
+			'options' => [
+				'' => __('None', 'LayerSlider'),
+				'.' => __('Dot', 'LayerSlider'),
+				',' => __('Comma', 'LayerSlider'),
+				' ' => __('Space', 'LayerSlider'),
+				'_' => __('Underscore', 'LayerSlider'),
+				'’' => __('Apostrophe', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterLeadingZeros' => [
+			'value' => false,
+			'name' => __('Leading Zeros', 'LayerSlider'),
+			'keys' => 'counterLeadingZeros',
+			'props' => [
+				'meta' => true,
+				'output' => true
+			]
+		],
+
+		'counterAnimationType' => [
+			'value' => 'time',
+			'name' => __('Animation Type', 'LayerSlider'),
+			'keys' => 'counterAnimationType',
+			'options' => [
+				'time' => __('Time-based', 'LayerSlider'),
+				'step' => __('Step-based', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterDuration' => [
+			'value' => 2000,
+			'name' => __('Duration', 'LayerSlider'),
+			'keys' => 'counterDuration',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 100
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterStartAt' => [
+			'value' => 'transitioninstart',
+			'name' => __('Start When', 'LayerSlider'),
+			'keys' => 'counterStartAt',
+			'options' => [
+				'transitioninstart' => __('Opening Transition starts', 'LayerSlider'),
+				'transitioninend' => __('Opening Transition completes', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterEasing' => [
+			'value' => 'easeOutSine',
+			'name' => __('Timing Function', 'LayerSlider'),
+			'keys' => 'counterEasing',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+
+		'counterStep' => [
+			'value' => 1,
+			'name' => __('Step', 'LayerSlider'),
+			'keys' => 'counterStep',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 1
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterStepDelay' => [
+			'value' => 50,
+			'name' => __('Step Delay', 'LayerSlider'),
+			'keys' => 'counterStepDelay',
+			'attrs' => [
+				'type' => 'number',
+				'min' => 1,
+				'step' => 10
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+
 
 		'countdownDueDate' => [
 			'value' => '',
@@ -4599,6 +4756,15 @@ $lsDefaults = [
 			]
 		],
 
+		'textStroke' => [
+			'value' => '',
+			'name' => __('Text Stroke', 'LayerSlider'),
+			'keys' => '-webkit-text-stroke',
+			'props' => [
+				'meta' => true
+			]
+		],
+
 		'textShadow' => [
 			'value' => '',
 			'name' => __('Text Shadow', 'LayerSlider'),
@@ -4902,19 +5068,22 @@ $lsDefaults = [
 		'rotate' => [
 			'value' => 0,
 			'name' => __('Rotation', 'LayerSlider'),
-			'keys' => 'rotation'
+			'keys' => 'rotation',
+			'attrs' => ['type' => 'text']
 		],
 
 		'rotateX' => [
 			'value' => 0,
 			'name' => __('Rotation X', 'LayerSlider'),
-			'keys' => 'rotationX'
+			'keys' => 'rotationX',
+			'attrs' => ['type' => 'text']
 		],
 
 		'rotateY' => [
 			'value' => 0,
 			'name' => __('Rotation Y', 'LayerSlider'),
-			'keys' => 'rotationY'
+			'keys' => 'rotationY',
+			'attrs' => ['type' => 'text']
 		],
 
 		'scaleX' => [
@@ -4923,7 +5092,8 @@ $lsDefaults = [
 			'keys' => 'scaleX',
 			'attrs' => [
 				'step' => '0.1'
-			]
+			],
+			'attrs' => ['type' => 'text']
 		],
 
 		'scaleY' => [
@@ -4932,19 +5102,22 @@ $lsDefaults = [
 			'keys' => 'scaleY',
 			'attrs' => [
 				'step' => '0.1'
-			]
+			],
+			'attrs' => ['type' => 'text']
 		],
 
 		'skewX' => [
 			'value' => 0,
 			'name' => __('Skew X', 'LayerSlider'),
-			'keys' => 'skewX'
+			'keys' => 'skewX',
+			'attrs' => ['type' => 'text']
 		],
 
 		'skewY' => [
 			'value' => 0,
 			'name' => __('Skew Y', 'LayerSlider'),
-			'keys' => 'skewY'
+			'keys' => 'skewY',
+			'attrs' => ['type' => 'text']
 		],
 
 		'clip' => [

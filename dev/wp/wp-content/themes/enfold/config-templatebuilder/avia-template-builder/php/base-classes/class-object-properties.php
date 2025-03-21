@@ -16,6 +16,7 @@ if( ! defined( 'ABSPATH' ) ) { exit; }
 
 if( ! class_exists( __NAMESPACE__ . '\object_properties', false ) )
 {
+	#[\AllowDynamicProperties]
 	abstract class object_properties
 	{
 		/**

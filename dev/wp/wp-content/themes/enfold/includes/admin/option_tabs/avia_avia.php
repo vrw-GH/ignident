@@ -43,12 +43,8 @@ $avia_elements[] = array(
 $desc  = __( 'Upload a logo image, or enter the URL or ID of an image if its already uploaded. The themes default logo gets applied if the input field is left blank', 'avia_framework' ) . '<br/><br/>';
 $desc .= __( 'Logo Dimension: 340px * 156px (if your logo is larger you might need to change the Header size in your', 'avia_framework' );
 $desc .= ' <a href="#goto_header">' . __( 'Header Settings', 'avia_framework' ) . '</a>' . '<br /><br />';
-$desc .= __( 'Since 4.8.2 responsive images (e.g. for retina screens) are supported. Make sure to upload an image dimension from which WP can create the necessary scrset and sizes attributes AND you must select &quot;Full Size&quot; for image size (unless you add the attachment ID).', 'avia_framework' );
-
-$desc .= '<br /><br />';
-$desc .= '<strong>' . __( 'Since 4.8.6.4 (in beta) - support for svg files', 'avia_framework' ) . '</strong><br />';
-$desc .= __( 'Administrators may upload svg files to media library. We also support paths to local filesystem or urls that are not in the media library (not recommended for security reasons, must start with http:// or https://). If we cannot read the content of this url on pageload we render the url in an img tag as fallback.', 'avia_framework' ) . ' ';
-$desc .= __( 'File content is parsed and added inline starting with the first svg tag. preserveAspectRatio is set for this to be responsive according to logo location. Nesting of svg is allowed.', 'avia_framework' );
+$desc .= __( 'You can learn more about Responsive Images and SVG Files support in the ', 'avia_framework' ) . ' ';
+$desc .= ' <a href="https://kriesi.at/documentation/enfold/logo/" title="Enfold Documentation Logo Article">' . __( 'Enfold documentation.', 'avia_framework' ) . '</a>';
 
 $avia_elements[] = array(
 			'slug'		=> 'avia',

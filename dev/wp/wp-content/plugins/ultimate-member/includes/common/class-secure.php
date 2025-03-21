@@ -106,23 +106,26 @@ if ( ! class_exists( 'um\common\Secure' ) ) {
 			$banned_profile_links = '';
 			foreach ( $user_ids as $uid ) {
 				um_fetch_user( $uid );
-				$banned_profile_links .= UM()->user()->get_profile_link( $uid ) . ' ' . um_user( 'account_status' ) . '<br />';
+				$banned_profile_links .= UM()->user()->get_profile_link( $uid ) . ' ' . UM()->common()->users()->get_status( $uid ) . '<br />';
 			}
 			um_reset_user();
 
 			$emails = um_multi_admin_email();
 			if ( ! empty( $emails ) ) {
 				foreach ( $emails as $email ) {
-					UM()->mail()->send(
-						$email,
-						'suspicious-activity',
+					UM()->maybe_action_scheduler()->enqueue_async_action(
+						'um_dispatch_email',
 						array(
-							'admin'        => true,
-							'tags'         => array(
-								'{banned_profile_links}',
-							),
-							'tags_replace' => array(
-								$banned_profile_links,
+							$email,
+							'suspicious-activity',
+							array(
+								'admin'        => true,
+								'tags'         => array(
+									'{banned_profile_links}',
+								),
+								'tags_replace' => array(
+									$banned_profile_links,
+								),
 							),
 						)
 					);
@@ -221,18 +224,20 @@ if ( ! class_exists( 'um\common\Secure' ) ) {
 				'submitted'      => ! empty( UM()->form()->post_form ) ? UM()->form()->post_form : '',
 				'roles'          => $user->roles,
 				'user_agent'     => $user_agent,
-				'account_status' => um_user( 'status' ),
+				'account_status' => UM()->common()->users()->get_status( $user->ID ),
 			);
 			update_user_meta( $user->ID, 'um_user_blocked__metadata', $captured );
 
 			$user->remove_all_caps();
 			$user->update_user_level_from_caps();
 
+			// Force update of the user status without email notifications.
 			if ( is_user_logged_in() ) {
 				UM()->common()->users()->set_status( $user->ID, 'inactive' );
 			} else {
 				UM()->common()->users()->set_status( $user->ID, 'rejected' );
 			}
+
 			um_reset_user();
 			update_user_meta( $user->ID, 'um_user_blocked', 'suspicious_activity' );
 			update_user_meta( $user->ID, 'um_user_blocked__timestamp', current_time( 'mysql', true ) );

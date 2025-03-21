@@ -39,6 +39,34 @@
 			</ls-b>
 
 
+			<!-- Counter -->
+			<ls-b data-tab="counter">
+
+				<ls-box class="ls--show-if-not-registered ls-show-activation-box">
+					<ls-b>
+					<?= __('Register license to use this feature.', 'LayerSlider') ?>
+					</ls-b>
+				</ls-box>
+
+				<ls-b class="ls--addon-desc">
+					<ls-p>
+						<?= sprintf(__('%sBring your numbers to life with the Counter Add-On%s. Whether tracking progress, highlighting statistics, or counting down to key events, this feature adds dynamic animation that’s sure to capture your visitors’ attention. Effortlessly customize the design and watch your numbers stand out in style.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>' ) ?>
+					</ls-p>
+				</ls-b>
+
+				<ls-p class="ls--form-control ls--text-center">
+					<ls-button-group class="ls--vertical">
+
+						<a target="_blank" href="https://layerslider.com/sliders/ionara-counters/" class="ls--button">
+							<?= __('See It In Action', 'LayerSlider') ?>
+						</a>
+
+					</ls-button-group>
+				</ls-p>
+
+			</ls-b>
+
+
 			<!-- Countdown -->
 			<ls-b data-tab="countdown">
 
@@ -76,6 +104,32 @@
 					</ls-button-group>
 				</ls-p>
 
+			</ls-b>
+
+			<!-- Maintenance & Coming Soon -->
+			<ls-b data-tab="maintenance">
+
+				<ls-box class="ls--show-if-not-registered ls-show-activation-box">
+					<ls-b>
+					<?= __('Register license to use this feature.', 'LayerSlider') ?>
+					</ls-b>
+				</ls-box>
+
+				<ls-b class="ls--addon-desc">
+					<ls-p>
+						<?= sprintf(__('%sDon’t let maintenance work or site launches be a roadblock for your visitors.%s Our Maintenance & Coming Soon add-on allows you to turn those static, inactive pages into engaging and informative experiences. Keep your audience excited while your site gets ready behind the scenes.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?>
+					</ls-p>
+				</ls-b>
+
+				<ls-p class="ls--form-control ls--text-center">
+					<ls-button-group class="ls--vertical">
+						<a href="#" data-category="maintenance" class="ls-open-template-store ls--button">
+							<?= __('Discover Templates', 'LayerSlider') ?>
+						</a>
+					</ls-button-group>
+				</ls-p>
+
+				<ls-b class="ls--addon-settings-container" id="ls--addon-maintenance-ajax-container"></ls-b>
 			</ls-b>
 
 
@@ -425,10 +479,36 @@
 
 			<ls-row class="km-tabs-list" data-target="#ls-addons-content" data-disable-auto-rename>
 
+				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="counter">
+					<ls-box>
+						<ls-b class="ls--container">
+							<video class="ls--video" muted src="https://layerslider.com/media/premium/counter.mp4"></video>
+						</ls-b>
+					</ls-box>
+					<ls-b class="ls--title">
+						<?= __('Counter', 'LayerSlider') ?>
+					</ls-b>
+					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
+				</ls-col>
+
+				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="maintenance">
+					<ls-box>
+						<ls-b class="ls--container">
+							<video class="ls--video" muted src="https://layerslider.com/media/premium/under-maintenance.mp4"></video>
+						</ls-b>
+					</ls-box>
+					<ls-b class="ls--title">
+						<?= __('Maintenance & Coming Soon', 'LayerSlider') ?>
+					</ls-b>
+					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
+				</ls-col>
+
 				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="countdown">
 					<ls-box>
 						<ls-b class="ls--container">
-							<video class="ls--video ls--allowstop" muted src="https://layerslider.com/media/premium/countdown.mp4"></video>
+							<video class="ls--video" muted src="https://layerslider.com/media/premium/countdown.mp4"></video>
 						</ls-b>
 					</ls-box>
 					<ls-b class="ls--title">
@@ -438,7 +518,7 @@
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="404">
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="404">
 					<ls-box>
 						<ls-b class="ls--container">
 							<video class="ls--video ls--allowstop" muted src="https://layerslider.com/media/premium/404.mp4"></video>
@@ -447,11 +527,10 @@
 					<ls-b class="ls--title">
 						<?= __('404 Page', 'LayerSlider') ?>
 					</ls-b>
-					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3" data-tab-target="template-store">
+				<ls-col class="kmw-menuitem ls--col1-4" data-tab-target="template-store">
 					<ls-box>
 						<ls-b class="ls--container">
 							<!-- <ls-b class="ls--tn" id="p-template-store"></ls-b> -->
@@ -464,7 +543,7 @@
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="revisions">
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="revisions">
 					<ls-box>
 					<ls-b class="ls--container">
 							<video class="ls--video" muted src="https://layerslider.com/media/premium/revisions.mp4"></video>
@@ -476,7 +555,7 @@
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="scroll-effects">
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="scroll-effects">
 					<ls-box>
 						<ls-b class="ls--container">
 							<video class="ls--video ls--allowstop" muted src="https://layerslider.com/media/premium/scroll-effects.mp4"></video>
@@ -488,7 +567,7 @@
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="assets-library">
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="assets-library">
 					<ls-box>
 						<ls-b class="ls--container">
 							<video class="ls--video" muted src="https://layerslider.com/media/premium/assets-library.mp4"></video>

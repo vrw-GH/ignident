@@ -303,12 +303,14 @@ $key .avia-bullet{
 	border-color: $secondary;
 }
 
-$key .sort-param  .current-param a{
-	color:$primary;
+#top $key .sort-param  .current-param a,
+#top $key .sort-param  .current-param a:hover{
+	color: $primary;
 }
 
-$key .sort-param .current-param .avia-bullet{
-	border-color:$primary;
+#top $key .sort-param .current-param .avia-bullet,
+#top $key .sort-param .current-param a:hover .avia-bullet{
+	border-color: $primary;
 }
 
 ";

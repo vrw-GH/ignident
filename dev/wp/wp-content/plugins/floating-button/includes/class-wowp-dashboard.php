@@ -132,13 +132,13 @@ class WOWP_Dashboard {
 
 
 		$fonticonpicker_css = $assets_url . 'vendors/fonticonpicker/jquery.fonticonpicker.min.css';
-		wp_enqueue_style( $slug . '-fonticonpicker', $fonticonpicker_css );
+		wp_enqueue_style( $slug . '-fonticonpicker', $fonticonpicker_css, null, $version );
 
 		$fonticonpicker_dark_css = $assets_url . 'vendors/fonticonpicker/jquery.fonticonpicker.grey.min.css';
-		wp_enqueue_style( $slug . '-fonticonpicker-darkgrey', $fonticonpicker_dark_css );
+		wp_enqueue_style( $slug . '-fonticonpicker-darkgrey', $fonticonpicker_dark_css, null, $version );
 
 		$fonticonpicker_js = $assets_url . 'vendors/fonticonpicker/jquery.fonticonpicker.js';
-		wp_enqueue_script( $slug . '-fonticonpicker', $fonticonpicker_js, [ 'jquery' ] );
+		wp_enqueue_script( $slug . '-fonticonpicker', $fonticonpicker_js, [ 'jquery' ], $version, true );
 
 		// include the color picker
 		wp_enqueue_script( 'code-editor' );

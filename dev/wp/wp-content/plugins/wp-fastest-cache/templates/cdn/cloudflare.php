@@ -32,7 +32,7 @@
 					</div>
 					<div wpfc-cdn-page="2" class="wiz-cont" style="display:none">
 						<h1>Enter API Token</h1>		
-						<p>Please enter your <strong>API Token</strong> below to to access Cloudflare APIs.</p>
+						<p>Please enter your <strong>Cloudflare API Token</strong> below to access Cloudflare APIs.</p>
 						<div class="wiz-input-cont" style="display: none;">
 							<label class="mc-input-label" for="cdn-url" style="padding-right: 19px;">Email:</label><input type="text" name="" value="wpfc" class="api-key" id="cdn-url">
 					    	<label class="wiz-error-msg"></label>

@@ -682,6 +682,7 @@ if ( ! class_exists( 'um\core\Form' ) ) {
 				/* Continue based on form mode - store data. */
 				/**
 				 * Fires for make main actions on UM login, registration or profile form submission.
+				 * Where $mode equals login, registration or profile
 				 *
 				 * Internal Ultimate Member callbacks (Priority -> Callback name -> Excerpt):
 				 * ### um_submit_form_login:
@@ -696,16 +697,16 @@ if ( ! class_exists( 'um\core\Form' ) ) {
 				 * * 10 - `um_submit_form_profile()` Profile form main handler.
 				 *
 				 * @since 1.3.x
-				 * @hook um_submit_form_errors_hook
+				 * @hook um_submit_form_{$mode}
 				 *
 				 * @param {array} $post      $_POST Submission array.
 				 * @param {array} $form_data UM form data. Since 2.6.7
 				 *
-				 * @example <caption>Make any custom action.</caption>
-				 * function my_custom_before_submit_form_post( $post, $form_data ) {
+				 * @example <caption>Make any custom action on profile submission.</caption>
+				 * function my_custom_submit_form_profile( $post, $form_data ) {
 				 *     // your code here
 				 * }
-				 * add_action( 'um_submit_form_errors_hook', 'my_custom_submit_form_errors_hook', 10, 2 );
+				 * add_action( 'um_submit_form_profile', 'my_custom_submit_form_profile', 10, 2 );
 				 */
 				do_action( "um_submit_form_{$this->form_data['mode']}", $this->post_form, $this->form_data );
 			}
@@ -735,6 +736,59 @@ if ( ! class_exists( 'um\core\Form' ) ) {
 			return $form;
 		}
 
+		/**
+		 * Use PHP tidy extension if it's active for getting clean HTML without unclosed tags.
+		 *
+		 * @param string $html_fragment Textarea with active HTML option field value.
+		 * @param array  $field_data    Ultimate Member form field data.
+		 *
+		 * @return string|\tidy
+		 */
+		private static function maybe_apply_tidy( $html_fragment, $field_data ) {
+			// Break if extension isn't active in php.ini
+			if ( ! function_exists( 'tidy_parse_string' ) ) {
+				return $html_fragment;
+			}
+
+			$tidy_config = array(
+				'clean'          => true,
+				'output-xhtml'   => true,
+				'show-body-only' => true,
+				'wrap'           => 0,
+			);
+			/**
+			 * Filters PHP tidy extension config.
+			 * Get more info here https://www.php.net/manual/en/tidy.parsestring.php
+			 *
+			 * @param {array} $tidy_config Config.
+			 * @param {array} $field_data  UM Form Field Data.
+			 *
+			 * @return {array} Config.
+			 *
+			 * @since 2.8.9
+			 * @hook um_tidy_config
+			 *
+			 * @example <caption>Customize tidy config based on field data.</caption>
+			 * function my_um_tidy_config( $tidy_config, $field_data ) {
+			 *     // your code here
+			 *     if ( 'custom_metakey' === $field_data['metakey'] ) {
+			 *         $tidy_config['clean'] = false;
+			 *     }
+			 *     return $tidy_config;
+			 * }
+			 * add_filter( 'um_tidy_config', 'my_um_tidy_config', 10, 2 );
+			 */
+			$tidy_config = apply_filters( 'um_tidy_config', $tidy_config, $field_data );
+
+			// since PHP8.0 $tidy_config, 'UTF8' variables are nullable https://www.php.net/manual/en/tidy.parsestring.php
+			$tidy   = tidy_parse_string( $html_fragment, $tidy_config, 'UTF8' );
+			$result = $tidy->cleanRepair();
+			if ( $result ) {
+				return $tidy;
+			}
+
+			return $html_fragment;
+		}
 
 		/**
 		 * Beautify form data
@@ -764,10 +818,7 @@ if ( ! class_exists( 'um\core\Form' ) ) {
 										case 'textarea':
 											if ( ! empty( $field['html'] ) || ( UM()->profile()->get_show_bio_key( $form ) === $k && UM()->options()->get( 'profile_show_html_bio' ) ) ) {
 												$form[ $k ] = html_entity_decode( $form[ $k ] ); // required because WP_Editor send sometimes encoded content.
-												preg_match( '/^<p>(.*?)<\/p>$/', $form[ $k ], $match ); // required because WP_Editor send content wrapped to <p></p>
-												if ( ! empty( $match[1] ) ) {
-													$form[ $k ] = $match[1];
-												}
+												$form[ $k ] = self::maybe_apply_tidy( $form[ $k ], $field );
 
 												$allowed_html = UM()->get_allowed_html( 'templates' );
 												if ( empty( $allowed_html['iframe'] ) ) {
@@ -906,6 +957,9 @@ if ( ! class_exists( 'um\core\Form' ) ) {
 						if ( array_key_exists( $description_key, $custom_fields ) ) {
 							$field_exists = true;
 							if ( ! empty( $custom_fields[ $description_key ]['html'] ) && $bio_html ) {
+								$form[ $description_key ] = html_entity_decode( $form[ $description_key ] ); // required because WP_Editor send sometimes encoded content.
+								$form[ $description_key ] = self::maybe_apply_tidy( $form[ $description_key ], $custom_fields[ $description_key ] );
+
 								$allowed_html = UM()->get_allowed_html( 'templates' );
 								if ( empty( $allowed_html['iframe'] ) ) {
 									$allowed_html['iframe'] = array(
@@ -1021,7 +1075,9 @@ if ( ! class_exists( 'um\core\Form' ) ) {
 			$global_role = get_option( 'default_role' ); // WP Global settings
 
 			$um_global_role = UM()->options()->get( 'register_role' ); // UM Settings Global settings
-			if ( ! empty( $um_global_role ) ) {
+
+			$existing_roles = array_keys( wp_roles()->roles );
+			if ( ! empty( $um_global_role ) && in_array( $um_global_role, $existing_roles, true ) ) {
 				$global_role = $um_global_role; // Form Global settings
 			}
 
@@ -1035,7 +1091,7 @@ if ( ! class_exists( 'um\core\Form' ) ) {
 				$role = get_post_meta( $post_id, "_um_{$mode}_role", true );
 			}
 
-			if ( empty( $role ) ) { // custom role is default, return default role's slug
+			if ( empty( $role ) || ! in_array( $role, $existing_roles, true ) ) { // custom role is default, return default role's slug
 				$role = $global_role;
 			}
 

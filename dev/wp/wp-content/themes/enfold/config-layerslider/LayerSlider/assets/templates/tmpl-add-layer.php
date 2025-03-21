@@ -48,9 +48,14 @@
 					<lse-text><?= __('Dynamic Layer', 'LayerSlider') ?></lse-text>
 				</lse-b>
 				<lse-b data-type="countdown">
-				<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<?= lsGetSVGIcon('timer') ?>
 					<lse-text><?= __('Countdown', 'LayerSlider') ?></lse-text>
+ 				</lse-b>
+				 <lse-b data-type="counter">
+					<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<?= lsGetSVGIcon('arrow-up-9-1') ?>
+					<lse-text><?= __('Counter', 'LayerSlider') ?></lse-text>
  				</lse-b>
 			</lse-row>
 		</lse-grid>

@@ -106,7 +106,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['schemas']['impact'] ? $analyzes['schemas']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -144,7 +146,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['old_post']['impact'] ? $analyzes['old_post']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -195,7 +199,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['keywords_permalink']['impact'] ? $analyzes['keywords_permalink']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -290,7 +296,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['headings']['impact'] ? $analyzes['headings']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         //H2
@@ -333,7 +341,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['headings']['impact'] ? $analyzes['headings']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         //H3
@@ -376,7 +386,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['headings']['impact'] ? $analyzes['headings']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -696,7 +708,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['social']['impact'] ? $analyzes['social']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         //og:url
@@ -971,7 +985,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['social']['impact'] ? $analyzes['social']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -1060,29 +1076,14 @@ class GetContent
             $desc .= '<p><span class="dashicons dashicons-yes"></span>' . __('We found no meta robots on this page. It means, your page is index,follow. Search engines will index it, and follow links. ', 'wp-seopress') . '</p>';
         }
 
-        //Meta Google
-        if (! empty($data['meta_google'])) {
-            $meta_google = $data['meta_google'];
-            if (preg_match('/nositelinkssearchbox/', wp_json_encode($meta_google))) {
-                if ('high' != $analyzes['robots']['impact']) {
-                    $analyzes['robots']['impact'] = 'medium';
-                }
-                $desc .= '<p><span class="dashicons dashicons-no-alt"></span>' . __('<strong>nositelinkssearchbox</strong> is on! Google will not display a sitelinks searchbox in search results.', 'wp-seopress') . '</p>';
-
-                $issue['issue_name'] = 'meta_robots_nositelinkssearchbox';
-            } else {
-                $desc .= '<p><span class="dashicons dashicons-yes"></span>' . __('<strong>nositelinkssearchbox</strong> is off. Google will probably display a sitelinks searchbox in search results.', 'wp-seopress') . '</p>';
-            }
-        } else {
-            $desc .= '<p><span class="dashicons dashicons-yes"></span>' . __('<strong>nositelinkssearchbox</strong> is off. Google will probably display a sitelinks searchbox in search results.', 'wp-seopress') . '</p>';
-        }
-
         $analyzes['robots']['desc'] = $desc;
 
         $issue['issue_priority'] = $analyzes['robots']['impact'] ? $analyzes['robots']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -1157,7 +1158,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['img_alt']['impact'] ? $analyzes['img_alt']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -1205,7 +1208,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['nofollow_links']['impact'] ? $analyzes['nofollow_links']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -1226,7 +1231,7 @@ class GetContent
             $this->seo_issues_repository->deleteSEOIssue($post->ID, $issue['issue_type']);
         }
 
-        $desc = '<p>' . __('Internet is built on the principle of hyperlink. It is therefore perfectly normal to make links between different websites. However, avoid making links to low quality sites, SPAM... If you are not sure about the quality of a site, add the attribute "nofollow" to your link.') . '</p>';
+        $desc = '<p>' . __('Internet is built on the principle of hyperlink. It is therefore perfectly normal to make links between different websites. However, avoid making links to low quality sites, SPAM... If you are not sure about the quality of a site, add the attribute "nofollow" to your link.', 'wp-seopress') . '</p>';
         if (isset($data['outbound_links']) && is_array($data['outbound_links']) && !empty($data['outbound_links'])) {
             $count = count($data['outbound_links']);
 
@@ -1249,7 +1254,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['outbound_links']['impact'] ? $analyzes['outbound_links']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -1299,7 +1306,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['internal_links']['impact'] ? $analyzes['internal_links']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;
@@ -1320,7 +1329,7 @@ class GetContent
             $this->seo_issues_repository->deleteSEOIssue($post->ID, $issue['issue_type']);
         }
 
-        $desc = '<p>' . __('A canonical URL is required by search engines to handle duplicate content.') . '</p>';
+        $desc = '<p>' . __('A canonical URL is required by search engines to handle duplicate content.', 'wp-seopress') . '</p>';
 
         if (isset($data['canonical']) && is_array($data['canonical']) && !empty($data['canonical'])) {
             $count = count($data['canonical']);
@@ -1360,7 +1369,9 @@ class GetContent
         $issue['issue_priority'] = $analyzes['all_canonical']['impact'] ? $analyzes['all_canonical']['impact'] : 0;
 
         if ($this->seo_issues_database && method_exists($this->seo_issues_database, 'saveData')) {
-            $this->seo_issues_database->saveData($post->ID, $issue);
+            if (isset($issue['issue_name'])) {
+                $this->seo_issues_database->saveData($post->ID, $issue);
+            }
         }
 
         return $analyzes;

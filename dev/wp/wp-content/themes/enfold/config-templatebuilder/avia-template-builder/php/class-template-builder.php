@@ -2043,6 +2043,10 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			{
 				$classes .= ' avia-advanced-editor-enabled';
 			}
+			else
+			{
+				$classes .= ' wp-default-editor-enabled';
+			}
 
 			if( version_compare( $wp_version, '5.5', '>=' ) )
 			{
@@ -2601,7 +2605,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 
 			foreach( $boxes as $box )
 			{
-				if( $box['id'] == $slug )
+				if( is_array( $box ) && isset( $box['id'] ) && $box['id'] == $slug )
 				{
 					$pages = $box['page'];
 				}
