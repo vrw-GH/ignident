@@ -204,7 +204,15 @@ var avia_cookie_consent_modal_callback = window.avia_cookie_consent_modal_callba
 					aviaSetCookieToggles( 'reset' );
 					if( ! sessionBlocked )
 					{
-						sessionStorage.setItem( 'aviaCookieRefused', newCookieContents );
+						try
+						{
+							sessionStorage.setItem( 'aviaCookieRefused', newCookieContents );
+						}
+						catch( err )
+						{
+							avia_log( 'Info - Session Storage: Browser memory limit reached. Your Browser does not offer session storage to save cookie settings.' );
+							avia_log( err );
+						}
 					}
 
 					$_html.addClass( 'av-cookies-session-refused' );
@@ -463,7 +471,15 @@ var avia_cookie_consent_modal_callback = window.avia_cookie_consent_modal_callba
 			{
 				if( ! sessionBlocked )
 				{
-					sessionStorage.removeItem( 'aviaCookieRefused' );
+					try
+					{
+						sessionStorage.removeItem( 'aviaCookieRefused' );
+					}
+					catch( err )
+					{
+						avia_log( 'Info - Session Storage: Browser refused to clear cookie info.' );
+						avia_log( err );
+					}
 				}
 
 				$_html.removeClass( 'av-cookies-session-refused' );

@@ -163,7 +163,6 @@ add_filter( 'avia_mega_menu_walker', '__return_false' );
  */
 add_theme_support( 'avia_sidebar_manager' );
 
-
 /*
  * Register theme text domain
  */
@@ -203,13 +202,19 @@ if( ! function_exists( 'avia_lang_setup' ) )
 		 * @return string
 		 */
 		$language_path = apply_filters( 'ava_theme_textdomain_path', get_template_directory()  . '/lang' );
+		$language_file = trailingslashit( $language_path ) . "{$local}.mo";
 
-		if( ! is_readable( trailingslashit( $language_path ) . $local . '.mo' ) )
+		if( ! is_readable( $language_file ) )
 		{
 			return;
 		}
 
-		load_theme_textdomain( 'avia_framework', $language_path );
+		/*
+		 * @since 6.0.9 removed because WP throws _load_textdomain_just_in_time error but framework needs translations for admin bar and backend
+		 */
+//		load_theme_textdomain( 'avia_framework', $language_path );
+
+		load_textdomain( 'avia_framework', $language_file, $local );
 	}
 
 	//	must be called to support admin bar in frontend !!!

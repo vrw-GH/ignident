@@ -136,7 +136,7 @@ if( ! class_exists( 'avia_sc_product_tabs', false ) )
 			ob_start();
 
 			//	fix a problem with SEO plugin
-			if( function_exists( 'wc_clear_notices' ) )
+			if( function_exists( 'wc_clear_notices' ) && WC()->session )
 			{
 				wc_clear_notices();
 			}

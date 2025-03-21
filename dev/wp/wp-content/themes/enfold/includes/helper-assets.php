@@ -35,6 +35,14 @@ if( ! function_exists( 'av_asset_merging_settings' ) )
 	 */
 	function av_asset_merging_settings( $which_files )
 	{
+		/**
+		 * @link https://kriesi.at/support/topic/critical-error-after-updating-enfold/
+		 */
+		if( ! is_array( $which_files ) )
+		{
+			$which_files = [];
+		}
+		
 		$css_merging = avia_get_option( 'merge_css', 'avia' );
 		$js_merging  = avia_get_option( 'merge_js', 'avia' );
 

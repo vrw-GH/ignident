@@ -395,11 +395,8 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				// Premium layer content checks
 				if( ! $GLOBALS['lsIsActivatedSite'] ) {
 
-					if( $layer['props']['media'] === 'shape' ) {
-						continue;
-					}
-
-					if( $layer['props']['media'] === 'countdown' ) {
+					// Protected layer types
+					if( in_array( $layer['props']['media'], ['shape', 'countdown', 'counter'] ) ) {
 						continue;
 					}
 
@@ -851,49 +848,65 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 						'leadingZeros' => $useLeadingZeroes
 					]));
 
-					if( ! empty( $layer['props']['affixBefore'] ) ) {
-						$innerAttributes['data-prefix'] = $layer['props']['affixBefore'];
-					}
-
-					if( ! empty( $layer['props']['affixAfter'] ) ) {
-						$innerAttributes['data-suffix'] = $layer['props']['affixAfter'];
-					}
-
-					if( ! empty( $layer['props']['affixFloat'] ) ) {
-						$innerAttributes['class'] .=  ' ls-affix-float';
-					}
-
-					if( ! empty( $layer['props']['affixNewLine'] ) ) {
-						$countdownStyles['--ls-affix-nl'] = 'block';
-					}
-
-					if( ! empty( $layer['props']['affixColor'] ) ) {
-						$countdownStyles['--ls-affix-color'] = $layer['props']['affixColor'];
-					}
-
-					if( ! empty( $layer['props']['affixFontSize'] ) ) {
-						$countdownStyles['--ls-affix-fs'] = $layer['props']['affixFontSize'].'em';
-					}
-
-					if( ! empty( $layer['props']['affixFontFamily'] ) ) {
-						$countdownStyles['--ls-affix-ff'] = $layer['props']['affixFontFamily'];
-					}
-
-					if( ! empty( $layer['props']['affixFontWeight'] ) ) {
-						$countdownStyles['--ls-affix-fw'] = $layer['props']['affixFontWeight'];
-					}
-
-					if( ! empty( $layer['props']['affixHA'] ) ) {
-						$countdownStyles['--ls-affix-ha'] = $layer['props']['affixHA'].'em';
-					}
-
-					if( ! empty( $layer['props']['affixVA'] ) ) {
-						$countdownStyles['--ls-affix-va'] = $layer['props']['affixVA'].'em';
-					}
-
-					$innerAttributes['style'] .= ls_array_to_attr($countdownStyles, 'css');
+					ls_apply_affix_properties( $layer['props'], $innerAttributes );
 				}
 
+
+				// v7.14.0: Counter
+				if( $layer['props']['media'] === 'counter') {
+					$counterStart = ! empty( $layer['props']['counterStart'] ) ? $layer['props']['counterStart'] : 0;
+					$counterEnd = ! empty( $layer['props']['counterEnd'] ) ? $layer['props']['counterEnd'] : 100;
+					$counterDecimals = ! empty( $layer['props']['counterDecimals'] ) ? $layer['props']['counterDecimals'] : '';
+					$counterDecimalSeparator = ! empty( $layer['props']['counterDecimalSeparator'] ) ? $layer['props']['counterDecimalSeparator'] : '.';
+					$counterThousandsSeparator = ! empty( $layer['props']['counterThousandsSeparator'] ) ? $layer['props']['counterThousandsSeparator'] : '';
+					$counterLeadingZeros = isset( $layer['props']['counterLeadingZeros'] ) ? $layer['props']['counterLeadingZeros'] : false;
+					$counterAnimationType = ! empty( $layer['props']['counterAnimationType'] ) ? $layer['props']['counterAnimationType'] : 'time';
+					$counterDuration = ! empty( $layer['props']['counterDuration'] ) ? $layer['props']['counterDuration'] : 2000;
+					$counterEasing = ! empty( $layer['props']['counterEasing'] ) ? $layer['props']['counterEasing'] : 'easeOutSine';
+					$counterStep = ! empty( $layer['props']['counterStep'] ) ? $layer['props']['counterStep'] : 1;
+					$counterStepDelay = ! empty( $layer['props']['counterStepDelay'] ) ? $layer['props']['counterStepDelay'] : 50;
+					$counterStartAt = ! empty( $layer['props']['counterStartAt'] ) ? $layer['props']['counterStartAt'] : 'transitioninstart';
+
+					// Auto-decide decimal places
+					if( empty( $counterDecimals ) && ( $counterDecimals !== 0 || $counterDecimals !== '0' ) ) {
+
+						$startDecimals = ls_get_decimal_places( $counterStart );
+						$endDecimals = ls_get_decimal_places( $counterEnd );
+						$stepDecimals = ls_get_decimal_places( $counterStep );
+
+						if( $counterAnimationType === 'step' ) {
+							$counterDecimals = max( $startDecimals, $endDecimals, $stepDecimals );
+						} else {
+							$counterDecimals = max( $startDecimals, $endDecimals );
+						}
+					}
+
+					$counterData = [
+						'type' => $counterAnimationType,
+						'start' => $counterStart,
+						'end' => $counterEnd,
+						'dp' => (int) $counterDecimals,
+						'ds' => $counterDecimalSeparator,
+						'ts' => $counterThousandsSeparator,
+						'lz' => $counterLeadingZeros,
+						'startAt' => $counterStartAt
+					];
+
+					if( $counterAnimationType === 'step' ) {
+						$counterData['step'] = $counterStep;
+						$counterData['stepDelay'] = $counterStepDelay;
+					} else {
+						$counterData['duration'] = $counterDuration;
+						$counterData['ease'] = $counterEasing;
+					}
+
+					$innerAttributes['data-counter'] = json_encode($counterData);
+					ls_apply_affix_properties( $layer['props'], $innerAttributes );
+
+					$formattedNumber = number_format( $counterEnd, (int) $counterDecimals, $counterDecimalSeparator, $counterThousandsSeparator );
+
+					$layer['props']['html'] = $formattedNumber;
+				}
 
 				$innerAttributes['style'] .= ls_array_to_attr($layer['props']['styles'], 'css');
 

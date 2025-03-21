@@ -279,6 +279,8 @@ class Users {
 		 * @param {int}    $expiration Expiration timestamp. Since 2.8.7.
 		 */
 		do_action( 'um_after_user_hash_is_changed', $user_id, $hash, $expiration );
+
+		$this->remove_cache( $user_id ); // Don't remove this line. It's required removing cache duplicate for the force case when re-send activation email.
 	}
 
 	/**
@@ -386,7 +388,7 @@ class Users {
 			add_filter( 'um_template_tags_patterns_hook', array( UM()->user(), 'add_activation_placeholder' ) );
 			add_filter( 'um_template_tags_replaces_hook', array( UM()->user(), 'add_activation_replace_placeholder' ) );
 
-			UM()->mail()->send( $userdata->user_email, 'checkmail_email' );
+			UM()->maybe_action_scheduler()->enqueue_async_action( 'um_dispatch_email', array( $userdata->user_email, 'checkmail_email', array( 'fetch_user_id' => $user_id ) ) );
 
 			um_fetch_user( $current_user_id );
 			/**
@@ -454,7 +456,7 @@ class Users {
 			$this->reset_activation_link( $user_id );
 
 			$userdata = get_userdata( $user_id );
-			UM()->mail()->send( $userdata->user_email, 'inactive_email' );
+			UM()->maybe_action_scheduler()->enqueue_async_action( 'um_dispatch_email', array( $userdata->user_email, 'inactive_email', array( 'fetch_user_id' => $user_id ) ) );
 
 			/**
 			 * Fires after User has been deactivated.
@@ -526,7 +528,7 @@ class Users {
 			$this->reset_activation_link( $user_id );
 
 			$userdata = get_userdata( $user_id );
-			UM()->mail()->send( $userdata->user_email, 'rejected_email' );
+			UM()->maybe_action_scheduler()->enqueue_async_action( 'um_dispatch_email', array( $userdata->user_email, 'rejected_email', array( 'fetch_user_id' => $user_id ) ) );
 
 			/**
 			 * Fires after User has been rejected.
@@ -604,7 +606,7 @@ class Users {
 			$this->reset_activation_link( $user_id );
 
 			$userdata = get_userdata( $user_id );
-			UM()->mail()->send( $userdata->user_email, 'pending_email' );
+			UM()->maybe_action_scheduler()->enqueue_async_action( 'um_dispatch_email', array( $userdata->user_email, 'pending_email', array( 'fetch_user_id' => $user_id ) ) );
 
 			/**
 			 * Fires after User has been set as pending admin review.
@@ -695,7 +697,7 @@ class Users {
 			add_filter( 'um_template_tags_patterns_hook', array( UM()->password(), 'add_placeholder' ) );
 			add_filter( 'um_template_tags_replaces_hook', array( UM()->password(), 'add_replace_placeholder' ) );
 
-			UM()->mail()->send( $userdata->user_email, $email_slug );
+			UM()->maybe_action_scheduler()->enqueue_async_action( 'um_dispatch_email', array( $userdata->user_email, $email_slug, array( 'fetch_user_id' => $user_id ) ) );
 
 			um_fetch_user( $current_user_id );
 			/**
@@ -772,7 +774,7 @@ class Users {
 			add_filter( 'um_template_tags_patterns_hook', array( UM()->password(), 'add_placeholder' ) );
 			add_filter( 'um_template_tags_replaces_hook', array( UM()->password(), 'add_replace_placeholder' ) );
 
-			UM()->mail()->send( $userdata->user_email, 'welcome_email' );
+			UM()->maybe_action_scheduler()->enqueue_async_action( 'um_dispatch_email', array( $userdata->user_email, 'welcome_email', array( 'fetch_user_id' => $user_id ) ) );
 
 			um_fetch_user( $current_user_id );
 

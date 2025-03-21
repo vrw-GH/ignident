@@ -92,7 +92,7 @@ if( ! class_exists( 'avia_sc_section', false ) )
 			 * @return string
 			 */
 			$this->section_padding_default = apply_filters('avf_section_padding_default', 'default' );
-			
+
 			parent::__construct($builder);
 		}
 
@@ -608,9 +608,10 @@ if( ! class_exists( 'avia_sc_section', false ) )
 						array(
 							'name'		=> __( 'Background Video', 'avia_framework' ),
 							'desc'		=> __( 'You can also place a video as background for your section. Enter the URL to the Video. Currently supported are Youtube, Vimeo and direct linking of web-video files (mp4, webm, ogv)', 'avia_framework' ) . '<br/><br/>' .
-											__( 'Working examples Youtube & Vimeo:', 'avia_framework' ) . '<br/>
-											<strong>https://vimeo.com/1084537</strong><br/>
-											<strong>https://www.youtube.com/watch?v=5guMumPFBag</strong><br/><br/>',
+											__( 'Working examples Youtube & Vimeo:', 'avia_framework' ) . '<br/>' .
+											'<strong>https://vimeo.com/1084537</strong><br/>' .
+											'<strong>https://www.youtube.com/watch?v=5guMumPFBag</strong><br/>' .
+											'<strong>https://www.youtube.com/shorts/00-KSfJYZDA</strong><br/><br/>',
 							'id'		=> 'video',
 							'type'		=> 'input',
 							'std'		=> '',

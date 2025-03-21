@@ -1,15 +1,15 @@
 (function($)
 {
-    "use strict";
+	"use strict";
 
-    $( function()
-    {
+	$( function()
+	{
 		// decreases header size when user scrolls down
-        avia_header_size();
-    });
+		avia_header_size();
+	});
 
 
-    function av_change_class($element, change_method, class_name)
+	function av_change_class($element, change_method, class_name)
 	{
 		if($element[0].classList)
 		{
@@ -59,9 +59,11 @@
 			el_shrinked		= el_height/2.0,
 			header_meta		= header.find('#header_meta'),
 			topbar_height	= header_meta.length ? header_meta.outerHeight() : 0,
+			header_alternate = header.find('#header_main_alternate'),
+			alternate_header_height = header_alternate.length ? header_alternate.outerHeight() : 0,
 
 			set_height = function()
-            {
+			{
 				var st = win.scrollTop(),
 					newH = 0,
 					st_real = st;
@@ -107,6 +109,26 @@
 
 					elements.css({'height': newH + 'px', 'lineHeight': newH + 'px'});
 					logo.css({'maxHeight': newH + 'px'});
+
+					// (solution contributed by Guenni007)
+					let propHeight = newH + alternate_header_height;
+
+					if( header.length )
+					{
+						if( ! unsticktop.length )
+						{
+							propHeight += topbar_height;
+						}
+						else
+						{
+							if( st <= topbar_height )
+							{
+								propHeight = propHeight + topbar_height - st_real;
+							}
+						}
+					}
+
+					$(':root')[0].style.setProperty( '--enfold-header-height', Math.round( propHeight ) + 'px' );
 				}
 
 				if( unsticktop.length )
@@ -139,7 +161,7 @@
 						av_change_class( header, 'add', 'av_header_transparency' );
 					}
 				}
-            };
+			};
 
 		if( typeof shrink_factor != 'undefined' )
 		{

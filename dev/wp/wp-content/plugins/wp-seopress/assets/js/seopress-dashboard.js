@@ -14,6 +14,7 @@ jQuery(document).ready(function ($) {
         "notice-review",
         "notice-trailingslash",
         "notice-posts-number",
+        "notice-xml-sitemaps",
         "notice-rss-use-excerpt",
         "notice-ga-ids",
         "notice-search-console",
@@ -171,6 +172,22 @@ jQuery(document).ready(function ($) {
     $('#notice-ebooks').on('click', function () {
         $('#seopress-ebook-panel').toggleClass('is-active');
         $('#notice-ebooks').attr('data-toggle', $('#notice-ebooks').attr('data-toggle') == '1' ? '0' : '1');
+    });
+});
+
+//Dashboard - Simple view
+jQuery(document).ready(function ($) {
+    $('.seopress-btn-view-switch').on('click', function () {
+        $('body').toggleClass('seopress-simple-view');
+        $.ajax({
+            method: 'POST',
+            url: seopressAjaxSwitchView.seopress_switch_view,
+            data: {
+                action: 'seopress_switch_view',
+                view: $('body').hasClass('seopress-simple-view') ? 'simple' : 'default',
+                _ajax_nonce: seopressAjaxSwitchView.seopress_nonce,
+            },            
+        });
     });
 });
 

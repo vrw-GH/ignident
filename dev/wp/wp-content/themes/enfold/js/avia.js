@@ -1158,7 +1158,7 @@ if ( ! Array.isArray )
 
 		//make sure that iframes do resize correctly. uses css padding bottom iframe trick
 		var win		= jQuery(window),
-			iframes = jQuery('.avia-iframe-wrap iframe:not(.avia-slideshow iframe):not( iframe.no_resize):not(.avia-video iframe)', container),
+			iframes = jQuery('.avia-iframe-wrap iframe:not(.avia-slideshow iframe):not(iframe.no_resize):not(.avia-video iframe):not(.wp-embedded-content)', container),
 			adjust_iframes = function()
 			{
 				iframes.each(function(){

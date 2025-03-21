@@ -2,7 +2,7 @@
 Prop3=19,2
 [InternetShortcut]
 IDList=
-URL=http://ignident.dev.localhost/
+URL=http://ignident.dev.localhost:8800/
 HotKey=0
 IconIndex=17
 IconFile=C:\WINDOWS\System32\SHELL32.dll

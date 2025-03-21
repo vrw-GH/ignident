@@ -51,9 +51,9 @@ class AdminActions {
 
 	private function verify( $name ): bool {
 		$nonce_action = WOW_Plugin::PREFIX . '_nonce';
+		$nonce        = isset( $_REQUEST[ $name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $name ] ) ) : '';
 
-		return ! ( ! isset( $_REQUEST[ $name ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST[ $name ] ) ),
-				$nonce_action ) || ! current_user_can( 'manage_options' ) );
+		return ( ! empty( $nonce ) &&  wp_verify_nonce( $nonce, $nonce_action ) && current_user_can( 'manage_options' ) );
 	}
 
 	private function check_name( $request ) {

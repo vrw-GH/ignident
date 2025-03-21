@@ -8,11 +8,11 @@ defined( 'ABSPATH' ) || exit;
 
 $features_1 = [
 	'share-nodes'                  => [
-		__( '33 Social Share' ),
+		__( '33 Social Share', 'floating-button' ),
 		__( 'Use up to 33 different social sharing services to spread your page content across the internet.', 'floating-button' ),
 	],
 	'language'                     => [
-		__( 'Translate' ),
+		__( 'Translate', 'floating-button' ),
 		__( 'Employ Google Translate to translate your page into a selected language, broadening your audience reach.', 'floating-button' ),
 	],
 	'exchange'                     => [
@@ -68,19 +68,19 @@ $features_1 = [
 
 $features_2 = [
 	'font-awesome' => [
-		__( '2000+ FontAwesome Icons' ),
+		__( '2000+ FontAwesome Icons', 'floating-button' ),
 		__( 'Plethora of choices to pick the most suitable icon that aligns seamlessly with the aesthetic requirements of their buttons, enhancing visual appeal and user experience.', 'floating-button' ),
 	],
 	'image'        => [
-		__( 'Custom Image' ),
+		__( 'Custom Image', 'floating-button' ),
 		__( 'Allows for a greater level of personalization for your buttons by letting you use a custom image as an icon. You are not limited to pre-set icons; instead, you can upload and utilize any image of your choice as the icon for your buttons, enabling you to fully express your brand\'s unique identity and style.', 'floating-button' ),
 	],
 	'face-smile'   => [
-		__( 'Emoji and Symbols' ),
+		__( 'Emoji and Symbols', 'floating-button' ),
 		__( 'Capability to adorn your buttons with any emoji, HTML symbol, or even integrate a straightforward letter as your button icon, thereby enabling you to infuse visual experiences.', 'floating-button' ),
 	],
 	'icons'        => [
-		__( 'Customizable Icon Classes' ),
+		__( 'Customizable Icon Classes', 'floating-button' ),
 		__( 'Should you prefer to leverage custom icon libraries apart from FontAwesome Free, our plugin introduces the \'Icon Classes\' feature. Making effective use of this functionality, you can identify and establish the class of your chosen icon, allowing seamless incorporation of highly tailored icons into your buttons.', 'floating-button' ),
 	],
 
@@ -88,27 +88,27 @@ $features_2 = [
 
 $features_3 = [
 	'shapes'                    => [
-		__( 'Shape' ),
+		__( 'Shape', 'floating-button' ),
 		__( 'Choice of four distinct default shapes - Circle, Ellipse, Square, and Rounded Square. Each one has a unique aesthetic, allowing you to align your buttons with the overall design theme and enhancing your website\'s user interface.', 'floating-button' ),
 	],
 	'arrows-up-down-left-right' => [
-		__( 'Offsets' ),
+		__( 'Offsets', 'floating-button' ),
 		__( 'Ability to subtly adjust their button\'s location using both positive and negative offset values. The fine-tuned control over horizontal and vertical shifts helps align your buttons perfectly, ensuring a polished, professional appearance and an enhanced user interface.', 'floating-button' ),
 	],
 	'maximize'                  => [
-		__( 'Custom Buttons Size' ),
+		__( 'Custom Buttons Size', 'floating-button' ),
 		__( 'This tool provides users with the capability to independently adjust the dimensions of the main button and the sub-buttons on their website. This feature makes it simple to tailor button sizing to suit unique design requirements or to match existing stylistic choices.', 'floating-button' ),
 	],
 	'text-height'               => [
-		__( 'Custom Tooltip Size' ),
+		__( 'Custom Tooltip Size', 'floating-button' ),
 		__( 'Ability to independently adjust the measurements of your tooltips. No longer are you confined to the default parameters - where the tooltip size is tied to the button size. Now you can precisely control the dimensions of tooltip associate with both main and secondary buttons.', 'floating-button' ),
 	],
 	'door-open'                 => [
-		__( 'Hold Tooltip open' ),
+		__( 'Hold Tooltip open', 'floating-button' ),
 		__( 'Allows you to keep tooltips open upon page load. This functionality ensures that item labels are immediately visible to your website visitors, providing them with required information without any additional interactions. As a result, key content or instructions that you want users to see as soon as they land on the page can be highlighted effectively. This can also reduce the learning curve for navigating your website and improve the overall user experience by instantly directing attention to core elements or features of your page right from the start.', 'floating-button' ),
 	],
 	'file-code'                 => [
-		__( 'Extra Style' ),
+		__( 'Extra Style', 'floating-button' ),
 		__( 'Achieve even greater control over button aesthetics with the ability to add custom styles to the page.', 'floating-button' ),
 	],
 
@@ -116,15 +116,15 @@ $features_3 = [
 
 $features_4 = [
 	'arrows-spin'         => [
-		__( 'Icon Animation' ),
+		__( 'Icon Animation', 'floating-button' ),
 		__( 'Breathe new life into your site\'s buttons. This capability lets you transform your plain static icons into lively, interactive symbols. Be spoilt for choice with seven distinct options for animations.', 'floating-button' ),
 	],
 	'wand-magic-sparkles' => [
-		__( 'Main Button Animation' ),
+		__( 'Main Button Animation', 'floating-button' ),
 		__( 'Upgrade your web navigation with engaging visual elements by animating your main button. Choose from an array of 11 distinct animations to heighten the main button\'s visual appeal. This feature could significantly captivate your visitors\' attention and foster a more immersive browsing experience.', 'floating-button' ),
 	],
 	'swatchbook'          => [
-		__( 'Sub-Button Display Animation' ),
+		__( 'Sub-Button Display Animation', 'floating-button' ),
 		__( 'With the provision of pre-configured animation options for sub-button unveiling, you can add a dynamic flair to your webpage. While the standard setting renders them with a \'Fade\' effect, this feature enhances customization by offering 8 unique animation styles. This versatile functionality enables you to tailor the sub-button display animation to match your site\'s aesthetics.', 'floating-button' ),
 	],
 ];

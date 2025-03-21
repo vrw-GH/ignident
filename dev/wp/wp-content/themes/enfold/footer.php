@@ -113,10 +113,20 @@ global $avia_config;
 				 * Wrap footer page in case we need extra CSS changes
 				 *
 				 * @since 4.7.4.1
+				 * @since 6.0.9			added <footer> tag
 				 */
-				echo '<div class="' . $extra_class . '" id="footer-page">';
-				echo	$content;
-				echo '</div>';
+				if( 'page_in_footer' == $footer_option )
+				{
+					echo '<footer class="' . $extra_class . '" id="footer-page">';
+					echo	$content;
+					echo '</footer>';
+				}
+				else
+				{
+					echo '<div class="' . $extra_class . '" id="footer-page">';
+					echo	$content;
+					echo '</div>';
+				}
 			}
 		}
 

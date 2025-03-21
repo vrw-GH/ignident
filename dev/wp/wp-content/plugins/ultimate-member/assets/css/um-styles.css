@@ -373,7 +373,6 @@ p.um-notice.warning a {
 .um-field-label label {
 	font-size: 15px !important;
 	line-height: 22px !important;
-	font-weight: bold;
 	font-weight: 600;
 }
 
@@ -481,6 +480,11 @@ p.um-notice.warning a {
 
 .um-form .um-field-area-password input[type="password"] {
 	padding-right: 40px !important;
+}
+
+.um-form .um-field-area-password input[type="password"]::-ms-reveal,
+.um-form .um-field-area-password input[type="password"]::-ms-clear {
+	display: none;
 }
 
 .um-form input[type="number"] {
@@ -1146,16 +1150,5 @@ small.um-max-filesize span{
 
 .um-field-area .wp-switch-editor{
 	float: none;
-	height: auto;
-}
-
-.um-textarea-html-value {
-	border: none;
-	width: 100%;
-	max-width: none;
-	margin: 0;
-	padding: 0;
-	overflow: auto;
-	max-height: none;
 	height: auto;
 }

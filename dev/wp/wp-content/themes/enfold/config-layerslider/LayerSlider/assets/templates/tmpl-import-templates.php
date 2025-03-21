@@ -62,6 +62,7 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 	<ls-template data-groups="<?= $item['groups'] ?>" data-collections="<?= $item['collections'] ?>" data-order="<?= $item['order'] ?>">
 		<ls-wrapper>
 			<ls-image-holder style="background-image: url(<?= $item['preview'] ?>);"></ls-image-holder>
+			<ls-image-holder-effect></ls-image-holder-effect>
 			<ls-content-wrapper>
 				<ls-template-buttons>
 
@@ -88,7 +89,7 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 					</a> -->
 
 					<a
-						href="#"
+						href="#download-template=<?= $handle ?>"
 						class="ls--button ls--import-template-button"
 						data-name="<?= $item['name'] ?>"
 						data-handle="<?= $handle ?>"
@@ -102,10 +103,10 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 						</ls-text>
 					</a>
 				</ls-template-buttons>
-				<ls-template-name><?= $item['name'] ?></ls-template-name>
 			</ls-content-wrapper>
 		</ls-wrapper>
-	</ls-template>
+		<ls-template-name><?= $item['name'] ?></ls-template-name>
+		</ls-template>
 <?php } } ?>
 
 
@@ -294,6 +295,7 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 							<ls-template class="<?= $activeClass ?>" data-handle="<?= $handle ?>" data-name="<?= $collection['name'] ?>">
 								<ls-wrapper>
 									<ls-image-holder <?= ! empty( $collection['image'] ) ? 'style="background-image: url('.$collection['image'].');"' : '' ?>></ls-image-holder>
+									<ls-image-holder-effect></ls-image-holder-effect>
 									<ls-content-wrapper>
 										<ls-template-name>
 											<?= $collection['icon'] ?>

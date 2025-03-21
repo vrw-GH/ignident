@@ -3,7 +3,7 @@
 Plugin Name: WP Fastest Cache
 Plugin URI: http://wordpress.org/plugins/wp-fastest-cache/
 Description: The simplest and fastest WP Cache system
-Version: 1.3.1
+Version: 1.3.4
 Author: Emre Vona
 Author URI: https://www.wpfastestcache.com/
 Text Domain: wp-fastest-cache
@@ -329,32 +329,19 @@ GNU General Public License for more details.
 		}
 
 		public function handle_custom_delete_cache_request(){
+			$action = false;
+			$wpfc_token = false;
+			
+			if(defined("WPFC_CLEAR_CACHE_URL_TOKEN") && WPFC_CLEAR_CACHE_URL_TOKEN){
+				$wpfc_token = WPFC_CLEAR_CACHE_URL_TOKEN;
+			}else{
+				$wpfc_token = apply_filters( 'wpfc_clear_cache_url_token', false );
+			}
+
 			if(isset($_GET["token"]) && $_GET["token"]){
-				if(defined("WPFC_CLEAR_CACHE_URL_TOKEN") && WPFC_CLEAR_CACHE_URL_TOKEN){
-					if(WPFC_CLEAR_CACHE_URL_TOKEN == $_GET["token"]){
-						if($this->isPluginActive("wp-fastest-cache-premium/wpFastestCachePremium.php")){
-							include_once $this->get_premium_path("mobile-cache.php");
-						}
-
-						if($_GET["type"] == "clearcache"){
-
-							if(isset($_GET["post_id"])){
-								$this->singleDeleteCache(false, $_GET["post_id"]);
-							}else{
-								$this->deleteCache();
-							}
-							
-						}
-
-						if($_GET["type"] == "clearcacheandminified"){
-							$this->deleteCache(true);
-						}
-
-						if($_GET["type"] == "clearcacheallsites"){
-							$this->wpfc_clear_cache_of_allsites_callback();
-						}
-
-						die("Done");
+				if($wpfc_token){
+					if($wpfc_token == $_GET["token"]){
+						$action = true;
 					}else{
 						die("Wrong token");
 					}
@@ -364,6 +351,34 @@ GNU General Public License for more details.
 			}else{
 				die("Security token must be set.");
 			}
+
+			if($action){
+				if($this->isPluginActive("wp-fastest-cache-premium/wpFastestCachePremium.php")){
+					include_once $this->get_premium_path("mobile-cache.php");
+				}
+
+				if($_GET["type"] == "clearcache"){
+
+					if(isset($_GET["post_id"])){
+						$this->singleDeleteCache(false, $_GET["post_id"]);
+					}else{
+						$this->deleteCache();
+					}
+					
+				}
+
+				if($_GET["type"] == "clearcacheandminified"){
+					$this->deleteCache(true);
+				}
+
+				if($_GET["type"] == "clearcacheallsites"){
+					$this->wpfc_clear_cache_of_allsites_callback();
+				}
+
+				die("Done");
+			}
+			
+			exit;
 		}
 
 		public function enable_auto_cache_settings_panel(){
@@ -869,7 +884,18 @@ GNU General Public License for more details.
 		}
 
 		public function load_admin_toolbar(){
-			if(!defined('WPFC_HIDE_TOOLBAR') || (defined('WPFC_HIDE_TOOLBAR') && !WPFC_HIDE_TOOLBAR)){
+			$display = true;
+			
+			if(apply_filters('wpfc_hide_toolbar', false )){
+				$display = "";
+			}
+
+			if(defined('WPFC_HIDE_TOOLBAR') && WPFC_HIDE_TOOLBAR){
+				$display = "";
+			}
+
+
+			if($display){
 				$user = wp_get_current_user();
 				$allowed_roles = array('administrator');
 
@@ -1176,7 +1202,7 @@ GNU General Public License for more details.
 						$path = preg_replace("/\/cache\/(all|wpfc-minified|wpfc-widget-cache|wpfc-mobile-cache)/", "/cache/".$_SERVER['HTTP_HOST']."/$1", $path);
 					}
 
-					if($this->isPluginActive('polylang/polylang.php')){
+					if($this->isPluginActive('polylang/polylang.php') || $this->isPluginActive('polylang-pro/polylang.php')){
 						$polylang_settings = get_option("polylang");
 
 						if(isset($polylang_settings["force_lang"])){

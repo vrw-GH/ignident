@@ -36,7 +36,7 @@ class DashboardInitializer {
 					echo esc_html( WOW_Plugin::info( 'name' ) ); ?> <sup class="wowp-version"><?php
 						echo esc_html( WOW_Plugin::info( 'version' ) ); ?></sup></h1>
                 <a href="<?php
-				echo esc_url( $add_url ); ?>" class="button"><?php
+				echo esc_url( $add_url ); ?>" class="button button-primary"><?php
 					esc_html_e( 'Add New', 'floating-button' ); ?>
                 </a>
 				<?php

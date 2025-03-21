@@ -138,7 +138,7 @@ class LS_TemplateUtils {
 						'text' => __('Import', 'LayerSlider'),
 						'icon' => '',
 						'attributes' => [
-							'href' => '#',
+							'href' => '#download-template='.$item['template']['handle'],
 							'class' 	=> 'ls--import-template-button',
 							'data-name' => $item['template']['name'],
 							'data-handle' => $item['template']['handle'],

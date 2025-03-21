@@ -42,8 +42,13 @@ class KM_PluginUpdatesV3 extends KM_UpdatesV3 {
 
 
 		// AJAX actions for license registration and auto-updates
-		add_action('wp_ajax_ls_authorize_site', [ &$this, 'handleActivation' ] );
-		add_action('wp_ajax_ls_deauthorize_site', [ &$this, 'handleDeactivation' ] );
-		add_action('wp_ajax_ls_set_release_channel', [ &$this, 'setReleaseChannel' ] );
+		add_action('init', function() {
+
+			if( is_admin() && current_user_can( get_option('layerslider_custom_capability', 'manage_options') ) ) {
+				add_action('wp_ajax_ls_authorize_site', [ &$this, 'handleActivation' ] );
+				add_action('wp_ajax_ls_deauthorize_site', [ &$this, 'handleDeactivation' ] );
+				add_action('wp_ajax_ls_set_release_channel', [ &$this, 'setReleaseChannel' ] );
+			}
+		});
 	}
 }

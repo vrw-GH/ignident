@@ -153,6 +153,7 @@
 			}
 
 			this.attach_metabox_toggle_fix();
+			this.setBlockVersion();
 
 			this.init = true;
 			this.body_container.removeClass( 'avia-gutenberg-not-init' );
@@ -436,35 +437,50 @@
 			}
 		},
 
-	    attach_alb_sticky_element_tab_handler: function ()
-        {
-            var builder = $('#avia_builder');
+		setBlockVersion: function()
+		{
+			let dragHandle = $('div.edit-post-meta-boxes-main__presenter');
 
-            function debounce(method, delay)
-            {
-                clearTimeout(method._tId);
-                method._tId = setTimeout(function ()
-                {
-                    method();
-                }, delay);
-            }
+			if( dragHandle.length )
+			{
+				this.body_container.addClass( 'av-block-v3' );
+			}
+			else
+			{
+				this.body_container.addClass( 'av-block-lt-v3' );
+			}
+		},
 
-            document.querySelector('.interface-interface-skeleton__content').addEventListener('scroll', function (e)
-            {
-                var scrollpos = $(this).scrollTop();
+		attach_alb_sticky_element_tab_handler: function()
+		{
+			var builder = $('#avia_builder');
 
-                debounce(function ()
-                {
-                    if (scrollpos > 110)
-                    {
-                        builder.addClass('avia-sticky-fixed-controls');
-                    } else
-                    {
-                        builder.removeClass('avia-sticky-fixed-controls');
-                    }
-                });
-            });
-        },
+			function debounce(method, delay)
+			{
+				clearTimeout(method._tId);
+				method._tId = setTimeout(function ()
+				{
+					method();
+				}, delay);
+			}
+
+			document.querySelector('.interface-interface-skeleton__content').addEventListener('scroll', function (e)
+			{
+				var scrollpos = $(this).scrollTop();
+
+				debounce(function ()
+				{
+					if(scrollpos > 110)
+					{
+						builder.addClass('avia-sticky-fixed-controls');
+					}
+					else
+					{
+						builder.removeClass('avia-sticky-fixed-controls');
+					}
+				});
+			});
+		},
 
 		alb_edit_permalink: function(e)
 		{

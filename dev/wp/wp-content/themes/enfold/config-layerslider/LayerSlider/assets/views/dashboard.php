@@ -114,6 +114,14 @@
 	$lsStoreHasUpdate = ( ! empty($lsStoreData['last_updated']) && $lsStoreLastViewed <  $lsStoreData['last_updated'] );
 	//$lsStoreHasUpdate = true;
 
+	$lsAddonsHasUpdates = false;
+	$lsAddonsLastVersion = get_user_meta( $userID, 'ls-addons-last-version', true);
+	$lsAddonsLastVersion = empty( $lsAddonsLastVersion ) ? '1.0.0' : $lsAddonsLastVersion;
+
+	if( version_compare( $lsAddonsLastVersion, LS_ADDONS_VERSION, '<' ) ) {
+		$lsAddonsHasUpdates = true;
+	}
+
 
 	// Notifications panel contents
 	$bellNotifications = LS_Notifications::bellNotifications();
@@ -493,9 +501,9 @@
 				</div>
 
 
-				<div class="ls-item has-updates">
+				<div id="ls-addons-button" class="ls-item <?= $lsAddonsHasUpdates ? 'has-updates' : '' ?>">
 					<div class="ls-item-inner ls--anim-shine">
-						<a href="#" id="ls-addons-button">
+						<a href="#">
 							<?= lsGetSVGIcon('award'); ?>
 							<div class="ls-tile-text"><?= __('Add-Ons & Premium', 'LayerSlider') ?></div>
 						</a>

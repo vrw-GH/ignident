@@ -203,7 +203,7 @@ $avia_elements[] = array(
 
 $desc  = __( 'You can upload your custom Font zip files. Intended for <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google Webkit Fonts</a>.', 'avia_framework' ) . '<br/><br/>';
 $desc .= __( 'Variable fonts can be uploaded, but currently only <a href="https://fonts.google.com/knowledge/glossary/instance/" target="_blank" rel="noopener noreferrer">named instances</a> are supported by default.', 'avia_framework' ) . ' ';
-$desc .= __( 'Please read our <a href="https://kriesi.at/documentation/enfold/typography/#using-variable-fonts" target="_blank" rel="noopener noreferrer">documentation</a> how to create the zip files and a fallback szenario.', 'avia_framework' ) . '<br/><br/>';
+$desc .= __( 'Please read our <a href="https://kriesi.at/documentation/enfold/typography/#using-variable-fonts" target="_blank" rel="noopener noreferrer">documentation</a> how to create the zip files and a fallback scenario.', 'avia_framework' ) . '<br/><br/>';
 $desc .= __( 'Make sure to delete any fonts that you are not using, to keep the loading time for your visitors low', 'avia_framework' );
 
 $avia_elements[] = array(

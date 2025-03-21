@@ -1,0 +1,509 @@
+0000.000 (0) Opened log file at time: Wed, 19 Mar 2025 12:08:58 +0000 on http://ignident.dev.localhost:8800
+0000.002 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.25.1 WP: 6.7.1 PHP: 8.3.10 (apache2handler, Windows NT THOR-M2-DEV 10.0 build 26120 (Windows 11) AMD64) MySQL: 8.0.39 (max packet size=67108864) WPLANG: en_US Server: Apache/2.4.62 (Win64) PHP/8.3.10 safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 94.3M | 98M) multisite: N openssl: OpenSSL 3.0.13 30 Jan 2024 mcrypt: N LANG:  ZipArchive::addFile: Y
+0000.004 (0) Free space on disk containing Updraft's temporary directory: 112618.4 MB
+0000.007 (0) Tasks: Backup files:  (schedule: monthly) Backup DB: 1 (schedule: fortnightly)
+0000.010 (0) Processed schedules. Tasks now: Backup files:  Backup DB: 1
+0000.013 (0) Requesting semaphore lock (d) (apparently via scheduler: last_scheduled_action_called_at=1713397543, seconds_ago=28988595)
+0000.018 (0) Set semaphore last lock (d) time to 2025-03-19 12:08:58
+0000.020 (0) Semaphore lock (d) complete
+0000.025 (0) Backup run: resumption=0, nonce=0ef52f585ad7, file_nonce=0ef52f585ad7 begun at=1742386138 (0s ago), job type=backup
+0000.026 (0) Scheduling a resumption (1) after 300 seconds (1742386438) in case this run gets aborted
+0000.030 (0) This backup run is not intended for files - skipping
+0000.032 (0) Beginning creation of database dump (WordPress DB)
+0000.033 (0) SQL compatibility mode is: NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+0000.050 (0) Table oriaasfcactionscheduler_actions: Total expected rows (via COUNT): 1
+0000.051 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.058 (0) Table oriaasfcactionscheduler_actions: Rows added in this batch (next record: 4407): 1 (uncompressed bytes in this segment=2101) in 0.01 seconds
+0000.067 (0) Table oriaasfcactionscheduler_actions: finishing file(s) (2, 0.7 KB)
+0000.073 (0) Table oriaasfcactionscheduler_claims: Total expected rows (via COUNT): 0
+0000.077 (0) Table oriaasfcactionscheduler_claims: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=652) in 0.00 seconds
+0000.083 (0) Table oriaasfcactionscheduler_claims: finishing file(s) (2, 0.4 KB)
+0000.093 (0) Table oriaasfcactionscheduler_groups: Total expected rows (via COUNT): 2
+0000.094 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.099 (0) Table oriaasfcactionscheduler_groups: Rows added in this batch (next record: 2): 2 (uncompressed bytes in this segment=760) in 0.01 seconds
+0000.106 (0) Table oriaasfcactionscheduler_groups: finishing file(s) (2, 0.4 KB)
+0000.114 (0) Table oriaasfcactionscheduler_logs: Total expected rows (via COUNT): 3
+0000.116 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.118 (0) Table oriaasfcactionscheduler_logs: Rows added in this batch (next record: 15): 3 (uncompressed bytes in this segment=1245) in 0.01 seconds
+0000.125 (0) Table oriaasfcactionscheduler_logs: finishing file(s) (2, 0.6 KB)
+0000.132 (0) Table oriaasfcays_pb: Total expected rows (via COUNT): 2
+0000.134 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.136 (0) Table oriaasfcays_pb: Rows added in this batch (next record: 2): 2 (uncompressed bytes in this segment=18881) in 0.01 seconds
+0000.144 (0) Table oriaasfcays_pb: finishing file(s) (2, 4 KB)
+0000.154 (0) Table oriaasfcays_pb_categories: Total expected rows (via COUNT): 1
+0000.156 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.158 (0) Table oriaasfcays_pb_categories: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=784) in 0.01 seconds
+0000.164 (0) Table oriaasfcays_pb_categories: finishing file(s) (2, 0.4 KB)
+0000.172 (0) Table oriaasfcays_pb_settings: Total expected rows (via COUNT): 1
+0000.174 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.176 (0) Table oriaasfcays_pb_settings: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=834) in 0.01 seconds
+0000.182 (0) Table oriaasfcays_pb_settings: finishing file(s) (2, 0.4 KB)
+0000.194 (0) Table oriaasfcbit_fm_logs: Total expected rows (via COUNT): 36
+0000.196 (0) Table is relatively small; fetch_rows will thus be: 50 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.200 (0) Table oriaasfcbit_fm_logs: Rows added in this batch (next record: 36): 36 (uncompressed bytes in this segment=12742) in 0.01 seconds
+0000.208 (0) Table oriaasfcbit_fm_logs: finishing file(s) (2, 1.9 KB)
+0000.215 (0) Table oriaasfcburst_browser_versions: Total expected rows (via COUNT): 0
+0000.218 (0) Table oriaasfcburst_browser_versions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=563) in 0.01 seconds
+0000.225 (0) Table oriaasfcburst_browser_versions: finishing file(s) (2, 0.3 KB)
+0000.232 (0) Table oriaasfcburst_browsers: Total expected rows (via COUNT): 0
+0000.234 (0) Table oriaasfcburst_browsers: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=515) in 0.00 seconds
+0000.240 (0) Table oriaasfcburst_browsers: finishing file(s) (2, 0.3 KB)
+0000.247 (0) Table oriaasfcburst_devices: Total expected rows (via COUNT): 0
+0000.249 (0) Table oriaasfcburst_devices: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=509) in 0.00 seconds
+0000.256 (0) Table oriaasfcburst_devices: finishing file(s) (2, 0.3 KB)
+0000.264 (0) Table oriaasfcburst_goal_statistics: Total expected rows (via COUNT): 0
+0000.265 (0) Table oriaasfcburst_goal_statistics: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=631) in 0.00 seconds
+0000.273 (0) Table oriaasfcburst_goal_statistics: finishing file(s) (2, 0.3 KB)
+0000.280 (0) Table oriaasfcburst_goals: Total expected rows (via COUNT): 1
+0000.281 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.285 (0) Table oriaasfcburst_goals: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=1254) in 0.01 seconds
+0000.291 (0) Table oriaasfcburst_goals: finishing file(s) (2, 0.5 KB)
+0000.298 (0) Table oriaasfcburst_platforms: Total expected rows (via COUNT): 0
+0000.301 (0) Table oriaasfcburst_platforms: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=521) in 0.01 seconds
+0000.308 (0) Table oriaasfcburst_platforms: finishing file(s) (2, 0.3 KB)
+0000.315 (0) Table oriaasfcburst_sessions: Total expected rows (via COUNT): 0
+0000.317 (0) Table oriaasfcburst_sessions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=722) in 0.00 seconds
+0000.324 (0) Table oriaasfcburst_sessions: finishing file(s) (2, 0.4 KB)
+0000.330 (0) Table oriaasfcburst_statistics: Total expected rows (via COUNT): 0
+0000.332 (0) Table oriaasfcburst_statistics: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1310) in 0.00 seconds
+0000.340 (0) Table oriaasfcburst_statistics: finishing file(s) (2, 0.5 KB)
+0000.346 (0) Table oriaasfcburst_summary: Total expected rows (via COUNT): 4
+0000.347 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.352 (0) Table oriaasfcburst_summary: Rows added in this batch (next record: 5): 4 (uncompressed bytes in this segment=1185) in 0.01 seconds
+0000.358 (0) Table oriaasfcburst_summary: finishing file(s) (2, 0.5 KB)
+0000.371 (0) Table oriaasfccommentmeta: Total expected rows (via COUNT): 0
+0000.375 (0) Table oriaasfccommentmeta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=633) in 0.01 seconds
+0000.384 (0) Table oriaasfccommentmeta: finishing file(s) (2, 0.4 KB)
+0000.395 (0) Table oriaasfccomments: Total expected rows (via COUNT): 0
+0000.401 (0) Table oriaasfccomments: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1455) in 0.01 seconds
+0000.407 (0) Table oriaasfccomments: finishing file(s) (2, 0.5 KB)
+0000.417 (0) Table oriaasfccscs_db_subscriptions: Total expected rows (via COUNT): 0
+0000.419 (0) Table oriaasfccscs_db_subscriptions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=670) in 0.01 seconds
+0000.426 (0) Table oriaasfccscs_db_subscriptions: finishing file(s) (2, 0.4 KB)
+0000.433 (0) Table oriaasfcdefender_antibot: Total expected rows (via COUNT): 0
+0000.435 (0) Table oriaasfcdefender_antibot: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=631) in 0.00 seconds
+0000.441 (0) Table oriaasfcdefender_antibot: finishing file(s) (2, 0.4 KB)
+0000.451 (0) Table oriaasfcdefender_audit_log: Total expected rows (via COUNT): 0
+0000.454 (0) Table oriaasfcdefender_audit_log: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1287) in 0.01 seconds
+0000.461 (0) Table oriaasfcdefender_audit_log: finishing file(s) (2, 0.5 KB)
+0000.470 (0) Table oriaasfcdefender_email_log: Total expected rows (via COUNT): 0
+0000.474 (0) Table oriaasfcdefender_email_log: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=710) in 0.01 seconds
+0000.480 (0) Table oriaasfcdefender_email_log: finishing file(s) (2, 0.4 KB)
+0000.487 (0) Table oriaasfcdefender_lockout: Total expected rows (via COUNT): 3
+0000.489 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.494 (0) Table oriaasfcdefender_lockout: Rows added in this batch (next record: 8): 3 (uncompressed bytes in this segment=1309) in 0.01 seconds
+0000.500 (0) Table oriaasfcdefender_lockout: finishing file(s) (2, 0.5 KB)
+0000.506 (0) Table oriaasfcdefender_lockout_log: Total expected rows (via COUNT): 639
+0000.526 (0) Table oriaasfcdefender_lockout_log: Rows added in this batch (next record: 4042): 639 (uncompressed bytes in this segment=169065) in 0.02 seconds
+0000.534 (0) Table oriaasfcdefender_lockout_log: finishing file(s) (2, 16.1 KB)
+0000.546 (0) Table oriaasfcdefender_scan: Total expected rows (via COUNT): 1
+0000.548 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.551 (0) Table oriaasfcdefender_scan: Rows added in this batch (next record: 2): 1 (uncompressed bytes in this segment=943) in 0.01 seconds
+0000.559 (0) Table oriaasfcdefender_scan: finishing file(s) (2, 0.5 KB)
+0000.568 (0) Table oriaasfcdefender_scan_item: Total expected rows (via COUNT): 4
+0000.570 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.573 (0) Table oriaasfcdefender_scan_item: Rows added in this batch (next record: 11): 4 (uncompressed bytes in this segment=1654) in 0.01 seconds
+0000.580 (0) Table oriaasfcdefender_scan_item: finishing file(s) (2, 0.6 KB)
+0000.589 (0) Table oriaasfcdefender_unlockout: Total expected rows (via COUNT): 0
+0000.594 (0) Table oriaasfcdefender_unlockout: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=966) in 0.01 seconds
+0000.601 (0) Table oriaasfcdefender_unlockout: finishing file(s) (2, 0.4 KB)
+0000.612 (0) Table oriaasfcicl_background_task: Total expected rows (via COUNT): 1
+0000.614 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.617 (0) Table oriaasfcicl_background_task: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=970) in 0.01 seconds
+0000.623 (0) Table oriaasfcicl_background_task: finishing file(s) (2, 0.5 KB)
+0000.634 (0) Table oriaasfcicl_content_status: Total expected rows (via COUNT): 0
+0000.638 (0) Table oriaasfcicl_content_status: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=563) in 0.01 seconds
+0000.644 (0) Table oriaasfcicl_content_status: finishing file(s) (2, 0.3 KB)
+0000.656 (0) Table oriaasfcicl_core_status: Total expected rows (via COUNT): 0
+0000.658 (0) Table oriaasfcicl_core_status: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=686) in 0.01 seconds
+0000.664 (0) Table oriaasfcicl_core_status: finishing file(s) (2, 0.4 KB)
+0000.675 (0) Table oriaasfcicl_flags: Total expected rows (via COUNT): 63
+0000.676 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.680 (0) Table oriaasfcicl_flags: Rows added in this batch (next record: 63): 63 (uncompressed bytes in this segment=2274) in 0.01 seconds
+0000.686 (0) Table oriaasfcicl_flags: finishing file(s) (2, 0.9 KB)
+0000.697 (0) Table oriaasfcicl_languages: Total expected rows (via COUNT): 63
+0000.698 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.700 (0) Table oriaasfcicl_languages: Rows added in this batch (next record: 63): 63 (uncompressed bytes in this segment=4311) in 0.01 seconds
+0000.707 (0) Table oriaasfcicl_languages: finishing file(s) (2, 1.6 KB)
+0000.718 (0) Table oriaasfcicl_languages_translations: Total expected rows (approximate): 3969
+0000.749 (0) Table oriaasfcicl_languages_translations: Rows added in this batch (next record: 3969): 3969 (uncompressed bytes in this segment=138989) in 0.04 seconds
+0000.757 (0) Table oriaasfcicl_languages_translations: finishing file(s) (2, 33.1 KB)
+0000.764 (0) Table oriaasfcicl_locale_map: Total expected rows (approximate): 2
+0000.770 (0) Table oriaasfcicl_locale_map: Rows added in this batch (next record: 1000): 2 (uncompressed bytes in this segment=558) in 0.01 seconds
+0000.776 (0) Table oriaasfcicl_locale_map: finishing file(s) (2, 0.4 KB)
+0000.785 (0) Table oriaasfcicl_message_status: Total expected rows (via COUNT): 0
+0000.789 (0) Table oriaasfcicl_message_status: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=847) in 0.01 seconds
+0000.796 (0) Table oriaasfcicl_message_status: finishing file(s) (2, 0.4 KB)
+0000.807 (0) Table oriaasfcicl_mo_files_domains: Total expected rows (via COUNT): 71
+0000.809 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.813 (0) Table oriaasfcicl_mo_files_domains: Rows added in this batch (next record: 74): 71 (uncompressed bytes in this segment=14661) in 0.01 seconds
+0000.819 (0) Table oriaasfcicl_mo_files_domains: finishing file(s) (2, 4.4 KB)
+0000.828 (0) Table oriaasfcicl_node: Total expected rows (via COUNT): 0
+0000.832 (0) Table oriaasfcicl_node: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=470) in 0.01 seconds
+0000.838 (0) Table oriaasfcicl_node: finishing file(s) (2, 0.3 KB)
+0000.848 (0) Table oriaasfcicl_reminders: Total expected rows (via COUNT): 0
+0000.850 (0) Table oriaasfcicl_reminders: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=532) in 0.01 seconds
+0000.858 (0) Table oriaasfcicl_reminders: finishing file(s) (2, 0.3 KB)
+0000.867 (0) Table oriaasfcicl_string_batches: Total expected rows (via COUNT): 0
+0000.869 (0) Table oriaasfcicl_string_batches: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=536) in 0.01 seconds
+0000.879 (0) Table oriaasfcicl_string_batches: finishing file(s) (2, 0.3 KB)
+0000.891 (0) Table oriaasfcicl_string_packages: Total expected rows (via COUNT): 15
+0000.893 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.896 (0) Table oriaasfcicl_string_packages: Rows added in this batch (next record: 17): 15 (uncompressed bytes in this segment=3207) in 0.01 seconds
+0000.903 (0) Table oriaasfcicl_string_packages: finishing file(s) (2, 0.8 KB)
+0000.912 (0) Table oriaasfcicl_string_positions: Total expected rows (via COUNT): 0
+0000.918 (0) Table oriaasfcicl_string_positions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=627) in 0.01 seconds
+0000.926 (0) Table oriaasfcicl_string_positions: finishing file(s) (2, 0.4 KB)
+0000.935 (0) Table oriaasfcicl_string_status: Total expected rows (via COUNT): 0
+0000.938 (0) Table oriaasfcicl_string_status: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=685) in 0.01 seconds
+0000.945 (0) Table oriaasfcicl_string_status: finishing file(s) (2, 0.4 KB)
+0000.958 (0) Table oriaasfcicl_string_translations: Total expected rows (via COUNT): 79
+0000.959 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0000.963 (0) Table oriaasfcicl_string_translations: Rows added in this batch (next record: 84): 79 (uncompressed bytes in this segment=14889) in 0.01 seconds
+0000.971 (0) Table oriaasfcicl_string_translations: finishing file(s) (2, 3 KB)
+0000.997 (0) Table oriaasfcicl_strings: Total expected rows (via COUNT): 318
+0000.999 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.009 (0) Table oriaasfcicl_strings: Rows added in this batch (next record: 417): 318 (uncompressed bytes in this segment=134403) in 0.03 seconds
+0001.018 (0) Table oriaasfcicl_strings: finishing file(s) (2, 38.8 KB)
+0001.080 (0) Table oriaasfcicl_translate: Total expected rows (via COUNT): 187
+0001.082 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.152 (0) Table oriaasfcicl_translate: Rows added in this batch (next record: 218): 187 (uncompressed bytes in this segment=930461) in 0.13 seconds
+0001.161 (0) Table oriaasfcicl_translate: finishing file(s) (2, 186.2 KB)
+0001.170 (0) Table oriaasfcicl_translate_job: Total expected rows (via COUNT): 16
+0001.178 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.183 (0) Table oriaasfcicl_translate_job: Rows added in this batch (next record: 16): 16 (uncompressed bytes in this segment=2578) in 0.02 seconds
+0001.190 (0) Table oriaasfcicl_translate_job: finishing file(s) (2, 0.9 KB)
+0001.200 (0) Table oriaasfcicl_translation_batches: Total expected rows (via COUNT): 3
+0001.201 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.203 (0) Table oriaasfcicl_translation_batches: Rows added in this batch (next record: 3): 3 (uncompressed bytes in this segment=950) in 0.01 seconds
+0001.209 (0) Table oriaasfcicl_translation_batches: finishing file(s) (2, 0.5 KB)
+0001.220 (0) Table oriaasfcicl_translation_downloads: Total expected rows (via COUNT): 0
+0001.224 (0) Table oriaasfcicl_translation_downloads: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=593) in 0.01 seconds
+0001.229 (0) Table oriaasfcicl_translation_downloads: finishing file(s) (2, 0.3 KB)
+0001.265 (0) Table oriaasfcicl_translation_status: Total expected rows (via COUNT): 190
+0001.267 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0001.382 (0) Table oriaasfcicl_translation_status: Rows added in this batch (next record: 192): 190 (uncompressed bytes in this segment=1203928) in 0.15 seconds
+0001.391 (0) Table oriaasfcicl_translation_status: finishing file(s) (2, 217.6 KB)
+0001.404 (0) Table oriaasfcicl_translations: Total expected rows (via COUNT): 517
+0001.413 (0) Table oriaasfcicl_translations: Rows added in this batch (next record: 648): 517 (uncompressed bytes in this segment=26850) in 0.02 seconds
+0001.420 (0) Table oriaasfcicl_translations: finishing file(s) (2, 5.1 KB)
+0001.431 (0) Table oriaasfclayerslider: Total expected rows (via COUNT): 0
+0001.433 (0) Table oriaasfclayerslider: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1236) in 0.01 seconds
+0001.440 (0) Table oriaasfclayerslider: finishing file(s) (2, 0.5 KB)
+0001.451 (0) Table oriaasfclayerslider_drafts: Total expected rows (via COUNT): 0
+0001.453 (0) Table oriaasfclayerslider_drafts: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=725) in 0.01 seconds
+0001.460 (0) Table oriaasfclayerslider_drafts: finishing file(s) (2, 0.4 KB)
+0001.467 (0) Table oriaasfclayerslider_revisions: Total expected rows (via COUNT): 0
+0001.469 (0) Table oriaasfclayerslider_revisions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=678) in 0.00 seconds
+0001.476 (0) Table oriaasfclayerslider_revisions: finishing file(s) (2, 0.4 KB)
+0001.485 (0) Table oriaasfclinks: Total expected rows (via COUNT): 0
+0001.488 (0) Table oriaasfclinks: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1037) in 0.01 seconds
+0001.494 (0) Table oriaasfclinks: finishing file(s) (2, 0.5 KB)
+0001.503 (0) Table oriaasfcnjt_fastdup_entities: Total expected rows (via COUNT): 0
+0001.505 (0) Table oriaasfcnjt_fastdup_entities: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=513) in 0.01 seconds
+0001.512 (0) Table oriaasfcnjt_fastdup_entities: finishing file(s) (2, 0.3 KB)
+0001.521 (0) Table oriaasfcnjt_fastdup_packages: Total expected rows (via COUNT): 0
+0001.524 (0) Table oriaasfcnjt_fastdup_packages: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=674) in 0.01 seconds
+0001.531 (0) Table oriaasfcnjt_fastdup_packages: finishing file(s) (2, 0.4 KB)
+0001.539 (0) Table oriaasfcoptions: Total expected rows (via COUNT): 798
+0001.628 (0) Table oriaasfcoptions: Rows added in this batch (next record: 197791): 794 (uncompressed bytes in this segment=4705891) in 0.09 seconds
+0001.638 (0) Table oriaasfcoptions: finishing file(s) (2, 778.7 KB)
+0007.554 (0) Table oriaasfcpostmeta: Total expected rows (approximate): 12455
+0008.687 (0) Table oriaasfcpostmeta: Rows added in this batch (next record: 24100): 13795 (uncompressed bytes in this segment=84149445) in 7.04 seconds
+0008.698 (0) Table oriaasfcpostmeta: finishing file(s) (2, 6625.2 KB)
+0008.809 (0) Table oriaasfcposts: Total expected rows (approximate): 2489
+0014.944 (0) Table oriaasfcposts: Rows added in this batch (next record: 5261): 2647 (uncompressed bytes in this segment=78241550) in 6.24 seconds
+0014.954 (0) Table oriaasfcposts: finishing file(s) (2, 5537.3 KB)
+0014.969 (0) Table oriaasfcseopress_content_analysis: Total expected rows (via COUNT): 5
+0014.971 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0014.977 (0) Table oriaasfcseopress_content_analysis: Rows added in this batch (next record: 5): 5 (uncompressed bytes in this segment=25461) in 0.02 seconds
+0014.985 (0) Table oriaasfcseopress_content_analysis: finishing file(s) (2, 4.5 KB)
+0014.996 (0) Table oriaasfcstatistics_events: Total expected rows (via COUNT): 0
+0015.000 (0) Table oriaasfcstatistics_events: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=842) in 0.01 seconds
+0015.007 (0) Table oriaasfcstatistics_events: finishing file(s) (2, 0.4 KB)
+0015.019 (0) Table oriaasfcstatistics_exclusions: Total expected rows (via COUNT): 0
+0015.021 (0) Table oriaasfcstatistics_exclusions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=689) in 0.01 seconds
+0015.029 (0) Table oriaasfcstatistics_exclusions: finishing file(s) (2, 0.4 KB)
+0015.039 (0) Table oriaasfcstatistics_historical: Total expected rows (via COUNT): 51
+0015.042 (0) Table is relatively small; fetch_rows will thus be: 100 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.048 (0) Table oriaasfcstatistics_historical: Rows added in this batch (next record: 51): 51 (uncompressed bytes in this segment=3909) in 0.01 seconds
+0015.082 (0) Table oriaasfcstatistics_historical: finishing file(s) (2, 1.6 KB)
+0015.098 (0) Table oriaasfcstatistics_pages: Total expected rows (via COUNT): 2
+0015.100 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.105 (0) Table oriaasfcstatistics_pages: Rows added in this batch (next record: 547): 2 (uncompressed bytes in this segment=1012) in 0.01 seconds
+0015.112 (0) Table oriaasfcstatistics_pages: finishing file(s) (2, 0.5 KB)
+0015.120 (0) Table oriaasfcstatistics_search: Total expected rows (via COUNT): 0
+0015.125 (0) Table oriaasfcstatistics_search: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=821) in 0.01 seconds
+0015.133 (0) Table oriaasfcstatistics_search: finishing file(s) (2, 0.4 KB)
+0015.143 (0) Table oriaasfcstatistics_useronline: Total expected rows (via COUNT): 0
+0015.145 (0) Table oriaasfcstatistics_useronline: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1560) in 0.01 seconds
+0015.152 (0) Table oriaasfcstatistics_useronline: finishing file(s) (2, 0.5 KB)
+0015.163 (0) Table oriaasfcstatistics_visit: Total expected rows (via COUNT): 19
+0015.165 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.169 (0) Table oriaasfcstatistics_visit: Rows added in this batch (next record: 667): 19 (uncompressed bytes in this segment=1580) in 0.01 seconds
+0015.176 (0) Table oriaasfcstatistics_visit: finishing file(s) (2, 0.7 KB)
+0015.185 (0) Table oriaasfcstatistics_visitor: Total expected rows (via COUNT): 1
+0015.187 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.190 (0) Table oriaasfcstatistics_visitor: Rows added in this batch (next record: 1093): 1 (uncompressed bytes in this segment=2205) in 0.01 seconds
+0015.198 (0) Table oriaasfcstatistics_visitor: finishing file(s) (2, 0.7 KB)
+0015.209 (0) Table oriaasfcstatistics_visitor_relationships: Total expected rows (via COUNT): 2
+0015.211 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.213 (0) Table oriaasfcstatistics_visitor_relationships: Rows added in this batch (next record: 1569): 2 (uncompressed bytes in this segment=884) in 0.01 seconds
+0015.221 (0) Table oriaasfcstatistics_visitor_relationships: finishing file(s) (2, 0.4 KB)
+0015.229 (0) Table oriaasfcterm_relationships: Total expected rows (approximate): 106
+0015.234 (0) Table oriaasfcterm_relationships: Rows added in this batch (next record: 1000): 106 (uncompressed bytes in this segment=2385) in 0.01 seconds
+0015.243 (0) Table oriaasfcterm_relationships: finishing file(s) (2, 0.7 KB)
+0015.252 (0) Table oriaasfcterm_taxonomy: Total expected rows (via COUNT): 39
+0015.255 (0) Table is relatively small; fetch_rows will thus be: 50 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.259 (0) Table oriaasfcterm_taxonomy: Rows added in this batch (next record: 49): 39 (uncompressed bytes in this segment=2290) in 0.01 seconds
+0015.269 (0) Table oriaasfcterm_taxonomy: finishing file(s) (2, 0.8 KB)
+0015.280 (0) Table oriaasfctermmeta: Total expected rows (via COUNT): 4
+0015.282 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.286 (0) Table oriaasfctermmeta: Rows added in this batch (next record: 4): 4 (uncompressed bytes in this segment=873) in 0.01 seconds
+0015.295 (0) Table oriaasfctermmeta: finishing file(s) (2, 0.5 KB)
+0015.302 (0) Table oriaasfcterms: Total expected rows (via COUNT): 39
+0015.303 (0) Table is relatively small; fetch_rows will thus be: 50 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.308 (0) Table oriaasfcterms: Rows added in this batch (next record: 49): 39 (uncompressed bytes in this segment=2064) in 0.01 seconds
+0015.315 (0) Table oriaasfcterms: finishing file(s) (2, 0.9 KB)
+0015.329 (0) Table oriaasfcum_metadata: Total expected rows (via COUNT): 0
+0015.333 (0) Table oriaasfcum_metadata: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=786) in 0.01 seconds
+0015.342 (0) Table oriaasfcum_metadata: finishing file(s) (2, 0.4 KB)
+0015.352 (0) Table oriaasfcusermeta: Total expected rows (via COUNT): 260
+0015.354 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.359 (0) Table oriaasfcusermeta: Rows added in this batch (next record: 582): 260 (uncompressed bytes in this segment=23319) in 0.01 seconds
+0015.369 (0) Table oriaasfcusermeta: finishing file(s) (2, 5.6 KB)
+0015.377 (0) Table oriaasfcusers: Total expected rows (via COUNT): 6
+0015.378 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.382 (0) Table oriaasfcusers: Rows added in this batch (next record: 7): 6 (uncompressed bytes in this segment=2057) in 0.01 seconds
+0015.389 (0) Table oriaasfcusers: finishing file(s) (2, 1 KB)
+0015.402 (0) Table oriaasfcwow_fbtnp: Total expected rows (via COUNT): 1
+0015.404 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.406 (0) Table oriaasfcwow_fbtnp: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=1967) in 0.01 seconds
+0015.415 (0) Table oriaasfcwow_fbtnp: finishing file(s) (2, 0.9 KB)
+0015.430 (0) Table oriaasfcwow_mwp: Total expected rows (via COUNT): 1
+0015.432 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.435 (0) Table oriaasfcwow_mwp: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=5546) in 0.01 seconds
+0015.445 (0) Table oriaasfcwow_mwp: finishing file(s) (2, 1.8 KB)
+0015.456 (0) Table oriaasfcwow_sbtn: Total expected rows (via COUNT): 1
+0015.458 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.461 (0) Table oriaasfcwow_sbtn: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=1401) in 0.01 seconds
+0015.469 (0) Table oriaasfcwow_sbtn: finishing file(s) (2, 0.7 KB)
+0015.481 (0) Table oriaasfcwpfm_backup: Total expected rows (via COUNT): 4
+0015.483 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0015.485 (0) Table oriaasfcwpfm_backup: Rows added in this batch (next record: 5): 4 (uncompressed bytes in this segment=914) in 0.01 seconds
+0015.494 (0) Table oriaasfcwpfm_backup: finishing file(s) (2, 0.5 KB)
+0015.507 (0) Table oriaasfcwpvivid_options: Total expected rows (via COUNT): 0
+0015.511 (0) Table oriaasfcwpvivid_options: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=583) in 0.01 seconds
+0015.520 (0) Table oriaasfcwpvivid_options: finishing file(s) (2, 0.4 KB)
+0015.531 (0) Table oriaasfcwpvivid_scan_result: Total expected rows (approximate): 3189
+0015.558 (0) Table oriaasfcwpvivid_scan_result: Rows added in this batch (next record: 3189): 3189 (uncompressed bytes in this segment=163897) in 0.03 seconds
+0015.567 (0) Table oriaasfcwpvivid_scan_result: finishing file(s) (2, 19.2 KB)
+0015.579 (0) Table oriaasfcwpvivid_unused_uploads_files: Total expected rows (approximate): 1235
+0015.593 (0) Table oriaasfcwpvivid_unused_uploads_files: Rows added in this batch (next record: 1235): 1235 (uncompressed bytes in this segment=72639) in 0.02 seconds
+0015.603 (0) Table oriaasfcwpvivid_unused_uploads_files: finishing file(s) (2, 8.6 KB)
+0015.605 (0) PHP event: code E_WARNING: filemtime(): stat failed for X:\TLCDev\WordPress\ignident\dev\wp/wp-content/updraft-backups/backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db.gz (line 1923, X:\TLCDev\WordPress\ignident\dev\wp\wp-content\plugins\updraftplus\backup.php)
+0015.608 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcactionscheduler_actions.table.tmpr4408.gz (1/84/fopen): adding to final database dump
+0015.610 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcactionscheduler_actions.table.gz (2/84/fopen): adding to final database dump
+0015.612 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcactionscheduler_claims.table.tmpr0.gz (3/84/fopen): adding to final database dump
+0015.614 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcactionscheduler_claims.table.gz (4/84/fopen): adding to final database dump
+0015.616 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcactionscheduler_groups.table.tmpr3.gz (5/84/fopen): adding to final database dump
+0015.618 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcactionscheduler_groups.table.gz (6/84/fopen): adding to final database dump
+0015.620 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcactionscheduler_logs.table.tmpr16.gz (7/84/fopen): adding to final database dump
+0015.622 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcactionscheduler_logs.table.gz (8/84/fopen): adding to final database dump
+0015.624 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcays_pb.table.tmpr3.gz (9/84/fopen): adding to final database dump
+0015.626 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcays_pb.table.gz (10/84/fopen): adding to final database dump
+0015.628 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcays_pb_categories.table.tmpr2.gz (11/84/fopen): adding to final database dump
+0015.629 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcays_pb_categories.table.gz (12/84/fopen): adding to final database dump
+0015.631 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcays_pb_settings.table.tmpr2.gz (13/84/fopen): adding to final database dump
+0015.633 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcays_pb_settings.table.gz (14/84/fopen): adding to final database dump
+0015.634 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcbit_fm_logs.table.tmpr37.gz (15/84/fopen): adding to final database dump
+0015.636 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcbit_fm_logs.table.gz (16/84/fopen): adding to final database dump
+0015.638 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_browser_versions.table.tmpr0.gz (17/84/fopen): adding to final database dump
+0015.639 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_browser_versions.table.gz (18/84/fopen): adding to final database dump
+0015.641 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_browsers.table.tmpr0.gz (19/84/fopen): adding to final database dump
+0015.643 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_browsers.table.gz (20/84/fopen): adding to final database dump
+0015.645 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_devices.table.tmpr0.gz (21/84/fopen): adding to final database dump
+0015.646 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_devices.table.gz (22/84/fopen): adding to final database dump
+0015.648 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_goal_statistics.table.tmpr0.gz (23/84/fopen): adding to final database dump
+0015.650 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_goal_statistics.table.gz (24/84/fopen): adding to final database dump
+0015.651 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_goals.table.tmpr2.gz (25/84/fopen): adding to final database dump
+0015.653 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_goals.table.gz (26/84/fopen): adding to final database dump
+0015.654 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_platforms.table.tmpr0.gz (27/84/fopen): adding to final database dump
+0015.656 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_platforms.table.gz (28/84/fopen): adding to final database dump
+0015.658 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_sessions.table.tmpr0.gz (29/84/fopen): adding to final database dump
+0015.660 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_sessions.table.gz (30/84/fopen): adding to final database dump
+0015.661 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_statistics.table.tmpr0.gz (31/84/fopen): adding to final database dump
+0015.663 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_statistics.table.gz (32/84/fopen): adding to final database dump
+0015.664 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_summary.table.tmpr6.gz (33/84/fopen): adding to final database dump
+0015.666 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcburst_summary.table.gz (34/84/fopen): adding to final database dump
+0015.667 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfccommentmeta.table.tmpr0.gz (35/84/fopen): adding to final database dump
+0015.669 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfccommentmeta.table.gz (36/84/fopen): adding to final database dump
+0015.672 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfccomments.table.tmpr0.gz (37/84/fopen): adding to final database dump
+0015.674 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfccomments.table.gz (38/84/fopen): adding to final database dump
+0015.675 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfccscs_db_subscriptions.table.tmpr0.gz (39/84/fopen): adding to final database dump
+0015.677 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfccscs_db_subscriptions.table.gz (40/84/fopen): adding to final database dump
+0015.679 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_antibot.table.tmpr0.gz (41/84/fopen): adding to final database dump
+0015.680 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_antibot.table.gz (42/84/fopen): adding to final database dump
+0015.682 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_audit_log.table.tmpr0.gz (43/84/fopen): adding to final database dump
+0015.683 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_audit_log.table.gz (44/84/fopen): adding to final database dump
+0015.685 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_email_log.table.tmpr0.gz (45/84/fopen): adding to final database dump
+0015.687 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_email_log.table.gz (46/84/fopen): adding to final database dump
+0015.689 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_lockout.table.tmpr9.gz (47/84/fopen): adding to final database dump
+0015.690 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_lockout.table.gz (48/84/fopen): adding to final database dump
+0015.693 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_lockout_log.table.tmpr4043.gz (49/84/fopen): adding to final database dump
+0015.695 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_lockout_log.table.gz (50/84/fopen): adding to final database dump
+0015.696 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_scan.table.tmpr3.gz (51/84/fopen): adding to final database dump
+0015.698 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_scan.table.gz (52/84/fopen): adding to final database dump
+0015.700 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_scan_item.table.tmpr12.gz (53/84/fopen): adding to final database dump
+0015.702 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_scan_item.table.gz (54/84/fopen): adding to final database dump
+0015.704 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_unlockout.table.tmpr0.gz (55/84/fopen): adding to final database dump
+0015.706 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcdefender_unlockout.table.gz (56/84/fopen): adding to final database dump
+0015.708 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_background_task.table.tmpr2.gz (57/84/fopen): adding to final database dump
+0015.709 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_background_task.table.gz (58/84/fopen): adding to final database dump
+0015.711 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_content_status.table.tmpr0.gz (59/84/fopen): adding to final database dump
+0015.713 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_content_status.table.gz (60/84/fopen): adding to final database dump
+0015.715 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_core_status.table.tmpr0.gz (61/84/fopen): adding to final database dump
+0015.716 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_core_status.table.gz (62/84/fopen): adding to final database dump
+0015.718 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_flags.table.tmpr64.gz (63/84/fopen): adding to final database dump
+0015.720 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_flags.table.gz (64/84/fopen): adding to final database dump
+0015.722 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_languages.table.tmpr64.gz (65/84/fopen): adding to final database dump
+0015.724 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_languages.table.gz (66/84/fopen): adding to final database dump
+0015.725 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_languages_translations.table.tmpr3970.gz (67/84/fopen): adding to final database dump
+0015.728 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_languages_translations.table.gz (68/84/fopen): adding to final database dump
+0015.730 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_locale_map.table.tmpr1001.gz (69/84/fopen): adding to final database dump
+0015.732 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_locale_map.table.gz (70/84/fopen): adding to final database dump
+0015.734 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_message_status.table.tmpr0.gz (71/84/fopen): adding to final database dump
+0015.736 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_message_status.table.gz (72/84/fopen): adding to final database dump
+0015.738 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_mo_files_domains.table.tmpr75.gz (73/84/fopen): adding to final database dump
+0015.740 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_mo_files_domains.table.gz (74/84/fopen): adding to final database dump
+0015.742 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_node.table.tmpr0.gz (75/84/fopen): adding to final database dump
+0015.743 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_node.table.gz (76/84/fopen): adding to final database dump
+0015.746 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_reminders.table.tmpr0.gz (77/84/fopen): adding to final database dump
+0015.747 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_reminders.table.gz (78/84/fopen): adding to final database dump
+0015.749 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_batches.table.tmpr0.gz (79/84/fopen): adding to final database dump
+0015.751 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_batches.table.gz (80/84/fopen): adding to final database dump
+0015.753 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_packages.table.tmpr18.gz (81/84/fopen): adding to final database dump
+0015.755 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_packages.table.gz (82/84/fopen): adding to final database dump
+0015.757 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_positions.table.tmpr0.gz (83/84/fopen): adding to final database dump
+0015.759 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_positions.table.gz (84/84/fopen): adding to final database dump
+0015.760 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_status.table.tmpr0.gz (85/84/fopen): adding to final database dump
+0015.763 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_status.table.gz (86/84/fopen): adding to final database dump
+0015.764 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_translations.table.tmpr85.gz (87/84/fopen): adding to final database dump
+0015.766 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_string_translations.table.gz (88/84/fopen): adding to final database dump
+0015.768 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_strings.table.tmpr418.gz (89/84/fopen): adding to final database dump
+0015.771 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_strings.table.gz (90/84/fopen): adding to final database dump
+0015.773 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translate.table.tmpr219.gz (91/84/fopen): adding to final database dump
+0015.776 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translate.table.gz (92/84/fopen): adding to final database dump
+0015.778 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translate_job.table.tmpr17.gz (93/84/fopen): adding to final database dump
+0015.780 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translate_job.table.gz (94/84/fopen): adding to final database dump
+0015.782 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translation_batches.table.tmpr4.gz (95/84/fopen): adding to final database dump
+0015.784 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translation_batches.table.gz (96/84/fopen): adding to final database dump
+0015.786 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translation_downloads.table.tmpr0.gz (97/84/fopen): adding to final database dump
+0015.788 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translation_downloads.table.gz (98/84/fopen): adding to final database dump
+0015.790 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translation_status.table.tmpr193.gz (99/84/fopen): adding to final database dump
+0015.796 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translation_status.table.gz (100/84/fopen): adding to final database dump
+0015.798 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translations.table.tmpr649.gz (101/84/fopen): adding to final database dump
+0015.800 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcicl_translations.table.gz (102/84/fopen): adding to final database dump
+0015.803 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfclayerslider.table.tmpr0.gz (103/84/fopen): adding to final database dump
+0015.805 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfclayerslider.table.gz (104/84/fopen): adding to final database dump
+0015.807 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfclayerslider_drafts.table.tmpr0.gz (105/84/fopen): adding to final database dump
+0015.809 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfclayerslider_drafts.table.gz (106/84/fopen): adding to final database dump
+0015.811 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfclayerslider_revisions.table.tmpr0.gz (107/84/fopen): adding to final database dump
+0015.813 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfclayerslider_revisions.table.gz (108/84/fopen): adding to final database dump
+0015.815 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfclinks.table.tmpr0.gz (109/84/fopen): adding to final database dump
+0015.818 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfclinks.table.gz (110/84/fopen): adding to final database dump
+0015.819 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcnjt_fastdup_entities.table.tmpr0.gz (111/84/fopen): adding to final database dump
+0015.822 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcnjt_fastdup_entities.table.gz (112/84/fopen): adding to final database dump
+0015.824 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcnjt_fastdup_packages.table.tmpr0.gz (113/84/fopen): adding to final database dump
+0015.826 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcnjt_fastdup_packages.table.gz (114/84/fopen): adding to final database dump
+0015.828 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcoptions.table.tmpr197792.gz (115/84/fopen): adding to final database dump
+0015.837 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcoptions.table.gz (116/84/fopen): adding to final database dump
+0015.840 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcpostmeta.table.tmpr24101.gz (117/84/fopen): adding to final database dump
+0015.908 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcpostmeta.table.gz (118/84/fopen): adding to final database dump
+0015.911 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcposts.table.tmpr5262.gz (119/84/fopen): adding to final database dump
+0015.968 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcposts.table.gz (120/84/fopen): adding to final database dump
+0015.970 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcseopress_content_analysis.table.tmpr6.gz (121/84/fopen): adding to final database dump
+0015.972 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcseopress_content_analysis.table.gz (122/84/fopen): adding to final database dump
+0015.974 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_events.table.tmpr0.gz (123/84/fopen): adding to final database dump
+0015.977 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_events.table.gz (124/84/fopen): adding to final database dump
+0015.978 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_exclusions.table.tmpr0.gz (125/84/fopen): adding to final database dump
+0015.981 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_exclusions.table.gz (126/84/fopen): adding to final database dump
+0015.982 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_historical.table.tmpr52.gz (127/84/fopen): adding to final database dump
+0015.984 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_historical.table.gz (128/84/fopen): adding to final database dump
+0015.986 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_pages.table.tmpr548.gz (129/84/fopen): adding to final database dump
+0015.988 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_pages.table.gz (130/84/fopen): adding to final database dump
+0015.990 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_search.table.tmpr0.gz (131/84/fopen): adding to final database dump
+0015.992 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_search.table.gz (132/84/fopen): adding to final database dump
+0015.993 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_useronline.table.tmpr0.gz (133/84/fopen): adding to final database dump
+0015.995 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_useronline.table.gz (134/84/fopen): adding to final database dump
+0015.996 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_visit.table.tmpr668.gz (135/84/fopen): adding to final database dump
+0015.998 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_visit.table.gz (136/84/fopen): adding to final database dump
+0015.999 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_visitor.table.tmpr1094.gz (137/84/fopen): adding to final database dump
+0016.001 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_visitor.table.gz (138/84/fopen): adding to final database dump
+0016.002 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_visitor_relationships.table.tmpr1570.gz (139/84/fopen): adding to final database dump
+0016.004 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcstatistics_visitor_relationships.table.gz (140/84/fopen): adding to final database dump
+0016.006 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcterm_relationships.table.tmpr1001.gz (141/84/fopen): adding to final database dump
+0016.008 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcterm_relationships.table.gz (142/84/fopen): adding to final database dump
+0016.010 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcterm_taxonomy.table.tmpr50.gz (143/84/fopen): adding to final database dump
+0016.011 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcterm_taxonomy.table.gz (144/84/fopen): adding to final database dump
+0016.013 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfctermmeta.table.tmpr5.gz (145/84/fopen): adding to final database dump
+0016.014 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfctermmeta.table.gz (146/84/fopen): adding to final database dump
+0016.016 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcterms.table.tmpr50.gz (147/84/fopen): adding to final database dump
+0016.017 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcterms.table.gz (148/84/fopen): adding to final database dump
+0016.019 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcum_metadata.table.tmpr0.gz (149/84/fopen): adding to final database dump
+0016.020 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcum_metadata.table.gz (150/84/fopen): adding to final database dump
+0016.022 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcusermeta.table.tmpr583.gz (151/84/fopen): adding to final database dump
+0016.024 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcusermeta.table.gz (152/84/fopen): adding to final database dump
+0016.026 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcusers.table.tmpr8.gz (153/84/fopen): adding to final database dump
+0016.027 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcusers.table.gz (154/84/fopen): adding to final database dump
+0016.029 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwow_fbtnp.table.tmpr2.gz (155/84/fopen): adding to final database dump
+0016.031 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwow_fbtnp.table.gz (156/84/fopen): adding to final database dump
+0016.032 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwow_mwp.table.tmpr2.gz (157/84/fopen): adding to final database dump
+0016.034 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwow_mwp.table.gz (158/84/fopen): adding to final database dump
+0016.035 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwow_sbtn.table.tmpr2.gz (159/84/fopen): adding to final database dump
+0016.037 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwow_sbtn.table.gz (160/84/fopen): adding to final database dump
+0016.040 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwpfm_backup.table.tmpr6.gz (161/84/fopen): adding to final database dump
+0016.042 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwpfm_backup.table.gz (162/84/fopen): adding to final database dump
+0016.044 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwpvivid_options.table.tmpr0.gz (163/84/fopen): adding to final database dump
+0016.046 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwpvivid_options.table.gz (164/84/fopen): adding to final database dump
+0016.047 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwpvivid_scan_result.table.tmpr3190.gz (165/84/fopen): adding to final database dump
+0016.049 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwpvivid_scan_result.table.gz (166/84/fopen): adding to final database dump
+0016.051 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwpvivid_unused_uploads_files.table.tmpr1236.gz (167/84/fopen): adding to final database dump
+0016.053 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db-table-oriaasfcwpvivid_unused_uploads_files.table.gz (168/84/fopen): adding to final database dump
+0016.065 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db.gz: finished writing out complete database file (13524.7 KB)
+0016.159 (0) Total database tables backed up: 84 (backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db.gz, size: 13849440, sha1: 5af3854f133dc8cd633d3bd8d9dc45a93168c0ed, sha256: 91d2f680d9c4721fdc74bc759486b317668b25cdfd18a807fd8b722917815d51)
+0016.175 (0) backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db.gz: db: This file has not yet been successfully uploaded: will queue
+0016.176 (0) Saving backup history. Total backup size: 13.2 MB
+0016.180 (0) Requesting upload of the files that have not yet been successfully uploaded (1)
+0016.185 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0016.187 (0) No remote despatch: user chose no remote backup service
+0016.189 (0) Recording as successfully uploaded: backup_2025-03-19-1308_IGNIDENT_0ef52f585ad7-db.gz
+0016.194 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=4, retain_db=4
+0016.196 (0) Number of backup sets in history: 3; groups (db): 1
+0016.197 (0) Examining (for databases) backup set with group_id=0, nonce=0ef52f585ad7, datestamp=1742386138 (Mar 19 2025 12:08:58)
+0016.199 (0) This backup set is the backup set just made, so will not be deleted.
+0016.199 (0) Examining (for databases) backup set with group_id=0, nonce=5fac9b617989, datestamp=1742386044 (Mar 19 2025 12:07:24)
+0016.199 (0) Examining (for databases) backup set with group_id=0, nonce=cc9b839a730d, datestamp=1739013636 (Feb 08 2025 11:20:36)
+0016.199 (0) This backup set (1739013636) was an 'Always Keep' backup, and we have not yet reached any retain limits, so it should be counted in the count of how many have been retained for purposes of the 'how many to retain' count. It will not be pruned. Skipping.
+0016.199 (0) Number of backup sets in history: 3; groups (files): 1
+0016.200 (0) Examining (for files) backup set with nonce=0ef52f585ad7, datestamp=1742386138 (Mar 19 2025 12:08:58)
+0016.200 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0016.202 (0) Examining (for files) backup set with nonce=5fac9b617989, datestamp=1742386044 (Mar 19 2025 12:07:24)
+0016.202 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0016.204 (0) Examining (for files) backup set with nonce=cc9b839a730d, datestamp=1739013636 (Feb 08 2025 11:20:36)
+0016.204 (0) This backup set (1739013636) was an 'Always Keep' backup, and we have not yet reached any retain limits, so it should be counted in the count of how many have been retained for purposes of the 'how many to retain' count. It will not be pruned. Skipping.
+0016.204 (0) This backup set (1739013636) was an 'Always Keep' backup, and we have not yet reached any retain limits, so it should be counted in the count of how many have been retained for purposes of the 'how many to retain' count. It will not be pruned. Skipping.
+0016.204 (0) This backup set (1739013636) was an 'Always Keep' backup, and we have not yet reached any retain limits, so it should be counted in the count of how many have been retained for purposes of the 'how many to retain' count. It will not be pruned. Skipping.
+0016.204 (0) This backup set (1739013636) was an 'Always Keep' backup, and we have not yet reached any retain limits, so it should be counted in the count of how many have been retained for purposes of the 'how many to retain' count. It will not be pruned. Skipping.
+0016.204 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0016.206 (0) Retain: saving new backup history (sets now: 3) and finishing retain operation
+0016.209 (0) Resume backup (0ef52f585ad7, 0): finish run
+0016.214 (0) Decremented the semaphore (d) by 1
+0016.217 (0) Semaphore (d) unlocked
+0016.219 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0016.225 (0) Fetching RSS news feed
+0016.999 (0) Fetched RSS news feed; result is a: WP_Error
+0017.012 (0) Sending email ('Database only (files were not part of this particular schedule)') report (attachments: 0, size: 0 KB) to: devel...
+0018.289 (0) PHP event: code E_WARNING: mail(): SMTP server response: 550 5.7.1 &lt;p5b3c3368.dip0.t-ipconnect.de[91.60.51.104]&gt;: Client host rejected: Authentication failed, please enable SMTP Authentication in your email client (line 883, X:\TLCDev\WordPress\ignident\dev\wp\wp-includes\PHPMailer\PHPMailer.php)
+0018.292 (0) An error occurred when sending a backup report email and/or backup file(s) via email (wp_mail_failed): Could not instantiate mail function.
+0018.294 (0) The backup succeeded and is now complete

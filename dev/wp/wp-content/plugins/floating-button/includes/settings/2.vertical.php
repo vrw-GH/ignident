@@ -119,7 +119,7 @@ $sbBtnOpt = Field::add_prefix( '[menu_1]', $sbBtnOptDef );
 		endif; ?>
     </div>
     <p class="btn-add-item">
-        <a class="button button-primary button-large"  id="add_menu_1"><?php esc_html_e( 'Add Item' ); ?></a>
+        <a class="button button-primary button-large"  id="add_menu_1"><?php esc_html_e( 'Add Item', 'floating-button' ); ?></a>
     </p>
 
 <template id="clone-menu-1">

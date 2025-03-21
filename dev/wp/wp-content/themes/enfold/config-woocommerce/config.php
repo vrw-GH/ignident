@@ -1828,7 +1828,7 @@ if( ! function_exists( 'avia_woocommerce_parallax_banner' ) )
 
 		if( $description )
 		{
-			$output .=				"<{$desc_tag} class='av-banner-description'>{$description}</{$desc_tag}>";
+			$output .=				"<{$desc_tag} class='av-banner-description'>" . do_shortcode( $description ) . "</{$desc_tag}>";
 		}
 
 		$output .=				'</main>';
@@ -2189,9 +2189,10 @@ if( avia_woocommerce_version_check( '3.0.0' ) ) // in woocommerce 3.0.0
 if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 {
 	/**
-	 * Displays a front end interface for modifying the shoplist query parameters like sorting order, product count etc
+	 * Displays a front end interface for modifying the shoplist query parameters like sorting order, product count etc.
 	 *
 	 * @since < 4.0
+	 * @since 6.0.9  added fix for https://kriesi.at/support/topic/bug-abuse-of-avia_extended_shop_select-queries/
 	 */
 	function avia_woocommerce_frontend_search_params()
 	{
@@ -2224,6 +2225,8 @@ if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 		 * @return array
 		 */
 		$product_order = apply_filters( 'avf_wc_product_order_dropdown_frontend', $product_order );
+
+		$order_no_sort = [ 'rand', 'popularity', 'rating', 'default' ];
 
 		$product_sort['asc'] = __( 'Click to order products ascending', 'avia_framework' );
 		$product_sort['desc'] = __( 'Click to order products descending', 'avia_framework' );
@@ -2267,36 +2270,30 @@ if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 			$ps_key = $params['product_sort'];
 		}
 
-		if( 'default' == $po_key )
-		{
-			unset( $params['product_sort'] );
-		}
+		$ps_key = strtolower( $ps_key );
+		$params['product_sort'] = strtolower( $ps_key );
 
 		$params['avia_extended_shop_select'] = 'yes';
 
-//		$po_key = ! empty( $avia_config['woocommerce']['product_order'] ) ? $avia_config['woocommerce']['product_order'] : $params['product_order'];
-//		$ps_key = ! empty( $avia_config['woocommerce']['product_sort'] ) ? $avia_config['woocommerce']['product_sort'] : $params['product_sort'];
 		$pc_key = ! empty( $avia_config['woocommerce']['product_count'] ) ? $avia_config['woocommerce']['product_count'] : $per_page;
 
-		$ps_key = strtolower( $ps_key );
-
-		$show_sort = ! in_array( $po_key, array( 'rand', 'popularity', 'rating', 'default' ) );
+		$show_sort = ! in_array( $po_key, $order_no_sort );
 
 		$nofollow = 'rel="nofollow"';
 
 		//generate markup
 		$output  =	'';
-		$output .=	'<div class="product-sorting">';
+		$output .=	'<div class="product-sorting avia-product-sorting">';
 		$output .=		'<ul class="sort-param sort-param-order">';
 		$output .=			"<li><span class='currently-selected'>" . __( 'Sort by', 'avia_framework' ) . " <strong>{$product_order[$po_key]}</strong></span>";
 		$output .=				'<ul>';
 
 		foreach ( $product_order as $order_key => $order_text )
 		{
-			$query_string = 'default' == $order_key ? avia_woo_build_query_string( $params, 'product_order', $order_key, 'product_sort' ) : avia_woo_build_query_string( $params, 'product_order', $order_key );
+			$query_string = in_array( $order_key, $order_no_sort ) ? avia_woo_build_query_string( $params, 'product_order', $order_key, 'product_sort' ) : avia_woo_build_query_string( $params, 'product_order', $order_key );
 
 			$output .=				'<li' . avia_woo_active_class( $po_key, $order_key ) . '>';
-			$output .=					"<a href='{$query_string}' {$nofollow}>";
+			$output .=					"<a class='avia-product-sorting-link' data-href='{$query_string}' {$nofollow}>";
 			$output .=						"<span class='avia-bullet'></span>{$order_text}";
 			$output .=					'</a>';
 			$output .=				'</li>';
@@ -2313,11 +2310,11 @@ if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 
 			if( $ps_key == 'desc' )
 			{
-			$output .=			"<a title='{$product_sort['asc']}' class='sort-param-asc'  href='" . avia_woo_build_query_string( $params, 'product_sort', 'asc' ) . "' {$nofollow}>{$product_sort['desc']}</a>";
+			$output .=			"<a title='{$product_sort['asc']}' class='avia-product-sorting-link avia-sorting-asc-desc sort-param-asc'  data-href='" . avia_woo_build_query_string( $params, 'product_sort', 'asc' ) . "' {$nofollow}>{$product_sort['desc']}</a>";
 			}
 			if( $ps_key == 'asc' )
 			{
-			$output .=			"<a title='{$product_sort['desc']}' class='sort-param-desc' href='" . avia_woo_build_query_string( $params, 'product_sort', 'desc' ) . "' {$nofollow}>{$product_sort['asc']}</a>";
+			$output .=			"<a title='{$product_sort['desc']}' class='avia-product-sorting-link avia-sorting-asc-desc sort-param-desc' data-href='" . avia_woo_build_query_string( $params, 'product_sort', 'desc' ) . "' {$nofollow}>{$product_sort['asc']}</a>";
 			}
 
 			$output .=		'</li>';
@@ -2326,12 +2323,22 @@ if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 
 		if( ! isset( $avia_config['woocommerce']['default_posts_per_page'] ) || ( $avia_config['woocommerce']['default_posts_per_page'] > 0 ) )
 		{
+			if( ! isset( $params['product_order'] ) )
+			{
+				$params['product_order'] = 'default';
+			}
+
+			if( in_array( $params['product_order'], $order_no_sort ) )
+			{
+				unset( $params['product_sort'] );
+			}
+
 			$output .=	"<ul class='sort-param sort-param-count'>";
 			$output .=		"<li><span class='currently-selected'>" . __( 'Display', 'avia_framework' ) . " <strong>{$pc_key} {$per_page_string} </strong></span>";
 			$output .=			'<ul>';
-			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page ) . "><a href='" . avia_woo_build_query_string( $params, 'product_count', $per_page ) . "' {$nofollow}>		<span class='avia-bullet'></span>{$per_page} {$per_page_string}</a></li>";
-			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page * 2 ) . "><a href='" . avia_woo_build_query_string( $params, 'product_count', $per_page * 2 ) . "' {$nofollow}>	<span class='avia-bullet'></span>" . ( $per_page * 2 ) . " {$per_page_string}</a></li>";
-			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page * 3 ) . "><a href='" . avia_woo_build_query_string( $params, 'product_count', $per_page * 3 ) . "' {$nofollow}>	<span class='avia-bullet'></span>" . ( $per_page * 3 ) . " {$per_page_string}</a></li>";
+			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page ) . "><a class='avia-product-sorting-link' data-href='" . avia_woo_build_query_string( $params, 'product_count', $per_page ) . "' {$nofollow}>		<span class='avia-bullet'></span>{$per_page} {$per_page_string}</a></li>";
+			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page * 2 ) . "><a class='avia-product-sorting-link' data-href='" . avia_woo_build_query_string( $params, 'product_count', $per_page * 2 ) . "' {$nofollow}>	<span class='avia-bullet'></span>" . ( $per_page * 2 ) . " {$per_page_string}</a></li>";
+			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page * 3 ) . "><a class='avia-product-sorting-link' data-href='" . avia_woo_build_query_string( $params, 'product_count', $per_page * 3 ) . "' {$nofollow}>	<span class='avia-bullet'></span>" . ( $per_page * 3 ) . " {$per_page_string}</a></li>";
 			$output .=			'</ul>';
 			$output .=		'</li>';
 			$output .=	'</ul>';
