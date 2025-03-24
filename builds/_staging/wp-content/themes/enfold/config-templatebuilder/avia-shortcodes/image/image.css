@@ -217,9 +217,7 @@ update: added "avia-image-container-inner" selector and changed back to hidden t
 	background-color: rgba(0,0,0,0.4);
 }
 
-.avia-image-container.av-has-copyright.av-copyright-icon-reveal .avia-copyright:after{
-	content: "\E81e";
-	font-family: "entypo-fontello";
+.avia-image-container.av-has-copyright.av-copyright-icon-reveal .avia-copyright .avia-svg-icon{
 	display: block;
 	position: absolute;
 	right: 0;
@@ -230,16 +228,24 @@ update: added "avia-image-container-inner" selector and changed back to hidden t
 	height: 2.6em;
 	line-height: 2.8em;
 	text-align: center;
-	color: rgba(255,255,255,0.7);
 	border-radius: 3px;
 	cursor: pointer;
 }
 
-.avia-image-container.av-has-copyright.av-copyright-icon-reveal .avia-copyright:hover:after{
-	background-color: rgba(0,0,0,0.2);
-	color: rgba(255,255,255,1);
+.avia-image-container.av-has-copyright.av-copyright-icon-reveal .avia-copyright .avia-svg-icon svg:first-child{
+	stroke: rgba(255,255,255,0.7);
+	fill: rgba(255,255,255,0.7);
+	margin-top: 7px;
 }
 
+.avia-image-container.av-has-copyright.av-copyright-icon-reveal .avia-copyright:hover .avia-svg-icon{
+	background-color: rgba(0,0,0,0.2);
+}
+
+.avia-image-container.av-has-copyright.av-copyright-icon-reveal .avia-copyright:hover .avia-svg-icon svg:first-child{
+	stroke: rgba(255,255,255,1);
+	fill: rgba(255,255,255,1);
+}
 
 .avia-image-container.av-styling-circle.av-has-copyright.av-copyright-icon-reveal .avia-copyright{
 	border-radius: 20px;
@@ -247,9 +253,9 @@ update: added "avia-image-container-inner" selector and changed back to hidden t
 	text-align: right;
 }
 
-.avia-image-container.av-styling-circle.av-has-copyright.av-copyright-icon-reveal .avia-copyright:after{
+/*.avia-image-container.av-styling-circle.av-has-copyright.av-copyright-icon-reveal .avia-copyright:after{
 	border-radius: 100%;
-}
+}*/
 
 .avia-image-container.av-styling-circle.av-has-copyright.av-copyright-icon-reveal .avia-copyright:hover{
 	border-radius: 15px;

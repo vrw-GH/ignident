@@ -14,7 +14,6 @@ if( ! class_exists( 'aviaFontManagementBase', false ) )
 {
 	abstract class aviaFontManagementBase
 	{
-
 		/**
 		 *
 		 * @since 4.3
@@ -149,7 +148,7 @@ if( ! class_exists( 'aviaFontManagementBase', false ) )
 			$this->include_files = array();
 			$this->font_name = 'unknown';
 			$this->custom_font_prefix = '';
-			$this->ajax_error_prefix = __( 'Couldn\'t add/remove the font.<br/>The script returned the following error: <br/><br/>', 'avia_framework' );
+			$this->ajax_error_prefix = __( 'Could not add/remove the font.<br/>The script returned the following error: <br/><br/>', 'avia_framework' );
 			$this->response = array();
 			$this->multiple_fonts = false;
 			$this->subfolders = array();
@@ -157,7 +156,7 @@ if( ! class_exists( 'aviaFontManagementBase', false ) )
 
 			$this->init();
 
-			add_filter( 'avf_file_upload_extra', array( $this, 'handler_add_font_manager_upload'), 10, 2 );
+			add_filter( 'avf_file_upload_extra', array( $this, 'handler_add_font_manager_upload'), 20, 2 );
 		}
 
 		/**
@@ -277,8 +276,9 @@ if( ! class_exists( 'aviaFontManagementBase', false ) )
 			 * get the file path of the zip file and extract needed files to temp folder
 			 */
 			$attachment = $_POST['values'];
-			$path 		= realpath( get_attached_file( $attachment['id'] ) );
-			$unzipped 	= $this->extract_zip_file( $path );
+			$path = realpath( get_attached_file( $attachment['id'] ) );
+
+			$unzipped = $this->extract_zip_file( $path );
 
 
 			/**

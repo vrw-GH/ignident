@@ -880,7 +880,8 @@ if( ! class_exists( 'avia_sc_tab_section', false ) )
 						'class_prev'	=> 'av_prev_tab_section av-tab-section-slide',
 						'class_next'	=> 'av_next_tab_section av-tab-section-slide',
 						'context'		=> get_class( $this ),
-						'params'		=> $atts
+						'params'		=> $atts,
+						'svg_icon'		=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );

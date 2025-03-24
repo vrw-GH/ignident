@@ -51,23 +51,23 @@ if( '??' == $icon_title )
 	}
 }
 
-$icon = av_icon_char( 'search' );
-$class = av_icon_class( 'search' );
 $placeholder = esc_attr( $search_params['placeholder'] );
+$icon_html = avia_font_manager::html_frontend_shortcut_icon( 'svg__search', 'av_searchform_search', [ 'aria-hidden' => 'true' ] );
 
 ?>
 
 <search>
 	<form action="<?php echo $search_params['form_action']; ?>" id="searchform" method="get" class="<?php echo $disable_ajax; ?>">
 		<div>
-			<input type="submit" value="<?php echo $icon; ?>" id="searchsubmit" class="button <?php echo $class; ?>" title="<?php echo $icon_title; ?>" />
+<?php
+			echo $icon_html;
+?>
+			<input type="submit" value="" id="searchsubmit" class="button" title="<?php echo $icon_title; ?>" />
 			<input type="search" id="s" name="<?php echo $search_params['search_id']; ?>" value="<?php if( ! empty( $_GET['s'] ) ) { echo get_search_query(); } ?>" aria-label='<?php echo $placeholder; ?>' placeholder='<?php echo $placeholder; ?>' required />
-			<?php
-
+<?php
 			// allows to add aditional form fields to modify the query (eg add an input with name "post_type" and value "page" to search for pages only)
 			do_action( 'ava_frontend_search_form' );
-
-			?>
+?>
 		</div>
 	</form>
 </search>

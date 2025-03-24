@@ -11,6 +11,8 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 {
 	class avia_sc_notification extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * Create the config array for the shortcode button
 		 */
@@ -193,8 +195,8 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 						),
 
 						array(
-							'name'		=> __( 'Button Icon', 'avia_framework' ),
-							'desc'		=> __( 'Should an icon be displayed at the left side of the button', 'avia_framework' ),
+							'name'		=> __( 'Icon', 'avia_framework' ),
+							'desc'		=> __( 'Should an icon be displayed at the left side of the notification message', 'avia_framework' ),
 							'id'		=> 'icon_select',
 							'type'		=> 'select',
 							'std'		=> 'yes',
@@ -206,11 +208,13 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 						),
 
 						array(
-							'name'		=> __( 'Button Icon', 'avia_framework' ),
-							'desc'		=> __( 'Select an icon for your button below', 'avia_framework' ),
+							'name'		=> __( 'Notice Icon', 'avia_framework' ),
+							'desc'		=> __( 'Select an icon below to be shown left of the notification text', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'pencil',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'icon_select', 'equals', 'yes' )
@@ -224,9 +228,9 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 							'std'		=> '',
 							'lockable'	=> true,
 							'subtype'	=> array(
-												__( 'No Close Button ', 'avia_framework' )		=> '',
-												__( 'Yes, display a Close Button - Set Cookie for the current Session', 'avia_framework' )	=> 'session_cookie',
-												__( 'Yes, display a Close Button - Set Cookie with a custom Lifetime', 'avia_framework' )	=> 'custom_cookie',
+												__( 'No close button ', 'avia_framework' )		=> '',
+												__( 'Yes, display a close button - set cookie for the current Session', 'avia_framework' )	=> 'session_cookie',
+												__( 'Yes, display a close button - set cookie with a custom Lifetime', 'avia_framework' )	=> 'custom_cookie',
 											)
 						),
 
@@ -430,7 +434,7 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked, $content );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$inner  = "<div class='avia_message_box avia_hidden_bg_box avia_textblock avia_textblock_style' data-update_element_template='yes'>";
 			$inner .=		'<div ' . $this->class_by_arguments_lockable( 'color, size, icon_select, border', $attr, $locked ) . '>';
@@ -485,7 +489,8 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 			$atts = shortcode_atts( $default, $atts, $this->config['shortcode'] );
 
 			Avia_Dynamic_Content()->read( $atts, $this, $shortcodename, $content );
-			
+
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			$element_styling->create_callback_styles( $atts );
 
@@ -500,6 +505,8 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 			$element_styling->add_classes_from_array( 'container', $meta, 'el_class' );
 			$element_styling->add_responsive_classes( 'container', 'hide_element', $atts );
 
+			$element_styling->add_classes( 'icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
+
 			if( 'custom' == $atts['color'] )
 			{
 				$colors = array(
@@ -508,6 +515,11 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 							);
 
 				$element_styling->add_styles( 'container', $colors );
+
+				$element_styling->add_styles( 'icon-svg', array(
+														'fill'		=> $atts['custom_font'],
+														'stroke'	=> $atts['custom_font']
+													) );
 			}
 
 			if( $atts['close_btn'] )
@@ -519,6 +531,10 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 			{
 				$element_styling->add_styles( 'container', array( 'color' => $atts['custom_font'] ) );
 				$element_styling->add_callback_styles( 'container', array( 'gradient_bg' ) );
+				$element_styling->add_styles( 'icon-svg', array(
+														'fill'		=> $atts['custom_font'],
+														'stroke'	=> $atts['custom_font']
+													) );
 			}
 
 			$element_styling->add_callback_styles( 'container', array( 'nb_border', 'border_radius', 'box_shadow' ) );
@@ -561,6 +577,7 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 			$selectors = array(
 						'container'				=> ".avia_message_box.{$element_id}",
 						'container-hover'		=> ".avia_message_box.{$element_id}:hover",
+						'icon-svg'				=> ".avia_message_box.{$element_id} .avia_message_box_icon.avia-svg-icon svg:first-child",
 						'container-after'		=> ".avia_message_box.{$element_id}.avia-sonar-shadow:after",
 						'container-after-hover'	=> ".avia_message_box.{$element_id}.avia-sonar-shadow:hover:after"
 					);
@@ -592,7 +609,6 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 			$style_tag = $element_styling->get_style_tag( $element_id );
 			$container_class = $element_styling->get_class_string( 'container' );
 
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
 			$cookie_contents = '';
 			$cookie_lifetime = '';
 			$cookie_contents_hash = '';
@@ -622,7 +638,12 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 
 			if( $atts['icon_select'] == 'yes' )
 			{
-				$output .= "<span class='avia_message_box_icon' {$display_char}></span>";
+				$display_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
+				$icon_class = $element_styling->get_class_string( 'icon' );
+
+				$output .= "<span class='avia_message_box_icon {$icon_class}' {$display_char['attr']}>";
+				$output .=		$display_char['svg'];
+				$output .= '</span>';
 			}
 
 			$output .=		ShortcodeHelper::avia_apply_autop( ShortcodeHelper::avia_remove_autop( $content ) );

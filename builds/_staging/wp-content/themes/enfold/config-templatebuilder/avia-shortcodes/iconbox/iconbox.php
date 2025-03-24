@@ -11,6 +11,8 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 {
 	class avia_sc_icon_box extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * Create the config array for the shortcode button
 		 */
@@ -177,7 +179,9 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 							'desc'		=> __( 'Select an IconBox Icon below', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> 'ue803',
+							'std'		=> 'search',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' )
 						),
@@ -269,11 +273,11 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 
 			$c = array(
 						array(
-							'name' 	=> __( 'Font Colors', 'avia_framework' ),
-							'desc' 	=> __( 'Either use the themes default colors or apply some custom ones', 'avia_framework' ),
-							'id' 	=> 'font_color',
-							'type' 	=> 'select',
-							'std' 	=> '',
+							'name'		=> __( 'Font Colors', 'avia_framework' ),
+							'desc'		=> __( 'Either use the themes default colors or apply some custom ones', 'avia_framework' ),
+							'id'		=> 'font_color',
+							'type'		=> 'select',
+							'std'		=> '',
 							'lockable'	=> true,
 							'subtype'	=> array(
 												__( 'Default', 'avia_framework' )				=> '',
@@ -281,33 +285,33 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Title Font Color', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom font color. Leave empty to use the default', 'avia_framework' ),
-							'id' 	=> 'custom_title',
-							'type' 	=> 'colorpicker',
-							'std' 	=> '',
+							'name'		=> __( 'Custom Title Font Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom font color. Leave empty to use the default', 'avia_framework' ),
+							'id'		=> 'custom_title',
+							'type'		=> 'colorpicker',
+							'std'		=> '',
 							'container_class' => 'av_half av_half_first',
 							'lockable'	=> true,
 							'required'	=> array( 'font_color', 'equals', 'custom' )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Content Font Color', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom font color. Leave empty to use the default', 'avia_framework' ),
-							'id' 	=> 'custom_content',
-							'type' 	=> 'colorpicker',
-							'std' 	=> '',
+							'name'		=> __( 'Custom Content Font Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom font color. Leave empty to use the default', 'avia_framework' ),
+							'id'		=> 'custom_content',
+							'type'		=> 'colorpicker',
+							'std'		=> '',
 							'container_class' => 'av_half',
 							'lockable'	=> true,
 							'required'	=> array( 'font_color', 'equals', 'custom' )
 						),
 
 						array(
-							'name' 	=> __( 'Icon Colors', 'avia_framework' ),
-							'desc' 	=> __( 'Either use the themes default colors or apply some custom ones', 'avia_framework' ),
-							'id' 	=> 'color',
-							'type' 	=> 'select',
-							'std' 	=> '',
+							'name'		=> __( 'Icon Colors', 'avia_framework' ),
+							'desc'		=> __( 'Either use the themes default colors or apply some custom ones', 'avia_framework' ),
+							'id'		=> 'color',
+							'type'		=> 'select',
+							'std'		=> '',
 							'lockable'	=> true,
 							'subtype'	=> array(
 												__( 'Default', 'avia_framework' )				=> '',
@@ -315,33 +319,33 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Background Color', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom background color. Leave empty to use the default', 'avia_framework' ),
-							'id' 	=> 'custom_bg',
-							'type' 	=> 'colorpicker',
-							'std' 	=> '',
+							'name'		=> __( 'Custom Background Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom background color. Leave empty to use the default', 'avia_framework' ),
+							'id'		=> 'custom_bg',
+							'type'		=> 'colorpicker',
+							'std'		=> '',
 							'container_class' => 'av_third av_third_first',
 							'lockable'	=> true,
 							'required'	=> array( 'color', 'equals', 'custom' )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Font Color', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom font color. Leave empty to use the default', 'avia_framework' ),
-							'id' 	=> 'custom_font',
-							'type' 	=> 'colorpicker',
-							'std' 	=> '',
+							'name'		=> __( 'Custom Icon Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom color for the icon. Leave empty to use the default', 'avia_framework' ),
+							'id'		=> 'custom_font',
+							'type'		=> 'colorpicker',
+							'std'		=> '',
 							'container_class' => 'av_third',
 							'lockable'	=> true,
 							'required'	=> array( 'color', 'equals', 'custom' )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Border Color', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom border color. Leave empty to use the default', 'avia_framework' ),
-							'id' 	=> 'custom_border',
-							'type' 	=> 'colorpicker',
-							'std' 	=> '',
+							'name'		=> __( 'Custom Border Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom border color. Leave empty to use the default', 'avia_framework' ),
+							'id'		=> 'custom_border',
+							'type'		=> 'colorpicker',
+							'std'		=> '',
 							'container_class' => 'av_third',
 							'lockable'	=> true,
 							'required'	=> array( 'color', 'equals', 'custom' )
@@ -508,7 +512,7 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			$content = $params['content'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked, $content );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$inner  = "<div class='avia_iconbox avia_textblock avia_textblock_style' data-update_element_template='yes'>";
 			$inner .=		'<div ' . $this->class_by_arguments_lockable( 'position', $attr, $locked ) . '>';
@@ -575,6 +579,7 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $shortcodename, $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'no', 'manually', 'single', 'taxonomy' ] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			if( $atts['position'] != 'top' )
 			{
@@ -602,6 +607,8 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			$element_styling->add_responsive_font_sizes( 'content', 'size', $atts, $this );
 			$element_styling->add_responsive_font_sizes( 'title', 'size-title', $atts, $this );
 
+			$element_styling->add_classes( 'icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
+
 			if( $atts['position'] == 'top' && empty( $atts['boxed'] ) )
 			{
 				$element_styling->add_classes( 'container', 'main_color' );
@@ -622,6 +629,10 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 				if( ! empty( $atts['custom_font'] ) )
 				{
 					$element_styling->add_styles( 'icon', array( 'color' => $atts['custom_font'] ) );
+					$element_styling->add_styles( 'icon-svg', array(
+															'fill'		=> $atts['custom_font'],
+															'stroke'	=> $atts['custom_font']
+														) );
 				}
 			}
 
@@ -653,6 +664,7 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			$selectors = array(
 						'container'	=> ".iconbox.{$element_id}",
 						'icon'		=> ".iconbox.{$element_id} .iconbox_icon",
+						'icon-svg'	=> ".iconbox.{$element_id} .iconbox_icon.avia-svg-icon svg:first-child",
 						'title'		=> "#top #wrap_all .iconbox.{$element_id} .iconbox_content_title",
 						'content'	=> ".iconbox.{$element_id} .iconbox_content_container"
 					);
@@ -683,12 +695,13 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			extract( $result );
 			extract( $atts );
 
-			$display_char = av_icon( $icon, $font );
-			$display_char_wrapper = array();
 
+			$display_char_wrapper = array();
 
 			$link = AviaHelper::get_url( $link );
 			$blank = AviaHelper::get_link_target( $linktarget );
+
+			$linktitle = '';
 
 			if( ! empty( $link ) )
 			{
@@ -703,7 +716,7 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 							$title = "<a href='{$link}' title='{$esc_linktitle}' {$blank}>{$title}</a>";
 						}
 
-						$display_char_wrapper['start'] = "a href='{$link}' title='{$esc_linktitle}' {$blank}";
+						$display_char_wrapper['start'] = "a href='{$link}' title='{$esc_linktitle}' aria-label='{$esc_linktitle}' {$blank}";
 						$display_char_wrapper['end'] = 'a';
 						break;
 					case 'only_icon':
@@ -722,6 +735,16 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 				}
 			}
 
+			$additional_atts = [];
+
+			if( ! empty( $linktitle ) )
+			{
+				$additional_atts['title'] = esc_html( $linktitle );
+				$additional_atts['desc'] = $additional_atts['title'];
+			}
+
+			$display_char = avia_font_manager::get_frontend_icon( $icon, $font, $additional_atts );
+
 
 			if( empty( $display_char_wrapper ) )
 			{
@@ -729,14 +752,28 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 				$display_char_wrapper['end'] = 'div';
 			}
 
-			// add blockquotes to the content
-			$icon_html = '<' . $display_char_wrapper['start'] . ' class="iconbox_icon heading-color" ' . $display_char . '></' . $display_char_wrapper['end'] . '>';
+			$icon_class = $element_styling->get_class_string( 'icon' );
 
+			// add blockquotes to the content
+			$icon_html  = "<{$display_char_wrapper['start']} class='iconbox_icon heading-color {$icon_class}' {$display_char['attr']} >" ;
+			$icon_html .=		$display_char['svg'];
+			$icon_html .= "</{$display_char_wrapper['end']}>";
 
 			$markup_entry = avia_markup_helper( array( 'context' => 'entry', 'echo' => false, 'custom_markup' => $meta['custom_markup'] ) );
 			$markup_title = avia_markup_helper( array( 'context' => 'entry_title', 'echo' => false, 'custom_markup' => $meta['custom_markup'] ) );
 			$markup_content = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'custom_markup' => $meta['custom_markup'] ) );
 
+
+			$aria_label = 'aria-label="' . __( 'Icon:', 'avia_framework' ) . ' ' . esc_attr( $atts['title'] ) . '"';
+
+			/**
+			 * @since 6.0.3
+			 * @param string $aria_label
+			 * @param string $context
+			 * @param array $atts
+			 * @return string
+			 */
+			$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $atts );
 
 
 			$style_tag = $element_styling->get_style_tag( $element_id );
@@ -754,7 +791,7 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			}
 
 			$output .= 		'<div class="iconbox_content">';
-			$output .= 			'<header class="entry-content-header">';
+			$output .= 			'<header class="entry-content-header" ' . $aria_label . '>';
 			$output .=				$icon_html;
 
 

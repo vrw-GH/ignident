@@ -24,11 +24,6 @@ var LS_contextMenuSliderItem;
 
 jQuery(function($) {
 
-	// Check if addons buttons should pulse/highlight
-	jQuery( '#ls-addons-button' ).closest( '.ls-item' ).addClass( 'ls--highlight-' + ( localStorage.getItem( 'lsDashboard.addonsHighlight' ) || 'enabled' ) );
-
-
-
 	kmUI.dropdown.init();
 
 	$('#ls-list-main-menu ls-button[data-scroll]').on('click', function() {
@@ -324,8 +319,14 @@ jQuery(function($) {
 
 	});
 
+	// Prevent form submission when pressing Enter
+	$( document ).on('keydown', '.ls-slider-group-modal-window .kmw-modal-title input', function( event ) {
 
-	$( document ).on('input', '.ls-slider-group-modal-window .kmw-modal-title input', function() {
+		if( event.keyCode === 13 ) {
+			event.preventDefault();
+		}
+
+	}).on('input', '.ls-slider-group-modal-window .kmw-modal-title input', function() {
 
 		$this = $( this );
 
@@ -644,6 +645,9 @@ jQuery(function($) {
 				}, 100 );
 			}
 		}, delay );
+	}).on('click', '.ls-open-maintenance-addon', function(e) {
+		e.preventDefault();
+		lsShowAddOn({ handle: 'maintenance'});
 	});
 
 	$('#ls--release-channel select').change( function() {
@@ -796,6 +800,17 @@ jQuery(function($) {
 		}
 	};
 
+	// Templates Store: Template Inspector
+	$( document ).on( 'click', '.ls-open-inspector-button', function( e ){
+		e.preventDefault();
+		$( 'div#ls-import-modal-window' ).addClass( 'ls-show-templates-inspector' );
+	});
+
+	$( document ).on( 'click', 'ls-templates-inspector-overlay, .ls-templates-inspector-close', function( e ){
+		e.preventDefault();
+		$( 'div#ls-import-modal-window' ).removeClass( 'ls-show-templates-inspector' );
+	});
+
 
 
 	// Auto-update and License registration
@@ -883,7 +898,11 @@ jQuery(function($) {
 
 		var $form = $(this).closest('form');
 
-		$.get( ajaxurl, $.param({ action: 'ls_deauthorize_site' }), function(data) {
+		$.get( ajaxurl, $.param({
+			action: 'ls_deauthorize_site',
+			_wpnonce: $form.find('input[name="_wpnonce"]').val(),
+			_wp_http_referer: $form.find('input[name="_wp_http_referer"]').val()
+		}), function(data) {
 
 			// Parse response and set message
 			var data = $.parseJSON(data);
@@ -1145,6 +1164,18 @@ jQuery(function($) {
 	} else if( document.location.hash === '#open-addons' ) {
 		setTimeout( function() {
 			$('#ls-addons-button').click();
+		}, 500);
+
+	} else if( document.location.hash.includes('#download-template=' ) ) {
+		setTimeout( function() {
+			let handle = document.location.hash.split('#download-template=')[1];
+			lsDownloadTemplateByHandle( handle );
+		}, 500);
+
+	} else if( document.location.hash === '#open-maintenance-addon' ) {
+		document.location.hash = '';
+		setTimeout( function() {
+			lsShowAddOn({ handle: 'maintenance'});
 		}, 500);
 	}
 
@@ -1787,9 +1818,6 @@ var LS_Addons = {
 			e.preventDefault();
 			kmw.modal.close();
 			LS_Addons.openModal();
-
-			// disable pulse/highlight effect
-			localStorage.setItem( 'lsDashboard.addonsHighlight', 'disabled' );
 		});
 	},
 
@@ -1841,6 +1869,13 @@ var LS_Addons = {
 	},
 
 	openModal: function(){
+
+		if( jQuery('#ls-addons-button').hasClass('has-updates') ) {
+			jQuery.getJSON( ajaxurl, {
+				action: 'ls_addons_opened',
+				nonce: LS_pageMeta.dashboardNonce,
+			});
+		}
 
 		kmw.modal.open({
 			id: 'ls-addons-modal-window',
@@ -1944,12 +1979,34 @@ var LS_Addons = {
 		}
 	},
 
-	saveAddonSettings: function() {
+	saveAddonSettings: function( forceActivate = false) {
 
 		const addonData 	= LS_Addons.getAddonSettings();
 		const $addonWrapper = LS_Addons.getAddonWrapper();
 		const $button 		= $addonWrapper.find('.ls-addon-save-button');
 		const prevAddonData = LS_Addons.getPrevAddonData() || {};
+
+		if( ! forceActivate ) {
+
+			if( ! prevAddonData.enabled && addonData.enabled && $button.data('beforePublishConfirmation') ) {
+				lsCommon.smartAlert.open({
+					type: 'confirm',
+					width: 650,
+					title: $button.data('beforePublishTitle'),
+					text: $button.data('beforePublishText'),
+					'buttons': {
+						ok: {
+							label: $button.data('beforePublishButton')
+						}
+					},
+					onConfirm: function() {
+						LS_Addons.saveAddonSettings( true );
+					}
+				});
+
+				return;
+			}
+		}
 
 		$button.attr({
 			'disabled': 'disabled',
@@ -2067,4 +2124,27 @@ var lsDownloadNextTemplate = function() {
 	// Start importing
 	console.log('Downloading Template ('+(templateIndex+1)+'/'+(LS_importQueue.length)+'): ' + projectName );
 	$item.find('.ls--import-template-button').click();
+};
+
+var lsDownloadTemplateByHandle = function( handle ) {
+
+	jQuery('#ls-browse-templates-button').click();
+
+	setTimeout( () => {
+		jQuery('.ls--import-template-button[data-handle="'+handle+'"]').first().click();
+	}, 1500 );
+};
+
+var lsShowAddOn = function( properties ) {
+	properties = properties || {};
+	setTimeout( () => {
+
+		if( ! jQuery('#ls-addons-modal-window:visible').length ) {
+			LS_Addons.openModal();
+		}
+
+		if( properties.handle ) {
+			jQuery('#ls-addons-grid [data-tab-target="'+properties.handle+'"]').click();
+		}
+	}, properties.delay || 0 );
 };

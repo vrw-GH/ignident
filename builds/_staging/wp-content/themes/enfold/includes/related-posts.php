@@ -1,4 +1,9 @@
 <?php
+/**
+ * Included in single.php
+ *
+ * @since ?????
+ */
 if( ! defined( 'ABSPATH' ) ) {  exit;  }    // Exit if accessed directly
 
 /**
@@ -119,12 +124,18 @@ if( ! empty( $tags ) && is_array( $tags ) )
 				$parity = $slidecount % 2 ? 'Odd' : 'Even';
 				$insert_tooltip = $tooltip == true ? 'data-avia-related-tooltip="' . esc_attr( avia_wp_get_the_title( $related_post->ID ) ) . '"' : '';
 
+				$display_char = avia_font_manager::get_frontend_shortcut_icon( "svg__{$format}", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class = avia_font_manager::get_frontend_icon_classes( $display_char['font'], 'string' );
+
+
 				$output .= "<div class='{$post_class} $extra relThumb relThumb{$count} relThumb{$parity} post-format-{$format} related_column'>";
-				$output .=		"<a href='" . get_permalink( $related_post->ID ) . "' class='relThumWrap noLightbox' title='" . esc_attr( avia_wp_get_the_title( $related_post->ID ) ) . "'>";
+				$output .=		"<a href='" . get_permalink( $related_post->ID ) . "' class='relThumWrap noLightbox' aria-label='" . __( 'Link to:', 'avia_framework' ) . ' ' . esc_attr( avia_wp_get_the_title( $related_post->ID ) ) . "'>";
 				$output .=			"<span class='related_image_wrap' {$insert_tooltip}>";
 				$output .=				$image;
 				$output .=				"<span class='related-format-icon {$extra_class}'>";
-				$output .=					"<span class='related-format-icon-inner' " . av_icon_string( $format ) . "></span>";
+				$output .=					"<span class='related-format-icon-inner {$char_class}' {$display_char['attr']}>";
+				$output .=						$display_char['svg'];
+				$output .=					'</span>';
 				$output .=				'</span>';
 				$output .=			'</span>';
 				$output .=			'<strong class="av-related-title">' . avia_wp_get_the_title( $related_post->ID ) . '</strong>';

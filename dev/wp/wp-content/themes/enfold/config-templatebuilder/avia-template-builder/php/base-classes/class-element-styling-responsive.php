@@ -156,13 +156,15 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylinResponsive', false ) )
 		 * @since 4.8.8
 		 * @since 4.8.8.1						added $sc_context
 		 * @since 4.8.9							added $important
+		 * @since 7.0							added $svg_icon
 		 * @param string $container
 		 * @param string $font_id
 		 * @param array $atts
 		 * @param \aviaShortcodeTemplate|null $sc_context
 		 * @param string $important
+		 * @param string $svg_icon				'' | 'svg_icon'
 		 */
-		public function add_responsive_font_sizes( $container, $font_id, array $atts = array(), \aviaShortcodeTemplate $sc_context = null, $important = '' )
+		public function add_responsive_font_sizes( $container, $font_id, array $atts = array(), \aviaShortcodeTemplate $sc_context = null, $important = '', $svg_icon = '' )
 		{
 			/**
 			 * Allow to skip responsive font handling on element basis
@@ -173,8 +175,9 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylinResponsive', false ) )
 			 * @param \aviaShortcodeTemplate|null $sc_context
 			 * @param string $font_id
 			 * @param string $container
+			 * @param string $svg_icon				'' | 'svg_icon'
 			 */
-			if( false !== apply_filters( 'avf_el_styling_responsive_font_size_skip', false, $atts, $sc_context, $font_id, $container ) )
+			if( false !== apply_filters( 'avf_el_styling_responsive_font_size_skip', false, $atts, $sc_context, $font_id, $container, $svg_icon ) )
 			{
 				return;
 			}
@@ -210,7 +213,14 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylinResponsive', false ) )
 
 					if( $value != 'hidden' )
 					{
-						$this->add_styles( $container, array( 'font-size' => $css_val ) );
+						if( $svg_icon != 'svg_icon' )
+						{
+							$this->add_styles( $container, array( 'font-size' => $css_val ) );
+						}
+						else
+						{
+							$this->add_styles( $container, array( 'height' => $css_val, 'width' => $css_val ) );
+						}
 					}
 					else
 					{
@@ -250,7 +260,14 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylinResponsive', false ) )
 					}
 					else
 					{
-						$rule = array( 'font-size' => $css_val );
+						if( $svg_icon != 'svg_icon' )
+						{
+							$rule = array( 'font-size' => $css_val );
+						}
+						else
+						{
+							$rule = array( 'height' => $css_val, 'width' => $css_val );
+						}
 
 						if( $hidden_desktop && is_string( $hide_desktop_fonts ) )
 						{
@@ -270,7 +287,14 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylinResponsive', false ) )
 					}
 					else
 					{
-						$rule = array( 'font-size' => $css_val );
+						if( $svg_icon != 'svg_icon' )
+						{
+							$rule = array( 'font-size' => $css_val );
+						}
+						else
+						{
+							$rule = array( 'height' => $css_val, 'width' => $css_val );
+						}
 
 						if( $hidden_desktop && is_string( $hide_desktop_fonts ) )
 						{

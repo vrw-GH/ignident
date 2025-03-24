@@ -28,15 +28,19 @@ class DashboardInitializer {
             <div class="wowp-header-border"></div>
             <div class="wowp-header">
                 <div class="wowp-logo">
-                    <img src="<?php echo esc_url( $logo_url ); ?>"
-                         alt="<?php echo esc_attr( WOW_Plugin::info('name') ); ?> logo">
+                    <img src="<?php
+					echo esc_url( $logo_url ); ?>" alt="<?php
+					echo esc_attr( WOW_Plugin::info( 'name' ) ); ?> logo">
                 </div>
-                <h1><?php echo esc_html( WOW_Plugin::info('name') ); ?> <sup
-                            class="wowp-version"><?php echo esc_html( WOW_Plugin::info('version') ); ?></sup></h1>
-                <a href="<?php echo esc_url( $add_url ); ?>"
-                   class="button"><?php esc_html_e( 'Add New', 'floating-button' ); ?>
+                <h1><?php
+					echo esc_html( WOW_Plugin::info( 'name' ) ); ?> <sup class="wowp-version"><?php
+						echo esc_html( WOW_Plugin::info( 'version' ) ); ?></sup></h1>
+                <a href="<?php
+				echo esc_url( $add_url ); ?>" class="button button-primary" style="margin-left: 12px;"><?php
+					esc_html_e( 'Add New', 'floating-button' ); ?>
                 </a>
-				<?php do_action( WOW_Plugin::PREFIX . '_admin_header_links' ); ?>
+				<?php
+				do_action( WOW_Plugin::PREFIX . '_admin_header_links' ); ?>
             </div>
         </div>
 
@@ -53,12 +57,11 @@ class DashboardInitializer {
 	}
 
 	public static function menu(): void {
-
 		$pages = DashboardHelper::get_files( 'pages' );
 
 		$current_page = self::get_current_page();
 
-		$action = ( isset( $_REQUEST["action"] ) ) ? sanitize_text_field( $_REQUEST["action"] ) : '';
+		$action = ( isset( $_REQUEST["action"] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST["action"] ) ) : '';
 
 		echo '<h2 class="nav-tab-wrapper wowp-nav-tab-wrapper">';
 		foreach ( $pages as $key => $page ) {
@@ -72,11 +75,10 @@ class DashboardInitializer {
 				continue;
 			}
 
-			echo '<a class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( Link::menu( $page['file'], $action, $id ) ) . '">' . esc_html( $page['name'] ) . '</a>';
+			echo '<a class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( Link::menu( $page['file'], $action,
+					$id ) ) . '">' . esc_html( $page['name'] ) . '</a>';
 		}
 		echo '</h2>';
-
-
 	}
 
 	public static function include_pages(): void {
@@ -99,14 +101,13 @@ class DashboardInitializer {
 				require_once $page_path;
 			}
 		}
-
 	}
 
 
 	public static function get_current_page(): string {
 		$default = DashboardHelper::first_file( 'pages' );
 
-		return ( isset( $_REQUEST["tab"] ) ) ? sanitize_text_field( $_REQUEST["tab"] ) : $default;
+		return ( isset( $_REQUEST["tab"] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST["tab"] ) ) : $default;
 	}
 
 

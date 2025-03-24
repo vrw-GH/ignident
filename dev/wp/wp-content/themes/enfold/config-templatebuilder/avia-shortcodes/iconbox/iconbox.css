@@ -21,6 +21,17 @@ ICONBOX
 	transition: all 0.3s ease-in-out;
 }
 
+.iconbox_icon.avia-svg-icon svg:first-child,
+.iconbox_icon.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+	margin-top: 3px;
+}
+
+a.iconbox_icon{
+	z-index: 10;
+}
+
 a.iconbox_icon:hover{
 	text-decoration: none;
 }
@@ -72,6 +83,11 @@ a.iconbox_icon:hover{
 	line-height: 24px;
 }
 
+.iconbox_top .iconbox_icon.avia-svg-icon svg:first-child,
+.iconbox_top .iconbox_icon.avia-svg-icon img[is-svg-img="true"]{
+	margin-top: 1px;
+}
+
 .iconbox_left_content .iconbox_content,
 .iconbox_right_content .iconbox_content{
 	overflow: hidden;
@@ -93,6 +109,13 @@ a.iconbox_icon:hover{
 	border-radius: 500px;
 	text-align: center;
 	margin-right:22px;
+}
+
+#top .iconbox_left_content .iconbox_icon.avia-svg-icon svg:first-child,
+#top .iconbox_right_content .iconbox_icon.avia-svg-icon svg:first-child,
+#top .iconbox_left_content .iconbox_icon.avia-svg-icon img[is-svg-img="true"],
+#top .iconbox_right_content .iconbox_icon.avia-svg-icon img[is-svg-img="true"]{
+	margin-top: 23px;
 }
 
 #top .iconbox_right_content{
@@ -131,6 +154,13 @@ a.iconbox_icon:hover{
 	display:block;
 }
 
+#top .iconbox.av-no-box .iconbox_icon.avia-svg-icon svg:first-child,
+#top .iconbox.av-no-box .iconbox_icon.avia-svg-icon img[is-svg-img="true"]{
+	margin-top: 30px;
+}
+
+
+
 #top .iconbox_left_content.av-icon-style-no-border .iconbox_icon,
 #top .iconbox_right_content.av-icon-style-no-border .iconbox_icon{
 	border:none;
@@ -140,6 +170,14 @@ a.iconbox_icon:hover{
 	margin-top: 0;
 	font-size: 50px;
 }
+
+#top .iconbox_left_content.av-icon-style-no-border .iconbox_icon.avia-svg-icon svg:first-child,
+#top .iconbox_right_content.av-icon-style-no-border .iconbox_icon.avia-svg-icon svg:first-child,
+#top .iconbox_left_content.av-icon-style-no-border .iconbox_icon.avia-svg-icon img[is-svg-img="true"],
+#top .iconbox_right_content.av-icon-style-no-border .iconbox_icon.avia-svg-icon img[is-svg-img="true"]{
+	margin-top: 0;
+}
+
 
 #top .iconbox_content_container{
 	line-height: 1.65em;

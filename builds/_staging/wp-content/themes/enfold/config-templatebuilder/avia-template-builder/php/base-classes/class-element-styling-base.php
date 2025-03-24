@@ -221,7 +221,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylingBase', false ) )
 
 			if( 'skip_empty' == $skip_empty )
 			{
-				$styles = array_filter( $styles, function( $value ) { return ( ! is_null( $value ) && $value !== '' ); } );
+				$styles = array_filter( $styles, function( $value ) { return ( ! is_null( $value ) && trim( str_replace( '!important', '', $value ) ) !== '' ); } );
 			}
 
 			if( empty( $styles ) )

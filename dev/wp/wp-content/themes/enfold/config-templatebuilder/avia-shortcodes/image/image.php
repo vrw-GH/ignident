@@ -1135,14 +1135,31 @@ if( ! class_exists( 'avia_sc_image', false ) )
 				if( ! empty( $copyright_text ) )
 				{
 					/**
-					 * Filter Copyright text e.g. to allow HTML tage
+					 * Filter Copyright text e.g. to allow HTML tags
 					 *
 					 * @since 4.8.6.3
 					 * @param string $copyright_text_escaped
 					 * @param string $copyright_text
 					 * @return string
 					 */
-					$copyright_tag = '<small class="avia-copyright">' . apply_filters( 'avf_alb_image_copyright_text', esc_html( $copyright_text ), $copyright_text ) . '</small>';
+					$html_copyright = apply_filters( 'avf_alb_image_copyright_text', esc_html( $copyright_text ), $copyright_text );
+
+					$icon_html = '';
+
+					if( 'icon-reveal' == $copyright )
+					{
+						$display_char = avia_font_manager::get_frontend_icon( 'info', 'svg_entypo-fontello', [] );
+						$char_class = avia_font_manager::get_frontend_icon_classes( $display_char['font'], 'string' );
+
+						$icon_html  =	"<span class='{$char_class}' {$display_char['attr']}>";
+						$icon_html .=		$display_char['svg'];
+						$icon_html .=	"</span>";
+					}
+
+					$copyright_tag  = '<small class="avia-copyright">';
+					$copyright_tag .=		$html_copyright;
+					$copyright_tag .=		$icon_html;
+					$copyright_tag .= '</small>';
 				}
 
 				$markup_url = avia_markup_helper( array( 'context' => 'image_url', 'echo' => false, 'custom_markup' => $meta['custom_markup'] ) );

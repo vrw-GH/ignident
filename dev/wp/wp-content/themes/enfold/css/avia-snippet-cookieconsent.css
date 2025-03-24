@@ -263,6 +263,12 @@ body.admin-bar .avia-cookiemessage-top-left
 	display: none;
 }
 
+#av-cookie-consent-badge.avia-svg-icon svg:first-child{
+	height: 14px;
+	width: auto;
+	margin-top: 7px;
+}
+
 /*
 @media only screen and (max-width: 989px){
 

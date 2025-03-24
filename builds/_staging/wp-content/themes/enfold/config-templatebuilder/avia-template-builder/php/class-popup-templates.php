@@ -698,7 +698,8 @@ if( ! class_exists( 'Avia_Popup_Templates', false ) )
 						" <a target='_blank' href='http://codex.wordpress.org/Embeds#Okay.2C_So_What_Sites_Can_I_Embed_From.3F'>WordPress.org</a>. Youtube videos will display additional info like title, share link, related videos, ...<br/><br/>" .
 						__( 'Working examples:', 'avia_framework' ) . '<br/>' .
 						'<strong>https://vimeo.com/1084537</strong><br/>' .
-						'<strong>https://www.youtube.com/watch?v=G0k3kHtyoqc</strong><br/><br/>'.
+						'<strong>https://www.youtube.com/watch?v=G0k3kHtyoqc</strong><br/>' .
+						'<strong>https://www.youtube.com/shorts/00-KSfJYZDA</strong><br/><br/>' .
 						'<strong class="av-builder-note">' . __( 'Using self hosted videos is currently disabled. You can enable it in Enfold &raquo; Performance', 'avia_framework' ) . '</strong><br/>';
 
 			}
@@ -718,7 +719,8 @@ if( ! class_exists( 'Avia_Popup_Templates', false ) )
 						" <a target='_blank' href='http://codex.wordpress.org/Embeds#Okay.2C_So_What_Sites_Can_I_Embed_From.3F'>WordPress.org</a>. YouTube videos will display additional info like title, share link, related videos, ...<br/><br/>".
 						__( 'Working examples, in case you want to use an external service:', 'avia_framework' ) . '<br/>'.
 						'<strong>https://vimeo.com/1084537</strong><br/>' .
-						'<strong>https://www.youtube.com/watch?v=G0k3kHtyoqc</strong><br/><br/>' .
+						'<strong>https://www.youtube.com/watch?v=G0k3kHtyoqc</strong><br/>' .
+						'<strong>https://www.youtube.com/shorts/00-KSfJYZDA</strong><br/><br/>' .
 						'<strong>'.__( 'Attention when using self hosted HTML 5 Videos', 'avia_framework' ) . ':</strong><br/>' .
 						__( 'Different Browsers support different file types (mp4, ogv, webm). If you embed an example.mp4 video the video player will automatically check if an example.ogv and example.webm video is available and display those versions in case its possible and necessary', 'avia_framework' ) . '<br/><br/>' .
 						__( 'Player controls such as the volume slider will not be accessible when slide overlay or permanent caption is enabled, but we created a', 'avia_framework' ) . " <a target='_blank' href='https://github.com/KriesiMedia/enfold-library/tree/master/integration%20plugins/Enfold/Slider%20Video%20Controls%20Fix'>plugin</a>" . __( ' just in case controls are necessary.', 'avia_framework' ) . '<br/>';

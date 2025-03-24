@@ -306,14 +306,23 @@ if ( ! class_exists( 'MetaBoxBuilder', false ) )
 
 			// don't run the saving if no meta box was attached to this post type
 			$must_check = false;
+
 			foreach( $this->default_boxes as $default_box )
 			{
-				if( in_array( $data['post_type'], $default_box['page'] ) )
+				/**
+				 * @iink  https://kriesi.at/support/topic/compatibility-issues-with-enfold-builder-on-php-8-2-and-wordpress-6-7/#post-1477120
+				 * @since 7.0
+				 */
+				if( isset( $default_box['page'] ) && is_array( $default_box['page'] ) )
 				{
-					$must_check = true;
-					break;
+					if( in_array( $data['post_type'], $default_box['page'] ) )
+					{
+						$must_check = true;
+						break;
+					}
 				}
 			}
+
 			if( ! $must_check )
 			{
 				return $data;

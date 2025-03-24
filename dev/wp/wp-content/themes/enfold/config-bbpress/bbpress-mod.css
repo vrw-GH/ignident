@@ -1467,7 +1467,7 @@ li.bbp-body div.hentry {
 /*topic status default iconfont values. overwriten in case user applies a custom font value*/
 .bbp-topics .bbp-body .bbp-topic-title:before{
 	content:"\E83b";
-	font-family: 'entypo-fontello';
+	font-family: 'entypo-fontello-enfold';
 	font-size: 14px;
 	font-weight: normal;
 	height:20px;

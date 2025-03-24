@@ -768,6 +768,7 @@ if( ! class_exists( 'AviaTypeFonts', false ) )
 							'Podkova'			=> 'Podkova',
 							'Poiret One'		=> 'Poiret One',
 							'Poly'				=> 'Poly',
+							'Poppins'			=> 'Poppins:300,400,600',
 							'Press Start 2P (Retro Pixelfont)'	=> 'Press Start 2P',
 							'PT Sans'			=> 'PT Sans',
 
@@ -782,10 +783,10 @@ if( ! class_exists( 'AviaTypeFonts', false ) )
 							'Sacramento'		=> 'Sacramento',
 							'Salsa'				=> 'Salsa',
 							'Signika Negative'	=> 'Signika Negative',
+							'Source Sans Pro'	=> 'Source Sans Pro:300,400,600',
 							'Source Serif Pro'	=> 'Source Serif Pro:400,600,700',
 							'Sunshiney'			=> 'Sunshiney',
 							'Special Elite'		=> 'Special Elite',
-
 
 							'Tangerine'			=> 'Tangerine',
 							'Tenor Sans'		=> 'Tenor Sans',

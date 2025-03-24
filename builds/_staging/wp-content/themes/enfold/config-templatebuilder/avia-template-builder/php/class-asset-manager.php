@@ -1030,6 +1030,19 @@ if ( ! class_exists( 'aviaAssetManager', false ) )
 		 */
 		static public function css_strip_whitespace( $css, $no_strip_on_debug = false )
 		{
+			$sg = AviaSuperobject()->styleGenerator();
+
+			if( $sg instanceof avia_style_generator )
+			{
+				return $sg->css_strip_whitespace( $css, $no_strip_on_debug );
+			}
+
+			/**
+			 * Fallback only - kept for testing purpose only
+			 */
+			_deprecated_function( 'aviaAssetManager::css_strip_whitespace', '7.0', 'Use AviaSuperobject()->styleGenerator()->css_strip_whitespace() instead. Make sure this exists.');
+
+
 			if( defined( 'WP_DEBUG' ) && WP_DEBUG === true && $no_strip_on_debug === true )
 			{
 				return $css;

@@ -271,14 +271,6 @@ add_settings_field(
 );
 
 add_settings_field(
-    'seopress_titles_noarchive', // ID
-    __('noarchive', 'wp-seopress'), // Title
-    'seopress_titles_noarchive_callback', // Callback
-    'seopress-settings-admin-titles-advanced', // Page
-    'seopress_setting_section_titles_advanced' // Section
-);
-
-add_settings_field(
     'seopress_titles_nosnippet', // ID
     __('nosnippet', 'wp-seopress'), // Title
     'seopress_titles_nosnippet_callback', // Callback
@@ -288,7 +280,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_titles_nositelinkssearchbox', // ID
-    __('nositelinkssearchbox', 'wp-seopress'), // Title
+    __('Remove Website schema', 'wp-seopress'), // Title
     'seopress_titles_nositelinkssearchbox_callback', // Callback
     'seopress-settings-admin-titles-advanced', // Page
     'seopress_setting_section_titles_advanced' // Section

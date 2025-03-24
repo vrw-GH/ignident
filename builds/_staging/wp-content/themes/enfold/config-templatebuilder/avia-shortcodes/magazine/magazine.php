@@ -1492,10 +1492,8 @@ if( ! class_exists( 'avia_magazine', false ) )
 			$markupContent = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'id' => $entry->ID, 'custom_markup' => $this->config['custom_markup'] ) );
 			$markupTime = avia_markup_helper( array( 'context' => 'entry_time', 'echo' => false, 'id' => $entry->ID, 'custom_markup' => $this->config['custom_markup'] ) );
 
-			$format = get_post_format( $entry->ID ) ? get_post_format( $entry->ID ) : 'standard';
-			$type = get_post_type( $entry->ID );
-			$icontype = $type == 'post' ? $format : $type;
-			$icon = "<a href='{$link}' {$titleAttr} class='iconfont av-magazine-entry-icon' " . av_icon_string( $icontype ) . '></a>';
+			$post_format = get_post_format( $entry->ID ) ? get_post_format( $entry->ID ) : 'standard';
+			$post_type = get_post_type( $entry->ID );
 			$extraClass = '';
 
 			if( $style == 'small' )
@@ -1524,7 +1522,7 @@ if( ! class_exists( 'avia_magazine', false ) )
 			}
 
 
-			$output .= "<article class='av-magazine-entry av-magazine-entry-id-{$entry->ID} av-magazine-format-{$format} av-magazine-type-{$type} av-magazine-entry-{$entry->loop} av-magazine-entry-{$style} {$extraClass}' {$markupEntry}>";
+			$output .= "<article class='av-magazine-entry av-magazine-entry-id-{$entry->ID} av-magazine-format-{$post_format} av-magazine-type-{$post_type} av-magazine-entry-{$entry->loop} av-magazine-entry-{$style} {$extraClass}' {$markupEntry}>";
 
 			if( $this->config['thumbnails'] || ( $style == 'big' && $image ) )
 			{
@@ -1536,7 +1534,13 @@ if( ! class_exists( 'avia_magazine', false ) )
 				}
 				else
 				{
-					$output .= $icon;
+					$icontype = $post_type == 'post' ? $post_format : $post_type;
+					$display_char = avia_font_manager::get_frontend_shortcut_icon( "svg__{$icontype}", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+					$char_class = avia_font_manager::get_frontend_icon_classes( $display_char['font'], 'string' );
+
+					$output .= "<a href='{$link}' {$titleAttr} class='av-magazine-entry-icon {$char_class}' {$display_char['attr']}>";
+					$output .=		$display_char['svg'];
+					$output .= '</a>';
 				}
 
 				$output .="</div>";
@@ -1558,8 +1562,21 @@ if( ! class_exists( 'avia_magazine', false ) )
 			 */
 			$header_content = apply_filters( 'avf_magazine_header_content', $header_content, $entry );
 
+
+			$aria_label = 'aria-label="' . __( 'Post:', 'avia_framework' ) . ' ' . esc_attr( $entry->post_title ) . '"';
+
+			/**
+			 * @since 6.0.3
+			 * @param string $aria_label
+			 * @param string $context
+			 * @param WP_Post $entry
+			 * @return string
+			 */
+			$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $entry );
+
+
 			$output .= 		'<div class="av-magazine-content-wrap">';
-			$output .=			'<header class="entry-content-header">';
+			$output .=			'<header class="entry-content-header" ' . $aria_label . '>';
 			$output .=				implode( '', $header_content );
 			$output .=			'</header>';
 			if( $excerpt )

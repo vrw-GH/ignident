@@ -66,6 +66,16 @@ if( ! class_exists( 'avia_wp_export', false ) )
 				return;
 			}
 
+			/**
+			 * WordFence vulnerability report to limit to logged in users (check for current_user_can())
+			 *
+			 * @since x.x.x
+			 */
+			if( ! current_user_can( 'manage_options' ) )
+			{
+				return;
+			}
+
 			$this->avia_superobject = $avia_superobject;
 			$this->subpages = $avia_superobject->subpages;
 			$this->options  = apply_filters( 'avia_filter_global_options_export', $avia_superobject->options );

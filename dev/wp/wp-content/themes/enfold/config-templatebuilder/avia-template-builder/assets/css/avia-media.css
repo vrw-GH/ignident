@@ -40,9 +40,12 @@ div .attachment-preview  .thumbnail{
 
 
 /*image only uploader*/
-.avia-media-img-only .media-sidebar .attachment-details .attachment-info,
 .avia-media-img-only .media-frame-menu-heading,
-.avia-media-img-only .media-frame-menu,
+.avia-media-img-only .media-frame-menu{
+	display:none;
+}
+
+.avia-media-img-only .media-sidebar .attachment-details .attachment-info,
 .avia-media-img-only .media-sidebar .attachment-details .setting[data-setting="caption"],
 .avia-media-img-only .media-sidebar .attachment-details .setting[data-setting="description"]{
 	display:none;
@@ -90,9 +93,12 @@ div .attachment-preview  .thumbnail{
 }
 
 /*gallery uploader*/
-.avia-media-gallery-insert .media-sidebar .setting[data-setting="caption"],
-.avia-media-gallery-insert .media-sidebar .setting[data-setting="description"],
 .avia-media-gallery-insert .media-sidebar .gallery-settings{
+	display:none;
+}
+
+.avia-media-gallery-insert .media-sidebar .setting[data-setting="caption"],
+.avia-media-gallery-insert .media-sidebar .setting[data-setting="description"]{
 	display:none;
 }
 

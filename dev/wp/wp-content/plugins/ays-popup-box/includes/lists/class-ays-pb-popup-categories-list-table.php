@@ -10,8 +10,8 @@ class Popup_Categories_List_Table extends WP_List_Table {
         $this->title_length = Ays_Pb_Admin::get_listtables_title_length('categories');
 
         parent::__construct( array(
-            'singular' => __( 'Category', "ays-popup-box" ), // singular name of the listed records
-            'plural' => __( 'Categories', "ays-popup-box" ), // plural name of the listed records
+            'singular' => esc_html__( 'Category', "ays-popup-box" ), // singular name of the listed records
+            'plural' => esc_html__( 'Categories', "ays-popup-box" ), // plural name of the listed records
             'ajax' => false // does this table support ajax?
         ) );
 
@@ -24,15 +24,15 @@ class Popup_Categories_List_Table extends WP_List_Table {
         if (empty($status)) return;
 
         if ('created' == $status)
-            $updated_message = esc_html( __('Popup category created.', "ays-popup-box") );
+            $updated_message = esc_html( esc_html__('Popup category created.', "ays-popup-box") );
         elseif ('updated' == $status)
-            $updated_message = esc_html( __('Popup category saved.', "ays-popup-box") );
+            $updated_message = esc_html( esc_html__('Popup category saved.', "ays-popup-box") );
         elseif ('deleted' == $status)
-            $updated_message = esc_html( __('Popup category deleted.', "ays-popup-box") );
+            $updated_message = esc_html( esc_html__('Popup category deleted.', "ays-popup-box") );
          elseif ('published' == $status)
-            $updated_message = esc_html( __('Popup category(s) published.', "ays-popup-box") );
+            $updated_message = esc_html( esc_html__('Popup category(s) published.', "ays-popup-box") );
         elseif ('unpublished' == $status)
-            $updated_message = esc_html( __('Popup category(s) unpublished.', "ays-popup-box") );
+            $updated_message = esc_html( esc_html__('Popup category(s) unpublished.', "ays-popup-box") );
 
         if (empty($updated_message)) return;
 
@@ -75,9 +75,9 @@ class Popup_Categories_List_Table extends WP_List_Table {
         }
 
         $status_links = array(
-            "all" => "<a " . $selected_all . " href='" . $href . "'>" . __('All', "ays-popup-box") . " (" . $all_count . ")</a>",
-            "published" => "<a " . $selected_1 . " href='" . $href . "&fstatus=1'>" . __('Published', "ays-popup-box") . " (" . $published_count . ")</a>",
-            "unpublished" => "<a " . $selected_0 . " href='" . $href . "&fstatus=0'>" . __('Unpublished', "ays-popup-box") . " (" . $unpublished_count . ")</a>"
+            "all" => "<a " . $selected_all . " href='" . $href . "'>" . esc_html__('All', "ays-popup-box") . " (" . $all_count . ")</a>",
+            "published" => "<a " . $selected_1 . " href='" . $href . "&fstatus=1'>" . esc_html__('Published', "ays-popup-box") . " (" . $published_count . ")</a>",
+            "unpublished" => "<a " . $selected_0 . " href='" . $href . "&fstatus=0'>" . esc_html__('Unpublished', "ays-popup-box") . " (" . $unpublished_count . ")</a>"
         );
         return $status_links;
     }
@@ -164,7 +164,7 @@ class Popup_Categories_List_Table extends WP_List_Table {
 
     /** Text displayed when no customer data is available */
     public function no_items() {
-        echo __('There are no popup categories yet.', "ays-popup-box");
+        echo esc_html__('There are no popup categories yet.', "ays-popup-box");
     }
 
     /**
@@ -175,11 +175,11 @@ class Popup_Categories_List_Table extends WP_List_Table {
     function get_columns() {
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'title' => __('Title', "ays-popup-box"),
-            'description' => __('Description', "ays-popup-box"),
-            'items_count' => __('Popups Count', "ays-popup-box"),
-            'published' => __('Status', "ays-popup-box"),
-            'id' => __('ID', "ays-popup-box"),
+            'title' => esc_html__('Title', "ays-popup-box"),
+            'description' => esc_html__('Description', "ays-popup-box"),
+            'items_count' => esc_html__('Popups Count', "ays-popup-box"),
+            'published' => esc_html__('Status', "ays-popup-box"),
+            'id' => esc_html__('ID', "ays-popup-box"),
         );
 
         return $columns;
@@ -250,16 +250,18 @@ class Popup_Categories_List_Table extends WP_List_Table {
 
         $categories_title_length = intval($this->title_length);
 
-        $restitle = Ays_Pb_Admin::ays_pb_restriction_string("word", $item["title"], $categories_title_length);
+        $popup_title = (isset($item['title']) && $item['title'] != "") ? esc_attr(stripcslashes($item['title'])) : "";
+
+        $restitle = Ays_Pb_Admin::ays_pb_restriction_string("word", $popup_title, $categories_title_length);
 
         $title = sprintf('<a href="?page=%s&action=%s&popup_category=%d" title="%s"><strong>%s</strong></a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id']), esc_attr($item['title']) ,$restitle);
 
         $actions = array(
-            'edit' => sprintf( '<a href="?page=%s&action=%s&popup_category=%d">' . __('Edit', "ays-popup-box") . '</a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id']) ),
+            'edit' => sprintf( '<a href="?page=%s&action=%s&popup_category=%d">' . esc_html__('Edit', "ays-popup-box") . '</a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id']) ),
         );
 
         if (intval($item['id']) !== 1) {
-            $actions['delete'] = sprintf('<a class="ays_pb_confirm_del" data-message="%s" href="?page=%s&action=%s&popup_category=%s&_wpnonce=%s">' . __('Delete', "ays-popup-box") . '</a>', $restitle, esc_attr($_REQUEST['page']), 'delete', absint($item['id']), $delete_nonce);
+            $actions['delete'] = sprintf('<a class="ays_pb_confirm_del" data-message="%s" href="?page=%s&action=%s&popup_category=%s&_wpnonce=%s">' . esc_html__('Delete', "ays-popup-box") . '</a>', $restitle, esc_attr($_REQUEST['page']), 'delete', absint($item['id']), $delete_nonce);
         }
 
         return $title . $this->row_actions($actions);
@@ -439,6 +441,7 @@ class Popup_Categories_List_Table extends WP_List_Table {
 
         if (!empty($_REQUEST['orderby'])) {
             $order_by = ( isset($_REQUEST['orderby']) && sanitize_text_field($_REQUEST['orderby']) != '' ) ? sanitize_text_field($_REQUEST['orderby']) : 'id';
+            $order_by .= ' ';
             $order_by .= ( !empty($_REQUEST['order']) && strtolower($_REQUEST['order']) == 'asc' ) ? 'ASC' : 'DESC';
 
             $sql_orderby = sanitize_sql_orderby($order_by);
@@ -467,9 +470,9 @@ class Popup_Categories_List_Table extends WP_List_Table {
      */
     public function get_bulk_actions() {
         $actions = array(
-            'bulk-published' => __('Publish', "ays-popup-box"),
-            'bulk-unpublished' => __('Unpublish', "ays-popup-box"),
-            'bulk-delete' => __('Delete', "ays-popup-box"),
+            'bulk-published' => esc_html__('Publish', "ays-popup-box"),
+            'bulk-unpublished' => esc_html__('Unpublish', "ays-popup-box"),
+            'bulk-delete' => esc_html__('Delete', "ays-popup-box"),
         );
 
         return $actions;

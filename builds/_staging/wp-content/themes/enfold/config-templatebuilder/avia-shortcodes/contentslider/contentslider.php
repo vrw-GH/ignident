@@ -1240,7 +1240,8 @@ if ( ! class_exists( 'avia_content_slider', false ) )
 		{
 			$args = array(
 						'context'	=> get_class( $this ),
-						'params'	=> $this->config
+						'params'	=> $this->config,
+						'svg_icon'	=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );

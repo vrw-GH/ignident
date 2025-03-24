@@ -63,7 +63,7 @@ class I18nUniversalMetabox
 
                 ],
                 'open_graph' => [
-                    'title' => __("Open Graph"),
+                    'title' => __("Open Graph", "wp-seopress"),
                     'description' => __("Description", "wp-seopress"),
                     'image' => __("Image", "wp-seopress"),
                     'url' => __("URL", "wp-seopress"),
@@ -153,10 +153,6 @@ class I18nUniversalMetabox
                     ],
                     'meta_robots' => [
                         'title' => __("Meta robots", "wp-seopress"),
-                        'empty_meta_google' => __(
-                            "is off. Google will probably display a sitelinks searchbox in search results.",
-                            "wp-seopress"
-                        ),
                         'empty_metas' => __(
                             "We found no meta robots on this page. It means, your page is index,follow. Search engines will index it, and follow links. ",
                             "wp-seopress"
@@ -190,14 +186,6 @@ class I18nUniversalMetabox
                             "is off. Google will index the images on this page.",
                             "wp-seopress"
                         ),
-                        'noarchive_on' => __(
-                            "is on! Search engines will not cache your page.",
-                            "wp-seopress"
-                        ),
-                        'noarchive_off' => __(
-                            "is off. Search engines will probably cache your page.",
-                            "wp-seopress"
-                        ),
                         'nosnippet_on' => __(
                             "is on! Search engines will not display a snippet of this page in search results.",
                             "wp-seopress"
@@ -206,19 +194,12 @@ class I18nUniversalMetabox
                             "is off. Search engines will display a snippet of this page in search results.",
                             "wp-seopress"
                         ),
-                        'nositelinkssearchbox_on' => __(
-                            "is on! Google will not display a sitelinks searchbox in search results.",
-                            "wp-seopress"
-                        ),
-                        'nositelinkssearchbox_off' => __(
-                            "is off. Google will probably display a sitelinks searchbox in search results.",
-                            "wp-seopress"
-                        )
                     ],
                     'outbound_links' => [
                         'title' => __("Outbound Links", "wp-seopress"),
                         'description' => __(
-                            'Internet is built on the principle of hyperlink. It is therefore perfectly normal to make links between different websites. However, avoid making links to low quality sites, SPAM... If you are not sure about the quality of a site, add the attribute "nofollow" to your link.'
+                            'Internet is built on the principle of hyperlink. It is therefore perfectly normal to make links between different websites. However, avoid making links to low quality sites, SPAM... If you are not sure about the quality of a site, add the attribute "nofollow" to your link.',
+                            "wp-seopress"
                         ),
                         'no_outbound_links' => __(
                             "This page doesn't have any outbound links.",
@@ -303,7 +284,8 @@ class I18nUniversalMetabox
                     ],
                     'internal_links' => [
                         'description' => __(
-                            "Internal links are important for SEO and user experience. Always try to link your content together, with quality link anchors."
+                            "Internal links are important for SEO and user experience. Always try to link your content together, with quality link anchors.",
+                            "wp-seopress"
                         ),
                         'no_internal_links' => __(
                             "This page doesn't have any internal links from other content. Links from archive pages are not considered internal links due to lack of context.",
@@ -327,10 +309,6 @@ class I18nUniversalMetabox
                         ),
                         'good' => __(
                             "Cool, one of your target keyword is used in your permalink.",
-                            "wp-seopress"
-                        ),
-                        'description' => __(
-                            'Learn more about <a href="https://www.youtube.com/watch?v=Rk4qgQdp2UA" target="_blank">keywords stuffing</a>.',
                             "wp-seopress"
                         ),
                         'title' =>__("Keywords in permalink", "wp-seopress")
@@ -473,12 +451,6 @@ class I18nUniversalMetabox
             ],
             'google_preview' => [
                 'title'  => __('Google Snippet Preview', 'wp-seopress'),
-                'tooltip_title' => __('Snippet Preview', 'wp-seopress'),
-                'tooltip_description_1' => __('The Google preview is a simulation.', 'wp-seopress'),
-                'tooltip_description_2' => __('There is no reliable preview because it depends on the screen resolution, the device used, the expression sought, and Google.', 'wp-seopress'),
-                'tooltip_description_3' => __('There is not one snippet for one URL but several.', 'wp-seopress'),
-                'tooltip_description_4' => __('All the data in this overview comes directly from your source code.', 'wp-seopress'),
-                'tooltip_description_5' => __('This is what the crawlers will see.', 'wp-seopress'),
                 'description' => __(
                     "This is what your page will look like in Google search results. You have to publish your post to get the Google Snippet Preview. Note that Google may optionally display an image of your article.",
                     "wp-seopress"
@@ -535,15 +507,6 @@ class I18nUniversalMetabox
                     ),
                     'robots_follow_tooltip_description_2' => __(
                         'Search engines will not follow links from this URL.',
-                        'wp-seopress'
-                    ),
-                    'robots_archive_description' => __(
-                        "Do not display a 'Cached' link in the Google search results",
-                        "wp-seopress"
-                    ),
-                    'robots_archive_tooltip_title' => __('"noarchive" robots meta tag', 'wp-seopress'),
-                    'robots_archive_tooltip_description_1' => __(
-                        'By checking this option, you will add a meta robots tag with the value "noarchive".',
                         'wp-seopress'
                     ),
                     'robots_snippet_description' =>__(
@@ -729,13 +692,9 @@ class I18nUniversalMetabox
                         "Enter a few keywords for analysis to help you write optimized content.",
                         "wp-seopress"
                     ),
-                    'description_2' => __(
-                        "Writing content for your users is the most important thing! If it doesn‘t feel natural, your visitors will leave your site, Google will know it and your ranking will be affected.",
-                        "wp-seopress"
-                    ),
-                    'title_severity' => /* translators: %s degree of severity, eg: low */ __('Degree of severity: %s', 'wp- seopress'),
+                    'title_severity' => /* translators: %s degree of severity, eg: low */ __('Degree of severity: %s', 'wp-seopress'),
                     'target_keywords' => __("Target keywords", "wp-seopress"),
-                    'target_keywords_tooltip_description' => __(
+                    'target_keywords_description' => __(
                         "Separate target keywords with commas. Do not use spaces after the commas, unless you want to include them",
                         "wp-seopress"
                     ),
@@ -743,6 +702,7 @@ class I18nUniversalMetabox
                         'You should avoid using multiple times the same keyword for different pages. Try to consolidate your content into one single page.',
                         "wp-seopress"
                     ),
+                    'target_keywords_details' => __('(URL using this keyword)', 'wp-seopress'),
                     'target_keywords_placeholder' => __(
                         "Enter your target keywords",
                         "wp-seopress"
@@ -753,7 +713,7 @@ class I18nUniversalMetabox
                         "wp-seopress"
                     ),
                     'google_suggestions' => __("Google suggestions", "wp-seopress"),
-                    'google_suggestions_tooltip_description' => __(
+                    'google_suggestions_description' => __(
                         "Enter a keyword, or a phrase, to find the top 10 Google suggestions instantly. This is useful if you want to work with the long tail technique.",
                         "wp-seopress"
                     ),

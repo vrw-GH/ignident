@@ -106,9 +106,10 @@ if ( ! class_exists( 'avia_product_slider', false ) )
 						'columns'				=> '4',
 						'image_size'			=> '',
 						'items'					=> '16',
-						'wc_prod_visible'		=>	'',
-						'wc_prod_hidden'		=>	'',
-						'wc_prod_featured'		=>	'',
+						'wc_prod_visible'		=> '',
+						'wc_prod_hidden'		=> '',
+						'wc_prod_featured'		=> '',
+						'wc_prod_sale'			=> '',
 						'wc_prod_additional_filter'		=> '',
 						'page_element_filter'	=> '',
 						'select_type'			=> '',					//	added 5.4.1     '' | 'extended'
@@ -544,8 +545,9 @@ if ( ! class_exists( 'avia_product_slider', false ) )
 		protected function slide_navigation_arrows()
 		{
 			$args = array(
-						'context'		=> get_class( $this ),
-						'params'		=> $this->config
+						'context'	=> get_class( $this ),
+						'params'	=> $this->config,
+						'svg_icon'	=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );
@@ -687,6 +689,7 @@ if ( ! class_exists( 'avia_product_slider', false ) )
 			avia_wc_set_out_of_stock_query_params( $meta_query, $tax_query, $params['wc_prod_visible'] );
 			avia_wc_set_hidden_prod_query_params( $meta_query, $tax_query, $params['wc_prod_hidden'] );
 			avia_wc_set_featured_prod_query_params( $meta_query, $tax_query, $params['wc_prod_featured'] );
+			avia_wc_set_on_sale_prod_query_params( $meta_query, $tax_query, $params['wc_prod_sale'] );
 
 			if( 'use_additional_filter' == $params['wc_prod_additional_filter'] )
 			{

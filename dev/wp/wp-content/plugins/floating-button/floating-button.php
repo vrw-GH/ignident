@@ -3,7 +3,7 @@
  * Plugin Name:       Floating Button
  * Plugin URI:        https://wow-estore.com/item/floating-button-pro/
  * Description:       Easily Generate and manage sticky Floating Buttons.
- * Version:           6.0.10
+ * Version:           6.0.11
  * Author:            Wow-Company
  * Author URI:        https://wow-estore.com/
  * Author Email:      hey@wow-company.com

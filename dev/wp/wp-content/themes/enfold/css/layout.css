@@ -1467,7 +1467,7 @@ html.av-burger-overlay-active #top .social_bookmarks{
 
 .html_av-submenu-hidden .av-submenu-indicator:before{
 	content:"\E87d";
-	font-family: 'entypo-fontello';
+	font-family: 'entypo-fontello-enfold';
 }
 
 .html_av-submenu-hidden .av-show-submenu > a > .av-submenu-indicator{
@@ -1967,15 +1967,28 @@ div #menu-item-shop.cart_dropdown{
 
 #top .menu-item-search-dropdown > a,
 #searchform #searchsubmit,
-.av_ajax_search_image, .iconfont{
+.av_ajax_search_image,
+.iconfont{
 	font-size: 17px;
 }
 
-#top #menu-item-search.menu-item-search-dropdown>a{
+#top .menu-item-search-dropdown > a.avia-svg-icon svg:first-child,
+#top .menu-item-search-dropdown > a.avia-svg-icon img[is-svg-img="true"]{
+	width: auto;
+	height: 1em;
+	position: relative;
+	z-index: -1;
+}
+
+#top .menu-item-search-dropdown > a.avia-svg-icon{
+	padding-top: 2px;
+}
+
+#top #menu-item-search.menu-item-search-dropdown > a{
 	border-left:none;
 }
 
-#top #menu-item-search:hover>a{
+#top #menu-item-search:hover > a{
 	background: transparent;
 	color: inherit;
 }
@@ -2037,6 +2050,28 @@ div #menu-item-shop.cart_dropdown{
 
 #top #searchform br{
 	display:none;
+}
+
+#searchform .av_searchform_search.avia-svg-icon{
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 500;
+	font-size: 17px;
+	margin: 12px;
+	pointer-events: none;
+}
+
+#searchform.ajax_loading_now .av_searchform_search.avia-svg-icon{
+	display: none;
+}
+
+#searchform .av_searchform_search.avia-svg-icon:hover{
+	cursor: pointer;
+}
+
+.avia-search-tooltip #searchform .av_searchform_search.avia-svg-icon{
+	margin-top: 9px;
 }
 
 #top #s{
@@ -2147,6 +2182,10 @@ div #menu-item-shop.cart_dropdown{
 	border-radius: 40px;
 	overflow: hidden;
 	font-size: 15px;
+}
+
+.av_ajax_search_image.avia-svg-icon svg:first-child{
+	margin-top: 9px;
 }
 
 .av_ajax_search_image img{
@@ -2398,6 +2437,13 @@ div #menu-item-shop.cart_dropdown{
 	text-align: center;
 }
 
+#top .social_bookmarks li.avia-svg-icon svg:first-child,
+#top .social_bookmarks li.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: auto;
+	margin-top: 9px;
+}
+
 #top #wrap_all .social_bookmarks,
 #top #wrap_all .social_bookmarks a,
 #top #wrap_all .social_bookmarks li{
@@ -2414,10 +2460,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #ffa133;
 }
 
+#top #wrap_all .av-social-link-rss:hover a svg:first-child,
+#top #wrap_all .av-social-link-rss a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-facebook:hover a,
 #top #wrap_all .av-social-link-facebook a:focus{
 	color: #fff;
 	background-color: #37589b;
+}
+
+#top #wrap_all .av-social-link-facebook:hover a svg:first-child,
+#top #wrap_all .av-social-link-facebook a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-twitter:hover a,
@@ -2428,16 +2486,36 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #000;
 }
 
+#top #wrap_all .av-social-link-twitter:hover a svg:first-child,
+#top #wrap_all .av-social-link-twitter a:focus svg:first-child,
+#top #wrap_all .av-social-link-square-x-twitter:hover a svg:first-child,
+#top #wrap_all .av-social-link-square-x-twitter a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-tiktok:hover a,
 #top #wrap_all .av-social-link-tiktok a:focus{
 	color: #00F2EA;
 	background-color: #FF0050;
 }
 
+#top #wrap_all .av-social-link-tiktok:hover a svg:first-child,
+#top #wrap_all .av-social-link-tiktok a:focus svg:first-child{
+	stroke: #00F2EA;
+	fill: #00F2EA;
+}
+
 #top #wrap_all .av-social-link-threads:hover a,
 #top #wrap_all .av-social-link-threads a:focus{
-	color: #ffffff;
-	background-color: #000000;
+	color: #fff;
+	background-color: #000;
+}
+
+#top #wrap_all .av-social-link-threads:hover a svg:first-child,
+#top #wrap_all .av-social-link-threads a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-whatsapp:hover a,
@@ -2446,10 +2524,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #00e676;
 }
 
+#top #wrap_all .av-social-link-whatsapp:hover a svg:first-child,
+#top #wrap_all .av-social-link-whatsapp a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-mail:hover a,
 #top #wrap_all .av-social-link-mail a:focus{
 	color: #fff;
 	background-color: #9fae37;
+}
+
+#top #wrap_all .av-social-link-mail:hover a svg:first-child,
+#top #wrap_all .av-social-link-mail a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-dribbble:hover a,
@@ -2458,10 +2548,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #e44885;
 }
 
+#top #wrap_all .av-social-link-dribbble:hover a svg:first-child,
+#top #wrap_all .av-social-link-dribbble a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-linkedin:hover a,
 #top #wrap_all .av-social-link-linkedin a:focus{
 	color: #fff;
 	background-color: #419cca;
+}
+
+#top #wrap_all .av-social-link-linkedin:hover a svg:first-child,
+#top #wrap_all .av-social-link-linkedin a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-search:hover a,
@@ -2470,10 +2572,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #222222;
 }
 
+#top #wrap_all .av-social-link-search:hover a svg:first-child,
+#top #wrap_all .av-social-link-search a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-gplus:hover a,
 #top #wrap_all .av-social-link-gplus a:focus{
 	color: #fff;
 	background-color: #de5a49;
+}
+
+#top #wrap_all .av-social-link-gplus:hover a svg:first-child,
+#top #wrap_all .av-social-link-gplus a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-behance:hover a,
@@ -2482,10 +2596,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #008cfa;
 }
 
+#top #wrap_all .av-social-link-behance:hover a svg:first-child,
+#top #wrap_all .av-social-link-behance a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-flickr:hover a,
 #top #wrap_all .av-social-link-flickr a:focus{
 	color: #fff;
 	background-color: #ff0086;
+}
+
+#top #wrap_all .av-social-link-flickr:hover a svg:first-child,
+#top #wrap_all .av-social-link-flickr a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-forrst:hover a,
@@ -2494,10 +2620,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #234317;
 }
 
+#top #wrap_all .av-social-link-forrst:hover a svg:first-child,
+#top #wrap_all .av-social-link-forrst a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-myspace:hover a,
 #top #wrap_all .av-social-link-myspace a:focus{
 	color: #fff;
 	background-color: #000000;
+}
+
+#top #wrap_all .av-social-link-myspace:hover a svg:first-child,
+#top #wrap_all .av-social-link-myspace a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-tumblr:hover a,
@@ -2506,10 +2644,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #345574;
 }
 
+#top #wrap_all .av-social-link-tumblr:hover a svg:first-child,
+#top #wrap_all .av-social-link-tumblr a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-vimeo:hover a,
 #top #wrap_all .av-social-link-vimeo a:focus{
 	color: #fff;
 	background-color: #31baff;
+}
+
+#top #wrap_all .av-social-link-vimeo:hover a svg:first-child,
+#top #wrap_all .av-social-link-vimeo a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-youtube:hover a,
@@ -2518,10 +2668,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #a72b1d;
 }
 
+#top #wrap_all .av-social-link-youtube:hover a svg:first-child,
+#top #wrap_all .av-social-link-youtube a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-pinterest:hover a,
 #top #wrap_all .av-social-link-pinterest a:focus{
 	color: #fff;
 	background-color: #cb2027;
+}
+
+#top #wrap_all .av-social-link-pinterest:hover a svg:first-child,
+#top #wrap_all .av-social-link-pinterest a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-skype:hover a,
@@ -2530,10 +2692,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #12a5f4;
 }
 
+#top #wrap_all .av-social-link-skype:hover a svg:first-child,
+#top #wrap_all .av-social-link-skype a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-instagram:hover a,
 #top #wrap_all .av-social-link-instagram a:focus{
 	color: #fff;
 	background-color: #a67658;
+}
+
+#top #wrap_all .av-social-link-instagram:hover a svg:first-child,
+#top #wrap_all .av-social-link-instagram a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-five_100_px:hover a,
@@ -2542,10 +2716,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #222222;
 }
 
+#top #wrap_all .av-social-link-five_100_px:hover a svg:first-child,
+#top #wrap_all .av-social-link-five_100_px a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-soundcloud:hover a,
 #top #wrap_all .av-social-link-soundcloud a:focus{
 	color: #fff;
 	background-color: #F76700;
+}
+
+#top #wrap_all .av-social-link-soundcloud:hover a svg:first-child,
+#top #wrap_all .av-social-link-soundcloud a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-xing:hover a,
@@ -2554,10 +2740,22 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #006567;
 }
 
+#top #wrap_all .av-social-link-xing:hover a svg:first-child,
+#top #wrap_all .av-social-link-xing a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-vk:hover a,
 #top #wrap_all .av-social-link-vk a:focus{
 	color: #fff;
 	background-color: #597BA5;
+}
+
+#top #wrap_all .av-social-link-vk:hover a svg:first-child,
+#top #wrap_all .av-social-link-vk a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top #wrap_all .av-social-link-reddit:hover a,
@@ -2566,16 +2764,34 @@ div #menu-item-shop.cart_dropdown{
 	background-color: #FF4500;
 }
 
+#top #wrap_all .av-social-link-reddit:hover a svg:first-child,
+#top #wrap_all .av-social-link-reddit a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-telegram:hover a,
 #top #wrap_all .av-social-link-telegram a:focus{
 	color: #fff;
 	background-color: #25A4E3;
 }
 
+#top #wrap_all .av-social-link-telegram:hover a svg:first-child,
+#top #wrap_all .av-social-link-telegram a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top #wrap_all .av-social-link-yelp:hover a,
 #top #wrap_all .av-social-link-yelp a:focus{
 	color: #fff;
 	background-color: #d32323;
+}
+
+#top #wrap_all .av-social-link-yelp:hover a svg:first-child,
+#top #wrap_all .av-social-link-yelp a:focus svg:first-child{
+	stroke: #fff;
+	fill: #fff;
 }
 
 #top .av-section-bottom-logo .social_bookmarks,
@@ -2589,7 +2805,6 @@ div #menu-item-shop.cart_dropdown{
 .html_bottom_nav_header .main_menu .social_bookmarks{
 	display:none
 }
-
 
 .html_cart_at_menu #top .av-section-bottom-logo .social_bookmarks,
 .html_bottom_nav_header.html_cart_at_menu  #top .av-logo-container .social_bookmarks{
@@ -2828,6 +3043,12 @@ div #menu-item-shop.cart_dropdown{
 	z-index: 1;
 }
 
+.rounded-container .avia-svg-icon svg:first-child,
+.small-preview .avia-svg-icon svg:first-child{
+	height: 1em;
+	width: 1em;
+}
+
 
 .entry-content-wrapper .post-title{
 	font-size: 21px;
@@ -2911,6 +3132,13 @@ div #menu-item-shop.cart_dropdown{
 	line-height: 22px;
 	margin-top:-11px;
 	font-size: 24px;
+}
+
+.avia-post-nav .label.avia-svg-icon svg:first-child{
+	fill: #fff;
+	stroke: #fff;
+	height: 24px;
+	width: auto;
 }
 
 .avia-post-nav .entry-image{
@@ -3275,6 +3503,12 @@ gets loaded
 	z-index: 1;
 }
 
+#socket .social_bookmarks li a svg:first-child{
+	height: 11px;
+	width: auto;
+	margin-bottom: -2px;
+}
+
 #socket .menu{
 	margin-top: 6px;
 }
@@ -3434,6 +3668,12 @@ gets loaded
 	visibility: hidden;
 }
 
+#scroll-top-link.avia-svg-icon svg:first-child{
+	height: 15px;
+	width: auto;
+	margin-top: 18px;
+}
+
 #av-cookie-consent-badge{
 	position: fixed;
 	border-radius: 2px;
@@ -3507,6 +3747,11 @@ gets loaded
 .avia_pop_class,
 .avia-search-tooltip{
 	animation: avia_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* IE 10+ */
+}
+
+a > svg,
+a:hover > svg{
+	transition: all 0.3s ease-out;
 }
 
 a:hover .image-overlay .image-overlay-inside{
@@ -3586,7 +3831,7 @@ a:hover .image-overlay .image-overlay-inside{
 /* screens with 1024px width */
 
 @media only screen and (max-width: 1024px) {
-	#top .socket_color, 
+	#top .socket_color,
 	#top .footer_color,
 	#top .header_color .header_bg,
 	#top .main_color,
@@ -4368,7 +4613,7 @@ a:hover .image-overlay .image-overlay-inside{
 		width: 100%;
 		margin-left: 0;
 	}
-	
+
 	.responsive.html_header_sidebar.html_header_right  .av-curtain-footer.av-curtain-activated .av-curtain-footer-container{
 		width: 100%;
 	}

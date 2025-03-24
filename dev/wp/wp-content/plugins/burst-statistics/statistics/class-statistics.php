@@ -705,9 +705,9 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 
 			$sql  = $this->get_sql_table( $start, $end, $metrics, $filters, $group_by, $order_by, $limit );
 			$data = $wpdb->get_results( $sql, ARRAY_A );
+            $data = apply_filters('burst_datatable_data', $data, $start, $end, $metrics, $filters, $group_by, $order_by, $limit );
 
-
-			return [
+            return [
 				'columns' => $columns,
 				'data'    => $data,
 				'metrics' => $metrics,
@@ -1035,7 +1035,8 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 					'browser'      => 'statistics.browser'.$id,
 					'platform'     => 'statistics.platform'.$id,
 					'country_code' => 'sessions.country_code', // Assuming 'country_code' filter is in the 'sessions' table.
-				]
+                    'goal_id'      => 'goals.goal_id', //allow filtering by goal_id
+                ]
 			);
 
 			if (  $this->use_lookup_tables() ) {
@@ -1073,7 +1074,7 @@ if ( ! class_exists( 'burst_statistics' ) ) {
 			// Construct the WHERE clause.
 			$where = implode( ' AND ', $whereClauses );
 
-			return ! empty( $where ) ? "AND $where" : '';
+			return ! empty( $where ) ? "AND $where " : '';
 		}
 
 		/**

@@ -628,7 +628,13 @@ if( ! class_exists( 'avia_slideshow', false ) )
 			$scroll_down_html = '';
 			if( ! empty( $this->config['scroll_down'] ) )
 			{
-				$scroll_down_html .= "<a href='#next-section' title='' class='scroll-down-link " . $this->config['control_layout'] . "' " . av_icon_string( 'scrolldown' ) . "></a>";
+				$icon_title = esc_html( __( 'Scroll to next section', 'avia_framework' ) );
+				$icon_class = avia_font_manager::get_shortcut_icon_class( 'svg__scrolldown' );
+				$icon = avia_font_manager::get_frontend_icon( 'svg__scrolldown', false, [ 'aria-hidden' => 'true', 'title' => $icon_title, 'desc' => $icon_title ] );
+
+				$scroll_down_html .= "<a href='#next-section' title='' class='scroll-down-link {$this->config['control_layout']} {$icon_class}' {$icon['attr']}>";
+				$scroll_down_html .=	$icon['svg'];
+				$scroll_down_html .= '</a>';
 			}
 
 			$slide_html = empty( $this->subslides ) ? $this->html_default_slide() : $this->html_advanced_slide();
@@ -1169,7 +1175,8 @@ if( ! class_exists( 'avia_slideshow', false ) )
 		{
 			$args = array(
 						'context'	=> get_class( $this ),
-						'params'	=> $this
+						'params'	=> $this,
+						'svg_icon'	=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );

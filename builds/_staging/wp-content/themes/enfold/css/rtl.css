@@ -312,7 +312,7 @@ blockquote{
 	border-left-width: 0;
 }
 
-.more-link .more-link-arrow {
+.more-link .more-link-arrow:not(.avia-svg-icon) {
 	display:none;
 }
 
@@ -1071,7 +1071,7 @@ body.rtl.rtl_columns  div .no_margin {
 
 	.html_av-submenu-hidden .av-submenu-indicator:before {
 		content: "\E87c";
-		font-family: 'entypo-fontello';
+		font-family: 'entypo-fontello-enfold';
 	}
 }
 
@@ -1279,8 +1279,12 @@ input[type="submit"],
     margin-left: inherit;
 }
 
-.more-link-arrow:after {
+/*.more-link-arrow:not(.avia-svg-icon):after {
     content: "\E87c";
+}*/
+
+.more-link-arrow.avia-svg-icon svg:first-child{
+	margin: 0 6px -1px 0;
 }
 
 .av-magazine-thumbnail {

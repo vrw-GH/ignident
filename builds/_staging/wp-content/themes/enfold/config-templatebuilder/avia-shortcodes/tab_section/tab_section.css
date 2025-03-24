@@ -97,6 +97,10 @@ Tab Section and Slideshow / Tab Section
     line-height: 1em;
 }
 
+.av-tab-section-icon.avia-svg-icon svg:first-child{
+	margin-bottom: -6px;
+}
+
 .av-tab-arrow-container{
 	display: block;
 	height: 15px;

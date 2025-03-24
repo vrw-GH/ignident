@@ -1,5 +1,0 @@
-/**
- * @package koko-analytics
- * @author Danny van Kooten
- * @license GPL-3.0+
- */

@@ -1,0 +1,2468 @@
+{
+    "svg_entypo-fontello": {
+        "address": {
+            "file_name": "address.svg",
+            "path": "svg/address.svg",
+            "title": "Address",
+            "description": "Address icon",
+            "alt": "Address",
+            "search_text": "Address"
+        },
+        "adjust": {
+            "file_name": "adjust.svg",
+            "path": "svg/adjust.svg",
+            "title": "Adjust",
+            "description": "Adjust",
+            "alt": "Adjust",
+            "search_text": "Adjust"
+        },
+        "air": {
+            "file_name": "air.svg",
+            "path": "svg/air.svg",
+            "title": "Air",
+            "description": "Air",
+            "alt": "Air",
+            "search_text": "Air"
+        },
+        "alert": {
+            "file_name": "alert.svg",
+            "path": "svg/alert.svg",
+            "title": "Alert",
+            "description": "Alert",
+            "alt": "Alert",
+            "search_text": "Alert"
+        },
+        "amazon": {
+            "file_name": "amazon.svg",
+            "path": "svg/amazon.svg",
+            "title": "Amazon",
+            "description": "Amazon",
+            "alt": "Amazon",
+            "search_text": "Amazon"
+        },
+        "android": {
+            "file_name": "android.svg",
+            "path": "svg/android.svg",
+            "title": "Android",
+            "description": "Android",
+            "alt": "Android",
+            "search_text": "Android"
+        },
+        "appstore": {
+            "file_name": "appstore.svg",
+            "path": "svg/appstore.svg",
+            "title": "Appstore",
+            "description": "Appstore",
+            "alt": "Appstore",
+            "search_text": "Appstore"
+        },
+        "archive": {
+            "file_name": "archive.svg",
+            "path": "svg/archive.svg",
+            "title": "Archive",
+            "description": "Archive",
+            "alt": "Archive",
+            "search_text": "Archive"
+        },
+        "arrow-combo": {
+            "file_name": "arrow-combo.svg",
+            "path": "svg/arrow-combo.svg",
+            "title": "Arrow-combo",
+            "description": "Arrow-combo",
+            "alt": "Arrow-combo",
+            "search_text": "Arrow-combo"
+        },
+        "arrows-ccw": {
+            "file_name": "arrows-ccw.svg",
+            "path": "svg/arrows-ccw.svg",
+            "title": "Arrows-ccw",
+            "description": "Arrows-ccw",
+            "alt": "Arrows-ccw",
+            "search_text": "Arrows-ccw"
+        },
+        "attach": {
+            "file_name": "attach.svg",
+            "path": "svg/attach.svg",
+            "title": "Attach",
+            "description": "Attach",
+            "alt": "Attach",
+            "search_text": "Attach"
+        },
+        "attention": {
+            "file_name": "attention.svg",
+            "path": "svg/attention.svg",
+            "title": "Attention",
+            "description": "Attention",
+            "alt": "Attention",
+            "search_text": "Attention"
+        },
+        "back-in-time": {
+            "file_name": "back-in-time.svg",
+            "path": "svg/back-in-time.svg",
+            "title": "Back-in-time",
+            "description": "Back-in-time",
+            "alt": "Back-in-time",
+            "search_text": "Back-in-time"
+        },
+        "back": {
+            "file_name": "back.svg",
+            "path": "svg/back.svg",
+            "title": "Back",
+            "description": "Back",
+            "alt": "Back",
+            "search_text": "Back"
+        },
+        "bag": {
+            "file_name": "bag.svg",
+            "path": "svg/bag.svg",
+            "title": "Bag",
+            "description": "Bag",
+            "alt": "Bag",
+            "search_text": "Bag"
+        },
+        "basket": {
+            "file_name": "basket.svg",
+            "path": "svg/basket.svg",
+            "title": "Basket",
+            "description": "Basket",
+            "alt": "Basket",
+            "search_text": "Basket"
+        },
+        "battery": {
+            "file_name": "battery.svg",
+            "path": "svg/battery.svg",
+            "title": "Battery",
+            "description": "Battery",
+            "alt": "Battery",
+            "search_text": "Battery"
+        },
+        "behance": {
+            "file_name": "behance.svg",
+            "path": "svg/behance.svg",
+            "title": "Behance",
+            "description": "Behance",
+            "alt": "Behance",
+            "search_text": "Behance"
+        },
+        "bell": {
+            "file_name": "bell.svg",
+            "path": "svg/bell.svg",
+            "title": "Bell",
+            "description": "Bell",
+            "alt": "Bell",
+            "search_text": "Bell"
+        },
+        "bitcoin": {
+            "file_name": "bitcoin.svg",
+            "path": "svg/bitcoin.svg",
+            "title": "Bitcoin",
+            "description": "Bitcoin",
+            "alt": "Bitcoin",
+            "search_text": "Bitcoin"
+        },
+        "block": {
+            "file_name": "block.svg",
+            "path": "svg/block.svg",
+            "title": "Block",
+            "description": "Block",
+            "alt": "Block",
+            "search_text": "Block"
+        },
+        "book-open": {
+            "file_name": "book-open.svg",
+            "path": "svg/book-open.svg",
+            "title": "Book-open",
+            "description": "Book-open",
+            "alt": "Book-open",
+            "search_text": "Book-open"
+        },
+        "book": {
+            "file_name": "book.svg",
+            "path": "svg/book.svg",
+            "title": "Book",
+            "description": "Book",
+            "alt": "Book",
+            "search_text": "Book"
+        },
+        "bookmark": {
+            "file_name": "bookmark.svg",
+            "path": "svg/bookmark.svg",
+            "title": "Bookmark",
+            "description": "Bookmark",
+            "alt": "Bookmark",
+            "search_text": "Bookmark"
+        },
+        "bookmarks": {
+            "file_name": "bookmarks.svg",
+            "path": "svg/bookmarks.svg",
+            "title": "Bookmarks",
+            "description": "Bookmarks",
+            "alt": "Bookmarks",
+            "search_text": "Bookmarks"
+        },
+        "box": {
+            "file_name": "box.svg",
+            "path": "svg/box.svg",
+            "title": "Box",
+            "description": "Box",
+            "alt": "Box",
+            "search_text": "Box"
+        },
+        "briefcase": {
+            "file_name": "briefcase.svg",
+            "path": "svg/briefcase.svg",
+            "title": "Briefcase",
+            "description": "Briefcase",
+            "alt": "Briefcase",
+            "search_text": "Briefcase"
+        },
+        "brush": {
+            "file_name": "brush.svg",
+            "path": "svg/brush.svg",
+            "title": "Brush",
+            "description": "Brush",
+            "alt": "Brush",
+            "search_text": "Brush"
+        },
+        "bucket": {
+            "file_name": "bucket.svg",
+            "path": "svg/bucket.svg",
+            "title": "Bucket",
+            "description": "Bucket",
+            "alt": "Bucket",
+            "search_text": "Bucket"
+        },
+        "calendar": {
+            "file_name": "calendar.svg",
+            "path": "svg/calendar.svg",
+            "title": "Calendar",
+            "description": "Calendar",
+            "alt": "Calendar",
+            "search_text": "Calendar"
+        },
+        "camera": {
+            "file_name": "camera.svg",
+            "path": "svg/camera.svg",
+            "title": "Camera",
+            "description": "Camera",
+            "alt": "Camera",
+            "search_text": "Camera"
+        },
+        "cancel-circled": {
+            "file_name": "cancel-circled.svg",
+            "path": "svg/cancel-circled.svg",
+            "title": "Cancel-circled",
+            "description": "Cancel-circled",
+            "alt": "Cancel-circled",
+            "search_text": "Cancel-circled"
+        },
+        "cancel-squared": {
+            "file_name": "cancel-squared.svg",
+            "path": "svg/cancel-squared.svg",
+            "title": "Cancel-squared",
+            "description": "Cancel-squared",
+            "alt": "Cancel-squared",
+            "search_text": "Cancel-squared"
+        },
+        "cancel": {
+            "file_name": "cancel.svg",
+            "path": "svg/cancel.svg",
+            "title": "Cancel",
+            "description": "Cancel",
+            "alt": "Cancel",
+            "search_text": "Cancel"
+        },
+        "cc-by": {
+            "file_name": "cc-by.svg",
+            "path": "svg/cc-by.svg",
+            "title": "Cc-by",
+            "description": "Cc-by",
+            "alt": "Cc-by",
+            "search_text": "Cc-by"
+        },
+        "cc-nc-eu": {
+            "file_name": "cc-nc-eu.svg",
+            "path": "svg/cc-nc-eu.svg",
+            "title": "Cc-nc-eu",
+            "description": "Cc-nc-eu",
+            "alt": "Cc-nc-eu",
+            "search_text": "Cc-nc-eu"
+        },
+        "cc-nc-jp": {
+            "file_name": "cc-nc-jp.svg",
+            "path": "svg/cc-nc-jp.svg",
+            "title": "Cc-nc-jp",
+            "description": "Cc-nc-jp",
+            "alt": "Cc-nc-jp",
+            "search_text": "Cc-nc-jp"
+        },
+        "cc-nc": {
+            "file_name": "cc-nc.svg",
+            "path": "svg/cc-nc.svg",
+            "title": "Cc-nc",
+            "description": "Cc-nc",
+            "alt": "Cc-nc",
+            "search_text": "Cc-nc"
+        },
+        "cc-nd": {
+            "file_name": "cc-nd.svg",
+            "path": "svg/cc-nd.svg",
+            "title": "Cc-nd",
+            "description": "Cc-nd",
+            "alt": "Cc-nd",
+            "search_text": "Cc-nd"
+        },
+        "cc-pd": {
+            "file_name": "cc-pd.svg",
+            "path": "svg/cc-pd.svg",
+            "title": "Cc-pd",
+            "description": "Cc-pd",
+            "alt": "Cc-pd",
+            "search_text": "Cc-pd"
+        },
+        "cc-remix": {
+            "file_name": "cc-remix.svg",
+            "path": "svg/cc-remix.svg",
+            "title": "Cc-remix",
+            "description": "Cc-remix",
+            "alt": "Cc-remix",
+            "search_text": "Cc-remix"
+        },
+        "cc-sa": {
+            "file_name": "cc-sa.svg",
+            "path": "svg/cc-sa.svg",
+            "title": "Cc-sa",
+            "description": "Cc-sa",
+            "alt": "Cc-sa",
+            "search_text": "Cc-sa"
+        },
+        "cc-share": {
+            "file_name": "cc-share.svg",
+            "path": "svg/cc-share.svg",
+            "title": "Cc-share",
+            "description": "Cc-share",
+            "alt": "Cc-share",
+            "search_text": "Cc-share"
+        },
+        "cc-zero": {
+            "file_name": "cc-zero.svg",
+            "path": "svg/cc-zero.svg",
+            "title": "Cc-zero",
+            "description": "Cc-zero",
+            "alt": "Cc-zero",
+            "search_text": "Cc-zero"
+        },
+        "cc": {
+            "file_name": "cc.svg",
+            "path": "svg/cc.svg",
+            "title": "Cc",
+            "description": "Cc",
+            "alt": "Cc",
+            "search_text": "Cc"
+        },
+        "ccw": {
+            "file_name": "ccw.svg",
+            "path": "svg/ccw.svg",
+            "title": "Ccw",
+            "description": "Ccw",
+            "alt": "Ccw",
+            "search_text": "Ccw"
+        },
+        "cd": {
+            "file_name": "cd.svg",
+            "path": "svg/cd.svg",
+            "title": "Cd",
+            "description": "Cd",
+            "alt": "Cd",
+            "search_text": "Cd"
+        },
+        "chart-area": {
+            "file_name": "chart-area.svg",
+            "path": "svg/chart-area.svg",
+            "title": "Chart-area",
+            "description": "Chart-area",
+            "alt": "Chart-area",
+            "search_text": "Chart-area"
+        },
+        "chart-bar": {
+            "file_name": "chart-bar.svg",
+            "path": "svg/chart-bar.svg",
+            "title": "Chart-bar",
+            "description": "Chart-bar",
+            "alt": "Chart-bar",
+            "search_text": "Chart-bar"
+        },
+        "chart-line": {
+            "file_name": "chart-line.svg",
+            "path": "svg/chart-line.svg",
+            "title": "Chart-line",
+            "description": "Chart-line",
+            "alt": "Chart-line",
+            "search_text": "Chart-line"
+        },
+        "chart-pie": {
+            "file_name": "chart-pie.svg",
+            "path": "svg/chart-pie.svg",
+            "title": "Chart-pie",
+            "description": "Chart-pie",
+            "alt": "Chart-pie",
+            "search_text": "Chart-pie"
+        },
+        "chat": {
+            "file_name": "chat.svg",
+            "path": "svg/chat.svg",
+            "title": "Chat",
+            "description": "Chat",
+            "alt": "Chat",
+            "search_text": "Chat"
+        },
+        "check": {
+            "file_name": "check.svg",
+            "path": "svg/check.svg",
+            "title": "Check",
+            "description": "Check",
+            "alt": "Check",
+            "search_text": "Check"
+        },
+        "clipboard": {
+            "file_name": "clipboard.svg",
+            "path": "svg/clipboard.svg",
+            "title": "Clipboard",
+            "description": "Clipboard",
+            "alt": "Clipboard",
+            "search_text": "Clipboard"
+        },
+        "clock": {
+            "file_name": "clock.svg",
+            "path": "svg/clock.svg",
+            "title": "Clock",
+            "description": "Clock",
+            "alt": "Clock",
+            "search_text": "Clock"
+        },
+        "cloud-thunder": {
+            "file_name": "cloud-thunder.svg",
+            "path": "svg/cloud-thunder.svg",
+            "title": "Cloud-thunder",
+            "description": "Cloud-thunder",
+            "alt": "Cloud-thunder",
+            "search_text": "Cloud-thunder"
+        },
+        "cloud": {
+            "file_name": "cloud.svg",
+            "path": "svg/cloud.svg",
+            "title": "Cloud",
+            "description": "Cloud",
+            "alt": "Cloud",
+            "search_text": "Cloud"
+        },
+        "code": {
+            "file_name": "code.svg",
+            "path": "svg/code.svg",
+            "title": "Code",
+            "description": "Code",
+            "alt": "Code",
+            "search_text": "Code"
+        },
+        "cog": {
+            "file_name": "cog.svg",
+            "path": "svg/cog.svg",
+            "title": "Cog",
+            "description": "Cog",
+            "alt": "Cog",
+            "search_text": "Cog"
+        },
+        "comment": {
+            "file_name": "comment.svg",
+            "path": "svg/comment.svg",
+            "title": "Comment",
+            "description": "Comment",
+            "alt": "Comment",
+            "search_text": "Comment"
+        },
+        "compass": {
+            "file_name": "compass.svg",
+            "path": "svg/compass.svg",
+            "title": "Compass",
+            "description": "Compass",
+            "alt": "Compass",
+            "search_text": "Compass"
+        },
+        "credit-card": {
+            "file_name": "credit-card.svg",
+            "path": "svg/credit-card.svg",
+            "title": "Credit-card",
+            "description": "Credit-card",
+            "alt": "Credit-card",
+            "search_text": "Credit-card"
+        },
+        "cup": {
+            "file_name": "cup.svg",
+            "path": "svg/cup.svg",
+            "title": "Cup",
+            "description": "Cup",
+            "alt": "Cup",
+            "search_text": "Cup"
+        },
+        "cw": {
+            "file_name": "cw.svg",
+            "path": "svg/cw.svg",
+            "title": "Cw",
+            "description": "Cw",
+            "alt": "Cw",
+            "search_text": "Cw"
+        },
+        "database": {
+            "file_name": "database.svg",
+            "path": "svg/database.svg",
+            "title": "Database",
+            "description": "Database",
+            "alt": "Database",
+            "search_text": "Database"
+        },
+        "db-shape": {
+            "file_name": "db-shape.svg",
+            "path": "svg/db-shape.svg",
+            "title": "Db-shape",
+            "description": "Db-shape",
+            "alt": "Db-shape",
+            "search_text": "Db-shape"
+        },
+        "delicious": {
+            "file_name": "delicious.svg",
+            "path": "svg/delicious.svg",
+            "title": "Delicious",
+            "description": "Delicious",
+            "alt": "Delicious",
+            "search_text": "Delicious"
+        },
+        "digg": {
+            "file_name": "digg.svg",
+            "path": "svg/digg.svg",
+            "title": "Digg",
+            "description": "Digg",
+            "alt": "Digg",
+            "search_text": "Digg"
+        },
+        "direction": {
+            "file_name": "direction.svg",
+            "path": "svg/direction.svg",
+            "title": "Direction",
+            "description": "Direction",
+            "alt": "Direction",
+            "search_text": "Direction"
+        },
+        "doc-landscape": {
+            "file_name": "doc-landscape.svg",
+            "path": "svg/doc-landscape.svg",
+            "title": "Doc-landscape",
+            "description": "Doc-landscape",
+            "alt": "Doc-landscape",
+            "search_text": "Doc-landscape"
+        },
+        "doc-text-inv": {
+            "file_name": "doc-text-inv.svg",
+            "path": "svg/doc-text-inv.svg",
+            "title": "Doc-text-inv",
+            "description": "Doc-text-inv",
+            "alt": "Doc-text-inv",
+            "search_text": "Doc-text-inv"
+        },
+        "doc-text": {
+            "file_name": "doc-text.svg",
+            "path": "svg/doc-text.svg",
+            "title": "Doc-text",
+            "description": "Doc-text",
+            "alt": "Doc-text",
+            "search_text": "Doc-text"
+        },
+        "doc": {
+            "file_name": "doc.svg",
+            "path": "svg/doc.svg",
+            "title": "Doc",
+            "description": "Doc",
+            "alt": "Doc",
+            "search_text": "Doc"
+        },
+        "docs": {
+            "file_name": "docs.svg",
+            "path": "svg/docs.svg",
+            "title": "Docs",
+            "description": "Docs",
+            "alt": "Docs",
+            "search_text": "Docs"
+        },
+        "dot-2": {
+            "file_name": "dot-2.svg",
+            "path": "svg/dot-2.svg",
+            "title": "Dot-2",
+            "description": "Dot-2",
+            "alt": "Dot-2",
+            "search_text": "Dot-2"
+        },
+        "dot-3": {
+            "file_name": "dot-3.svg",
+            "path": "svg/dot-3.svg",
+            "title": "Dot-3",
+            "description": "Dot-3",
+            "alt": "Dot-3",
+            "search_text": "Dot-3"
+        },
+        "dot": {
+            "file_name": "dot.svg",
+            "path": "svg/dot.svg",
+            "title": "Dot",
+            "description": "Dot",
+            "alt": "Dot",
+            "search_text": "Dot"
+        },
+        "down-bold": {
+            "file_name": "down-bold.svg",
+            "path": "svg/down-bold.svg",
+            "title": "Down-bold",
+            "description": "Down-bold",
+            "alt": "Down-bold",
+            "search_text": "Down-bold"
+        },
+        "down-circled": {
+            "file_name": "down-circled.svg",
+            "path": "svg/down-circled.svg",
+            "title": "Down-circled",
+            "description": "Down-circled",
+            "alt": "Down-circled",
+            "search_text": "Down-circled"
+        },
+        "down-dir": {
+            "file_name": "down-dir.svg",
+            "path": "svg/down-dir.svg",
+            "title": "Down-dir",
+            "description": "Down-dir",
+            "alt": "Down-dir",
+            "search_text": "Down-dir"
+        },
+        "down-open-big": {
+            "file_name": "down-open-big.svg",
+            "path": "svg/down-open-big.svg",
+            "title": "Down-open-big",
+            "description": "Down-open-big",
+            "alt": "Down-open-big",
+            "search_text": "Down-open-big"
+        },
+        "down-open-mini": {
+            "file_name": "down-open-mini.svg",
+            "path": "svg/down-open-mini.svg",
+            "title": "Down-open-mini",
+            "description": "Down-open-mini",
+            "alt": "Down-open-mini",
+            "search_text": "Down-open-mini"
+        },
+        "down-open": {
+            "file_name": "down-open.svg",
+            "path": "svg/down-open.svg",
+            "title": "Down-open",
+            "description": "Down-open",
+            "alt": "Down-open",
+            "search_text": "Down-open"
+        },
+        "down-thin": {
+            "file_name": "down-thin.svg",
+            "path": "svg/down-thin.svg",
+            "title": "Down-thin",
+            "description": "Down-thin",
+            "alt": "Down-thin",
+            "search_text": "Down-thin"
+        },
+        "down": {
+            "file_name": "down.svg",
+            "path": "svg/down.svg",
+            "title": "Down",
+            "description": "Down",
+            "alt": "Down",
+            "search_text": "Down"
+        },
+        "download": {
+            "file_name": "download.svg",
+            "path": "svg/download.svg",
+            "title": "Download",
+            "description": "Download",
+            "alt": "Download",
+            "search_text": "Download"
+        },
+        "dribbble-circled": {
+            "file_name": "dribbble-circled.svg",
+            "path": "svg/dribbble-circled.svg",
+            "title": "Dribbble-circled",
+            "description": "Dribbble-circled",
+            "alt": "Dribbble-circled",
+            "search_text": "Dribbble-circled"
+        },
+        "dribbble": {
+            "file_name": "dribbble.svg",
+            "path": "svg/dribbble.svg",
+            "title": "Dribbble",
+            "description": "Dribbble",
+            "alt": "Dribbble",
+            "search_text": "Dribbble"
+        },
+        "drive": {
+            "file_name": "drive.svg",
+            "path": "svg/drive.svg",
+            "title": "Drive",
+            "description": "Drive",
+            "alt": "Drive",
+            "search_text": "Drive"
+        },
+        "dropbox": {
+            "file_name": "dropbox.svg",
+            "path": "svg/dropbox.svg",
+            "title": "Dropbox",
+            "description": "Dropbox",
+            "alt": "Dropbox",
+            "search_text": "Dropbox"
+        },
+        "droplet": {
+            "file_name": "droplet.svg",
+            "path": "svg/droplet.svg",
+            "title": "Droplet",
+            "description": "Droplet",
+            "alt": "Droplet",
+            "search_text": "Droplet"
+        },
+        "erase": {
+            "file_name": "erase.svg",
+            "path": "svg/erase.svg",
+            "title": "Erase",
+            "description": "Erase",
+            "alt": "Erase",
+            "search_text": "Erase"
+        },
+        "evernote": {
+            "file_name": "evernote.svg",
+            "path": "svg/evernote.svg",
+            "title": "Evernote",
+            "description": "Evernote",
+            "alt": "Evernote",
+            "search_text": "Evernote"
+        },
+        "export": {
+            "file_name": "export.svg",
+            "path": "svg/export.svg",
+            "title": "Export",
+            "description": "Export",
+            "alt": "Export",
+            "search_text": "Export"
+        },
+        "eye": {
+            "file_name": "eye.svg",
+            "path": "svg/eye.svg",
+            "title": "Eye",
+            "description": "Eye",
+            "alt": "Eye",
+            "search_text": "Eye"
+        },
+        "facebook-circled": {
+            "file_name": "facebook-circled.svg",
+            "path": "svg/facebook-circled.svg",
+            "title": "Facebook-circled",
+            "description": "Facebook-circled",
+            "alt": "Facebook-circled",
+            "search_text": "Facebook-circled"
+        },
+        "facebook-squared": {
+            "file_name": "facebook-squared.svg",
+            "path": "svg/facebook-squared.svg",
+            "title": "Facebook-squared",
+            "description": "Facebook-squared",
+            "alt": "Facebook-squared",
+            "search_text": "Facebook-squared"
+        },
+        "facebook": {
+            "file_name": "facebook.svg",
+            "path": "svg/facebook.svg",
+            "title": "Facebook",
+            "description": "Facebook",
+            "alt": "Facebook",
+            "search_text": "Facebook"
+        },
+        "fast-backward": {
+            "file_name": "fast-backward.svg",
+            "path": "svg/fast-backward.svg",
+            "title": "Fast-backward",
+            "description": "Fast-backward",
+            "alt": "Fast-backward",
+            "search_text": "Fast-backward"
+        },
+        "fast-forward": {
+            "file_name": "fast-forward.svg",
+            "path": "svg/fast-forward.svg",
+            "title": "Fast-forward",
+            "description": "Fast-forward",
+            "alt": "Fast-forward",
+            "search_text": "Fast-forward"
+        },
+        "feather": {
+            "file_name": "feather.svg",
+            "path": "svg/feather.svg",
+            "title": "Feather",
+            "description": "Feather",
+            "alt": "Feather",
+            "search_text": "Feather"
+        },
+        "fivehundredpx": {
+            "file_name": "fivehundredpx.svg",
+            "path": "svg/fivehundredpx.svg",
+            "title": "Fivehundredpx",
+            "description": "Fivehundredpx",
+            "alt": "Fivehundredpx",
+            "search_text": "Fivehundredpx"
+        },
+        "flag": {
+            "file_name": "flag.svg",
+            "path": "svg/flag.svg",
+            "title": "Flag",
+            "description": "Flag",
+            "alt": "Flag",
+            "search_text": "Flag"
+        },
+        "flash": {
+            "file_name": "flash.svg",
+            "path": "svg/flash.svg",
+            "title": "Flash",
+            "description": "Flash",
+            "alt": "Flash",
+            "search_text": "Flash"
+        },
+        "flashlight": {
+            "file_name": "flashlight.svg",
+            "path": "svg/flashlight.svg",
+            "title": "Flashlight",
+            "description": "Flashlight",
+            "alt": "Flashlight",
+            "search_text": "Flashlight"
+        },
+        "flattr": {
+            "file_name": "flattr.svg",
+            "path": "svg/flattr.svg",
+            "title": "Flattr",
+            "description": "Flattr",
+            "alt": "Flattr",
+            "search_text": "Flattr"
+        },
+        "flickr-circled": {
+            "file_name": "flickr-circled.svg",
+            "path": "svg/flickr-circled.svg",
+            "title": "Flickr-circled",
+            "description": "Flickr-circled",
+            "alt": "Flickr-circled",
+            "search_text": "Flickr-circled"
+        },
+        "flickr": {
+            "file_name": "flickr.svg",
+            "path": "svg/flickr.svg",
+            "title": "Flickr",
+            "description": "Flickr",
+            "alt": "Flickr",
+            "search_text": "Flickr"
+        },
+        "flight": {
+            "file_name": "flight.svg",
+            "path": "svg/flight.svg",
+            "title": "Flight",
+            "description": "Flight",
+            "alt": "Flight",
+            "search_text": "Flight"
+        },
+        "floppy": {
+            "file_name": "floppy.svg",
+            "path": "svg/floppy.svg",
+            "title": "Floppy",
+            "description": "Floppy",
+            "alt": "Floppy",
+            "search_text": "Floppy"
+        },
+        "flow-branch": {
+            "file_name": "flow-branch.svg",
+            "path": "svg/flow-branch.svg",
+            "title": "Flow-branch",
+            "description": "Flow-branch",
+            "alt": "Flow-branch",
+            "search_text": "Flow-branch"
+        },
+        "flow-cascade": {
+            "file_name": "flow-cascade.svg",
+            "path": "svg/flow-cascade.svg",
+            "title": "Flow-cascade",
+            "description": "Flow-cascade",
+            "alt": "Flow-cascade",
+            "search_text": "Flow-cascade"
+        },
+        "flow-line": {
+            "file_name": "flow-line.svg",
+            "path": "svg/flow-line.svg",
+            "title": "Flow-line",
+            "description": "Flow-line",
+            "alt": "Flow-line",
+            "search_text": "Flow-line"
+        },
+        "flow-parallel": {
+            "file_name": "flow-parallel.svg",
+            "path": "svg/flow-parallel.svg",
+            "title": "Flow-parallel",
+            "description": "Flow-parallel",
+            "alt": "Flow-parallel",
+            "search_text": "Flow-parallel"
+        },
+        "flow-tree": {
+            "file_name": "flow-tree.svg",
+            "path": "svg/flow-tree.svg",
+            "title": "Flow-tree",
+            "description": "Flow-tree",
+            "alt": "Flow-tree",
+            "search_text": "Flow-tree"
+        },
+        "folder": {
+            "file_name": "folder.svg",
+            "path": "svg/folder.svg",
+            "title": "Folder",
+            "description": "Folder",
+            "alt": "Folder",
+            "search_text": "Folder"
+        },
+        "forrst": {
+            "file_name": "forrst.svg",
+            "path": "svg/forrst.svg",
+            "title": "Forrst",
+            "description": "Forrst",
+            "alt": "Forrst",
+            "search_text": "Forrst"
+        },
+        "forward": {
+            "file_name": "forward.svg",
+            "path": "svg/forward.svg",
+            "title": "Forward",
+            "description": "Forward",
+            "alt": "Forward",
+            "search_text": "Forward"
+        },
+        "gauge": {
+            "file_name": "gauge.svg",
+            "path": "svg/gauge.svg",
+            "title": "Gauge",
+            "description": "Gauge",
+            "alt": "Gauge",
+            "search_text": "Gauge"
+        },
+        "github-circled": {
+            "file_name": "github-circled.svg",
+            "path": "svg/github-circled.svg",
+            "title": "Github-circled",
+            "description": "Github-circled",
+            "alt": "Github-circled",
+            "search_text": "Github-circled"
+        },
+        "github": {
+            "file_name": "github.svg",
+            "path": "svg/github.svg",
+            "title": "Github",
+            "description": "Github",
+            "alt": "Github",
+            "search_text": "Github"
+        },
+        "globe": {
+            "file_name": "globe.svg",
+            "path": "svg/globe.svg",
+            "title": "Globe",
+            "description": "Globe",
+            "alt": "Globe",
+            "search_text": "Globe"
+        },
+        "google-circles": {
+            "file_name": "google-circles.svg",
+            "path": "svg/google-circles.svg",
+            "title": "Google-circles",
+            "description": "Google-circles",
+            "alt": "Google-circles",
+            "search_text": "Google-circles"
+        },
+        "gplus-circled": {
+            "file_name": "gplus-circled.svg",
+            "path": "svg/gplus-circled.svg",
+            "title": "Gplus-circled",
+            "description": "Gplus-circled",
+            "alt": "Gplus-circled",
+            "search_text": "Gplus-circled"
+        },
+        "gplus": {
+            "file_name": "gplus.svg",
+            "path": "svg/gplus.svg",
+            "title": "Gplus",
+            "description": "Gplus",
+            "alt": "Gplus",
+            "search_text": "Gplus"
+        },
+        "graduation-cap": {
+            "file_name": "graduation-cap.svg",
+            "path": "svg/graduation-cap.svg",
+            "title": "Graduation-cap",
+            "description": "Graduation-cap",
+            "alt": "Graduation-cap",
+            "search_text": "Graduation-cap"
+        },
+        "grooveshark": {
+            "file_name": "grooveshark.svg",
+            "path": "svg/grooveshark.svg",
+            "title": "Grooveshark",
+            "description": "Grooveshark",
+            "alt": "Grooveshark",
+            "search_text": "Grooveshark"
+        },
+        "heart-empty": {
+            "file_name": "heart-empty.svg",
+            "path": "svg/heart-empty.svg",
+            "title": "Heart-empty",
+            "description": "Heart-empty",
+            "alt": "Heart-empty",
+            "search_text": "Heart-empty"
+        },
+        "heart": {
+            "file_name": "heart.svg",
+            "path": "svg/heart.svg",
+            "title": "Heart",
+            "description": "Heart",
+            "alt": "Heart",
+            "search_text": "Heart"
+        },
+        "help-circled": {
+            "file_name": "help-circled.svg",
+            "path": "svg/help-circled.svg",
+            "title": "Help-circled",
+            "description": "Help-circled",
+            "alt": "Help-circled",
+            "search_text": "Help-circled"
+        },
+        "help": {
+            "file_name": "help.svg",
+            "path": "svg/help.svg",
+            "title": "Help",
+            "description": "Help",
+            "alt": "Help",
+            "search_text": "Help"
+        },
+        "home": {
+            "file_name": "home.svg",
+            "path": "svg/home.svg",
+            "title": "Home",
+            "description": "Home",
+            "alt": "Home",
+            "search_text": "Home"
+        },
+        "hourglass": {
+            "file_name": "hourglass.svg",
+            "path": "svg/hourglass.svg",
+            "title": "Hourglass",
+            "description": "Hourglass",
+            "alt": "Hourglass",
+            "search_text": "Hourglass"
+        },
+        "inbox": {
+            "file_name": "inbox.svg",
+            "path": "svg/inbox.svg",
+            "title": "Inbox",
+            "description": "Inbox",
+            "alt": "Inbox",
+            "search_text": "Inbox"
+        },
+        "infinity": {
+            "file_name": "infinity.svg",
+            "path": "svg/infinity.svg",
+            "title": "Infinity",
+            "description": "Infinity",
+            "alt": "Infinity",
+            "search_text": "Infinity"
+        },
+        "info-circled": {
+            "file_name": "info-circled.svg",
+            "path": "svg/info-circled.svg",
+            "title": "Info-circled",
+            "description": "Info-circled",
+            "alt": "Info-circled",
+            "search_text": "Info-circled"
+        },
+        "info": {
+            "file_name": "info.svg",
+            "path": "svg/info.svg",
+            "title": "Info",
+            "description": "Info",
+            "alt": "Info",
+            "search_text": "Info"
+        },
+        "instagram-1": {
+            "file_name": "instagram-1.svg",
+            "path": "svg/instagram-1.svg",
+            "title": "Instagram-1",
+            "description": "Instagram-1",
+            "alt": "Instagram-1",
+            "search_text": "Instagram-1"
+        },
+        "instagram": {
+            "file_name": "instagram.svg",
+            "path": "svg/instagram.svg",
+            "title": "Instagram",
+            "description": "Instagram",
+            "alt": "Instagram",
+            "search_text": "Instagram"
+        },
+        "install": {
+            "file_name": "install.svg",
+            "path": "svg/install.svg",
+            "title": "Install",
+            "description": "Install",
+            "alt": "Install",
+            "search_text": "Install"
+        },
+        "key": {
+            "file_name": "key.svg",
+            "path": "svg/key.svg",
+            "title": "Key",
+            "description": "Key",
+            "alt": "Key",
+            "search_text": "Key"
+        },
+        "keyboard": {
+            "file_name": "keyboard.svg",
+            "path": "svg/keyboard.svg",
+            "title": "Keyboard",
+            "description": "Keyboard",
+            "alt": "Keyboard",
+            "search_text": "Keyboard"
+        },
+        "lamp": {
+            "file_name": "lamp.svg",
+            "path": "svg/lamp.svg",
+            "title": "Lamp",
+            "description": "Lamp",
+            "alt": "Lamp",
+            "search_text": "Lamp"
+        },
+        "language": {
+            "file_name": "language.svg",
+            "path": "svg/language.svg",
+            "title": "Language",
+            "description": "Language",
+            "alt": "Language",
+            "search_text": "Language"
+        },
+        "lastfm-circled": {
+            "file_name": "lastfm-circled.svg",
+            "path": "svg/lastfm-circled.svg",
+            "title": "Lastfm-circled",
+            "description": "Lastfm-circled",
+            "alt": "Lastfm-circled",
+            "search_text": "Lastfm-circled"
+        },
+        "lastfm": {
+            "file_name": "lastfm.svg",
+            "path": "svg/lastfm.svg",
+            "title": "Lastfm",
+            "description": "Lastfm",
+            "alt": "Lastfm",
+            "search_text": "Lastfm"
+        },
+        "layout": {
+            "file_name": "layout.svg",
+            "path": "svg/layout.svg",
+            "title": "Layout",
+            "description": "Layout",
+            "alt": "Layout",
+            "search_text": "Layout"
+        },
+        "leaf": {
+            "file_name": "leaf.svg",
+            "path": "svg/leaf.svg",
+            "title": "Leaf",
+            "description": "Leaf",
+            "alt": "Leaf",
+            "search_text": "Leaf"
+        },
+        "left-bold": {
+            "file_name": "left-bold.svg",
+            "path": "svg/left-bold.svg",
+            "title": "Left-bold",
+            "description": "Left-bold",
+            "alt": "Left-bold",
+            "search_text": "Left-bold"
+        },
+        "left-circled": {
+            "file_name": "left-circled.svg",
+            "path": "svg/left-circled.svg",
+            "title": "Left-circled",
+            "description": "Left-circled",
+            "alt": "Left-circled",
+            "search_text": "Left-circled"
+        },
+        "left-dir": {
+            "file_name": "left-dir.svg",
+            "path": "svg/left-dir.svg",
+            "title": "Left-dir",
+            "description": "Left-dir",
+            "alt": "Left-dir",
+            "search_text": "Left-dir"
+        },
+        "left-open-big": {
+            "file_name": "left-open-big.svg",
+            "path": "svg/left-open-big.svg",
+            "title": "Left-open-big",
+            "description": "Left-open-big",
+            "alt": "Left-open-big",
+            "search_text": "Left-open-big"
+        },
+        "left-open-mini": {
+            "file_name": "left-open-mini.svg",
+            "path": "svg/left-open-mini.svg",
+            "title": "Left-open-mini",
+            "description": "Left-open-mini",
+            "alt": "Left-open-mini",
+            "search_text": "Left-open-mini"
+        },
+        "left-open": {
+            "file_name": "left-open.svg",
+            "path": "svg/left-open.svg",
+            "title": "Left-open",
+            "description": "Left-open",
+            "alt": "Left-open",
+            "search_text": "Left-open"
+        },
+        "left-thin": {
+            "file_name": "left-thin.svg",
+            "path": "svg/left-thin.svg",
+            "title": "Left-thin",
+            "description": "Left-thin",
+            "alt": "Left-thin",
+            "search_text": "Left-thin"
+        },
+        "left": {
+            "file_name": "left.svg",
+            "path": "svg/left.svg",
+            "title": "Left",
+            "description": "Left",
+            "alt": "Left",
+            "search_text": "Left"
+        },
+        "level-down": {
+            "file_name": "level-down.svg",
+            "path": "svg/level-down.svg",
+            "title": "Level-down",
+            "description": "Level-down",
+            "alt": "Level-down",
+            "search_text": "Level-down"
+        },
+        "level-up": {
+            "file_name": "level-up.svg",
+            "path": "svg/level-up.svg",
+            "title": "Level-up",
+            "description": "Level-up",
+            "alt": "Level-up",
+            "search_text": "Level-up"
+        },
+        "lifebuoy": {
+            "file_name": "lifebuoy.svg",
+            "path": "svg/lifebuoy.svg",
+            "title": "Lifebuoy",
+            "description": "Lifebuoy",
+            "alt": "Lifebuoy",
+            "search_text": "Lifebuoy"
+        },
+        "light-down": {
+            "file_name": "light-down.svg",
+            "path": "svg/light-down.svg",
+            "title": "Light-down",
+            "description": "Light-down",
+            "alt": "Light-down",
+            "search_text": "Light-down"
+        },
+        "light-up": {
+            "file_name": "light-up.svg",
+            "path": "svg/light-up.svg",
+            "title": "Light-up",
+            "description": "Light-up",
+            "alt": "Light-up",
+            "search_text": "Light-up"
+        },
+        "link": {
+            "file_name": "link.svg",
+            "path": "svg/link.svg",
+            "title": "Link",
+            "description": "Link",
+            "alt": "Link",
+            "search_text": "Link"
+        },
+        "linkedin-circled": {
+            "file_name": "linkedin-circled.svg",
+            "path": "svg/linkedin-circled.svg",
+            "title": "Linkedin-circled",
+            "description": "Linkedin-circled",
+            "alt": "Linkedin-circled",
+            "search_text": "Linkedin-circled"
+        },
+        "linkedin": {
+            "file_name": "linkedin.svg",
+            "path": "svg/linkedin.svg",
+            "title": "Linkedin",
+            "description": "Linkedin",
+            "alt": "Linkedin",
+            "search_text": "Linkedin"
+        },
+        "list-add": {
+            "file_name": "list-add.svg",
+            "path": "svg/list-add.svg",
+            "title": "List-add",
+            "description": "List-add",
+            "alt": "List-add",
+            "search_text": "List-add"
+        },
+        "list": {
+            "file_name": "list.svg",
+            "path": "svg/list.svg",
+            "title": "List",
+            "description": "List",
+            "alt": "List",
+            "search_text": "List"
+        },
+        "location": {
+            "file_name": "location.svg",
+            "path": "svg/location.svg",
+            "title": "Location",
+            "description": "Location",
+            "alt": "Location",
+            "search_text": "Location"
+        },
+        "lock-open": {
+            "file_name": "lock-open.svg",
+            "path": "svg/lock-open.svg",
+            "title": "Lock-open",
+            "description": "Lock-open",
+            "alt": "Lock-open",
+            "search_text": "Lock-open"
+        },
+        "lock": {
+            "file_name": "lock.svg",
+            "path": "svg/lock.svg",
+            "title": "Lock",
+            "description": "Lock",
+            "alt": "Lock",
+            "search_text": "Lock"
+        },
+        "login": {
+            "file_name": "login.svg",
+            "path": "svg/login.svg",
+            "title": "Login",
+            "description": "Login",
+            "alt": "Login",
+            "search_text": "Login"
+        },
+        "logo-db": {
+            "file_name": "logo-db.svg",
+            "path": "svg/logo-db.svg",
+            "title": "Logo-db",
+            "description": "Logo-db",
+            "alt": "Logo-db",
+            "search_text": "Logo-db"
+        },
+        "logout": {
+            "file_name": "logout.svg",
+            "path": "svg/logout.svg",
+            "title": "Logout",
+            "description": "Logout",
+            "alt": "Logout",
+            "search_text": "Logout"
+        },
+        "loop": {
+            "file_name": "loop.svg",
+            "path": "svg/loop.svg",
+            "title": "Loop",
+            "description": "Loop",
+            "alt": "Loop",
+            "search_text": "Loop"
+        },
+        "magnet": {
+            "file_name": "magnet.svg",
+            "path": "svg/magnet.svg",
+            "title": "Magnet",
+            "description": "Magnet",
+            "alt": "Magnet",
+            "search_text": "Magnet"
+        },
+        "mail": {
+            "file_name": "mail.svg",
+            "path": "svg/mail.svg",
+            "title": "Mail",
+            "description": "Mail",
+            "alt": "Mail",
+            "search_text": "Mail"
+        },
+        "map": {
+            "file_name": "map.svg",
+            "path": "svg/map.svg",
+            "title": "Map",
+            "description": "Map",
+            "alt": "Map",
+            "search_text": "Map"
+        },
+        "megaphone": {
+            "file_name": "megaphone.svg",
+            "path": "svg/megaphone.svg",
+            "title": "Megaphone",
+            "description": "Megaphone",
+            "alt": "Megaphone",
+            "search_text": "Megaphone"
+        },
+        "menu": {
+            "file_name": "menu.svg",
+            "path": "svg/menu.svg",
+            "title": "Menu",
+            "description": "Menu",
+            "alt": "Menu",
+            "search_text": "Menu"
+        },
+        "mic": {
+            "file_name": "mic.svg",
+            "path": "svg/mic.svg",
+            "title": "Mic",
+            "description": "Mic",
+            "alt": "Mic",
+            "search_text": "Mic"
+        },
+        "minus-circled": {
+            "file_name": "minus-circled.svg",
+            "path": "svg/minus-circled.svg",
+            "title": "Minus-circled",
+            "description": "Minus-circled",
+            "alt": "Minus-circled",
+            "search_text": "Minus-circled"
+        },
+        "minus-squared": {
+            "file_name": "minus-squared.svg",
+            "path": "svg/minus-squared.svg",
+            "title": "Minus-squared",
+            "description": "Minus-squared",
+            "alt": "Minus-squared",
+            "search_text": "Minus-squared"
+        },
+        "minus": {
+            "file_name": "minus.svg",
+            "path": "svg/minus.svg",
+            "title": "Minus",
+            "description": "Minus",
+            "alt": "Minus",
+            "search_text": "Minus"
+        },
+        "mixi": {
+            "file_name": "mixi.svg",
+            "path": "svg/mixi.svg",
+            "title": "Mixi",
+            "description": "Mixi",
+            "alt": "Mixi",
+            "search_text": "Mixi"
+        },
+        "mobile": {
+            "file_name": "mobile.svg",
+            "path": "svg/mobile.svg",
+            "title": "Mobile",
+            "description": "Mobile",
+            "alt": "Mobile",
+            "search_text": "Mobile"
+        },
+        "monitor": {
+            "file_name": "monitor.svg",
+            "path": "svg/monitor.svg",
+            "title": "Monitor",
+            "description": "Monitor",
+            "alt": "Monitor",
+            "search_text": "Monitor"
+        },
+        "moon": {
+            "file_name": "moon.svg",
+            "path": "svg/moon.svg",
+            "title": "Moon",
+            "description": "Moon",
+            "alt": "Moon",
+            "search_text": "Moon"
+        },
+        "mouse": {
+            "file_name": "mouse.svg",
+            "path": "svg/mouse.svg",
+            "title": "Mouse",
+            "description": "Mouse",
+            "alt": "Mouse",
+            "search_text": "Mouse"
+        },
+        "music": {
+            "file_name": "music.svg",
+            "path": "svg/music.svg",
+            "title": "Music",
+            "description": "Music",
+            "alt": "Music",
+            "search_text": "Music"
+        },
+        "mute": {
+            "file_name": "mute.svg",
+            "path": "svg/mute.svg",
+            "title": "Mute",
+            "description": "Mute",
+            "alt": "Mute",
+            "search_text": "Mute"
+        },
+        "network": {
+            "file_name": "network.svg",
+            "path": "svg/network.svg",
+            "title": "Network",
+            "description": "Network",
+            "alt": "Network",
+            "search_text": "Network"
+        },
+        "newspaper": {
+            "file_name": "newspaper.svg",
+            "path": "svg/newspaper.svg",
+            "title": "Newspaper",
+            "description": "Newspaper",
+            "alt": "Newspaper",
+            "search_text": "Newspaper"
+        },
+        "note-beamed": {
+            "file_name": "note-beamed.svg",
+            "path": "svg/note-beamed.svg",
+            "title": "Note-beamed",
+            "description": "Note-beamed",
+            "alt": "Note-beamed",
+            "search_text": "Note-beamed"
+        },
+        "note": {
+            "file_name": "note.svg",
+            "path": "svg/note.svg",
+            "title": "Note",
+            "description": "Note",
+            "alt": "Note",
+            "search_text": "Note"
+        },
+        "palette": {
+            "file_name": "palette.svg",
+            "path": "svg/palette.svg",
+            "title": "Palette",
+            "description": "Palette",
+            "alt": "Palette",
+            "search_text": "Palette"
+        },
+        "paper-plane": {
+            "file_name": "paper-plane.svg",
+            "path": "svg/paper-plane.svg",
+            "title": "Paper-plane",
+            "description": "Paper-plane",
+            "alt": "Paper-plane",
+            "search_text": "Paper-plane"
+        },
+        "pause": {
+            "file_name": "pause.svg",
+            "path": "svg/pause.svg",
+            "title": "Pause",
+            "description": "Pause",
+            "alt": "Pause",
+            "search_text": "Pause"
+        },
+        "paypal": {
+            "file_name": "paypal.svg",
+            "path": "svg/paypal.svg",
+            "title": "Paypal",
+            "description": "Paypal",
+            "alt": "Paypal",
+            "search_text": "Paypal"
+        },
+        "pencil": {
+            "file_name": "pencil.svg",
+            "path": "svg/pencil.svg",
+            "title": "Pencil",
+            "description": "Pencil",
+            "alt": "Pencil",
+            "search_text": "Pencil"
+        },
+        "phone": {
+            "file_name": "phone.svg",
+            "path": "svg/phone.svg",
+            "title": "Phone",
+            "description": "Phone",
+            "alt": "Phone",
+            "search_text": "Phone"
+        },
+        "picasa": {
+            "file_name": "picasa.svg",
+            "path": "svg/picasa.svg",
+            "title": "Picasa",
+            "description": "Picasa",
+            "alt": "Picasa",
+            "search_text": "Picasa"
+        },
+        "picture": {
+            "file_name": "picture.svg",
+            "path": "svg/picture.svg",
+            "title": "Picture",
+            "description": "Picture",
+            "alt": "Picture",
+            "search_text": "Picture"
+        },
+        "pinterest-circled": {
+            "file_name": "pinterest-circled.svg",
+            "path": "svg/pinterest-circled.svg",
+            "title": "Pinterest-circled",
+            "description": "Pinterest-circled",
+            "alt": "Pinterest-circled",
+            "search_text": "Pinterest-circled"
+        },
+        "pinterest": {
+            "file_name": "pinterest.svg",
+            "path": "svg/pinterest.svg",
+            "title": "Pinterest",
+            "description": "Pinterest",
+            "alt": "Pinterest",
+            "search_text": "Pinterest"
+        },
+        "play": {
+            "file_name": "play.svg",
+            "path": "svg/play.svg",
+            "title": "Play",
+            "description": "Play",
+            "alt": "Play",
+            "search_text": "Play"
+        },
+        "plus-circled": {
+            "file_name": "plus-circled.svg",
+            "path": "svg/plus-circled.svg",
+            "title": "Plus-circled",
+            "description": "Plus-circled",
+            "alt": "Plus-circled",
+            "search_text": "Plus-circled"
+        },
+        "plus-squared": {
+            "file_name": "plus-squared.svg",
+            "path": "svg/plus-squared.svg",
+            "title": "Plus-squared",
+            "description": "Plus-squared",
+            "alt": "Plus-squared",
+            "search_text": "Plus-squared"
+        },
+        "plus": {
+            "file_name": "plus.svg",
+            "path": "svg/plus.svg",
+            "title": "Plus",
+            "description": "Plus",
+            "alt": "Plus",
+            "search_text": "Plus"
+        },
+        "popup": {
+            "file_name": "popup.svg",
+            "path": "svg/popup.svg",
+            "title": "Popup",
+            "description": "Popup",
+            "alt": "Popup",
+            "search_text": "Popup"
+        },
+        "print": {
+            "file_name": "print.svg",
+            "path": "svg/print.svg",
+            "title": "Print",
+            "description": "Print",
+            "alt": "Print",
+            "search_text": "Print"
+        },
+        "progress-0": {
+            "file_name": "progress-0.svg",
+            "path": "svg/progress-0.svg",
+            "title": "Progress-0",
+            "description": "Progress-0",
+            "alt": "Progress-0",
+            "search_text": "Progress-0"
+        },
+        "progress-1": {
+            "file_name": "progress-1.svg",
+            "path": "svg/progress-1.svg",
+            "title": "Progress-1",
+            "description": "Progress-1",
+            "alt": "Progress-1",
+            "search_text": "Progress-1"
+        },
+        "progress-2": {
+            "file_name": "progress-2.svg",
+            "path": "svg/progress-2.svg",
+            "title": "Progress-2",
+            "description": "Progress-2",
+            "alt": "Progress-2",
+            "search_text": "Progress-2"
+        },
+        "progress-3": {
+            "file_name": "progress-3.svg",
+            "path": "svg/progress-3.svg",
+            "title": "Progress-3",
+            "description": "Progress-3",
+            "alt": "Progress-3",
+            "search_text": "Progress-3"
+        },
+        "publish": {
+            "file_name": "publish.svg",
+            "path": "svg/publish.svg",
+            "title": "Publish",
+            "description": "Publish",
+            "alt": "Publish",
+            "search_text": "Publish"
+        },
+        "qq": {
+            "file_name": "qq.svg",
+            "path": "svg/qq.svg",
+            "title": "Qq",
+            "description": "Qq",
+            "alt": "Qq",
+            "search_text": "Qq"
+        },
+        "quote": {
+            "file_name": "quote.svg",
+            "path": "svg/quote.svg",
+            "title": "Quote",
+            "description": "Quote",
+            "alt": "Quote",
+            "search_text": "Quote"
+        },
+        "rdio-circled": {
+            "file_name": "rdio-circled.svg",
+            "path": "svg/rdio-circled.svg",
+            "title": "Rdio-circled",
+            "description": "Rdio-circled",
+            "alt": "Rdio-circled",
+            "search_text": "Rdio-circled"
+        },
+        "rdio": {
+            "file_name": "rdio.svg",
+            "path": "svg/rdio.svg",
+            "title": "Rdio",
+            "description": "Rdio",
+            "alt": "Rdio",
+            "search_text": "Rdio"
+        },
+        "record": {
+            "file_name": "record.svg",
+            "path": "svg/record.svg",
+            "title": "Record",
+            "description": "Record",
+            "alt": "Record",
+            "search_text": "Record"
+        },
+        "reddit": {
+            "file_name": "reddit.svg",
+            "path": "svg/reddit.svg",
+            "title": "Reddit",
+            "description": "Reddit",
+            "alt": "Reddit",
+            "search_text": "Reddit"
+        },
+        "renren": {
+            "file_name": "renren.svg",
+            "path": "svg/renren.svg",
+            "title": "Renren",
+            "description": "Renren",
+            "alt": "Renren",
+            "search_text": "Renren"
+        },
+        "reply-all": {
+            "file_name": "reply-all.svg",
+            "path": "svg/reply-all.svg",
+            "title": "Reply-all",
+            "description": "Reply-all",
+            "alt": "Reply-all",
+            "search_text": "Reply-all"
+        },
+        "reply": {
+            "file_name": "reply.svg",
+            "path": "svg/reply.svg",
+            "title": "Reply",
+            "description": "Reply",
+            "alt": "Reply",
+            "search_text": "Reply"
+        },
+        "resize-full": {
+            "file_name": "resize-full.svg",
+            "path": "svg/resize-full.svg",
+            "title": "Resize-full",
+            "description": "Resize-full",
+            "alt": "Resize-full",
+            "search_text": "Resize-full"
+        },
+        "resize-small": {
+            "file_name": "resize-small.svg",
+            "path": "svg/resize-small.svg",
+            "title": "Resize-small",
+            "description": "Resize-small",
+            "alt": "Resize-small",
+            "search_text": "Resize-small"
+        },
+        "retweet": {
+            "file_name": "retweet.svg",
+            "path": "svg/retweet.svg",
+            "title": "Retweet",
+            "description": "Retweet",
+            "alt": "Retweet",
+            "search_text": "Retweet"
+        },
+        "right-bold": {
+            "file_name": "right-bold.svg",
+            "path": "svg/right-bold.svg",
+            "title": "Right-bold",
+            "description": "Right-bold",
+            "alt": "Right-bold",
+            "search_text": "Right-bold"
+        },
+        "right-circled": {
+            "file_name": "right-circled.svg",
+            "path": "svg/right-circled.svg",
+            "title": "Right-circled",
+            "description": "Right-circled",
+            "alt": "Right-circled",
+            "search_text": "Right-circled"
+        },
+        "right-dir": {
+            "file_name": "right-dir.svg",
+            "path": "svg/right-dir.svg",
+            "title": "Right-dir",
+            "description": "Right-dir",
+            "alt": "Right-dir",
+            "search_text": "Right-dir"
+        },
+        "right-open-big": {
+            "file_name": "right-open-big.svg",
+            "path": "svg/right-open-big.svg",
+            "title": "Right-open-big",
+            "description": "Right-open-big",
+            "alt": "Right-open-big",
+            "search_text": "Right-open-big"
+        },
+        "right-open-mini": {
+            "file_name": "right-open-mini.svg",
+            "path": "svg/right-open-mini.svg",
+            "title": "Right-open-mini",
+            "description": "Right-open-mini",
+            "alt": "Right-open-mini",
+            "search_text": "Right-open-mini"
+        },
+        "right-open": {
+            "file_name": "right-open.svg",
+            "path": "svg/right-open.svg",
+            "title": "Right-open",
+            "description": "Right-open",
+            "alt": "Right-open",
+            "search_text": "Right-open"
+        },
+        "right-thin": {
+            "file_name": "right-thin.svg",
+            "path": "svg/right-thin.svg",
+            "title": "Right-thin",
+            "description": "Right-thin",
+            "alt": "Right-thin",
+            "search_text": "Right-thin"
+        },
+        "right": {
+            "file_name": "right.svg",
+            "path": "svg/right.svg",
+            "title": "Right",
+            "description": "Right",
+            "alt": "Right",
+            "search_text": "Right"
+        },
+        "rocket": {
+            "file_name": "rocket.svg",
+            "path": "svg/rocket.svg",
+            "title": "Rocket",
+            "description": "Rocket",
+            "alt": "Rocket",
+            "search_text": "Rocket"
+        },
+        "rss": {
+            "file_name": "rss.svg",
+            "path": "svg/rss.svg",
+            "title": "Rss",
+            "description": "Rss",
+            "alt": "Rss",
+            "search_text": "Rss"
+        },
+        "search": {
+            "file_name": "search.svg",
+            "path": "svg/search.svg",
+            "title": "Search",
+            "description": "Search",
+            "alt": "Search",
+            "search_text": "Search"
+        },
+        "share": {
+            "file_name": "share.svg",
+            "path": "svg/share.svg",
+            "title": "Share",
+            "description": "Share",
+            "alt": "Share",
+            "search_text": "Share"
+        },
+        "shareable": {
+            "file_name": "shareable.svg",
+            "path": "svg/shareable.svg",
+            "title": "Shareable",
+            "description": "Shareable",
+            "alt": "Shareable",
+            "search_text": "Shareable"
+        },
+        "shuffle": {
+            "file_name": "shuffle.svg",
+            "path": "svg/shuffle.svg",
+            "title": "Shuffle",
+            "description": "Shuffle",
+            "alt": "Shuffle",
+            "search_text": "Shuffle"
+        },
+        "signal": {
+            "file_name": "signal.svg",
+            "path": "svg/signal.svg",
+            "title": "Signal",
+            "description": "Signal",
+            "alt": "Signal",
+            "search_text": "Signal"
+        },
+        "sina-weibo": {
+            "file_name": "sina-weibo.svg",
+            "path": "svg/sina-weibo.svg",
+            "title": "Sina-weibo",
+            "description": "Sina-weibo",
+            "alt": "Sina-weibo",
+            "search_text": "Sina-weibo"
+        },
+        "skype-circled": {
+            "file_name": "skype-circled.svg",
+            "path": "svg/skype-circled.svg",
+            "title": "Skype-circled",
+            "description": "Skype-circled",
+            "alt": "Skype-circled",
+            "search_text": "Skype-circled"
+        },
+        "skype": {
+            "file_name": "skype.svg",
+            "path": "svg/skype.svg",
+            "title": "Skype",
+            "description": "Skype",
+            "alt": "Skype",
+            "search_text": "Skype"
+        },
+        "smashing": {
+            "file_name": "smashing.svg",
+            "path": "svg/smashing.svg",
+            "title": "Smashing",
+            "description": "Smashing",
+            "alt": "Smashing",
+            "search_text": "Smashing"
+        },
+        "sound": {
+            "file_name": "sound.svg",
+            "path": "svg/sound.svg",
+            "title": "Sound",
+            "description": "Sound",
+            "alt": "Sound",
+            "search_text": "Sound"
+        },
+        "soundcloud": {
+            "file_name": "soundcloud.svg",
+            "path": "svg/soundcloud.svg",
+            "title": "Soundcloud",
+            "description": "Soundcloud",
+            "alt": "Soundcloud",
+            "search_text": "Soundcloud"
+        },
+        "spotify-circled": {
+            "file_name": "spotify-circled.svg",
+            "path": "svg/spotify-circled.svg",
+            "title": "Spotify-circled",
+            "description": "Spotify-circled",
+            "alt": "Spotify-circled",
+            "search_text": "Spotify-circled"
+        },
+        "spotify": {
+            "file_name": "spotify.svg",
+            "path": "svg/spotify.svg",
+            "title": "Spotify",
+            "description": "Spotify",
+            "alt": "Spotify",
+            "search_text": "Spotify"
+        },
+        "square-x-twitter": {
+            "file_name": "square-x-twitter.svg",
+            "path": "svg/square-x-twitter.svg",
+            "title": "Square-x-twitter",
+            "description": "Square-x-twitter",
+            "alt": "Square-x-twitter",
+            "search_text": "Square-x-twitter"
+        },
+        "star-empty": {
+            "file_name": "star-empty.svg",
+            "path": "svg/star-empty.svg",
+            "title": "Star-empty",
+            "description": "Star-empty",
+            "alt": "Star-empty",
+            "search_text": "Star-empty"
+        },
+        "star": {
+            "file_name": "star.svg",
+            "path": "svg/star.svg",
+            "title": "Star",
+            "description": "Star",
+            "alt": "Star",
+            "search_text": "Star"
+        },
+        "stop": {
+            "file_name": "stop.svg",
+            "path": "svg/stop.svg",
+            "title": "Stop",
+            "description": "Stop",
+            "alt": "Stop",
+            "search_text": "Stop"
+        },
+        "stumbleupon-circled": {
+            "file_name": "stumbleupon-circled.svg",
+            "path": "svg/stumbleupon-circled.svg",
+            "title": "Stumbleupon-circled",
+            "description": "Stumbleupon-circled",
+            "alt": "Stumbleupon-circled",
+            "search_text": "Stumbleupon-circled"
+        },
+        "stumbleupon": {
+            "file_name": "stumbleupon.svg",
+            "path": "svg/stumbleupon.svg",
+            "title": "Stumbleupon",
+            "description": "Stumbleupon",
+            "alt": "Stumbleupon",
+            "search_text": "Stumbleupon"
+        },
+        "suitcase": {
+            "file_name": "suitcase.svg",
+            "path": "svg/suitcase.svg",
+            "title": "Suitcase",
+            "description": "Suitcase",
+            "alt": "Suitcase",
+            "search_text": "Suitcase"
+        },
+        "sweden": {
+            "file_name": "sweden.svg",
+            "path": "svg/sweden.svg",
+            "title": "Sweden",
+            "description": "Sweden",
+            "alt": "Sweden",
+            "search_text": "Sweden"
+        },
+        "switch": {
+            "file_name": "switch.svg",
+            "path": "svg/switch.svg",
+            "title": "Switch",
+            "description": "Switch",
+            "alt": "Switch",
+            "search_text": "Switch"
+        },
+        "tag": {
+            "file_name": "tag.svg",
+            "path": "svg/tag.svg",
+            "title": "Tag",
+            "description": "Tag",
+            "alt": "Tag",
+            "search_text": "Tag"
+        },
+        "tape": {
+            "file_name": "tape.svg",
+            "path": "svg/tape.svg",
+            "title": "Tape",
+            "description": "Tape",
+            "alt": "Tape",
+            "search_text": "Tape"
+        },
+        "target": {
+            "file_name": "target.svg",
+            "path": "svg/target.svg",
+            "title": "Target",
+            "description": "Target",
+            "alt": "Target",
+            "search_text": "Target"
+        },
+        "thermometer": {
+            "file_name": "thermometer.svg",
+            "path": "svg/thermometer.svg",
+            "title": "Thermometer",
+            "description": "Thermometer",
+            "alt": "Thermometer",
+            "search_text": "Thermometer"
+        },
+        "threads": {
+            "file_name": "threads.svg",
+            "path": "svg/threads.svg",
+            "title": "Threads",
+            "description": "Threads",
+            "alt": "Threads",
+            "search_text": "Threads"
+        },
+        "thumbs-down": {
+            "file_name": "thumbs-down.svg",
+            "path": "svg/thumbs-down.svg",
+            "title": "Thumbs-down",
+            "description": "Thumbs-down",
+            "alt": "Thumbs-down",
+            "search_text": "Thumbs-down"
+        },
+        "thumbs-up": {
+            "file_name": "thumbs-up.svg",
+            "path": "svg/thumbs-up.svg",
+            "title": "Thumbs-up",
+            "description": "Thumbs-up",
+            "alt": "Thumbs-up",
+            "search_text": "Thumbs-up"
+        },
+        "ticket": {
+            "file_name": "ticket.svg",
+            "path": "svg/ticket.svg",
+            "title": "Ticket",
+            "description": "Ticket",
+            "alt": "Ticket",
+            "search_text": "Ticket"
+        },
+        "tiktok": {
+            "file_name": "tiktok.svg",
+            "path": "svg/tiktok.svg",
+            "title": "Tiktok",
+            "description": "Tiktok",
+            "alt": "Tiktok",
+            "search_text": "Tiktok"
+        },
+        "to-end": {
+            "file_name": "to-end.svg",
+            "path": "svg/to-end.svg",
+            "title": "To-end",
+            "description": "To-end",
+            "alt": "To-end",
+            "search_text": "To-end"
+        },
+        "to-start": {
+            "file_name": "to-start.svg",
+            "path": "svg/to-start.svg",
+            "title": "To-start",
+            "description": "To-start",
+            "alt": "To-start",
+            "search_text": "To-start"
+        },
+        "tools": {
+            "file_name": "tools.svg",
+            "path": "svg/tools.svg",
+            "title": "Tools",
+            "description": "Tools",
+            "alt": "Tools",
+            "search_text": "Tools"
+        },
+        "traffic-cone": {
+            "file_name": "traffic-cone.svg",
+            "path": "svg/traffic-cone.svg",
+            "title": "Traffic-cone",
+            "description": "Traffic-cone",
+            "alt": "Traffic-cone",
+            "search_text": "Traffic-cone"
+        },
+        "trash": {
+            "file_name": "trash.svg",
+            "path": "svg/trash.svg",
+            "title": "Trash",
+            "description": "Trash",
+            "alt": "Trash",
+            "search_text": "Trash"
+        },
+        "trophy": {
+            "file_name": "trophy.svg",
+            "path": "svg/trophy.svg",
+            "title": "Trophy",
+            "description": "Trophy",
+            "alt": "Trophy",
+            "search_text": "Trophy"
+        },
+        "tumblr-circled": {
+            "file_name": "tumblr-circled.svg",
+            "path": "svg/tumblr-circled.svg",
+            "title": "Tumblr-circled",
+            "description": "Tumblr-circled",
+            "alt": "Tumblr-circled",
+            "search_text": "Tumblr-circled"
+        },
+        "tumblr": {
+            "file_name": "tumblr.svg",
+            "path": "svg/tumblr.svg",
+            "title": "Tumblr",
+            "description": "Tumblr",
+            "alt": "Tumblr",
+            "search_text": "Tumblr"
+        },
+        "twitter-circled": {
+            "file_name": "twitter-circled.svg",
+            "path": "svg/twitter-circled.svg",
+            "title": "Twitter-circled",
+            "description": "Twitter-circled",
+            "alt": "Twitter-circled",
+            "search_text": "Twitter-circled"
+        },
+        "twitter": {
+            "file_name": "twitter.svg",
+            "path": "svg/twitter.svg",
+            "title": "Twitter",
+            "description": "Twitter",
+            "alt": "Twitter",
+            "search_text": "Twitter"
+        },
+        "up-bold": {
+            "file_name": "up-bold.svg",
+            "path": "svg/up-bold.svg",
+            "title": "Up-bold",
+            "description": "Up-bold",
+            "alt": "Up-bold",
+            "search_text": "Up-bold"
+        },
+        "up-circled": {
+            "file_name": "up-circled.svg",
+            "path": "svg/up-circled.svg",
+            "title": "Up-circled",
+            "description": "Up-circled",
+            "alt": "Up-circled",
+            "search_text": "Up-circled"
+        },
+        "up-dir": {
+            "file_name": "up-dir.svg",
+            "path": "svg/up-dir.svg",
+            "title": "Up-dir",
+            "description": "Up-dir",
+            "alt": "Up-dir",
+            "search_text": "Up-dir"
+        },
+        "up-open-big": {
+            "file_name": "up-open-big.svg",
+            "path": "svg/up-open-big.svg",
+            "title": "Up-open-big",
+            "description": "Up-open-big",
+            "alt": "Up-open-big",
+            "search_text": "Up-open-big"
+        },
+        "up-open-mini": {
+            "file_name": "up-open-mini.svg",
+            "path": "svg/up-open-mini.svg",
+            "title": "Up-open-mini",
+            "description": "Up-open-mini",
+            "alt": "Up-open-mini",
+            "search_text": "Up-open-mini"
+        },
+        "up-open": {
+            "file_name": "up-open.svg",
+            "path": "svg/up-open.svg",
+            "title": "Up-open",
+            "description": "Up-open",
+            "alt": "Up-open",
+            "search_text": "Up-open"
+        },
+        "up-thin": {
+            "file_name": "up-thin.svg",
+            "path": "svg/up-thin.svg",
+            "title": "Up-thin",
+            "description": "Up-thin",
+            "alt": "Up-thin",
+            "search_text": "Up-thin"
+        },
+        "up": {
+            "file_name": "up.svg",
+            "path": "svg/up.svg",
+            "title": "Up",
+            "description": "Up",
+            "alt": "Up",
+            "search_text": "Up"
+        },
+        "upload-cloud": {
+            "file_name": "upload-cloud.svg",
+            "path": "svg/upload-cloud.svg",
+            "title": "Upload-cloud",
+            "description": "Upload-cloud",
+            "alt": "Upload-cloud",
+            "search_text": "Upload-cloud"
+        },
+        "upload": {
+            "file_name": "upload.svg",
+            "path": "svg/upload.svg",
+            "title": "Upload",
+            "description": "Upload",
+            "alt": "Upload",
+            "search_text": "Upload"
+        },
+        "user-add": {
+            "file_name": "user-add.svg",
+            "path": "svg/user-add.svg",
+            "title": "User-add",
+            "description": "User-add",
+            "alt": "User-add",
+            "search_text": "User-add"
+        },
+        "user": {
+            "file_name": "user.svg",
+            "path": "svg/user.svg",
+            "title": "User",
+            "description": "User",
+            "alt": "User",
+            "search_text": "User"
+        },
+        "users": {
+            "file_name": "users.svg",
+            "path": "svg/users.svg",
+            "title": "Users",
+            "description": "Users",
+            "alt": "Users",
+            "search_text": "Users"
+        },
+        "vcard": {
+            "file_name": "vcard.svg",
+            "path": "svg/vcard.svg",
+            "title": "Vcard",
+            "description": "Vcard",
+            "alt": "Vcard",
+            "search_text": "Vcard"
+        },
+        "video": {
+            "file_name": "video.svg",
+            "path": "svg/video.svg",
+            "title": "Video",
+            "description": "Video",
+            "alt": "Video",
+            "search_text": "Video"
+        },
+        "vimeo-circled": {
+            "file_name": "vimeo-circled.svg",
+            "path": "svg/vimeo-circled.svg",
+            "title": "Vimeo-circled",
+            "description": "Vimeo-circled",
+            "alt": "Vimeo-circled",
+            "search_text": "Vimeo-circled"
+        },
+        "vimeo": {
+            "file_name": "vimeo.svg",
+            "path": "svg/vimeo.svg",
+            "title": "Vimeo",
+            "description": "Vimeo",
+            "alt": "Vimeo",
+            "search_text": "Vimeo"
+        },
+        "vk": {
+            "file_name": "vk.svg",
+            "path": "svg/vk.svg",
+            "title": "Vk",
+            "description": "Vk",
+            "alt": "Vk",
+            "search_text": "Vk"
+        },
+        "vkontakte": {
+            "file_name": "vkontakte.svg",
+            "path": "svg/vkontakte.svg",
+            "title": "Vkontakte",
+            "description": "Vkontakte",
+            "alt": "Vkontakte",
+            "search_text": "Vkontakte"
+        },
+        "volume": {
+            "file_name": "volume.svg",
+            "path": "svg/volume.svg",
+            "title": "Volume",
+            "description": "Volume",
+            "alt": "Volume",
+            "search_text": "Volume"
+        },
+        "water": {
+            "file_name": "water.svg",
+            "path": "svg/water.svg",
+            "title": "Water",
+            "description": "Water",
+            "alt": "Water",
+            "search_text": "Water"
+        },
+        "weibo": {
+            "file_name": "weibo.svg",
+            "path": "svg/weibo.svg",
+            "title": "Weibo",
+            "description": "Weibo",
+            "alt": "Weibo",
+            "search_text": "Weibo"
+        },
+        "whatsapp": {
+            "file_name": "whatsapp.svg",
+            "path": "svg/whatsapp.svg",
+            "title": "Whatsapp",
+            "description": "Whatsapp",
+            "alt": "Whatsapp",
+            "search_text": "Whatsapp"
+        },
+        "window": {
+            "file_name": "window.svg",
+            "path": "svg/window.svg",
+            "title": "Window",
+            "description": "Window",
+            "alt": "Window",
+            "search_text": "Window"
+        },
+        "windows": {
+            "file_name": "windows.svg",
+            "path": "svg/windows.svg",
+            "title": "Windows",
+            "description": "Windows",
+            "alt": "Windows",
+            "search_text": "Windows"
+        },
+        "wordpress": {
+            "file_name": "wordpress.svg",
+            "path": "svg/wordpress.svg",
+            "title": "Wordpress",
+            "description": "Wordpress",
+            "alt": "Wordpress",
+            "search_text": "Wordpress"
+        },
+        "x-twitter": {
+            "file_name": "x-twitter.svg",
+            "path": "svg/x-twitter.svg",
+            "title": "X-twitter",
+            "description": "X-twitter",
+            "alt": "X-twitter",
+            "search_text": "X-twitter"
+        },
+        "xing": {
+            "file_name": "xing.svg",
+            "path": "svg/xing.svg",
+            "title": "Xing",
+            "description": "Xing",
+            "alt": "Xing",
+            "search_text": "Xing"
+        },
+        "yelp": {
+            "file_name": "yelp.svg",
+            "path": "svg/yelp.svg",
+            "title": "Yelp",
+            "description": "Yelp",
+            "alt": "Yelp",
+            "search_text": "Yelp"
+        },
+        "youtube-play": {
+            "file_name": "youtube-play.svg",
+            "path": "svg/youtube-play.svg",
+            "title": "Youtube-play",
+            "description": "Youtube-play",
+            "alt": "Youtube-play",
+            "search_text": "Youtube-play"
+        },
+        "youtube": {
+            "file_name": "youtube.svg",
+            "path": "svg/youtube.svg",
+            "title": "Youtube",
+            "description": "Youtube",
+            "alt": "Youtube",
+            "search_text": "Youtube"
+        }
+    }
+}

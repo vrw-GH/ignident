@@ -14,6 +14,8 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 {
 	class avia_sc_tab_sub_section extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * @since ???
 		 * @var string
@@ -168,11 +170,11 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Tab Symbol', 'avia_framework' ),
-							'desc' 	=> __( 'Should an icon or image be displayed at the top of the tab title?', 'avia_framework' ),
-							'id' 	=> 'icon_select',
-							'type' 	=> 'select',
-							'std' 	=> 'no',
+							'name'		=> __( 'Tab Symbol', 'avia_framework' ),
+							'desc'		=> __( 'Should an icon or image be displayed at the top of the tab title?', 'avia_framework' ),
+							'id'		=> 'icon_select',
+							'type'		=> 'select',
+							'std'		=> 'no',
 							'subtype'	=> array(
 												__( 'No icon or image', 'avia_framework' )	=> 'no',
 												__( 'Display icon', 'avia_framework' )		=> 'icon_top',
@@ -181,11 +183,13 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Tab Icon', 'avia_framework' ),
-							'desc' 	=> __( 'Select an icon for your tab title below', 'avia_framework' ),
-							'id' 	=> 'icon',
-							'type' 	=> 'iconfont',
-							'std' 	=> '',
+							'name'		=> __( 'Tab Icon', 'avia_framework' ),
+							'desc'		=> __( 'Select an icon for your tab title below', 'avia_framework' ),
+							'id'		=> 'icon',
+							'type'		=> 'iconfont',
+							'std'		=> 'tools',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'required'	=> array( 'icon_select', 'equals', 'icon_top' )
                         ),
 
@@ -468,6 +472,7 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 
 			$atts = shortcode_atts( $default, $atts, $this->config['shortcode'] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			if( avia_sc_tab_sub_section::$attr['content_height'] == 'av-tab-content-auto' )
 			{
@@ -484,6 +489,7 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 
 			$element_styling->add_classes( 'container', $classes );
 			$element_styling->add_classes_from_array( 'container', $meta, 'el_class' );
+			$element_styling->add_classes( 'tab-icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 			$element_styling->add_data_attributes( 'container', array( 'av-deeplink-tabs' => $atts['tab_deeplink'] ) );
 
@@ -491,6 +497,24 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 			$element_styling->add_styles( 'tab-title-active', array( 'color' => $atts['color'] ) );
 			$element_styling->add_styles( 'tab-title-hover', array( 'color' => $atts['inactive_color_hover'] ) );
 			$element_styling->add_styles( 'tab-title-active-hover', array( 'color' => $atts['color_hover'] ) );
+
+			$element_styling->add_styles( 'tab-title-svg', array(
+															'fill'		=> $atts['inactive_color'],
+															'stroke'	=> $atts['inactive_color']
+													) );
+			$element_styling->add_styles( 'tab-title-active-svg', array(
+															'fill'		=> $atts['color'],
+															'stroke'	=> $atts['color']
+													) );
+			$element_styling->add_styles( 'tab-title-hover-svg', array(
+															'fill'		=> $atts['inactive_color_hover'],
+															'stroke'	=> $atts['inactive_color_hover']
+													) );
+			$element_styling->add_styles( 'tab-title-active-hover-svg', array(
+															'fill'		=> $atts['color_hover'],
+															'stroke'	=> $atts['color_hover']
+													) );
+
 
 			if( ! empty( $atts['attachment'] ) )
 			{
@@ -542,6 +566,10 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 						'tab-title-active'			=> "#top .av-tab-section-outer-container.{$outer_element_id} .av-active-tab-title.av-section-tab-title.{$element_id}",
 						'tab-title-hover'			=> "#top .av-tab-section-outer-container.{$outer_element_id} .av-section-tab-title.{$element_id}:hover",
 						'tab-title-active-hover'	=> "#top .av-tab-section-outer-container.{$outer_element_id} .av-active-tab-title.av-section-tab-title.{$element_id}:hover",
+						'tab-title-svg'				=> "#top .av-tab-section-outer-container.{$outer_element_id} .av-section-tab-title.{$element_id} .avia-svg-icon svg:first-child",
+						'tab-title-active-svg'		=> "#top .av-tab-section-outer-container.{$outer_element_id} .av-active-tab-title.av-section-tab-title.{$element_id} .avia-svg-icon svg:first-child",
+						'tab-title-hover-svg'		=> "#top .av-tab-section-outer-container.{$outer_element_id} .av-section-tab-title.{$element_id}:hover .avia-svg-icon svg:first-child",
+						'tab-title-active-hover-svg' => "#top .av-tab-section-outer-container.{$outer_element_id} .av-active-tab-title.av-section-tab-title.{$element_id}:hover .avia-svg-icon svg:first-child",
 						'tab-title-arrow'			=> "#top .av-tab-section-outer-container.{$outer_element_id} .av-active-tab-title.av-section-tab-title.{$element_id} .av-tab-arrow-container span"
 					);
 
@@ -579,11 +607,16 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 			avia_sc_tab_section::$tab_atts[ avia_sc_tab_section::$tab ] = $atts;
 
 
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
-
 			if( $atts['icon_select'] == 'icon_top' )
 			{
-				avia_sc_tab_section::$tab_icons[ avia_sc_tab_section::$tab ] = "<span class='av-tab-section-icon' {$display_char}></span>";
+				$icon_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
+				$icon_class = $element_styling->get_class_string( 'tab-icon' );
+
+				$display_char  = "<span class='av-tab-section-icon {$icon_class}' {$icon_char['attr']}>";
+				$display_char .=		$icon_char['svg'];
+				$display_char .= '</span>';
+
+				avia_sc_tab_section::$tab_icons[ avia_sc_tab_section::$tab ] = $display_char;
 			}
 
 			if( $atts['icon_select'] == 'image_top' )
@@ -597,7 +630,7 @@ if( ! class_exists( 'avia_sc_tab_sub_section', false ) )
 					 * @return string
 					 */
 					$img_size = apply_filters( 'avf_tab_subsection_image_size', 'square', $atts );
-					
+
 					$src = wp_get_attachment_image_src( $atts['tab_image'], $img_size );
 
 					if( ! empty( $src[0] ) )

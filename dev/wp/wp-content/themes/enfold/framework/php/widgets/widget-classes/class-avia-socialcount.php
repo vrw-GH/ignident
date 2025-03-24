@@ -70,10 +70,9 @@ if( ! class_exists( __NAMESPACE__ . '\avia_socialcount', false ) )
 			extract( $args, EXTR_SKIP );
 
 			$twitter = empty( $instance['twitter'] ) ? '' : $instance['twitter'];
+
 			$rss = empty( $instance['rss'] ) ? '' : $instance['rss'];
-
 			$rss = preg_replace( '!https?:\/\/feeds.feedburner.com\/!', '', $rss );
-
 
 			if( ! empty( $twitter ) || ! empty( $rss ) )
 			{
@@ -87,12 +86,14 @@ if( ! class_exists( __NAMESPACE__ . '\avia_socialcount', false ) )
 				echo $before_widget;
 
 				$output = '';
+
 				if( ! empty( $twitter ) )
 				{
 					$link = 'http://twitter.com/' . $twitter . '/';
-					$before = apply_filters( 'avf_social_widget', '', 'twitter' );
+					$icon = apply_filters( 'avf_social_widget', '', 'svg__twitter', [ 'aria-hidden' => 'true', 'title' => 'X Logo' , 'desc' => 'X Logo' ] );
+
 					$output .= "<a href='{$link}' class='asc_twitter {$addClass}'>";
-					$output .=		$before;
+					$output .=		$icon;
 					$output .=		'<strong class="asc_count">' . __( 'Follow', 'avia_framework' ) . '</strong>';
 					$output .=		'<span>' . __( 'on X', 'avia_framework' ) . '</span>';
 					$output .= '</a>';
@@ -100,14 +101,17 @@ if( ! class_exists( __NAMESPACE__ . '\avia_socialcount', false ) )
 
 				if( $rss )
 				{
+					$icon = apply_filters( 'avf_social_widget', '', 'svg__rss', [ 'aria-hidden' => 'true', 'title' => 'RSS Feed Logo' , 'desc' => 'RSS Feed Logo' ] );
+
 					$output .= "<a href='{$rss}' class='asc_rss {$addClass}'>";
-					$output .=		apply_filters( 'avf_social_widget', '', 'rss' );
+					$output .=		$icon;
 					$output .=		'<strong class="asc_count">' . __( 'Subscribe', 'avia_framework' ) . '</strong>';
-					$output .=		'<span>' . __( 'to RSS Feed', 'avia_framework' ).'</span>';
+					$output .=		'<span>' . __( 'to RSS Feed', 'avia_framework' ) . '</span>';
 					$output .= '</a>';
 				}
 
 				echo $output;
+
 				echo $after_widget;
 			}
 		}

@@ -14,6 +14,7 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 {
 	class avia_sc_hr extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
 
 		/**
 		 * Create the config array for the shortcode button
@@ -47,7 +48,6 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 			wp_enqueue_style( 'avia-module-hr', AviaBuilder::$path['pluginUrlRoot'] . "avia-shortcodes/hr/hr{$min_css}.css", array( 'avia-layout' ), $ver );
 		}
 
-
 		/**
 		 * Popup Elements
 		 *
@@ -58,7 +58,6 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 		 */
 		protected function popup_elements()
 		{
-
 			$this->elements = array(
 
 				array(
@@ -145,11 +144,11 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 
 			$c = array(
 						array(
-							'name' 	=> __( 'Horizontal Ruler Styling', 'avia_framework' ),
-							'desc' 	=> __( 'Here you can set the styling and size of the HR element', 'avia_framework' ),
-							'id' 	=> 'class',
-							'type' 	=> 'select',
-							'std' 	=> 'default',
+							'name'		=> __( 'Horizontal Ruler Styling', 'avia_framework' ),
+							'desc'		=> __( 'Here you can set the styling and size of the HR element', 'avia_framework' ),
+							'id'		=> 'class',
+							'type'		=> 'select',
+							'std'		=> 'default',
 							'lockable'	=> true,
 							'subtype'	=> array(
 												__( 'Predefined Separators', 'avia_framework' )	=> array(
@@ -166,11 +165,11 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Icon', 'avia_framework' ),
-							'desc' 	=> __( 'Should an icon be displayed at the center?', 'avia_framework' ),
-							'id' 	=> 'icon_select',
-							'type' 	=> 'select',
-							'std' 	=> 'yes',
+							'name'		=> __( 'Icon', 'avia_framework' ),
+							'desc'		=> __( 'Should an icon be displayed at the center?', 'avia_framework' ),
+							'id'		=> 'icon_select',
+							'type'		=> 'select',
+							'std'		=> 'yes',
 							'lockable'	=> true,
 							'required'	=> array( 'class', 'equals', 'custom' ),
 							'subtype'	=> array(
@@ -180,22 +179,24 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Icon','avia_framework' ),
-							'desc' 	=> __( 'Select an icon below','avia_framework' ),
-							'id' 	=> 'icon',
-							'type' 	=> 'iconfont',
-							'std' 	=> 'ue808',
+							'name'		=> __( 'Icon','avia_framework' ),
+							'desc'		=> __( 'Select an icon below','avia_framework' ),
+							'id'		=> 'icon',
+							'type'		=> 'iconfont',
+							'std'		=> 'star',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'icon_select', 'not_empty_and', 'no' )
 						),
 
 						array(
-							'name' 	=> __( 'Position', 'avia_framework' ),
-							'desc' 	=> __( 'Set the position of the short ruler', 'avia_framework' ),
-							'id' 	=> 'position',
-							'type' 	=> 'select',
-							'std' 	=> 'center',
+							'name'		=> __( 'Position', 'avia_framework' ),
+							'desc'		=> __( 'Set the position of the short ruler', 'avia_framework' ),
+							'id'		=> 'position',
+							'type'		=> 'select',
+							'std'		=> 'center',
 							'lockable'	=> true,
 							'required'	=> array( 'class', 'contains','o' ),
 							'subtype'	=> array(
@@ -206,11 +207,11 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Section Top Shadow', 'avia_framework' ),
-							'desc'  => __( 'Display a small styling shadow at the top of the section', 'avia_framework' ),
-							'id' 	=> 'shadow',
-							'type' 	=> 'select',
-							'std' 	=> 'no-shadow',
+							'name'		=> __( 'Section Top Shadow', 'avia_framework' ),
+							'desc'		=> __( 'Display a small styling shadow at the top of the section', 'avia_framework' ),
+							'id'		=> 'shadow',
+							'type'		=> 'select',
+							'std'		=> 'no-shadow',
 							'lockable'	=> true,
 							'required'	=> array( 'class', 'equals', 'full' ),
 							'subtype'	=> array(
@@ -220,20 +221,20 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Height', 'avia_framework' ),
-							'desc' 	=> __( "How much whitespace do you need? Enter a pixel value. Positive value will increase the whitespace, negative value will reduce it. eg: '50', '-25', '200'", 'avia_framework' ),
-							'id' 	=> 'height',
-							'type' 	=> 'input',
+							'name'		=> __( 'Height', 'avia_framework' ),
+							'desc'		=> __( "How much whitespace do you need? Enter a pixel value. Positive value will increase the whitespace, negative value will reduce it. eg: '50', '-25', '200'", 'avia_framework' ),
+							'id'		=> 'height',
+							'type'		=> 'input',
 							'std'		=> '50',
 							'lockable'	=> true,
 							'required'	=> array( 'class', 'equals', 'invisible' )
 						),
 
 						array(
-							'name' 	=> __( 'Border', 'avia_framework' ),
-							'id' 	=> 'custom_border',
-							'type' 	=> 'select',
-							'std' 	=> 'av-border-thin',
+							'name'		=> __( 'Border', 'avia_framework' ),
+							'id'		=> 'custom_border',
+							'type'		=> 'select',
+							'std'		=> 'av-border-thin',
 							'lockable'	=> true,
 							'required'	=> array( 'class', 'equals', 'custom' ),
 							'subtype'	=> array(
@@ -244,53 +245,53 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Width', 'avia_framework' ),
-							'desc' 	=> __( 'Enter a custom width. Both, px and &percnt; values are allowed. When using an icon width for rulers are limited to 45%.', 'avia_framework' ),
-							'id' 	=> 'custom_width',
-							'type' 	=> 'input',
+							'name'		=> __( 'Width', 'avia_framework' ),
+							'desc'		=> __( 'Enter a custom width. Both, px and &percnt; values are allowed. When using an icon width for rulers are limited to 45%.', 'avia_framework' ),
+							'id'		=> 'custom_width',
+							'type'		=> 'input',
 							'std'		=> '50px',
 							'lockable'	=> true,
 							'required'	=> array( 'custom_border', 'not', 'av-border-none' )
 						),
 
 						array(
-							'name' 	=> __( 'Top Margin in px', 'avia_framework' ),
-							'id' 	=> 'custom_margin_top',
-							'type' 	=> 'input',
-							'std'	=> '30px',
+							'name'		=> __( 'Top Margin in px', 'avia_framework' ),
+							'id'		=> 'custom_margin_top',
+							'type'		=> 'input',
+							'std'		=> '30px',
 							'container_class' 	=> 'av_half av_half_first',
 							'lockable'	=> true,
 							'required'	=> array( 'class', 'equals', 'custom' )
 						),
 
 						array(
-							'name' 	=> __( 'Bottom Margin in px', 'avia_framework' ),
-							'id' 	=> 'custom_margin_bottom',
-							'type' 	=> 'input',
-							'std'	=> '30px',
+							'name'		=> __( 'Bottom Margin in px', 'avia_framework' ),
+							'id'		=> 'custom_margin_bottom',
+							'type'		=> 'input',
+							'std'		=> '30px',
 							'container_class' 	=> 'av_half',
 							'lockable'	=> true,
 							'required'	=> array( 'class', 'equals', 'custom' )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Border Color', 'avia_framework' ),
-							'desc' 	=> __( 'Leave empty for default theme color', 'avia_framework' ),
-							'id' 	=> 'custom_border_color',
-							'type' 	=> 'colorpicker',
-							'rgba' 	=> true,
-							'std' 	=> '',
+							'name'		=> __( 'Custom Border Color', 'avia_framework' ),
+							'desc'		=> __( 'Leave empty for default theme color', 'avia_framework' ),
+							'id'		=> 'custom_border_color',
+							'type'		=> 'colorpicker',
+							'rgba'		=> true,
+							'std'		=> '',
 							'lockable'	=> true,
 							'required' => array( 'custom_border', 'not', 'av-border-none' )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Icon Color', 'avia_framework' ),
-							'desc' 	=> __( 'Leave empty for default theme color', 'avia_framework' ),
-							'id' 	=> 'custom_icon_color',
-							'type' 	=> 'colorpicker',
-							'rgba' 	=> true,
-							'std' 	=> '',
+							'name'		=> __( 'Custom Icon Color', 'avia_framework' ),
+							'desc'		=> __( 'Leave empty for default theme color', 'avia_framework' ),
+							'id'		=> 'custom_icon_color',
+							'type'		=> 'colorpicker',
+							'rgba'		=> true,
+							'std'		=> '',
 							'lockable'	=> true,
 							'required' => array( 'icon_select', 'not_empty_and', 'no' )
 						)
@@ -356,6 +357,8 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 
 			$atts = shortcode_atts( $default, $atts, $this->config['shortcode'] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
+
 			//	clean input
 			$atts['height'] = trim( $atts['height'], 'px% ' );
 
@@ -371,6 +374,8 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 			$element_styling->add_classes( 'container', $classes );
 			$element_styling->add_classes_from_array( 'container', $meta, 'el_class' );
 			$element_styling->add_responsive_classes( 'container', 'hide_element', $atts );
+
+			$element_styling->add_classes( 'container-icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 			if( 'invisible' == $atts['class'] )
 			{
@@ -413,6 +418,10 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 				{
 					$element_styling->add_styles( 'container-inner', array( 'max-width'	=> '45%' ) );
 					$element_styling->add_styles( 'container-icon', array( 'color'	=> $atts['custom_icon_color'] ) );
+					$element_styling->add_styles( 'container-icon-svg', array(
+															'fill'		=> $atts['custom_icon_color'],
+															'stroke'	=> $atts['custom_icon_color']
+														) );
 				}
 			}
 
@@ -421,7 +430,8 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 						'container'				=> "#top .hr.{$element_id}",
 						'container-invisible'	=> "#top .hr.hr-invisible.{$element_id}",
 						'container-inner'		=> ".hr.{$element_id} .hr-inner",
-						'container-icon'		=> ".hr.{$element_id} .av-seperator-icon"
+						'container-icon'		=> ".hr.{$element_id} .av-seperator-icon",
+						'container-icon-svg'	=> ".hr.{$element_id} .av-seperator-icon.avia-svg-icon svg:first-child"
 					);
 
 			$element_styling->add_selectors( $selectors );
@@ -450,12 +460,16 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 			extract( $result );
 			extract( $atts );
 
-			$display_char = '';
+			$char_html = '';
 
 			if( 'custom' == $class && 'no' != $icon_select )
 			{
-				$display_char = av_icon( $icon, $font );
-				$display_char = "<span class='av-seperator-icon' {$display_char}></span>";
+				$display_char = avia_font_manager::get_frontend_icon( $icon, $font );
+				$icon_class = $element_styling->get_class_string( 'container-icon' );
+
+				$char_html  = "<span class='av-seperator-icon {$icon_class}' {$display_char['attr']}>";
+				$char_html .=		$display_char['svg'];
+				$char_html .= '</span>';
 			}
 
 			$style_tag = $element_styling->get_style_tag( $element_id );
@@ -471,9 +485,9 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 			$output .=	"<div {$meta['custom_el_id']} class='{$container_class}'>";
 			$output .=		$outputInner;
 
-			if( $display_char )
+			if( $char_html )
 			{
-				$output .=	$display_char;
+				$output .=	$char_html;
 				$output .=	$outputInner;
 			}
 

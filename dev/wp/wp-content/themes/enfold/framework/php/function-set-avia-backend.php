@@ -182,7 +182,7 @@ if( ! function_exists( 'avia_backend_safe_string' ) )
 	 * @param boolean $check_spaces
 	 * @return string						the converted string
 	 */
-	function avia_backend_safe_string( $string , $replace = '_', $check_spaces = false )
+	function avia_backend_safe_string( $string, $replace = '_', $check_spaces = false )
 	{
 		$string = strtolower( $string );
 
@@ -198,9 +198,9 @@ if( ! function_exists( 'avia_backend_safe_string' ) )
 					'Ü'						=> 'Ue',
 					'ß'						=> 'ss',
 					'[^a-z0-9\-\._]'		=> '',
-					$replace.'+'			=> $replace,
-					$replace.'$'			=> $replace,
-					'^'.$replace			=> $replace,
+					"{$replace}+"			=> $replace,
+					"{$replace}$"			=> $replace,
+					"^{$replace}"			=> $replace,
 					'\.+$'					=> ''
 				  );
 
@@ -969,7 +969,7 @@ if( ! function_exists( 'avia_backend_create_file' ) )
 {
 	/**
 	 * Creates a file for the theme framework and optionally verifies content
-	 * 
+	 *
 	 * @since ????
 	 * @since 5.7					modified for better error handling in try/catch block
 	 * @param string $file

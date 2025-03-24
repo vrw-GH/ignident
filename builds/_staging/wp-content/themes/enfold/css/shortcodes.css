@@ -183,6 +183,13 @@ Icon
 	transition: all 0.3s ease-in-out;
 }
 
+.av-icon-display.avia-svg-icon svg:first-child,
+.av-icon-display.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+	margin-bottom: -4px;
+}
+
 /* ======================================================================================================================================================
 COLOR SECTION
 ====================================================================================================================================================== */
@@ -299,6 +306,18 @@ COLOR SECTION
 	text-decoration: none;
 	text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
 	animation: avia_fade_move_down 2s ease-in-out infinite;
+}
+
+#top .scroll-down-link.avia-svg-icon svg:first-child{
+	height: 70px;
+	width: auto;
+	stroke: #FFF;
+	fill: #FFF;
+}
+
+#top .scroll-down-link.avia-svg-icon img[is-svg-img="true"]{
+	height: 70px;
+	width: auto;
 }
 
 /*video bg*/

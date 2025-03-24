@@ -36,7 +36,7 @@ $desc = apply_filters( 'avf_theme_options_heading_desc', $desc, 'alb_element_tem
 
 $avia_elements[] = array(
 			'slug'		=> 'avia_element_templates',
-			'name'		=> __( 'Custom Elements (Custom Element Templates - CET)', 'avia_framework' ),
+			'name'		=> __( 'Custom Elements (Custom Element Templates - CET) For Advanced Layout Builder', 'avia_framework' ),
 			'desc'		=> $desc,
 			'id'		=> 'alb_element_templates_header',
 			'type'		=> 'heading',

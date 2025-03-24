@@ -603,7 +603,7 @@ if( ! class_exists( 'ShortcodeParser', false ) )
 			/**
 			 * 3-rd party shortcode with \ breaks regex
 			 * https://github.com/KriesiMedia/wp-themes/issues/4182
-			 * 
+			 *
 			 * @since 5.6.4
 			 */
 			foreach( $shortcodes as $key => $shortcode )
@@ -2886,7 +2886,7 @@ if( ! class_exists( 'ShortcodeParser', false ) )
 			}
 
 
-			$out .=			"[av_tab title='Shortcode Tree' icon_select='yes' icon='ue856' font='entypo-fontello']";
+			$out .=			"[av_tab title='Shortcode Tree' icon_select='yes' icon='tools' font='svg_entypo-fontello']";
 
 			$out .=				'<pre><code>';
 			$out .=					print_r( ShortcodeHelper::$tree, true );
@@ -2917,22 +2917,22 @@ if( ! class_exists( 'ShortcodeParser', false ) )
 			{
 				case '_alb_shortcode_status_clean_data':
 					$title = __( 'Advanced Layout Editor', 'avia_framework' );
-					$icon = 'ue8d3';
+					$icon = 'database';
 					break;
 				case '_alb_shortcode_status_preview':
 					$title = __( 'Preview', 'avia_framework' );
-					$icon = 'ue803';
+					$icon = 'search';
 					break;
 				case '_alb_shortcode_status_content':
 					$title = __( 'Wordpress Editor', 'avia_framework' );
-					$icon = 'ue836';
+					$icon = 'pencil';
 				default:
 					break;
 			}
 
 			$messages = $this->get_parser_message( $key );
 
-			$out .=			"[av_tab title='{$title}' icon_select='yes' icon='{$icon}' font='entypo-fontello']";
+			$out .=			"[av_tab title='{$title}' icon_select='yes' icon='{$icon}' font='svg_entypo-fontello']";
 
 			if( ! empty( $messages ) )
 			{
@@ -2979,7 +2979,7 @@ if( ! class_exists( 'ShortcodeParser', false ) )
 
 						if( $count > 0 )
 						{
-							$out .=		"[av_hr class='custom' height='50' shadow='no-shadow' position='center' custom_border='av-border-thin' custom_width='50px' custom_border_color='' custom_margin_top='0px' custom_margin_bottom='0px' icon_select='yes' custom_icon_color='' icon='ue8bf' font='entypo-fontello' custom_class='' admin_preview_bg='']";
+							$out .=		"[av_hr class='custom' height='50' shadow='no-shadow' position='center' custom_border='av-border-thin' custom_width='50px' custom_border_color='' custom_margin_top='0px' custom_margin_bottom='0px' icon_select='yes' custom_icon_color='' icon='dot-3' font='svg_entypo-fontello' custom_class='' admin_preview_bg='']";
 						}
 
 						$count++;
@@ -3011,7 +3011,7 @@ if( ! class_exists( 'ShortcodeParser', false ) )
 				$out .=		'</div>  <!-- end message container --> ';
 			}
 
-//			$out .=				"[av_hr class='custom' height='50' shadow='no-shadow' position='center' custom_border='av-border-thin' custom_width='50px' custom_border_color='' custom_margin_top='30px' custom_margin_bottom='0px' icon_select='yes' custom_icon_color='' icon='ue8bf' font='entypo-fontello' custom_class='' admin_preview_bg='']";
+//			$out .=				"[av_hr class='custom' height='50' shadow='no-shadow' position='center' custom_border='av-border-thin' custom_width='50px' custom_border_color='' custom_margin_top='30px' custom_margin_bottom='0px' icon_select='yes' custom_icon_color='' icon='dot-3' font='svg_entypo-fontello' custom_class='' admin_preview_bg='']";
 //			$out .=				'<pre><code>';
 //			$out .=					str_replace( '[', '&#91;', print_r( $messages, true ) );
 //			$out .=				'</code></pre>';

@@ -1558,37 +1558,55 @@ if ( ! Array.isArray )
 
         display_tooltip: function(e)
         {
-            var _self		= this,
-            	target 		= this.options.event == "click" ? e.target : e.currentTarget,
-            	element 	= $(target),
-                text    	= element.data(this.options.data),
-                tip_index  	= element.data('avia-created-tooltip'),
-            	extraClass 	= element.data('avia-tooltip-class'),
-                attach  	= this.options.attach == 'element' ? element : this.body,
-                offset  	= this.options.attach == 'element' ? element.position() : element.offset(),
-                position	= element.data('avia-tooltip-position'),
-                align		= element.data('avia-tooltip-alignment'),
-                force_append= false,
-				newTip		= false,
-				is_new_tip	= false;
+            let _self = this,
+            	target = this.options.event == "click" ? e.target : e.currentTarget,
+				text = $(target).data( this.options.data );
 
-            text = 'string' == typeof text ? text.trim() : '';
+			text = 'string' == typeof text ? text.trim() : '';
 
-            if(element.is('.av-perma-tooltip'))
+			if( $('header').hasClass('av_header_transparency') )
+			{
+				/**
+				 * svg icon in ajax search returns <svg> and not <a> (this is a hack as no solution with CSS)
+				 *
+				 * @since 7.0
+				 */
+				if( text == '' )
+				{
+					target = e.currentTarget;
+					text = $(target).data( this.options.data );
+					text = 'string' == typeof text ? text.trim() : '';
+				}
+			}
+
+            let	element = $(target),
+                tip_index = element.data('avia-created-tooltip'),
+            	extraClass = element.data('avia-tooltip-class'),
+                attach = this.options.attach == 'element' ? element : this.body,
+                offset = this.options.attach == 'element' ? element.position() : element.offset(),
+                position = element.data('avia-tooltip-position'),
+                align = element.data('avia-tooltip-alignment'),
+                force_append = false,
+				newTip = false,
+				is_new_tip = false;
+
+            if( element.is('.av-perma-tooltip') )
             {
-	            offset = {top:0, left:0 };
+	            offset = { top:0, left:0 };
 	        	attach = element;
 				force_append = true;
             }
 
-			if( text == "" )
+			if( text == '' )
 			{
 				return;
 			}
+
 			if( position == "" || typeof position == 'undefined' )
 			{
 				position = this.options.position;
 			}
+
 			if( align == "" || typeof align == 'undefined' )
 			{
 				align = 'center';

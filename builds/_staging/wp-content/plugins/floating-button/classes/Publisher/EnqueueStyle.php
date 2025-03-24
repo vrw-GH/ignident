@@ -36,7 +36,7 @@ class EnqueueStyle {
 
 		if ( empty( $param['disable_fontawesome'] ) ) {
 			$url_icons = $asset . 'vendors/fontawesome/css/fontawesome-all' . $pre_suffix . '.css';
-			wp_enqueue_style( $slug . '-fontawesome', $url_icons, null, '6.4.2' );
+			wp_enqueue_style( $slug . '-fontawesome', $url_icons, null, '6.6' );
 		}
 
 		if ( ! empty( $param['button_animation'] ) ) {

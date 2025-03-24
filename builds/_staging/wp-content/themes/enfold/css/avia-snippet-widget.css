@@ -493,7 +493,7 @@ div .widget_nav_menu{
     margin:8px;
 }
 
-.avia_fb_likebox .av_facebook_widget_icon {
+.avia_fb_likebox .av_facebook_widget_icon{
     display: inline-block;
     margin-right: 5px;
     background: #3a5797;
@@ -504,6 +504,14 @@ div .widget_nav_menu{
     border-radius: 2px;
     font-size: 11px;
     line-height: 18px;
+}
+
+.avia_fb_likebox .av_facebook_widget_icon.avia-svg-icon svg:first-child{
+	height: 1em;
+	width: 1em;
+	fill: #fff;
+	stroke: #fff;
+	margin-bottom: -1px;
 }
 
 .avia_fb_likebox .ajax_load{
@@ -538,11 +546,23 @@ div .widget_nav_menu{
 	background-color:#fff;
 }
 
+.asc_twitter .social_widget_icon.avia-svg-icon svg:first-child{
+	fill: #000;
+	stroke: #000;
+	margin-top: 8px;
+}
+
 .asc_rss .social_widget_icon{
 	color:#fff;
 	background-color:#ffa133;
 	border-color:#ffa133;
 	text-shadow: 1px 1px 1px #D18021;
+}
+
+.asc_rss .social_widget_icon.avia-svg-icon svg:first-child{
+	fill: #fff;
+	stroke: #fff;
+	margin-top: 8px;
 }
 
 .avia_socialcount .seperator{

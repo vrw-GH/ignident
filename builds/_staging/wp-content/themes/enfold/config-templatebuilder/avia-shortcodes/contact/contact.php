@@ -37,6 +37,7 @@ if ( ! class_exists( 'avia_sc_contact', false ) )
 			$this->config['id_name']		= 'id';
 			$this->config['id_show']		= 'yes';
 			$this->config['aria_label']		= 'yes';
+			$this->config['aria_label_def']	= __( 'Contact Form', 'avia_framework' );
 			$this->config['alb_desc_id']	= 'alb_description';
 			$this->config['name_item']		= __( 'Contact Form Item', 'avia_framework' );
 			$this->config['tooltip_item']	= __( 'A Contact Form Element Item', 'avia_framework' );
@@ -138,7 +139,7 @@ if ( ! class_exists( 'avia_sc_contact', false ) )
 						array(
 								'type'			=> 'template',
 								'template_id'	=> 'developer_options_toggle',
-								'args'			=> array( 'sc' => $this )
+								'args'			=> array( 'sc' => $this  )
 							),
 
 					array(

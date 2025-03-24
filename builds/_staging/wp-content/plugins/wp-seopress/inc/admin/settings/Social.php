@@ -37,7 +37,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_knowledge_desc', // ID
-    __('Description (only for Organizations)', 'wp-seopress'), // Title
+    __('Description', 'wp-seopress'), // Title
     'seopress_social_knowledge_desc_callback', // Callback
     'seopress-settings-admin-social-knowledge', // Page
     'seopress_setting_section_social_knowledge' // Section
@@ -45,7 +45,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_knowledge_email', // ID
-    __('Email (only for Organizations)', 'wp-seopress'), // Title
+    __('Email', 'wp-seopress'), // Title
     'seopress_social_knowledge_email_callback', // Callback
     'seopress-settings-admin-social-knowledge', // Page
     'seopress_setting_section_social_knowledge' // Section
@@ -53,7 +53,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_knowledge_phone', // ID
-    __("Organization's phone number (only for Organizations)", 'wp-seopress'), // Title
+    __("Organization's phone number", 'wp-seopress'), // Title
     'seopress_social_knowledge_phone_callback', // Callback
     'seopress-settings-admin-social-knowledge', // Page
     'seopress_setting_section_social_knowledge' // Section
@@ -61,7 +61,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_knowledge_contact_type', // ID
-    __('Contact type (only for Organizations)', 'wp-seopress'), // Title
+    __('Contact type', 'wp-seopress'), // Title
     'seopress_social_knowledge_contact_type_callback', // Callback
     'seopress-settings-admin-social-knowledge', // Page
     'seopress_setting_section_social_knowledge' // Section
@@ -69,7 +69,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_knowledge_contact_option', // ID
-    __('Contact option (only for Organizations)', 'wp-seopress'), // Title
+    __('Contact option', 'wp-seopress'), // Title
     'seopress_social_knowledge_contact_option_callback', // Callback
     'seopress-settings-admin-social-knowledge', // Page
     'seopress_setting_section_social_knowledge' // Section
@@ -77,7 +77,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_knowledge_tax_id', // ID
-    __('VAT ID (only for Organizations)', 'wp-seopress'), // Title
+    __('VAT ID', 'wp-seopress'), // Title
     'seopress_social_knowledge_tax_id_callback', // Callback
     'seopress-settings-admin-social-knowledge', // Page
     'seopress_setting_section_social_knowledge' // Section
@@ -94,7 +94,7 @@ add_settings_section(
 
 add_settings_field(
     'seopress_social_accounts_facebook', // ID
-    __('Facebook Page URL', 'wp-seopress'), // Title
+    '<img class="seopress-social-icon" src="' . esc_url(SEOPRESS_URL_ASSETS . '/img/social/facebook.svg') . '" alt="Facebook" width="24" height="24"> ' . __('Facebook page URL', 'wp-seopress'), // Title
     'seopress_social_accounts_facebook_callback', // Callback
     'seopress-settings-admin-social-accounts', // Page
     'seopress_setting_section_social_accounts' // Section
@@ -102,7 +102,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_accounts_twitter', // ID
-    __('X Username', 'wp-seopress'), // Title
+    '<img class="seopress-social-icon" src="' . esc_url(SEOPRESS_URL_ASSETS . '/img/social/x.svg') . '" alt="X" width="24" height="24"> ' . __('X Username', 'wp-seopress'), // Title
     'seopress_social_accounts_twitter_callback', // Callback
     'seopress-settings-admin-social-accounts', // Page
     'seopress_setting_section_social_accounts' // Section
@@ -110,7 +110,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_accounts_pinterest', // ID
-    __('Pinterest URL', 'wp-seopress'), // Title
+    '<img class="seopress-social-icon" src="' . esc_url(SEOPRESS_URL_ASSETS . '/img/social/pinterest.svg') . '" alt="Pinterest" width="24" height="24"> ' . __('Pinterest URL', 'wp-seopress'), // Title
     'seopress_social_accounts_pinterest_callback', // Callback
     'seopress-settings-admin-social-accounts', // Page
     'seopress_setting_section_social_accounts' // Section
@@ -118,7 +118,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_accounts_instagram', // ID
-    __('Instagram URL', 'wp-seopress'), // Title
+    '<img class="seopress-social-icon" src="' . esc_url(SEOPRESS_URL_ASSETS . '/img/social/instagram.svg') . '" alt="Instagram" width="24" height="24"> ' . __('Instagram URL', 'wp-seopress'), // Title
     'seopress_social_accounts_instagram_callback', // Callback
     'seopress-settings-admin-social-accounts', // Page
     'seopress_setting_section_social_accounts' // Section
@@ -126,7 +126,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_accounts_youtube', // ID
-    __('YouTube URL', 'wp-seopress'), // Title
+    '<img class="seopress-social-icon" src="' . esc_url(SEOPRESS_URL_ASSETS . '/img/social/youtube.svg') . '" alt="YouTube" width="24" height="24"> ' . __('YouTube URL', 'wp-seopress'), // Title
     'seopress_social_accounts_youtube_callback', // Callback
     'seopress-settings-admin-social-accounts', // Page
     'seopress_setting_section_social_accounts' // Section
@@ -134,7 +134,7 @@ add_settings_field(
 
 add_settings_field(
     'seopress_social_accounts_linkedin', // ID
-    __('LinkedIn URL', 'wp-seopress'), // Title
+    '<img class="seopress-social-icon" src="' . esc_url(SEOPRESS_URL_ASSETS . '/img/social/linkedin.svg') . '" alt="LinkedIn" width="24" height="24"> ' . __('LinkedIn URL', 'wp-seopress'), // Title
     'seopress_social_accounts_linkedin_callback', // Callback
     'seopress-settings-admin-social-accounts', // Page
     'seopress_setting_section_social_accounts' // Section

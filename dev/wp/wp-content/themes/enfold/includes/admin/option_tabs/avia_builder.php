@@ -12,7 +12,7 @@ global $avia_config, $avia_pages, $avia_elements;
 
 $avia_elements[] = array(
 			'slug'          => 'builder',
-			'name'          => __( 'General Builder Options','avia_framework' ),
+			'name'          => __( 'Advanced Layout Builder Options','avia_framework' ),
 			'desc'          => '',
 			'id'            => 'avia_builder_general',
 			'type'          => 'heading',

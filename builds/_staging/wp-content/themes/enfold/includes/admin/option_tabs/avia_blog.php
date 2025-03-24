@@ -13,6 +13,32 @@ global $avia_config, $avia_pages, $avia_elements;
  * This is only a temporary solution - will be moved to a class later
  */
 $avia_config['social_icon_array'] = array(
+						'500px SVG'				=> 'svg__five_100_px',
+						'Behance SVG'			=> 'svg__behance',
+						'Dribbble SVG'			=> 'svg__dribbble',
+						'Facebook SVG'			=> 'svg__facebook',
+						'Flickr SVG'			=> 'svg__flickr',
+						'Instagram SVG'			=> 'svg__instagram',
+						'LinkedIn SVG'			=> 'svg__linkedin',
+						'Pinterest SVG'			=> 'svg__pinterest',
+						'Reddit SVG'			=> 'svg__reddit',
+						'Telegram SVG'			=> 'svg__telegram',
+						'Skype SVG'				=> 'svg__skype',
+						'Soundcloud SVG'		=> 'svg__soundcloud',
+						'Tumblr SVG'			=> 'svg__tumblr',
+						'Twitter SVG'			=> 'svg__twitter',
+						'Square-X-Twitter SVG'	=> 'svg__square-x-twitter',
+						'TikTok SVG'			=> 'svg__tiktok',
+						'Threads SVG'			=> 'svg__threads',
+						'Vimeo SVG'				=> 'svg__vimeo',
+						'Vk SVG'				=> 'svg__vk',
+						'Xing SVG'				=> 'svg__xing',
+						'Yelp SVG'				=> 'svg__yelp',
+						'YouTube SVG'			=> 'svg__youtube',
+						'WhatsApp SVG'			=> 'svg__whatsapp',
+						__( 'Special: RSS SVG (add RSS URL, leave blank if you want to use default WordPress RSS feed)', 'avia_framework' ) => 'svg__rss',
+						__( 'Special: Email Icon SVG (add your own URL to link to a contact form)', 'avia_framework' ) => 'svg__mail',
+
 						'500px'				=> 'five_100_px',
 						'Behance'			=> 'behance',
 						'Dribbble'			=> 'dribbble',
@@ -29,6 +55,7 @@ $avia_config['social_icon_array'] = array(
 						'Twitter'			=> 'twitter',
 						'Square-X-Twitter'	=> 'square-x-twitter',
 						'TikTok'			=> 'tiktok',
+						'Threads'			=> 'threads',
 						'Vimeo'				=> 'vimeo',
 						'Vk'				=> 'vk',
 						'Xing'				=> 'xing',
@@ -36,7 +63,7 @@ $avia_config['social_icon_array'] = array(
 						'YouTube'			=> 'youtube',
 						'WhatsApp'			=> 'whatsapp',
 						__( 'Special: RSS (add RSS URL, leave blank if you want to use default WordPress RSS feed)', 'avia_framework' ) => 'rss',
-						__( 'Special: Email Icon (add your own URL to link to a contact form)', 'avia_framework' ) => 'mail',
+						__( 'Special: Email Icon (add your own URL to link to a contact form)', 'avia_framework' ) => 'mail'
 					);
 
 /**
@@ -49,6 +76,18 @@ $avia_config['social_icon_array'] = apply_filters( 'avf_social_icons_options', $
 
 
 $avia_config['social_share_array'] = array(
+						'Facebook SVG'			=> 'svg__facebook',
+						'Twitter SVG'			=> 'svg__twitter',
+						'Square-X-Twitter SVG'	=> 'svg__square-x-twitter',
+						'WhatsApp SVG'			=> 'svg__whatsapp',
+						'Pinterest SVG'			=> 'svg__pinterest',
+						'Reddit SVG'			=> 'svg__reddit',
+						'LinkedIn SVG'			=> 'svg__linkedin',
+						'Tumblr SVG'			=> 'svg__tumblr',
+						'Vk SVG'				=> 'svg__vk',
+						'Yelp SVG'				=> 'svg__yelp',
+						__( 'Special: Email Icon SVG (add your own URL to link to a contact form)', 'avia_framework' ) => 'svg__mail',
+
 						'Facebook'			=> 'facebook',
 						'Twitter'			=> 'twitter',
 						'Square-X-Twitter'	=> 'square-x-twitter',
@@ -295,13 +334,14 @@ $avia_elements[] = array(
 
 $desc = __( 'Check to display', 'avia_framework' );
 $link = __( 'Link', 'avia_framework' );
+$icon_info = '<br /><strong class="av-text-notice">' . __( 'We recommend that you use SVG icons on new sites and switch to the SVG icons on existing sites because the default icon font might get deprecated in a future version.', 'avia_framework' ) . '</strong>';
 
 if( ! empty( $avia_config['social_share_array'] ) )
 {
 	$avia_elements[] =	array(
 				'slug'		=> 'blog',
 				'name'		=> __( 'Share Links At The Bottom Of Your Blog Post', 'avia_framework' ),
-				'desc'		=> __( 'The theme allows you to display share links to various social networks at the bottom of your blog posts. Check which links you want to display:', 'avia_framework' ),
+				'desc'		=> __( 'The theme allows you to display share links to various social networks at the bottom of your blog posts. Check which links you want to display.', 'avia_framework' ) . $icon_info,
 				'id'		=> 'blog_social_share',
 				'type'		=> 'heading',
 				'nodescription'	=> true
@@ -318,6 +358,10 @@ if( ! empty( $avia_config['social_share_array'] ) )
 			if( 'mail' == $id )
 			{
 				$name = __( 'E-Mail', 'avia_framework' );
+			}
+			else if( 'svg__mail' == $id )
+			{
+				$name = __( 'E-Mail SVG', 'avia_framework' );
 			}
 			else
 			{
@@ -342,8 +386,9 @@ if( ! empty( $avia_config['social_share_array'] ) )
 
 if( ! empty( $avia_config['social_profile_array'] ) )
 {
-	$prof_desc  = sprintf( __( 'If you added Social Profile Links at %s Theme Options -&gt; Social Profiles %s the theme allows you to display these profile links at the bottom of your blog posts.', 'avia_framework' ), '<a href="#goto_social" target="_blank">', '</a>' );
+	$prof_desc  = sprintf( __( 'If you added Social Profile Links at %s Theme Options -&gt; Social Profiles %s the theme allows you to display these profile links at the bottom of your blog posts.', 'avia_framework' ), '<a href="#goto_social" target="_blank">', '</a>' ) . ' ';
 	$prof_desc .= __( 'Be sure you added a link, otherwise your selection will be ignored.', 'avia_framework' );
+	$prof_desc .= $icon_info;
 
 	$avia_elements[] =	array(
 				'slug'		=> 'blog',
@@ -362,7 +407,28 @@ if( ! empty( $avia_config['social_profile_array'] ) )
 
 		if( strlen( $name  ) > 25 )
 		{
-			$name = strtoupper( $id ) . ' ' . $link;
+			if( 'svg__rss' == $id )
+			{
+				$name = __( 'RSS SVG', 'avia_framework' );
+			}
+			else if( 'rss' == $id )
+			{
+				$name = __( 'RSS', 'avia_framework' );
+			}
+			else if( 'mail' == $id )
+			{
+				$name = __( 'E-Mail', 'avia_framework' );
+			}
+			else if( 'svg__mail' == $id )
+			{
+				$name = __( 'E-Mail SVG', 'avia_framework' );
+			}
+			else
+			{
+				$name = $id;
+			}
+
+			$name = strtoupper( $name ) . ' ' . $link;
 		}
 
 		$avia_elements[] = array(

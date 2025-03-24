@@ -37,8 +37,7 @@ body.post-type-alb_elements:not(.avia-allow-cpt-screen) #submitpost #delete-acti
 	display: none;
 }
 
-body.post-type-alb_elements #icl_div .avia-translate-cet-subitem
-{
+body.post-type-alb_elements #icl_div .avia-translate-cet-subitem{
 	width: 100%;
 	margin: 15px 0 0 0;
 	text-align: center;
@@ -49,35 +48,33 @@ body .element_template_selected .avia-change-col-size{
 	visibility: hidden;
 }
 
-body .element_template_selected .avia-col-size:before{
-	content: "\E824";
-	font-family: 'entypo-fontello';
+body .custom-elements-lock.avia-svg-icon{
+	display: none;
 	font-size: 17px;
-	vertical-align: middle;
-	padding: 0 6px 0 0;
-	color: #D54E21;
 }
 
-body .avia_layout_section.element_template_selected > .avia_sorthandle:after{
-	content: "\E824";
-	font-family: 'entypo-fontello';
-	font-size: 17px;
+body .custom-elements-lock.avia-svg-icon svg:first-child{
+	stroke: unset;
+	fill: #D54E21;
+	width: 1em;
+	height: 1em;
+}
+
+body .custom-elements-lock.avia-svg-icon svg:first-child{
 	float: right;
-	padding: 4px 10px 0 0;
-	color: #D54E21;
+	padding: 4px 25px 0 0;
 }
 
-body .avia_layout_section.element_template_selected:hover > .avia_sorthandle:after{
+body .custom-elements-lock.element-section.avia-svg-icon svg:first-child{
+	padding-right: 10px;
+}
+
+body .avia_layout_section.element_template_selected:hover .custom-elements-lock.element-section.avia-svg-icon svg:first-child{
 	padding-right: 55px;
 }
 
- body .avia_sortable_element.element_template_selected .avia_sorthandle:after{
-	content: "\E824";
-	font-family: 'entypo-fontello';
-	font-size: 17px;
-	float: right;
-	padding: 4px 25px 0 0;
-	color: #D54E21;
+body .element_template_selected .custom-elements-lock.avia-svg-icon{
+	display: block;
 }
 
 #aviaLayoutBuilder .element_template_selected > .avia_inner_shortcode{
@@ -138,6 +135,11 @@ body .avia_layout_section.element_template_selected:hover > .avia_sorthandle:aft
 	background-color: transparent;
 }
 
+.shortcode_button_wrap .avia-custom-elements-actions-overlay .avia-svg-icon svg:first-child{
+	height: 1em;
+	width: 1em;
+}
+
 .shortcode_button_wrap .element-sc-action-button{
 	display: none;
 	position: relative;
@@ -175,10 +177,22 @@ body .avia_layout_section.element_template_selected:hover > .avia_sorthandle:aft
 	left:-1px;
 }
 
+.shortcode_button_wrap .element-sc-action-button.element-edit .avia-svg-icon svg:first-child{
+	fill: #0c7cba;
+	stroke: #0c7cba;
+	margin-bottom: -3px;
+}
+
 .shortcode_button_wrap .element-sc-action-button.element-delete{
 	float: right;
 	color: #d54e21;
 	right:-1px;
+}
+
+.shortcode_button_wrap .element-sc-action-button.element-delete .avia-svg-icon svg:first-child{
+	fill: #d54e21;
+	stroke: #d54e21;
+	margin-bottom: -3px;
 }
 
 .shortcode_button_wrap .element-sc-action-button.element-clone{
@@ -189,9 +203,21 @@ body .avia_layout_section.element_template_selected:hover > .avia_sorthandle:aft
 	visibility: hidden;
 }
 
+.shortcode_button_wrap .element-sc-action-button.element-clone .avia-svg-icon svg:first-child{
+	fill: #ffcc33;
+	stroke: #ffcc33;
+	margin-bottom: -3px;
+}
+
 .shortcode_button_wrap .element-sc-action-button.element-custom-action{
 	color: #51c851;
 	margin-top: 39px;
+}
+
+.shortcode_button_wrap .element-sc-action-button.element-custom-action .avia-svg-icon svg:first-child{
+	fill: #51c851;
+	stroke: #51c851;
+	margin-bottom: -3px;
 }
 
 .shortcode_button_wrap .avia-custom-elements-actions-overlay .avia-sc-button-loading.loading{
@@ -280,7 +306,7 @@ body.post-type-alb_elements.post-php.avia-no-terms #avia_builder.element-added #
 
 .avia-modal .avia-form-element-container.av-lock-element-checkbox input[type="checkbox"]:before {
 	content: "\E825";
-	font-family: 'entypo-fontello';
+	font-family: 'entypo-fontello-enfold';
 	font-size: 17px;
 	color: #999;
 	margin:0;
@@ -292,7 +318,7 @@ body.post-type-alb_elements.post-php.avia-no-terms #avia_builder.element-added #
 
 .avia-modal .avia-form-element-container.av-lock-element-checkbox input[type="checkbox"]:checked:before {
 	content: "\E824";
-	font-family: 'entypo-fontello';
+	font-family: 'entypo-fontello-enfold';
 	font-size: 17px;
 	color: #D54E21;
 	margin: 0;
@@ -451,13 +477,16 @@ body.avia-custom-elements-admins-only .avia-modal.avia-modal-edit-alb-element .a
 	display: none !important;
 }
 
-.avia-modal .avia-lock-sympol:before{
-	content: "\E824";
-	font-family: 'entypo-fontello';
+.avia-modal .avia-lock-symbol.avia-svg-icon{
 	font-size: 17px;
-	vertical-align: middle;
-	padding: 0 6px 0 0;
-	color: #D54E21;
+}
+
+.avia-modal .avia-lock-symbol.avia-svg-icon svg:first-child{
+	height: 1em;
+	width: 1em;
+	fill: #D54E21;
+	stroke: unset;
+	margin: 0 3px -2px -3px;
 }
 
 .avia-modal .av-lock-element-checkbox .avia-name-description > label{

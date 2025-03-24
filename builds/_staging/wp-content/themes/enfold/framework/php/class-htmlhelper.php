@@ -906,23 +906,16 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 		 */
 		public function colorpicker( array $element )
 		{
-			$autodetect = $autodetectClass = '';
-
-			if( isset( $element['autodetect'] ) && function_exists( 'gd_info' ) )
-			{
-				$autodetect = '<a id="avia_autodetect_' . $element['id'] . '" class="avia_button avia_autodetect" href="#' . $element['autodetect'] . '">Auto detection</a><span class="avia_loading"></span>';
-				$autodetectClass = ' avia_auto_detector';
-			}
-
 			if( empty( $element['id_name'] ) )
 			{
 				$element['id_name'] = $element['id'];
 			}
 
-			$output  = '<span class="avia_style_wrap avia_colorpicker_style_wrap' . $autodetectClass . '">';
+			$output  = '<span class="avia_style_wrap avia_colorpicker_style_wrap">';
 			$output .=		'<input type="text" class="avia_color_picker ' . $element['class'] . '" value="' . $element['std'] . '" id="' . $element['id'] . '" name="' . $element['id_name'] . '"/>';
-			$output .=		'<span class="avia_color_picker_div"></span>' . $autodetect;
+			$output .=		'<span class="avia_color_picker_div"></span>';
 			$output .= '</span>';
+			
 			return $output;
 		}
 
@@ -2028,7 +2021,7 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 			$nonce	 = 	wp_create_nonce ('avia_nonce_import_parent_settings');
 
 			$output .= '<input type="hidden" name="avia-nonce-import-parent" value="' . $nonce . '" />';
-			$output .= '<span class="avia_style_wrap"><a href="#" class="avia_button avia_import_parent_button">Import Parent Theme Settings</a></span>';
+			$output .= '<span class="avia_style_wrap"><a href="#" class="avia_button avia_import_parent_button">'  . __( 'Import Parent Theme Settings', 'avia_framework' ) . '</a></span>';
 			$output .= '<span class="avia_loading avia_import_loading_parent"></span>';
 			$output .= '<div class="avia_import_parent_wait"><strong>Import started.</strong><br/>Please wait a few seconds and dont reload the page. You will be notified as soon as the import has finished! :)</div>';
 			$output .= '<div class="avia_import_result_parent"></div>';
@@ -2039,12 +2032,29 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 		/**
 		 * The theme_settings_export method adds the option to export the theme settings
 		 *
+		 * @since ????
 		 * @param array $element		holds data like type, value, id, class, description which are necessary to render the whole option-section
 		 * @return string				contains the html code generated within the method
 		 */
 		protected function theme_settings_export( array $element )
 		{
-			$url = admin_url( 'admin.php?page=avia&avia_export=1&avia_generate_config_file=1' );
+			/**
+			 * WordFence vulnerability report to limit to admins (check for current_user_can())
+			 *
+			 * @since x.x.x
+			 */
+			if( current_user_can( 'manage_options' ) )
+			{
+				$tag = 'a';
+				$href = 'href="' . admin_url( 'admin.php?page=avia&avia_export=1&avia_generate_config_file=1' ) . '"';
+				$is_active = '';
+			}
+			else
+			{
+				$tag = 'div';
+				$href = '';
+				$is_active = 'avia_button_inactive';
+			}
 
 			if( defined( 'AVIA_GENERATE_DEMO_PHP_FILE' ) && true === AVIA_GENERATE_DEMO_PHP_FILE )
 			{
@@ -2056,7 +2066,9 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 			}
 
 			$output  = '';
-			$output .= '<span class="avia_style_wrap"><a href="' . $url . '" class="avia_button avia_theme_settings_export_button">' . $button . '</a></span>';
+			$output .= '<span class="avia_style_wrap">';
+			$output .=		"<{$tag} {$href} class='avia_button avia_theme_settings_export_button {$is_active}'>{$button}</{$tag}>";
+			$output .= '</span>';
 
 			return $output;
 		}
@@ -2070,6 +2082,11 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 		 */
 		protected function alb_templates_export( array $element )
 		{
+			if( ! function_exists( 'Avia_Builder' ) || ! Avia_Builder()->is_alb_loaded() )
+			{
+				return '';
+			}
+
 			$names = Avia_Builder()->get_AviaSaveBuilderTemplate()->template_names();
 
 			$text  = __( 'Export Layout Builder Templates File', 'avia_framework' );
@@ -2420,6 +2437,11 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 		{
 			$extraclass = '';
 			$required = '';
+
+			if( ! function_exists( 'Avia_Builder' ) || ! Avia_Builder()->is_alb_loaded() )
+			{
+				return '';
+			}
 
 			$usage_info = Avia_Builder()->element_manager()->get_usage_info();
 

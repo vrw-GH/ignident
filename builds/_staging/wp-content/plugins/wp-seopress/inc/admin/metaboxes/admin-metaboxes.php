@@ -20,6 +20,7 @@ function seopress_primary_category_select( $echo = true, $with_description = tru
 	$cats = 'product' == $typenow && seopress_get_service('WooCommerceActivate')->isActive() ? get_the_terms( $post, 'product_cat' ) : get_categories();
 	$cats = apply_filters( 'seopress_primary_category_list', $cats );
 	$options = '';
+
 	if( ! empty( $cats ) ){
 		$options .= sprintf(
 			'<option value="none" %s>%s</option>',
@@ -152,7 +153,7 @@ function seopress_display_seo_metaboxe()
 							}
 						}
 					} else {
-						if ( 'post' == $typenow || 'product' == $typenow ) {
+						if ( 'post' === $typenow || 'product' === $typenow ) {
 							$seopress_robots_primary_cat = get_post_meta($post->ID, '_seopress_robots_primary_cat', true);
 							wp_enqueue_script( 'seopress-primary-category-classic', SEOPRESS_ASSETS_DIR . '/js/seopress-primary-category-classic.js', [], SEOPRESS_VERSION, true);
 							wp_localize_script( 'seopress-primary-category-classic', 'seopressPrimaryCategorySelectData', array(
@@ -197,14 +198,6 @@ function seopress_display_seo_metaboxe()
 			$disabled['robots_follow']          = 'disabled';
 		} else {
 			$seopress_robots_follow             = get_post_meta($post->ID, '_seopress_robots_follow', true);
-		}
-
-		$disabled['archive'] = '';
-		if (seopress_get_service('TitleOption')->getTitleNoArchive()) {
-			$seopress_robots_archive            = 'yes';
-			$disabled['archive']                = 'disabled';
-		} else {
-			$seopress_robots_archive            = get_post_meta($post->ID, '_seopress_robots_archive', true);
 		}
 
 		$disabled['snippet'] = '';
@@ -301,11 +294,6 @@ function seopress_display_seo_metaboxe()
 					update_post_meta($post_id, '_seopress_robots_imageindex', 'yes');
 				} else {
 					delete_post_meta($post_id, '_seopress_robots_imageindex');
-				}
-				if (isset($_POST['seopress_robots_archive'])) {
-					update_post_meta($post_id, '_seopress_robots_archive', 'yes');
-				} else {
-					delete_post_meta($post_id, '_seopress_robots_archive');
 				}
 				if (isset($_POST['seopress_robots_snippet'])) {
 					update_post_meta($post_id, '_seopress_robots_snippet', 'yes');
@@ -461,11 +449,6 @@ function seopress_display_seo_metaboxe()
 					} else {
 						$elementor['_seopress_robots_imageindex'] = '';
 					}
-					if (isset($_POST['seopress_robots_archive'])) {
-						$elementor['_seopress_robots_archive'] = 'yes';
-					} else {
-						$elementor['_seopress_robots_archive'] = '';
-					}
 					if (isset($_POST['seopress_robots_snippet'])) {
 						$elementor['_seopress_robots_snippet'] = 'yes';
 					} else {
@@ -583,12 +566,6 @@ function seopress_display_ca_metaboxe()
 			$seopress_robots_follow             = 'yes';
 		} else {
 			$seopress_robots_follow             = get_post_meta($post->ID, '_seopress_robots_follow', true);
-		}
-
-		if (seopress_get_service('TitleOption')->getTitleNoArchive()) {
-			$seopress_robots_archive            = 'yes';
-		} else {
-			$seopress_robots_archive            = get_post_meta($post->ID, '_seopress_robots_archive', true);
 		}
 
 		if (seopress_get_service('TitleOption')->getTitleNoSnippet()) {

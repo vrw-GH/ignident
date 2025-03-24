@@ -1400,7 +1400,7 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 
 			$template = $this->update_template_lockable( 'title', __( 'Element', 'avia_framework' ). ': {{title}}', $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon" and the font as "font"
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon" and the font as "font"
 
 			$params['innerHtml']  = '';
 			$params['innerHtml'] .=		"<div class='avia_title_container' data-update_element_template='yes'>";

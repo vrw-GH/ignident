@@ -135,7 +135,7 @@ if( ! class_exists( __NAMESPACE__ . '\avia_partner_widget', false ) )
 
 			foreach( $new_instance as $key => $value )
 			{
-				$instance[ $key ] = strip_tags( $value );
+				$instance[ $key ] = is_string( $value ) ? strip_tags( $value ) : $value;
 			}
 
 			return $instance;
@@ -152,7 +152,7 @@ if( ! class_exists( __NAMESPACE__ . '\avia_partner_widget', false ) )
 
 			foreach( $instance as $key => $value )
 			{
-				$instance[ $key ] = strip_tags( $value );
+				$instance[ $key ] = is_string( $value ) ? strip_tags( $value ) : $value;
 			}
 
 			extract( $instance );

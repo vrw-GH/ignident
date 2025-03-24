@@ -1889,7 +1889,7 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 									'id'				=> 'aria_label',
 									'container_class'	=> $class,
 									'type'				=> 'input',
-									'std'				=> ''
+									'std'				=> ! empty( $config['aria_label_def'] ) ? $config['aria_label_def'] : ''
 								);
 			}
 
@@ -2060,12 +2060,13 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 			 * @param array $data
 			 * @return array
 			 */
-			$data = apply_filters( 'avb_backend_editor_element_data_filter', $data );
+			$data = apply_filters( 'avf_backend_editor_element_data_filter', $data );
 
 			$dataString = AviaHelper::create_data_string( $data );
 
 			$output  = "<div class='avia_sortable_element avia_pop_class {$class} {$this->config['shortcode']} av_drag' {$dataString}>";
 			$output .=		'<div class="avia_sorthandle menu-item-handle">';
+			$output .=			avia_font_manager::html_frontend_icon( 'lock', 'svg_entypo-fontello', 'custom-elements-lock' );
 
 			if( ! empty( $this->config['popup_editor'] ) )
 			{

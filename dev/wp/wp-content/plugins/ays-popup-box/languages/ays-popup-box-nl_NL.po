@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Plugins - Popup Box &#8211; Best WordPress Popup Plugin - Stable (latest release)\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-08-28 15:04+0400\n"
+"PO-Revision-Date: 2024-12-02 15:08+0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: admin/partials/features/popup-box-pro-features-display.php:138
 #: admin/partials/features/popup-box-pro-features-display.php:143

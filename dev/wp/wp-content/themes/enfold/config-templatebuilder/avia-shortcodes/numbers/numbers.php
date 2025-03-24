@@ -9,9 +9,10 @@ if( ! defined( 'ABSPATH' ) ) {  exit;  }    // Exit if accessed directly
 
 if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 {
-
 	class avia_sc_animated_numbers extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * Create the config array for the shortcode button
 		 */
@@ -231,16 +232,16 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 
 						array(
 							'name'		=> __( 'Icon', 'avia_framework' ),
-							'desc'		=> __( 'Select an icon for the element here', 'avia_framework' ),
+							'desc'		=> __( 'Select an icon for the number here', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'back-in-time',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'icon_select', 'not', 'no' )
-						),
-
-
+						)
 				);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'content_number' ), $c );
@@ -274,7 +275,7 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Appearance', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_appearance' ), $template );
@@ -409,7 +410,7 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Circle', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_circle' ), $template );
@@ -521,7 +522,7 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Colors', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_colors' ), $template );
@@ -541,8 +542,7 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 							'std' 	=> '',
 							'lockable'	=> true,
 							'subtype' => AviaHtmlHelper::number_array( 1, 600, 1, array( 'Default (3)' => '' ) ),
-						),
-
+						)
 				);
 
 			$template = array(
@@ -551,7 +551,7 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Animation', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'advanced_animation' ), $template );
@@ -568,7 +568,6 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 							'dynamic'		=> [ 'wp_custom_field' ],
 							'dynamic_clear'	=> true
 						)
-
 				);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'advanced_link' ), $c );
@@ -591,7 +590,7 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 			$content = $params['content'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked, $content );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$char = '';
 			$char .= '<span ' . $this->class_by_arguments_lockable( 'font', $font, $locked ) . '>';
@@ -665,6 +664,8 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $shortcodename, $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
+			
 
 			$atts['start_from'] = ! empty( $atts['start_from'] ) && is_numeric( $atts['start_from'] ) ? (int) $atts['start_from'] : 0;
 			$atts['timer'] = ! empty( $atts['timer'] ) ? (int) $atts['timer'] * 1000 : 3000;
@@ -700,6 +701,8 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 			$element_styling->add_responsive_font_sizes( 'number', 'size-number', $atts, $this );
 			$element_styling->add_responsive_font_sizes( 'description', 'size-text', $atts, $this );
 
+			$element_styling->add_classes( 'icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
+
 			if( ! empty( $color ) )
 			{
 				$element_styling->add_classes( 'container', 'avia-color-' . $color );
@@ -709,6 +712,11 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 			{
 				$element_styling->add_styles( 'number', array( 'color' => $custom_color ) );
 				$element_styling->add_styles( 'description', array( 'color' => $custom_color_desc ) );
+
+				$element_styling->add_styles( 'icon-svg', array(
+													'fill'		=> $custom_color,
+													'stroke'	=> $custom_color
+												) );
 			}
 
 			if( ! empty( $circle ) )
@@ -766,6 +774,7 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 
 			$selectors = array(
 						'container'					=> ".avia-animated-number.{$element_id}",
+						'icon-svg'					=> ".avia-animated-number.{$element_id} .avia-animated-number-icon.avia-svg-icon svg:first-child",
 						'container-circle'			=> "#top .avia-animated-number.{$element_id}.av-display-circle",
 						'number'					=> "#top .avia-animated-number.{$element_id} .avia-animated-number-title",
 						'description'				=> "#top .avia-animated-number.{$element_id} .avia-animated-number-content",
@@ -803,17 +812,14 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 
 			extract( $atts );
 
-
 			$tags = array( 'div', 'div' );
 			$display_char = '';
 			$before = '';
 			$after = '';
 
-
 			$linktarget = AviaHelper::get_link_target( $linktarget );
 			$link = AviaHelper::get_url( $link );
 			$title_attr_markup = AviaHelper::get_link_title_attr_markup( $title_attr );
-
 
 			/**
 			 * fallback to create same HTML structure prior to introducing get_link_title_attr_markup()
@@ -834,9 +840,13 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 
 			if( $icon_select !== 'no' )
 			{
-				$char = av_icon( $icon, $font );
+				$char = avia_font_manager::get_frontend_icon( $icon, $font );
+				$icon_class = $element_styling->get_class_string( 'icon' );
 
-				$display_char = "<span class='avia-animated-number-icon {$icon_select}-number av-icon-char' {$char}></span>";
+				$display_char  = "<span class='avia-animated-number-icon {$icon_select}-number av-icon-char {$icon_class}' {$char['attr']}>";
+				$display_char .=		$char['svg'];
+				$display_char .= '</span>';
+
 				if( $icon_select == 'av-icon-before' )
 				{
 					$before = $display_char;

@@ -34,6 +34,7 @@ include LS_ROOT_PATH.'/wp/menus.php';
 include LS_ROOT_PATH.'/wp/hooks.php';
 include LS_ROOT_PATH.'/wp/templates.php';
 include LS_ROOT_PATH.'/addons/404/index.php';
+include LS_ROOT_PATH.'/addons/maintenance/index.php';
 include LS_ROOT_PATH.'/wp/widgets.php';
 include LS_ROOT_PATH.'/includes/slider_utils.php';
 include LS_ROOT_PATH.'/wp/shortcodes.php';

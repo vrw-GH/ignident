@@ -21,6 +21,7 @@ if( ! class_exists( 'avia_sc_search', false ) )
 {
 	class avia_sc_search extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
 
 		/**
 		 * Create the config array for the shortcode button
@@ -209,27 +210,28 @@ if( ! class_exists( 'avia_sc_search', false ) )
 
 			$c = array(
 						 array(
-							'name' 	=> __( 'Placeholder', 'avia_framework' ),
-							'desc' 	=> __( 'Enter a placeholder text for the input field', 'avia_framework' ) ,
-							'id' 	=> 'placeholder',
-							'std' 	=> __( 'Search the site ...', 'avia_framework' ),
-							'type' 	=> 'input'
+							'name'	=> __( 'Placeholder', 'avia_framework' ),
+							'desc'	=> __( 'Enter a placeholder text for the input field', 'avia_framework' ) ,
+							'id'	=> 'placeholder',
+							'type'	=> 'input',
+							'std'	=> __( 'Search the site ...', 'avia_framework' )
 						),
 
 						array(
 							'name' 	=> __( 'Label Text', 'avia_framework' ),
 							'desc' 	=> __( 'Enter a label text for the button', 'avia_framework' ) ,
 							'id' 	=> 'label_text',
-							'std' 	=> __( 'Find', 'avia_framework' ),
 							'type' 	=> 'input',
+							'std' 	=> __( 'Find', 'avia_framework' )
+
 						),
 
 						array(
-							'name' => __( 'Icon Display', 'avia_framework'),
-							'desc' => __( 'Where should the icon be displayed?', 'avia_framework' ),
-							'id' => 'icon_display',
-							'type' => 'select',
-							'std' => '',
+							'name'		=> __( 'Icon Display', 'avia_framework'),
+							'desc'		=> __( 'Where should the icon be displayed?', 'avia_framework' ),
+							'id'		=> 'icon_display',
+							'type'		=> 'select',
+							'std'		=> '',
 							'subtype'	=> array(
 												__( 'No Icon', 'avia_framework' )		=> '',
 												__( 'Input Field', 'avia_framework' )	=> 'input',
@@ -238,12 +240,15 @@ if( ! class_exists( 'avia_sc_search', false ) )
 						),
 
 						array(
-							'name'  => __( 'Search Icon', 'avia_framework' ),
-							'desc'  => __( 'Select an Icon below', 'avia_framework' ),
-							'id'    => 'icon',
-							'type'  => 'iconfont',
+							'name'		=> __( 'Search Icon', 'avia_framework' ),
+							'desc'		=> __( 'Select an Icon below', 'avia_framework' ),
+							'id'		=> 'icon',
+							'type'		=> 'iconfont',
+							'std'		=> 'search',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'required'	=> array( 'icon_display', 'not', '' )
-						),
+						)
 
 				);
 
@@ -253,7 +258,7 @@ if( ! class_exists( 'avia_sc_search', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Search Form', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'content_form' ), $template );
@@ -263,11 +268,11 @@ if( ! class_exists( 'avia_sc_search', false ) )
 
 			$c = array(
 						array(
-							'name'	=> __( 'Post Types', 'avia_framework' ),
-							'desc'	=> __( 'Which post types should be included in the search', 'avia_framework' ),
-							'id'	=> 'post_types',
-							'type'	=> 'select',
-							'std'	=> '',
+							'name'		=> __( 'Post Types', 'avia_framework' ),
+							'desc'		=> __( 'Which post types should be included in the search', 'avia_framework' ),
+							'id'		=> 'post_types',
+							'type'		=> 'select',
+							'std'		=> '',
 							'subtype'	=> array(
 												__( 'All', 'avia_framework' )		=> '',
 												__( 'Custom', 'avia_framework' )	=> 'custom',
@@ -275,24 +280,24 @@ if( ! class_exists( 'avia_sc_search', false ) )
 						),
 
 						array(
-							'name'	=> __( 'Post Types', 'avia_framework'),
-							'desc'	=> $desc,
-							'id'	=> 'post_types_custom',
-							'type'	=> 'select',
-							'std'	=> '',
+							'name'		=> __( 'Post Types', 'avia_framework'),
+							'desc'		=> $desc,
+							'id'		=> 'post_types_custom',
+							'type'		=> 'select',
+							'std'		=> '',
 							'multiple'	=> 5,
 							'required'	=> array( 'post_types', 'equals', 'custom' ),
 							'subtype'	=> $select_list
 						),
 
 						array(
-							'name'	=> __( 'Number of results', 'avia_framework'),
-							'desc'	=> __( 'How many results should be loaded via AJAX', 'avia_framework' ),
-							'id'	=> 'numberposts',
-							'type'	=> 'select',
-							'std'	=> 5,
+							'name'		=> __( 'Number of results', 'avia_framework'),
+							'desc'		=> __( 'How many results should be loaded via AJAX', 'avia_framework' ),
+							'id'		=> 'numberposts',
+							'type'		=> 'select',
+							'std'		=> 5,
 							'subtype'	=> AviaHtmlHelper::number_array( 1, 40, 1 ),
-						),
+						)
 				);
 
 			$template = array(
@@ -301,7 +306,7 @@ if( ! class_exists( 'avia_sc_search', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Filter', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'content_filter' ), $template );
@@ -342,8 +347,8 @@ if( ! class_exists( 'avia_sc_search', false ) )
 							'name'		=> __( 'Search results container', 'avia_framework' ),
 							'desc'		=> __( 'Enter the ID of a container that will hold the search results.<br/>It has to be on the same page as this search form.', 'avia_framework' ),
 							'id'		=> 'ajax_container',
-							'std'		=> __( '#my_container', 'avia_framework' ),
 							'type'		=> 'input',
+							'std'		=> __( '#my_container', 'avia_framework' ),
 							'required'	=> array( 'ajax_location', 'equals', 'custom' )
 						),
 
@@ -385,25 +390,24 @@ if( ! class_exists( 'avia_sc_search', false ) )
 
 			$c = array(
 						array(
-							'name' 	=> __( 'Input Font Size', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom font size for the input. Leave empty to use the default', 'avia_framework' ),
-							'id' 	=> 'custom_input_size',
-							'type' 	=> 'select',
-							'std' 	=> '',
+							'name'		=> __( 'Input Font Size', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom font size for the input. Leave empty to use the default', 'avia_framework' ),
+							'id'		=> 'custom_input_size',
+							'type'		=> 'select',
+							'std'		=> '',
 							'container_class' => 'av_half av_half_first',
 							'subtype'	=> AviaHtmlHelper::number_array( 10, 50, 1, array( __( 'Default Size', 'avia_framework' ) => '' ), 'px' ),
 						),
 
 						array(
-							'name' 	=> __( 'Button Font Size', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom font size for the button. Leave empty to use the default', 'avia_framework' ),
-							'id' 	=> 'custom_button_size',
-							'type' 	=> 'select',
-							'std' 	=> '',
+							'name'		=> __( 'Button Font Size', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom font size for the button. Leave empty to use the default', 'avia_framework' ),
+							'id'		=> 'custom_button_size',
+							'type'		=> 'select',
+							'std'		=> '',
 							'container_class' => 'av_half',
 							'subtype'	=> AviaHtmlHelper::number_array( 10, 50, 1, array( __( 'Default Size', 'avia_framework' ) => '' ), 'px' ),
-						),
-
+						)
 				);
 
 			$template = array(
@@ -412,7 +416,7 @@ if( ! class_exists( 'avia_sc_search', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Fonts', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_fonts' ), $template );
@@ -703,21 +707,22 @@ if( ! class_exists( 'avia_sc_search', false ) )
 		 */
 		public function editor_element( $params )
 		{
-			extract( av_backend_icon( $params ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( $params ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$template  = $this->update_template( 'placeholder', '{{placeholder}}' );
 
 			$params['content'] = null;
 
-			$params['innerHtml']  = "<div class='avia_title_container'>";
-			$params['innerHtml'] .= "<span class='avia-element-label avia-sc-search-fakeinput' {$template}>{$params['args']['placeholder']}</span>";
+			$params['innerHtml']  = "<div class='avia_title_container avia-search-container'>";
+			$params['innerHtml'] .=		"<span class='avia-element-label avia-sc-search-fakeinput' {$template}>{$params['args']['placeholder']}</span>";
 
 			if( ( isset( $params['args']['label'] ) ) && ( $params['args']['label'] == 'text') )
 			{
 				$template2  = $this->update_template( 'label_text', '{{label_text}}' );
 				$params['innerHtml'] .= "<span class='button' {$template2}>{$params['args']['label_text']}</span>";
 			}
-			else {
+			else
+			{
 				$params['innerHtml'] .= '<span ' . $this->class_by_arguments( 'font', $font ) . '>';
 				$params['innerHtml'] .=		"<span class='button avia_icon_char' data-update_with='icon_fakeArg' >{$display_char}</span>";
 				$params['innerHtml'] .= '</span>';
@@ -785,6 +790,8 @@ if( ! class_exists( 'avia_sc_search', false ) )
 
 			$atts = shortcode_atts( $default, $atts, $this->config['shortcode'] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
+
 			$element_styling->create_callback_styles( $atts );
 
 			$classes = array(
@@ -795,6 +802,7 @@ if( ! class_exists( 'avia_sc_search', false ) )
 			$element_styling->add_classes( 'container', $classes );
 			$element_styling->add_classes_from_array( 'container', $meta, 'el_class' );
 			$element_styling->add_responsive_classes( 'container', 'hide_element', $atts );
+			$element_styling->add_classes( 'icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 			 // results location
             if( 'classic' == $atts['display'] )
@@ -847,6 +855,10 @@ if( ! class_exists( 'avia_sc_search', false ) )
 			{
 				$element_styling->add_styles( 'input', array( 'color' => $atts['custom_input_color'] ) );
 				$element_styling->add_styles( 'input-icon', array( 'color' => $atts['custom_input_color'] ) );
+				$element_styling->add_styles( 'input-icon-svg', array(
+																'fill'		=> $atts['custom_input_color'],
+																'stroke'	=> $atts['custom_input_color']
+														) );
 			}
 
 			if( 'custom' == $atts['input_bg'] && ! empty( $atts['custom_input_bg'] ) )
@@ -858,6 +870,11 @@ if( ! class_exists( 'avia_sc_search', false ) )
 			{
 				$element_styling->add_styles( 'button', array( 'color' => $atts['custom_button_color'] ) );
 				$element_styling->add_styles( 'button-wrapper', array( 'color' => $atts['custom_button_color'] ) );
+				$element_styling->add_styles( 'button-icon', array( 'color' => $atts['custom_button_color'] ) );
+				$element_styling->add_styles( 'button-icon-svg', array(
+																'fill'		=> $atts['custom_button_color'],
+																'stroke'	=> $atts['custom_button_color']
+														) );
 			}
 
 			if( 'custom' == $atts['button_bg'] && ! empty( $atts['custom_button_bg'] ) )
@@ -871,12 +888,20 @@ if( ! class_exists( 'avia_sc_search', false ) )
 			{
 				$element_styling->add_styles( 'input', array( 'font-size' => $atts['custom_input_size'] . 'px' ) );
 				$element_styling->add_styles( 'input-icon', array( 'font-size' => $atts['custom_input_size'] . 'px' ) );
+				$element_styling->add_styles( 'input-icon-svg', array(
+																'height'	=> $atts['custom_input_size'] . 'px',
+																'width'		=> $atts['custom_input_size'] . 'px'
+														) );
 			}
 
 			if( ! empty( $atts['custom_button_size'] ) )
 			{
 				$element_styling->add_styles( 'button', array( 'font-size' => $atts['custom_button_size'] . 'px' ) );
 				$element_styling->add_styles( 'button-icon', array( 'font-size' => $atts['custom_button_size'] . 'px' ) );
+				$element_styling->add_styles( 'button-icon-svg', array(
+																'height'	=> $atts['custom_button_size'] . 'px',
+																'width'		=> $atts['custom_button_size'] . 'px'
+														) );
 			}
 
 
@@ -917,9 +942,12 @@ if( ! class_exists( 'avia_sc_search', false ) )
 						'form-wrapper'			=> "#top .avia_search_element.{$element_id} .av_searchform_wrapper",
 						'input'					=> "#top .avia_search_element.{$element_id} #s.av-input-field",
 						'input-icon'			=> "#top .avia_search_element.{$element_id} .av-input-field-icon.av-search-icon",
+						'input-icon-svg'		=> "#top .avia_search_element.{$element_id} .av-input-field-icon.av-search-icon.avia-svg-icon svg:first-child",
+						'button'				=> "#top .avia_search_element.{$element_id} #searchsubmit",
 						'button-wrapper'		=> "#top .avia_search_element.{$element_id} .av_searchsubmit_wrapper",
 						'button-icon'			=> "#top .avia_search_element.{$element_id} .av-button-icon.av-search-icon",
-						'button'				=> "#top .avia_search_element.{$element_id} #searchsubmit",
+						'button-icon-svg'		=> "#top .avia_search_element.{$element_id} .av-button-icon.av-search-icon.avia-svg-icon svg:first-child",
+
 
 						'results-container'		=> ".ajax_search_response.{$element_id}",
 						'results-cont-title'	=> ".ajax_search_response.{$element_id} .av_ajax_search_title",
@@ -975,7 +1003,13 @@ if( ! class_exists( 'avia_sc_search', false ) )
 			$spacer_img = '';
 
 			$button_val = $label_text;
-			$icon = av_icon( $icon, $font, false );
+
+
+//			$icon = av_icon( $icon, $font, false );
+
+
+			$icon_char = avia_font_manager::get_frontend_icon( $icon, $font );
+			$icon_class = $element_styling->get_class_string( 'icon' );
 
 
 			if( 'button' == $icon_display && $icon != '' )
@@ -988,6 +1022,9 @@ if( ! class_exists( 'avia_sc_search', false ) )
 
 					$element_styling->add_classes( 'button', 'av-submit-hasicon avia-font-' . $font );
 					$element_styling->add_classes( 'button-wrapper', 'av-submit-hasicon' );
+
+					$button_val = '';
+					$submit_icon = true;
 				}
 				else
 				{
@@ -1076,17 +1113,21 @@ if( ! class_exists( 'avia_sc_search', false ) )
 
 			if( $input_icon )
 			{
-				$output .=				"<span class='av-input-field-icon av-search-icon avia-font-{$font}'>{$icon}</span>";
+				$output .=				"<span class='av-input-field-icon av-search-icon {$icon_class}' {$icon_char['attr']}>";
+				$output .=					$icon_char['svg'];
+				$output .=				'</span>';
 			}
 
 			$output .=					"<div class='av_searchsubmit_wrapper {$button_wrapper_class}'>";
 
 			if( $submit_icon )
 			{
-				$output .=				"<span class='av-button-icon av-search-icon avia-font-{$font}'>{$icon}</span>";
+				$output .=					"<span class='av-button-icon av-search-icon {$icon_class}' {$icon_char['attr']}>";
+				$output .=						$icon_char['svg'];
+				$output .=					'</span>';
 			}
 
-			$output .=					"<input type='submit' value='{$button_val}' id='searchsubmit' class='button {$button_class}' title='{$title}' aria-label='{$title}' />";
+			$output .=						"<input type='submit' value='{$button_val}' id='searchsubmit' class='button {$button_class}' title='{$title}' aria-label='{$title}' />";
 
 			// layout helper IE
 			$output .= $spacer_img;

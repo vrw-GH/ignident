@@ -21,6 +21,7 @@ class Notifications {
 		$alerts_low = 0;
 		$alerts_medium = 0;
 		$alerts_high = 0;
+        $theme = wp_get_theme();
 
 		$status = false;
 		if ('1' !== seopress_get_service('NoticeOption')->getNoticeReview()) {
@@ -44,7 +45,6 @@ class Notifications {
 		];
 
 		$status = false;
-		$theme                     = wp_get_theme();
 		if ('bricks' == $theme->template || 'Bricks' == $theme->parent_theme) {
 			$bricks_options = get_option('bricks_global_settings');
 			if (!empty($bricks_options)) {
@@ -96,6 +96,33 @@ class Notifications {
 		}
 
 		$status = false;
+		if ('dt-the7' == $theme->template || 'dt-the7' == $theme->parent_theme) {
+			$the7_options = get_option('the7');
+			if (!empty($the7_options)) {
+                if (!empty($the7_options['the7_opengraph_tags']) && $the7_options['the7_opengraph_tags'] ==='1') {
+					$alerts_high++;
+					$status = true;
+
+					$args[] = [
+						'id'     => 'notice-dt-the7-og',
+						'title'  => __('The7 theme is not correctly setup for social sharing!', 'wp-seopress'),
+						'desc'   => __('You must disable "The7 OpenGraph tags" option from The7 advanced settings page to avoid any social sharing issues.', 'wp-seopress'),
+						'impact' => [
+							'high' => __('High impact', 'wp-seopress'),
+						],
+						'link' => [
+							'en'       => admin_url('admin.php?page=of-advanced-menu&tab=advanced-settings-tab&mark=the7_opengraph_tags#section-the7_opengraph_tags'),
+							'title'    => __('Fix this!', 'wp-seopress'),
+							'external' => false,
+						],
+						'deleteable' => false,
+						'status' => $status ? $status : false,
+					];
+				}
+			}
+		}
+
+		$status = false;
 		if ('1' !== seopress_get_service('NoticeOption')->getNoticeUSM() && '1' !== seopress_get_service('AdvancedOption')->getAccessUniversalMetaboxGutenberg() ) {
 			$alerts_info++;
 			$status = true;
@@ -129,9 +156,9 @@ class Notifications {
 				'info' => __('Wizard', 'wp-seopress'),
 			],
 			'link' => [
-				'en'       => admin_url('admin.php?page=seopress-setup'),
+				'en'       => admin_url('admin.php?page=seopress-setup&step=welcome&parent=welcome'),
 				'title'    => __('Start the wizard', 'wp-seopress'),
-				'external' => true,
+				'external' => false,
 			],
 			'deleteable' => true,
 			'status' => $status ? $status : false,
@@ -161,8 +188,31 @@ class Notifications {
 			];
 		}
 
+		//LiteSpeed cache plugin
+		if (is_plugin_active('litespeed-cache/litespeed-cache.php')) {
+			$status = false;
+			if ('1' !== seopress_get_service('NoticeOption')->getNoticeLiteSpeedCache()) {
+				$alerts_medium++;
+				$status = true;
+			}
+			$args[] = [
+				'id'     => 'notice-litespeed-cache',
+				'title'  => __('Fix compatibility issues with LiteSpeed caching plugin', 'wp-seopress'),
+				'desc'   => __('Your site is using LiteSpeed caching plugin. If you encounter issues with some of the SEO features, like the universal SEO metabox, please read our guide to fix this.', 'wp-seopress'),
+				'impact' => [
+					'medium' => __('Medium impact', 'wp-seopress'),
+				],
+				'link' => [
+                    'en'       => $docs['integrations']['litespeed']['compatibility'],
+                    'title'    => __('Learn more', 'wp-seopress'),
+                    'external' => true,
+                ],
+				'deleteable' => true,
+				'status' => $status ? $status : false,
+			];
+		}
+
 		//DIVI SEO options conflict
-		$theme = wp_get_theme();
 		if ('Divi' == $theme->template || 'Divi' == $theme->parent_theme) {
 			$divi_options = get_option('et_divi');
 			if (! empty($divi_options)) {
@@ -273,10 +323,7 @@ class Notifications {
 			'seo-ultimate/seo-ultimate.php'                  => 'SEO Ultimate',
 			'wp-meta-seo/wp-meta-seo.php'                    => 'WP Meta SEO',
 			'premium-seo-pack/plugin.php'                    => 'Premium SEO Pack',
-			'wpseo/wpseo.php'                                => 'wpSEO',
-			'platinum-seo-pack/platinum-seo-pack.php'        => 'Platinum SEO Pack',
 			'smartcrawl-seo/wpmu-dev-seo.php'                => 'SmartCrawl',
-			'seo-pressor/seo-pressor.php'                    => 'SEOPressor',
 			'slim-seo/slim-seo.php'                          => 'Slim SEO'
 		];
 
@@ -334,7 +381,6 @@ class Notifications {
 		//Enfold theme
 		$avia_options_enfold       = get_option('avia_options_enfold');
 		$avia_options_enfold_child = get_option('avia_options_enfold_child');
-		$theme                     = wp_get_theme();
 		$status = false;
 		if ('enfold' == $theme->template || 'enfold' == $theme->parent_theme) {
 			if ('plugin' != $avia_options_enfold['avia']['seo_robots'] || 'plugin' != $avia_options_enfold_child['avia']['seo_robots']) {
@@ -681,8 +727,12 @@ class Notifications {
 			];
 		}
 
+        $status = false;
 		if ('1' !== seopress_get_service('SitemapOption')->isEnabled()) {
-			$alerts_medium++;
+            if ('1' !== seopress_get_service('NoticeOption')->getNoticeXMLSitemaps()) {
+				$alerts_medium++;
+				$status = true;
+			}
 			$args[] = [
 				'id'     => 'notice-xml-sitemaps',
 				'title'  => __('You don\'t have an XML Sitemap!', 'wp-seopress'),
@@ -695,8 +745,8 @@ class Notifications {
 					'title'    => __('Fix this!', 'wp-seopress'),
 					'external' => false,
 				],
-				'deleteable' => false,
-				'status' => true,
+				'deleteable' => true,
+				'status' => $status ? $status : false,
 			];
 		}
 

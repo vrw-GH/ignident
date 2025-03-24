@@ -206,7 +206,12 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalBase', false ) )
 
 					if( strpos( $element['container_class'], 'av-lock-element-checkbox' ) === false )
 					{
-						$locked_info .= '<span class="avia-lock-sympol"></span>';
+						$char = \avia_font_manager::get_frontend_icon( 'lock', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+						$char_class = \avia_font_manager::get_frontend_icon_classes( $char['font'], 'string' );
+
+						$locked_info .= "<span class='avia-lock-symbol {$char_class}' {$char['attr']}>";
+						$locked_info .=		$char['svg'];
+						$locked_info .= '</span>';
 					}
 				}
 
@@ -576,6 +581,14 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalBase', false ) )
 					{
 						$args[ $subelement['id'] ] = $subelement['std'];
 					}
+				}
+			}
+
+			if( false === $i )
+			{
+				if( method_exists( $parent_class, 'get_defaults_subelements_for_modal' ) )
+				{
+					$args = call_user_func_array( array( $parent_class, 'get_defaults_subelements_for_modal' ), array( $args, $element['subelements'] ) );
 				}
 			}
 

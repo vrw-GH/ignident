@@ -385,7 +385,7 @@ class Ays_Popup_Box_User_Information_Public {
         }
 
         if(isset($author['name']) && $author['name'] == "Unknown"){
-            $author['name'] = __( "Unknown", "ays-popup-box" );
+            $author['name'] = esc_html__( "Unknown", "ays-popup-box" );
         }
 
         $popup_author = (isset($author['name']) && $author['name'] != '') ? sanitize_text_field( $author['name'] ) : "";

@@ -878,18 +878,14 @@ if( ! class_exists( 'avia_style_generator', false ) )
 		 * (copied from enfold\config-templatebuilder\avia-template-builder\php\class-asset-manager.php)
 		 *
 		 * @since 5.3
+		 * @since 7.0							added $no_strip_on_debug
 		 * @param string $css
+		 * @param boolean $no_strip_on_debug
 		 * @return string
 		 */
-		public function css_strip_whitespace( $css )
+		public function css_strip_whitespace( $css, $no_strip_on_debug = true )
 		{
-			if( defined( 'WP_DEBUG' ) && WP_DEBUG === true )
-			{
-				return $css;
-			}
-
-			$opt_merge = avia_get_option( 'merge_css', 'avia' );
-			if( in_array( $opt_merge, array( 'none' ) ) )
+			if( defined( 'WP_DEBUG' ) && WP_DEBUG === true && $no_strip_on_debug === true )
 			{
 				return $css;
 			}

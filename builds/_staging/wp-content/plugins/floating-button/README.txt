@@ -1,86 +1,87 @@
 === Floating Button ===
 Contributors: Wpcalc, lobov
 Donate link: https://wow-estore.com/item/floating-button-pro/
-Tags: floating button, floating menu, circle menu, sticky button, float menu
+Tags: floating button, floating menu, sticky button, sticky, nav menu
 Requires at least: 5.5
-Tested up to: 6.5
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 6.0.4
+Stable tag: 6.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily create a custom sticky floating buttons.
+Easily create custom sticky floating buttons.
 
-== Description ==
+## Description
 
-The Floating Button is the free WordPress plugin for creating the original sticky floating actions buttons. It allows you to install on the site floating buttons with unique thematic icons. The extension serves for placing both traditional navigation bar and additional block with useful information for user.
+The Floating Button is a free WordPress plugin for creating original sticky floating action buttons. It allows you to install floating buttons with unique thematic icons on your site. The plugin serves for placing both a traditional navigation bar and an additional block with useful information for the user.
 
-The Floating Button plugin will be the effective solution for increasing the recognition of your web resource. Its connection will bring originality and novelty to the used theme of the site. The extension helps to configure user-friendly navigation, place useful information or contact panel.
+The Floating Button plugin will be an effective solution for increasing the recognition of your web resource. Its integration will bring originality and novelty to the theme of the site. The plugin helps to configure user-friendly navigation, place useful information, or a contact panel.
 
 https://youtu.be/pUC1Y4wHjbA?si=hmsTAGtCPMPDBj5r
 
-= Main features =
+## Main Features
 
-* 2 submenus;
-* more than 2000+ FontAwesome icons;
-* any links insertion;
-* using the tooltips to provide more information;
-* round buttons shape;
-* LogIn link;
-* LogOut link;
+* 2 submenus
+* More than 2000+ FontAwesome icons
+* Any links insertion
+* Using tooltips to provide more information
+* Round buttons shape
+* Login link
+* Logout link
 * Lost password link
 
+## Use Cases for Floating Button
 
-= Floating Button can be used for: =
-
-* site navigation;
-* additional menu;
-* social panel;
-* user menu;
-* Skype menu and others;
+* Site navigation
+* Additional menu
+* Social panel
+* User menu
+* Skype menu and others
 * And more...
 
-= Pro version =
+## Pro Version
 
 Connect the Pro-version of the plugin to gain access to more features:
 
 [Preview of Pro version](https://wow-company.com/floating-button-pro/)
 
-* create an unlimited amount of buttons;
-* change the form of the menu display: Circle, Rounded square, Ellipse, Square;
-* set the color of the main button and submenu items;
-* accompany the change in navigation behavior with the highlight when hovering the mouse cursor;
-* use the built-in user menu, social panel and print function;
-* set the display according to the user role and status;
-* change the menu output depending on the language of the page;
-* add restrictions for screens with large or small resolution;
-* use the categories on the site, exceptions and ID to place the menu on individual pages;
-* insert the shortcode of the panel in the specified location;
+* Create an unlimited number of buttons
+* Change the form of the menu display: Circle, Rounded square, Ellipse, Square
+* Set the color of the main button and submenu items
+* Accompany the change in navigation behavior with the highlight when hovering the mouse cursor
+* Use the built-in user menu, social panel, and print function
+* Set the display according to the user role and status
+* Change the menu output depending on the language of the page
+* Add restrictions for screens with large or small resolution
+* Use the categories on the site, exceptions, and ID to place the menu on individual pages
+* Insert the shortcode of the panel in the specified location
 * And more...
 
 [Buy Pro version](https://wow-estore.com/item/floating-button-pro/)
 
-= Use with other plugins to maximize your results =
-* [Popup Box – new WordPress popup plugin](https://wordpress.org/plugins/popup-box/)
-* [Counter Box – powerful creator of counters, timers and countdowns](https://wordpress.org/plugins/counter-box/)
-* [Button Generator – easily Button Builder](https://wordpress.org/plugins/button-generation/)
-* [Herd Effects – fake notifications and social proof plugin](https://wordpress.org/plugins/mwp-herd-effect/)
-* [Floating Button](https://wordpress.org/plugins/floating-button/)
+## Plugins for Enhanced Results
+
+* [Popup Box – a new WordPress popup plugin](https://wordpress.org/plugins/popup-box/)
+* [Counter Box – a powerful creator of counters, timers, and countdowns](https://wordpress.org/plugins/counter-box/)
+* [Button Generator – an easy Button Builder](https://wordpress.org/plugins/button-generation/)
+* [Herd Effects – a fake notifications and social proof plugin](https://wordpress.org/plugins/mwp-herd-effect/)
 * [Side Menu Lite – add sticky fixed buttons](https://wordpress.org/plugins/side-menu-lite/)
-* [Sticky Buttons – floating buttons builder](https://wordpress.org/plugins/sticky-buttons/)
-* [Bubble Menu – circle floating menu](https://wordpress.org/plugins/bubble-menu/)
-* [Float menu – awesome floating side menu](https://wordpress.org/plugins/float-menu/)
-* [Modal Window – create modal window](https://wordpress.org/plugins/modal-window/)
+* [Sticky Buttons – a floating buttons builder](https://wordpress.org/plugins/sticky-buttons/)
+* [Bubble Menu – a circular floating menu](https://wordpress.org/plugins/bubble-menu/)
+* [Float Menu – an awesome floating side menu](https://wordpress.org/plugins/float-menu/)
+* [Modal Window – a plugin to create modal windows](https://wordpress.org/plugins/modal-window/)
 * [Calculator Builder](https://wordpress.org/plugins/calculator-builder/)
 
-= Support =
+## Support
+
 Search for answers and ask your questions at [support center](https://wordpress.org/support/plugin/floating-button/)
 
-== Installation ==
+## Installation
+
 * Installation option 1: Find and install this plugin in the `Plugins` -> `Add new` section of your `wp-admin`
 * Installation option 2: Download the zip file, then upload the plugin via the wp-admin in the `Plugins` -> `Add new` section. Or unzip the archive and upload the folder to the plugins directory `/wp-content/plugins/` via ftp
-* Press `Activate` when you have installed the plugin via dashboard or press `Activate` in the in the `Plugins` list
-* Go to `Floating Button` section that will appear in your main menu on the left
+* Press `Activate` when you have installed the plugin via the dashboard or press `Activate` in the `Plugins` list
+* Go to the `Floating Button` section that will appear in your main menu on the left
 * Click `Add new` to create your first menu
 * Setup your menu
 * Click Save
@@ -95,6 +96,30 @@ Search for answers and ask your questions at [support center](https://wordpress.
 
 
 == Changelog ==
+= 6.0.11 =
+* Updated: language translation file
+* Fixed: minor bugs for folder 'includes'
+
+= 6.0.10 =
+* Fixed: Nonce verification logic for improved security.
+
+= 6.0.9 =
+* Fixed: check footer page
+
+= 6.0.8 =
+* Updated: FontAwesome Icons to version 6.7.1
+
+= 6.0.7 =
+* Fixed: main icon in the admin menu.
+* Fixed: minor bugs
+* Update: translate file
+
+= 6.0.6 =
+* Fixed: minor bugs with sanitizing
+
+= 6.0.5 =
+* Updated: FontAwesome Icon to version 6.6
+
 = 6.0.4 =
 * Fixed: minor bug with creating the database
 

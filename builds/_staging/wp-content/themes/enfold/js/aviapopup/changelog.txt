@@ -1,3 +1,6 @@
+2024-11-20 - Enfold Version 6.0.7
+
+added allow="autoplay; encrypted-media" to lightbox iframe generation for youtube autoplay
 
 2022-12-14 - Enfold Version 5.3
 

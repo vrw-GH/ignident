@@ -7,16 +7,30 @@ global $avia_config, $post_loop_count;
 $post_loop_count = 1;
 $post_class = 'post-entry-' . avia_get_the_id();
 
+$more_link_arrow = class_exists( 'avia_font_manager', false ) ? avia_font_manager::html_more_link_arrow() : '<span class="more-link-arrow"></span>';
+
 // check if we got posts to display:
 if( have_posts() )
 {
 	while( have_posts() )
 	{
 		the_post();
+
+		$aria_label = 'aria-label="' . __( 'Portfolio Content for:', 'avia_framework' ) . ' ' . esc_attr( get_the_title() ) . '"';
+
+		/**
+		 * @since 6.0.3
+		 * @param string $aria_label
+		 * @param string $context
+		 * @param WP_Post|null $current_post
+		 * @return string
+		 */
+		$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, get_post() );
+
 ?>
 		<article class='post-entry post-entry-type-page <?php echo $post_class; ?>' <?php avia_markup_helper( array( 'context' => 'entry' ) ); ?>>
 			<div class="entry-content-wrapper clearfix">
-				<header class="entry-content-header">
+				<header class="entry-content-header" <?php echo $aria_label; ?> >
 <?php
 					if( '1' != get_post_meta( get_the_ID(), '_avia_hide_featured_image', true ) )
 					{
@@ -31,7 +45,7 @@ if( have_posts() )
 
 				//display the actual post content
 				echo '<div class="entry-content" ' . avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false ) ) . '>';
-						the_content( __( 'Read more', 'avia_framework' ) . '<span class="more-link-arrow"></span>' );
+						the_content( __( 'Read more', 'avia_framework' ) . $more_link_arrow );
 				echo '</div>';
 
 				echo '<footer class="entry-footer">';
@@ -47,14 +61,14 @@ if( have_posts() )
 					if( is_single() && 'blog-meta-tag' == avia_get_option( 'blog-meta-tag' ) && has_tag() )
 					{
 						echo '<span class="blog-tags minor-meta">';
-								the_tags( '<strong>' . __( 'Tags:','avia_framework' ) . '</strong><span> ' );
+								the_tags( '<strong>' . __( 'Tags:', 'avia_framework' ) . '</strong><span> ' );
 						echo '</span></span>';
 					}
 
 				echo '</footer>';
 			echo '</div>';
 
-			do_action('ava_after_content', get_the_ID(), 'single-portfolio');
+			do_action( 'ava_after_content', get_the_ID(), 'single-portfolio' );
 
 		echo '</article><!--end post-entry-->';
 
@@ -77,9 +91,21 @@ else
 
 	$heading = ! empty( $args['heading'] ) ? $args['heading'] : $default_heading;
 	$css = ! empty( $args['extra_class'] ) ? $args['extra_class'] : '';
+
+	$aria_label = 'aria-label="' . __( 'No Portfolio Found', 'avia_framework' ) . '"';
+
+	/**
+	 * @since 6.0.3
+	 * @param string $aria_label
+	 * @param string $context
+	 * @param array $nothing_found
+	 * @return string
+	 */
+	$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, [] );
+
 ?>
 	<article class="entry">
-		<header class="entry-content-header">
+		<header class="entry-content-header" <?php echo $aria_label; ?> >
 			<?php echo "<{$heading} class='post-title entry-title {$css}'>" . __( 'Nothing Found', 'avia_framework' ) . "</{$heading}>"; ?>
 		</header>
 

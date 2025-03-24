@@ -8,7 +8,7 @@
  * @since		Version 1.7
  * @package 	AviaFramework
  */
- 
+
 (function($)
 {
 	"use strict";
@@ -125,7 +125,7 @@
 
 		//fontello iconfont manager
 		$("body").on('av_fontello_zip_insert', $.AviaElementBehavior.fontello_insert);
-		$("body").on('click', '.avia_iconfont_manager .avia-del-font', $.AviaElementBehavior.fontello_remove);
+		$("body").on('click', '.avia_iconfont_manager .avia-del-font, .avia_iconfont_manager .avia-default-toggle', $.AviaElementBehavior.fontello_remove);
 
 		//Typefont manager
 		$("body").on('av_typefont_zip_insert', $.AviaElementBehavior.typefont_insert);
@@ -217,8 +217,10 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 					$('body').avia_alert({the_class:'error', show:10000 , text:response.error});
 				}
 
-				if(typeof console != 'undefined') console.log(response);
-
+				if( typeof console != 'undefined' )
+				{
+					console.log(response);
+				}
 			},
 			complete: function(response)
 			{
@@ -299,8 +301,10 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 					$('body').avia_alert({the_class:'error', text:response.error});
 				}
 
-				if(typeof console != 'undefined') console.log(response);
-
+				if( typeof console != 'undefined' )
+				{
+					console.log(response);
+				}
 			},
 			complete: function(response)
 			{
@@ -345,25 +349,33 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 			},
 			success: function(response)
 			{
-				if(response.match(/avia_font_added/))
+				if( response.match(/avia_font_added/) )
 				{
 					var font	 	= response.replace(/avia_font_added:/,''),
 						existing	= manager.find('[data-font="'+font+'"]'),
 						all_fonts	= manager.find('.avia-available-font'),
 						template 	= manager.find('.avia-available-font').eq( 0 ).clone().wrap('<p>').parent().html().replace(/{font_name}/g, font);
 
-						if(existing.length)
+						if( existing.length )
 						{
 							existing.removeClass('av-highlight');
-							setTimeout(function(){ existing.addClass('av-highlight'); },10);
+							setTimeout(function()
+							{
+								existing.addClass('av-highlight');
+							}, 10);
 
-							if(all_fonts.index(existing) === 1)
+							if( all_fonts.index(existing) === 1 )
 							{
 								var del = existing.find('.avia-def-font').removeClass('avia-def-font').addClass('avia-del-font').text('Delete');
 							}
 						}
 						else
 						{
+							if( font.toLowerCase().indexOf('svg_') == 0 )
+							{
+								template = template.replace( /Iconfont:/g, 'SVG Icons:' );
+							}
+
 							$(template).css({display:'none'}).appendTo(manager).slideDown(200);
 						}
 				}
@@ -372,8 +384,10 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 					$('body').avia_alert({the_class:'error', show:6500 , text:'Couldn\'t add the font.<br/>The script returned the following error: '+"<br/><br/>"+response});
 				}
 
-				if(typeof console != 'undefined') console.log(response);
-
+				if( typeof console != 'undefined' )
+				{
+					console.log(response);
+				}
 			},
 			complete: function(response)
 			{
@@ -385,11 +399,13 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 	$.AviaElementBehavior.fontello_remove = function(event)
 	{
 		event.preventDefault();
+
 		var button 		= $(this),
 			parent		= button.parents('.avia-available-font').eq( 0 ),
 			manager		= button.parents('.avia_iconfont_manager').eq( 0 ),
 			all_fonts	= manager.find('.avia-available-font'),
-			del_font	= button.data('delete');
+			del_font	= button.data('delete'),
+			activate = button.hasClass('avia-default-toggle');
 
 		var loader = button.parents('.avia_control').eq(0).find('.avia_upload_loading');
 
@@ -416,16 +432,32 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 			{
 				if(response.match(/avia_font_removed/))
 				{
-					if(all_fonts.index(parent) === 1)
+					if( activate )
 					{
-						var del = parent.find('.avia-del-font').removeClass('avia-del-font').addClass('avia-def-font').text('(Default Font)');
+						if( parent.hasClass( 'av-is-active-yes') )
+						{
+							parent.removeClass( 'av-is-active-yes' ).addClass( 'av-is-active-no' );
+						}
+						else if( parent.hasClass( 'av-is-active-no') )
+						{
+							parent.removeClass( 'av-is-active-no' ).addClass( 'av-is-active-yes' );
+						}
+
+						$('.avia_submit').removeClass('avia_button_inactive');
 					}
 					else
 					{
-						parent.slideUp(200,function()
+						if( all_fonts.index(parent) === 1 )
 						{
-							parent.remove();
-						});
+							parent.find('.avia-del-font').removeClass('avia-del-font').addClass('avia-def-font').text('(Default Font)');
+						}
+						else
+						{
+							parent.slideUp(200,function()
+							{
+								parent.remove();
+							});
+						}
 					}
 				}
 				else
@@ -433,8 +465,10 @@ EXTRA FUNCTIONS, NOT NECESSARY FOR THE DEFAULT UPLOAD
 					$('body').avia_alert({the_class:'error', text:'Couldn\'t remove the font.<br/>Please reload the page, then try again'});
 				}
 
-				if(typeof console != 'undefined') console.log(response);
-
+				if( typeof console != 'undefined' )
+				{
+					console.log(response);
+				}
 			},
 			complete: function(response)
 			{

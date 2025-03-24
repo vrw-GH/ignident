@@ -9,7 +9,7 @@
 {
     "use strict";
 
-	$.AviaMapsAPI  =  function(options, container)
+	$.AviaMapsAPI = function(options, container)
 	{
 		if(typeof window.av_google_map == 'undefined')
 		{
@@ -64,7 +64,7 @@
 			{
 						//	this is only a fallback setting - should never be used
 				var gmap_version = 'string' == typeof avia_framework_globals.gmap_version ? avia_framework_globals.gmap_version : 'weekly';
-				$.AviaMapsAPI.apiFiles.src = 'https://maps.googleapis.com/maps/api/js?v=' + gmap_version + '&callback=aviaOnGoogleMapsLoaded';
+				$.AviaMapsAPI.apiFiles.src = 'https://maps.googleapis.com/maps/api/js?loading=async&libraries=marker&v=' + gmap_version + '&callback=aviaOnGoogleMapsLoaded';
 				if( typeof avia_framework_globals.gmap_api != 'undefined' && avia_framework_globals.gmap_api != "" )
 				{
 					$.AviaMapsAPI.apiFiles.src += "&key=" + avia_framework_globals.gmap_api;
@@ -79,16 +79,18 @@
     		this._getAPI();
     	},
 
-    	_getAPI: function( )
+    	_getAPI: function()
 		{
 			//make sure the api file is loaded only once
 			if((typeof window.google == 'undefined' || typeof window.google.maps == 'undefined') && $.AviaMapsAPI.apiFiles.loading == false)
 			{
 				$.AviaMapsAPI.apiFiles.loading = true;
-				var script 	= document.createElement('script');
-					script.id = 'av-google-maps-api';
-					script.type = 'text/javascript';
-					script.src 	= $.AviaMapsAPI.apiFiles.src;
+
+				var script = document.createElement('script');
+
+				script.id = 'av-google-maps-api';
+				script.type = 'text/javascript';
+				script.src = $.AviaMapsAPI.apiFiles.src;
 
       			document.body.appendChild(script);
 			}
@@ -106,8 +108,12 @@
 
 		_applyMap: function()
 		{
-			if(typeof this.map != 'undefined') return;
-			if(!this.$data.marker || !this.$data.marker[0] || !this.$data.marker[0].lat || !this.$data.marker[0].long)
+			if( typeof this.map != 'undefined' )
+			{
+				return;
+			}
+
+			if( ! this.$data.marker || ! this.$data.marker[0] || ! this.$data.marker[0].lat || ! this.$data.marker[0].long )
 			{
 				$.avia_utilities.log('Latitude or Longitude missing. Make sure you did not only enter an address. You need to fetch the coordinates too.', 'map-error');
 				return;
@@ -157,11 +163,13 @@
 			}
 
 			if( 'undefined' == typeof this.$data.scrollwheel ) {this.$data.scrollwheel = false; }
-			if( 'undefined' == typeof this.$data.gestureHandling ) {this.$data.gestureHandling = 'cooperative' };
-			if( 'undefined' == typeof this.$data.backgroundColor ) {this.$data.backgroundColor = 'transparent' };
-			if( 'undefined' == typeof this.$data.styles ) {this.$data.styles = [{featureType: "poi", elementType: "labels", stylers: [ { visibility: "off" }] }] };
+			if( 'undefined' == typeof this.$data.gestureHandling ) {this.$data.gestureHandling = 'cooperative'; }
+			if( 'undefined' == typeof this.$data.backgroundColor ) {this.$data.backgroundColor = 'transparent'; }
+			if( 'undefined' == typeof this.$data.styles ) {this.$data.styles = [{featureType: "poi", elementType: "labels", stylers: [ { visibility: "off" }] }]; };
+
 
 			this.mapVars = {
+//				mapId: 'DEMO_MAP_ID',  //this.$mapid,
 				mapMaker: false, //mapmaker tiles are user generated content maps. might hold more info but also be inaccurate
 				backgroundColor: this.$data.backgroundColor,
 				streetViewControl: this.$data.streetview_control,
@@ -234,7 +242,6 @@
 
 				if(this.$data.saturation == "fill")
 				{
-
 					style_color = this.$data.hue || "#242424";
 
 					var c = style_color.substring(1);      // strip #
@@ -290,7 +297,8 @@
 				{
 					setTimeout( function()
 					{
-							var marker = "";
+							var marker = "",
+								map = _self.map;
 
 							if(!_self.$data.marker[key] || !_self.$data.marker[key].lat || !_self.$data.marker[key].long)
 							{
@@ -301,13 +309,14 @@
 							_self.$data.LatLng = new google.maps.LatLng(_self.$data.marker[key].lat, _self.$data.marker[key].long);
 
 							var markerArgs = {
-			        		  flat: false,
-						      position: _self.$data.LatLng,
-						      animation: google.maps.Animation.BOUNCE,
-						      map: _self.map,
-						      title: _self.$data.marker[key].address,
-						      optimized: false
-						    };
+//									map,
+									map: _self.map,
+									flat: false,
+									position: _self.$data.LatLng,
+									animation: google.maps.Animation.BOUNCE,
+									title: _self.$data.marker[key].address,
+									optimized: false
+								};
 
 						    //set a custom marker image if available. also set the size and reduce the marker on retina size so its sharp
 						    if(_self.$data.marker[key].icon && _self.$data.marker[key].imagesize)
@@ -321,6 +330,7 @@
 						    }
 
 			        		marker = new google.maps.Marker(markerArgs);
+//							marker = new google.maps.marker.AdvancedMarkerElement(markerArgs);
 
 			        		setTimeout(function(){ marker.setAnimation(null); _self._infoWindow(_self.map, marker, _self.$data.marker[key]); },500);
 
@@ -383,7 +393,7 @@
     	{
     		var self = $.data( this, 'aviaMapsApi' );
 
-    		if(!self)
+    		if( ! self )
     		{
     			self = $.data( this, 'aviaMapsApi', new $.AviaMapsAPI( options, this ) );
     		}
@@ -391,16 +401,15 @@
     };
 
 
-
-    //this function is executed once the api file is loaded
-	window.aviaOnGoogleMapsLoaded = function(){
-							$('body').trigger('av-google-maps-api-loaded');
-							$.AviaMapsAPI.apiFiles.finished = true;
-						};
+    // this function is executed once the api file is loaded
+	window.aviaOnGoogleMapsLoaded = function()
+	{
+		$('body').trigger('av-google-maps-api-loaded');
+		$.AviaMapsAPI.apiFiles.finished = true;
+	};
 
 
 	$('body').trigger('avia-google-maps-api-script-loaded');
 
 })( jQuery );
-
 

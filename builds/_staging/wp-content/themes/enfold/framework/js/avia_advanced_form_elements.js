@@ -64,7 +64,7 @@ var av_backend_maps_loaded, gm_authFailure;
 	avia_callback.av_maps_js_api_check = function(value, callback)
 	{
 								//	this is only a fallback setting
-		var src	= 'https://maps.googleapis.com/maps/api/js?v=3.30&callback=av_backend_maps_loaded&key=' + value;
+		var src	= 'https://maps.googleapis.com/maps/api/js?v=3.59&loading=async&libraries=marker&callback=av_backend_maps_loaded&key=' + value;
 
 		if( 'undefined' != typeof avia_framework_globals.gmap_backend_maps_loaded && avia_framework_globals.gmap_backend_maps_loaded != '' )
 		{

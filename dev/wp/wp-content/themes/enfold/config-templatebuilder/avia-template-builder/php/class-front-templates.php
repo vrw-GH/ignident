@@ -15,7 +15,12 @@ if( ! class_exists( 'aviaFrontTemplates', false ) )
 		/**
 		 * Returns HTML for arrows for e.g. slideshows
 		 *
+		 * For backwards compatibility if you want to use svg icons add to $args:
+		 *
+		 *		 $args['svg_icon'] = true;
+		 *
 		 * @since 4.8.3
+		 * @since 7.0					added support for svg icons
 		 * @param array $args			depends on context
 		 * @return type
 		 */
@@ -24,21 +29,42 @@ if( ! class_exists( 'aviaFrontTemplates', false ) )
 			$class_main = isset( $args['class_main'] ) ? $args['class_main'] : 'avia-slideshow-arrows avia-slideshow-controls';
 			$container_styles = isset( $args['container_styles'] ) ? $args['container_styles'] : '';
 
-			$icon_prev = isset( $args['icon_prev'] ) ? av_icon_string( $args['icon_prev'] ) : av_icon_string( 'prev_big' );
-			$icon_next = isset( $args['icon_next'] ) ? av_icon_string( $args['icon_next'] ) : av_icon_string( 'next_big' );
 			$class_prev = isset( $args['class_prev'] ) ? $args['class_prev'] : '';
 			$class_next = isset( $args['class_next'] ) ? $args['class_next'] : '';
 			$text_prev = isset( $args['text_prev'] ) ? $args['text_prev'] : __( 'Previous', 'avia_framework' );
 			$text_next = isset( $args['text_next'] ) ? $args['text_next'] : __( 'Next', 'avia_framework' );
 
-			$aria_prev = false === strpos( $icon_prev, 'aria-hidden=' ) ? 'aria-hidden="true"' : '';
-			$aria_next = false === strpos( $icon_next, 'aria-hidden=' ) ? 'aria-hidden="true"' : '';
+			if( isset( $args['svg_icon'] ) && true === $args['svg_icon'] )
+			{
+				$arrow_prev = isset( $args['icon_prev'] ) ? $args['icon_prev'] : 'svg__prev_big';
+				$arrow_next = isset( $args['icon_next'] ) ? $args['icon_next'] : 'svg__next_big';
+
+				$class_prev .= ' ' . avia_font_manager::get_shortcut_icon_class( $arrow_prev );
+				$class_next .= ' ' . avia_font_manager::get_shortcut_icon_class( $arrow_next );
+			}
+			else
+			{
+				$arrow_prev = isset( $args['icon_prev'] ) ? $args['icon_prev'] : 'prev_big';
+				$arrow_next = isset( $args['icon_next'] ) ? $args['icon_next'] : 'next_big';
+			}
+
+			$icon_prev = avia_font_manager::get_frontend_icon( $arrow_prev, false, [ 'aria-hidden' => 'true', 'title' => esc_html( $text_prev ), 'desc' => esc_html( $text_prev ) ] );
+			$icon_next = avia_font_manager::get_frontend_icon( $arrow_next, false, [ 'aria-hidden' => 'true', 'title' => esc_html( $text_next ), 'desc' => esc_html( $text_next ) ] );
+
+			$link_title_prev = ! empty( $icon_prev['svg'] ) ? 'title="' . esc_attr( $text_prev ) . '"' : '';
+			$link_title_next = ! empty( $icon_next['svg'] ) ? 'title="' . esc_attr( $text_next ) . '"' : '';
 
 			$html  = '';
 
 			$html .= "<div class='{$class_main}' {$container_styles}>";
-			$html .= 	"<a href='#prev' class='prev-slide {$class_prev}' {$icon_prev} {$aria_prev} tabindex='-1'>{$text_prev}</a>";
-			$html .= 	"<a href='#next' class='next-slide {$class_next}' {$icon_next} {$aria_next} tabindex='-1'>{$text_next}</a>";
+			$html .= 	"<a href='#prev' class='prev-slide {$class_prev}' {$icon_prev['attr']} tabindex='-1' {$link_title_prev}>";
+			$html .=		$icon_prev['svg'];
+			$html .=		"<span class='avia_hidden_link_text'>{$text_prev}</span>";
+			$html .=	'</a>';
+			$html .= 	"<a href='#next' class='next-slide {$class_next}' {$icon_next['attr']} tabindex='-1' {$link_title_next}>";
+			$html .=		$icon_next['svg'];
+			$html .=		"<span class='avia_hidden_link_text'>{$text_next}</span>";
+			$html .=	'</a>';
 			$html .= '</div>';
 
 			/**

@@ -666,19 +666,41 @@ if( ! function_exists( 'avia_add_cart_button' ) )
 
 			if( $pos !== false )
 			{
-				$output = substr_replace( $output, '><span ' . av_icon_string( 'cart' ) . '></span> ', $pos , strlen( 1 ) );
+				$svg_title = esc_html( __( 'Add to cart', 'avia_framework' ) );
+				$icon_cart = avia_font_manager::get_frontend_icon( 'svg__cart', false, [ 'aria-hidden' => 'true', 'title' => $svg_title, 'desc' => $svg_title ] );
+
+				$output = substr_replace( $output, '><span class="avia-svg-icon avia-font-svg_entypo-fontello" ' . $icon_cart['attr'] . '>' . $icon_cart['svg'] . '</span>  ', $pos , strlen( 1 ) );
 			}
 		}
 
 
+
 		if( $product->get_type() == 'variable' && empty( $output ) )
 		{
-			$output = '<a class="add_to_cart_button button product_type_variable" href="' . get_permalink( $product->get_id() ) . '"><span ' . av_icon_string( 'details' ) . '></span> ' . __( 'Select options', 'avia_framework' ) . '</a>';
+			$svg_title = esc_html( __( 'Select options', 'avia_framework' ) );
+
+			$icon = avia_font_manager::get_frontend_icon( 'svg__details', false, [ 'aria-hidden' => 'true', 'title' => $svg_title, 'desc' => $svg_title ] );
+
+			$output  = '<a class="add_to_cart_button button product_type_variable" href="' . get_permalink( $product->get_id() ) . '"> ';
+			$output .=		'<span class="avia-svg-icon avia-font-svg_entypo-fontello" ' . $icon['attr'] . '>';
+			$output .=			$icon['svg'];
+			$output .=		'</span>';
+			$output .=		'  ' . $svg_title;
+			$output .= '</a>';
 		}
 
 		if( in_array( $product->get_type(), array( 'subscription', 'simple', 'bundle' ) ) )
 		{
-			$output .= '<a class="button show_details_button" href="' . get_permalink( $product->get_id() ) . '"><span ' . av_icon_string( 'details' ) . '></span>  ' . __( 'Show Details', 'avia_framework' ) . '</a>';
+			$svg_title = esc_html( __( 'Show Details', 'avia_framework' ) );
+
+			$icon = avia_font_manager::get_frontend_icon( 'svg__details', false, [ 'aria-hidden' => 'true', 'title' => $svg_title, 'desc' => $svg_title ] );
+
+			$output .= '<a class="button show_details_button" href="' . get_permalink( $product->get_id() ) . '">';
+			$output .=		'<span class="avia-svg-icon avia-font-svg_entypo-fontello" ' . $icon['attr'] . '>';
+			$output .=			$icon['svg'];
+			$output .=		'</span>';
+			$output .=		'  ' . $svg_title;
+			$output .= '</a>';
 		}
 		else
 		{
@@ -779,7 +801,10 @@ if( ! function_exists( 'avia_shop_nav' ) )
 
 		if( is_user_logged_in() )
 		{
-			$current = $sub1 = $sub2 = $sub3 = '';
+			$current =  '';
+			$sub1 =  '';
+			$sub2 =  '';
+			$sub3 = '';
 
 			if( is_account_page() )
 			{
@@ -1724,6 +1749,17 @@ if( ! function_exists( 'avia_woocommerce_parallax_banner' ) )
 
 			if( $is_responsive )
 			{
+				/**
+				 * Do not display anything when no image is selected in theme shop options
+				 *
+				 * @link https://kriesi.at/support/topic/woocommerce-category-styling/#post-1463280
+				 * @since 6.0.3
+				 */
+				if( trim( $bg ) == '' )
+				{
+					return '';
+				}
+
 				//	find attachment id - remove width and height
 				$full = preg_replace('/-\d+[Xx]\d+\./', ".", $bg );
 				$att_id = attachment_url_to_postid( esc_url( $full ) );
@@ -1817,7 +1853,7 @@ if( ! function_exists( 'avia_woocommerce_parallax_banner' ) )
 
 		if( $description )
 		{
-			$output .=				"<{$desc_tag} class='av-banner-description'>{$description}</{$desc_tag}>";
+			$output .=				"<{$desc_tag} class='av-banner-description'>" . do_shortcode( $description ) . "</{$desc_tag}>";
 		}
 
 		$output .=				'</main>';
@@ -2105,7 +2141,12 @@ if( ! function_exists( 'avia_add_image_div' ) )
 				 */
 				$ignore = true === apply_filters( 'avf_wc_30_gallery_lightbox_use_max_image_size', true ) ? 'av-remove-size-attr' : '';
 
-				$icon = "<div class='avia-wc-30-product-gallery-lightbox {$ignore}' " . av_icon_string( 'search' ) . "></div>";
+				$display_char = \avia_font_manager::get_frontend_shortcut_icon( "svg__search", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class = \avia_font_manager::get_frontend_icon_classes( $display_char['font'], 'string' );
+
+				$icon  = "<div class='avia-wc-30-product-gallery-lightbox {$ignore} {$char_class}' {$display_char['attr']}>";
+				$icon .=	$display_char['svg'];
+				$icon .= '</div>';
 			}
 		}
 
@@ -2178,9 +2219,10 @@ if( avia_woocommerce_version_check( '3.0.0' ) ) // in woocommerce 3.0.0
 if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 {
 	/**
-	 * Displays a front end interface for modifying the shoplist query parameters like sorting order, product count etc
+	 * Displays a front end interface for modifying the shoplist query parameters like sorting order, product count etc.
 	 *
 	 * @since < 4.0
+	 * @since 6.0.9  added fix for https://kriesi.at/support/topic/bug-abuse-of-avia_extended_shop_select-queries/
 	 */
 	function avia_woocommerce_frontend_search_params()
 	{
@@ -2213,6 +2255,8 @@ if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 		 * @return array
 		 */
 		$product_order = apply_filters( 'avf_wc_product_order_dropdown_frontend', $product_order );
+
+		$order_no_sort = [ 'rand', 'popularity', 'rating', 'default' ];
 
 		$product_sort['asc'] = __( 'Click to order products ascending', 'avia_framework' );
 		$product_sort['desc'] = __( 'Click to order products descending', 'avia_framework' );
@@ -2256,36 +2300,30 @@ if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 			$ps_key = $params['product_sort'];
 		}
 
-		if( 'default' == $po_key )
-		{
-			unset( $params['product_sort'] );
-		}
+		$ps_key = strtolower( $ps_key );
+		$params['product_sort'] = strtolower( $ps_key );
 
 		$params['avia_extended_shop_select'] = 'yes';
 
-//		$po_key = ! empty( $avia_config['woocommerce']['product_order'] ) ? $avia_config['woocommerce']['product_order'] : $params['product_order'];
-//		$ps_key = ! empty( $avia_config['woocommerce']['product_sort'] ) ? $avia_config['woocommerce']['product_sort'] : $params['product_sort'];
 		$pc_key = ! empty( $avia_config['woocommerce']['product_count'] ) ? $avia_config['woocommerce']['product_count'] : $per_page;
 
-		$ps_key = strtolower( $ps_key );
-
-		$show_sort = ! in_array( $po_key, array( 'rand', 'popularity', 'rating', 'default' ) );
+		$show_sort = ! in_array( $po_key, $order_no_sort );
 
 		$nofollow = 'rel="nofollow"';
 
 		//generate markup
 		$output  =	'';
-		$output .=	'<div class="product-sorting">';
+		$output .=	'<div class="product-sorting avia-product-sorting">';
 		$output .=		'<ul class="sort-param sort-param-order">';
 		$output .=			"<li><span class='currently-selected'>" . __( 'Sort by', 'avia_framework' ) . " <strong>{$product_order[$po_key]}</strong></span>";
 		$output .=				'<ul>';
 
 		foreach ( $product_order as $order_key => $order_text )
 		{
-			$query_string = 'default' == $order_key ? avia_woo_build_query_string( $params, 'product_order', $order_key, 'product_sort' ) : avia_woo_build_query_string( $params, 'product_order', $order_key );
+			$query_string = in_array( $order_key, $order_no_sort ) ? avia_woo_build_query_string( $params, 'product_order', $order_key, 'product_sort' ) : avia_woo_build_query_string( $params, 'product_order', $order_key );
 
 			$output .=				'<li' . avia_woo_active_class( $po_key, $order_key ) . '>';
-			$output .=					"<a href='{$query_string}' {$nofollow}>";
+			$output .=					"<a class='avia-product-sorting-link' data-href='{$query_string}' {$nofollow}>";
 			$output .=						"<span class='avia-bullet'></span>{$order_text}";
 			$output .=					'</a>';
 			$output .=				'</li>';
@@ -2302,11 +2340,11 @@ if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 
 			if( $ps_key == 'desc' )
 			{
-			$output .=			"<a title='{$product_sort['asc']}' class='sort-param-asc'  href='" . avia_woo_build_query_string( $params, 'product_sort', 'asc' ) . "' {$nofollow}>{$product_sort['desc']}</a>";
+			$output .=			"<a title='{$product_sort['asc']}' class='avia-product-sorting-link avia-sorting-asc-desc sort-param-asc'  data-href='" . avia_woo_build_query_string( $params, 'product_sort', 'asc' ) . "' {$nofollow}>{$product_sort['desc']}</a>";
 			}
 			if( $ps_key == 'asc' )
 			{
-			$output .=			"<a title='{$product_sort['desc']}' class='sort-param-desc' href='" . avia_woo_build_query_string( $params, 'product_sort', 'desc' ) . "' {$nofollow}>{$product_sort['asc']}</a>";
+			$output .=			"<a title='{$product_sort['desc']}' class='avia-product-sorting-link avia-sorting-asc-desc sort-param-desc' data-href='" . avia_woo_build_query_string( $params, 'product_sort', 'desc' ) . "' {$nofollow}>{$product_sort['asc']}</a>";
 			}
 
 			$output .=		'</li>';
@@ -2315,12 +2353,22 @@ if( ! function_exists( 'avia_woocommerce_frontend_search_params' ) )
 
 		if( ! isset( $avia_config['woocommerce']['default_posts_per_page'] ) || ( $avia_config['woocommerce']['default_posts_per_page'] > 0 ) )
 		{
+			if( ! isset( $params['product_order'] ) )
+			{
+				$params['product_order'] = 'default';
+			}
+
+			if( in_array( $params['product_order'], $order_no_sort ) )
+			{
+				unset( $params['product_sort'] );
+			}
+
 			$output .=	"<ul class='sort-param sort-param-count'>";
 			$output .=		"<li><span class='currently-selected'>" . __( 'Display', 'avia_framework' ) . " <strong>{$pc_key} {$per_page_string} </strong></span>";
 			$output .=			'<ul>';
-			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page ) . "><a href='" . avia_woo_build_query_string( $params, 'product_count', $per_page ) . "' {$nofollow}>		<span class='avia-bullet'></span>{$per_page} {$per_page_string}</a></li>";
-			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page * 2 ) . "><a href='" . avia_woo_build_query_string( $params, 'product_count', $per_page * 2 ) . "' {$nofollow}>	<span class='avia-bullet'></span>" . ( $per_page * 2 ) . " {$per_page_string}</a></li>";
-			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page * 3 ) . "><a href='" . avia_woo_build_query_string( $params, 'product_count', $per_page * 3 ) . "' {$nofollow}>	<span class='avia-bullet'></span>" . ( $per_page * 3 ) . " {$per_page_string}</a></li>";
+			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page ) . "><a class='avia-product-sorting-link' data-href='" . avia_woo_build_query_string( $params, 'product_count', $per_page ) . "' {$nofollow}>		<span class='avia-bullet'></span>{$per_page} {$per_page_string}</a></li>";
+			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page * 2 ) . "><a class='avia-product-sorting-link' data-href='" . avia_woo_build_query_string( $params, 'product_count', $per_page * 2 ) . "' {$nofollow}>	<span class='avia-bullet'></span>" . ( $per_page * 2 ) . " {$per_page_string}</a></li>";
+			$output .=				'<li' . avia_woo_active_class( $pc_key, $per_page * 3 ) . "><a class='avia-product-sorting-link' data-href='" . avia_woo_build_query_string( $params, 'product_count', $per_page * 3 ) . "' {$nofollow}>	<span class='avia-bullet'></span>" . ( $per_page * 3 ) . " {$per_page_string}</a></li>";
 			$output .=			'</ul>';
 			$output .=		'</li>';
 			$output .=	'</ul>';
@@ -2748,7 +2796,7 @@ if( ! function_exists( 'avia_woocommerce_gallery_thumbnail_description' ) )
 		$image_title = esc_attr( get_post_field( 'post_content', $attachment_id ) );
 
 		//	get responsive lightbox image
-		$link = AviaHelper::get_url( 'lightbox', $attachment_id, true );
+		$link = avia_responsive_lightbox_image( $attachment_id, true );
 		$lightbox_attr = Av_Responsive_Images()->html_attr_image_src( $link, false );
 
 		$new_img  = '';
@@ -3028,9 +3076,12 @@ if( ! function_exists( 'avia_woocommerce_account_icon' ) )
 			 */
 			$aria_label = apply_filters( 'avf_woocommerce_account_icon_aria_label', $aria_label, $items, $args );
 
+			$icon = avia_font_manager::get_frontend_icon( 'svg__account', false, [ 'aria-hidden' => 'true', 'title' => esc_html( $hidden_text ), 'desc' => esc_html( $aria_label ) ] );
+
 			$items .=	'<li id="menu-item-wc-account-icon" class="noMobile menu-item menu-item-account-icon menu-item-avia-special" role="menuitem">';
-			$items .=		'<a aria-label="' . $aria_label . '" href="' . get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) . ' " title="' . $hidden_text . '" ' . av_icon_string( 'account', false ) . '>';
-			$items .=			'<span class="avia_hidden_link_text">' . $aria_label . '</span>';
+			$items .=		'<a class="avia-svg-icon avia-font-svg_entypo-fontello" aria-label="' . esc_attr( $aria_label ) . '" href="' . get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) . ' " title="' . esc_attr( $hidden_text ) . '" ' . $icon['attr'] . '>';
+			$items .=			$icon['svg'];
+			$items .=			'<span class="avia_hidden_link_text">' . esc_html( $aria_label ) . '</span>';
 			$items .=		'</a>';
 			$items .=	'</li>';
 		}
@@ -3067,14 +3118,19 @@ if( ! function_exists( 'avia_woocommerce_cart_dropdown' ) )
 			$id = 'id="menu-item-shop"';
 		}
 
+		$svg_title = esc_html( __( 'Shopping Cart', 'avia_framework' ) );
+
+		$icon = avia_font_manager::get_frontend_icon( 'svg__cart', false, [ 'aria-hidden' => 'true', 'title' => $svg_title, 'desc' => $svg_title ] );
 
 		$output  = '';
 		$output .= "<ul {$id} class = 'menu-item cart_dropdown {$trigger}' data-success='" . __( 'was added to the cart', 'avia_framework' ). "'>";
 		$output .=		'<li class="cart_dropdown_first">';
-		$output .=			"<a class='cart_dropdown_link' href='{$link}'>";
-		$output .=				'<span ' . av_icon_string( 'cart' ) . '></span>';
+		$output .=			"<a class='cart_dropdown_link avia-svg-icon avia-font-svg_entypo-fontello' href='{$link}'>";
+		$output .=				'<div class="av-cart-container" ' . $icon['attr'] . '>';
+		$output .=					$icon['svg'];
+		$output .=				'</div>';
 		$output .=				"<span class='av-cart-counter {$active}'>{$cart_items}</span>";
-		$output .=				'<span class="avia_hidden_link_text">' . __( 'Shopping Cart', 'avia_framework' ) . '</span>';
+		$output .=				'<span class="avia_hidden_link_text">' . $svg_title . '</span>';
 		$output .=			'</a>';
 		$output .=			"<!--<span class='cart_subtotal'>{$cart_subtotal}</span>-->";
 		$output .=			'<div class="dropdown_widget dropdown_widget_cart">';
@@ -3405,6 +3461,65 @@ if( ! function_exists( 'avia_wc_set_featured_prod_query_params' ) )
 	}
 }
 
+if( ! function_exists( 'avia_wc_set_on_sale_prod_query_params' ) )
+{
+	/**
+	 * Returns the query parameters for sale products .
+	 *
+	 * @since 7.0
+	 * @param array $meta_query
+	 * @param array $tax_query
+	 * @param string $sale_visibility					'on_sale'|'not_on_sale'|'' for all
+	 */
+	function avia_wc_set_on_sale_prod_query_params( array &$meta_query, array &$tax_query, $sale_visibility = '' )
+	{
+		$meta = [];
+
+		if( 'on_sale' == $sale_visibility )
+		{
+			$meta = [
+					'relation'	=> 'OR',
+					[
+						'key'		=> '_sale_price',
+						'value'		=> 0,
+						'compare'	=> '>',
+						'type'		=> 'NUMERIC'
+					],
+					[
+						'key'		=> '_min_variation_sale_price',
+						'value'		=> 0,
+						'compare'	=> '>',
+						'type'	=> 'NUMERIC'
+					]
+				];
+		}
+		else if( 'not_on_sale' == $sale_visibility )
+		{
+			$meta = [
+					'relation'	=> 'AND',
+					[
+						'key'		=> '_sale_price',
+						'compare'	=> 'NOT EXISTS'
+					],
+					[
+						'key'		=> '_min_variation_sale_price',
+						'compare'	=> 'NOT EXISTS'
+					]
+				];
+		}
+
+		if( ! empty( $meta ) )
+		{
+			if( ! isset( $meta_query['relation'] ) )
+			{
+				$meta_query['relation'] = 'AND';
+			}
+
+			$meta_query[] = $meta;
+		}
+	}
+}
+
 if( ! function_exists( 'avia_wc_set_additional_filter_args' ) )
 {
 	/**
@@ -3432,6 +3547,11 @@ if( ! function_exists( 'avia_wc_set_additional_filter_args' ) )
 
 		if( ! empty( $args ) )
 		{
+			if( ! isset( $meta_query['relation'] ) )
+			{
+				$meta_query['relation'] = 'AND';
+			}
+
 			$meta_query[] = wc_get_min_max_price_meta_query( $args );
 		}
 

@@ -78,6 +78,12 @@ $key .cart_dropdown_first .cart_dropdown_link,
 	color: $color;
 }
 
+#top #wrap_all $key .cart_dropdown_first .cart_dropdown_link.avia-svg-icon svg:first-child,
+#top $key  .avia_cart_buttons .avia-svg-icon svg:first-child{
+	stroke: $color;
+	fill: $color;
+}
+
 $key .woocommerce-tabs .tabs a,
 $key .product_meta,
 $key .quantity input.qty,

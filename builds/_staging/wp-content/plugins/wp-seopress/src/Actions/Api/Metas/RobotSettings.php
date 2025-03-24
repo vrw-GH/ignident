@@ -11,8 +11,14 @@ use SEOPress\Helpers\Metas\RobotSettings as MetaRobotSettingsHelper;
 
 class RobotSettings implements ExecuteHooks
 {
+    /**
+     * @var int|null
+     */
+    private $current_user;
+
     public function hooks()
     {
+        $this->current_user = wp_get_current_user()->ID;
         add_action('rest_api_init', [$this, 'register']);
     }
 
@@ -33,7 +39,16 @@ class RobotSettings implements ExecuteHooks
                     },
                 ],
             ],
-            'permission_callback' => '__return_true',
+            'permission_callback' => function($request) {
+                $post_id = $request['id'];
+                $current_user = $this->current_user ? $this->current_user : wp_get_current_user()->ID;
+
+                if ( ! user_can( $current_user, 'edit_post', $post_id )) {
+                    return false;
+                }
+
+                return true;
+            },
         ]);
 
         register_rest_route('seopress/v1', '/posts/(?P<id>\d+)/meta-robot-settings', [
@@ -46,11 +61,9 @@ class RobotSettings implements ExecuteHooks
                     },
                 ],
             ],
-            'permission_callback' => function() {
-                if (current_user_can('edit_posts')) {
-                    return true;
-                }
-                return false;
+            'permission_callback' => function($request) {
+                $post_id = $request['id'];
+                return current_user_can('edit_post', $post_id);
             },
         ]);
     }
@@ -72,7 +85,7 @@ class RobotSettings implements ExecuteHooks
             //Elementor sync
             $elementor = get_post_meta($id, '_elementor_page_settings', true);
 
-            $dataKeysSave = ['_seopress_robots_index', '_seopress_robots_follow', '_seopress_robots_imageindex', '_seopress_robots_archive', '_seopress_robots_snippet', '_seopress_robots_canonical', '_seopress_robots_primary_cat', '_seopress_robots_breadcrumbs'];
+            $dataKeysSave = ['_seopress_robots_index', '_seopress_robots_follow', '_seopress_robots_imageindex', '_seopress_robots_snippet', '_seopress_robots_canonical', '_seopress_robots_primary_cat', '_seopress_robots_breadcrumbs'];
 
             foreach ($metas as $key => $value) {
                 if (! isset($params[$value['key']])) {
@@ -88,7 +101,7 @@ class RobotSettings implements ExecuteHooks
                     $item = sanitize_url($item);
                 }
 
-                if ($value['key'] ==='_seopress_robots_primary_cat' || $value['key'] ==='_seopress_robots_index' || $value['key'] ==='_seopress_robots_follow' || $value['key'] ==='_seopress_robots_imageindex' || $value['key'] ==='_seopress_robots_archive' || $value['key'] ==='_seopress_robots_snippet' || $value['key'] ==='_seopress_robots_breadcrumbs') {
+                if ($value['key'] ==='_seopress_robots_primary_cat' || $value['key'] ==='_seopress_robots_index' || $value['key'] ==='_seopress_robots_follow' || $value['key'] ==='_seopress_robots_imageindex' || $value['key'] ==='_seopress_robots_snippet' || $value['key'] ==='_seopress_robots_breadcrumbs') {
                     $item = sanitize_text_field($item);
                 }
 

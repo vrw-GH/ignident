@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 $list_table = new ListTable();
 $list_table->prepare_items();
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 $table_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
 
 $wp_plugins = [

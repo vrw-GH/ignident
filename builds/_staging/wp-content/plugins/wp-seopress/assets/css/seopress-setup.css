@@ -27,6 +27,7 @@ body.seopress-setup label {
     width: 100%;
     display: inline-block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .media-frame-title h1,
@@ -67,7 +68,7 @@ textarea:focus {
     vertical-align: middle;
 }
 
-.seopress-setup-content {
+.seopress-styles .seopress-option.seopress-setup-content {
     width: 100%;
     padding: 25px 40px 40px;
 }
@@ -110,15 +111,6 @@ textarea:focus {
     padding: 0;
 }
 
-.seopress-setup .seopress-setup-footer {
-    padding: 20px 40px;
-    position: fixed;
-    width: auto;
-    bottom: 0;
-    left: 0;
-    z-index: 10;
-}
-
 .seopress-setup .seopress-setup-footer .hidden {
     display: none;
 }
@@ -155,21 +147,34 @@ table.seopress-importer-error-log-table {
     font-weight: 500;
 }
 
+.seopress-setup-content h2 {
+    margin: 0 0 10px;
+}
+
 .seopress-setup-content .final {
-    padding: 2.5rem;
-    text-align: center;
+    padding: 1.5rem;
 }
 
 .seopress-setup-content .final h1 {
     font-size: 40px;
-    text-align: center;
     font-weight: bold;
     text-transform: uppercase;
-    justify-content: center;
 }
 
 .seopress-setup-content h3:first-child {
     margin-top: 0;
+}
+
+.seopress-setup-content .final li {
+    margin-bottom: 1rem;
+}
+
+.seopress-setup-content .final .dashicons {
+    margin-right: 0.5rem;
+}
+
+.seopress-setup-content .final .dashicons::before {
+    color: var(--colorSuccess);
 }
 
 .seopress-setup-content p.intro {
@@ -180,7 +185,7 @@ table.seopress-importer-error-log-table {
     display: inline-block;
     max-width: 100%;
     width: 100%;
-    padding: 0 0 0 5px;
+    padding: 0;
     list-style: none;
 }
 
@@ -330,14 +335,6 @@ table.seopress-importer-error-log-table {
     position: relative;
 }
 
-.seopress-setup-footer-links {
-    font-size: 0.85em;
-    color: var(--color);
-    margin: 1.18em auto;
-    display: inline-block;
-    text-align: center;
-}
-
 .no_nav_menu .seopress-setup-steps {
     display: none;
 }
@@ -348,10 +345,6 @@ table.seopress-importer-error-log-table {
 
 .seopress-setup.no_nav_menu p.seopress-setup-actions {
     font-size: 18px;
-}
-
-.seopress-setup-sub-steps {
-    padding: 0;
 }
 
 .seopress-wizard-services {
@@ -384,11 +377,14 @@ table.seopress-importer-error-log-table {
 }
 
 .seopress-wizard-service-item {
-    display: flex;
-    flex-wrap: nowrap;
     padding: 0;
-    align-items: center;
     margin: 1rem 0;
+    display: flex;
+    gap: 0.5rem;
+}
+
+body .seopress-wizard-service-item label {
+    font-weight: normal;
 }
 
 .seopress-wizard-service-item {
@@ -456,24 +452,7 @@ table.seopress-importer-error-log-table {
     margin: 0;
     font-size: 16px;
     font-weight: 600;
-}
-
-.seopress-wizard-next-steps .seopress-wizard-additional-steps {
-    border-top: 1px solid var(--borderColorLight40);
-}
-
-.seopress-wizard-next-steps .seopress-wizard-additional-steps .seopress-wizard-next-step-description {
-    margin-bottom: 0;
-    text-align: center;
-}
-
-.seopress-wizard-next-steps .seopress-wizard-additional-steps .seopress-setup-actions {
-    margin: 0 0 1.5em 0;
-    text-align: center;
-}
-
-.seopress-wizard-next-steps .seopress-wizard-additional-steps .seopress-setup-actions a {
-    margin: 0 0 1em 0;
+    line-height: 2;
 }
 
 .seopress-wizard-next-step-item .seopress-wizard-nl {
@@ -578,7 +557,21 @@ table.seopress-importer-error-log-table {
     border-color: #ee485f;
 }
 
+.seopress-social-icon {
+    gap: 0.5rem;
+    margin: 2rem 0 1rem 0;
+    max-width: 35rem;
+}
+
+body.seopress-setup .seopress-social-icon label {
+    margin: 0;
+}
+
 @media only screen and (max-width: 768px) {
+    .seopress-setup-content .final h1 {
+        font-size: 23px;
+    }
+
     .seopress-wizard-nl-items {
         flex-wrap: wrap;
     }
@@ -587,18 +580,13 @@ table.seopress-importer-error-log-table {
         margin: 25px auto 24px;
     }
 
-    .seopress-setup .seopress-setup-footer {
-        position: relative;
-        padding: 0 40px 10px;
-    }
-
     .seopress-setup img {
         max-width: 100%;
         height: auto;
     }
 
-    .seopress-wizard-service-item {
-        flex-wrap: wrap;
+    .seopress-setup-footer {
+        margin: 1rem 0 0 0;
     }
 
     .seopress-wizard-service-item .seopress-wizard-service-enable {

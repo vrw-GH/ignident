@@ -74,7 +74,7 @@ if( ! LS_Config::isActivatedSite() ) {
 
 				<tr class="ls--404-type-tr">
 					<td>
-						<?= __('Type', 'LayerSlider') ?>
+						<?= __('Content', 'LayerSlider') ?>
 					</td>
 					<td>
 						<select name="type">

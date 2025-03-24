@@ -1037,6 +1037,7 @@ if( ! class_exists( 'avia_sc_columns', false ) )
 			$output .=		'<div class="avia_data_locked_container" ' . $dataStringLocked . ' data-update_element_template="yes"></div>';
 
 			$output .=		"<div class='avia_sorthandle menu-item-handle'>";
+			$output .=			avia_font_manager::html_frontend_icon( 'lock', 'svg_entypo-fontello', 'custom-elements-lock element-column' );
 
 			$output .=			"<a class='avia-smaller avia-change-col-size' href='#smaller' title='" . __( 'Decrease Column Size', 'avia_framework' ) . "'>-</a>";
 			$output .=			"<span class='avia-col-size'>{$size[$name]}</span>";
@@ -1493,6 +1494,7 @@ if( ! class_exists( 'avia_sc_columns', false ) )
 			if( ! empty( $atts['mobile_display'] ) )
 			{
 				$element_styling->add_classes( 'flex-column', $atts['mobile_display'] );
+				$element_styling->add_classes( 'fold_button', $atts['mobile_display'] );
 			}
 
 
@@ -2039,12 +2041,13 @@ if( ! class_exists( 'avia_sc_columns', false ) )
 
 			if( empty( avia_sc_columns::$first_atts['min_height'] ) && ! empty( $atts['fold_type'] ) )
 			{
+				$hide = $element_styling->get_class_string( 'fold_button' );
 				$fold_section_class = $element_styling->get_class_string( 'fold-section' );
 				$fold_section_data = $element_styling->get_data_attributes_json_string( 'fold-section', 'fold_unfold' );
 
 				$args = [
 						'atts'			=> $atts,
-						'wrapper_class'	=> 'av-section-fold-btn-wrap',
+						'wrapper_class'	=> "av-section-fold-btn-wrap {$hide}",
 						'context'		=> __CLASS__
 					];
 

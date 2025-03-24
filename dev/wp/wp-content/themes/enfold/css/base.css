@@ -456,6 +456,21 @@ input[type="submit"],
 	speak: never;
 }
 
+#top .avia-svg-icon.avia-font-svg_entypo-fontello svg:first-child{
+	stroke: unset !important;
+}
+
+.avia-svg-icon svg:first-child,
+.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+}
+
+.avia-svg-icon svg:first-child[is-colored="true"]{
+	fill: unset !important;			/*	color ´scheme might override */
+	stroke: unset !important;
+}
+
 
 /* #Forms
 ================================================== */
@@ -755,7 +770,7 @@ sub{
 
 .image-overlay .image-overlay-inside:before{
 	content:"\E869";
-	font-family: 'entypo-fontello';
+	font-family: 'entypo-fontello-enfold';
 	font-size: 18px;
 	font-weight: normal;
 }

@@ -196,6 +196,20 @@ var Wpfc_New_Dialog = {
 	    const $input = $clone.find(".wpfc-textbox-con .fixed-search input");
 	    const $textboxCon = $clone.find(".wpfc-textbox-con");
 
+	    const insertKeywordItem = function(){
+			let keyword = $input.val().replace(/[\s,]/g, "");
+
+            $textboxCon.hide();
+            $input.val("");
+
+            if (keyword.length > 0) {
+                const $newKeywordItem = jQuery('<li class="keyword-item"><a class="keyword-label">' + keyword + '</a></li>').click(function() {
+                    jQuery(this).remove();
+                });
+                $newKeywordItem.insertBefore($clone.find(".wpfc-add-new-keyword").closest(".keyword-item"));
+            }
+	    };
+
 	    $input.keydown(function(e) {
 	        if (e.keyCode === 8) {
 	            let keyword = $input.val().replace(/[\s,]/g, "");
@@ -204,19 +218,16 @@ var Wpfc_New_Dialog = {
 	                $textboxCon.hide();
 	            }
 	        } else if (e.keyCode === 13) {
-	            let keyword = $input.val().replace(/[\s,]/g, "");
-
-	            $textboxCon.hide();
-	            $input.val("");
-
-	            if (keyword.length > 0) {
-	                const $newKeywordItem = jQuery('<li class="keyword-item"><a class="keyword-label">' + keyword + '</a></li>').click(function() {
-	                    jQuery(this).remove();
-	                });
-	                $newKeywordItem.insertBefore($clone.find(".wpfc-add-new-keyword").closest(".keyword-item"));
-	            }
+	        	insertKeywordItem();
 	        }
 	    });
+
+	    $input.bind("blur", function() {
+	    	insertKeywordItem();
+	    });
+
+
+
 	},
 	click_event_add_new_keyword_button: function(){
 		Wpfc_New_Dialog.clone.find(".wpfc-add-new-keyword").click(function(){

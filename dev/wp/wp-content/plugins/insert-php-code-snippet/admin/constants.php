@@ -1,0 +1,30 @@
+<?php
+
+
+define('XYZ_IPS_INSERTION_METHOD', [ 
+    'AUTOMATIC'=>1,
+    'SHORT_CODE'=>2,
+    'EXECUTE_ON_DEMAND'=>3
+]);
+
+define('XYZ_IPS_INSERTION_LOCATION', [ 
+    'ADMIN_RUN_ON_HEADER' => '3',
+    'ADMIN_RUN_ON_FOOTER' => '4',
+    'FRONTEND_RUN_ON_HEADER' => '7',
+    'FRONTEND_RUN_ON_FOOTER' => '8',
+]);
+
+
+define('XYZ_IPS_INSERTION_LOCATION_TYPE', [
+    'GLOBAL' => 1,
+    'ADMIN' => 2,
+    'FRONT_END' => 3,
+    'PAGE_POST_CUSTOM_POST_TYPE' => 4,
+    'CATEGORIES_ARCHIVES_TAGS_TAXONOMIES' => 5
+]);
+
+
+
+
+
+?>

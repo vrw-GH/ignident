@@ -1,14 +1,15 @@
 <?php
 /**
- * Plugin Name:       Floating Button Lite
- * Plugin URI:        https://wordpress.org/plugins/floating-button/
+ * Plugin Name:       Floating Button
+ * Plugin URI:        https://wow-estore.com/item/floating-button-pro/
  * Description:       Easily Generate and manage sticky Floating Buttons.
- * Version:           6.0.4
+ * Version:           6.0.11
  * Author:            Wow-Company
  * Author URI:        https://wow-estore.com/
- * Author Email:      yoda@wow-company.com
+ * Author Email:      hey@wow-company.com
  * Item ID:           25955
  * Store URI:         https://wow-estore.com/
+ * Support URI:       https://wordpress.org/support/plugin/floating-button/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       floating-button
@@ -104,6 +105,7 @@ if ( ! class_exists( 'WOW_Plugin' ) ) :
 				'email'   => 'Author Email',
 				'store'   => 'Store URI',
 				'item_id' => 'Item ID',
+				'support' => 'Support URI'
 			];
 			$plugin_data = get_file_data( __FILE__, $data, false );
 

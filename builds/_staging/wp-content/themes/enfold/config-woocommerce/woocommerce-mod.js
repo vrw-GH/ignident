@@ -142,6 +142,32 @@ jQuery( function($)
 	// even if no event is actually bound the css dropdown works. if the binding is removed dropdown does no longer work.
 	$('.avia_mobile .sort-param').on('touchstart', function(){});
 
+	/**
+	 * see: https://kriesi.at/support/topic/bug-abuse-of-avia_extended_shop_select-queries/
+	 */
+	function routeSorting()
+	{
+		let links = $( '.avia-product-sorting .avia-product-sorting-link' );
+
+		links.on( 'click', function()
+		{
+			let el = $(this),
+				href = el.attr('data-href'),
+				li = el.closest('li');
+
+			if( li.hasClass('current-param') )
+			{
+				return;
+			}
+
+			if( 'undefined' != typeof href && '' != href )
+			{
+				window.location.href = href;
+			}
+		} );
+	}
+
+	routeSorting();
 });
 
 

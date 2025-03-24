@@ -22,33 +22,57 @@
 			iframe: {
 			    patterns: {
 			        youtube: {
-			            index: 'youtube.com/watch',
+						index: 'youtube.com/watch',
 			            id: function(url) {
-			                var m = url.match(/[\\?\\&]v=([^\\?\\&]+)/),
-								id,
-								params;
+						let m = url.match(/[\\?\\&]v=([^\\?\\&]+)/),
+							id,
+							params;
 
-			                if( !m || !m[1] )
+							if( ! m || ! m[1] )
 							{
 								return null;
 							}
 
 							id = m[1];
 
-			                params = url.split('/watch');
-			                params = params[1];
+							params = url.split('/watch');
+							params = params[1];
 
-			                return id + params;
+							return id + params;
 			            },
-			            src: '//www.youtube.com/embed/%id%'
+						src: '//www.youtube.com/embed/%id%'
+			        },
+					youtube_shorts: {
+						index: 'youtube.com/shorts',
+						id: function(url) {
+							let m = url.match(/(?:youtube\.com\/shorts\/)([a-zA-Z0-9_-]*)/),
+								id,
+								params;
+
+							if( ! m || ! m[1] )
+							{
+								return null;
+							}
+
+							id = m[1];
+
+							params = url.split('/shorts');
+							params = params[1];
+
+							return id + params;
+						},
+						src: '//www.youtube.com/embed/%id%'
 			        },
 					vimeo: {
 						index: 'vimeo.com/',
 						id: function(url) {
-							var m = url.match(/(https?:\/\/)?(www.)?(player.)?vimeo.com\/([a-z]*\/)*([0-9]{6,11})\/(\w{6,11})[?]?.*/), params, vid;
+							let m = url.match(/(https?:\/\/)?(www.)?(player.)?vimeo.com\/([a-z]*\/)*([0-9]{6,11})\/(\w{6,11})[?]?.*/),
+								params,
+								vid;
+
                             m = m ? m : url.match(/(https?:\/\/)?(www.)?(player.)?vimeo.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/);
 
-							if( !m || !m[5] )
+							if( ! m || ! m[5] )
 							{
 								return null;
 							}
@@ -69,7 +93,7 @@
 						},
 						src: '//player.vimeo.com/video/%id%'
 					}
-			},
+				}
 			},
 			image: {
 			    titleSrc: function( item )
@@ -129,14 +153,26 @@
 						this.fixedContentPos = true;
 					}
 
+					let elementCustomClass = '';
+
 					if( this.st.el && this.st.el.data('custom_class') )
 					{
-						const elementCustomClass = this.st.el.data('custom_class').trim();
+						elementCustomClass = this.st.el.data('custom_class').trim();
+					}
+					else if( this.st.el )
+					{
+						let element = $( this.st.el ),
+							href = element.attr( 'href' );
 
-						if( elementCustomClass )
+						if( ( href.indexOf( 'youtube.com' ) >= 0 ) && ( href.indexOf( '/shorts/' ) >= 0 ) )
 						{
-							this.st.mainClass = this.st.mainClass + ' ' + elementCustomClass;
+							elementCustomClass = 'avia-mfp-is-video avia-mfp-video-9-16';
 						}
+					}
+
+					if( elementCustomClass )
+					{
+						this.st.mainClass += ' ' + elementCustomClass;
 					}
 				},
 
@@ -199,6 +235,7 @@
 					var self = this;
 					setTimeout(function() { self.wrap.addClass('mfp-image-loaded'); }, 16);
 				},
+
 				change: function()
 				{
 				    if( this.currItem.el )
@@ -228,9 +265,9 @@
 
 		var defaults = {
 			groups			:	['.avia-slideshow', '.avia-gallery', '.av-horizontal-gallery', '.av-instagram-pics', '.portfolio-preview-image', '.portfolio-preview-content', '.isotope', '.post-entry', '.sidebar', '#main', '.main_menu', '.woocommerce-product-gallery'],
-			autolinkElements:   'a.lightbox, a[rel^="prettyPhoto"], a[rel^="lightbox"], a[href$=jpg], a[href$=webp], a[href$=png], a[href$=gif], a[href$=jpeg], a[href*=".jpg?"], a[href*=".png?"], a[href*=".gif?"], a[href*=".jpeg?"], a[href$=".mov"] , a[href$=".swf"] , a:regex(href, .vimeo\.com/[0-9]) , a[href*="youtube.com/watch"] , a[href*="screenr.com"], a[href*="iframe=true"]',
-			videoElements	: 	'a[href$=".mov"] , a[href$=".swf"] , a:regex(href, .vimeo\.com/[0-9]) , a[href*="youtube.com/watch"] , a[href*="screenr.com"], a[href*="iframe=true"]',
-			exclude			:	'.noLightbox, .noLightbox a, .fakeLightbox, .lightbox-added, a[href*="dropbox.com"]'
+			autolinkElements:   'a.lightbox, a[rel^="prettyPhoto"], a[rel^="lightbox"], a[href$=jpg], a[href$=webp], a[href$=png], a[href$=gif], a[href$=jpeg], a[href*=".jpg?"], a[href*=".png?"], a[href*=".gif?"], a[href*=".jpeg?"], a[href$=".mov"] , a[href$=".swf"] , a:regex(href, .vimeo\.com/[0-9]) , a[href*="youtube.com/watch"] , a[href*="youtube.com/shorts"] , a[href*="screenr.com"], a[href*="iframe=true"]',
+			videoElements	: 	'a[href$=".mov"] , a[href$=".swf"] , a:regex(href, .vimeo\.com/[0-9]) , a[href*="youtube.com/watch"] , a[href*="youtube.com/shorts"] , a[href*="screenr.com"], a[href*="iframe=true"]',
+			exclude			:	'.noLightbox, .noLightbox a, .fakeLightbox, .lightbox-added, a[href*="dropbox.com"], .pagination a'
 		},
 
 		options = $.extend({}, defaults, variables),

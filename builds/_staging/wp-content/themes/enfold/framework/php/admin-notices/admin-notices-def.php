@@ -16,7 +16,7 @@
  *				'msg'				=> content to display placed inside <p> tag
  *				'html'				=> HTML content placed inside <div class="..."> tag
  *				'template'			=> [path to file] - must echo valid HTML in own container   e.g. 'templates/v60.php'
- *				'close'				=> 'dismiss' | 'hide'
+ *				'close'				=> 'dismiss' | 'hide'			hide will show both "Dismiss" and "X"
  *				'dismiss'			=> 'user_only' | 'all_users'
  *				'capability'		=> [user capability] | 'all'  .....   manage_options, edit_posts
  *

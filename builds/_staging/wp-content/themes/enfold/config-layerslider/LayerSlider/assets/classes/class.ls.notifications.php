@@ -104,6 +104,7 @@ class LS_Notifications {
 
 	private static function _gatherDynamicNotifications() {
 
+		self::_checkForMaintenance();
 		self::_checkForAutoActivation();
 		self::_checkForPluginUpdate();
 		self::_checkForSystemIssues();
@@ -116,6 +117,24 @@ class LS_Notifications {
 			self::_checkForPromotions();
 		}
 
+	}
+
+	private static function _checkForMaintenance() {
+
+		if( LS_Config::isActivatedSite() && get_option('ls-maintenance-addon-enabled', false ) ) {
+
+			// Inline notification
+			self::prependInlineNotification([
+				'icon' 			=> 'tools',
+				'title' 		=> __('Maintenance & Coming Soon Add-on Is Active', 'LayerSlider'),
+				'message' 		=> __('Your visitors will only see the selected WordPress page or LayerSlider project until you turn it off.', 'LayerSlider'),
+				'fixed'			=> true,
+				'buttons' 		=> [[
+					'text' 		=> __('Manage Add-On', 'LayerSlider'),
+					'class' 	=> 'ls-open-maintenance-addon',
+				]]
+			]);
+		}
 	}
 
 	private static function _checkForAutoActivation() {

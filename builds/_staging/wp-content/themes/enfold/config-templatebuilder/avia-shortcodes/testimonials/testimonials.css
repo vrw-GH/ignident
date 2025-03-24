@@ -228,6 +228,17 @@ body div .avia-testimonial{
 	width: 0;
 }
 
+#top .avia-slider-testimonials.av-slideshow-ui .avia-slideshow-arrows a.avia-svg-icon{
+	background-color: transparent;
+	line-height: normal;
+}
+
+#top .avia-slider-testimonials:not(.av-large-testimonial-slider).av-slideshow-ui .avia-slideshow-arrows a.avia-svg-icon svg:first-child{
+	height: 20px;
+	width: 20px;
+	margin-top: 10px;
+}
+
 #av-admin-preview .avia-slider-testimonials:not(.av-large-testimonial-slider).av-slideshow-ui .avia-slideshow-arrows a,
 #top .avia-slider-testimonials:not(.av-large-testimonial-slider).av-slideshow-ui.av-loop-endless .avia-slideshow-arrows > a,
 #top .avia-slider-testimonials:not(.av-large-testimonial-slider).av-slideshow-ui.av-loop-manual-endless .avia-slideshow-arrows > a,
@@ -305,6 +316,12 @@ body div .avia-testimonial{
 	font-size: 45px;
 }
 
+#top .av-large-testimonial-slider .avia-slideshow-arrows a.avia-svg-icon svg:first-child{
+	height: 45px;
+	width: 45px;
+	margin-top: 8px;
+}
+
 /*  navigation both   */
 #top .avia-slider-testimonials.av-slideshow-ui .avia-slideshow-arrows a{
 	color: inherit;
@@ -315,8 +332,19 @@ body div .avia-testimonial{
 	color: #fff;
 }
 
+#top .avia-slider-testimonials.av-control-minimal .avia-slideshow-arrows a.avia-svg-icon svg:first-child{
+	stroke: #fff;
+	fill: #fff !important;
+}
+
+
 #top .avia-slider-testimonials.av-control-minimal-dark .avia-slideshow-arrows a{
 	color: #000;
+}
+
+#top .avia-slider-testimonials.av-control-minimal-dark .avia-slideshow-arrows a.avia-svg-icon svg:first-child{
+	stroke: #000;
+	fill: #000 !important;
 }
 
 #top .avia-slider-testimonials:hover .avia-slideshow-arrows a,

@@ -78,6 +78,12 @@ $key .cart_dropdown_first .cart_dropdown_link,
 	color: $color;
 }
 
+#top #wrap_all $key .cart_dropdown_first .cart_dropdown_link.avia-svg-icon svg:first-child,
+#top $key  .avia_cart_buttons .avia-svg-icon svg:first-child{
+	stroke: $color;
+	fill: $color;
+}
+
 $key .woocommerce-tabs .tabs a,
 $key .product_meta,
 $key .quantity input.qty,
@@ -303,12 +309,14 @@ $key .avia-bullet{
 	border-color: $secondary;
 }
 
-$key .sort-param  .current-param a{
-	color:$primary;
+#top $key .sort-param  .current-param a,
+#top $key .sort-param  .current-param a:hover{
+	color: $primary;
 }
 
-$key .sort-param .current-param .avia-bullet{
-	border-color:$primary;
+#top $key .sort-param .current-param .avia-bullet,
+#top $key .sort-param .current-param a:hover .avia-bullet{
+	border-color: $primary;
 }
 
 ";

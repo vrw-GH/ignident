@@ -337,7 +337,17 @@ if ( ! class_exists( 'um\core\Password' ) ) {
 			}
 
 			if ( $this->is_change_request() ) {
-				UM()->form()->post_form = wp_unslash( $_POST );
+
+				$formdata = wp_unslash( $_POST );
+
+				// Don't un-slash passwords in manner of WordPress native password field.
+				$fields_map = array(
+					'user_password',
+					'confirm_user_password',
+				);
+				$formdata   = UM()->form()::ignore_formdata_unslash( $formdata, $fields_map );
+
+				UM()->form()->post_form = $formdata;
 
 				/**
 				 * UM hook
@@ -454,10 +464,13 @@ if ( ! class_exists( 'um\core\Password' ) ) {
 
 			if ( isset( $data ) && is_a( $data, '\WP_User' ) ) {
 				um_fetch_user( $data->ID );
-				UM()->user()->password_reset();
+
+				if ( false === UM()->options()->get( 'only_approved_user_reset_password' ) || UM()->common()->users()->has_status( $data->ID, 'approved' ) ) {
+					UM()->user()->password_reset();
+				}
 			}
 
-			wp_redirect( um_get_core_page('password-reset', 'checkemail' ) );
+			wp_safe_redirect( um_get_core_page( 'password-reset', 'checkemail' ) );
 			exit;
 		}
 

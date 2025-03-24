@@ -156,6 +156,13 @@ body .container_wrap .hr.avia-builder-el-first {
 	font-size: 15px;
 }
 
+.av-seperator-icon.avia-svg-icon svg:first-child,
+.av-seperator-icon.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+	margin-top: 5px;
+}
+
 .hr-custom.hr-icon-yes .hr-inner{
 	margin-left:10px;
 	margin-right:10px;

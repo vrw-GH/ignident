@@ -371,6 +371,7 @@ if( ! class_exists( 'avia_sc_text', false ) )
 
 			$element_styling->add_classes( 'section', $classes );
 			$element_styling->add_responsive_classes( 'container', 'hide_element', $atts );
+			$element_styling->add_responsive_classes( 'fold_button', 'hide_element', $atts );
 			$element_styling->add_responsive_font_sizes( 'container', 'size', $atts, $this );
 
 			$classes = array(
@@ -520,9 +521,11 @@ if( ! class_exists( 'avia_sc_text', false ) )
 
 			if( $fold_type != '' )
 			{
+				$hide = $element_styling->get_class_string( 'fold_button' );
+				
 				$args = [
 						'atts'			=> $atts,
-						'wrapper_class'	=> 'av-textblock-btn-wrap',
+						'wrapper_class'	=> "av-textblock-btn-wrap {$hide}",
 						'context'		=> __CLASS__
 					];
 

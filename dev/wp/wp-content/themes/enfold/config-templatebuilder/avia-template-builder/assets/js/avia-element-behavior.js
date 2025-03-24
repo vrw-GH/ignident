@@ -65,7 +65,7 @@
 			if( 'undefined' == typeof avia_framework_globals.gmap_builder_maps_loaded || avia_framework_globals.gmap_builder_maps_loaded == '' )
 			{
 						//	this is only for fallback
-				map_api = 'https://maps.googleapis.com/maps/api/js?v=3.30&callback=av_builder_maps_loaded';
+				map_api = 'https://maps.googleapis.com/maps/api/js?v=3.59&loading=async&libraries=marker&callback=av_builder_maps_loaded';
 				if( avia_framework_globals.gmap_api != 'undefined' && avia_framework_globals.gmap_api != "" )
 				{
 					map_api += "&key=" + avia_framework_globals.gmap_api;
@@ -257,8 +257,11 @@
 		});
 	};
 
-
-	//adds functionallity to the font based icon selector. when an item is clicked it stores the item nr and if possible the item html code
+	/**
+	 * adds functionallity to the font based icon selector. Supports both icon font and svg icon sets added with 7.0
+	 * When an item is clicked it stores the item nr and if possible the item html code.
+	 * In case of svg this is the <img> tag to the svg file
+	 */
 	$.AviaElementBehavior.icon_select =  function()
 	{
 		$("body").on('click', '.avia-attach-element-select', function()
@@ -273,12 +276,26 @@
 				clicked.addClass('avia-active-element');
 				input.val(clicked.data('element-nr'));
 
-				if(icon.length) { icon.val(clicked.html()); }
-				if(font.length) { font.val(clicked.data('element-font')); }
+				if( icon.length )
+				{
+					let content = clicked.html();
+
+					if( content.indexOf( '<svg') !== -1 )
+					{
+						//	decode to base64 - this allows to add it to attribute, encode and add to DOM element innerHTML to show svg
+						content = '###avia64###:' + btoa( content );
+					}
+
+					icon.val( content );
+				}
+
+				if( font.length )
+				{
+					font.val( clicked.data('element-font') );
+				}
 
 				//window.prompt ("Copy to clipboard: Ctrl+C, Enter", clicked.data('element-nr'));
 				//clicked.css({display:'none'});
-
 
 				input.trigger('change');
 				return false;
@@ -383,7 +400,11 @@
 		{
 			parent.removeClass('avia-expanded');
 			the_body.removeClass('avia-noscroll-box');
-			if(container.length) container.remove();
+
+			if( container.length )
+			{
+				container.remove();
+			}
 		}
 
 		function avia_open_expand(mode = undefined)

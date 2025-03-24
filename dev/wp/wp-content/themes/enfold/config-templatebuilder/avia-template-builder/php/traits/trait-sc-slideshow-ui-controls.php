@@ -44,6 +44,11 @@ if( ! trait_exists( __NAMESPACE__ . '\scSlideshowUIControls' ) )
 				return;
 			}
 
+			if( ! isset( $args['force_important'] ) )
+			{
+				$args['force_important'] = '';
+			}
+
 			extract( $args );
 
 			$is_small = isset( $args['slider_nav'] ) && 'small' == $args['slider_nav'];
@@ -86,13 +91,18 @@ if( ! trait_exists( __NAMESPACE__ . '\scSlideshowUIControls' ) )
 
 			if( 'av-control-default' == $atts['control_layout'] )
 			{
-				if( isset(  $atts['nav_arrow_color'] ) )
+				if( isset( $atts['nav_arrow_color'] ) )
 				{
 					$element_styling->add_styles( 'slide-arrows', array( 'color' => $atts['nav_arrow_color'] ), 'skip_empty' );
-					$element_styling->add_styles( 'slide-arrows', array( 'background-color' => $atts['nav_arrow_bg_color'] ), 'skip_empty' );
+					$element_styling->add_styles( 'slide-arrows', array( 'background-color' => $atts['nav_arrow_bg_color']  . $force_important ), 'skip_empty' );
+
+					$element_styling->add_styles( 'slide-arrows-svg', array(
+																		'stroke' => $atts['nav_arrow_color'] . $force_important,
+																		'fill' => $atts['nav_arrow_color'] . $force_important
+																	), 'skip_empty' );
 				}
 
-				if( isset(  $atts['nav_dots_color'] ) )
+				if( isset( $atts['nav_dots_color'] ) )
 				{
 					$element_styling->add_styles( 'nav-dots', array( 'background-color' => $atts['nav_dots_color'] ), 'skip_empty' );
 					$element_styling->add_styles( 'nav-dots-active', array( 'background-color' => $atts['nav_dot_active_color'] ), 'skip_empty' );
@@ -203,6 +213,7 @@ if( ! trait_exists( __NAMESPACE__ . '\scSlideshowUIControls' ) )
 			{
 				$selectors = array(
 							'slide-arrows'		=> "#top .av-slideshow-ui.{$element_id} .avia-slideshow-arrows a",
+							'slide-arrows-svg'	=> "#top .av-slideshow-ui.{$element_id} .avia-slideshow-arrows a.avia-svg-icon svg:first-child",
 							'nav-dots'			=> ".av-slideshow-ui.{$element_id} .avia-slideshow-dots a:not(.active)",
 							'nav-dots-active'	=> ".av-slideshow-ui.{$element_id} .avia-slideshow-dots a.active"
 						);
@@ -211,6 +222,7 @@ if( ! trait_exists( __NAMESPACE__ . '\scSlideshowUIControls' ) )
 			{
 				$selectors = array(
 							'slide-arrows'		=> "#top .av-slideshow-ui.{$element_id} .avia-slideshow-arrows a",
+							'slide-arrows-svg'	=> "#top .av-slideshow-ui.{$element_id} .avia-slideshow-arrows a.avia-svg-icon svg:first-child",
 							'nav-dots'			=> "#top .av-slideshow-ui.{$element_id} .avia-slideshow-dots a:not(.active)",
 							'nav-dots-active'	=> "#top .av-slideshow-ui.{$element_id} .avia-slideshow-dots a.active"
 						);

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Included for non blank templates in header.php
+ *
+ *
+ * @since ????
+ */
 if( ! defined( 'ABSPATH' ) ) {  exit;  }    // Exit if accessed directly
 
 
@@ -12,6 +18,7 @@ $social_args = array(
 					'inside' => 'li',
 					'append' => ''
 				);
+
 $icons = ! empty( $headerS['header_social'] ) ? avia_social_media_icons( $social_args, false ) : '';
 $alternate_menu_id = ! empty( $headerS['alternate_menu'] ) && is_numeric( $headerS['alternate_menu'] ) && empty( $headerS['menu_display'] ) ? $headerS['alternate_menu'] : false;
 
@@ -47,9 +54,25 @@ $shrink_factor = apply_filters( 'avf_header_shrink_factor', $shrink_factor, $hea
 
 $header_data = "data-av_shrink_factor='{$shrink_factor}'";
 
+$aria_label = avia_get_option( 'header_aria_label', '' );
+
+if( $aria_label != '' )
+{
+	$aria_label = 'aria-label="' . esc_attr( $aria_label ) . '"';
+}
+
+/**
+ * @since 6.0.3
+ * @param string $aria_label
+ * @param string $context
+ * @param WP_Post|null $current_post
+ * @return string
+ */
+$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, get_post() );
+
 ?>
 
-<header id='header' class='all_colors header_color <?php avia_is_dark_bg('header_color'); echo " {$headerS['header_class']}"; ?>' <?php echo $header_data; avia_markup_helper( array( 'context' => 'header', 'post_type' => 'forum' ) );?>>
+<header id='header' class='all_colors header_color <?php avia_is_dark_bg('header_color'); echo " {$headerS['header_class']}";?>' <?php echo "{$aria_label} {$header_data}"; avia_markup_helper( array( 'context' => 'header' ) );?>>
 
 <?php
 
@@ -169,7 +192,7 @@ if( $headerS['header_topbar'] == true )
 							else
 							{
 								$fallback_title = __( 'Logo', 'avia_framework' );
-								$addition = avia_SVG()->get_html( $headerS['header_replacement_logo_id'], $headerS['header_replacement_logo'], avia_SVG()->get_header_logo_aspect_ratio(), 'html', $fallback_title );
+								$addition = avia_SVG()->get_logo_html( $headerS['header_replacement_logo_id'], $headerS['header_replacement_logo'], avia_SVG()->get_header_logo_aspect_ratio(), $fallback_title );
 							}
 						}
 

@@ -1,0 +1,13 @@
+<?php $chars_svg = array();
+$chars_svg['entypo-fontello-enfold']['ue808'] = 'star';
+$chars_svg['entypo-fontello-enfold']['ue809'] = 'star-empty';
+$chars_svg['entypo-fontello-enfold']['ue824'] = 'lock';
+$chars_svg['entypo-fontello-enfold']['ue825'] = 'lock-open';
+$chars_svg['entypo-fontello-enfold']['ue832'] = 'forward';
+$chars_svg['entypo-fontello-enfold']['ue83b'] = 'comment';
+$chars_svg['entypo-fontello-enfold']['ue83c'] = 'chat';
+$chars_svg['entypo-fontello-enfold']['ue869'] = 'resize-full';
+$chars_svg['entypo-fontello-enfold']['ue87c'] = 'left-open-big';
+$chars_svg['entypo-fontello-enfold']['ue87d'] = 'right-open-big';
+$chars_svg['entypo-fontello-enfold']['ue897'] = 'play';
+$chars_svg['entypo-fontello-enfold']['ue899'] = 'pause';

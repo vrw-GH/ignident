@@ -344,6 +344,14 @@ class Ays_Pb {
 			// MailerLite integration / popup page
 			$this->loader->add_filter( 'ays_pb_popup_page_integrations_contents', $plugin_integrations, 'ays_popup_page_mailerLite_content', 120, 2 );
 		// ===== MailerLite integration ====
+
+		// ===== reCAPTCHA integration ====
+			// reCAPTCHA integration / settings page
+			$this->loader->add_filter( 'ays_pb_settings_page_integrations_contents', $plugin_integrations, 'ays_settings_page_recaptcha_content', 125, 2 );
+
+			// reCAPTCHA integration / popup page
+			$this->loader->add_filter( 'ays_pb_popup_page_integrations_contents', $plugin_integrations, 'ays_popup_page_recaptcha_content', 125, 2 );
+		// ===== reCAPTCHA integration ====
 	}
 
 	/**

@@ -1310,30 +1310,6 @@ clear:both;
 	vertical-align: bottom;
 }
 
-#wpwrap div .avia_auto_detector input{
-	width:135px;
-}
-
-.avia_auto_detector .avia_color_picker_div{
-	right:auto;
-	left:113px;
-}
-
-#wpwrap  div .avia_autodetect,
-#wpwrap  div .avia_autodetect:focus{
-	margin-left:10px;
-	font-size: 11px;
-	line-height: 27px;
-	padding: 0;
-	text-align: center;
-	width: 110px;
-}
-
-.avia_auto_detector .avia_loading{
-	right: 155px;
-	top: 2px;
-}
-
 #wpwrap .avia_multiple_select select{
 	height:130px;
 }
@@ -2398,6 +2374,42 @@ div .avia_verification_field .avia_control{
 	color: #aaa;
 	font-size: 11px;
 	float:right;
+}
+
+.avia_iconfont_manager .avia-deactived-font,
+.avia_iconfont_manager .avia-actived-font{
+	font-size: 11px;
+	float:right;
+	display: none;
+	padding-left: 50%;
+}
+
+.avia_iconfont_manager .avia-deactived-font:focus,
+.avia_iconfont_manager .avia-actived-font:focus{
+	box-shadow: unset;
+}
+
+.avia_iconfont_manager .av-default-font-activate.av-is-active-no .avia-def-font{
+	color: #D54E21;
+}
+
+.avia_iconfont_manager .av-default-font-activate.av-is-active-yes .avia-def-font{
+	color: #00b500;
+}
+
+.avia_iconfont_manager .avia-deactived-font:hover,
+.avia_iconfont_manager .avia-actived-font:hover{
+	text-decoration: none;
+}
+
+.avia_iconfont_manager .av-default-font-activate.av-is-active-yes .avia-actived-font{
+	display: block;
+	color: #D54E21;
+}
+
+.avia_iconfont_manager .av-default-font-activate.av-is-active-no .avia-deactived-font{
+	display: block;
+	color: #00b500;
 }
 
 div .avia_iconfont_manager .avia-del-font,

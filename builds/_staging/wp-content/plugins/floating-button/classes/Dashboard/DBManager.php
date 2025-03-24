@@ -9,9 +9,9 @@ use FloatingButton\WOW_Plugin;
 class DBManager {
 
 	public static function remove_item() {
-		$page   = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : '';
-		$action = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
-		$id     = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : '';
+		$page   = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+		$action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
+		$id     = isset( $_GET['id'] ) ? absint( wp_unslash( $_GET['id'] ) ) : '';
 
 		if ( ( $page !== WOW_Plugin::SLUG ) || ( $action !== 'delete' ) || empty( $id ) ) {
 			return false;
@@ -40,11 +40,9 @@ class DBManager {
 		$table = $wpdb->prefix . WOW_Plugin::PREFIX;
 
 		return $wpdb->delete( $table, [ 'id' => $id ], [ '%d' ] );
-
 	}
 
 	public static function create( $columns ): void {
-
 		global $wpdb;
 		$table = $wpdb->prefix . WOW_Plugin::PREFIX;
 
@@ -70,17 +68,17 @@ class DBManager {
 		}
 		global $wpdb;
 		$table = $wpdb->prefix . WOW_Plugin::PREFIX;
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE id=%d", absint( $id ) );
 
-		return $wpdb->get_row( $query );
+		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id=%d", absint( $id ) ) );
 	}
 
-	public static function get_param_id($id = '') {
+	public static function get_param_id( $id = '' ) {
 		if ( empty( $id ) ) {
 			return false;
 		}
-		$result = self::get_data_by_id($id);
-		return maybe_unserialize($result->param);
+		$result = self::get_data_by_id( $id );
+
+		return maybe_unserialize( $result->param );
 	}
 
 	public static function get_data_by_title( $title = '' ) {
@@ -90,9 +88,8 @@ class DBManager {
 
 		global $wpdb;
 		$table = $wpdb->prefix . WOW_Plugin::PREFIX;
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE title=%s", sanitize_text_field( $title ) );
 
-		return $wpdb->get_row( $query );
+		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE title=%s", sanitize_text_field( $title ) ) );
 	}
 
 	public static function update( $data, $where, $data_formats ): void {
@@ -109,7 +106,6 @@ class DBManager {
 
 		if ( $result ) {
 			return $wpdb->insert_id;
-
 		}
 
 		return false;

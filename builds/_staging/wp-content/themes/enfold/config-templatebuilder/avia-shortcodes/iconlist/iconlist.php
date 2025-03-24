@@ -10,6 +10,8 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 {
 	class avia_sc_iconlist extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 *
 		 * @since 4.8.8
@@ -248,17 +250,26 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 							'std'			=> array(
 													array(
 														'title'		=> __( 'List Title 1', 'avia_framework' ),
-														'icon'		=> 'ue856',
+														'icon'		=> 'tools',
+														'font'		=> 'svg_entypo-fontello',
 														'content'	=> __( 'Enter content here', 'avia_framework' )
 													),
 													array(
 														'title'		=> __( 'List Title 2', 'avia_framework' ),
-														'icon'		=> 'ue8c0',
+														'icon'		=> 'brush',
+														'font'		=> 'svg_entypo-fontello',
 														'content'	=> __( 'Enter content here', 'avia_framework' )
 													),
 													array(
 														'title'		=> __( 'List Title 3', 'avia_framework' ),
-														'icon'		=> 'ue809',
+														'icon'		=> 'star-empty',
+														'font'		=> 'svg_entypo-fontello',
+														'content'	=> __( 'Enter content here', 'avia_framework' )
+													),
+													array(
+														'title'		=> __( 'List Title 4', 'avia_framework' ),
+														'icon'		=> 'adjust',
+														'font'		=> 'svg_entypo-fontello',
 														'content'	=> __( 'Enter content here', 'avia_framework' )
 													),
 												),
@@ -641,7 +652,9 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 							'desc'		=> __( 'Select an icon for your list item below', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'tools',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' )
 						),
@@ -742,7 +755,7 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 
 			$template = $this->update_template_lockable( 'title', __( 'Element', 'avia_framework' ) . ': {{title}}', $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$params['innerHtml']  = '';
 			$params['innerHtml'] .=		"<div class='avia_title_container' data-update_element_template='yes'>";
@@ -842,6 +855,7 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 				if( ! empty( $atts['custom_font'] ) )
 				{
 					$element_styling->add_styles( 'item-icon', array( 'color' => $atts['custom_font'] ) );
+					$element_styling->add_styles( 'item-icon-svg', array( 'stroke' => $atts['custom_font'], 'fill' => $atts['custom_font'] ) );
 				}
 
 				if( ! empty( $atts['custom_bg'] ) )
@@ -859,6 +873,7 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 				if( ! empty( $atts['custom_font'] ) )
 				{
 					$element_styling->add_styles( 'item-icon', array( 'color' => $atts['custom_font'] ) );
+					$element_styling->add_styles( 'item-icon-svg', array( 'stroke' => $atts['custom_font'], 'fill' => $atts['custom_font'] ) );
 				}
 
 				if( $atts['color'] == 'ext_simple' &&  ! empty( $atts['custom_bg'] ) )
@@ -893,6 +908,7 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 				if( $atts['iconlist_styling'] == 'av-iconlist-small' )
 				{
 					$element_styling->add_styles( 'item-icon', array( 'font-size' => $atts['custom_title_size'] . 'px' ) );
+					$element_styling->add_styles( 'item-icon-svg', array( 'height' => $atts['custom_title_size'] . 'px', 'width' => $atts['custom_title_size'] . 'px' ) );
 				}
 			}
 
@@ -928,6 +944,7 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 						'container'				=> ".avia-icon-list-container.{$element_id}",
 						'container-ul'			=> ".avia-icon-list-container.{$element_id} .avia-icon-list",
 						'item-icon'				=> "#top .avia-icon-list-container.{$element_id} .iconlist_icon",
+						'item-icon-svg'			=> "#top .avia-icon-list-container.{$element_id} .iconlist_icon svg:first-child",
 						'item-icon-hover'		=> "#top .avia-icon-list-container.{$element_id} .iconlist_icon:hover",
 						'item-icon-after'		=> "#top .avia-icon-list-container.{$element_id} .iconlist_icon:after",
 						'item-icon-after-hover'	=> "#top .avia-icon-list-container.{$element_id} .iconlist_icon:hover:after",
@@ -981,6 +998,7 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $this->config['shortcode_nested'][0], $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'no', 'manually', 'single', 'taxonomy' ] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			$classes = array(
 						'iconlist_icon',
@@ -989,7 +1007,7 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 					);
 
 			$element_styling->add_classes( 'container', $classes );
-
+			$element_styling->add_classes( 'container', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 
 			$selectors = array(
@@ -1061,7 +1079,6 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 
 			extract( $result );
 
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
 			$display_char_wrapper = array();
 
 			if( Avia_Dynamic_Content()->contains_link( $atts, [ 'title' ] ) )
@@ -1113,6 +1130,18 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 				$display_char_wrapper['end'] = 'div';
 			}
 
+			$add_atts = [
+					'aria-hidden'	=> 'true'
+				];
+
+			$char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'], $add_atts );
+			$tags = [ 'span', 'span' ];
+
+			$display_char  = "<{$tags[0]} class='av-icon-char' {$char['attr']}>";
+			$display_char .=	$char['svg'];
+			$display_char .= "</{$tags[1]}>";
+
+
 			$contentClass = '';
 			if( trim( $content ) == '' )
 			{
@@ -1148,18 +1177,31 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 			$markup_title = avia_markup_helper( array( 'context' => 'entry_title', 'echo' => false, 'custom_markup' => $atts['custom_markup'] ) );
 			$markup_content = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'custom_markup' => $atts['custom_markup'] ) );
 
+
+			$aria_label = 'aria-label="' . __( 'Icon:', 'avia_framework' ) . ' ' . esc_attr( $atts['title'] ) . '"';
+
+			/**
+			 * @since 6.0.3
+			 * @param string $aria_label
+			 * @param string $context
+			 * @param array $atts
+			 * @return string
+			 */
+			$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $atts );
+
+
 //			$this->subitem_inline_styles .= $element_styling->get_style_tag( $element_id, 'rules_only' );
 			$container_class = $element_styling->get_class_string( 'container' );
 
 			$output  = '';
 			$output .=		'<li>';
 			$output .=			"<{$display_char_wrapper['start']} class='{$container_class}'>";
-			$output .=				"<span class='iconlist-char' {$display_char}></span>";
+			$output .=				$display_char;
 			$output .=			"</{$display_char_wrapper['end']}>";
 			$output .=          '<article class="article-icon-entry ' . $contentClass . '" ' . $markup_entry . '>';
 			$output .=              '<div class="iconlist_content_wrap">';
 
-			$output .=                  '<header class="entry-content-header">';
+			$output .=                  '<header class="entry-content-header" ' . $aria_label . '>';
 
 			if( ! empty( $atts['title'] ) )
 			{

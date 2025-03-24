@@ -35,6 +35,11 @@ Team Member
 	width:53px;
 }
 
+.team-social a.avia-svg-icon svg:first-child{
+	margin-top: 16px;
+	margin-bottom: -1px;
+}
+
 .team-img-container{
 	position: relative;
 	overflow: hidden;

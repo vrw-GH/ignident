@@ -35,16 +35,14 @@ class Settings {
 			$i ++;
 		}
 		echo '</div>';
-
 	}
 
 	public static function save_item() {
-
 		if ( empty( $_POST['submit_settings'] ) ) {
 			return false;
 		}
 
-		$id       = absint( $_POST['tool_id'] );
+		$id       = isset( $_POST['tool_id'] ) ? absint( wp_unslash( $_POST['tool_id'] ) ) : '';
 		$settings = apply_filters( WOW_Plugin::PREFIX . '_save_settings', [ 'data' => [], 'formats' => [] ], $_POST );
 
 		if ( empty( $id ) ) {
@@ -59,43 +57,38 @@ class Settings {
 
 		wp_safe_redirect( Link::save_item( $id_item ) );
 		exit;
-
 	}
 
-	public static function deactivate_item($id = 0): void {
+	public static function deactivate_item( $id = 0 ): void {
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : $id;
 
 		if ( ! empty( $id ) ) {
 			DBManager::update( [ 'status' => '1' ], [ 'ID' => $id ], [ '%d' ] );
 		}
-
 	}
 
-	public static function activate_item($id = 0): void {
+	public static function activate_item( $id = 0 ): void {
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : $id;
 
 		if ( ! empty( $id ) ) {
 			DBManager::update( [ 'status' => '' ], [ 'ID' => $id ], [ '%d' ] );
 		}
-
 	}
 
-	public static function deactivate_mode($id = 0): void {
+	public static function deactivate_mode( $id = 0 ): void {
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : $id;
 
 		if ( ! empty( $id ) ) {
 			DBManager::update( [ 'mode' => '' ], [ 'ID' => $id ], [ '%d' ] );
 		}
-
 	}
 
-	public static function activate_mode($id = 0): void {
+	public static function activate_mode( $id = 0 ): void {
 		$id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : $id;
 
 		if ( ! empty( $id ) ) {
 			DBManager::update( [ 'mode' => '1' ], [ 'ID' => $id ], [ '%d' ] );
 		}
-
 	}
 
 }

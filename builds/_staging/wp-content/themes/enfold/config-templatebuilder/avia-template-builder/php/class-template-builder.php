@@ -8,7 +8,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 {
 	class AviaBuilder extends aviaBuilder\base\object_properties
 	{
-		const VERSION = '5.3';
+		const VERSION = '6.0';
 
 		/**
 		 * Holds the instance of this class
@@ -25,6 +25,14 @@ if( ! class_exists( 'AviaBuilder', false ) )
 		 * @var string
 		 */
 		protected $theme_version;
+
+		/**
+		 * Flag if ALB is in use or only loaded as frame to support AviaBuilder()
+		 *
+		 * @since 7.0
+		 * @var boolean
+		 */
+		protected $is_loaded;
 
 		/**
 		 * @since 5.6			changed to safe as default
@@ -337,6 +345,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 		protected function __construct()
 		{
 			$this->theme_version = avia_get_theme_version();
+			$this->is_loaded = false;
 			$this->paths = array();
 			$this->shortcode_class = array();
 			$this->shortcode = array();
@@ -410,22 +419,47 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			/**
 			 *
 			 * @since ???
+			 * @since 7.0						added 'svg_entypo-fontello'
 			 * @param array $font_list
 			 * @return array
 			 */
-			AviaBuilder::$default_iconfont = apply_filters( 'avf_default_iconfont',
-																array( 'entypo-fontello' =>
+			AviaBuilder::$default_iconfont = apply_filters( 'avf_default_iconfont', array(
+
+																	'svg_entypo-fontello' =>
 																			array(
 																				'append'	=> '',
-																				'include' 	=> $this->paths['assetsPath'] . 'fonts',
-																				'folder'  	=> $this->paths['assetsURL'] . 'fonts',
+																				'include' 	=> $this->paths['assetsPath'] . 'fonts/svg_entypo-fontello',
+																				'folder'  	=> $this->paths['assetsURL'] . 'fonts/svg_entypo-fontello',
 																				'config'	=> 'charmap.php',
 																				'json'		=> 'config.json',
-//																				'compat'	=> 'charmap-compat.php', //needed to make the theme compatible with the old version of the font
 																				'full_path'	=> 'true' //tells the script to not prepend the wp_upload dir path to these urls
+																			),
+
+																	'entypo-fontello-enfold' =>
+																			array(
+																				'append'	=> '',
+																				'include' 	=> $this->paths['assetsPath'] . 'fonts/entypo-fontello-enfold',
+																				'folder'  	=> $this->paths['assetsURL'] . 'fonts/entypo-fontello-enfold',
+																				'config'	=> 'charmap.php',
+																				'json'		=> 'config.json',
+																				'svg_files'	=> 'charmap-svg.php',
+																				'full_path'	=> 'true'	//tells the script to not prepend the wp_upload dir path to these urls
+																			),
+
+																	'entypo-fontello' =>
+																			array(
+																				'append'	=> '',
+																				'include' 	=> $this->paths['assetsPath'] . 'fonts/entypo-fontello',
+																				'folder'  	=> $this->paths['assetsURL'] . 'fonts/entypo-fontello',
+																				'config'	=> 'charmap.php',
+																				'json'		=> 'config.json',
+																				'svg_files'	=> 'charmap-svg.php',
+//																				'compat'	=> 'charmap-compat.php', //needed to make the theme compatible with the old version of the font
+																				'full_path'	=> 'true',	//tells the script to not prepend the wp_upload dir path to these urls
+																				'is_activ'	=> 'yes'	//allows to deactivate font, disables loading - 'yes' | 'no'
 																			)
-																		)
-														);
+
+																) );
 
 			//	PHP 8.0 throws TypeError if null returned
 			if( ! is_array( AviaBuilder::$default_iconfont ) )
@@ -433,27 +467,47 @@ if( ! class_exists( 'AviaBuilder', false ) )
 				AviaBuilder::$default_iconfont = array();
 			}
 
-			add_action( 'load-post.php', array( $this, 'admin_init' ) , 5 );
-			add_action( 'load-post-new.php', array( $this, 'admin_init' ) , 5 );
-
-			add_action( 'admin_init', array( $this, 'handler_admin_init' ), 1 );
-			add_action( 'init', array( $this, 'loadLibraries' ), 5 );
-			add_action( 'init', array( $this, 'init' ), 10 );
-			add_action( 'wp', array( $this, 'frontend_asset_check' ), 5 );
-
-			add_action( 'wp_head', array( $this, 'handler_wp_head' ), 99999999 );
-			add_action( 'get_sidebar', array( $this, 'handler_get_sidebar' ), 1, 1 );
-			add_action( 'get_footer', array( $this, 'handler_get_footer' ), 1, 1 );
 
 
-			//save and restore meta information if user restores a revision
-			add_action( 'wp_creating_autosave', array( $this, 'avia_builder_creating_autosave' ), 10, 1 );
-			add_action( '_wp_put_post_revision', array( $this, 'avia_builder_put_revision' ), 10, 1 );
-			add_action( 'wp_restore_post_revision', array( $this, 'avia_builder_restore_revision' ), 10, 2 );
+			/**
+			 * This adds lazy load feature to ALB
+			 *
+			 * Does not work as long as class avia_font_manager is part of ALB. When moved to framework it is possible to use it
+			 * =================================================================================================================
+			 *
+			 * @since 7.0   DO NOT USE - NOT FULLY TESTED
+			 */
+			if( ! current_theme_supports( 'alb_lazy_load' ) || true )
+			{
+				add_action( 'load-post.php', array( $this, 'admin_init' ) , 5 );
+				add_action( 'load-post-new.php', array( $this, 'admin_init' ) , 5 );
 
-			add_filter( 'avia_builder_metabox_filter', array( $this, 'handler_alb_metabox_filter' ), 10, 1 );
+				add_action( 'init', array( $this, 'handler_wp_init' ), 5 );
+				add_action( 'admin_init', array( $this, 'handler_wp_admin_init' ), 1 );
+				add_action( 'wp', array( $this, 'frontend_asset_check' ), 5 );
 
-			add_action('dbx_post_sidebar', array( $this, 'handler_wp_dbx_post_sidebar' ), 10, 1 );
+				add_action( 'wp_head', array( $this, 'handler_wp_head' ), 99999999 );
+				add_action( 'get_sidebar', array( $this, 'handler_get_sidebar' ), 1, 1 );
+				add_action( 'get_footer', array( $this, 'handler_get_footer' ), 1, 1 );
+
+
+				//save and restore meta information if user restores a revision
+				add_action( 'wp_creating_autosave', array( $this, 'avia_builder_creating_autosave' ), 10, 1 );
+				add_action( '_wp_put_post_revision', array( $this, 'avia_builder_put_revision' ), 10, 1 );
+				add_action( 'wp_restore_post_revision', array( $this, 'avia_builder_restore_revision' ), 10, 2 );
+
+				add_filter( 'avia_builder_metabox_filter', array( $this, 'handler_alb_metabox_filter' ), 10, 1 );
+
+				add_action('dbx_post_sidebar', array( $this, 'handler_wp_dbx_post_sidebar' ), 10, 1 );
+			}
+			else
+			{
+				error_log( '***************  ALB is loaded only base class - additional ALB code and shortcodes in admin_init or wp hook !!!! **************************** ' );
+
+				add_action( 'init', array( $this, 'handler_wp_init_lazy_load' ), 5 );
+				add_action( 'admin_init', array( $this, 'handler_wp_admin_init_lazy_load' ), 1 );
+				add_action( 'wp', array( $this, 'handler_wp_lazy_load' ), 5 );
+			}
 		}
 
 		/**
@@ -483,16 +537,127 @@ if( ! class_exists( 'AviaBuilder', false ) )
 		}
 
 		/**
+		 * In admin area we need to load core files of ALB because dashboard menus is hooked to add
+		 * additional menus (e.g. Custom Elements, Custom Layouts)
+		 *
+		 * @since 7.0
+		 */
+		public function handler_wp_init_lazy_load()
+		{
+			error_log( 'handler_wp_init_lazy_load' );
+
+			if( ! is_admin() )
+			{
+				return;
+			}
+
+			$this->load_core_files();
+		}
+
+		/**
+		 * Handler processed in backend and with ajax call
+		 * $post is NOT set at this point
+		 *
+		 * We have to load all ALB stuff in backend as long as ALB is not disabled at all.
+		 * In this case we have to load it for options page
+		 *
+		 * @since 7.0
+		 */
+		public function handler_wp_admin_init_lazy_load()
+		{
+			error_log( 'handler_wp_admin_init_lazy_load' );
+
+			$this->load_shortcode_library();
+			$this->handler_wp_admin_init();
+			$this->init();
+
+			$this->is_loaded = true;
+
+			add_action( 'load-post.php', array( $this, 'admin_init' ) , 5 );
+			add_action( 'load-post-new.php', array( $this, 'admin_init' ) , 5 );
+
+			//save and restore meta information if user restores a revision
+			add_action( 'wp_creating_autosave', array( $this, 'avia_builder_creating_autosave' ), 10, 1 );
+			add_action( '_wp_put_post_revision', array( $this, 'avia_builder_put_revision' ), 10, 1 );
+			add_action( 'wp_restore_post_revision', array( $this, 'avia_builder_restore_revision' ), 10, 2 );
+
+			add_filter( 'avia_builder_metabox_filter', array( $this, 'handler_alb_metabox_filter' ), 10, 1 );
+
+			add_action( 'dbx_post_sidebar', array( $this, 'handler_wp_dbx_post_sidebar' ), 10, 1 );
+		}
+
+		/**
+		 * Called in frontend and with REST API
+		 * Perform a "late loading" of template builder functions and hooks
+		 *
+		 * @since 7.0
+		 */
+		public function handler_wp_lazy_load()
+		{
+			global $post;
+
+			error_log( 'handler_wp_lazy_load' );
+
+			if( is_admin() )
+			{
+				error_log( 'handler_wp_lazy_load - is_admin() -> skipped' );
+				return;
+			}
+
+			$is_rest = ( defined( 'REST_REQUEST' ) && true === REST_REQUEST );
+			$is_alb = $this->get_alb_builder_status( $post->ID ) == 'active';
+
+			/**
+			 * This is for a first implementation - shortcodes might exist on all pages
+			 * We need to load ALB unconditionally at this stage of implementation (therefore "true")
+			 *
+			 * @since 7.0
+			 */
+			if( $is_alb || $is_rest || true )
+			{
+				$this->load_core_files();
+				$this->load_shortcode_library();
+				$this->init();
+				$this->frontend_asset_check();
+				$this->is_loaded = true;
+			}
+			else
+			{
+				//	loads icon font on non ALB pages
+				add_action( 'wp_head', array( $this, 'load_shortcode_assets' ), 2000 );
+
+				$this->is_loaded = false;
+			}
+
+			add_action( 'wp_head', array( $this, 'handler_wp_head' ), 99999999 );
+			add_action( 'get_sidebar', array( $this, 'handler_get_sidebar' ), 1, 1 );
+			add_action( 'get_footer', array( $this, 'handler_get_footer' ), 1, 1 );
+		}
+
+		/**
+		 * Handles "old" way - loads complete ALB
+		 *
+		 * @since 7.0
+		 */
+		public function handler_wp_init()
+		{
+			$this->load_core_files();
+			$this->load_shortcode_library();
+			$this->init();
+
+			$this->is_loaded = true;
+		}
+
+		/**
 		 * @since 4.6.4
 		 */
-		public function handler_admin_init()
+		public function handler_wp_admin_init()
 		{
 			if( isset( $_REQUEST['avia_export'] ) && isset( $_REQUEST['avia_generate_alb_templates_file'] ) )
 			{
 				$this->get_AviaSaveBuilderTemplate();
 			}
 		}
-
 
 		/**
 		 * Flag that wp_head has been executed (hooks with very low priority so other plugins may perform a precompile
@@ -537,7 +702,6 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			$this->wp_footer_started = true;
 		}
 
-
 		/**
 		 * After all metaboxes have been added we check if hidden input field avia_nonce_loader had been set.
 		 * If not we have to add it. If user adds a shortcode (like tabs) with magic wand that need to call backend
@@ -564,24 +728,34 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			}
 		}
 
+		/**
+		 * Returns if ALB is fully loaded including shortcodes
+		 *
+		 * @since 7.0
+		 * @return boolean
+		 */
+		public function is_alb_loaded()
+		{
+			return $this->is_loaded;
+		}
 
 		/**
 		 * Load all functions that are needed for both front and backend
 		 */
-		public function init()
+		protected function init()
 	 	{
-	 		if( isset( $_GET['avia_mode'] ) )
+			if( isset( $_GET['avia_mode'] ) )
 			{
 				AviaBuilder::$mode = esc_attr( $_GET['avia_mode'] );
 			}
 
-	 		//activate the element manager
+			//activate the element manager
 			$this->element_manager();
 
 			$this->createShortcode();
 
 			$this->addActions();
-            AviaStoragePost::generate_post_type();
+			AviaStoragePost::generate_post_type();
 
 			//hook into the media uploader. we always need to call this for several hooks to be active
 			new AviaMedia();
@@ -594,18 +768,15 @@ if( ! class_exists( 'AviaBuilder', false ) )
 					return;
 				}
 
-                $this->admin_init();
-	 	    }
+				$this->admin_init();
+			}
 
-	 		//activate asset manager
+			//activate asset manager
 			$this->asset_manager();
-
-
 	 	}
 
-
 		/**
-		 * Load functions that are only needed on add/edit post screen
+		 * Handler - load functions that are only needed on add/edit post screen
 		 */
 		public function admin_init()
 	 	{
@@ -617,11 +788,14 @@ if( ! class_exists( 'AviaBuilder', false ) )
 	 	}
 
 		/**
-		 * Load all the required library files
+		 * Load all the required core files
+		 *
+		 * @since ???
 		 */
-		public function loadLibraries()
+		protected function load_core_files()
 		{
 			$sources = array(
+							'traits/trait-modal-iconfont-helper.php',
 							'traits/trait-sc-named-colors.php',
 							'traits/trait-sc-button-styles.php',
 							'traits/trait-sc-slideshow-ui-controls.php',
@@ -703,11 +877,31 @@ if( ! class_exists( 'AviaBuilder', false ) )
 				require_once( $file );
 			}
 
+			//activate iconfont manager
+			new avia_font_manager();
+			avia_font_manager::add_extra_iconfonts( AviaBuilder::$default_iconfont );
+
+			global $avia_config;
+
+			if( isset( $avia_config['font_icons'] ) && is_array( $avia_config['font_icons'] ) )
+			{
+				avia_font_manager::add_icon_shortcuts( $avia_config['font_icons'] );
+			}
+
+
 			/**
 			 * @since 4.8.9
 			 */
 			do_action( 'ava_builder_core_files_loaded' );
+		}
 
+		/**
+		 * This auoloads all the shortcodes located in php/shortcodes and any other folders that were added by filter
+		 *
+		 * @since ????
+		 */
+		protected function load_shortcode_library()
+		{
 			/**
 			 * autoload files in shortcodes folder and any other folders that were added by filter
 			 *
@@ -716,25 +910,8 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			 */
 			$sc_paths = apply_filters( 'avia_load_shortcodes', array( $this->paths['pluginPath'] . 'php/shortcodes/' ) );
 
-			$this->autoloadLibraries( $sc_paths );
 
-			/**
-			 * @since 4.8.9
-			 */
-			do_action( 'ava_builder_shortcode_files_loaded' );
-
-		}
-
-		/**
-		 * PHP include all files from a number of folders which are passed as an array
-		 * This auoloads all the shortcodes located in php/shortcodes and any other folders that were added by filter
-		 *
-		 * @since ????
-		 * @param array $paths
-		 */
-		protected function autoloadLibraries( $paths )
-		{
-			foreach( $paths as $path )
+			foreach( $sc_paths as $path )
 			{
 				//include modules (eg files within folders with the same name)
 				foreach( glob( $path . '*', GLOB_ONLYDIR ) as $folder )
@@ -787,6 +964,11 @@ if( ! class_exists( 'AviaBuilder', false ) )
 					require_once( $php_file );
 				}
 			}
+
+			/**
+			 * @since 4.8.9
+			 */
+			do_action( 'ava_builder_shortcode_files_loaded' );
 		}
 
 		/**
@@ -1210,13 +1392,31 @@ if( ! class_exists( 'AviaBuilder', false ) )
 		}
 
 		/**
-		 * safe mode or debugging
+		 * Set Mode for debugging
 		 *
 		 * @since ???
 		 * @param string $status			'safe' | 'debug'
 		 **/
 		public function setMode( $status = 'safe' )
 	 	{
+			/**
+			 * Enable Avia Layout Builder Debug via theme option
+			 *
+			 * @link http://www.kriesi.at/documentation/enfold/enable-advanced-layout-builder-debug/
+			 * @since 5.6
+			 * @since 7.0						moved from functions.php
+			 */
+			$debug = avia_get_option( 'alb_developer_debug_mode' );
+
+			if( false !== strpos( $debug, 'debug' ) && current_user_can( 'manage_options' ) )
+			{
+				$status = 'debug';
+			}
+			else if( 'debug' == $debug )
+			{
+				$status =  'debug';
+			}
+
 			/**
 			 * @since ???
 			 * @param string $status
@@ -1283,10 +1483,18 @@ if( ! class_exists( 'AviaBuilder', false ) )
 									'page',
 									'post',
 									'portfolio',
-									'product',
-									Avia_Element_Templates()->get_post_type(),
-									Avia_Custom_Layout()->get_post_type()
+									'product'
 								];
+
+				if( class_exists( 'aviaElementTemplates', false ) )
+				{
+					$supported_post_types[] = Avia_Element_Templates()->get_post_type();
+				}
+
+				if( class_exists( 'aviaCustomLayout', false ) )
+				{
+					$supported_post_types[] = Avia_Custom_Layout()->get_post_type();
+				}
 
 				$add = trim( avia_get_option( 'alb_active_post_types' ) );
 
@@ -1869,9 +2077,8 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			}
 		}
 
-
 		/**
-		 *calls external classes that are needed for the script to operate
+		 * calls external classes that are needed for the script to operate
 		 */
 		public function call_classes()
 		{
@@ -1936,7 +2143,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			}
 
 			//activate iconfont manager
-			new avia_font_manager();
+//			new avia_font_manager();
 
 		    //fetch all Wordpress pointers that help the user to use the builder
 			include( $this->paths['configPath'] . 'pointers.php' );
@@ -2042,6 +2249,10 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			if( ! empty( $post_ID ) && $this->get_alb_builder_status( $post_ID ) )
 			{
 				$classes .= ' avia-advanced-editor-enabled';
+			}
+			else
+			{
+				$classes .= ' wp-default-editor-enabled';
 			}
 
 			if( version_compare( $wp_version, '5.5', '>=' ) )
@@ -2601,7 +2812,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 
 			foreach( $boxes as $box )
 			{
-				if( $box['id'] == $slug )
+				if( is_array( $box ) && isset( $box['id'] ) && $box['id'] == $slug )
 				{
 					$pages = $box['page'];
 				}
@@ -2809,14 +3020,12 @@ if( ! class_exists( 'AviaBuilder', false ) )
 
 			$output .= '<input type="hidden" value="' . $active_builder . '" name="aviaLayoutBuilder_active" id="aviaLayoutBuilder_active" />';
 
-			$params = array(
-							'args'	=> array( 'icon' =>  'ue86e' )
-						);
-			$icon = av_backend_icon( $params );
+
+			$icon = avia_font_manager::get_frontend_icon( 'arrow-combo', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+			$icon_class = avia_font_manager::get_frontend_icon_classes( $icon['font'], 'string' );
 
 			$user_info = $this->get_backend_user_info( 'sc_sort_order' );
 			$init_sort = ( ! empty( $user_info ) ) ? $user_info : 'order';
-
 
 			$sorting_label = array(
 								'order' 	=> __( 'Default', 'avia_framework' ),
@@ -2830,7 +3039,10 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			$output .=		'<ul class="avia-sort-list-select">';
 			$output .=			'<li class="avia-sort-list-wrap">';
 			$output .=				'<strong>';
-			$output .=					'<span class="avia-font-entypo-fontello avia_icon_char">' . $icon['display_char'] . '</span> '. __( 'Sorting', 'avia_framework' ) . ': <span class="avia-sort-list-label">'. $sorting_label[$init_sort] .'</span>';
+			$output .=					"<span class='avia-font-entypo-fontello {$icon_class}' {$icon['attr']}>";
+			$output .=						$icon['svg'];
+			$output .=					'</span> ';
+			$output .=					__( 'Sorting', 'avia_framework' ) . ': <span class="avia-sort-list-label">' . $sorting_label[$init_sort] . '</span>';
 			$output .=				'</strong>';
 			$output .=				'<ul class="avia-sort-list-main">';
 			$output .=					'<li class="avia-sort-list-element">';

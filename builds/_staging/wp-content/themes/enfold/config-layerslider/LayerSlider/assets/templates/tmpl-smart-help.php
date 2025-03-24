@@ -986,6 +986,22 @@
 		<?= __('Useful when you want to position layers relative to the right side. In this case, set the value of the left position to 100% and enter the distance from the right side in this field as a negative value in pixels.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="min-width">
+		<?= __('The layer’s minimum width. Setting a value prevents the layer from becoming smaller than specified. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%:</b> Percentage of the entire project width. <br><br> <b>em:</b> Relative to the layer’s font size. If the layer’s font size is 36px, 1em will translate into exactly 36 pixels, while 1.5em will be 54px. <br><br> <b>rem:</b> The same as <b>em</b>, but it’s relative to the global font size set on the &lt;html&gt; root element.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="min-height">
+	<?= __('The layer’s minimum height. Setting a value prevents the layer from becoming smaller than specified. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%:</b> Percentage of the entire project height. <br><br> <b>em:</b> Relative to the layer’s font size. If the layer’s font size is 36px, 1em will translate into exactly 36 pixels, while 1.5em will be 54px. <br><br> <b>rem:</b> The same as <b>em</b>, but it’s relative to the global font size set on the &lt;html&gt; root element.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="max-width">
+	<?= __('The layer’s maximum width. Setting a value prevents the layer from becoming larger than specified. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%:</b> Percentage of the entire project width. <br><br> <b>em:</b> Relative to the layer’s font size. If the layer’s font size is 36px, 1em will translate into exactly 36 pixels, while 1.5em will be 54px. <br><br> <b>rem:</b> The same as <b>em</b>, but it’s relative to the global font size set on the &lt;html&gt; root element.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="max-height">
+	<?= __('The layer’s maximum height. Setting a value prevents the layer from becoming larger than specified. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%:</b> Percentage of the entire project height. <br><br> <b>em:</b> Relative to the layer’s font size. If the layer’s font size is 36px, 1em will translate into exactly 36 pixels, while 1.5em will be 54px. <br><br> <b>rem:</b> The same as <b>em</b>, but it’s relative to the global font size set on the &lt;html&gt; root element.', 'LayerSlider') ?>
+	</div>
+
 
 	<div data-smart-help="position-adjustment-top">
 		<?= __('Useful when you want to position layers relative to the bottom. In this case, set the value of the top position to 100% and enter the distance from the bottom edge in this field as a negative value in pixels.', 'LayerSlider') ?>
@@ -1148,11 +1164,11 @@
 	</div>
 
 	<div data-smart-help="sceneheight">
-		<?= __('The length of the scrollable area. Use larger values to keep the slider visible for longer, and play animations slower in case of a Scroll Scene. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized.', 'LayerSlider') ?>
+		<?= __('The length of the scrollable area. Use larger values to keep the slider visible for longer, and play animations slower in case of a Scroll Scene. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dynamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dynamically when the browser window is resized.', 'LayerSlider') ?>
 	</div>
 
 	<div data-smart-help="projectverticalspacing">
-		<?= __('Creates empty space above and below your projects (i.e. margins). Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized.', 'LayerSlider') ?>
+		<?= __('Creates empty space above and below your projects (i.e. margins). Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dynamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dynamically when the browser window is resized.', 'LayerSlider') ?>
 	</div>
 
 	<div data-smart-help="firstslide">
@@ -1160,7 +1176,7 @@
 	</div>
 
 	<div data-smart-help="performancemodethreshold">
-		<?= __('The minimum distance between the slider and viewport edges when Performance Mode should activate as described on the right. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized.', 'LayerSlider') ?>
+		<?= __('The minimum distance between the slider and viewport edges when Performance Mode should activate as described on the right. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dynamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dynamically when the browser window is resized.', 'LayerSlider') ?>
 	</div>
 
 

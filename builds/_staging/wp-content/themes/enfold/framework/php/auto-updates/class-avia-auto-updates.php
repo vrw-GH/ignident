@@ -111,15 +111,18 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 						);
 			AviaThemeUpdater( $args );
 
-			if( empty( $this->personal_token ) && ! empty( $this->username ) && ! empty( $this->apikey ) )
-			{
-				/**
-				 * backwards comp. for old API - can be removed in some future
-				 * support for new API added in 4.4.3
-				 */
-				require_once( "class-pixelentity-theme-update.php" );
-				PixelentityThemeUpdate::init( $this->username , $this->apikey, $this->author );
-			}
+			/**
+			 * @since 6.0.4			removed
+			 */
+//			if( empty( $this->personal_token ) && ! empty( $this->username ) && ! empty( $this->apikey ) )
+//			{
+//				/**
+//				 * backwards comp. for old API - can be removed in some future
+//				 * support for new API added in 4.4.3
+//				 */
+//				require_once( "class-pixelentity-theme-update.php" );
+//				PixelentityThemeUpdate::init( $this->username , $this->apikey, $this->author );
+//			}
 		}
 
 		/**

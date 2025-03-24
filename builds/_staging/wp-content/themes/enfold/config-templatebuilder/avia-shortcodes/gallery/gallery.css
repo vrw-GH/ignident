@@ -141,6 +141,10 @@ Gallery
 	top: 27px;
 }
 
+#av-admin-preview .avia-gallery.av-slideshow-ui .avia-slideshow-arrows .avia-svg-icon svg:first-child{
+	margin-top: 18px;
+}
+
 #av-admin-preview .avia-gallery.av-slideshow-ui .avia-slideshow-arrows .av-gallery-prev{
 	margin-left: 27px;
 }

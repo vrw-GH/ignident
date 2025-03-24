@@ -21,12 +21,11 @@
 					<?= lsGetSVGIcon('dot-circle') ?>
 					<lse-text><?= __('Button', 'LayerSlider') ?></lse-text>
 				</lse-b>
+
 				<lse-b data-type="asset">
 					<?= lsGetSVGIcon('photo-video') ?>
 					<lse-text><?= __('Asset', 'LayerSlider') ?></lse-text>
 				</lse-b>
-			</lse-row>
-			<lse-row>
 				<lse-b data-type="shape-modal">
 					<?= lsGetSVGIcon('shapes') ?>
 					<lse-text><?= __('Shape', 'LayerSlider') ?></lse-text>
@@ -39,6 +38,7 @@
 					<?= lsGetSVGIcon('stars') ?>
 					<lse-text><?= __('SVG', 'LayerSlider') ?></lse-text>
 				</lse-b>
+
 				<lse-b data-type="html">
 					<?= lsGetSVGIcon('code') ?>
 					<lse-text><?= __('HTML', 'LayerSlider') ?></lse-text>
@@ -47,6 +47,16 @@
 					<?= lsGetSVGIcon('database') ?>
 					<lse-text><?= __('Dynamic Layer', 'LayerSlider') ?></lse-text>
 				</lse-b>
+				<lse-b data-type="countdown">
+					<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<?= lsGetSVGIcon('timer') ?>
+					<lse-text><?= __('Countdown', 'LayerSlider') ?></lse-text>
+ 				</lse-b>
+				 <lse-b data-type="counter">
+					<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<?= lsGetSVGIcon('arrow-up-9-1') ?>
+					<lse-text><?= __('Counter', 'LayerSlider') ?></lse-text>
+ 				</lse-b>
 			</lse-row>
 		</lse-grid>
 	</div>

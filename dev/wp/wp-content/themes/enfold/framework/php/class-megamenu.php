@@ -105,6 +105,15 @@ if( ! class_exists( 'avia_megamenu', false ) )
 		 */
 		public function update_menu( $menu_id, $menu_item_db )
 		{
+			/**
+			 * @used_by					functions-enfold.php  avia_menu_button_style_save()			10
+			 * @used_by					
+			 * @since ???
+			 * @param array $check
+			 * @param int $menu_id
+			 * @param int $menu_item_db
+			 * @return array
+			 */
 			$check = apply_filters( 'avf_mega_menu_post_meta_fields', array( 'megamenu', 'division', 'textarea' ), $menu_id, $menu_item_db );
 
 			foreach( $check as $key )

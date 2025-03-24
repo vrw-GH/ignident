@@ -47,13 +47,13 @@ class AdminActions {
 		} elseif ( strpos( $name, '_deactivate_mode' ) !== false ) {
 			Settings::deactivate_mode();
 		}
-
 	}
 
 	private function verify( $name ): bool {
 		$nonce_action = WOW_Plugin::PREFIX . '_nonce';
+		$nonce        = isset( $_REQUEST[ $name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $name ] ) ) : '';
 
-		return ! ( ! isset( $_REQUEST[ $name ] ) || ! wp_verify_nonce( $_REQUEST[ $name ], $nonce_action ) || ! current_user_can( 'manage_options' ) );
+		return ( ! empty( $nonce ) &&  wp_verify_nonce( $nonce, $nonce_action ) && current_user_can( 'manage_options' ) );
 	}
 
 	private function check_name( $request ) {
@@ -70,14 +70,12 @@ class AdminActions {
 		];
 
 		foreach ( $request as $key => $value ) {
-
 			if ( in_array( $key, $names, true ) ) {
 				return $key;
 			}
 		}
 
 		return false;
-
 	}
 
 }

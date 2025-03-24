@@ -628,7 +628,13 @@ if( ! class_exists( 'avia_slideshow', false ) )
 			$scroll_down_html = '';
 			if( ! empty( $this->config['scroll_down'] ) )
 			{
-				$scroll_down_html .= "<a href='#next-section' title='' class='scroll-down-link " . $this->config['control_layout'] . "' " . av_icon_string( 'scrolldown' ) . "></a>";
+				$icon_title = esc_html( __( 'Scroll to next section', 'avia_framework' ) );
+				$icon_class = avia_font_manager::get_shortcut_icon_class( 'svg__scrolldown' );
+				$icon = avia_font_manager::get_frontend_icon( 'svg__scrolldown', false, [ 'aria-hidden' => 'true', 'title' => $icon_title, 'desc' => $icon_title ] );
+
+				$scroll_down_html .= "<a href='#next-section' title='' class='scroll-down-link {$this->config['control_layout']} {$icon_class}' {$icon['attr']}>";
+				$scroll_down_html .=	$icon['svg'];
+				$scroll_down_html .= '</a>';
 			}
 
 			$slide_html = empty( $this->subslides ) ? $this->html_default_slide() : $this->html_advanced_slide();
@@ -1169,7 +1175,8 @@ if( ! class_exists( 'avia_slideshow', false ) )
 		{
 			$args = array(
 						'context'	=> get_class( $this ),
-						'params'	=> $this
+						'params'	=> $this,
+						'svg_icon'	=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );
@@ -1338,6 +1345,7 @@ if( ! class_exists( 'avia_slideshow_video_helper', false ) )
 
 			$uid = 'player_' . get_the_ID() . '_' . mt_rand() . '_' . mt_rand();
 			$controls = empty( $meta['video_controls'] ) ? 1 : 0;
+
 			$atts = array();
 			$atts['loop'] = empty( $meta['video_loop'] ) ? 0 : 1;
 			$atts['autoplay'] = empty( $meta['video_autoplay'] ) ? 1 : 0;
@@ -1366,15 +1374,27 @@ if( ! class_exists( 'avia_slideshow_video_helper', false ) )
 					$video = $video_url;
 					break;
 				case 'youtube':
-					$explode_at = strpos( $video_url, 'youtu.be/' ) !== false ? '/' : 'v=';
+					if( false !== strpos( $video_url, 'youtu.be/' ) )
+					{
+						$explode_at = '/';
+					}
+					else if( false !== strpos( $video_url, 'youtube.com/shorts/' ) )
+					{
+						$explode_at = '.com/shorts/';
+					}
+					else
+					{
+						$explode_at = 'v=';
+					}
+
 					$video_url = explode( $explode_at, trim( $video_url ) );
 					$video_url = end( $video_url );
 					$video_id = $video_url;
 
-					//if parameters are appended make sure to create the correct video id
-					if( strpos( $video_url, '?' ) !== false || strpos( $video_url, '?' ) !== false )
+					// if parameters are appended make sure to create the correct video id
+					if( strpos( $video_url, '?' ) !== false || strpos( $video_url, '&' ) )
 					{
-					    preg_match( '!(.+)[&?]!', $video_url, $video_id );
+						preg_match( '!([a-zA-Z0-9_-]+)(?=[&?])!', $video_url, $video_id );
 						$video_id = isset( $video_id[1] ) ? $video_id[1] : $video_id[0];
 					}
 
@@ -1447,7 +1467,7 @@ if( ! class_exists( 'avia_slideshow_video_helper', false ) )
 			}
 			else
 			{
-				if( strpos( $video_url, 'youtube.com/watch' ) !== false || strpos( $video_url, 'youtu.be/' ) !== false )
+				if( strpos( $video_url, 'youtube.com/' ) !== false || strpos( $video_url, 'youtu.be/' ) !== false )
 				{
 					$service = 'youtube';
 				}

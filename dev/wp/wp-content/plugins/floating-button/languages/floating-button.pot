@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Floating Button\n"
-"POT-Creation-Date: 2024-10-30 13:24+0200\n"
+"POT-Creation-Date: 2025-03-18 10:26+0200\n"
 "PO-Revision-Date: 2024-10-30 13:24+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Menus not created yet"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:28 classes/Dashboard/FieldHelper.php:2409
+#: classes/Dashboard/FieldHelper.php:28 classes/Dashboard/FieldHelper.php:2411
 msgid "None"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Beat"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:30 classes/Dashboard/FieldHelper.php:2426
+#: classes/Dashboard/FieldHelper.php:30 classes/Dashboard/FieldHelper.php:2428
 msgid "Fade"
 msgstr ""
 
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Beat-Fade"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:32 classes/Dashboard/FieldHelper.php:2410
+#: classes/Dashboard/FieldHelper.php:32 classes/Dashboard/FieldHelper.php:2412
 msgid "Bounce"
 msgstr ""
 
@@ -647,108 +647,108 @@ msgstr ""
 msgid "Renren"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2376
+#: classes/Dashboard/FieldHelper.php:2378
 #: includes/settings/options/style.php:107
 msgid "Default"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2382
+#: classes/Dashboard/FieldHelper.php:2384
 msgid "bottom-right"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2383
+#: classes/Dashboard/FieldHelper.php:2385
 msgid "bottom-left"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2384
+#: classes/Dashboard/FieldHelper.php:2386
 msgid "bottom-center"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2385
+#: classes/Dashboard/FieldHelper.php:2387
 msgid "top-right"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2386
+#: classes/Dashboard/FieldHelper.php:2388
 msgid "top-left"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2387
+#: classes/Dashboard/FieldHelper.php:2389
 msgid "top-center"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2388
+#: classes/Dashboard/FieldHelper.php:2390
 msgid "left"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2389
+#: classes/Dashboard/FieldHelper.php:2391
 msgid "right"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2395
+#: classes/Dashboard/FieldHelper.php:2397
 msgid "Circle"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2401
+#: classes/Dashboard/FieldHelper.php:2403
 msgid "Small"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2402
+#: classes/Dashboard/FieldHelper.php:2404
 msgid "Medium"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2403
+#: classes/Dashboard/FieldHelper.php:2405
 msgid "Large"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2411
+#: classes/Dashboard/FieldHelper.php:2413
 msgid "Flash"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2412
+#: classes/Dashboard/FieldHelper.php:2414
 msgid "pulse"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2413
+#: classes/Dashboard/FieldHelper.php:2415
 msgid "rubberBand"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2414
+#: classes/Dashboard/FieldHelper.php:2416
 msgid "shake"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2415
+#: classes/Dashboard/FieldHelper.php:2417
 msgid "headShake"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2416
+#: classes/Dashboard/FieldHelper.php:2418
 msgid "swing"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2417
+#: classes/Dashboard/FieldHelper.php:2419
 msgid "tada"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2418
+#: classes/Dashboard/FieldHelper.php:2420
 msgid "wobble"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2419
+#: classes/Dashboard/FieldHelper.php:2421
 msgid "jello"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2420
+#: classes/Dashboard/FieldHelper.php:2422
 msgid "heartBeat"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2432
+#: classes/Dashboard/FieldHelper.php:2434
 msgid "Yes"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2433
+#: classes/Dashboard/FieldHelper.php:2435
 msgid "No"
 msgstr ""
 
-#: classes/Dashboard/FieldHelper.php:2438
+#: classes/Dashboard/FieldHelper.php:2440
 msgid "All Users"
 msgstr ""
 
@@ -947,13 +947,13 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: includes/class-wow-company.php:64
+#: includes/class-wow-company.php:65
 msgid ""
 "Thank you for using <b>Our plugins</b>! Our website <a href=\"https://wow-"
 "estore.com/\" target=\"_blank\">Wow-Estore.com</a>"
 msgstr ""
 
-#: includes/pages/1.list.php:58
+#: includes/pages/1.list.php:59
 msgid "Search"
 msgstr ""
 

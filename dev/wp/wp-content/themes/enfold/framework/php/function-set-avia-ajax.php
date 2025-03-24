@@ -521,62 +521,6 @@ if( ! function_exists( 'avia_ajax_get_gallery' ) )
 	add_action('wp_ajax_avia_ajax_get_gallery', 'avia_ajax_get_gallery');
 }
 
-
-if( ! function_exists( 'avia_ajax_get_image_color' ) )
-{
-	/**
-	 * gets the color of an attachment or a url image
-	 */
-	function avia_ajax_get_image_color()
-	{
-		#backend single post/page/portfolio item: add multiple preview pictures. get a preview picture via ajax request and display it
-		$colorString = '';
-		$attachment_id = (int) $_POST['attachment_id'];
-		if( $attachment_id != 0 )
-		{
-			$src = wp_get_attachment_image_src( $attachment_id, array( 5500, 5500 ) );
-			$src = is_array( $src ) ? $src[0] : '';
-		}
-		else
-		{
-			$src = $_POST['attachment_id'];
-		}
-
-		if( function_exists( 'imagecolorat' ) )
-		{
-			$extension = substr( $src, strrpos( $src, '.' ) + 1 );
-			switch( $extension )
-			{
-				case 'jpeg':
-					$image = imagecreatefromjpeg( $src );
-					break;
-				case 'jpg':
-					$image = imagecreatefromjpeg( $src );
-					break;
-				case 'png':
-					$image = imagecreatefrompng( $src );
-					break;
-				case 'gif':
-					$image = imagecreatefromgif( $src );
-					break;
-				default:
-					die();
-			}
-
-			$rgb = imagecolorat( $image, 0, 0 );
-			$colors = imagecolorsforindex( $image, $rgb );
-
-			$colorString = avia_backend_get_hex_from_rgb( $colors['red'], $colors['green'], $colors['blue'] );
-		}
-
-		die( $colorString );
-	}
-
-	//hook into wordpress admin.php
-	add_action('wp_ajax_avia_ajax_get_image_color', 'avia_ajax_get_image_color');
-}
-
-
 if( ! function_exists( 'avia_ajax_switch_menu_walker' ) )
 {
 	/**
@@ -632,7 +576,6 @@ if( ! function_exists( 'avia_ajax_switch_menu_walker' ) )
 	//hook into wordpress admin.php
 	add_action('wp_ajax_avia_ajax_switch_menu_walker', 'avia_ajax_switch_menu_walker');
 }
-
 
 if( ! function_exists( 'avia_ajax_import_data' ) )
 {
@@ -1102,7 +1045,7 @@ if ( ! function_exists( 'avia_ajax_save_video_thumbnails_locally' ) )
 				}
 
 				$video_id = $video_id[1];
-				
+
 				$video_thumb_id = 'https://img.youtube.com/vi/' . $video_id;
 				$video_thumb_hq = $video_thumb_id . '/maxresdefault.jpg';
 				$video_thumb = $video_thumb_id . '/0.jpg';

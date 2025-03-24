@@ -65,7 +65,10 @@ if ( ! class_exists( 'burst_languages' ) ) {
             }
 
             if ( isset($_GET['page']) && $_GET['page'] === 'burst'){
-                define( 'BURST_INSTALL_TABLES_RUNNING', true );
+                if ( !defined('BURST_INSTALL_TABLES_RUNNING') ) {
+                    define( 'BURST_INSTALL_TABLES_RUNNING', true );
+                }
+
                 $this->dont_update_language_paths = true;
                 $locale = get_user_locale();
                 $language_files = $this->get_language_paths($locale);
@@ -236,6 +239,10 @@ if ( ! class_exists( 'burst_languages' ) ) {
          */
         private function download_language_file(string $file_name, string $target_locale ): bool {
             $path = $this->language_download_path() . $file_name;
+            if (!function_exists('download_url')) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
+            }
+            
             $tmpfile = download_url( $path, $timeout = 25 );
             
             if (is_wp_error($tmpfile)) {

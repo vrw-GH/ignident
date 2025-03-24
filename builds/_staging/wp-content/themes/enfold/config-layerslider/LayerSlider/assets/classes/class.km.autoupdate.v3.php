@@ -478,6 +478,8 @@ class KM_UpdatesV3 {
 	 */
 	public function handleDeactivation() {
 
+		check_ajax_referer('ls_authorize_site');
+
 		// Get response
 		$data = $this->sendApiRequest($this->config['repoUrl'].'deauthorize/');
 		list($response, $json) = $this->parseApiResponse($data);

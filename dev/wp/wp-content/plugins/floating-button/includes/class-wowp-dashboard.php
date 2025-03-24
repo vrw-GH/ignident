@@ -167,6 +167,7 @@ class WOWP_Dashboard {
 
 
 	public function header_links(): void {
+		// phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 		$logo = WOW_Plugin::url() . 'assets/img/wow-icon.png';
 		?>
         <div class="wowp-links">
@@ -186,6 +187,7 @@ class WOWP_Dashboard {
         </div>
 
 		<?php
+		// phpcs:enable
 	}
 
 

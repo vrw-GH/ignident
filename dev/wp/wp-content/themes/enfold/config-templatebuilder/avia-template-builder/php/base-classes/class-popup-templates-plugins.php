@@ -321,6 +321,21 @@ if( ! class_exists( __NAMESPACE__ . '\aviaPopupTemplatesPlugins', false ) )
 							);
 
 			$template[] = array(
+								'name'		=> __( 'WooCommerce On Sale Products Visibility', 'avia_framework' ),
+								'desc'		=> __( 'Select the visibility of WooCommerce products which have a sale price. Variable products are considered on sale, if one of them has a sale price.', 'avia_framework' ),
+								'id'		=> 'wc_prod_sale',
+								'type'		=> 'select',
+								'std'		=> '',
+								'lockable'	=> $lockable,
+								'required'	=> $required,
+								'subtype'	=> array(
+													__( 'Show all products', 'avia_framework' )					=> '',
+													__( 'Show sale products only', 'avia_framework' )			=> 'on_sale',
+													__( 'Show not on sale products only', 'avia_framework' )	=> 'not_on_sale'
+												)
+							);
+
+			$template[] = array(
 								'name'		=> __( 'WooCommerce Sorting Options', 'avia_framework' ),
 								'desc'		=> __( 'Here you can choose how to sort the products. Default setting can be set at Dashboard -&gt; Appearance -&gt; Customize -&gt; WooCommerce -&gt; Product Catalog -&gt; Default Product Sorting', 'avia_framework' ),
 								'id'		=> 'prod_order_by',
@@ -432,6 +447,20 @@ if( ! class_exists( __NAMESPACE__ . '\aviaPopupTemplatesPlugins', false ) )
 													__( 'Show all products', 'avia_framework' )				=> '',
 													__( 'Hide featured products', 'avia_framework' )		=> 'hide',
 													__( 'Show featured products only', 'avia_framework' )	=> 'show'
+												)
+							);
+
+			$template[] = array(
+								'name'		=> __( 'WooCommerce On Sale Products Visibility', 'avia_framework' ),
+								'desc'		=> __( 'Select the visibility of WooCommerce products which have a sale price. Variable products are considered on sale, if one of them has a sale price.', 'avia_framework' ),
+								'id'		=> 'wc_prod_sale',
+								'type'		=> 'select',
+								'std'		=> '',
+								'lockable'	=> $lockable,
+								'subtype'	=> array(
+													__( 'Show all products', 'avia_framework' )					=> '',
+													__( 'Show sale products only', 'avia_framework' )			=> 'on_sale',
+													__( 'Show not on sale products only', 'avia_framework' )	=> 'not_on_sale'
 												)
 							);
 

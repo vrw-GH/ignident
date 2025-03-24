@@ -32,8 +32,8 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
     <div class="ays-pb-heading-box">
         <div class="ays-pb-wordpress-user-manual-box">
             <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">
-                <img src="<?php echo AYS_PB_ADMIN_URL . '/images/icons/text-file.svg' ?>">
-                <span><?php echo __("View Documentation", "ays-popup-box"); ?></span>
+                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
+                <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
             </a>
         </div>
     </div>
@@ -44,7 +44,7 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
     </h1>
     <div class="ays-pb-add-new-button-box">
         <?php
-            echo sprintf( '<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s ' . __( "Add New", "ays-popup-box" ) . '</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );
+            echo sprintf( '<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s ' . esc_html__( "Add New", "ays-popup-box" ) . '</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );
         ?>
     </div>
     <div id="poststuff">
@@ -57,7 +57,7 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
                     <form method="post">
                         <?php
                             $this->popupbox_obj->prepare_items();
-                            $search = __("Search", "ays-popup-box");
+                            $search = esc_html__("Search", "ays-popup-box");
                             $this->popupbox_obj->search_box($search, "ays-popup-box");
                             $this->popupbox_obj->display();
                         ?>
@@ -69,29 +69,29 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
     </div>
     <div class="ays-pb-add-new-button-box">
         <?php
-            echo sprintf( '<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s '. __( "Add New", "ays-popup-box" ) .'</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );
+            echo sprintf( '<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s '. esc_html__( "Add New", "ays-popup-box" ) .'</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );
         ?>
     </div>
     <?php if ($popup_max_id <= 3): ?>
         <div class="ays-pb-create-pb-video-box">
             <div class="ays-pb-create-pb-title">
-                <h4><?php echo __( "Create Your First Popup in Under One Minute", "ays-popup-box" ); ?></h4>
+                <h4><?php echo esc_html__( "Create Your First Popup in Under One Minute", "ays-popup-box" ); ?></h4>
             </div>
             <div class="ays-pb-create-pb-youtube-video">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/_VEAGGzKe_g" loading="lazy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="ays_pb_small_hint_text_video">
-                <?php echo __( 'Please note that this video will disappear once you created 4 popups.', "ays-popup-box" ); ?>
+                <?php echo esc_html__( 'Please note that this video will disappear once you created 4 popups.', "ays-popup-box" ); ?>
             </div>
             <div class="ays-pb-create-pb-youtube-video-button-box">
-                <?php echo sprintf( '<a href="?page=%s&action=%s" class="ays-pb-add-new-button-video ays-pb-add-new-button-new-design"> %s '. __( "Add New", "ays-popup-box" ) .'</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );?>
+                <?php echo sprintf( '<a href="?page=%s&action=%s" class="ays-pb-add-new-button-video ays-pb-add-new-button-new-design"> %s '. esc_html__( "Add New", "ays-popup-box" ) .'</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );?>
             </div>
         </div>
     <?php else: ?>
         <div class="ays-pb-create-pb-video-box">
             <div class="ays-pb-create-pb-youtube-video">
                 <?php echo $youtube_icon_svg; ?>
-                <a href="https://www.youtube.com/watch?v=_VEAGGzKe_g" target="_blank" title="YouTube video player" ><?php echo __("How to create a popup in one minute?", "ays-popup-box"); ?></a>
+                <a href="https://www.youtube.com/watch?v=_VEAGGzKe_g" target="_blank" title="YouTube video player" ><?php echo esc_html__("How to create a popup in one minute?", "ays-popup-box"); ?></a>
             </div>
         </div>
     <?php endif ?>

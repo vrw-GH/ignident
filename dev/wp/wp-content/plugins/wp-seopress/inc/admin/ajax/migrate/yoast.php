@@ -109,14 +109,11 @@ function seopress_yoast_migration() {
                     if ('1' == get_post_meta($post->ID, '_yoast_wpseo_meta-robots-nofollow', true)) { //Import Robots NoFollow
                         update_post_meta($post->ID, '_seopress_robots_follow', 'yes');
                     }
-                    if ('' != get_post_meta($post->ID, '_yoast_wpseo_meta-robots-adv', true)) { //Import Robots NoImageIndex, NoArchive, NoSnippet
+                    if ('' != get_post_meta($post->ID, '_yoast_wpseo_meta-robots-adv', true)) { //Import Robots NoImageIndex, NoSnippet
                         $yoast_wpseo_meta_robots_adv = get_post_meta($post->ID, '_yoast_wpseo_meta-robots-adv', true);
 
                         if (false !== strpos($yoast_wpseo_meta_robots_adv, 'noimageindex')) {
                             update_post_meta($post->ID, '_seopress_robots_imageindex', 'yes');
-                        }
-                        if (false !== strpos($yoast_wpseo_meta_robots_adv, 'noarchive')) {
-                            update_post_meta($post->ID, '_seopress_robots_archive', 'yes');
                         }
                         if (false !== strpos($yoast_wpseo_meta_robots_adv, 'nosnippet')) {
                             update_post_meta($post->ID, '_seopress_robots_snippet', 'yes');
@@ -133,9 +130,11 @@ function seopress_yoast_migration() {
 
                         $y_fkws = get_post_meta($post->ID, '_yoast_wpseo_focuskeywords', false);
 
-                        foreach ($y_fkws as $value) {
-                            foreach (json_decode($value) as $key => $value) {
-                                $y_fkws_clean[] .= esc_html($value->keyword);
+                        if ( ! empty($y_fkws)) {
+                            foreach ($y_fkws as $value) {
+                                foreach (json_decode($value) as $key => $value) {
+                                    $y_fkws_clean[] .= esc_html($value->keyword);
+                                }
                             }
                         }
 

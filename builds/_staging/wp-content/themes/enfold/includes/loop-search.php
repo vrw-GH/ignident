@@ -29,10 +29,21 @@ if( have_posts() )
 		$post_class = "post-entry-{$the_id} post-loop-{$post_loop_count} post-parity-{$parity} {$last} {$blog_style}";
 		$post_format = get_post_format() ? get_post_format() : 'standard';
 
+		$aria_label = 'aria-label="' . __( 'Search Result:', 'avia_framework' ) . ' ' . esc_attr( get_the_title() ) . '"';
+
+		/**
+		 * @since 6.0.3
+		 * @param string $aria_label
+		 * @param string $context
+		 * @param WP_Post|null $current_post
+		 * @return string
+		 */
+		$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, get_post() );
+
 	?>
 		<article <?php post_class( "post-entry post-entry-type-{$post_format} {$post_class} " ); avia_markup_helper( array( 'context' => 'entry' ) ); ?>>
 			<div class="entry-content-wrapper clearfix <?php echo $post_format; ?>-content">
-				<header class="entry-content-header">
+				<header class="entry-content-header" <?php echo $aria_label; ?> >
 <?php
 					echo "<span class='search-result-counter {$counterclass}'>{$post_loop_count}</span>";
 

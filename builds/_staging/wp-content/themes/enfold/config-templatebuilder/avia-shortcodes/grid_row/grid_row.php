@@ -713,11 +713,13 @@ if( ! class_exists( 'avia_sc_grid_row', false ) )
 
 			if( $fold_type != '' )
 			{
+				$hide = $element_styling->responsive_classes_string( 'hide_element', $atts );
 				$fold_section_class = $element_styling->get_class_string( 'fold-section' );
 				$fold_section_data = $element_styling->get_data_attributes_json_string( 'fold-section', 'fold_unfold' );
+				
 				$args = [
 						'atts'			=> $atts,
-						'wrapper_class'	=> 'av-grid-row-fold-btn-wrap av-fold-btn-padding',
+						'wrapper_class'	=> "av-grid-row-fold-btn-wrap av-fold-btn-padding {$hide}",
 						'context'		=> __CLASS__
 					];
 

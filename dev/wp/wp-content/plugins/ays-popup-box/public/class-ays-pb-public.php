@@ -263,6 +263,18 @@ class Ays_Pb_Public {
             }
         }
 
+        if (isset($popupbox['active_time_check']) && $popupbox['active_time_check'] == "on") {
+            if (isset($popupbox['active_time_start']) && isset($popupbox['active_time_end'])) {
+                $current_time = strtotime(current_time("H:i:s"));
+                $start_time = strtotime($popupbox['active_time_start']);
+                $end_time = strtotime($popupbox['active_time_end']);
+
+                if ($start_time >= $current_time || $end_time <= $current_time) {
+                    $popupbox['onoffswitch'] = "Off";
+                }
+            }
+        }
+
         /*******************************************************************************************************/
         // Roles limitations start
         global $wp_roles;
@@ -365,7 +377,7 @@ class Ays_Pb_Public {
         //Tigran
         if(isset($popupbox['onoffswitch']) && $popupbox['onoffswitch'] == 'On'){
 			
-			if(!isset($_COOKIE['ays_popup_cookie_'.$id])){
+			if(!isset($_COOKIE['ays_popup_cookie_'.$id]) && isset($popupbox['cookie']) && $popupbox['cookie'] != 0){
 				$this->ays_set_cookie($popupbox);
 			}elseif(isset($popupbox['cookie']) && $popupbox['cookie'] == 0){
                 $this->ays_remove_cookie($popupbox);
@@ -387,6 +399,8 @@ class Ays_Pb_Public {
 
             //Enable Display Content Mobile
             $enable_display_content_mobile = ( isset($options["enable_display_content_mobile"]) && $options["enable_display_content_mobile"] == 'on' ) ? true : false;
+
+			$ays_pb_template = ($popupbox["view_type"] == false || $popupbox["view_type"] == '') ? 'default' : stripslashes( esc_attr($popupbox["view_type"]) );
 
             //Show Popup Title Mobile
             //Show Popup Description Mobile
@@ -418,8 +432,71 @@ class Ays_Pb_Public {
                 $ays_pb_bgcolor_mobile = $ays_pb_bgcolor;
             }
 
-            // Popup Background Image
+            // Background Image
             $ays_pb_bg_image = ( isset($popupbox['bg_image']) && $popupbox['bg_image'] !== '' ) ? esc_url($popupbox['bg_image']) : '';
+
+            // Background Image Position
+            $pb_bg_image_position = isset($options["pb_bg_image_position"]) && $options["pb_bg_image_position"] != "" ? str_ireplace('-', ' ', esc_attr($options["pb_bg_image_position"])) : 'center center';
+
+            // Background Image Sizing
+            $pb_bg_image_sizing = isset($options["pb_bg_image_sizing"]) && $options["pb_bg_image_sizing"] != "" ? stripslashes( esc_attr($options["pb_bg_image_sizing"]) ) : 'cover';
+
+            // Enable Popup Background Gradient
+            $background_gradient = isset($options["enable_background_gradient"]) && $options["enable_background_gradient"] != '' ? stripslashes( esc_attr($options["enable_background_gradient"]) ) : 'off';
+
+            // Background Gradient
+            $pb_gradient_direction = (!isset($options->pb_gradient_direction)) ? 'horizontal' : stripslashes( esc_attr($options->pb_gradient_direction) );
+
+            // Background Gradient Direction
+            $pb_gradient_direction = isset($options["pb_gradient_direction"]) && $options["pb_gradient_direction"] != '' ? stripslashes( esc_attr($options["pb_gradient_direction"]) ) : 'horizontal';
+            switch($pb_gradient_direction) {
+                case "horizontal":
+                    $pb_gradient_direction = "to right";
+                    break;
+                case "diagonal_left_to_right":
+                    $pb_gradient_direction = "to bottom right";
+                    break;
+                case "diagonal_right_to_left":
+                    $pb_gradient_direction = "to bottom left";
+                    break;
+                default:
+                    $pb_gradient_direction = "to bottom";
+            }
+
+            // Background Gradient Color 1
+            $background_gradient_color_1 = isset($options["background_gradient_color_1"]) && $options["background_gradient_color_1"] != '' ? stripslashes( esc_attr($options["background_gradient_color_1"]) ) : "#000000";
+
+            // Popup Background Gradient Color 2
+            $background_gradient_color_2 = isset($options["background_gradient_color_2"]) && $options["background_gradient_color_2"] != '' ? stripslashes( esc_attr($options["background_gradient_color_2"]) ) : "#fff";
+
+            $ays_pb_bg_image_styles = '';
+            $template_bg_gradient_styles = '';
+            $ays_pb_bg_image_template_elefante_default = 'background-image: url("https://quiz-plugin.com/wp-content/uploads/2020/02/elefante.jpg");
+                                                          background-repeat: no-repeat;
+                                                          background-size: cover;';
+            $ays_pb_bg_image_template_girl_scaled_default = 'background-image: url("https://quiz-plugin.com/wp-content/uploads/2020/02/girl-scaled.jpg");
+                                                             background-repeat: no-repeat;
+                                                             background-size: cover;';
+            if($ays_pb_bg_image !== ''){
+                $ays_pb_bg_image_styles = 'background-image: url(' . $ays_pb_bg_image . ') !important;
+                                    background-repeat: no-repeat !important;
+                                    background-size: ' . $pb_bg_image_sizing . ' !important;
+                                    background-position: ' . $pb_bg_image_position . ' !important;';
+            } elseif ($ays_pb_bg_image == '' && ($ays_pb_template == 'image' || $ays_pb_template == 'template')) {
+                if ($ays_pb_template == 'image') {
+                    $ays_pb_bg_image_styles = $ays_pb_bg_image_template_elefante_default;
+                } else {
+                    if ($background_gradient == 'on') {
+                        $template_bg_gradient_styles = "background-image: linear-gradient(".$pb_gradient_direction.",".$background_gradient_color_1.",".$background_gradient_color_2.");";
+                        $ays_pb_bgcolor = 'transparent';
+                    } else {
+                        $ays_pb_bg_image_styles = $ays_pb_bg_image_template_girl_scaled_default;
+                        $template_bg_gradient_styles = "unset";
+                    }
+                }
+            } elseif ($background_gradient == 'on' && $ays_pb_bg_image == '') {
+                $ays_pb_bg_image_styles = "background-image: linear-gradient(" . $pb_gradient_direction . "," . $background_gradient_color_1 ." ," . $background_gradient_color_2 . ") !important;";
+            }
 
             // Enable Popup Background Image Mobile
             $enable_bg_image_mobile = ( isset($options["enable_bg_image_mobile"]) && $options["enable_bg_image_mobile"] == 'on' ) ? true : false;
@@ -431,9 +508,6 @@ class Ays_Pb_Public {
                 $ays_pb_bg_image_mobile = $ays_pb_bg_image;
             }
 
-            // Popup Background Image Position
-            $pb_bg_image_position = isset($options["pb_bg_image_position"]) && $options["pb_bg_image_position"] != "" ? str_ireplace('-', ' ', esc_attr($options["pb_bg_image_position"])) : 'center center';
-
             // Enable Popup Background Image Position Mobile
             $enable_pb_bg_image_position_mobile = ( isset($options["enable_pb_bg_image_position_mobile"]) && $options["enable_pb_bg_image_position_mobile"] == 'on' ) ? true : false;
 
@@ -443,9 +517,6 @@ class Ays_Pb_Public {
             } else {
                 $pb_bg_image_position_mobile = $pb_bg_image_position;
             }
-
-            // Popup Background Image Sizing
-            $pb_bg_image_sizing = isset($options["pb_bg_image_sizing"]) && $options["pb_bg_image_sizing"] != "" ? stripslashes( esc_attr($options["pb_bg_image_sizing"]) ) : 'cover';
 
             // Enable Popup Background Image Sizing Mobile
             $enable_pb_bg_image_sizing_mobile = ( isset($options["enable_pb_bg_image_sizing_mobile"]) && $options["enable_pb_bg_image_sizing_mobile"] == 'on' ) ? true : false;
@@ -457,9 +528,6 @@ class Ays_Pb_Public {
                 $pb_bg_image_sizing_mobile = $pb_bg_image_sizing;
             }
 
-            // Enable Popup Background Gradient
-            $background_gradient = isset($options["enable_background_gradient"]) && $options["enable_background_gradient"] != '' ? stripslashes( esc_attr($options["enable_background_gradient"]) ) : 'off';
-
             $isset_background_gradient_mobile = false;
             if ( isset($options['enable_background_gradient_mobile']) ) {
                 $isset_background_gradient_mobile = true;
@@ -467,9 +535,6 @@ class Ays_Pb_Public {
             } else {
                 $background_gradient_mobile = $background_gradient;
             }
-            
-            // Popup Background Gradient Color 1
-            $background_gradient_color_1 = isset($options["background_gradient_color_1"]) && $options["background_gradient_color_1"] != '' ? stripslashes( esc_attr($options["background_gradient_color_1"]) ) : "#000000";
 
             // Popup Background Gradient Color 1 Mobile
             if ( isset($options["background_gradient_color_1_mobile"]) ) {
@@ -478,18 +543,12 @@ class Ays_Pb_Public {
                 $background_gradient_color_1_mobile = $background_gradient_color_1;
             }
 
-            // Popup Background Gradient Color 2
-            $background_gradient_color_2 = isset($options["background_gradient_color_2"]) && $options["background_gradient_color_2"] != '' ? stripslashes( esc_attr($options["background_gradient_color_2"]) ) : "#fff";
-
             // Popup Background Gradient Color 2 Mobile
             if ( isset($options["background_gradient_color_2_mobile"]) ) {
                 $background_gradient_color_2_mobile = $options["background_gradient_color_2_mobile"] != '' ? stripslashes( esc_attr($options["background_gradient_color_2_mobile"]) ) : "#000000";
             } else {
                 $background_gradient_color_2_mobile = $background_gradient_color_2;
             }
-
-            // Popup Background Gradient Direction
-            $pb_gradient_direction = isset($options["pb_gradient_direction"]) && $options["pb_gradient_direction"] != '' ? stripslashes( esc_attr($options["pb_gradient_direction"]) ) : 'horizontal';
 
             // Popup Background Gradient Color 2 Mobile
             if ( isset($options["pb_gradient_direction_mobile"]) ) {
@@ -512,20 +571,35 @@ class Ays_Pb_Public {
                     $pb_gradient_direction_mobile = "to bottom";
             }
 
-            $ays_pb_bg_image_mobile_styles = '';
+            $ays_pb_bg_image_styles_mobile = '';
+            $template_bg_gradient_styles_mobile = '';
             if ($ays_pb_bg_image_mobile !== '') {
-                $ays_pb_bg_image_mobile_styles = 'background-image: url('.$ays_pb_bg_image_mobile.') !important;
+                $ays_pb_bg_image_styles_mobile = 'background-image: url('.$ays_pb_bg_image_mobile.') !important;
                                     background-repeat: no-repeat !important;
                                     background-size: '.$pb_bg_image_sizing_mobile.' !important;
                                     background-position: '. $pb_bg_image_position_mobile .' !important;';
+            } elseif ($ays_pb_bg_image_mobile == '' && ($ays_pb_template == 'image' || $ays_pb_template == 'template')) {
+                if ($ays_pb_template == 'image') {
+                    $ays_pb_bg_image_styles_mobile = $ays_pb_bg_image_template_elefante_default;
+                } else {
+                    if ($background_gradient_mobile == 'on') {
+                        $template_bg_gradient_styles_mobile = "background-image: linear-gradient(".$pb_gradient_direction_mobile.",".$background_gradient_color_1_mobile.",".$background_gradient_color_2_mobile.");";
+                        $ays_pb_bgcolor = 'transparent';
+                    } else {
+                        $ays_pb_bg_image_styles_mobile = $ays_pb_bg_image_template_girl_scaled_default;
+                        if ($isset_background_gradient_mobile) {
+                            $template_bg_gradient_styles_mobile = "unset";
+                        }
+                    }
+                }
             } else {
                 if ($background_gradient_mobile == 'on') {
-                    $ays_pb_bg_image_mobile_styles = "background-image: linear-gradient(".$pb_gradient_direction_mobile.",".$background_gradient_color_1_mobile.",".$background_gradient_color_2_mobile.") !important;";
+                    $ays_pb_bg_image_styles_mobile = "background-image: linear-gradient(".$pb_gradient_direction_mobile.",".$background_gradient_color_1_mobile.",".$background_gradient_color_2_mobile.") !important;";
                 } else {
                     if ($isset_background_gradient_mobile) {
-                        $ays_pb_bg_image_mobile_styles = 'background-image: unset !important';
+                        $ays_pb_bg_image_styles_mobile = 'background-image: unset !important';
                     } else {
-                        $ays_pb_bg_image_mobile_styles = "";
+                        $ays_pb_bg_image_styles_mobile = "";
                     }
                 }
             }
@@ -533,7 +607,6 @@ class Ays_Pb_Public {
 			$ays_pb_header_bgcolor = stripslashes( esc_attr($popupbox["header_bgcolor"]) );
 			$ays_pb_animate_in = stripslashes( esc_attr($popupbox["animate_in"]) );
 			$ays_pb_animate_out = stripslashes( esc_attr($popupbox["animate_out"]) );
-			$ays_pb_template = ($popupbox["view_type"] == false || $popupbox["view_type"] == '') ? 'default' : stripslashes( esc_attr($popupbox["view_type"]) );
 			$ays_pb_custom_css = wp_unslash( stripslashes( htmlspecialchars_decode( $popupbox["custom_css"] ) ) );
 			$ays_pb_custom_html = $popupbox["custom_html"];
 			$ays_pb_delay = ($popupbox["delay"] == false) ? 0 : intval($popupbox["delay"]);
@@ -1094,6 +1167,24 @@ class Ays_Pb_Public {
                 $mobile_height = $popupbox["height"];
             }
 
+            $ays_pb_padding_mobile = (isset($options['popup_content_padding_mobile']) && $options['popup_content_padding_mobile'] != '') ? $options['popup_content_padding_mobile'] : '20';
+            $enable_padding_mobile = (isset($options['enable_padding_mobile']) && $options['enable_padding_mobile'] == 'on') ? true : false;
+            //popup padding percentage
+            $popup_padding_by_percentage_px_mobile = (isset($options['popup_padding_by_percentage_px_mobile']) && $options['popup_padding_by_percentage_px_mobile'] != '') ? stripslashes( esc_attr($options['popup_padding_by_percentage_px_mobile']) ) : 'pixels';
+            if(isset($ays_pb_padding_mobile) && $ays_pb_padding_mobile != ''){
+                if ($popup_padding_by_percentage_px_mobile && $popup_padding_by_percentage_px_mobile == 'percentage') {
+                    if (absint(intval($ays_pb_padding_mobile)) > 100 ) {
+                        $pb_padding_mobile = '100%';
+                    }else{
+                        $pb_padding_mobile = $ays_pb_padding_mobile . '%';
+                    }
+                }else{
+                    $pb_padding_mobile = $ays_pb_padding_mobile . 'px';
+                }
+            }else{
+                $pb_padding_mobile = '20px';
+            }
+
             //Overlay Opacity 
             $overlay_opacity = ($popupbox['onoffoverlay'] == 'On' && isset($popupbox['overlay_opacity'])) ? esc_attr($popupbox['overlay_opacity']) : 0.5;
             $enable_overlay_text_mobile = isset($options['enable_overlay_text_mobile']) && $options['enable_overlay_text_mobile'] == 'on' ? 'true' : 'false';
@@ -1331,7 +1422,8 @@ class Ays_Pb_Public {
 
                 $iscloseButtonOff = $closeButton != 'on' ? true : false;
 
-                $popupbox_view .= "<script>";
+                $popupbox_view .= "<script>
+                    document.addEventListener('DOMContentLoaded', function() {";
                 if($enable_pb_position_mobile) {
                     $popupbox_view .= "if (window.innerWidth < 768) { "
                                             . $this->setPopupPosition($id, $ays_pb_position_mobile, $popupbox['view_type'], $iscloseButtonOff, $ays_pb_margin, $mobile_height) .
@@ -1345,20 +1437,69 @@ class Ays_Pb_Public {
                                             . $this->setPopupPosition($id, $ays_pb_position, $popupbox['view_type'], $iscloseButtonOff, $ays_pb_margin, $popupbox["height"]) .
                                         " }";
                 }
-                $popupbox_view .= "</script>";
+                $popupbox_view .= "});
+                </script>";
 
             }
 
             $screen_shade = $ays_pb_template == 'notification' ? '' : "<div id='ays-pb-screen-shade_" . $id . "' overlay='overlay_" . $id . "' data-mobile-overlay='" . $enable_overlay_text_mobile . "'></div>";
 
-            // Notification type | Logo width
-            $notification_logo_width = (isset($options['notification_logo_width']) && $options['notification_logo_width'] != '') ? absint( esc_attr($options['notification_logo_width']) ) . '%' : '100%';
+            // Notification type | Logo width | Measurement unit | On desktop
+            $notification_logo_width_measurement_unit = (isset($options['notification_logo_width_measurement_unit']) && $options['notification_logo_width_measurement_unit'] == 'pixels') ? 'px' : '%';
 
-            // Notification type | Logo max-width
-            $notification_logo_max_width = (isset($options['notification_logo_max_width']) && $options['notification_logo_max_width'] != '') ? absint( esc_attr($options['notification_logo_max_width']) ) . 'px' : '100px';
+            // Notification type | Logo width | On desktop
+            $notification_logo_width = (isset($options['notification_logo_width']) && $options['notification_logo_width'] != '') ? absint( esc_attr($options['notification_logo_width']) ) . $notification_logo_width_measurement_unit : '100%';
 
-            // Notification type | Logo min-width
-            $notification_logo_min_width = (isset($options['notification_logo_min_width']) && $options['notification_logo_min_width'] != '') ? absint( esc_attr($options['notification_logo_min_width']) ) . 'px' : '50px';
+            // Notification type | Logo width | Measurement unit | On mobile
+            $notification_logo_width_measurement_unit_mobile = $notification_logo_width_measurement_unit;
+            if (isset($options['notification_logo_width_measurement_unit_mobile'])) {
+                $notification_logo_width_measurement_unit_mobile = ($options['notification_logo_width_measurement_unit_mobile'] == 'pixels') ? 'px' : '%';
+            }
+
+            // Notification type | Logo width | On mobile
+            $notification_logo_width_mobile = (isset($options['notification_logo_width_mobile']) && $options['notification_logo_width_mobile'] != '') ? absint( esc_attr($options['notification_logo_width_mobile']) ) . $notification_logo_width_measurement_unit_mobile : $notification_logo_width;
+
+            // Notification type | Logo max-width | Measurement unit | On desktop
+            $notification_logo_max_width_measurement_unit = (isset($options['notification_logo_max_width_measurement_unit']) && $options['notification_logo_max_width_measurement_unit'] == 'percentage') ? '%' : 'px';
+
+            // Notification type | Logo max-width | On desktop
+            $notification_logo_max_width = (isset($options['notification_logo_max_width']) && $options['notification_logo_max_width'] != '') ? absint( esc_attr($options['notification_logo_max_width']) ) . $notification_logo_max_width_measurement_unit : '100px';
+
+            // Notification type | Logo max-width | Measurement unit | On mobile
+            $notification_logo_max_width_measurement_unit_mobile = $notification_logo_max_width_measurement_unit;
+            if (isset($options['notification_logo_max_width_measurement_unit_mobile'])) {
+                $notification_logo_max_width_measurement_unit_mobile = ($options['notification_logo_max_width_measurement_unit_mobile'] == 'percentage') ? '%' : 'px';
+            }
+
+            // Notification type | Logo max-width | On mobile
+            $notification_logo_max_width_mobile = (isset($options['notification_logo_max_width_mobile']) && $options['notification_logo_max_width_mobile'] != '') ? absint( esc_attr($options['notification_logo_max_width_mobile']) ) . $notification_logo_max_width_measurement_unit_mobile : $notification_logo_max_width;
+
+            // Notification type | Logo min-width | Measurement unit | On desktop
+            $notification_logo_min_width_measurement_unit = (isset($options['notification_logo_min_width_measurement_unit']) && $options['notification_logo_min_width_measurement_unit'] == 'percentage') ? '%' : 'px';
+
+            // Notification type | Logo min-width | On desktop
+            $notification_logo_min_width = (isset($options['notification_logo_min_width']) && $options['notification_logo_min_width'] != '') ? absint( esc_attr($options['notification_logo_min_width']) ) . $notification_logo_min_width_measurement_unit : '50px';
+
+            // Notification type | Logo min-width | Measurement unit | On mobile
+            $notification_logo_min_width_measurement_unit_mobile = $notification_logo_min_width_measurement_unit;
+            if (isset($options['notification_logo_min_width_measurement_unit_mobile'])) {
+                $notification_logo_min_width_measurement_unit_mobile = ($options['notification_logo_min_width_measurement_unit_mobile'] == 'percentage') ? '%' : 'px';
+            }
+
+            // Notification type | Logo min-width | On mobile
+            $notification_logo_min_width_mobile = (isset($options['notification_logo_min_width_mobile']) && $options['notification_logo_min_width_mobile'] != '') ? absint( esc_attr($options['notification_logo_min_width_mobile']) ) . $notification_logo_min_width_measurement_unit_mobile : $notification_logo_min_width;
+
+            // Notification type | Logo max-height
+            $notification_logo_max_height = (isset($options['notification_logo_max_height']) && $options['notification_logo_max_height'] != '') ? absint( esc_attr($options['notification_logo_max_height']) ) . 'px' : 'none';
+
+            // Notification type | Logo min-height
+            $notification_logo_min_height = (isset($options['notification_logo_min_height']) && $options['notification_logo_min_height'] != '') ? absint( esc_attr($options['notification_logo_min_height']) ) . 'px' : 'auto';
+
+            // Notification type | Logo sizing
+            $notification_logo_image_sizing = (isset($options['notification_logo_image_sizing']) && $options['notification_logo_image_sizing'] != '') ? stripslashes( esc_attr($options['notification_logo_image_sizing']) ) : 'cover';
+
+            // Notification type | Logo shape
+            $notification_logo_image_shape = (isset($options['notification_logo_image_shape']) && $options['notification_logo_image_shape'] == 'circle') ? '50%' : 'unset';
 
             // Notification type | Button 1 background color
             $notification_button_1_bg_color = (isset($options['notification_button_1_bg_color']) && $options['notification_button_1_bg_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_bg_color']) ) : '#F66123';
@@ -1378,14 +1519,23 @@ class Ays_Pb_Public {
             // Notification type | Button 1 text decoration
             $notification_button_1_text_decoration = (isset($options['notification_button_1_text_decoration']) && $options['notification_button_1_text_decoration'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_decoration']) ) : 'none';
 
-            // Notification type | Button 1 letter spacing
+            // Notification type | Button 1 letter spacing | On desktop
             $notification_button_1_letter_spacing = (isset($options['notification_button_1_letter_spacing']) && $options['notification_button_1_letter_spacing'] != '') ? absint( esc_attr($options['notification_button_1_letter_spacing']) ) . 'px' : 0;
 
-            // Notification type | Button 1 font size
+            // Notification type | Button 1 letter spacing | On mobile
+            $notification_button_1_letter_spacing_mobile = (isset($options['notification_button_1_letter_spacing_mobile']) && $options['notification_button_1_letter_spacing_mobile'] != '') ? absint( esc_attr($options['notification_button_1_letter_spacing_mobile']) ) . 'px' : $notification_button_1_letter_spacing;
+
+            // Notification type | Button 1 font size | On desktop
             $notification_button_1_font_size = (isset($options['notification_button_1_font_size']) && $options['notification_button_1_font_size'] != '') ? absint( esc_attr($options['notification_button_1_font_size']) ) . 'px' : '15px';
 
-            // Notification type | Button 1 font weight
+            // Notification type | Button 1 font size | On mobile
+            $notification_button_1_font_size_mobile = (isset($options['notification_button_1_font_size_mobile']) && $options['notification_button_1_font_size_mobile'] != '') ? absint( esc_attr($options['notification_button_1_font_size_mobile']) ) . 'px' : $notification_button_1_font_size;
+
+            // Notification type | Button 1 font weight | On desktop
             $notification_button_1_font_weight = (isset($options['notification_button_1_font_weight']) && $options['notification_button_1_font_weight'] != '') ? stripslashes( esc_attr($options['notification_button_1_font_weight']) ) : 'normal';
+
+            // Notification type | Button 1 font weight | On mobile
+            $notification_button_1_font_weight_mobile = (isset($options['notification_button_1_font_weight_mobile']) && $options['notification_button_1_font_weight_mobile'] != '') ? stripslashes( esc_attr($options['notification_button_1_font_weight_mobile']) ) : $notification_button_1_font_weight;
 
             // Notification type | Button 1 border radius
             $notification_button_1_border_radius = (isset($options['notification_button_1_border_radius']) && $options['notification_button_1_border_radius'] != '') ? absint( esc_attr($options['notification_button_1_border_radius']) ) . 'px' : '6px';
@@ -1412,6 +1562,9 @@ class Ays_Pb_Public {
 
             $notification_button_1_padding = $notification_button_1_padding_top_bottom . ' ' . $notification_button_1_padding_left_right;
 
+            // Notification type | Button 1 transition
+            $notification_button_1_transition = (isset($options['notification_button_1_transition']) && $options['notification_button_1_transition'] !== '') ? stripslashes( esc_attr($options['notification_button_1_transition']) ) . 's' : '0.3s';
+
             // Notification type | Button 1 box shadow
             $notification_button_1_enable_box_shadow = (isset($options['notification_button_1_enable_box_shadow']) && $options['notification_button_1_enable_box_shadow'] == 'on') ? true : false;
 
@@ -1431,6 +1584,11 @@ class Ays_Pb_Public {
 
                 $notification_button_1_box_shadow = $notification_button_1_box_shadow_x_offset . 'px ' . $notification_button_1_box_shadow_y_offset . 'px ' . $notification_button_1_box_shadow_z_offset . 'px ' . $notification_button_1_box_shadow_color;
             }
+
+            // Header bg color mobile
+            $options['header_bgcolor_mobile'] = isset($options['header_bgcolor_mobile']) ? $options['header_bgcolor_mobile'] : $ays_pb_header_bgcolor;
+            $header_bgcolor_mobile = (isset($options['header_bgcolor_mobile']) && $options['header_bgcolor_mobile'] != '') ? stripslashes( esc_attr($options['header_bgcolor_mobile']) ) : '#ffffff';
+
 
             $popupbox_view .= "$screen_shade
                         <input type='hidden' class='ays_pb_delay_".$id."' value='".$ays_pb_delay."'/>
@@ -1457,6 +1615,10 @@ class Ays_Pb_Public {
                             width: " . $notification_logo_width . ";
                             max-width: " . $notification_logo_max_width . ";
                             min-width: " . $notification_logo_min_width . ";
+                            max-height: " . $notification_logo_max_height . ";
+                            min-height: " . $notification_logo_min_height . ";
+                            object-fit: " . $notification_logo_image_sizing . ";
+                            border-radius: " . $notification_logo_image_shape . "
                         }
 
                         .ays_notification_window.ays-pb-modal_".$id." div.ays_pb_notification_button_1 button {
@@ -1467,6 +1629,7 @@ class Ays_Pb_Public {
                             border-radius: " . $notification_button_1_border_radius . ";
                             border: " . $notification_button_1_border . ";
                             padding: " . $notification_button_1_padding . ";
+                            transition: " . $notification_button_1_transition . ";
                             box-shadow: " . $notification_button_1_box_shadow . ";
                             letter-spacing: " . $notification_button_1_letter_spacing . ";
                             text-transform: " . $notification_button_1_text_transformation . ";
@@ -1476,6 +1639,16 @@ class Ays_Pb_Public {
                         .ays_notification_window.ays-pb-modal_".$id." div.ays_pb_notification_button_1 button:hover {
                             background: " . $notification_button_1_bg_hover_color . ";
                             color: " . $notification_button_1_text_hover_color . ";
+                        }
+
+                        .ays-pb-modal_" . $id . ".ays-pb-bg-styles_".$id.":not(.ays_winxp_window, .ays_template_window),
+                        .ays_winxp_content.ays-pb-bg-styles_".$id.",
+                        footer.ays_template_footer.ays-pb-bg-styles_".$id." div.ays_bg_image_box {
+                            " . $ays_pb_bg_image_styles . "
+                        }
+
+                        .ays-pb-modal_" . $id . ".ays_template_window {
+                            " . $template_bg_gradient_styles ."
                         }
 
                         .ays_cmd_window {
@@ -1579,7 +1752,13 @@ class Ays_Pb_Public {
                             visibility: hidden;
                         }
 
-                        @media screen and (max-width: 768px){
+                        @media screen and (max-width: 768px){";
+                            if($enable_padding_mobile){
+                                $popupbox_view .= " .ays_content_box{
+                                    padding: ".$pb_padding_mobile." !important;
+                                }";
+                            }
+                            $popupbox_view .= "
                             .ays-pb-modal_".$id."{
                                 width: $mobile_width !important;
                                 max-width: $mobile_max_width !important;
@@ -1587,6 +1766,22 @@ class Ays_Pb_Public {
                                 " . $box_shadow_mobile . ";
                                 box-sizing: border-box;
                                 " . $max_height_styles_mobile . "
+                            }
+
+                            .ays_notification_window.ays-pb-modal_".$id." .ays_pb_notification_logo img {
+                                width: " . $notification_logo_width_mobile . ";
+                                max-width: " . $notification_logo_max_width_mobile . ";
+                                min-width: " . $notification_logo_min_width_mobile . ";
+                            }
+
+                            .ays_notification_window.ays-pb-modal_".$id." div.ays_pb_notification_button_1 button {
+                                font-size: " . $notification_button_1_font_size_mobile . ";
+                                font-weight: " . $notification_button_1_font_weight_mobile . ";
+                                letter-spacing: " . $notification_button_1_letter_spacing_mobile . ";
+                            }
+
+                            .ays_template_head,.ays_lil_head{
+                                background-color: " . $header_bgcolor_mobile . " !important;
                             }
 
                             .ays_cmd_window {
@@ -1597,12 +1792,17 @@ class Ays_Pb_Public {
                                 background: ".$ays_pb_overlay_color_mobile.";
                             }
 
-                            .ays-pb-modal_" . $id . ".ays-pb-bg-styles-mobile_".$id.",
-                            footer.ays_template_footer.ays-pb-bg-styles-mobile_".$id." div.ays_bg_image_box {
-                                " . $ays_pb_bg_image_mobile_styles . "
+                            .ays-pb-modal_" . $id . ".ays-pb-bg-styles_".$id.":not(.ays_winxp_window, .ays_template_window),
+                            .ays_winxp_content.ays-pb-bg-styles_".$id.",
+                            footer.ays_template_footer.ays-pb-bg-styles_".$id." div.ays_bg_image_box {
+                                " . $ays_pb_bg_image_styles_mobile . "
                             }
 
-                            .ays-pb-bg-styles-mobile_" . $id . " {
+                            .ays-pb-modal_" . $id . ".ays_template_window {
+                                " . $template_bg_gradient_styles ."
+                            }
+
+                            .ays-pb-bg-styles_" . $id . " {
                                 background-color: " . $ays_pb_bgcolor_mobile . " !important;
                             }
 
@@ -1695,10 +1895,10 @@ class Ays_Pb_Public {
 
             if($ays_pb_action_buttons_type != 'clickSelector'){
                 $popupbox_view .= "
-                    <script>
-                    (function( $ ) {
-	                    'use strict';
-                        $(document).ready(function(){
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        (function( $ ) {
+                            'use strict';
                             let pbViewsFlag_".$id." = true;
                             if ('" . $ays_pb_template . "' == 'notification') {
                                 $(document).find('.ays-pb-modals').prependTo($(document.body));
@@ -1760,7 +1960,7 @@ class Ays_Pb_Public {
                                             $(document).find('.ays_pb_timer_".$id." span').text(newTime_pb_".$id.");
                                             if(newTime_pb_".$id." <= 0){
                                                 $(document).find('.ays-pb-modal-close_".$id."').trigger('click');
-                                                $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$custom_class." ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
+                                                $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$custom_class." ays-pb-bg-styles_" . $id . " ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
                                                 if(ays_pb_effectOut_".$id." != 'none'){
                                                     setTimeout(function(){ 
                                                         $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
@@ -1790,7 +1990,7 @@ class Ays_Pb_Public {
                                                     pbViewsFlag_".$id." = false;
                                                 }
                                                 $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'none');
-                                                $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ".$ays_pb_show_scrollbar_class." ays-pb-modal_".$id." ".$custom_class." ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
+                                                $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ".$ays_pb_show_scrollbar_class." ays-pb-modal_".$id." ".$custom_class." ays-pb-bg-styles_" . $id . " ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
                                                 $(this).parents('.ays-pb-modals').find('iframe').each(function(){
                                                     var key = /https:\/\/www.youtube.com/;
                                                     var src = $(this).attr('src');
@@ -1899,7 +2099,7 @@ class Ays_Pb_Public {
                                             pbViewsFlag_".$id." = false;
                                         }
                                         $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'none');
-                                        $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ".$ays_pb_show_scrollbar_class."  ays-pb-modal_".$id." ".$custom_class." ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
+                                        $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ".$ays_pb_show_scrollbar_class."  ays-pb-modal_".$id." ".$custom_class." ays-pb-bg-styles_" . $id . " ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
                                         $(this).parents('.ays-pb-modals').find('iframe').each(function(){
                                             var key = /https:\/\/www.youtube.com/;
                                             var src = $(this).attr('src');
@@ -2049,7 +2249,7 @@ class Ays_Pb_Public {
                                                         pbViewsFlag_".$id." = false;
                                                     }
                                                     $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'none');
-                                                    $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ".$ays_pb_show_scrollbar_class." ays-pb-modal_".$id."  ".$custom_class." ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
+                                                    $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ".$ays_pb_show_scrollbar_class." ays-pb-modal_".$id."  ".$custom_class." ays-pb-bg-styles_" . $id . " ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
                                                     $(this).parents('.ays-pb-modals').find('iframe').each(function(){
                                                         var key = /https:\/\/www.youtube.com/;
                                                         var src = $(this).attr('src');
@@ -2215,14 +2415,13 @@ class Ays_Pb_Public {
                                     });
                                 }
                             }
-                            
+
                             jQuery(document).on('click', '.ays-pb-modal-close_".$id."', function() {
                                 $(document).find('body').removeClass('pb_disable_scroll_".$id."');
                                 $(document).find('html').removeClass('pb_disable_scroll_".$id."');
                             });
-
-                        });
-                    })( jQuery );
+                        })( jQuery );
+                    });
                 </script>";
             }
 
@@ -2234,156 +2433,96 @@ class Ays_Pb_Public {
                 }
                 $popupbox_view .= "                
                     <script>
-                        (function( $ ) {
-                            'use strict';
-                        $(document).ready(function(){
-                            let pbViewsFlag_".$id." = true;
-                            var ays_flag = true;
-                            var show_only_once = '{$show_only_once}';
-                            let isMobile = false;
-                            let closePopupOverlay = " . $close_popup_overlay_flag . ";
-                            let isPageScrollDisabled = " . (int)$disable_scroll . ";
-                            let checkAnimSpeed = " . $ays_pb_check_anim_speed . ";
-                            let ays_pb_animation_close_speed = $(document).find('#ays_pb_animation_close_speed_".$id."').val();
-                            let ays_pb_effectIn_".$id." = $(document).find('#ays_pb_modal_animate_in_".$id."').val();
-                            let ays_pb_effectOut_".$id." = $(document).find('#ays_pb_modal_animate_out_".$id."').val();
-                            if (window.innerWidth < 768) {
-                                isMobile = true;
-                                closePopupOverlay = " . $close_popup_overlay_mobile_flag . ";
-                                isPageScrollDisabled = " . (int)$disable_scroll_mobile . ";
-                                checkAnimSpeed = " . $ays_pb_check_anim_speed_mobile . ";
-                                ays_pb_animation_close_speed = $(document).find('#ays_pb_animation_close_speed_mobile_".$id."').val();
-                                ays_pb_effectIn_".$id." = $(document).find('#ays_pb_modal_animate_in_mobile_".$id."').val();
-                                ays_pb_effectOut_".$id." = $(document).find('#ays_pb_modal_animate_out_mobile_".$id."').val();
-                            }
-                            $(document).".$cl."('click', '".$ays_pb_action_buttons."', function(){
-                                var actionSelector = '".$ays_pb_action_buttons."';
-                                if(actionSelector.length === 0) {
-                                    return;
-                                }
-
-                                $(document).find('.ays_pb_music_sound').css({'display':'block'});
-
-                                if(show_only_once == 'on'){
-                                    $.ajax({
-                                        url: '".admin_url('admin-ajax.php')."',
-                                        method: 'post',
-                                        dataType: 'json',
-                                        data: {
-                                            action: 'ays_pb_set_cookie_only_once',
-                                            id: ".$popupbox['id'].",
-                                            title: '".htmlentities($popupbox['title'],ENT_QUOTES)."',
-                                        },
-                                    });
-                                }
-                             
-                              var dataAttr = $(document).find('.ays-pb-modal_".$id."').attr('data-ays-flag');
-                              if(ays_flag && dataAttr == 'true'){
-                                ays_flag = false;
-                                $(document).find('.av_pop_modals_".$id."').css('display','block');
-                                $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'auto');
-
+                        document.addEventListener('DOMContentLoaded', function() {
+                            (function( $ ) {
+                                'use strict';
+                                let pbViewsFlag_".$id." = true;
+                                var ays_flag = true;
+                                var show_only_once = '{$show_only_once}';
+                                let isMobile = false;
+                                let closePopupOverlay = " . $close_popup_overlay_flag . ";
+                                let isPageScrollDisabled = " . (int)$disable_scroll . ";
+                                let checkAnimSpeed = " . $ays_pb_check_anim_speed . ";
+                                let ays_pb_animation_close_speed = $(document).find('#ays_pb_animation_close_speed_".$id."').val();
+                                let ays_pb_effectIn_".$id." = $(document).find('#ays_pb_modal_animate_in_".$id."').val();
+                                let ays_pb_effectOut_".$id." = $(document).find('#ays_pb_modal_animate_out_".$id."').val();
                                 if (window.innerWidth < 768) {
-                                    $(document).find('.ays_pb_timer_".$id." span').html($(document).find('.ays_pb_timer_".$id." span').attr('data-ays-mobile-seconds'));
+                                    isMobile = true;
+                                    closePopupOverlay = " . $close_popup_overlay_mobile_flag . ";
+                                    isPageScrollDisabled = " . (int)$disable_scroll_mobile . ";
+                                    checkAnimSpeed = " . $ays_pb_check_anim_speed_mobile . ";
+                                    ays_pb_animation_close_speed = $(document).find('#ays_pb_animation_close_speed_mobile_".$id."').val();
+                                    ays_pb_effectIn_".$id." = $(document).find('#ays_pb_modal_animate_in_mobile_".$id."').val();
+                                    ays_pb_effectOut_".$id." = $(document).find('#ays_pb_modal_animate_out_mobile_".$id."').val();
                                 }
-                                else{
-                                    $(document).find('.ays_pb_timer_".$id." span').html($(document).find('.ays_pb_timer_".$id." span').attr('data-ays-seconds'));
+                                $(document).".$cl."('click', '".$ays_pb_action_buttons."', function(){
+                                    var actionSelector = '".$ays_pb_action_buttons."';
+                                    if(actionSelector.length === 0) {
+                                        return;
+                                    }
 
-                                }
-                                
-                                clearInterval(timer_pb_".$id.");
-                                timer_pb_".$id." = null;
-                                $(document).find('.ays-pb-modal_".$id."').removeClass(ays_pb_effectOut_".$id.");
-                                $(document).find('.ays-pb-modal_".$id."').addClass(ays_pb_effectIn_".$id.");
-                                $(document).find('.ays-pb-modal_".$id."').css('display', 'block');
-                                
-                                if (window.innerWidth < 768 && $(document).find('#ays-pb-screen-shade_".$id."').attr('data-mobile-overlay') == 'true') {
-                                    $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_mobile_opacity."', 'display': 'block'});
-                                }
-                                else{
-                                    $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_opacity."', 'display': 'block'});
-                                }
-                                $(document).find('.ays-pb-modal-check_".$id."').prop('checked', true);
-                                $(document).find('.ays-pb-modal-check_".$id."').attr('checked', true);
-                                var ays_pb_animation_close_seconds = (ays_pb_animation_close_speed / 1000);
-                                var sound_src = $(document).find('#ays_pb_sound_".$id."').attr('src');
-                                var close_sound_src = $(document).find('#ays_pb_close_sound_".$id."').attr('src');
+                                    $(document).find('.ays_pb_music_sound').css({'display':'block'});
 
-                                ays_pb_animation_close_speed = parseFloat(ays_pb_animation_close_speed) - 50;
-                                
-                                if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
-                                    $('#ays_pb_sound_".$id."').get(0).play();
-                                    $(document).find('.ays_pb_pause_sound_".$id."').on('click',function(){
-                                        var audio = $('#ays_pb_sound_".$id."').get(0);
-                                        audio.pause();
-                                        audio.currentTime = 0;
-                                    });
-                                }
-                                //close sound start
-                                if(checkAnimSpeed && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
-                                    if(checkAnimSpeed !== 0){
-                                        $(document).find('.ays_pb_pause_sound_".$id."').on('click',function(){
-                                            $('#ays_pb_close_sound_".$id."').get(0).play();
-                                            if(ays_pb_effectOut_".$id." != 'none'){
-                                                setTimeout(function(){
-                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                        var audio = $('#ays_pb_close_sound_".$id."').get(0);
-                                                        audio.pause();
-                                                        audio.currentTime = 0;
-                                                        clearInterval(timer_pb_".$id.");
-                                                }, ays_pb_animation_close_speed);
-                                            }else{
-                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                var audio = $('#ays_pb_close_sound_".$id."').get(0);
-                                                audio.pause();
-                                                audio.currentTime = 0;
-                                            }
+                                    if(show_only_once == 'on'){
+                                        $.ajax({
+                                            url: '".admin_url('admin-ajax.php')."',
+                                            method: 'post',
+                                            dataType: 'json',
+                                            data: {
+                                                action: 'ays_pb_set_cookie_only_once',
+                                                id: ".$popupbox['id'].",
+                                                title: '".htmlentities($popupbox['title'],ENT_QUOTES)."',
+                                            },
                                         });
                                     }
-                                }
-                                //close sound end
+                             
+                                    var dataAttr = $(document).find('.ays-pb-modal_".$id."').attr('data-ays-flag');
+                                    if(ays_flag && dataAttr == 'true'){
+                                        ays_flag = false;
+                                        $(document).find('.av_pop_modals_".$id."').css('display','block');
+                                        $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'auto');
 
-                                var time_pb_str_".$id." = $(document).find('.ays_pb_timer_".$id." span').attr('data-ays-seconds');
-                                if (window.innerWidth < 768) {
-                                    var mobileTimer = +$(document).find('.ays_pb_timer_".$id." span').attr('data-ays-mobile-seconds');
-                                    $(document).find('.ays_pb_timer_".$id." span').html(mobileTimer);
-                                    time_pb_str_".$id." = mobileTimer;
-                                }
-                                var time_pb_".$id." = parseInt(time_pb_str_".$id.");
-                                if(time_pb_".$id." !== undefined){ 
-                                 if(time_pb_".$id." !== 0){
-                                    var timer_pb_".$id." = setInterval(function(){
-                                        let newTime_pb_".$id." = time_pb_".$id."--;
-                                        $(document).find('.ays_pb_timer_".$id." span').text(newTime_pb_".$id.");
-                                        $(document).find('.ays-pb-modal_".$id."').css({
-                                            'animation-duration': ays_pb_animation_close_seconds + 's'
-                                        }); 
-                                        if(newTime_pb_".$id." <= 0){
-                                            $(document).find('.ays-pb-modal-close_".$id."').trigger('click');
-                                            $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$custom_class." '+ays_pb_effectOut_".$id.");
-                                            $modal_close_additional_js
-                                            if(ays_pb_effectOut_".$id." != 'none'){
-                                                setTimeout(function(){
-                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                    ays_flag = true;
-                                                }, ays_pb_animation_close_speed);
-                                            }else{
-                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                ays_flag = true;
-                                            }
-                                            if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                        if (window.innerWidth < 768) {
+                                            $(document).find('.ays_pb_timer_".$id." span').html($(document).find('.ays_pb_timer_".$id." span').attr('data-ays-mobile-seconds'));
+                                        } else {
+                                            $(document).find('.ays_pb_timer_".$id." span').html($(document).find('.ays_pb_timer_".$id." span').attr('data-ays-seconds'));
+                                        }
+                                
+                                        clearInterval(timer_pb_".$id.");
+                                        timer_pb_".$id." = null;
+                                        $(document).find('.ays-pb-modal_".$id."').removeClass(ays_pb_effectOut_".$id.");
+                                        $(document).find('.ays-pb-modal_".$id."').addClass(ays_pb_effectIn_".$id.");
+                                        $(document).find('.ays-pb-modal_".$id."').css('display', 'block');
+
+                                        if (window.innerWidth < 768 && $(document).find('#ays-pb-screen-shade_".$id."').attr('data-mobile-overlay') == 'true') {
+                                            $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_mobile_opacity."', 'display': 'block'});
+                                        } else {
+                                            $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_opacity."', 'display': 'block'});
+                                        }
+                                        $(document).find('.ays-pb-modal-check_".$id."').prop('checked', true);
+                                        $(document).find('.ays-pb-modal-check_".$id."').attr('checked', true);
+                                        var ays_pb_animation_close_seconds = (ays_pb_animation_close_speed / 1000);
+                                        var sound_src = $(document).find('#ays_pb_sound_".$id."').attr('src');
+                                        var close_sound_src = $(document).find('#ays_pb_close_sound_".$id."').attr('src');
+
+                                        ays_pb_animation_close_speed = parseFloat(ays_pb_animation_close_speed) - 50;
+
+                                        if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                            $('#ays_pb_sound_".$id."').get(0).play();
+                                            $(document).find('.ays_pb_pause_sound_".$id."').on('click',function(){
                                                 var audio = $('#ays_pb_sound_".$id."').get(0);
                                                 audio.pause();
                                                 audio.currentTime = 0;
-                                                clearInterval(timer_pb_".$id.");
-                                            }
-                                            if ('". $ays_pb_check_anim_speed ."' && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
-                                                if(checkAnimSpeed !== 0){
+                                            });
+                                        }
+                                        //close sound start
+                                        if(checkAnimSpeed && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
+                                            if(checkAnimSpeed !== 0){
+                                                $(document).find('.ays_pb_pause_sound_".$id."').on('click',function(){
                                                     $('#ays_pb_close_sound_".$id."').get(0).play();
                                                     if(ays_pb_effectOut_".$id." != 'none'){
                                                         setTimeout(function(){
                                                             $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                            ays_flag = true;
                                                                 var audio = $('#ays_pb_close_sound_".$id."').get(0);
                                                                 audio.pause();
                                                                 audio.currentTime = 0;
@@ -2391,68 +2530,339 @@ class Ays_Pb_Public {
                                                         }, ays_pb_animation_close_speed);
                                                     }else{
                                                         $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                        var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                        audio.pause();
+                                                        audio.currentTime = 0;
+                                                    }
+                                                });
+                                            }
+                                        }
+                                        //close sound end
+
+                                        var time_pb_str_".$id." = $(document).find('.ays_pb_timer_".$id." span').attr('data-ays-seconds');
+                                        if (window.innerWidth < 768) {
+                                            var mobileTimer = +$(document).find('.ays_pb_timer_".$id." span').attr('data-ays-mobile-seconds');
+                                            $(document).find('.ays_pb_timer_".$id." span').html(mobileTimer);
+                                            time_pb_str_".$id." = mobileTimer;
+                                        }
+                                        var time_pb_".$id." = parseInt(time_pb_str_".$id.");
+                                        if(time_pb_".$id." !== undefined){ 
+                                            if(time_pb_".$id." !== 0){
+                                                var timer_pb_".$id." = setInterval(function(){
+                                                    let newTime_pb_".$id." = time_pb_".$id."--;
+                                                    $(document).find('.ays_pb_timer_".$id." span').text(newTime_pb_".$id.");
+                                                    $(document).find('.ays-pb-modal_".$id."').css({
+                                                        'animation-duration': ays_pb_animation_close_seconds + 's'
+                                                    }); 
+                                                    if(newTime_pb_".$id." <= 0){
+                                                        $(document).find('.ays-pb-modal-close_".$id."').trigger('click');
+                                                        $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$custom_class." '+ays_pb_effectOut_".$id.");
+                                                        $modal_close_additional_js
+                                                        if(ays_pb_effectOut_".$id." != 'none'){
+                                                            setTimeout(function(){
+                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                ays_flag = true;
+                                                            }, ays_pb_animation_close_speed);
+                                                        }else{
+                                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
                                                             ays_flag = true;
-                                                            var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                        }
+                                                        if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                                            var audio = $('#ays_pb_sound_".$id."').get(0);
                                                             audio.pause();
                                                             audio.currentTime = 0;
+                                                            clearInterval(timer_pb_".$id.");
+                                                        }
+                                                        if ('". $ays_pb_check_anim_speed ."' && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
+                                                            if(checkAnimSpeed !== 0){
+                                                                $('#ays_pb_close_sound_".$id."').get(0).play();
+                                                                if(ays_pb_effectOut_".$id." != 'none'){
+                                                                    setTimeout(function(){
+                                                                        $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                        ays_flag = true;
+                                                                            var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                                            audio.pause();
+                                                                            audio.currentTime = 0;
+                                                                            clearInterval(timer_pb_".$id.");
+                                                                    }, ays_pb_animation_close_speed);
+                                                                }else{
+                                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                        ays_flag = true;
+                                                                        var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                                        audio.pause();
+                                                                        audio.currentTime = 0;
+                                                                }
+                                                            }
+                                                        }
                                                     }
+                                                    $(document).find('.ays-pb-modal-close_".$id."').one('click', function(){
+                                                        if (pbViewsFlag_".$id.") {
+                                                            var pb_id = ".$id.";
+
+                                                            $.ajax({
+                                                                url: pbLocalizeObj.ajax,
+                                                                method: 'POST',
+                                                                dataType: 'text',
+                                                                data: {
+                                                                    id: pb_id,
+                                                                    action: 'ays_increment_pb_views',
+                                                                },
+                                                            });
+
+                                                            pbViewsFlag_".$id." = false;
+                                                        }
+                                                        $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'none');
+                                                        $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$ays_pb_show_scrollbar_class."  ".$custom_class." ays-pb-bg-styles_" . $id . " ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
+                                                        $(this).parents('.ays-pb-modals').find('iframe').each(function(){
+                                                            var key = /https:\/\/www.youtube.com/;
+                                                            var src = $(this).attr('src');
+                                                            $(this).attr('src', $(this).attr('src'));
+                                                        });
+                                                        $(this).parents('.ays-pb-modals').find('video.wp-video-shortcode').each(function(){
+                                                            if(typeof $(this).get(0) != 'undefined'){
+                                                                if ( ! $(this).get(0).paused ) {
+                                                                    $(this).get(0).pause();
+                                                                }
+
+                                                            }
+                                                        });
+                                                        $(this).parents('.ays-pb-modals').find('audio.wp-audio-shortcode').each(function(){
+                                                            if(typeof $(this).get(0) != 'undefined'){
+                                                                if ( ! $(this).get(0).paused ) {
+                                                                    $(this).get(0).pause();
+                                                                }
+
+                                                            }
+                                                        });
+                                                        $modal_close_additional_js
+                                                        if(ays_pb_effectOut_".$id." != 'none'){
+                                                            setTimeout(function(){ 
+                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none'); 
+                                                                ays_flag = true;
+                                                            }, ays_pb_animation_close_speed);  
+                                                        }else{
+                                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'none'); 
+                                                            ays_flag = true;
+                                                        }
+                                                        $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none'});
+                                                        clearInterval(timer_pb_".$id.");
+                                                    });
+
+                                                    var ays_pb_flag =  true;
+                                                    $(document).on('keydown', function(event) { 
+                                                        if('".$close_popup_esc_flag."' && ays_pb_flag){
+                                                            var escClosingPopups = $(document).find('.ays-pb-close-popup-with-esc:visible');
+                                                            if (event.keyCode == 27) {
+                                                                var topmostPopup = escClosingPopups.last();
+                                                                topmostPopup.find('.ays-pb-modal-close_".$id."').trigger('click');
+                                                                ays_pb_flag = false;
+                                                                if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                                                    var audio = $('#ays_pb_sound_".$id."').get(0);
+                                                                    audio.pause();
+                                                                    audio.currentTime = 0;
+                                                                    clearInterval(timer_pb_".$id.");
+                                                                }
+                                                                if(checkAnimSpeed && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
+                                                                    if(checkAnimSpeed !== 0){
+                                                                        $('#ays_pb_close_sound_".$id."').get(0).play();
+                                                                        if(ays_pb_effectOut_".$id." != 'none'){
+                                                                            setTimeout(function(){
+                                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                                    var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                                                    audio.pause();
+                                                                                    audio.currentTime = 0;
+                                                                                    clearInterval(timer_pb_".$id.");
+                                                                            }, ays_pb_animation_close_speed);
+                                                                        }else{
+                                                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                            var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                                            audio.pause();
+                                                                            audio.currentTime = 0;
+                                                                            clearInterval(timer_pb_".$id.");
+                                                                        }
+                                                                    }
+                                                                }
+                                                            } 
+                                                        } else {
+                                                            ays_pb_flag = true;
+                                                        }
+                                                    });
+                                                }, 1000);
+                                                if('".$ays_pb_action_buttons_type."' != 'both'){
+                                                    if(closePopupOverlay && '".$popupbox['onoffoverlay']."' == 'On'){
+                                                        $(document).find('#ays-pb-screen-shade_".$id."').on('click', function() {
+                                                            var pb_parent_div = $(this).find('.ays-pb-modals');
+                                                            var pb_div = $(this).parents('.ays-pb-modals').find('.ays-pb-modal_".$id."');
+                                                            if (!pb_parent_div.is(pb_div) && pb_parent_div.has(pb_div).length === 0){
+                                                                $(document).find('.ays-pb-modal-close_".$id."').click();
+                                                                if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                                                    var audio = $('#ays_pb_sound_".$id."').get(0);
+                                                                    audio.pause();
+                                                                    audio.currentTime = 0;
+                                                                    clearInterval(timer_pb_".$id.");
+                                                                }
+                                                                if(checkAnimSpeed && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
+                                                                    if(checkAnimSpeed !== 0){
+                                                                        $('#ays_pb_close_sound_".$id."').get(0).play();
+                                                                        if(ays_pb_effectOut_".$id." != 'none'){
+                                                                            setTimeout(function(){
+                                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                                    var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                                                    audio.pause();
+                                                                                    audio.currentTime = 0;
+                                                                            }, ays_pb_animation_close_speed);
+                                                                        }else{
+                                                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                            var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                                            audio.pause();
+                                                                            audio.currentTime = 0;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                }else{
+                                                    if(closePopupOverlay && '".$popupbox['onoffoverlay']."' == 'On'){
+                                                        $(document).find('.av_pop_modals_".$id."').on('click', function(e) {
+                                                            var pb_parent_div = $(this);
+                                                            var pb_div = $(this).find('.ays-pb-modal_".$id."');
+                                                            if (!pb_div.is(e.target) && pb_div.has(e.target).length === 0){
+                                                                $(document).find('.ays-pb-modal-close_".$id."').click();
+                                                                if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                                                    var audio = $('#ays_pb_sound_".$id."').get(0);
+                                                                    audio.pause();
+                                                                    audio.currentTime = 0;
+                                                                    clearInterval(timer_pb_".$id.");
+                                                                }
+                                                                if(checkAnimSpeed && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
+                                                                    if(checkAnimSpeed !== 0){
+                                                                        $('#ays_pb_close_sound_".$id."').get(0).play();
+                                                                        if(ays_pb_effectOut_".$id." != 'none'){
+                                                                            setTimeout(function(){
+                                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                                    var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                                                    audio.pause();
+                                                                                    audio.currentTime = 0;
+                                                                                    clearInterval(timer_pb_".$id.");
+                                                                            }, ays_pb_animation_close_speed);
+                                                                        }else{
+                                                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                            var audio = $('#ays_pb_close_sound_".$id."').get(0);
+                                                                            audio.pause();
+                                                                            audio.currentTime = 0;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            } else {
+                                                $(document).find('.ays_pb_timer_".$id."').css('display','none');
+                                                $(document).find('.ays-pb-modal_".$id."').css({
+                                                    'animation-duration': ays_pb_animation_close_seconds + 's'
+                                                }); 
+                                                $(document).find('.ays-pb-modal-close_".$id."').one('click', function(){
+                                                    if (pbViewsFlag_".$id.") {
+                                                        var pb_id = ".$id.";
+
+                                                        $.ajax({
+                                                            url: pbLocalizeObj.ajax,
+                                                            method: 'POST',
+                                                            dataType: 'text',
+                                                            data: {
+                                                                id: pb_id,
+                                                                action: 'ays_increment_pb_views',
+                                                            },
+                                                        });
+
+                                                        pbViewsFlag_".$id." = false;
+                                                    }
+                                                    $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'none');
+                                                    $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ".$ays_pb_show_scrollbar_class." ays-pb-modal_".$id." ".$custom_class." ays-pb-bg-styles_" . $id . " ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
+                                                    $(this).parents('.ays-pb-modals').find('iframe').each(function(){
+                                                        var key = /https:\/\/www.youtube.com/;
+                                                        var src = $(this).attr('src');
+                                                        $(this).attr('src', $(this).attr('src'));
+                                                    });
+                                                    $(this).parents('.ays-pb-modals').find('video.wp-video-shortcode').each(function(){
+                                                        if(typeof $(this).get(0) != 'undefined'){
+                                                            if ( ! $(this).get(0).paused ) {
+                                                                $(this).get(0).pause();
+                                                            }
+
+                                                        }
+                                                    });
+                                                    $(this).parents('.ays-pb-modals').find('audio.wp-audio-shortcode').each(function(){
+                                                        if(typeof $(this).get(0) != 'undefined'){
+                                                            if ( ! $(this).get(0).paused ) {
+                                                                $(this).get(0).pause();
+                                                            }
+
+                                                        }
+                                                    });
+                                                    if(ays_pb_effectOut_".$id." != 'none'){
+                                                        setTimeout(function(){
+                                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                            $(document).find('.av_pop_modals_".$id."').css('display', 'none');
+                                                            ays_flag = true;
+                                                        }, ays_pb_animation_close_speed);  
+                                                    }else{
+                                                        $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                        $(document).find('.av_pop_modals_".$id."').css('display', 'none');
+                                                        ays_flag = true;
+                                                    }
+                                                    $modal_close_additional_js
+                                                    $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none'});
+                                                    });
+                                                }
+                                            }
+
+
+                                            if(isPageScrollDisabled){
+                                                $(document).find('body').addClass('pb_disable_scroll_".$id."');
+                                                $(document).find('html').addClass('pb_disable_scroll_".$id."');
+
+                                                jQuery(document).on('click', '.ays-pb-modal-close_".$id."', function() {
+                                                    $(document).find('body').removeClass('pb_disable_scroll_".$id."');
+                                                    $(document).find('html').removeClass('pb_disable_scroll_".$id."');
+                                                });
+                                            }
+
+                                            if ('".$popupbox['onoffoverlay']."' != 'On'){
+                                                $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none !important', 'pointer-events': 'none'});
+                                                $(document).find('.ays-pb-modal_".$id."').css('pointer-events', 'auto');
+                                                $(document).find('.av_pop_modals_".$id."').css('pointer-events','none');
+                                            };
+                                            if('".$enable_close_button_delay_for_mobile."' == 'true' && window.innerWidth < 768){
+                                                if(".$close_button_delay_for_mobile." != 0 && '".$closeButton."' != 'on'){
+                                                    $(document).find('.ays-pb-modal-close_".$id."').css({'display': 'none'});
+                                                    setTimeout(function(){ 
+                                                        $(document).find('.ays-pb-modal-close_".$id."').css({'display': 'block'});
+                                                    },". $close_button_delay_for_mobile .");
+                                                }
+                                            }
+                                            else{
+                                                if(".$close_button_delay." != 0 && '".$closeButton."' != 'on'){
+                                                    $(document).find('.ays-pb-modal-close_".$id."').css({'display': 'none'});
+                                                    setTimeout(function(){ 
+                                                        $(document).find('.ays-pb-modal-close_".$id."').css({'display': 'block'});
+                                                    },". $close_button_delay .");
                                                 }
                                             }
                                         }
-                                        $(document).find('.ays-pb-modal-close_".$id."').one('click', function(){
-                                            if (pbViewsFlag_".$id.") {
-                                                var pb_id = ".$id.";
-
-                                                $.ajax({
-                                                    url: pbLocalizeObj.ajax,
-                                                    method: 'POST',
-                                                    dataType: 'text',
-                                                    data: {
-                                                        id: pb_id,
-                                                        action: 'ays_increment_pb_views',
-                                                    },
-                                                });
-
-                                                pbViewsFlag_".$id." = false;
-                                            }
-                                            $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'none');
-                                            $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$ays_pb_show_scrollbar_class."  ".$custom_class." ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
-                                            $(this).parents('.ays-pb-modals').find('iframe').each(function(){
-                                                var key = /https:\/\/www.youtube.com/;
-                                                var src = $(this).attr('src');
-                                                $(this).attr('src', $(this).attr('src'));
-                                            });
-                                            $(this).parents('.ays-pb-modals').find('video.wp-video-shortcode').each(function(){
-                                                if(typeof $(this).get(0) != 'undefined'){
-                                                    if ( ! $(this).get(0).paused ) {
-                                                        $(this).get(0).pause();
-                                                    }
-
+                                    // if(".$ays_pb_autoclose." == 0){
+                                        if(closePopupOverlay && '".$popupbox['onoffoverlay']."' == 'On'){
+                                            $(document).find('.av_pop_modals_".$id."').on('click', function(e) {
+                                                var pb_parent = $(this);
+                                                var pb_div = $(this).find('.ays-pb-modal_".$id."');
+                                                if (!pb_div.is(e.target) && pb_div.has(e.target).length === 0){
+                                                    $(document).find('.ays-pb-modal-close_".$id."').click();
                                                 }
                                             });
-                                            $(this).parents('.ays-pb-modals').find('audio.wp-audio-shortcode').each(function(){
-                                                if(typeof $(this).get(0) != 'undefined'){
-                                                    if ( ! $(this).get(0).paused ) {
-                                                        $(this).get(0).pause();
-                                                    }
-
-                                                }
-                                            });
-                                            $modal_close_additional_js
-                                            if(ays_pb_effectOut_".$id." != 'none'){
-                                                setTimeout(function(){ 
-                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none'); 
-                                                    ays_flag = true;
-                                                }, ays_pb_animation_close_speed);  
-                                            }else{
-                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none'); 
-                                                ays_flag = true;
-                                            }
-                                            $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none'});
-                                            clearInterval(timer_pb_".$id.");
-                                        });
-                                        
-                                        var ays_pb_flag =  true;
+                                        }
+                                        var ays_pb_flag = true;
                                         $(document).on('keydown', function(event) { 
                                             if('".$close_popup_esc_flag."' && ays_pb_flag){
                                                 var escClosingPopups = $(document).find('.ays-pb-close-popup-with-esc:visible');
@@ -2460,274 +2870,60 @@ class Ays_Pb_Public {
                                                     var topmostPopup = escClosingPopups.last();
                                                     topmostPopup.find('.ays-pb-modal-close_".$id."').trigger('click');
                                                     ays_pb_flag = false;
-                                                    if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
-                                                        var audio = $('#ays_pb_sound_".$id."').get(0);
-                                                        audio.pause();
-                                                        audio.currentTime = 0;
-                                                        clearInterval(timer_pb_".$id.");
-                                                    }
-                                                    if(checkAnimSpeed && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
-                                                        if(checkAnimSpeed !== 0){
-                                                            $('#ays_pb_close_sound_".$id."').get(0).play();
-                                                            if(ays_pb_effectOut_".$id." != 'none'){
-                                                                setTimeout(function(){
-                                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                                        var audio = $('#ays_pb_close_sound_".$id."').get(0);
-                                                                        audio.pause();
-                                                                        audio.currentTime = 0;
-                                                                        clearInterval(timer_pb_".$id.");
-                                                                }, ays_pb_animation_close_speed);
-                                                            }else{
-                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                                var audio = $('#ays_pb_close_sound_".$id."').get(0);
-                                                                audio.pause();
-                                                                audio.currentTime = 0;
-                                                                clearInterval(timer_pb_".$id.");
-                                                            }
-                                                        }
-                                                    }
-                                                } 
+                                                }
                                             } else {
                                                 ays_pb_flag = true;
                                             }
                                         });
-                                    }, 1000);
-                                    if('".$ays_pb_action_buttons_type."' != 'both'){
-                                        if(closePopupOverlay && '".$popupbox['onoffoverlay']."' == 'On'){
-                                            $(document).find('#ays-pb-screen-shade_".$id."').on('click', function() {
-                                                var pb_parent_div = $(this).find('.ays-pb-modals');
-                                                var pb_div = $(this).parents('.ays-pb-modals').find('.ays-pb-modal_".$id."');
-                                                if (!pb_parent_div.is(pb_div) && pb_parent_div.has(pb_div).length === 0){
-                                                    $(document).find('.ays-pb-modal-close_".$id."').click();
-                                                    if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
-                                                        var audio = $('#ays_pb_sound_".$id."').get(0);
-                                                        audio.pause();
-                                                        audio.currentTime = 0;
-                                                        clearInterval(timer_pb_".$id.");
-                                                    }
-                                                    if(checkAnimSpeed && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
-                                                        if(checkAnimSpeed !== 0){
-                                                            $('#ays_pb_close_sound_".$id."').get(0).play();
-                                                            if(ays_pb_effectOut_".$id." != 'none'){
-                                                                setTimeout(function(){
-                                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                                        var audio = $('#ays_pb_close_sound_".$id."').get(0);
-                                                                        audio.pause();
-                                                                        audio.currentTime = 0;
-                                                                }, ays_pb_animation_close_speed);
-                                                            }else{
-                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                                var audio = $('#ays_pb_close_sound_".$id."').get(0);
-                                                                audio.pause();
-                                                                audio.currentTime = 0;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }else{
-                                        if(closePopupOverlay && '".$popupbox['onoffoverlay']."' == 'On'){
-                                            $(document).find('.av_pop_modals_".$id."').on('click', function(e) {
-                                                var pb_parent_div = $(this);
-                                                var pb_div = $(this).find('.ays-pb-modal_".$id."');
-                                                if (!pb_div.is(e.target) && pb_div.has(e.target).length === 0){
-                                                    $(document).find('.ays-pb-modal-close_".$id."').click();
-                                                    if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
-                                                        var audio = $('#ays_pb_sound_".$id."').get(0);
-                                                        audio.pause();
-                                                        audio.currentTime = 0;
-                                                        clearInterval(timer_pb_".$id.");
-                                                    }
-                                                    if(checkAnimSpeed && typeof close_sound_src !== 'undefined' && '". $ays_pb_check_sound ."' === 'on'){
-                                                        if(checkAnimSpeed !== 0){
-                                                            $('#ays_pb_close_sound_".$id."').get(0).play();
-                                                            if(ays_pb_effectOut_".$id." != 'none'){
-                                                                setTimeout(function(){
-                                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                                        var audio = $('#ays_pb_close_sound_".$id."').get(0);
-                                                                        audio.pause();
-                                                                        audio.currentTime = 0;
-                                                                        clearInterval(timer_pb_".$id.");
-                                                                }, ays_pb_animation_close_speed);
-                                                            }else{
-                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                                var audio = $('#ays_pb_close_sound_".$id."').get(0);
-                                                                audio.pause();
-                                                                audio.currentTime = 0;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }   
-                                } else {
-                                     $(document).find('.ays_pb_timer_".$id."').css('display','none');
-                                     $(document).find('.ays-pb-modal_".$id."').css({
-                                        'animation-duration': ays_pb_animation_close_seconds + 's'
-                                     }); 
-                                     $(document).find('.ays-pb-modal-close_".$id."').one('click', function(){
-                                        if (pbViewsFlag_".$id.") {
-                                            var pb_id = ".$id.";
-
-                                            $.ajax({
-                                                url: pbLocalizeObj.ajax,
-                                                method: 'POST',
-                                                dataType: 'text',
-                                                data: {
-                                                    id: pb_id,
-                                                    action: 'ays_increment_pb_views',
-                                                },
-                                            });
-
-                                            pbViewsFlag_".$id." = false;
-                                        }
-                                        $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'none');
-                                        $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ".$ays_pb_show_scrollbar_class." ays-pb-modal_".$id." ".$custom_class." ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
-                                        $(this).parents('.ays-pb-modals').find('iframe').each(function(){
-                                            var key = /https:\/\/www.youtube.com/;
-                                            var src = $(this).attr('src');
-                                            $(this).attr('src', $(this).attr('src'));
-                                        });
-                                        $(this).parents('.ays-pb-modals').find('video.wp-video-shortcode').each(function(){
-                                            if(typeof $(this).get(0) != 'undefined'){
-                                                if ( ! $(this).get(0).paused ) {
-                                                    $(this).get(0).pause();
-                                                }
-
-                                            }
-                                        });
-                                        $(this).parents('.ays-pb-modals').find('audio.wp-audio-shortcode').each(function(){
-                                            if(typeof $(this).get(0) != 'undefined'){
-                                                if ( ! $(this).get(0).paused ) {
-                                                    $(this).get(0).pause();
-                                                }
-
-                                            }
-                                        });
-                                        if(ays_pb_effectOut_".$id." != 'none'){
-                                            setTimeout(function(){
-                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                                $(document).find('.av_pop_modals_".$id."').css('display', 'none');
-                                                ays_flag = true;
-                                            }, ays_pb_animation_close_speed);  
-                                        }else{
-                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
-                                            $(document).find('.av_pop_modals_".$id."').css('display', 'none');
-                                            ays_flag = true;
-                                        }
-                                        $modal_close_additional_js
-                                        $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none'});
-                                        });
-                                    }
-                                }
-
-
-                                if(isPageScrollDisabled){
-                                    $(document).find('body').addClass('pb_disable_scroll_".$id."');
-                                    $(document).find('html').addClass('pb_disable_scroll_".$id."');
-
-                                    jQuery(document).on('click', '.ays-pb-modal-close_".$id."', function() {
-                                        $(document).find('body').removeClass('pb_disable_scroll_".$id."');
-                                        $(document).find('html').removeClass('pb_disable_scroll_".$id."');
-                                    });
-                                }
-
+                                    // }
+                                });
                                 if ('".$popupbox['onoffoverlay']."' != 'On'){
                                     $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none !important', 'pointer-events': 'none'});
                                     $(document).find('.ays-pb-modal_".$id."').css('pointer-events', 'auto');
                                     $(document).find('.av_pop_modals_".$id."').css('pointer-events','none');
                                 };
-                                if('".$enable_close_button_delay_for_mobile."' == 'true' && window.innerWidth < 768){
-                                    if(".$close_button_delay_for_mobile." != 0 && '".$closeButton."' != 'on'){
-                                        $(document).find('.ays-pb-modal-close_".$id."').css({'display': 'none'});
-                                        setTimeout(function(){ 
-                                            $(document).find('.ays-pb-modal-close_".$id."').css({'display': 'block'});
-                                        },". $close_button_delay_for_mobile .");
-                                    }
-                                }
-                                else{
-                                    if(".$close_button_delay." != 0 && '".$closeButton."' != 'on'){
-                                        $(document).find('.ays-pb-modal-close_".$id."').css({'display': 'none'});
-                                        setTimeout(function(){ 
-                                            $(document).find('.ays-pb-modal-close_".$id."').css({'display': 'block'});
-                                        },". $close_button_delay .");
-                                    }
-                                }
-                              }
-                            // if(".$ays_pb_autoclose." == 0){
-                                if(closePopupOverlay && '".$popupbox['onoffoverlay']."' == 'On'){
-                                    $(document).find('.av_pop_modals_".$id."').on('click', function(e) {
-                                        var pb_parent = $(this);
-                                        var pb_div = $(this).find('.ays-pb-modal_".$id."');
-                                        if (!pb_div.is(e.target) && pb_div.has(e.target).length === 0){
-                                            $(document).find('.ays-pb-modal-close_".$id."').click();
-                                        }
-                                    });
-                                }
-                                var ays_pb_flag = true;
-                                $(document).on('keydown', function(event) { 
-                                    if('".$close_popup_esc_flag."' && ays_pb_flag){
-                                        var escClosingPopups = $(document).find('.ays-pb-close-popup-with-esc:visible');
-                                        if (event.keyCode == 27) {
-                                            var topmostPopup = escClosingPopups.last();
-                                            topmostPopup.find('.ays-pb-modal-close_".$id."').trigger('click');
-                                            ays_pb_flag = false;
-                                        }
-                                    } else {
-                                        ays_pb_flag = true;
-                                    }
-                                });
-                            // }
-                            });
-                            if ('".$popupbox['onoffoverlay']."' != 'On'){
-                                $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none !important', 'pointer-events': 'none'});
-                                $(document).find('.ays-pb-modal_".$id."').css('pointer-events', 'auto');
-                                $(document).find('.av_pop_modals_".$id."').css('pointer-events','none');
-                            };
-                            if('".$ays_pb_action_buttons_type."' != 'both'){
-                                if($(document).find('.ays-pb-modals video').hasClass('wp-video-shortcode')){
-                                    var videoWidth  = $(document).find('.ays-pb-modals video.wp-video-shortcode').attr('width');
-                                    var videoHeight = $(document).find('.ays-pb-modals video.wp-video-shortcode').attr('height');
-                                    setTimeout(function(){
-                                        $(document).find('.ays-pb-modals .wp-video').removeAttr('style');
-                                        $(document).find('.ays-pb-modals .mejs-container').removeAttr('style');
-                                        $(document).find('.ays-pb-modals video.wp-video-shortcode').removeAttr('style');
+                                if('".$ays_pb_action_buttons_type."' != 'both'){
+                                    if($(document).find('.ays-pb-modals video').hasClass('wp-video-shortcode')){
+                                        var videoWidth  = $(document).find('.ays-pb-modals video.wp-video-shortcode').attr('width');
+                                        var videoHeight = $(document).find('.ays-pb-modals video.wp-video-shortcode').attr('height');
+                                        setTimeout(function(){
+                                            $(document).find('.ays-pb-modals .wp-video').removeAttr('style');
+                                            $(document).find('.ays-pb-modals .mejs-container').removeAttr('style');
+                                            $(document).find('.ays-pb-modals video.wp-video-shortcode').removeAttr('style');
 
-                                        $(document).find('.ays-pb-modals .wp-video').css({'width': '100%'});
-                                        $(document).find('.ays-pb-modals .mejs-container').css({'width': '100%','height': videoHeight + 'px'});
-                                        $(document).find('.ays-pb-modals video.wp-video-shortcode').css({'width': '100%','height': videoHeight + 'px'});
-                                    },1000);
+                                            $(document).find('.ays-pb-modals .wp-video').css({'width': '100%'});
+                                            $(document).find('.ays-pb-modals .mejs-container').css({'width': '100%','height': videoHeight + 'px'});
+                                            $(document).find('.ays-pb-modals video.wp-video-shortcode').css({'width': '100%','height': videoHeight + 'px'});
+                                        },1000);
+                                    }
+                                    if($(document).find('.ays-pb-modals iframe').attr('style') != ''){
+                                        setTimeout(function(){
+                                            $(document).find('.ays-pb-modals iframe').removeAttr('style');
+                                        },500);
+                                    }
                                 }
-                                if($(document).find('.ays-pb-modals iframe').attr('style') != ''){
-                                    setTimeout(function(){
-                                        $(document).find('.ays-pb-modals iframe').removeAttr('style');
-                                    },500);
+                                if('".$autoclose_on_video_completion."' == 'on') {
+                                    var video = $(document).find('video.wp-video-shortcode');
+                                    for (let i = 0; i < video.length; i++) {
+                                        video[i].addEventListener('ended', function() {
+                                            if ($(this).next().val() === 'on') {
+                                                $(this).parents('.ays_video_window').find('.close-image-btn').trigger('click');
+                                            }
+                                        });
+                                    }
                                 }
-                            }
-                            if('".$autoclose_on_video_completion."' == 'on') {
-                                var video = $(document).find('video.wp-video-shortcode');
-                                for (let i = 0; i < video.length; i++) {
-                                    video[i].addEventListener('ended', function() {
-                                        if ($(this).next().val() === 'on') {
-                                            $(this).parents('.ays_video_window').find('.close-image-btn').trigger('click');
-                                        }
-                                    });
-                                }
-                            }
+                            })( jQuery );
                         });
-                    })( jQuery );
-                </script>";
+                    </script>";
             }
 
             if ($popupbox['onoffoverlay'] != 'On'){
                 $popupbox_view .= "<script>
-                    jQuery(document).ready(function() {
+                    document.addEventListener('DOMContentLoaded', function() {
                         jQuery(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none !important', 'pointer-events': 'none'});
                         jQuery(document).find('.ays-pb-modal_".$id."').css('pointer-events', 'auto');
                         jQuery(document).find('.av_pop_modals_".$id."').css('pointer-events','none');
-                    })
+                    });
                 </script>";
             }
 
@@ -2735,7 +2931,7 @@ class Ays_Pb_Public {
                 
                 $popupbox_view .= "
                 <script>
-                    jQuery(document).ready(function() {
+                    document.addEventListener('DOMContentLoaded', function() {
                         var closeBtnDelay = ".$close_button_delay.";
                         var openDelay = ".$ays_pb_delay.";
                         var scrollTop = ".$ays_pb_scroll_top.";
@@ -2758,14 +2954,14 @@ class Ays_Pb_Public {
                                 jQuery(document).find('.ays-pb-modal-close_".$id."').css({'display': 'block'});
                             }, closeBtnDelay);
                         }
-                    })
+                    });
                 </script>";
             }
 
             if($ays_pb_hover_show_close_btn){
                 $popupbox_view .= "
                 <script>
-                    jQuery(document).ready(function() {
+                    document.addEventListener('DOMContentLoaded', function() {
                         modernMinimal = jQuery(document).find('.ays-pb-modal_".$id."').data('name');
                         if(modernMinimal != 'modern_minimal'){
                             jQuery(document).find('.ays-pb-modal-close_".$id."').hide();
@@ -2785,7 +2981,7 @@ class Ays_Pb_Public {
                                 jQuery(document).find('.ays-pb-modal_".$id." .ays_ubuntu_close').hide();
                             });
                         }
-                    })
+                    });
                 </script>";
             }
 

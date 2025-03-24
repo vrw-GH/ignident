@@ -210,8 +210,14 @@ if ( ! class_exists( __NAMESPACE__ . '\avia_fb_likebox', false ) )
 				}
 
 				$btn_text = ( 'confirm_link' == $fb_link ) ? $confirm_button : $page_link_text;
-				$icon = '<span class="av_facebook_widget_icon" ' . av_icon_string( 'facebook' ) . '></span>';
-				echo	avia_targeted_link_rel( '<a href="' . $url . '" target="_blank" class="av_facebook_widget_button av_facebook_widget_' . $fb_link . '"' . $data . '>' .$icon . esc_html( $btn_text ) . '</a>' );
+				$display_char = \avia_font_manager::get_frontend_shortcut_icon( "svg__facebook", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class = \avia_font_manager::get_frontend_icon_classes( $display_char['font'], 'string' );
+
+				$icon  = "<span class='av_facebook_widget_icon {$char_class}' {$display_char['attr']}>";
+				$icon .=	$display_char['svg'];
+				$icon .= '</span>';
+
+				echo	avia_targeted_link_rel( '<a href="' . $url . '" target="_blank" class="av_facebook_widget_button av_facebook_widget_' . $fb_link . '"' . $data . '>' . $icon . esc_html( $btn_text ) . '</a>' );
 
 				if( ! empty( $fb_link ) )
 				{

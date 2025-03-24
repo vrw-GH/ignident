@@ -28,7 +28,7 @@ $avia_elements[] = array(
 			'nodescription' => true
 		);
 
-$desc  = __( 'Either enter your Google tracking id (UA-XXXXX-X), (G-XXXXX) or your full Google Analytics tracking Code here.', 'avia_framework' );
+$desc  = __( 'Either enter your Google Measurement ID - prior called Google Tracking ID (UA-XXXXX-X), (G-XXXXX) or your full Google Analytics tracking Code here.', 'avia_framework' );
 $desc .= '<br><br>';
 $desc .= __( 'If you want to offer your visitors the option to stop being tracked you can place the shortcode [av_privacy_google_tracking] somewhere on your site.', 'avia_framework' ) . ' ';
 $desc .= __( 'More information and more privacy settings you find here:', 'avia_framework' ) . ' ';
@@ -36,7 +36,7 @@ $desc .= '<a href="' . admin_url( 'admin.php?page=avia#goto_cookie' )  . '">' . 
 
 $avia_elements[] =	array(
 			'slug'  => 'google',
-			'name'  => __( 'Google Analytics Tracking Code', 'avia_framework' ),
+			'name'  => __( 'Google Measurement ID (Google Analytics Tracking Code)', 'avia_framework' ),
 			'desc'  => $desc,
 			'id'    => 'analytics',
 			'type'	=> 'textarea',

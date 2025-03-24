@@ -319,6 +319,16 @@ $avia_elements[] = array(
 							)
 		);
 
+$avia_elements[] = array(
+			'slug'		=> 'header',
+			'name'		=> __( 'Aria-Label Text', 'avia_framework' ),
+			'desc'		=> __( 'Enter a descriptive text that is added as aria-label attribute to main header section (including logo and menus). Will be used by screen readers. Leave empty to skip it.', 'avia_framework' ),
+			'id'		=> 'header_aria_label',
+			'type'		=> 'text',
+			'std'		=> __( 'Header', 'avia_framework' ),
+			'globalcss'	=> true
+		);
+
 
 // END TAB
 $avia_elements[] = array(

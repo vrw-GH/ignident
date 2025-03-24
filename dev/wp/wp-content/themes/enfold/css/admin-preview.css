@@ -46,7 +46,7 @@ body,
 }
 
 /* @since 4.9  display svg in preview window	*/
-#av-admin-preview img[src*=".svg"]{
+#av-admin-preview img[src*=".svg"]:not([is-svg-img="true"]){
 	width: 1000px;
 	max-width: 100%;
 }

@@ -45,6 +45,37 @@
     z-index: 2;
 }
 
+#top .avia_search_element .av_searchsubmit_wrapper .av-search-icon.avia-svg-icon{
+	left: calc(1em - 2px);
+}
+
+#top .avia_search_element .av_searchsubmit_wrapper.av-submit-hasicon .av-search-icon{
+	left: calc(50% - 9px);
+	font-size: 20px;
+}
+
+#top .avia_search_element .av_searchsubmit_wrapper.av-submit-hasicon .av-search-icon.avia-svg-icon{
+	left: calc(50% - 11px);
+}
+
+.avia_search_element .av_searchsubmit_wrapper .av-search-icon.avia-svg-icon svg:first-child,
+.avia_search_element .av_searchsubmit_wrapper .av-search-icon.avia-svg-icon img[is-svg-img="true"]{
+	height: 14px;
+	width: 14px;
+	margin-top: 7px;
+}
+
+#av-admin-preview .avia_search_element .av_searchsubmit_wrapper .av-search-icon.avia-svg-icon svg:first-child,
+#av-admin-preview .avia_search_element .av_searchsubmit_wrapper .av-search-icon.avia-svg-icon img[is-svg-img="true"]{
+	margin-top: unset;
+}
+
+.avia_search_element .av_searchsubmit_wrapper.av-submit-hasicon .av-search-icon.avia-svg-icon svg:first-child
+.avia_search_element .av_searchsubmit_wrapper.av-submit-hasicon .av-search-icon.avia-svg-icon img[is-svg-img="true"]{
+	height: 20px;
+	width: 20px;
+}
+
 #top .avia_search_element .av_searchsubmit_wrapper.av-submit-hasiconlabel #searchsubmit{
     padding-left: 2.5em;
 }
@@ -90,6 +121,10 @@
     min-width: 60px;
 }
 
+#top .avia_search_element .av-submit-hasicon .av-search-icon{
+
+}
+
 #top .avia_search_element form.ajax_loading_now #searchsubmit{
     margin-right: 0;
     padding-right: 0;
@@ -120,6 +155,18 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 2;
+}
+
+.avia_search_element .av-input-field-icon.avia-svg-icon svg:first-child,
+.avia_search_element .av-input-field-icon.avia-svg-icon img[is-svg-img="true"]{
+	height: 14px;
+	width: 14px;
+	margin-top: 7px;
+}
+
+#av-admin-preview .avia_search_element .av-input-field-icon.avia-svg-icon svg:first-child,
+#av-admin-preview .avia_search_element .av-input-field-icon.avia-svg-icon img[is-svg-img="true"]{
+	margin-top: unset;
 }
 
 #top .avia_search_element #s.av-input-hasicon{

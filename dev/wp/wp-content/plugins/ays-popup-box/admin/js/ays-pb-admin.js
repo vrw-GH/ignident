@@ -497,6 +497,7 @@
                     $(document).find('#ays_pb_hide_timer_popup').hide(250);
 
                     $(document).find('input#ays_popup_content_padding').val(0);
+                    $(document).find('input#ays_popup_content_padding_mobile').val(0);
                     $(document).find('span.ays-pb-padding-default-value').text(0);
 
                     $(document).find('input#image_type_img_theme_view_type').prop('checked',true);
@@ -686,8 +687,33 @@
         // Close cache note start
 
         // Options accordion effect start
-        $(document).on('click', '.ays-pb-accordion-arrow-box', function() {
-            toggleOptionsAccordion($(this));
+        // $(document).on('click', '.ays-pb-accordion-arrow-box', function() {
+        //     toggleOptionsAccordion($(this));
+        // });
+
+        $(document).on('click', '.ays-pb-accordion-header', function() {
+            toggleOptionsAccordion($(this).find('.ays-pb-accordion-arrow-box'));
+        });
+
+        $(document).on('click', '.ays-pb-collapse-all-options', function(){
+            var $thisMainParent = $(this).parents('.ays-pb-tab-content');
+
+            var arrowBtn = $thisMainParent.find('.ays-pb-accordion-arrow-box');
+            var arrowSvg = arrowBtn.find('svg');
+            var accordionMainContainer = arrowBtn.parents('.ays-pb-accordion-options-main-container');
+            var accordionBody = accordionMainContainer.find('.ays-pb-accordion-body');
+            arrowSvg.removeClass('ays-pb-accordion-arrow-active');
+            accordionBody.slideUp();
+        });
+
+        $(document).on('click', '.ays-pb-expand-all-options', function(){
+            var $thisMainParent = $(this).parents('.ays-pb-tab-content');
+            var arrowBtn = $thisMainParent.find('.ays-pb-accordion-arrow-box');
+            var arrowSvg = arrowBtn.find('svg');
+            var accordionMainContainer = arrowBtn.parents('.ays-pb-accordion-options-main-container');
+            var accordionBody = accordionMainContainer.find('.ays-pb-accordion-body');    
+            arrowSvg.addClass('ays-pb-accordion-arrow-active');
+            accordionBody.slideDown();
         });
         // Options accordion effect end
 
@@ -1422,6 +1448,7 @@
             $form.find('input#ays_pb_enable_animate_out_mobile').prop('checked', defaultValues.enableCloseAnimMobile).change();
             $form.find('select#ays-pb-animate_out_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.closeAnimTextMobile).change();
             $form.find('div.ays_pb_animate_out_mobile_container').css('display', 'none').change();
+            $form.find('div.ays_pb_padding_mobile_container').css('display', 'none').change();
 
             $form.find('select#ays-pb-animate_in').val(defaultValues.openAnim).change();
             $form.find('select#ays-pb-animate_in').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.openAnimText).change();
@@ -1477,7 +1504,7 @@
             $form.find('select#ays_pb_gradient_direction_mobile').val(defaultValues.bgGradDirMobile).change();
             $form.find('select#ays_pb_gradient_direction_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgGradDirTextMobile).change();
 
-            $form.find('input#ays-pb-header_bgcolor').wpColorPicker('color', defaultValues.headerBgColor).change();
+            $form.find('input#ays-pb-header_bgcolor,input#ays-pb-header_bgcolor_mobile').wpColorPicker('color', defaultValues.headerBgColor).change();
 
             $form.find('input.ays_pb_overlay_color_change').wpColorPicker('color', defaultValues.overlayColor).change();
             $form.find('input#ays_pb_enable_overlay_color_mobile').prop('checked', defaultValues.enableOverlayColorMobile).change();
@@ -1591,6 +1618,27 @@
             $('.ays_pb_sound_closing_btn').hide();
         });
         // Background music | Remove music end
+
+        // Active time start
+        $('#ays-deactive-time-label').on('click', function() {
+            let $timeInput = $('#ays-deactive-time')[0]; 
+    
+            if ($timeInput.showPicker) {
+                $timeInput.showPicker(); 
+            } else {
+                $timeInput.focus(); 
+            }
+        });
+        $('#ays-active-time-label').on('click', function() {
+            let $timeInput = $('#ays-active-time')[0]; 
+        
+            if ($timeInput.showPicker) {
+                $timeInput.showPicker(); 
+            } else {
+                $timeInput.focus(); 
+            }
+        });        
+        // Active time end
 
         // Pro features start
         $(document).find('.ays-pro-features-v2-upgrade-button:not(.ays-pro-features-v2-upgrade-button-view-demo)').hover(

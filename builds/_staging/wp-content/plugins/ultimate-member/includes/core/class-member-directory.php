@@ -1,6 +1,8 @@
 <?php
 namespace um\core;
 
+use WP_User_Query;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -969,14 +971,17 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 
 				default: {
 
-					$meta = $wpdb->get_row( $wpdb->prepare(
-						"SELECT MIN( CONVERT( meta_value, DECIMAL ) ) as min_meta,
-						MAX( CONVERT( meta_value, DECIMAL ) ) as max_meta,
-						COUNT( DISTINCT meta_value ) as amount
-						FROM {$wpdb->usermeta}
-						WHERE meta_key = %s",
-						$filter
-					), ARRAY_A );
+					$meta = $wpdb->get_row(
+						$wpdb->prepare(
+							"SELECT MIN( CONVERT( meta_value, DECIMAL ) ) as min_meta,
+							MAX( CONVERT( meta_value, DECIMAL ) ) as max_meta,
+							COUNT( DISTINCT meta_value ) as amount
+							FROM {$wpdb->usermeta}
+							WHERE meta_key = %s",
+							$filter
+						),
+						ARRAY_A
+					);
 
 					if ( isset( $meta['min_meta'] ) && isset( $meta['max_meta'] ) && isset( $meta['amount'] ) && $meta['amount'] > 1 ) {
 						$range = array( (float) $meta['min_meta'], (float) $meta['max_meta'] );
@@ -988,24 +993,6 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 					break;
 				}
 				case 'birth_date': {
-
-//					$meta = $wpdb->get_col(
-//						"SELECT meta_value
-//						FROM {$wpdb->usermeta}
-//						WHERE meta_key = 'birth_date' AND
-//						      meta_value != ''"
-//					);
-//
-//					if ( empty( $meta ) || count( $meta ) < 2 ) {
-//						$range = false;
-//					} elseif ( is_array( $meta ) ) {
-//						$birth_dates = array_filter( array_map( 'strtotime', $meta ), 'is_numeric' );
-//						sort( $birth_dates );
-//						$min_meta = array_shift( $birth_dates );
-//						$max_meta = array_pop( $birth_dates );
-//						$range = array( $this->borndate( $max_meta ), $this->borndate( $min_meta ) );
-//					}
-
 					$meta = $wpdb->get_row(
 						"SELECT MIN( meta_value ) as min_meta,
 						MAX( meta_value ) as max_meta,
@@ -1013,7 +1000,8 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 						FROM {$wpdb->usermeta}
 						WHERE meta_key = 'birth_date' AND
 							  meta_value != ''",
-					ARRAY_A );
+						ARRAY_A
+					);
 
 					if ( isset( $meta['min_meta'] ) && isset( $meta['max_meta'] ) && isset( $meta['amount'] ) && $meta['amount'] > 1 ) {
 						$range = array( $this->borndate( strtotime( $meta['max_meta'] ) ), $this->borndate( strtotime( $meta['min_meta'] ) ) );
@@ -1082,10 +1070,15 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 			switch ( $filter ) {
 				default:
 					global $wpdb;
-					$meta = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT meta_value
-						FROM {$wpdb->usermeta}
-						WHERE meta_key = %s
-						ORDER BY meta_value DESC", $filter ) );
+					$meta = $wpdb->get_col(
+						$wpdb->prepare(
+							"SELECT DISTINCT meta_value
+							FROM {$wpdb->usermeta}
+							WHERE meta_key = %s
+							ORDER BY meta_value DESC",
+							$filter
+						)
+					);
 
 					if ( empty( $meta ) || count( $meta ) === 1 ) {
 						$range = false;
@@ -1374,7 +1367,7 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 		function pagination_options( $directory_data ) {
 			// number of profiles for mobile
 			$profiles_per_page = $directory_data['profiles_per_page'];
-			if ( UM()->mobile()->isMobile() && isset( $directory_data['profiles_per_page_mobile'] ) ) {
+			if ( wp_is_mobile() && isset( $directory_data['profiles_per_page_mobile'] ) ) {
 				$profiles_per_page = $directory_data['profiles_per_page_mobile'];
 			}
 
@@ -1716,6 +1709,10 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 			// Make the search line empty if it contains the mySQL query statements.
 			$regexp_map = array(
 				'/select(.*?)from/im',
+				'/select(.*?)sleep/im',
+				"/sleep\(\d+\)/im", // avoid any sleep injections
+				'/select(.*?)database/im',
+				'/select(.*?)where/im',
 				'/update(.*?)set/im',
 				'/delete(.*?)from/im',
 			);
@@ -1727,15 +1724,15 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 					break;
 				}
 			}
-
-			return $search;
+			// Early escape of the search line. The same as `$wpdb->prepare()`.
+			return esc_sql( $search );
 		}
 
 		/**
 		 * Handle general search line request
 		 */
 		public function general_search() {
-			//general search
+			// General search
 			if ( ! empty( $_POST['search'] ) ) {
 				// complex using with change_meta_sql function
 				$search = $this->prepare_search( $_POST['search'] );
@@ -1774,7 +1771,7 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 		 * @param $type
 		 * @param $primary_table
 		 * @param $primary_id_column
-		 * @param \WP_User_Query $context
+		 * @param WP_User_Query $context
 		 *
 		 * @return array
 		 */
@@ -1873,8 +1870,11 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 						$search_where = preg_replace( '/ AND \((.*?)\)/im', "$1 OR", $search_where );
 
 						// str_replace( '/', '\/', wp_slash( $search ) ) means that we add backslashes to special symbols + add backslash to slash(/) symbol for proper regular pattern.
+						$pattern = $wpdb->prepare( $meta_join_for_search . '.meta_value = %s', $search );
+						$pattern = '/(' . str_replace( '/', '\/', wp_slash( $pattern ) ) . ')/im';
+
 						$sql['where'] = preg_replace(
-							'/(' . $meta_join_for_search . '.meta_value = \'' . str_replace( '/', '\/', wp_slash( $search ) ) . '\')/im',
+							$pattern,
 							trim( $search_where ) . " $1",
 							$sql['where'],
 							1
@@ -2547,7 +2547,7 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 
 			// number of profiles for mobile
 			$profiles_per_page = $directory_data['profiles_per_page'];
-			if ( UM()->mobile()->isMobile() && isset( $directory_data['profiles_per_page_mobile'] ) ) {
+			if ( wp_is_mobile() && isset( $directory_data['profiles_per_page_mobile'] ) ) {
 				$profiles_per_page = $directory_data['profiles_per_page_mobile'];
 			}
 
@@ -2589,21 +2589,18 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 			return $pagination_data;
 		}
 
-
 		/**
 		 * @param int $user_id
 		 *
 		 * @return array
 		 */
-		function build_user_actions_list( $user_id ) {
-
+		private function build_user_actions_list( $user_id ) {
 			$actions = array();
 			if ( ! is_user_logged_in() ) {
 				return $actions;
 			}
 
-			if ( get_current_user_id() != $user_id ) {
-
+			if ( get_current_user_id() !== $user_id ) {
 				if ( UM()->roles()->um_current_user_can( 'edit', $user_id ) ) {
 					$actions['um-editprofile'] = array(
 						'title' => esc_html__( 'Edit Profile', 'ultimate-member' ),
@@ -2611,31 +2608,17 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 					);
 				}
 
-				/**
-				 * UM hook
-				 *
-				 * @type filter
-				 * @title um_admin_user_actions_hook
-				 * @description Extend admin actions for each user
-				 * @input_vars
-				 * [{"var":"$actions","type":"array","desc":"Actions for user"}]
-				 * @change_log
-				 * ["Since: 2.0"]
-				 * @usage
-				 * <?php add_filter( 'um_admin_user_actions_hook', 'function_name', 10, 1 ); ?>
-				 * @example
-				 * <?php
-				 * add_filter( 'um_admin_user_actions_hook', 'my_admin_user_actions', 10, 1 );
-				 * function my_admin_user_actions( $actions ) {
-				 *     // your code here
-				 *     return $actions;
-				 * }
-				 * ?>
-				 */
-				$admin_actions = apply_filters( 'um_admin_user_actions_hook', array(), $user_id );
+				$admin_actions = UM()->frontend()->users()->get_actions_list( $user_id );
 				if ( ! empty( $admin_actions ) ) {
 					foreach ( $admin_actions as $id => $arr ) {
-						$url = add_query_arg( array( 'um_action' => $id, 'uid' => $user_id ), um_get_core_page( 'user' ) );
+						$url = add_query_arg(
+							array(
+								'um_action' => $id,
+								'uid'       => $user_id,
+								'nonce'     => wp_create_nonce( $id . $user_id ),
+							),
+							um_user_profile_url( $user_id )
+						);
 
 						$actions[ $id ] = array(
 							'title' => esc_html( $arr['label'] ),
@@ -2645,9 +2628,7 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 				}
 
 				$actions = apply_filters( 'um_member_directory_users_card_actions', $actions, $user_id );
-
 			} else {
-
 				if ( empty( UM()->user()->cannot_edit ) ) {
 					$actions['um-editprofile'] = array(
 						'title' => esc_html__( 'Edit Profile', 'ultimate-member' ),
@@ -2671,15 +2652,13 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 			return $actions;
 		}
 
-
 		/**
 		 * @param int $user_id
 		 * @param array $directory_data
 		 *
 		 * @return array
 		 */
-		function build_user_card_data( $user_id, $directory_data ) {
-
+		public function build_user_card_data( $user_id, $directory_data ) {
 			um_fetch_user( $user_id );
 
 			$dropdown_actions = $this->build_user_actions_list( $user_id );
@@ -2701,8 +2680,8 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 				'card_anchor'          => esc_html( substr( md5( $user_id ), 10, 5 ) ),
 				'id'                   => absint( $user_id ),
 				'role'                 => esc_html( um_user( 'role' ) ),
-				'account_status'       => esc_html( um_user( 'account_status' ) ),
-				'account_status_name'  => esc_html( um_user( 'account_status_name' ) ),
+				'account_status'       => esc_html( UM()->common()->users()->get_status( $user_id ) ),
+				'account_status_name'  => esc_html( UM()->common()->users()->get_status( $user_id, 'formatted' ) ),
 				'cover_photo'          => wp_kses( um_user( 'cover_photo', $this->cover_size ), UM()->get_allowed_html( 'templates' ) ),
 				'display_name'         => esc_html( um_user( 'display_name' ) ),
 				'profile_url'          => esc_url( um_user_profile_url() ),
@@ -2964,7 +2943,7 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 
 			add_filter( 'pre_user_query', array( &$this, 'pagination_changes' ), 10, 1 );
 
-			$user_query = new \WP_User_Query( $this->query_args );
+			$user_query = new WP_User_Query( $this->query_args );
 
 			remove_filter( 'pre_user_query', array( &$this, 'pagination_changes' ), 10 );
 
@@ -3013,7 +2992,7 @@ if ( ! class_exists( 'um\core\Member_Directory' ) ) {
 
 			$sizes = UM()->options()->get( 'cover_thumb_sizes' );
 
-			$this->cover_size = UM()->mobile()->isTablet() ? $sizes[1] : end( $sizes );
+			$this->cover_size = wp_is_mobile() ? $sizes[1] : end( $sizes );
 
 			$this->cover_size = apply_filters( 'um_member_directory_cover_image_size', $this->cover_size, $directory_data );
 

@@ -48,8 +48,8 @@ class WOWP_Dashboard {
 		$settings['data']['tag'] = ! empty( $request['tag'] ) ? sanitize_textarea_field( wp_unslash( $request['tag'] ) ) : '';
 		$settings['formats'][]   = '%s';
 
-		$param                     = map_deep( $_POST['param'], [ $this, 'sanitize_param' ] );
-		$param                     = $this->additional_sanitize( $param, $_POST['param'] );
+
+		$param                     = $this->additional_sanitize( $param, $request['param'] );
 		$settings['data']['param'] = maybe_serialize( $param );
 		$settings['formats'][]     = '%s';
 
@@ -57,10 +57,9 @@ class WOWP_Dashboard {
 	}
 
 	public function additional_sanitize( $param, $arr ) {
-
 		// For main button
 		if ( isset( $arr['extra_style'] ) ) {
-			$param['extra_style'] = sanitize_textarea_field( wp_unslash($arr['extra_style']) );
+			$param['extra_style'] = sanitize_textarea_field( wp_unslash( $arr['extra_style'] ) );
 		}
 		if ( isset( $arr['item_link'] ) ) {
 			$param['item_link'] = sanitize_url( $arr['item_link'] );
@@ -126,19 +125,20 @@ class WOWP_Dashboard {
 
 		wp_enqueue_style( $slug . '-admin', $assets_url . 'css/admin.css', null, $version );
 
-		wp_enqueue_style( $slug . '-admin-fontawesome', $assets_url . 'vendors/fontawesome/css/fontawesome-all.min.css', null, '6.4.2' );
+		wp_enqueue_style( $slug . '-admin-fontawesome', $assets_url . 'vendors/fontawesome/css/fontawesome-all.min.css',
+			null, '6.6' );
 
 		// include fonticonpicker styles & scripts
 
 
 		$fonticonpicker_css = $assets_url . 'vendors/fonticonpicker/jquery.fonticonpicker.min.css';
-		wp_enqueue_style( $slug . '-fonticonpicker', $fonticonpicker_css );
+		wp_enqueue_style( $slug . '-fonticonpicker', $fonticonpicker_css, null, $version );
 
 		$fonticonpicker_dark_css = $assets_url . 'vendors/fonticonpicker/jquery.fonticonpicker.grey.min.css';
-		wp_enqueue_style( $slug . '-fonticonpicker-darkgrey', $fonticonpicker_dark_css );
+		wp_enqueue_style( $slug . '-fonticonpicker-darkgrey', $fonticonpicker_dark_css, null, $version );
 
 		$fonticonpicker_js = $assets_url . 'vendors/fonticonpicker/jquery.fonticonpicker.js';
-		wp_enqueue_script( $slug . '-fonticonpicker', $fonticonpicker_js, [ 'jquery' ] );
+		wp_enqueue_script( $slug . '-fonticonpicker', $fonticonpicker_js, [ 'jquery' ], $version, true );
 
 		// include the color picker
 		wp_enqueue_script( 'code-editor' );
@@ -155,8 +155,6 @@ class WOWP_Dashboard {
 		wp_enqueue_script( 'wp-color-picker-alpha', $url_alpha, array( 'wp-color-picker' ), '3.0.0', true );
 
 
-
-
 		wp_enqueue_script( $slug . '-admin-jquery', $assets_url . 'js/admin-jquery.js', [
 			'jquery',
 			'wp-color-picker-alpha'
@@ -169,6 +167,7 @@ class WOWP_Dashboard {
 
 
 	public function header_links(): void {
+		// phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 		$logo = WOW_Plugin::url() . 'assets/img/wow-icon.png';
 		?>
         <div class="wowp-links">
@@ -188,6 +187,7 @@ class WOWP_Dashboard {
         </div>
 
 		<?php
+		// phpcs:enable
 	}
 
 
