@@ -86,6 +86,8 @@ $table_prefix = 'OrIAaSFc';
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
 define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', false );  // wp-content/debug.log
+define( 'WP_DEBUG_DISPLAY', false ); // errors appearing on the front-end
 
 /* Add any custom values between this line and the "stop editing" line. */
 
