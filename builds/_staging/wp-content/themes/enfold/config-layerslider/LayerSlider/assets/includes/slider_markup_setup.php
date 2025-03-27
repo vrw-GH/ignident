@@ -121,6 +121,7 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 		}
 
 		$slider['slides'][$slidekey] = apply_filters('ls_parse_defaults', $lsDefaults['slides'], $slide['properties']);
+		$slider['slides'][$slidekey]['countdowns'] = ! empty( $slide['countdowns'] ) ? $slide['countdowns'] : [];
 
 		if(isset($slide['sublayers']) && is_array($slide['sublayers'])) {
 

@@ -28,15 +28,17 @@ class LS_ImportUtil {
 
 
 	// Target folders
-	private $uploadsDir, $uploadsURL, $tmpDir;
+	private $uploadsDir, $uploadsURL, $unpackDir;
 
 
 	// Imported images
 	private $imported = [];
 
+	private $isTemplate = false;
+
 
 	// Accepts $_FILES
-	public function __construct( $archive, $name = null, $groupName = null ) {
+	public function __construct( $archive, $name = null, $groupName = null, $isTemplate = false ) {
 
 		// Attempt to workaround memory limit & execution time issues
 		@ini_set( 'max_execution_time', 0 );
@@ -57,7 +59,8 @@ class LS_ImportUtil {
 		// Get target folders
 		$this->uploadsDir 	= $uploads['basedir'];
 		$this->uploadsURL 	= $uploads['baseurl'];
-		$this->tmpDir 		= $uploads['basedir'].'/layerslider/tmp';
+		$this->unpackDir 	= LS_FileSystem::createUniqueTmpFolder( pathinfo( $name, PATHINFO_FILENAME ).'_template' );
+		$this->isTemplate 	= $isTemplate;
 
 		$type = wp_check_filetype( basename( $name ), [
 			'zip' => 'application/zip',
@@ -72,13 +75,13 @@ class LS_ImportUtil {
 			$this->cleanup();
 
 			// Extract ZIP
-			if( $this->unpack( $archive) ) {
+			if( $this->unpack( $archive ) ) {
 
 				// Make sure all imported items have the same creation date for sorting purposes
 				$addProperties['date_c'] = time();
 
 				// Uploaded folders
-				$folders = glob( $this->tmpDir.'/*', GLOB_ONLYDIR );
+				$folders = glob( $this->unpackDir.'/*', GLOB_ONLYDIR );
 				$folders = $this->reduceSliders( $folders );
 
 				// Sort projects by name
@@ -158,7 +161,7 @@ class LS_ImportUtil {
 	public function unpack( $archive ) {
 
 		if( LS_FileSystem::createUploadDirs() ) {
-			return LS_FileSystem::unzip( $archive, $this->tmpDir );
+			return LS_FileSystem::unzip( $archive, $this->unpackDir );
 		}
 
 		return false;
@@ -417,7 +420,8 @@ class LS_ImportUtil {
 	}
 
 	public function cleanup() {
-		LS_FileSystem::emptyDir( $this->tmpDir );
+		LS_FileSystem::deleteDir( $this->unpackDir );
+		LS_FileSystem::cleanupTmpFiles();
 	}
 }
 ?>

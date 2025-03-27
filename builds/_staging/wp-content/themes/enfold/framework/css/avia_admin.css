@@ -980,6 +980,13 @@ div .item-type-avia{
 	max-width:390px;
 }
 
+.avia_mega_active .item-type-av{
+	padding: 12px 16px;
+	color: #646970;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
 .menu-item-depth-0 .avia_mega_menu_d0,
 .avia_mega_active.menu-item-depth-1 .avia_mega_menu_d1,
 .avia_mega_active.menu-item-depth-2 .avia_mega_menu_d2,
@@ -988,8 +995,7 @@ div .item-type-avia{
 .avia_mega_active.menu-item-depth-5 .avia_mega_menu_d2,
 .avia_mega_active.menu-item-depth-6 .avia_mega_menu_d2,
 .avia_mega_active.menu-item-depth-7 .avia_mega_menu_d2,
-.avia_mega_active.menu-item-depth-8 .avia_mega_menu_d2
-{
+.avia_mega_active.menu-item-depth-8 .avia_mega_menu_d2{
 	display:block;
 }
 
@@ -1304,30 +1310,6 @@ clear:both;
 	vertical-align: bottom;
 }
 
-#wpwrap div .avia_auto_detector input{
-	width:135px;
-}
-
-.avia_auto_detector .avia_color_picker_div{
-	right:auto;
-	left:113px;
-}
-
-#wpwrap  div .avia_autodetect,
-#wpwrap  div .avia_autodetect:focus{
-	margin-left:10px;
-	font-size: 11px;
-	line-height: 27px;
-	padding: 0;
-	text-align: center;
-	width: 110px;
-}
-
-.avia_auto_detector .avia_loading{
-	right: 155px;
-	top: 2px;
-}
-
 #wpwrap .avia_multiple_select select{
 	height:130px;
 }
@@ -1552,6 +1534,17 @@ div #avia_options_page .avia_row .avia_section .avia_style_wrap{
 
 .menu-item-edit-inactive .ui-sortable-placeholder:not(.menu-item-handle){
 	margin: 0 5px;
+}
+
+#wpwrap .menu-item-handle .item-title{
+	display: initial;
+	position: relative;
+	z-index: 1;
+	margin-right: 0;
+}
+
+#wpwrap .menu-item-handle .item-controls{
+	top: -10px;
 }
 
 .ui-sortable-placeholder * {
@@ -2381,6 +2374,42 @@ div .avia_verification_field .avia_control{
 	color: #aaa;
 	font-size: 11px;
 	float:right;
+}
+
+.avia_iconfont_manager .avia-deactived-font,
+.avia_iconfont_manager .avia-actived-font{
+	font-size: 11px;
+	float:right;
+	display: none;
+	padding-left: 50%;
+}
+
+.avia_iconfont_manager .avia-deactived-font:focus,
+.avia_iconfont_manager .avia-actived-font:focus{
+	box-shadow: unset;
+}
+
+.avia_iconfont_manager .av-default-font-activate.av-is-active-no .avia-def-font{
+	color: #D54E21;
+}
+
+.avia_iconfont_manager .av-default-font-activate.av-is-active-yes .avia-def-font{
+	color: #00b500;
+}
+
+.avia_iconfont_manager .avia-deactived-font:hover,
+.avia_iconfont_manager .avia-actived-font:hover{
+	text-decoration: none;
+}
+
+.avia_iconfont_manager .av-default-font-activate.av-is-active-yes .avia-actived-font{
+	display: block;
+	color: #D54E21;
+}
+
+.avia_iconfont_manager .av-default-font-activate.av-is-active-no .avia-deactived-font{
+	display: block;
+	color: #00b500;
 }
 
 div .avia_iconfont_manager .avia-del-font,

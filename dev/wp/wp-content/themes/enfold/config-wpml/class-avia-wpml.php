@@ -807,10 +807,16 @@ if( ! class_exists( 'avia_WPML', false ) )
 				return $button;
 			}
 
-			$translate = av_backend_icon( array( 'args' => array( 'icon' => 'ue84f', 'font' => 'entypo-fontello' ) ) );
+			$translate = avia_font_manager::get_frontend_icon( 'book', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+			$$translate_class = avia_font_manager::get_frontend_icon_classes( $translate['font'], 'string' );
+
 			$link = 'data-external_link="' . $match[1] . '"';
 
-			$button .= '<div class="element-sc-action-button element-wpml-translate element-custom-action" title="' . esc_html__( 'Translate Custom Element with WPML', 'avia_framework' ) . '" ' . $link . '><span>' . $translate['display_char'] . '</span></div>';
+			$button .= '<div class="element-sc-action-button element-wpml-translate element-custom-action" title="' . esc_html__( 'Translate Custom Element with WPML', 'avia_framework' ) . '" ' . $link . '>';
+			$button .=		"<span class='$translate_class' {$translate['attr']}>";
+			$button .=			$translate['svg'];
+			$button .=		'</span>';
+			$button .= '</div>';
 
 			return $button;
 		}

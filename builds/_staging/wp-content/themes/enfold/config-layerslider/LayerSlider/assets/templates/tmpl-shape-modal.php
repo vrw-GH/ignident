@@ -40,7 +40,7 @@
 
 	</lse-b>
 
-	<lse-b id="tmpl-shape-modal-sidebar">
+	<lse-b id="tmpl-shape-modal-sidebar" class="lse-modal-sidebar">
 
 		<kmw-h1 class="kmw-sidebar-title">
 			<?= _x('Polygon Options', 'Default Shape Type', 'LayerSlider') ?>
@@ -582,11 +582,9 @@
 				</lse-col>
 			</lse-row>
 
-
-
 		</lse-grid>
 
-		<lse-b id="lse-shape-sidebar-bottom">
+		<lse-b id="lse-shape-sidebar-bottom" class="lse-modal-sidebar-bottom">
 			<lse-button class="lse-shape-modal-insert <?= LS_Config::isActivatedSite() ? '' : 'lse-premium-lock' ?>">
 				<?php if( ! LS_Config::isActivatedSite() ) : ?>
 				<?= lsGetSVGIcon('lock', false, ['class' => 'lse-it-fix'] ) ?>

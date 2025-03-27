@@ -165,8 +165,6 @@ if( ! class_exists( 'av_responsive_images', false ) )
 			$this->opt_key_attachment_urls = avia_backend_safe_string( $avia->base_data['prefix'] ) . '-attachment_urls';
 			$this->temporary_disabled = false;
 
-			add_filter( 'avf_modify_thumb_size',  array( $this, 'handler_avf_modify_thumb_size'), 10, 1 );
-			add_filter( 'avf_modify_readable_image_sizes',  array( $this, 'handler_avf_modify_readable_image_sizes'), 10, 2 );
 
 			add_action( 'init', array( $this, 'handler_wp_init'), 999999 );
 			add_filter( 'body_class', array( $this, 'handler_body_class' ), 10, 2 );
@@ -221,32 +219,6 @@ if( ! class_exists( 'av_responsive_images', false ) )
 
 			//	array_merge_recursive creates array !!!
 			$this->config['default_jpeg_quality'] = $default_jpeg_quality;
-		}
-
-
-		/**
-		 * Add additional image sizes (prepared in case we allow to add custom image sizes by theme)
-		 *
-		 * @since 4.7.5.1
-		 * @param array $imgSizes
-		 * @return array
-		 */
-		public function handler_avf_modify_thumb_size( array $imgSizes )
-		{
-			return $imgSizes;
-		}
-
-		/**
-		 * Add additional human readable image sizes (prepared in case we allow to add custom image sizes by theme)
-		 *
-		 * @since 4.7.5.1
-		 * @param array $readableImgSizes
-		 * @param array $imgSizes
-		 * @return array
-		 */
-		public function handler_avf_modify_readable_image_sizes( array $readableImgSizes, array $imgSizes )
-		{
-			return $readableImgSizes;
 		}
 
 		/**
@@ -900,34 +872,51 @@ if( ! class_exists( 'av_responsive_images', false ) )
 		 * Tries to convert an URL to an attachment id. If not exist, returns URL
 		 * Uses DB option to store already converted URL's. Option deleted when theme options change.
 		 *
+		 * @link https://kriesi.at/support/topic/performence-issue-in-enfold-7-0-more-than-80-times-the-same-database-query/
 		 * @since 4.8.4
+		 * @since 7.1					added static $cache... and 'no_id' for performance reason
 		 * @param string|int $attachment
 		 * @return string|int
 		 */
 		public function attachment_url_to_postid( $attachment )
 		{
+			static $cache_attachment_urls = null;
+
 			if( is_numeric( $attachment ) )
 			{
 				return $attachment;
 			}
 
-			$cache = (array) get_option( $this->opt_key_attachment_urls, array() );
-
-			if( isset( $cache[ $attachment ] ) && is_numeric( $cache[ $attachment ] ) && $cache[ $attachment ] > 0 )
+			if( is_null( $cache_attachment_urls ) )
 			{
-				return $cache[ $attachment ];
+				$cache_attachment_urls = (array) get_option( $this->opt_key_attachment_urls, array() );
 			}
 
-			$id = attachment_url_to_postid ($attachment );
+			if( isset( $cache_attachment_urls[ $attachment ] ) )
+			{
+				if( is_numeric( $cache_attachment_urls[ $attachment ] ) && $cache_attachment_urls[ $attachment ] > 0 )
+				{
+					return $cache_attachment_urls[ $attachment ];
+				}
+				else if( 'no_id' == $cache_attachment_urls[ $attachment ] )
+				{
+					return $attachment;
+				}
+			}
+
+			$id = attachment_url_to_postid( $attachment );
 
 			if( $id <= 0 )
 			{
-				return $attachment;
+				$cache_attachment_urls[ $attachment ] = 'no_id';
+				$id = $attachment;
+			}
+			else
+			{
+				$cache_attachment_urls[ $attachment ] = $id;
 			}
 
-			$cache[ $attachment ] = $id;
-
-			update_option( $this->opt_key_attachment_urls, $cache );
+			update_option( $this->opt_key_attachment_urls, $cache_attachment_urls );
 
 			return $id;
 		}

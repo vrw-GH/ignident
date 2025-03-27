@@ -326,7 +326,9 @@ function um_submit_account_details( $args ) {
 
 		if ( 'single_user_password' === $k || 'user_login' === $k ) {
 			continue;
-		} elseif ( 'first_name' === $k || 'last_name' === $k || 'user_password' === $k ) {
+		}
+
+		if ( 'first_name' === $k || 'last_name' === $k || 'user_password' === $k ) {
 			$v = sanitize_text_field( $v );
 		} elseif ( 'user_email' === $k ) {
 			$v = sanitize_email( $v );
@@ -403,7 +405,7 @@ function um_submit_account_details( $args ) {
 	 */
 	do_action( 'um_account_pre_update_profile', $changes, $user_id );
 
-	if ( isset( $changes['first_name'] ) || isset( $changes['last_name'] ) || isset( $changes['nickname'] ) ) {
+	if ( isset( $changes['first_name'] ) || isset( $changes['last_name'] ) || isset( $changes['nickname'] ) || isset( $changes['user_email'] ) ) {
 		$user = get_userdata( $user_id );
 		if ( ! empty( $user ) && ! is_wp_error( $user ) ) {
 			UM()->user()->previous_data['display_name'] = $user->display_name;
@@ -416,6 +418,9 @@ function um_submit_account_details( $args ) {
 			}
 			if ( isset( $changes['nickname'] ) ) {
 				UM()->user()->previous_data['nickname'] = $user->nickname;
+			}
+			if ( isset( $changes['user_email'] ) ) {
+				UM()->user()->previous_data['user_email'] = $user->user_email;
 			}
 		}
 	}
@@ -474,7 +479,7 @@ function um_submit_account_details( $args ) {
 		$url = add_query_arg( 'updated', 'account', $url );
 
 		if ( function_exists( 'icl_get_current_language' ) ) {
-			if ( icl_get_current_language() != icl_get_default_language() ) {
+			if ( icl_get_current_language() !== icl_get_default_language() ) {
 				$url = UM()->permalinks()->get_current_url( true );
 				$url = add_query_arg( 'updated', 'account', $url );
 
@@ -487,6 +492,31 @@ function um_submit_account_details( $args ) {
 }
 add_action( 'um_submit_account_details', 'um_submit_account_details' );
 
+/**
+ * Maybe clear all sessions except current after changing email. Because email can be used for login.
+ * Using a proper hook that triggers on email changed action in WordPress native handlers.
+ * It starts to work sitewide in UM Account and there wp_update_user with new user_email attribute is used.
+ *
+ * @since  2.8.7
+ *
+ * @param  bool   $send     Whether to send the email.
+ * @param  array  $user     The original user array.
+ * @param  array  $userdata The updated user array.
+ * @return bool
+ */
+function um_maybe_flush_users_session_update_user( $send, $user, $userdata ) {
+	// Clear all sessions except current after changing email. Because email can be used for login.
+	if ( get_current_user_id() === $userdata['ID'] ) {
+		wp_destroy_other_sessions();
+	} else {
+		$sessions_manager = WP_Session_Tokens::get_instance( $userdata['ID'] );
+		// Remove all the session data for all users.
+		$sessions_manager->destroy_all();
+	}
+
+	return $send;
+}
+add_filter( 'send_email_change_email', 'um_maybe_flush_users_session_update_user', 20, 3 );
 
 /**
  * Hidden inputs for account form
@@ -563,7 +593,7 @@ function um_account_updated_notification( $user_id, $changed ) {
 	if ( 'password' !== $_POST['_um_account_tab'] || ! UM()->options()->get( 'changedpw_email_on' ) ) {
 		// Avoid email duplicates (account changed and password changed) on the password change tab.
 		um_fetch_user( $user_id );
-		UM()->mail()->send( um_user( 'user_email' ), 'changedaccount_email' );
+		UM()->maybe_action_scheduler()->enqueue_async_action( 'um_dispatch_email', array( um_user( 'user_email' ), 'changedaccount_email', array( 'fetch_user_id' => $user_id ) ) );
 	}
 	// phpcs:enable WordPress.Security.NonceVerification
 }
@@ -651,7 +681,7 @@ function um_after_account_privacy( $args ) {
 		} else {
 			if ( UM()->account()->current_password_is_required( 'privacy_download_data' ) ) {
 				?>
-				<label name="um-export-data">
+				<label name="um-export-data" for="um-export-data">
 					<?php esc_html_e( 'Enter your current password to confirm a new export of your personal data.', 'ultimate-member' ); ?>
 				</label>
 				<div class="um-field-area">
@@ -741,8 +771,10 @@ function um_after_account_privacy( $args ) {
 		} else {
 			if ( UM()->account()->current_password_is_required( 'privacy_erase_data' ) ) {
 				?>
-				<label name="um-erase-data">
+				<label name="um-erase-data" for="um-erase-data">
 					<?php esc_html_e( 'Enter your current password to confirm the erasure of your personal data.', 'ultimate-member' ); ?>
+				</label>
+				<div class="um-field-area">
 					<?php if ( UM()->options()->get( 'toggle_password' ) ) { ?>
 						<div class="um-field-area-password">
 							<input id="um-erase-data" type="password" placeholder="<?php esc_attr_e( 'Password', 'ultimate-member' ); ?>">
@@ -755,7 +787,7 @@ function um_after_account_privacy( $args ) {
 						<span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span><?php esc_html_e( 'You must enter a password', 'ultimate-member' ); ?>
 					</div>
 					<div class="um-field-area-response um-erase-data"></div>
-				</label>
+				</div>
 
 			<?php } else { ?>
 

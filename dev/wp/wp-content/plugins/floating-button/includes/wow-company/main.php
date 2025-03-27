@@ -166,136 +166,139 @@ $sites = [
 		'content' => 'Collection of online calculators and converters for various applications.'
 	],
 ];
-
+// phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 ?>
 
-<div class="wrap full-width-layout wpie-page">
+    <div class="wrap full-width-layout wpie-page">
 
-    <header class="wpie-page__header">
+        <header class="wpie-page__header">
 
-        <div class="wpie-badge">
-            <img src="<?php
-			echo esc_url( $logo ); ?>" alt="Wow-Company Logo">
-        </div>
+            <div class="wpie-badge">
+                <img src="<?php
+				echo esc_url( $logo ); ?>" alt="Wow-Company Logo">
+            </div>
 
-        <h1>Wow-Company</h1>
+            <h1>Wow-Company</h1>
 
-        <p class="about-text">
-            Wow-Company is not a company in the literal sense. These different projects and WordPress Plugins are
-            collected under one umbrella, which decided to call Wow-Company. At first, it all started as a hobby, and
-            then it turned into an interesting daily job. </p>
+            <p class="about-text">
+                Wow-Company is not a company in the literal sense. These different projects and WordPress Plugins are
+                collected under one umbrella, which decided to call Wow-Company. At first, it all started as a hobby,
+                and
+                then it turned into an interesting daily job. </p>
 
-    </header>
+        </header>
 
-    <div class="wpie-page__content">
-        <h2>WordPress plugins</h2>
-        <div class="item-cards">
-			<?php
-			foreach ( $wp_plugins as $plugin ): ?>
-                <div class="item-card">
-                    <div class="item-img">
-                        <img src="<?php
-						echo esc_url( $img_url . '/' . $plugin['icon'] ); ?>">
-                    </div>
-                    <div class="item-content">
-                        <div class="item-title"><?php
-							echo esc_html( $plugin['title'] ); ?></div>
-                        <div class="item-links">
-							<?php
-							if ( ! empty( $plugin['free'] ) ) : ?>
-                                <a href="<?php echo esc_url( $plugin['free'] ); ?>">Free</a>
-							<?php
-							endif; ?>
-							<?php
-							if ( ! empty( $plugin['pro'] ) ) : ?>
-                                <a href="<?php echo esc_url( $plugin['pro'] ); ?>" target="_blank">Pro</a>
-							<?php
-							endif; ?>
+        <div class="wpie-page__content">
+            <h2>WordPress plugins</h2>
+            <div class="item-cards">
+				<?php
+				foreach ( $wp_plugins as $plugin ): ?>
+                    <div class="item-card">
+                        <div class="item-img">
+                            <img src="<?php
+							echo esc_url( $img_url . '/' . $plugin['icon'] ); ?>">
                         </div>
-                    </div>
-                    <div class="item-description">
-						<?php
-						echo esc_html( $plugin['content'] ); ?>
-                    </div>
-
-                </div>
-
-			<?php
-			endforeach; ?>
-
-        </div>
-
-        <h2>WordPress themes</h2>
-        <div class="item-cards">
-			<?php
-			foreach ( $wp_themes as $theme ): ?>
-                <div class="item-card">
-                    <div class="item-img">
-                        <img src="<?php
-						echo esc_url( $img_url . '/' . $theme['icon'] ); ?>">
-                    </div>
-                    <div class="item-content">
-                        <div class="item-title"><?php
-							echo esc_html( $theme['title'] ); ?></div>
-                        <div class="item-links">
-							<?php
-							if ( ! empty( $theme['free'] ) ) : ?>
-                                <a href="<?php
-								echo esc_url( $theme['free'] ); ?>">Free</a>
-							<?php
-							endif; ?>
-							<?php
-							if ( ! empty( $theme['pro'] ) ) : ?>
-                                <a href="#">Pro</a>
-							<?php
-							endif; ?>
+                        <div class="item-content">
+                            <div class="item-title"><?php
+								echo esc_html( $plugin['title'] ); ?></div>
+                            <div class="item-links">
+								<?php
+								if ( ! empty( $plugin['free'] ) ) : ?>
+                                    <a href="<?php echo esc_url( $plugin['free'] ); ?>">Free</a>
+								<?php
+								endif; ?>
+								<?php
+								if ( ! empty( $plugin['pro'] ) ) : ?>
+                                    <a href="<?php echo esc_url( $plugin['pro'] ); ?>" target="_blank">Pro</a>
+								<?php
+								endif; ?>
+                            </div>
                         </div>
-                    </div>
-                    <div class="item-description">
-						<?php
-						echo esc_html( $theme['content'] ); ?>
-                    </div>
-
-                </div>
-
-			<?php
-			endforeach; ?>
-
-        </div>
-
-        <h2>WebSites</h2>
-        <div class="item-cards">
-			<?php
-			foreach ( $sites as $site ): ?>
-                <div class="item-card">
-                    <div class="item-img">
-                        <img src="<?php
-						echo esc_url( $img_url . '/' . $site['icon'] ); ?>">
-                    </div>
-                    <div class="item-content">
-                        <div class="item-title"><?php
-							echo esc_html( $site['title'] ); ?></div>
-                        <div class="item-links">
+                        <div class="item-description">
 							<?php
-							if ( ! empty( $site['link'] ) ) : ?>
-                                <a href="<?php
-								echo esc_url( $site['link'] ); ?>">Go to Site</a>
-							<?php
-							endif; ?>
-
+							echo esc_html( $plugin['content'] ); ?>
                         </div>
-                    </div>
-                    <div class="item-description">
-						<?php
-						echo esc_html( $site['content'] ); ?>
+
                     </div>
 
-                </div>
+				<?php
+				endforeach; ?>
 
-			<?php
-			endforeach; ?>
+            </div>
+
+            <h2>WordPress themes</h2>
+            <div class="item-cards">
+				<?php
+				foreach ( $wp_themes as $theme ): ?>
+                    <div class="item-card">
+                        <div class="item-img">
+                            <img src="<?php
+							echo esc_url( $img_url . '/' . $theme['icon'] ); ?>">
+                        </div>
+                        <div class="item-content">
+                            <div class="item-title"><?php
+								echo esc_html( $theme['title'] ); ?></div>
+                            <div class="item-links">
+								<?php
+								if ( ! empty( $theme['free'] ) ) : ?>
+                                    <a href="<?php
+									echo esc_url( $theme['free'] ); ?>">Free</a>
+								<?php
+								endif; ?>
+								<?php
+								if ( ! empty( $theme['pro'] ) ) : ?>
+                                    <a href="#">Pro</a>
+								<?php
+								endif; ?>
+                            </div>
+                        </div>
+                        <div class="item-description">
+							<?php
+							echo esc_html( $theme['content'] ); ?>
+                        </div>
+
+                    </div>
+
+				<?php
+				endforeach; ?>
+
+            </div>
+
+            <h2>WebSites</h2>
+            <div class="item-cards">
+				<?php
+				foreach ( $sites as $site ): ?>
+                    <div class="item-card">
+                        <div class="item-img">
+                            <img src="<?php
+							echo esc_url( $img_url . '/' . $site['icon'] ); ?>">
+                        </div>
+                        <div class="item-content">
+                            <div class="item-title"><?php
+								echo esc_html( $site['title'] ); ?></div>
+                            <div class="item-links">
+								<?php
+								if ( ! empty( $site['link'] ) ) : ?>
+                                    <a href="<?php
+									echo esc_url( $site['link'] ); ?>">Go to Site</a>
+								<?php
+								endif; ?>
+
+                            </div>
+                        </div>
+                        <div class="item-description">
+							<?php
+							echo esc_html( $site['content'] ); ?>
+                        </div>
+
+                    </div>
+
+				<?php
+				endforeach; ?>
+
+            </div>
 
         </div>
-
     </div>
-</div>
+<?php
+// phpcs:enable

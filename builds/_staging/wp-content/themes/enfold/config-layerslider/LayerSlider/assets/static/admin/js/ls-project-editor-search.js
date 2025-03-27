@@ -95,6 +95,24 @@ const LS_SearchActions = [
 				action: function() {
 					LayerSlider.addFormattedLayer('post');
 				}
+			},
+
+			{
+				name: 'Countdown',
+				icon: 'countdown',
+				keywords: 'add new create',
+				action: function() {
+					LayerSlider.addFormattedLayer('countdown');
+				}
+			},
+
+			{
+				name: 'Counter',
+				icon: 'counter',
+				keywords: 'add new create countup countdown',
+				action: function() {
+					LayerSlider.addFormattedLayer('counter');
+				}
 			}
 
 		]
@@ -145,9 +163,9 @@ const LS_SearchActions = [
 
 			{
 				name: 'Paste Layer',
-				icon: 'clipboard',
+				icon: 'paste',
 				action: function() {
-					LayerSlider.pastaLayer();
+					LayerSlider.pasteLayer();
 				}
 			},
 
@@ -177,7 +195,21 @@ const LS_SearchActions = [
 				}
 			},
 
+			{
+				name: 'Copy Layer Styles',
+				icon: 'copy',
+				action: function() {
+					LayerSlider.copyLayerStyles();
+				}
+			},
 
+			{
+				name: 'Paste Layer Styles',
+				icon: 'paste',
+				action: function() {
+					LayerSlider.pasteLayerStyles();
+				}
+			}
 		]
 	},
 

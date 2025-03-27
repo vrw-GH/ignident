@@ -38,6 +38,13 @@ Magazine
 	position: relative;
 }
 
+.av-magazine-thumbnail .avia-svg-icon svg:first-child,
+.av-magazine-thumbnail .avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+	margin-top: 15px;
+}
+
 .av-magazine-thumbnail-link{
 	overflow: hidden;
 	display: block;

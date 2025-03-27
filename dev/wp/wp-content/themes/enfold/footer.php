@@ -343,10 +343,15 @@ global $avia_config;
 		<?php
 			echo "<div class='bg_container' style='background-image:url(" . $avia_config['fullscreen_image'] . ");'></div>";
 		}
+
+		$icon_title = __( 'Scroll to top', 'avia_framework' );
+		$icon_top = avia_font_manager::get_frontend_icon( 'svg__scrolltop', false, [ 'aria-hidden' => 'true', 'title' => $icon_title, 'desc' => $icon_title ] );
 	?>
 
-
-<a href='#top' title='<?php _e( 'Scroll to top', 'avia_framework' ); ?>' id='scroll-top-link' <?php echo av_icon_string( 'scrolltop' ); ?> tabindex='-1'><span class="avia_hidden_link_text"><?php _e( 'Scroll to top', 'avia_framework' ); ?></span></a>
+<a href='#top' title='<?php echo $icon_title; ?>' id='scroll-top-link' class='avia-svg-icon avia-font-svg_entypo-fontello' <?php echo $icon_top['attr']; ?> tabindex='-1' aria-hidden='true'>
+	<?php echo $icon_top['svg']; ?>
+	<span class="avia_hidden_link_text"><?php echo $icon_title; ?></span>
+</a>
 
 <div id="fb-root"></div>
 

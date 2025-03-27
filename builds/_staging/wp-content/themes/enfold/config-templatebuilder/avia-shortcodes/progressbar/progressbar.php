@@ -11,6 +11,8 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 {
 	class avia_sc_progressbar extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * Stores the values for the default color sets for the progress bars
 		 *
@@ -227,13 +229,21 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 							'std'			=> array(
 													array(
 														'title'			=> __( 'Skill or Task', 'avia_framework' ),
-														'icon'			=> '43',
+														'icon'			=> 'tools',
+														'font'			=> 'svg_entypo-fontello',
 														'progress'		=> '100',
-														'icon_select'	=> 'no'
+														'icon_select'	=> 'yes'
+													),
+													array(
+														'title'			=> __( 'Progress', 'avia_framework' ),
+														'icon'			=> 'brush',
+														'font'			=> 'svg_entypo-fontello',
+														'progress'		=> '50',
+														'icon_select'	=> 'yes'
 													),
 												),
 							'subelements'	=> $this->create_modal()
-						),
+						)
 
 				);
 
@@ -281,7 +291,7 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 							'lockable'	=> true,
 							'required'	=> array( 'bar_styling_secondary', 'equals',  'av-small-bar' ),
 							'subtype'	=> AviaHtmlHelper::number_array( 1, 50, 1, array(), 'px' )
-						),
+						)
 
 				);
 
@@ -291,7 +301,7 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'General Styling', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_general' ), $template );
@@ -440,7 +450,7 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 							'desc'		=> __( 'Enter the Progress Bars title here', 'avia_framework' ) ,
 							'id'		=> 'title',
 							'type'		=> 'input',
-							'std'		=> '',
+							'std'		=> __( 'Progress', 'avia_framework' ),
 							'lockable'	=> true,
 							'dynamic'	=> []
 						),
@@ -460,7 +470,7 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 							'desc'		=> __( 'Should an icon be displayed at the left side of the progress bar', 'avia_framework' ),
 							'id'		=> 'icon_select',
 							'type'		=> 'select',
-							'std'		=> 'no',
+							'std'		=> 'yes',
 							'lockable'	=> true,
 							'subtype'	=> array(
 												__( 'No Icon', 'avia_framework' )			=> 'no',
@@ -469,16 +479,17 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 						),
 
 						array(
-							'name'		=> __( 'List Item Icon','avia_framework' ),
-							'desc'		=> __( 'Select an icon for your list item below','avia_framework' ),
+							'name'		=> __( 'Progress Bar Icon','avia_framework' ),
+							'desc'		=> __( 'Select an icon for the progress bar below','avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
 							'required'	=> array( 'icon_select', 'equals', 'yes' ),
-							'std'		=> '',
+							'std'		=> 'tools',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' )
-						),
-
+						)
 				);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'modal_content_bar' ), $c );
@@ -578,7 +589,7 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 			$template = $this->update_template_lockable( 'title', '{{title}}: ', $locked );
 			$template_percent = $this->update_template_lockable( 'progress', '{{progress}}%', $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			if( empty( $attr['icon_select'] ) )
 			{
@@ -758,6 +769,8 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 
 			$atts = shortcode_atts( $default, $atts, $this->config['shortcode_nested'][0] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
+
 			$classes = array(
 						'avia-progress-bar',
 						$element_id,
@@ -768,6 +781,7 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 			$element_styling->add_classes_from_array( 'container', $meta, 'el_class' );
 
 			$element_styling->add_styles( 'progress-bar', array( 'width' => $atts['progress'] . '%' ) );
+			$element_styling->add_classes( 'icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 			$colors = array();
 
@@ -809,6 +823,10 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 
 			$element_styling->add_styles( 'title-wrap', array( 'color' => $atts['color_title'] ) );
 			$element_styling->add_styles( 'percent-wrap', array( 'color' => $atts['color_title'] ) );
+			$element_styling->add_styles( 'icon-svg', array(
+														'fill'		=> $atts['color_title'],
+														'stroke'	=> $atts['color_title']
+												) );
 
 			if( empty( $parent_atts['bar_styling_secondary'] ) )
 			{
@@ -825,6 +843,7 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 						'progress-bar'	=> "#top .avia-progress-bar-container .avia-progress-bar.{$element_id} .bar",
 						'title-wrap'	=> "#top .avia-progress-bar-container .avia-progress-bar.{$element_id} .progressbar-title-wrap",
 						'percent-wrap'	=> "#top .avia-progress-bar-container .avia-progress-bar.{$element_id} .progressbar-percent",
+						'icon-svg'		=> ".avia-progress-bar-container .avia-progress-bar.{$element_id} .progressbar-char.avia-svg-icon svg:first-child"
 					);
 
 			$element_styling->add_selectors( $selectors );
@@ -903,10 +922,6 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 			extract( $atts );
 
 
-
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
-
-
 			$this->subitem_inline_styles .= $element_styling->get_style_tag( $element_id, 'rules_only' );
 			$container_class = $element_styling->get_class_string( 'container' );
 
@@ -915,8 +930,15 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 
 			if( $atts['icon_select'] == 'yes' || $atts['title'] )
 			{
+				$display_char = avia_font_manager::get_frontend_icon( $icon, $font );
+				$icon_class = $element_styling->get_class_string( 'icon' );
+
 				$bar_html .= '<div class="progressbar-title-wrap">';
-				$bar_html .=		"<div class='progressbar-icon'><span class='progressbar-char' {$display_char}></span></div>";
+				$bar_html .=		'<div class="progressbar-icon">';
+				$bar_html .=			"<span class='progressbar-char {$icon_class}' {$display_char['attr']}>";
+				$bar_html .=				$display_char['svg'];
+				$bar_html .=			'</span>';
+				$bar_html .=		'</div>';
 				$bar_html .=		"<div class='progressbar-title'>{$atts['title']}</div>";
 				$bar_html .= '</div>';
 			}

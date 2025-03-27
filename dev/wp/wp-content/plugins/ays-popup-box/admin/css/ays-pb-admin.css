@@ -1755,6 +1755,7 @@ span.ays-pb-small-hint-text.ays-pb-show-only-for-author-hint-text {
     justify-content: flex-start;
     align-items: center;
     padding-top: 30px;
+    cursor: pointer;
 }
 
 .ays-pb-accordion-header p.ays-subtitle {
@@ -1836,6 +1837,12 @@ a.ays_pb_plus_schedule:hover {
     display: flex;
     align-items: center;
 }
+
+#ays-active-time::-webkit-calendar-picker-indicator,
+#ays-deactive-time::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
 
 #ays_pb_change_creation_date.ays-pb-date-create {
     height: 40px !important;

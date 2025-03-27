@@ -20,22 +20,40 @@ function seopress_admin_bar_links() {
     $title = apply_filters('seopress_adminbar_icon', $title);
 
     $noindex = '';
-    if ('1' !== seopress_get_service('AdvancedOption')->getAppearanceAdminBarNoIndex()) {
-        if ('1' === seopress_get_service('TitleOption')->getTitleNoIndex() || '1' != get_option('blog_public')) {
-            $noindex .= '<a class="wrap-seopress-noindex" href="' . admin_url('admin.php?page=seopress-titles#tab=tab_seopress_titles_advanced') . '">';
+    if ('1' !== seopress_get_service('AdvancedOption')->getAppearanceAdminBarNoIndex() && !is_admin()) {
+        $metarobots = false;
+    
+        if (get_post_meta(get_the_ID(), '_seopress_robots_index', true)) {
+            $metarobots = true;
+        } elseif (
+            seopress_get_service('TitleOption')->getSingleCptNoIndex() ||
+            seopress_get_service('TitleOption')->getTitleNoIndex() ||
+            true === post_password_required(get_the_ID())
+        ) {
+            $metarobots = true;
+        } elseif (
+            '1' === seopress_get_service('TitleOption')->getTitleNoIndex() ||
+            '1' !== get_option('blog_public')
+        ) {
+            $metarobots = true;
+        }
+    
+        if ($metarobots === true) {
+            $noindex = '<a class="wrap-seopress-noindex" href="' . admin_url('admin.php?page=seopress-titles#tab=tab_seopress_titles_advanced') . '">';
             $noindex .= '<span class="ab-icon dashicons dashicons-hidden"></span>';
             $noindex .= __('noindex is on!', 'wp-seopress');
             $noindex .= '</a>';
         }
-        $noindex = apply_filters('seopress_adminbar_noindex', $noindex);
+    
+        $noindex = apply_filters('seopress_adminbar_noindex', $noindex ?? '');
     }
 
     // Adds a new top level admin bar link and a submenu to it
     $wp_admin_bar->add_menu([
         'parent'	=> false,
-        'id'		   => 'seopress',
+        'id'		=> 'seopress',
         'title'		=> $title . $noindex,
-        'href'		 => admin_url('admin.php?page=seopress-option'),
+        'href'		=> admin_url('admin.php?page=seopress-option'),
     ]);
 
     //noindex/nofollow per CPT
@@ -142,7 +160,7 @@ function seopress_admin_bar_links() {
         'parent'	=> 'seopress',
         'id'		   => 'seopress_custom_sub_menu_wizard',
         'title'		=> __('Configuration wizard', 'wp-seopress'),
-        'href'		 => admin_url('admin.php?page=seopress-setup'),
+        'href'		 => admin_url('admin.php?page=seopress-setup&step=welcome&parent=welcome'),
     ]);
 }
 add_action('admin_bar_menu', 'seopress_admin_bar_links', 99);

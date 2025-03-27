@@ -462,49 +462,11 @@ if( ! class_exists( 'AviaHelper', false ) )
 			if( $link[0] == 'lightbox' )
 			{
 				/**
+				 * Code was moved to this function to allow not loading ALB core scripts
 				 *
-				 * @used_by			config-wpml\config.php  avia_wpml_get_attachment_id()		10
-				 * @since 4.8
-				 * @param int $post_id;
-				 * @return int
+				 * @since 7.0
 				 */
-				$post_id = apply_filters( 'avf_alb_attachment_id', $post_id );
-
-
-				/**
-				 * @since ???
-				 * @param string $image_size
-				 * @param string $link						@added 4.8.2
-				 * @param int|false $post_id				@added 4.8.2
-				 * @param boolean $responsive_lightbox		@added 4.8.2
-				 * @return string
-				 */
-				$lightbox_size = apply_filters( 'avf_avia_builder_helper_lightbox_size', 'large', $link, $post_id, $responsive_lightbox );
-
-
-				if( true !== $responsive_lightbox )
-				{
-					$link = wp_get_attachment_image_src( $post_id, $lightbox_size );
-					return is_array( $link ) ? $link[0] : '';
-				}
-
-				//	create array with responsive info for lightbox
-				$link = Av_Responsive_Images()->responsive_image_src( $post_id, $lightbox_size );
-
-				if( ! is_array( $link ) )
-				{
-					$img_link = '';
-				}
-				else
-				{
-					$img_link = array(
-								0			=> esc_url( $link[0] ),
-								'srcset'	=> $link['srcset'],
-								'sizes'		=> $link['sizes']
-							);
-				}
-
-				return $img_link;
+				return avia_responsive_lightbox_image( $post_id, $responsive_lightbox );
 			}
 
 			if( $link[0] == 'manually' )

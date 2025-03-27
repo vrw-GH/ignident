@@ -13,6 +13,8 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 
 	class avia_sc_icon_circles extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 *
 		 * @since 5.1
@@ -219,20 +221,20 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 							'std'			=> array(
 													array(
 														'title'			=> __( 'Title 1', 'avia_framework' ),
-														'icon'			=> 'ue856',
-														'font'			=> 'entypo-fontello',
+														'icon'			=> 'tools',
+														'font'			=> 'svg_entypo-fontello',
 														'description'	=> __( 'Enter some description content for title 1 here', 'avia_framework' )
 													),
 													array(
 														'title'			=> __( 'Title 2', 'avia_framework' ),
-														'icon'			=> 'ue8c0',
-														'font'			=> 'entypo-fontello',
+														'icon'			=> 'brush',
+														'font'			=> 'svg_entypo-fontello',
 														'description'	=> __( 'Enter some description content for title 2 here', 'avia_framework' )
 													),
 													array(
 														'title'			=> __( 'Title 3', 'avia_framework' ),
-														'icon'			=> 'ue8b9',
-														'font'			=> 'entypo-fontello',
+														'icon'			=> 'lifebuoy',
+														'font'			=> 'svg_entypo-fontello',
 														'description'	=> __( 'Enter some description content for title 3 here', 'avia_framework' )
 													),
 												),
@@ -596,7 +598,9 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 							'desc'		=> __( 'Select an icon for your circle icon entry', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'tools',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' )
 						),
@@ -744,7 +748,7 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 
 			$template = $this->update_template_lockable( 'title', __( 'Element', 'avia_framework' ) . ': {{title}}', $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$params['innerHtml']  = '';
 			$params['innerHtml'] .=		"<div class='avia_title_container' data-update_element_template='yes'>";
@@ -870,10 +874,20 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 													'border-color'	=> $atts['color_icons_bgr']
 												) );
 
+			$element_styling->add_styles( 'icon-svg', array(
+													'fill'		=> $atts['color_icons'],
+													'stroke'	=> $atts['color_icons']
+												) );
+
 			$element_styling->add_styles( 'icon_hover', array(
 													'color'			=> $atts['color_icons_hover'],
 													'background'	=> $atts['color_icons_bgr_hover'],
 													'border-color'	=> $atts['color_icons_bgr_hover']
+												) );
+
+			$element_styling->add_styles( 'icon_hover-svg', array(
+													'fill'		=> $atts['color_icons_hover'],
+													'stroke'	=> $atts['color_icons_hover']
 												) );
 
 			$element_styling->add_styles( 'text', array(
@@ -957,9 +971,11 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 						'title'					=> ".av-icon-circles-container.{$element_id} .icon-title",
 						'description'			=> ".av-icon-circles-container.{$element_id} .icon-description",
 						'icon'					=> ".av-icon-circles-container.{$element_id} .avia-icon-circles-icon",
+						'icon-svg'				=> ".av-icon-circles-container.{$element_id} .avia-icon-circles-icon.avia-svg-icon svg:first-child",
 						'icon-animated'			=> ".av-icon-circles-container.{$element_id}.avia_start_animation .avia-icon-circles-icon",
 						'text'					=> ".av-icon-circles-container.{$element_id} .avia-icon-circles-icon-text",
-						'icon_hover'			=> ".av-icon-circles-container.{$element_id} .avia-icon-circles-icon.active"
+						'icon_hover'			=> ".av-icon-circles-container.{$element_id} .avia-icon-circles-icon.active",
+						'icon_hover-svg'		=> ".av-icon-circles-container.{$element_id} .avia-icon-circles-icon.avia-svg-icon.active svg:first-child"
 					);
 
 
@@ -1058,8 +1074,8 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 			}
 
 			$default = array(
-							'icon'			=> 'ue856',
-							'font'			=> 'entypo-fontello',
+							'icon'			=> 'tools',
+							'font'			=> 'svg_entypo-fontello',
 							'link'			=> '',
 							'linktarget'	=> ''
 						);
@@ -1071,14 +1087,13 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $this->config['shortcode_nested'][0], $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'no', 'manually', 'single', 'taxonomy' ] );
 
-
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			$element_styling->create_callback_styles( $atts, true );
 
 			$classes = array(
 						'avia-icon-circles-icon',
 						$element_id,
-						'iconfont',
 						empty( $atts['link'] ) ? 'av-no-link' : 'av-linked-icon'
 					);
 
@@ -1089,6 +1104,8 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 
 			$element_styling->add_classes( 'container', $classes );
 			$element_styling->add_classes_from_array( 'container', $meta, 'el_class' );
+
+			$element_styling->add_classes( 'container', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 			$classes = array(
 							'avia-icon-circles-icon-text',
@@ -1105,17 +1122,29 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 													'border-color'	=> ! empty( $atts['color_icon_border'] ) ? $atts['color_icon_border'] : $atts['color_icon_bgr']
 												) );
 
+			$element_styling->add_styles( 'container-svg', array(
+													'fill'		=> $atts['color_icon'],
+													'stroke'	=> $atts['color_icon']
+												) );
+
 			$element_styling->add_styles( 'container-active', array(
 													'color'			=> $atts['color_icon_hover'],
 													'background'	=> $atts['color_icon_bgr_hover'],
 													'border-color'	=> ! empty( $atts['color_icon_border_hover'] ) ? $atts['color_icon_border_hover'] : $atts['color_icon_bgr_hover']
 												) );
 
+			$element_styling->add_styles( 'container-active-svg', array(
+													'fill'		=> $atts['color_icon_hover'],
+													'stroke'	=> $atts['color_icon_hover']
+												) );
+
 			$element_styling->add_responsive_styles( 'description', 'hide-desc', $atts, $this );
 
 			$selectors = array(
 						'container'				=> ".av-icon-circles-container .avia-icon-circles-icon.{$element_id}",
+						'container-svg'			=> ".av-icon-circles-container .avia-icon-circles-icon.{$element_id}.avia-svg-icon svg:first-child",
 						'container-active'		=> ".av-icon-circles-container .avia-icon-circles-icon.{$element_id}.active",
+						'container-active-svg'	=> ".av-icon-circles-container .avia-icon-circles-icon.{$element_id}.avia-svg-icon.active svg:first-child",
 						'container-text'		=> ".av-icon-circles-container .avia-icon-circles-icon-text.{$element_id}",
 						'description'			=> ".av-icon-circles-container .avia-icon-circles-icon-text.{$element_id} .icon-description",
 					);
@@ -1239,7 +1268,7 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 			extract( $atts );
 
 
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
+			$display_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
 
 			$link = AviaHelper::get_url( $link );
 			$blank = AviaHelper::get_link_target( $linktarget );
@@ -1258,7 +1287,9 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 			$data_container_text = $element_styling->get_data_attributes_string( 'container-text' );
 
 			$html  = '';
-			$html .= "<{$tags[0]} class='{$container_class} avia-icon-circles-icon-{$index}' {$data_container_icon} {$display_char}></{$tags[1]}>";
+			$html .= "<{$tags[0]} class='{$container_class} avia-icon-circles-icon-{$index}' {$data_container_icon} {$display_char['attr']}>";
+			$html .=		$display_char['svg'];
+			$html .= "</{$tags[1]}>";
 			$html .= "<div class='{$container_text_class}' {$data_container_text}>";
 			$html .=	'<div class="avia-icon-circles-icon-text-inner">';
 			$html .=		'<div class="icon-title">';

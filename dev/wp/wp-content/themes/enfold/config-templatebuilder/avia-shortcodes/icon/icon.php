@@ -11,6 +11,8 @@ if( ! class_exists( 'av_font_icon', false ) )
 {
     class av_font_icon extends aviaShortcodeTemplate
     {
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * Create the config array for the shortcode button
 		 */
@@ -186,14 +188,16 @@ if( ! class_exists( 'av_font_icon', false ) )
 
 			$c = array(
 						array(
-							'name'  => __( 'Font Icon', 'avia_framework' ),
-							'desc'  => __( 'Select an Icon below', 'avia_framework' ),
-							'id'    => 'icon',
-							'type'  => 'iconfont',
-							'std'   => 'ue803',
+							'name'		=> __( 'Font Icon', 'avia_framework' ),
+							'desc'		=> __( 'Select an icon below', 'avia_framework' ),
+							'id'		=> 'icon',
+							'type'		=> 'iconfont',
+							'std'		=> 'tools',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' )
-						),
+						)
 				);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'content_iconfont' ), $c );
@@ -201,15 +205,15 @@ if( ! class_exists( 'av_font_icon', false ) )
 
 			$c = array(
 						array(
-							'name' 	=> __( 'Optional Tooltip', 'avia_framework' ),
-							'desc' 	=> __( 'Add a tooltip for this Icon. The tooltip will appear on mouse over', 'avia_framework' )
-											. '<br/><small>'
-											. __( 'Please note: Images within the tooltip are currently not supported', 'avia_framework' )
-											. '</small>',
-							'id' 	=> 'content',
-							'type' 	=> 'textarea',
-							'std' 	=> '',
-							'lockable'	=> true,
+							'name'		=> __( 'Optional Tooltip', 'avia_framework' ),
+							'desc'		=> __( 'Add a tooltip for this icon. The tooltip will appear on mouse over', 'avia_framework' )
+												. '<br/><small>'
+												. __( 'Please note: Images within the tooltip are currently not supported', 'avia_framework' )
+												. '</small>',
+							'id'		=> 'content',
+							'type'		=> 'textarea',
+							'std'		=> '',
+							'lockable'	=> true
 						)
 				);
 
@@ -223,43 +227,43 @@ if( ! class_exists( 'av_font_icon', false ) )
 
 			$c = array(
 						array(
-							'name'	=> __( 'Icon Style', 'avia_framework' ),
-							'desc'	=> __( 'Here you can set the style of the icon. Either display it inline as part of some text or let it stand alone with border and optional caption', 'avia_framework' ),
-							'id'	=> 'style',
-							'type'	=> 'select',
-							'std'	=> '',
+							'name'		=> __( 'Icon Style', 'avia_framework' ),
+							'desc'		=> __( 'Here you can set the style of the icon. Either display it inline as part of some text or let it stand alone with border and optional caption', 'avia_framework' ),
+							'id'		=> 'style',
+							'type'		=> 'select',
+							'std'		=> '',
 							'lockable'	=> true,
 							'subtype'	=> array(
-										__( 'Default inline style', 'avia_framework' )	=> '',
-										__( 'Standalone Icon with border and optional caption', 'avia_framework' )	=> 'border',
-									)
+												__( 'Default inline style', 'avia_framework' )								=> '',
+												__( 'Standalone Icon with border and optional caption', 'avia_framework' )	=> 'border'
+											)
 						),
 
 						array(
-							'name'  => __( 'Icon Caption', 'avia_framework' ),
-							'desc'  => __( 'A small caption below the icon', 'avia_framework' ),
-							'id'    => 'caption',
-							'type' 	=> 'input',
-							'std' 	=> '',
+							'name'		=> __( 'Icon Caption', 'avia_framework' ),
+							'desc'		=> __( 'A small caption below the icon', 'avia_framework' ),
+							'id'		=> 'caption',
+							'type'		=> 'input',
+							'std'		=> '',
 							'lockable'	=> true,
 							'required' 	=> array( 'style', 'not', '' )
 						),
 
 						array(
-							'name'  => __( 'Icon Size', 'avia_framework' ),
-							'desc'  => __( 'Enter the font size in px, em or &percnt;', 'avia_framework' ),
-							'id'    => 'size',
-							'type'  => 'input',
-							'std'	=> '40px',
+							'name'		=> __( 'Icon Size', 'avia_framework' ),
+							'desc'		=> __( 'Enter the font size in px, em or &percnt;', 'avia_framework' ),
+							'id'		=> 'size',
+							'type'		=> 'input',
+							'std'		=> '40px',
 							'lockable'	=> true
 						),
 
 						array(
-							'name' 	=> __( 'Icon Position', 'avia_framework' ),
-							'desc' 	=> __( 'Choose the alignment of your icon here', 'avia_framework' ),
-							'id' 	=> 'position',
-							'type' 	=> 'select',
-							'std' 	=> 'left',
+							'name'		=> __( 'Icon Position', 'avia_framework' ),
+							'desc'		=> __( 'Choose the alignment of your icon here', 'avia_framework' ),
+							'id'		=> 'position',
+							'type'		=> 'select',
+							'std'		=> 'left',
 							'lockable'	=> true,
 							'subtype'	=> array(
 											__( 'Align Left', 'avia_framework' )	=> 'left',
@@ -283,14 +287,14 @@ if( ! class_exists( 'av_font_icon', false ) )
 
 			$c = array(
 						array(
-							'name'  => __( 'Icon Color', 'avia_framework' ),
-							'desc'  => __( 'Here you can set the color of the icon. Enter no value if you want to use the standard font color.', 'avia_framework' ),
-							'id'    => 'color',
-							'rgba' 	=> true,
-							'type'  => 'colorpicker',
+							'name'		=> __( 'Icon Color', 'avia_framework' ),
+							'desc'		=> __( 'Here you can set the color of the icon. Enter no value if you want to use the standard font color.', 'avia_framework' ),
+							'id'		=> 'color',
+							'rgba'		=> true,
+							'type'		=> 'colorpicker',
 							'std'		=> '',
 							'lockable'	=> true
-						),
+						)
 				);
 
 			$template = array(
@@ -299,7 +303,7 @@ if( ! class_exists( 'av_font_icon', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Colors', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_color' ), $template );
@@ -311,17 +315,17 @@ if( ! class_exists( 'av_font_icon', false ) )
 
 			$c = array(
 						array(
-							'name' 	=> __( 'Animation', 'avia_framework' ),
-							'desc' 	=> __( 'Should the icons appear in an animated way?', 'avia_framework' ),
-							'id' 	=> 'animation',
-							'type' 	=> 'select',
-							'std' 	=> '',
+							'name'		=> __( 'Animation', 'avia_framework' ),
+							'desc'		=> __( 'Should the icons appear in an animated way?', 'avia_framework' ),
+							'id'		=> 'animation',
+							'type'		=> 'select',
+							'std'		=> '',
 							'lockable'	=> true,
 							'subtype'	=> array(
 											__( 'Animation activated', 'avia_framework' )	=> '',
 											__( 'Animation deactivated', 'avia_framework' )	=> 'deactivated',
 										)
-						),
+						)
 				);
 
 			$this->popup_templates['advanced_animation'] = $c;
@@ -338,7 +342,6 @@ if( ! class_exists( 'av_font_icon', false ) )
 							'dynamic'		=> [ 'wp_custom_field' ],
 							'dynamic_clear'	=> true
 						)
-
 				);
 
 
@@ -361,7 +364,7 @@ if( ! class_exists( 'av_font_icon', false ) )
 			$attr = $params['args'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked );
 
-			extract( av_backend_icon(  array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon(  array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$inner  = "<div class='avia_icon_element avia_textblock avia_textblock_style' data-update_element_template='yes'>";
 			$inner .=		'<div ' . $this->class_by_arguments_lockable( 'position', $attr, $locked ) . '>';
@@ -420,6 +423,8 @@ if( ! class_exists( 'av_font_icon', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $shortcodename, $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'no', 'manually', 'single', 'taxonomy' ] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
+
 			/**
 			 * @since 5.3
 			 * @param string $class_animation
@@ -436,13 +441,15 @@ if( ! class_exists( 'av_font_icon', false ) )
 						'av_font_icon',
 						$element_id,
 						$class_animation,
-						'av-icon-style-' . $atts['style'],
-						'avia-icon-pos-' . $atts['position']
+						"av-icon-style-{$atts['style']}",
+						"avia-icon-pos-{$atts['position']}"
 					);
 
 			$element_styling->add_classes( 'container', $classes );
 			$element_styling->add_classes_from_array( 'container', $meta, 'custom_class' );
 			$element_styling->add_responsive_classes( 'container', 'hide_element', $atts );
+
+			$element_styling->add_classes( 'container', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 			if( ! empty( $atts['color'] ) )
 			{
@@ -452,6 +459,13 @@ if( ! class_exists( 'av_font_icon', false ) )
 							);
 
 				$element_styling->add_styles( 'container', $colors );
+
+				$colors = array(
+								'stroke'	=> $atts['color'],
+								'fill'		=> $atts['color']
+							);
+
+				$element_styling->add_styles( 'svg-icon', $colors );
 			}
 			else
 			{
@@ -465,10 +479,12 @@ if( ! class_exists( 'av_font_icon', false ) )
 					$atts['size'] .= 'px';
 				}
 
-				$sizes = array(
-								'font-size'		=> $atts['size'],
-								'line-height'	=> $atts['size']
-							);
+				$sizes = array( 'font-size' => $atts['size'] );
+
+				if( ! avia_font_manager::are_svg_icons( $atts['font'] ) )
+				{
+					$sizes['line-height'] = $atts['size'];
+				}
 
 				$element_styling->add_styles( 'character', $sizes );
 			}
@@ -514,6 +530,7 @@ if( ! class_exists( 'av_font_icon', false ) )
 
 			$selectors = array(
 							'container'				=> ".av_font_icon.{$element_id}",
+							'svg-icon'				=> ".avia-svg-icon.{$element_id} svg:first-child",
 							'character'				=> ".av_font_icon.{$element_id} .av-icon-char",
 							'character-hover'		=> ".av_font_icon.{$element_id} .av-icon-char:hover",
 							'character-after'		=> ".av_font_icon.{$element_id}.av-icon-style-border .av-icon-char:after",
@@ -570,11 +587,19 @@ if( ! class_exists( 'av_font_icon', false ) )
 				$title_attr_markup = AviaHelper::get_link_title_attr_markup( $title_attr );
 			}
 
-			$char = avia_font_manager::frontend_icon( $icon, $font, 'string', empty( $link ) );
+			$add_atts = [
+					'aria-hidden'	=> empty( $link ) ? 'true' : 'false'
+				];
+
+			$char = avia_font_manager::get_frontend_icon( $icon, $font, $add_atts );
 
 			$tags = ! empty( $link ) ? array( "a href='{$link}' {$blank} {$title_attr_markup}", 'a' ) : array( 'span', 'span' );
 			$tooltip = empty( $content ) ? '' : 'data-avia-icon-tooltip="' . htmlspecialchars( do_shortcode( $content ) ) . '"';
-			$display_char = "<{$tags[0]} class='av-icon-char' {$char} {$tooltip}></{$tags[1]}>";
+
+			$display_char  = "<{$tags[0]} class='av-icon-char' {$char['attr']} {$tooltip}>";
+			$display_char .=	$char['svg'];
+			$display_char .= "</{$tags[1]}>";
+
 
 			$style_tag = $element_styling->get_style_tag( $element_id );
 			$container_class = $element_styling->get_class_string( 'container' );
@@ -588,4 +613,5 @@ if( ! class_exists( 'av_font_icon', false ) )
             return $output;
         }
     }
+
 }

@@ -629,6 +629,7 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 							'wc_prod_visible'		=> '',
 							'wc_prod_hidden'		=> '',
 							'wc_prod_featured'		=> '',
+							'wc_prod_sale'			=> '',
 							'prod_order_by'			=> '',
 							'prod_order'			=> '',
 							'show_meta_data'		=> '',		//	'' | 'always' | 'on_empty_title' | 'on_empty_content' (use filter to change)
@@ -868,12 +869,23 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 				}
 				else
 				{
-					$thumbnail = "<span class='fallback-post-type-icon' " . av_icon_string( $format ) .  "></span><span class='slider-fallback-image'>{{thumbnail}}</span>";
+					$display_char = avia_font_manager::get_frontend_shortcut_icon( "svg__{$format}", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+					$char_class = avia_font_manager::get_frontend_icon_classes( $display_char['font'], 'string' );
+
+					$thumbnail  = "<span class='fallback-post-type-icon {$char_class}' {$display_char['attr']}>";
+					$thumbnail .=		$display_char['svg'];
+					$thumbnail .= '</span>';
+					$thumbnail .= "<span class='slider-fallback-image'>{{thumbnail}}</span>";
 					$thumb_class = 'fake-thumbnail';
 				}
 
+				$permalink  = '<div class="read-more-link">';
+				$permalink .=		'<a href="' . get_permalink( $the_id ) . '" class="more-link">';
+				$permalink .=			__( 'Read more', 'avia_framework' );
+				$permalink .=			avia_font_manager::html_more_link_arrow();
+				$permalink .=		'</a>';
+				$permalink .= '</div>';
 
-				$permalink = '<div class="read-more-link"><a href="' . get_permalink( $the_id ) . '" class="more-link">' . __( 'Read more', 'avia_framework' ) . '<span class="more-link-arrow"></span></a></div>';
 				$prepare_excerpt = ! empty( $entry->post_excerpt ) ? $entry->post_excerpt : avia_backend_truncate( $entry->post_content, apply_filters( 'avf_postgrid_excerpt_length', $excerpt_length ), apply_filters( 'avf_postgrid_excerpt_delimiter', ' ' ), '…', true, '' );
 
 				if( $format == 'link' )
@@ -946,6 +958,24 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 				$markup_time = avia_markup_helper( array( 'context' => 'entry_time', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) );
 				$markup_content = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) );
 
+				$aria_label = __( 'Slide', 'avia_framework' );
+
+				if( ! empty( $entry->post_title ) )
+				{
+					$aria_label .= ': ' . esc_attr( $entry->post_title );
+				}
+
+				$aria_label = 'aria-label="' . $aria_label . '"';
+
+				/**
+				 * @since 6.0.3
+				 * @param string $aria_label
+				 * @param string $context
+				 * @param WP_Post $entry
+				 * @return string
+				 */
+				$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $entry );
+
 				$post_format = get_post_format( $the_id ) ? get_post_format( $the_id ) : 'standard';
 
 				if( $loop_counter == 1 )
@@ -976,7 +1006,7 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 				$output .= '<div class="slide-content">';
 
 
-				$output .= '<header class="entry-content-header">';
+				$output .= '<header class="entry-content-header" ' . $aria_label . '>';
 				$meta_out = '';
 
 				if( ! empty( $title ) || in_array( $show_meta_data_post, array( 'always', 'on_empty_title' ) ) )
@@ -1308,8 +1338,9 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 		protected function slide_navigation_arrows()
 		{
 			$args = array(
-						'context'		=> get_class( $this ),
-						'params'		=> $this->atts
+						'context'	=> get_class( $this ),
+						'params'	=> $this->atts,
+						'svg_icon'	=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );
@@ -1446,6 +1477,7 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 					avia_wc_set_out_of_stock_query_params( $meta_query, $tax_query, $params['wc_prod_visible'] );
 					avia_wc_set_hidden_prod_query_params( $meta_query, $tax_query, $params['wc_prod_hidden'] );
 					avia_wc_set_featured_prod_query_params( $meta_query, $tax_query, $params['wc_prod_featured'] );
+					avia_wc_set_on_sale_prod_query_params( $meta_query, $tax_query, $params['wc_prod_sale'] );
 
 						//	sets filter hooks !!
 					$ordering_args = avia_wc_get_product_query_order_args( $params['prod_order_by'], $params['prod_order'] );

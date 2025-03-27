@@ -169,6 +169,11 @@ body .av-special-heading.elegant-centered .av-special-heading-tag .heading-char{
 	line-height: 1;
 }
 
+body .av-special-heading.elegant-centered .av-special-heading-tag .heading-char.avia-svg-icon svg:first-child,
+body .av-special-heading.elegant-centered .av-special-heading-tag .heading-char.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+}
 
 
 /*quote style*/

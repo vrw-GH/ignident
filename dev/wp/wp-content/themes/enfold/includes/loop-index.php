@@ -36,6 +36,8 @@ if( is_single() )
 
 $blog_global_style = avia_get_option( 'blog_global_style', '' ); //alt: elegant-blog
 
+$more_link_arrow = class_exists( 'avia_font_manager', false ) ? avia_font_manager::html_more_link_arrow() : '<span class="more-link-arrow"></span>';
+
 $initial_id = avia_get_the_ID();
 
 // check if we got posts to display:
@@ -61,15 +63,19 @@ if( have_posts() )
 		$current_post['post_layout'] = avia_layout_class( 'main', false );
 		$blog_content = ! empty( $avia_config['blog_content'] ) ? $avia_config['blog_content'] : 'content';
 
+
 		/**
 		 * If post uses builder we must change content to excerpt on overview pages to avoid circular calling of shortcodes when used e.g. in ALB blog element
 		 *
 		 * @since 5.3			extended to check for all ALB supported post types
 		 */
-		if( 'active' == Avia_Builder()->get_alb_builder_status( $current_post['the_id'] ) && ! is_singular( $current_post['the_id'] ) && in_array( $current_post['post_type'], Avia_Builder()->get_supported_post_types() ) )
+		if( function_exists( 'Avia_Builder' ) && Avia_Builder()->is_alb_loaded() )
 		{
-		   $current_post['post_format'] = 'standard';
-		   $blog_content = 'excerpt_read_more';
+			if( 'active' == Avia_Builder()->get_alb_builder_status( $current_post['the_id'] ) && ! is_singular( $current_post['the_id'] ) && in_array( $current_post['post_type'], Avia_Builder()->get_supported_post_types() ) )
+			{
+			   $current_post['post_format'] = 'standard';
+			   $blog_content = 'excerpt_read_more';
+			}
 		}
 
 		/**
@@ -142,8 +148,8 @@ if( have_posts() )
 		$current_post['content'] = apply_filters( 'avf_the_content', '', 'loop_index' );
 		if( '' == $current_post['content'] )
 		{
-			$current_post['content'] = $blog_content == 'content' ? get_the_content( __( 'Read more', 'avia_framework' ) . '<span class="more-link-arrow"></span>' ) : get_the_excerpt();
-			$current_post['content'] = $blog_content == 'excerpt_read_more' ? $current_post['content'] . '<div class="read-more-link"><a href="' . get_permalink() . '" class="more-link">' . __( 'Read more', 'avia_framework' ) . '<span class="more-link-arrow"></span></a></div>' : $current_post['content'];
+			$current_post['content'] = $blog_content == 'content' ? get_the_content( __( 'Read more', 'avia_framework' ) . $more_link_arrow ) : get_the_excerpt();
+			$current_post['content'] = $blog_content == 'excerpt_read_more' ? $current_post['content'] . '<div class="read-more-link"><a href="' . get_permalink() . '" class="more-link">' . __( 'Read more', 'avia_framework' ) . $more_link_arrow . '</a></div>' : $current_post['content'];
 			$current_post['before_content'] = '';
 
 			/*
@@ -239,7 +245,8 @@ if( have_posts() )
 			{
 				$link = avia_image_by_id( $thumb_post->ID, 'large', 'url' );
 
-				$lightbox_img = AviaHelper::get_url( 'lightbox', $thumb_post->ID, true );
+//				$lightbox_img = AviaHelper::get_url( 'lightbox', $thumb_post->ID, true );
+				$lightbox_img = avia_responsive_lightbox_image( $thumb_post->ID, true );
 				$lightbox_attr = Av_Responsive_Images()->html_attr_image_src( $lightbox_img, false );
 				$link_lightbox = true;
 			}
@@ -280,7 +287,13 @@ if( have_posts() )
 		echo '<div class="blog-meta">';
 
 			$blog_meta_output = '';
-			$icon = '<span class="iconfont" ' . av_icon_string( $post_format ) . '></span>';
+
+			$display_char = avia_font_manager::get_frontend_shortcut_icon( "svg__{$post_format}", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+			$char_class = avia_font_manager::get_frontend_icon_classes( $display_char['font'], 'string' );
+
+			$icon = "<span class='iconfont {$char_class}' {$display_char['attr']} >";
+			$icon .=	$display_char['svg'];
+			$icon .= '</span>';
 
 			if( strpos( $blog_style, 'multi' ) !== false )
 			{
@@ -329,8 +342,15 @@ if( have_posts() )
 
 				if( $blog_style == 'bloglist-compact' )
 				{
-					$format = get_post_format();
-					echo '<span class="fallback-post-type-icon" ' . av_icon_string( $format ) . '></span>';
+					$post_format = get_post_format();
+					$display_char = avia_font_manager::get_frontend_shortcut_icon( "svg__{$post_format}", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+					$char_class = avia_font_manager::get_frontend_icon_classes( $display_char['font'], 'string' );
+
+					$icon = "<span class='fallback-post-type-icon {$char_class}' {$display_char['attr']}>";
+					$icon .=	$display_char['svg'];
+					$icon .= '</span>';
+
+					echo $icon;
 				}
 
 				$close_header = '</header>';
@@ -574,7 +594,7 @@ if( have_posts() )
 
 						if( $blog_style == 'bloglist-simple' )
 						{
-							echo '<div class="read-more-link"><a href="' . get_permalink() . '" class="more-link">' . __( 'Read more', 'avia_framework' ) . '<span class="more-link-arrow"></span></a></div>';
+							echo '<div class="read-more-link"><a href="' . get_permalink() . '" class="more-link">' . __( 'Read more', 'avia_framework' ) . $more_link_arrow . '</a></div>';
 						}
 
 					echo '</span>';
@@ -591,7 +611,7 @@ if( have_posts() )
 
 					echo '<div class="read-more-link">';
 					echo	'<a href="' . get_permalink() . '" class="more-link">' . __( 'Read more', 'avia_framework' );
-					echo		'<span class="more-link-arrow"></span>';
+					echo		$more_link_arrow;
 					echo	'</a>';
 					echo '</div>';
 				}

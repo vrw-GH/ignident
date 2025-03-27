@@ -2341,10 +2341,9 @@ if( ! class_exists( 'aviaElementTemplates', false ) )
 			$condensed = $this->condense_tabs( $tabs );
 			$class_dropdown = $condensed ? 'avia-condensed' : '';
 
-			$params = array(
-							'args'	=> array( 'icon' =>  'ue86e' )
-						);
-			$icon = av_backend_icon( $params );
+			$icon = avia_font_manager::get_frontend_icon( 'arrow-combo', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+			$icon_class = avia_font_manager::get_frontend_icon_classes( $icon['font'], 'string' );
+
 			$init_sc = 'alb';
 
 			$shortcode_label = array(
@@ -2358,7 +2357,10 @@ if( ! class_exists( 'aviaElementTemplates', false ) )
 			$sel_list .=		'<ul class="avia-select-shortcode-type-select">';
 			$sel_list .=			'<li class="avia-select-shortcode-type-list-wrap">';
 			$sel_list .=				'<strong>';
-			$sel_list .=					'<span class="avia-font-entypo-fontello avia_icon_char">' . $icon['display_char'] . '</span><span class="avia-sc-type-label">'. $shortcode_label[ $init_sc ] .'</span>';
+			$sel_list .=					"<span class='avia-font-entypo-fontello {$icon_class}' {$icon['attr']}>";
+			$sel_list .=						$icon['svg'];
+			$sel_list .=					'</span>';
+			$sel_list .=					"<span class='avia-sc-type-label'>{$shortcode_label[ $init_sc ]}</span>";
 			$sel_list .=				'</strong>';
 			$sel_list .=				'<ul class="avia-select-shortcode-type-list-main">';
 			$sel_list .=					'<li class="avia-shortcode-type-list-element">';
@@ -2755,9 +2757,14 @@ if( ! class_exists( 'aviaElementTemplates', false ) )
 		 */
 		protected function create_shortcode_button( array $shortcode, $sort_order, $templ_id, $element_id )
 		{
-			$edit = av_backend_icon( array( 'args' => array( 'icon' => 'ue836', 'font' => 'entypo-fontello' ) ) );
-			$delete = av_backend_icon( array( 'args' => array( 'icon' => 'ue813', 'font' => 'entypo-fontello' ) ) );
-			$clone = av_backend_icon( array( 'args' => array( 'icon' => 'ue83c', 'font' => 'entypo-fontello' ) ) );
+			$edit = avia_font_manager::get_frontend_icon( 'pencil', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+			$edit_class = avia_font_manager::get_frontend_icon_classes( $edit['font'], 'string' );
+
+			$delete = avia_font_manager::get_frontend_icon( 'cancel', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+			$delete_class = avia_font_manager::get_frontend_icon_classes( $delete['font'], 'string' );
+
+			$clone = avia_font_manager::get_frontend_icon( 'chat', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+			$clone_class = avia_font_manager::get_frontend_icon_classes( $clone['font'], 'string' );
 
 			/**
 			 * Add a 4th action button
@@ -2769,9 +2776,21 @@ if( ! class_exists( 'aviaElementTemplates', false ) )
 
 			$icons  = '';
 			$icons .=	'<div class="avia-custom-elements-actions-overlay avia-font-' . $edit['font'] . '" data-element_id="' . $element_id . '" data-el_template="element_' . $templ_id . '" data-template="' . $templ_id . '">';
-			$icons .=		'<div class="element-sc-action-button element-edit" title="' . esc_html__( 'Edit Custom Element', 'avia_framework' ) . '"><span>' . $edit['display_char'] . '</span></div>';
-			$icons .=		'<div class="element-sc-action-button element-delete" title="' . esc_html__( 'Delete Custom Element', 'avia_framework' ) . '"><span>' . $delete['display_char'] . '</span></div>';
-			$icons .=		'<div class="element-sc-action-button element-clone" title="' . esc_html__( 'Clone Custom Element', 'avia_framework' ) . '"><span>' . $clone['display_char'] . '</span></div>';
+			$icons .=		'<div class="element-sc-action-button element-edit" title="' . esc_html__( 'Edit Custom Element', 'avia_framework' ) . '">';
+			$icons .=			"<span class='$edit_class' {$edit['attr']}>";
+			$icons .=				$edit['svg'];
+			$icons .=			'</span>';
+			$icons .=		'</div>';
+			$icons .=		'<div class="element-sc-action-button element-delete" title="' . esc_html__( 'Delete Custom Element', 'avia_framework' ) . '">';
+			$icons .=			"<span class='$delete_class' {$delete['attr']}>";
+			$icons .=				$delete['svg'];
+			$icons .=			'</span>';
+			$icons .=		'</div>';
+			$icons .=		'<div class="element-sc-action-button element-clone" title="' . esc_html__( 'Clone Custom Element', 'avia_framework' ) . '">';
+			$icons .=			"<span class='$clone_class' {$clone['attr']}>";
+			$icons .=				$clone['svg'];
+			$icons .=			'</span>';
+			$icons .=		'</div>';
 			$icons .=		$additional;
 			$icons .=		'<div class="avia-sc-button-loading avia_loading"></div>';
 			$icons .=	'</div>';

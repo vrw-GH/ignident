@@ -70,8 +70,8 @@ if ( ! class_exists( "burst_goal_statistics" ) ) {
 
 			// Initialize data array
 			$data = array();
-
-			$data['today'] = array( 'value' => 0, 'tooltip' => '' );
+            //this data is always empty, but is needed clientside to prevent errors (crashes when not available).
+            $data['today'] = array( 'value' => 0, 'tooltip' => '' );
 			$data['total'] = array( 'value' => 0, 'tooltip' => '' );
 			$data['topPerformer'] = array(
 				'title'   => '-',
@@ -173,11 +173,11 @@ if ( ! class_exists( "burst_goal_statistics" ) ) {
 				foreach ( $device_result as $device ) {
 					foreach ( $pageviews_per_device_result as $pageviews_per_device ) {
 						if ( $device->device_id === $pageviews_per_device->device_id ) {
-							$device = $use_lookup_tables ? BURST()->frontend->get_lookup_table_id( $device->device_id, 'device' ) : $device->device_id;
+							$device_id = $use_lookup_tables ? BURST()->frontend->get_lookup_table_id( $device->device_id, 'device' ) : $device->device_id;
 							$percentage = round( ( $device->value / $pageviews_per_device->value ) * 100, 2 );
 							if ( $percentage > $highest_percentage ) {
 								$highest_percentage = $percentage;
-								$data['bestDevice']['title'] = $this->get_device_name($device);
+								$data['bestDevice']['title'] = $this->get_device_name($device_id);
 								$data['bestDevice']['icon'] = $device;
 								$data['bestDevice']['value'] = $percentage;
 							}
@@ -226,25 +226,30 @@ if ( ! class_exists( "burst_goal_statistics" ) ) {
 
 add_action( 'burst_install_tables', 'burst_install_goal_statistics_table', 10 );
 function burst_install_goal_statistics_table() {
-	if ( get_option( 'burst_goal_stats_db_version' ) !== burst_version ) {
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    global $wpdb;
+    $charset_collate = $wpdb->get_charset_collate();
+    // Create table without indexes first
+    $table_name = $wpdb->prefix . 'burst_goal_statistics';
+    $sql = "CREATE TABLE $table_name (
+        `ID` int NOT NULL AUTO_INCREMENT,
+        `statistic_id` int NOT NULL,
+        `goal_id` int NOT NULL,
+        PRIMARY KEY (ID)
+    ) $charset_collate;";
 
-		global $wpdb;
-		$charset_collate = $wpdb->get_charset_collate();
+    dbDelta($sql);
+    if (!empty($wpdb->last_error)) {
+        burst_error_log("Error creating goal statistics table: " . $wpdb->last_error);
+        return; // Exit without updating version if table creation failed
+    }
 
-		$table_name = $wpdb->prefix . 'burst_goal_statistics';
-		$sql        = "CREATE TABLE $table_name (
-			`ID` int NOT NULL AUTO_INCREMENT,
-			`statistic_id` int NOT NULL,
-            `goal_id` int NOT NULL,
-              PRIMARY KEY  (ID),
-              KEY `statistic_id_index` (statistic_id),
-              KEY `goal_id_index` (goal_id)
-            ) $charset_collate;";
-		/**
-		 * We use b-tree index as it can be used for < or > operations, which is not possible for HASH
-		 */
-		dbDelta( $sql );
-		update_option( 'burst_goal_stats_db_version', burst_version, false );
-	}
+    $indexes = array(
+        ['statistic_id'],
+        ['goal_id'],
+    );
+
+    foreach ($indexes as $index ) {
+        burst_add_index($table_name, $index);
+    }
 }

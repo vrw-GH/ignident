@@ -4,8 +4,8 @@
 
 	$( function()
 	{
-		$('.avia_auto_toc').each(function(){
-
+		$('.avia_auto_toc').each(function()
+		{
 			var $toc_section = $(this).attr('id');
 			var $levels = 'h1';
 			var $levelslist = new Array();
@@ -82,10 +82,16 @@
         });
     });
 
-
     function av_pretty_url(text)
 	{
-		return text.toLowerCase()
+		return text.replace(/[ÄÖÜäöüß]/g, function(match) {
+									return {
+										"Ä": "Ae", "Ö": "Oe", "Ü": "Ue",
+										"ä": "ae", "ö": "oe", "ü": "ue",
+										"ß": "ss"
+									}[match];
+								})
+					.toLowerCase()
 					.replace( /[^a-z0-9]+/g, "-" )
 					.replace( /^-+|-+$/g, "-" )
 					.replace( /^-+|-+$/g, '' );

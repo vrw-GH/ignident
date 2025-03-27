@@ -230,8 +230,8 @@
 .ays-pro-features-v2-big-buttons-box-view-demo,
 .ays-pro-features-v2-big-buttons-box-view-demo *,
 .ays-pro-features-v2-big-buttons-box-main-container,
-.ays-pro-features-v2-main-box .ays-survey-zindex-for-pro,
-.ays-pro-features-v2-main-box iframe {
+.ays-pro-features-v2-main-box iframe,
+.ays-pro-features-v2-main-box .ays_help {
     pointer-events: auto !important;
     opacity: 1;
 }

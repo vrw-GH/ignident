@@ -14,9 +14,10 @@ $emil = WOW_Plugin::info('email');
     <div class="w_block w_has-border">
 
         <p>
-			<?php
-			/* translators: %s: url to support page */
-            printf( esc_html__( 'To get your support related question answered in the fastest timing, please send a message via the form below or write to us on email %1$s.', 'floating-button' ), '<a href="mailto:' . esc_attr( $emil ) . '">' . esc_html( $emil ) . '</a>' ); ?>
+		    <?php
+		    esc_html_e( 'To get your support related question answered in the fastest timing, please send a message via the form below or write to us via', 'floating-button' );
+		    echo ' <a href="' . esc_url( WOW_Plugin::info( 'support' ) ) . '">' . esc_html__( 'support page', 'floating-button' ) . '</a>';
+		    ?>
         </p>
 
         <p>

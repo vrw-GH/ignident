@@ -11,6 +11,8 @@ if( ! class_exists( 'avia_sc_team', false ) )
 {
 	class avia_sc_team extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 *
 		 * @since 4.8.4
@@ -329,7 +331,7 @@ if( ! class_exists( 'avia_sc_team', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Image', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 				);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_image' ), $template );
@@ -413,7 +415,7 @@ if( ! class_exists( 'avia_sc_team', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Font Sizes', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_fonts' ), $template );
@@ -500,7 +502,7 @@ if( ! class_exists( 'avia_sc_team', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Font Colors', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_font_colors' ), $template );
@@ -633,10 +635,12 @@ if( ! class_exists( 'avia_sc_team', false ) )
 							'desc'		=> __( 'Select an icon for your social service, job, etc. below', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> 'ue80b',
+							'std'		=> 'users',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' )
-						),
+						)
 
 				);
 
@@ -699,7 +703,7 @@ if( ! class_exists( 'avia_sc_team', false ) )
 			$attr = $params['args'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode_nested'][0], $default, $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$params['innerHtml']  = '';
 			$params['innerHtml'] .= "<div class='avia_title_container' data-update_element_template='yes'>";
@@ -858,6 +862,15 @@ if( ! class_exists( 'avia_sc_team', false ) )
 				$element_styling->add_styles( 'social-icon', array( 'color' => $atts['custom_icon'] ) );
 				$element_styling->add_styles( 'social-icon-hover', array( 'color' => $atts['custom_icon_hover'] ) );
 
+				$element_styling->add_styles( 'social-icon-svg', array(
+																'fill'		=> $atts['custom_icon'],
+																'stroke'	=> $atts['custom_icon']
+														) );
+				$element_styling->add_styles( 'social-icon-hover-svg', array(
+																'fill'		=> $atts['custom_icon_hover'],
+																'stroke'	=> $atts['custom_icon_hover']
+														) );
+
 				if( ! empty( $atts['custom_title'] ) )
 				{
 					$element_styling->add_classes( 'team-job', 'av_opacity_variation' );
@@ -889,14 +902,16 @@ if( ! class_exists( 'avia_sc_team', false ) )
 			}
 
 			$selectors = array(
-							'container'			=> ".avia-team-member.{$element_id}",
-							'team-name'			=> "#top #wrap_all .avia-team-member.{$element_id} .team-member-name",
-							'team-job'			=> ".avia-team-member.{$element_id} .team-member-job-title",
-							'team-description'	=> ".avia-team-member.{$element_id} .team-member-description",
-							'image'				=> ".avia-team-member.{$element_id} .team-img-container img",
-							'social-icon'		=> ".avia-team-member.{$element_id} .avia-team-icon",
-							'social-icon-hover'	=> ".avia-team-member.{$element_id} .avia-team-icon:hover",
-							'copyright'			=> ".avia-team-member.{$element_id} .av-image-copyright"
+							'container'				=> ".avia-team-member.{$element_id}",
+							'team-name'				=> "#top #wrap_all .avia-team-member.{$element_id} .team-member-name",
+							'team-job'				=> ".avia-team-member.{$element_id} .team-member-job-title",
+							'team-description'		=> ".avia-team-member.{$element_id} .team-member-description",
+							'image'					=> ".avia-team-member.{$element_id} .team-img-container img",
+							'social-icon'			=> ".avia-team-member.{$element_id} .avia-team-icon",
+							'social-icon-svg'		=> ".avia-team-member.{$element_id} .avia-team-icon.avia-svg-icon svg:first-child",
+							'social-icon-hover'		=> ".avia-team-member.{$element_id} .avia-team-icon:hover",
+							'social-icon-hover-svg'	=> ".avia-team-member.{$element_id} .avia-team-icon.avia-svg-icon:hover svg:first-child",
+							'copyright'				=> ".avia-team-member.{$element_id} .av-image-copyright"
 				);
 
 			$element_styling->add_selectors( $selectors );
@@ -927,6 +942,8 @@ if( ! class_exists( 'avia_sc_team', false ) )
 
 			extract( $result );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
+
 			if( is_null( $parent_atts ) )
 			{
 				$parent_atts = $this->parent_atts;
@@ -938,11 +955,12 @@ if( ! class_exists( 'avia_sc_team', false ) )
 					);
 
 			$element_styling->add_classes( 'team-icon', $classes );
-
+			$element_styling->add_classes( 'icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 
 			$selectors = array(
 						'container'		=> ".avia-team-member .avia-team-icon.{$element_id}",
+						'icon-svg'		=> ".avia-team-member .avia-team-icon.{$element_id}"
 					);
 
 			$element_styling->add_selectors( $selectors );
@@ -1176,7 +1194,10 @@ if( ! class_exists( 'avia_sc_team', false ) )
 				$markup = avia_markup_helper( array( 'context' => 'url', 'echo' => false, 'custom_markup' => $this->parent_atts['custom_markup'] ) );
 			}
 
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
+
+			$display_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
+			$icon_class = $element_styling->get_class_string( 'icon' );
+
 
 			$this->subitem_inline_styles .= $element_styling->get_style_tag( $element_id, 'rules_only' );
 			$team_icon_class = $element_styling->get_class_string( 'team-icon' );
@@ -1186,11 +1207,15 @@ if( ! class_exists( 'avia_sc_team', false ) )
 			if( $atts['link'] != '' )
 			{
 				$social_html .= "<span class='hidden av_member_url_markup {$social_class}' $markup>{$link}</span>";
-				$social_html .= "<a href='{$link}' class='{$team_icon_class}' rel='v:url' {$tooltip} {$target} {$display_char}></a>";
+				$social_html .= "<a href='{$link}' class='{$team_icon_class} {$icon_class}' rel='v:url' {$tooltip} {$target} {$display_char['attr']}>";
+				$social_html .=		$display_char['svg'];
+				$social_html .= '</a>';
 			}
 			else
 			{
-				$social_html .= "<a class='{$team_icon_class}' {$tooltip} {$display_char}></a>";
+				$social_html .= "<a class='{$team_icon_class} {$icon_class}' {$tooltip} {$display_char['attr']}>";
+				$social_html .=		$display_char['svg'];
+				$social_html .= '</a>';
 			}
 
 			return $social_html;

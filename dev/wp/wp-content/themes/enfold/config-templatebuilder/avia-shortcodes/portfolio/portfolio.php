@@ -946,14 +946,29 @@ if ( ! class_exists( 'avia_post_grid', false ) )
 			{
 				$container_class = $fullscreen ? 'container' : '';
 
-				$output .= "<div class='portfolio_preview_container {$container_class}' data-portfolio-id='{$container_id}'>
-								<div class='ajax_controlls iconfont'>
-									<a href='#prev' class='ajax_previous' 	" . av_icon_string('prev') . "></a>
-									<a href='#next' class='ajax_next'		" . av_icon_string('next') . "></a>
-									<a class='avia_close' href='#close'		" . av_icon_string('close') . "></a>
-								</div>
-								<div class='portfolio-details-inner'></div>
-							</div>";
+				$display_char_prev = \avia_font_manager::get_frontend_shortcut_icon( "svg__prev", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class_prev = \avia_font_manager::get_frontend_icon_classes( $display_char_prev['font'], 'string' );
+
+				$display_char_next = \avia_font_manager::get_frontend_shortcut_icon( "svg__next", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class_next = \avia_font_manager::get_frontend_icon_classes( $display_char_next['font'], 'string' );
+
+				$display_char_close = \avia_font_manager::get_frontend_shortcut_icon( "svg__close", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class_close = \avia_font_manager::get_frontend_icon_classes( $display_char_close['font'], 'string' );
+
+				$output .= "<div class='portfolio_preview_container {$container_class}' data-portfolio-id='{$container_id}'>";
+				$output .=		"<div class='ajax_controlls iconfont'>";
+				$output .=			"<a href='#prev' class='ajax_previous {$char_class_prev}' {$display_char_prev['attr']}>";
+				$output .=				$display_char_prev['svg'];
+				$output .=			'</a>';
+				$output .=			"<a href='#next' class='ajax_next {$char_class_next}' {$display_char_next['attr']}>";
+				$output .=				$display_char_next['svg'];
+				$output .=			'</a>';
+				$output .=			"<a href='#close' class='avia_close {$char_class_close}' {$display_char_close['attr']}>";
+				$output .=				$display_char_close['svg'];
+				$output .=			'</a>';
+				$output .=		'</div>';
+				$output .=		'<div class="portfolio-details-inner"></div>';
+				$output .= '</div>';
 			}
 
 			$output .= "<div {$el_id} class='{$class} grid-sort-container isotope {$av_display_classes} {$av_column_classes} {$style_class}-container with-{$contents}-container grid-total-{$total} grid-col-{$columns} grid-links-{$linking}' data-portfolio-id='{$container_id}'>";

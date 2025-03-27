@@ -121,6 +121,11 @@ if( ! trait_exists( __NAMESPACE__ . '\scButtonStyles' ) )
 							);
 
 					$styling->add_styles( 'container', $colors );
+
+					$styling->add_styles( 'icon-svg', array(
+													'fill'		=> $atts['custom_font'],
+													'stroke'	=> $atts['custom_font']
+												) );
 				}
 				else
 				{
@@ -152,6 +157,11 @@ if( ! trait_exists( __NAMESPACE__ . '\scButtonStyles' ) )
 				if( 'custom' == $atts['btn_color_font'] )
 				{
 					$styling->add_styles( 'container', array( 'color' => $atts['btn_custom_font'] ) );
+
+					$styling->add_styles( 'icon-svg', array(
+													'fill'		=> $atts['btn_custom_font'],
+													'stroke'	=> $atts['btn_custom_font']
+												) );
 				}
 				else
 				{
@@ -173,10 +183,18 @@ if( ! trait_exists( __NAMESPACE__ . '\scButtonStyles' ) )
 				if( 'custom' == $atts['btn_color_font_hover'] )
 				{
 					$styling->add_styles( 'container-hover', array( 'color' => $atts['btn_custom_font_hover'] ) );
+					$styling->add_styles( 'icon-svg-hover', array(
+													'fill'		=> $atts['btn_custom_font_hover'],
+													'stroke'	=> $atts['btn_custom_font_hover']
+												) );
 				}
 				else
 				{
 					$styling->add_styles( 'container-hover', array( 'color' => $atts['btn_color_font_hover'] ) );
+					$styling->add_styles( 'icon-svg-hover', array(
+													'fill'		=> $atts['btn_color_font_hover'],
+													'stroke'	=> $atts['btn_color_font_hover']
+												) );
 				}
 			}
 

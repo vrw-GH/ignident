@@ -14,13 +14,13 @@ class AdminNotices {
 	}
 
 	public function admin_notice() {
-		$notice = $_GET['notice'] ?? '';
+		$notice = isset( $_GET['notice'] ) ? sanitize_text_field( wp_unslash( $_GET['notice'] ) ) : '';
 
-		if(!isset($_GET['page'])) {
+		if ( ! isset( $_GET['page'] ) ) {
 			return false;
 		}
 
-		if($_GET['page'] !== WOW_Plugin::SLUG) {
+		if ( $_GET['page'] !== WOW_Plugin::SLUG ) {
 			return false;
 		}
 

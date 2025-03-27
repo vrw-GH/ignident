@@ -27,7 +27,6 @@ if( ! class_exists( __NAMESPACE__ . '\object_properties', false ) )
 		 */
 		private $forceset;
 
-
 		/**
 		 * Access modifiers changed from public to protected for most properties
 		 * Fallback to allow access for backwards comp.

@@ -133,6 +133,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 						'wc_prod_visible'		=> '',
 						'wc_prod_hidden'		=> '',
 						'wc_prod_featured'		=> '',
+						'wc_prod_sale'			=> '',
 						'prod_order_by'			=> '',
 						'prod_order'			=> '',
 						'sort'					=> 'no',
@@ -1045,6 +1046,12 @@ if( ! class_exists( 'avia_masonry', false ) )
 
 				$this->loop[ $key ]['content'] = nl2br( trim( $this->loop[ $key ]['content'] ) );
 
+				$icon_attr = [
+							'title'			=> '',
+							'desc'			=> '',
+							'aria-hidden'	=> 'true'
+						];
+
 				//post type specific
 				switch( $entry->post_type )
 				{
@@ -1058,7 +1065,14 @@ if( ! class_exists( 'avia_masonry', false ) )
 							$this->loop[ $key ]['content'] = $entry->post_content;
 						}
 
-						//	allow enfold\includes\helper-post-format.php to filter content
+						/**
+						 * allows to filter content
+						 *
+						 * @used_by					enfold\includes\helpers\helper-post-format.php
+						 * @since ????
+						 * @param array $this->loop[ $key ]
+						 * @return array
+						 */
 						$this->loop[ $key ]	= apply_filters( 'post-format-' . $post_format, $this->loop[ $key ] );
 
 						$this->loop[ $key ]['text_after'] .= $this->loop[ $key ]['date'];
@@ -1073,7 +1087,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 							case 'gallery' :
 								if( ! $this->loop[ $key ]['thumb_ID'] )
 								{
-									$this->loop[ $key ]['text_before'] = av_icon_display( $post_format );
+									$this->loop[ $key ]['text_before'] = avia_font_manager::html_frontend_shortcut_icon( "svg__{$post_format}", 'av-icon-display', $icon_attr, 'span' );
 								}
 								break;
 
@@ -1081,11 +1095,11 @@ if( ! class_exists( 'avia_masonry', false ) )
 							case 'video' :
 								if( ! $this->loop[ $key ]['thumb_ID'] )
 								{
-									$this->loop[ $key ]['text_before'] = av_icon_display( $post_format );
+									$this->loop[ $key ]['text_before'] = avia_font_manager::html_frontend_shortcut_icon( "svg__{$post_format}", 'av-icon-display', $icon_attr, 'span' );
 								}
 								else
 								{
-									$this->loop[ $key ]['text_before'] = av_icon_display( $post_format, 'av-masonry-media' );
+									$this->loop[ $key ]['text_before'] = avia_font_manager::html_frontend_shortcut_icon( "svg__{$post_format}", 'av-icon-display av-masonry-media', $icon_attr, 'span' );
 								}
 								break;
 						}
@@ -1248,7 +1262,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 					$this->loop[ $key ]['content'] = '';
 					$this->loop[ $key ]['class'][] = 'entry-protected';
 					$this->loop[ $key ]['thumb_ID'] = '';
-					$this->loop[ $key ]['text_before'] = av_icon_display( 'closed' );
+					$this->loop[ $key ]['text_before'] = avia_font_manager::html_frontend_shortcut_icon( "svg__closed", 'av-icon-display', $icon_attr, 'span' );
 					$this->loop[ $key ]['text_after'] = $this->loop[ $key ]['date'];
 				}
 
@@ -1493,6 +1507,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 					avia_wc_set_out_of_stock_query_params( $meta_query, $tax_query, $params['wc_prod_visible'] );
 					avia_wc_set_hidden_prod_query_params( $meta_query, $tax_query, $params['wc_prod_hidden'] );
 					avia_wc_set_featured_prod_query_params( $meta_query, $tax_query, $params['wc_prod_featured'] );
+					avia_wc_set_on_sale_prod_query_params( $meta_query, $tax_query, $params['wc_prod_sale'] );
 
 						//	sets filter hooks !!
 					$ordering_args = avia_wc_get_product_query_order_args( $params['prod_order_by'], $params['prod_order'] );

@@ -251,6 +251,7 @@ require( AVIA_PHP . 'font-management/class-avia-font-management-base.php' );
 require( AVIA_PHP . 'font-management/class-avia-type-fonts.php' );
 //require( AVIA_PHP . 'font-management/class-avia-icon-fonts.php' );
 
+
 /**
  * Handles update of theme options, ....  Must be loaded in frontend also, otherwise layout may be broken !!!
  */

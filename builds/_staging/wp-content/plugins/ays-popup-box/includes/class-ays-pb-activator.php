@@ -1,6 +1,6 @@
 <?php
 global $ays_pb_db_version;
-$ays_pb_db_version = '1.6.2';
+$ays_pb_db_version = '1.6.3';
 /**
  * Fired during plugin activation
  *
@@ -22,7 +22,6 @@ $ays_pb_db_version = '1.6.2';
  * @author     AYS Pro LLC <info@ays-pro.com>
  */
 class Ays_Pb_Activator {
-
     /**
      * Short Description. (use period)
      *
@@ -86,6 +85,9 @@ class Ays_Pb_Activator {
                       `active_date_check` VARCHAR(20) DEFAULT 'off',
                       `activeInterval` VARCHAR(20) DEFAULT '',
                       `deactiveInterval` VARCHAR(20) DEFAULT '',
+                      `active_time_check` VARCHAR(20) DEFAULT 'off',
+                      `active_time_start` VARCHAR(20) DEFAULT '',
+                      `active_time_end` VARCHAR(20) DEFAULT '',
                       `pb_position` VARCHAR(30) NOT NULL,
                       `pb_margin` INT NOT NULL,
                       `views` INT NOT NULL,
@@ -94,9 +96,9 @@ class Ays_Pb_Activator {
                       PRIMARY KEY (`id`)
                     )$charset_collate;";
 
-            $sql_schema = "SELECT * 
+            $sql_schema = "SELECT *
                     FROM INFORMATION_SCHEMA.TABLES
-                    WHERE table_schema = '" . DB_NAME . "' 
+                    WHERE table_schema = '" . DB_NAME . "'
                     AND table_name = '" . $table . "' ";
             $pb_const = $wpdb->get_results($sql_schema);
 
@@ -114,7 +116,7 @@ class Ays_Pb_Activator {
                 PRIMARY KEY (`id`)
             )$charset_collate;";
 
-            $sql_schema = "SELECT * 
+            $sql_schema = "SELECT *
                     FROM INFORMATION_SCHEMA.TABLES
                     WHERE table_schema = '" . DB_NAME . "'
                     AND table_name = '" . $categories_table . "'";
@@ -135,9 +137,9 @@ class Ays_Pb_Activator {
                       PRIMARY KEY (`id`)
                     )$charset_collate;";
 
-            $sql_schema = "SELECT * 
+            $sql_schema = "SELECT *
                     FROM INFORMATION_SCHEMA.TABLES
-                    WHERE table_schema = '" . DB_NAME . "' 
+                    WHERE table_schema = '" . DB_NAME . "'
                     AND table_name = '" . $settings_table . "' ";
             $pb_settings_const = $wpdb->get_results($sql_schema);
 
@@ -147,47 +149,63 @@ class Ays_Pb_Activator {
                 dbDelta($sql);
             }
 
-            update_option('ays_pb_db_version', $ays_pb_db_version);
+            update_site_option('ays_pb_db_version', $ays_pb_db_version);
 
             $popup_categories = $wpdb->get_var("SELECT COUNT(*) FROM " . $categories_table . " WHERE `title`='Uncategorized'");
             if ($popup_categories == 0) {
                 $wpdb->insert($categories_table, array(
-                    'title' => 'Uncategorized', 
-                    'description' => '', 
+                    'title' => 'Uncategorized',
+                    'description' => '',
                     'published' => 1
                 ));
             }
         }
 
         $metas = array(
-            "options"
+            "options",
         );
 
-        foreach($metas as $meta_key){
+        foreach ($metas as $meta_key) {
             $meta_val = "";
+
             $sql = "SELECT COUNT(*) FROM `" . $settings_table . "` WHERE `meta_key` = '" . $meta_key . "'";
             $result = $wpdb->get_var($sql);
-            if(intval($result) == 0){
+            if (intval($result) == 0) {
                 $result = $wpdb->insert(
                     $settings_table,
                     array(
-                        'meta_key'    => $meta_key,
-                        'meta_value'  => $meta_val,
-                        'note'        => "",
-                        'options'     => ""
+                        'meta_key' => $meta_key,
+                        'meta_value' => $meta_val,
+                        'note' => "",
+                        'options' => ""
                     ),
-                    array( '%s', '%s', '%s', '%s' )
+                    array('%s', '%s', '%s', '%s')
                 );
             }
         }
-
     }
 
     public static function ays_pb_db_check() {
         global $ays_pb_db_version;
-        if ( get_site_option('ays_pb_db_version') != $ays_pb_db_version ) {
-            self::activate();
-            self::alter_tables();
+
+        if (is_multisite()) {
+            global $wpdb;
+            $popups_table = $wpdb->prefix . 'ays_pb';
+            $network_id = get_current_network_id();
+
+            if ($wpdb->get_var("SHOW TABLES LIKE '$popups_table'") != $popups_table) {
+                delete_network_option($network_id, 'ays_pb_db_version');
+            }
+
+            if ( get_network_option($network_id, 'ays_pb_db_version') != $ays_pb_db_version ) {
+                self::activate();
+                self::alter_tables();
+            }
+        } else {
+            if ( get_site_option('ays_pb_db_version') != $ays_pb_db_version ) {
+                self::activate();
+                self::alter_tables();
+            }
         }
     }
 
@@ -334,22 +352,49 @@ class Ays_Pb_Activator {
             'use_small_fb_header' => 'on',
             'notification_type_components' => array(),
             'notification_type_components_order' => array(),
+            'notification_logo_image' => '',
+            'notification_logo_redirect_url' => '',
+            'notification_logo_redirect_to_new_tab' => 'off',
+            'notification_logo_width' => 100,
+            'notification_logo_width_measurement_unit' => 'percentage',
+            'notification_logo_width_mobile' => 100,
+            'notification_logo_width_measurement_unit_mobile' => 'percentage',
+            'notification_logo_max_width' => 100,
+            'notification_logo_max_width_measurement_unit' => 'pixels',
+            'notification_logo_max_width_mobile' => 100,
+            'notification_logo_max_width_measurement_unit_mobile' => 'pixels',
+            'notification_logo_min_width' => 50,
+            'notification_logo_min_width_measurement_unit' => 'pixels',
+            'notification_logo_min_width_mobile' => 50,
+            'notification_logo_min_width_measurement_unit_mobile' => 'pixels',
+            'notification_logo_max_height' => '',
+            'notification_logo_min_height' => '',
+            'notification_logo_image_sizing' => 'cover',
+            'notification_logo_image_shape' => 'rectangle',
             'notification_main_content' => '',
             'notification_button_1_text' => 'Click!',
+            'notification_button_1_hover_text' => '',
             'notification_button_1_redirect_url' => '',
             'notification_button_1_redirect_to_new_tab' => 'off',
             'notification_button_1_bg_color' => '',
             'notification_button_1_bg_hover_color' => '',
             'notification_button_1_text_color' => '',
             'notification_button_1_text_hover_color' => '',
+            'notification_button_1_text_transformation' => '',
+            'notification_button_1_text_decoration' => '',
             'notification_button_1_letter_spacing' => 0,
+            'notification_button_1_letter_spacing_mobile' => 0,
             'notification_button_1_font_size' => 15,
+            'notification_button_1_font_size_mobile' => 15,
+            'notification_button_1_font_weight' => 'normal',
+            'notification_button_1_font_weight_mobile' => 'normal',
             'notification_button_1_border_radius' => 6,
             'notification_button_1_border_width' => 0,
             'notification_button_1_border_color' => '',
             'notification_button_1_border_style' => '',
             'notification_button_1_padding_left_right' => 32,
             'notification_button_1_padding_top_bottom' => 16,
+            'notification_button_1_transition' => '0.3',
             'notification_button_1_enable_box_shadow' => 'off',
             'notification_button_1_box_shadow_color' => '#FF8319',
             'notification_button_1_box_shadow_x_offset' => 0,
@@ -393,22 +438,22 @@ class Ays_Pb_Activator {
             'enable_social_links' => 'off',
             'social_buttons_heading' => '',
             'social_links' => array(
-                'linkedin_link'  =>  '',
-                'facebook_link'  =>  '',
-                'twitter_link'   =>  '',
-                'vkontakte_link' =>  '',
-                'youtube_link'   =>  '',
-                'instagram_link' =>  '',
-                'behance_link'   =>  '',
+                'linkedin_link' => '',
+                'facebook_link' => '',
+                'twitter_link' => '',
+                'vkontakte_link' => '',
+                'youtube_link' => '',
+                'instagram_link' => '',
+                'behance_link' => '',
             ),
             'create_date' => current_time('mysql'),
             'create_author' => $pb_create_author,
-            'disable_scroll' => 'off',
-            'disable_scroll_mobile' => 'off',
             'enable_dismiss' => 'off',
             'enable_dismiss_text' => 'Dismiss ad',
             'enable_dismiss_mobile' => 'off',
             'enable_dismiss_text_mobile' => 'Dismiss ad',
+            'disable_scroll' => 'off',
+            'disable_scroll_mobile' => 'off',
             'disable_scroll_on_popup' => 'off',
             'disable_scroll_on_popup_mobile' => 'off',
             'show_scrollbar' => 'off',
@@ -428,6 +473,7 @@ class Ays_Pb_Activator {
             'pb_min_height' => '',
             'enable_pb_fullscreen' => 'off',
             'popup_content_padding' => 20,
+            'popup_content_padding_mobile' => 20,
             'popup_padding_by_percentage_px' => 'pixels',
             'pb_font_family' => 'inherit',
             'pb_font_size' => 13,
@@ -442,16 +488,16 @@ class Ays_Pb_Activator {
             'pb_title_text_shadow_x_offset_mobile' => 2,
             'pb_title_text_shadow_y_offset_mobile' => 2,
             'pb_title_text_shadow_z_offset_mobile' => 0,
+            'enable_animate_in_mobile' => 'off',
+            'animate_in_mobile' => 'fadeIn',
+            'enable_animate_out_mobile' => 'off',
+            'animate_out_mobile' => 'fadeOutUpBig',
             'animation_speed' => 1,
             'enable_animation_speed_mobile' => 'off',
             'animation_speed_mobile' => 1,
             'close_animation_speed' => 1,
             'enable_close_animation_speed_mobile' => 'off',
             'close_animation_speed_mobile' => 1,
-            'enable_animate_out_mobile' => 'off',
-            'animate_out_mobile' => 'fadeOutUpBig',
-            'enable_animate_in_mobile' => 'off',
-            'animate_in_mobile' => 'fadeIn',
             'enable_bgcolor_mobile' => 'off',
             'bgcolor_mobile' => '#ffffff',
             'enable_bg_image_mobile' => 'off',

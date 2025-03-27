@@ -28,6 +28,8 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 {
 	class avia_sc_icongrid extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * @since 4.8.8
 		 * @var array
@@ -265,17 +267,20 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 							'std'			=> array(
 													array(
 														'title'		=> __( 'Grid Title 1', 'avia_framework' ),
-														'icon'		=> 'ue803',
+														'icon'		=> 'search',
+														'font'		=> 'svg_entypo-fontello',
 														'content'	=> __( 'Enter content here', 'avia_framework' ),
 													),
 													array(
 														'title'		=> __( 'Grid Title 2', 'avia_framework' ),
-														'icon'		=> 'ue807',
+														'icon'		=> 'heart-empty',
+														'font'		=> 'svg_entypo-fontello',
 														'content'	=> __( 'Enter content here', 'avia_framework' ),
 													),
 													array(
 														'title'		=> __( 'Grid Title 3', 'avia_framework' ),
-														'icon'		=> 'ue80a',
+														'icon'		=> 'user',
+														'font'		=> 'svg_entypo-fontello',
 														'content'	=> __( 'Enter content here', 'avia_framework' ),
 													),
 												),
@@ -1064,7 +1069,9 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 							'desc'		=> __( 'Select an icon for your grid item below', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'search',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'show_icon', 'not', 'no' )
@@ -1589,7 +1596,7 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 
 			$template = $this->update_template_lockable( 'title', __( 'Element', 'avia_framework' ). ': {{title}}', $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon" and the font as "font"
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon" and the font as "font"
 
 			$params['innerHtml']  = '';
 			$params['innerHtml'] .=		"<div class='avia_title_container' data-update_element_template='yes'>";
@@ -1857,6 +1864,11 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 			if( 'custom' == $atts['font_color'] )
 			{
 				$element_styling->add_styles( 'li-front-icon', array( 'color' => $atts['custom_icon'] ) );
+				$element_styling->add_styles( 'li-front-icon-svg', array(
+																	'fill'		=> $atts['custom_icon'],
+																	'stroke'	=> $atts['custom_icon']
+																) );
+
 				$element_styling->add_styles( 'li-front-title', array( 'color' => $atts['custom_title'] ) );
 				$element_styling->add_styles( 'li-front-subtitle', array( 'color' => $atts['custom_subtitle'] ) );
 				$element_styling->add_styles( 'li-content-text', array( 'color' => $atts['custom_content'] ) );
@@ -1888,6 +1900,7 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 						'li-front'				=> ".avia-icon-grid-container.{$element_id} .avia-icongrid-wrapper .avia-icongrid-front",
 						'li-front-inner'		=> ".avia-icon-grid-container.{$element_id} .avia-icongrid-wrapper .avia-icongrid-front .avia-icongrid-inner",
 						'li-front-icon'			=> ".avia-icon-grid-container.{$element_id} .avia-icongrid-wrapper .avia-icongrid-icon",
+						'li-front-icon-svg'		=> ".avia-icon-grid-container.{$element_id} .avia-icongrid-wrapper .avia-icongrid-icon .icongrid-char.avia-svg-icon svg:first-child",
 						'li-front-title'		=> ".avia-icon-grid-container.{$element_id} .avia-icongrid-wrapper .icongrid_title",
 						'li-front-subtitle'		=> ".avia-icon-grid-container.{$element_id} .avia-icongrid-wrapper .icongrid_subtitle",
 						'li-content'			=> ".avia-icon-grid-container.{$element_id} .avia-icongrid-wrapper .avia-icongrid-content",
@@ -1973,6 +1986,7 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $this->config['shortcode_nested'][0], $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'no', 'manually', 'single', 'taxonomy' ] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			if( 'no scaling' == $atts['front_image_size'] )
 			{
@@ -1994,6 +2008,7 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 					);
 
 			$element_styling->add_classes( 'container-li-wrapper', $classes );
+			$element_styling->add_classes( 'grid-icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 			if( 'custom' == $atts['item_bg_color'] )
 			{
@@ -2050,6 +2065,11 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 			if( 'custom' == $atts['item_font_color'] )
 			{
 				$element_styling->add_styles( 'li-front-icon', array( 'color' => $atts['item_custom_icon'] ) );
+				$element_styling->add_styles( 'li-front-icon-svg', array(
+																	'fill'		=> $atts['item_custom_icon'],
+																	'stroke'	=> $atts['item_custom_icon']
+																) );
+
 				$element_styling->add_styles( 'li-front-title', array( 'color' => $atts['item_custom_title'] ) );
 				$element_styling->add_styles( 'li-front-subtitle', array( 'color' => $atts['item_custom_subtitle'] ) );
 				$element_styling->add_styles( 'li-content-text', array( 'color' => $atts['item_custom_content'] ) );
@@ -2079,6 +2099,7 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 						'li-article'				=> ".avia-icon-grid-container .avia-icongrid-wrapper.{$element_id} .article-icon-entry",
 						'li-front'					=> ".avia-icon-grid-container .avia-icongrid-wrapper.{$element_id} .avia-icongrid-front",
 						'li-front-icon'				=> ".avia-icon-grid-container .avia-icongrid-wrapper.{$element_id} .avia-icongrid-icon",
+						'li-front-icon-svg'			=> ".avia-icon-grid-container .avia-icongrid-wrapper.{$element_id} .avia-icongrid-icon .icongrid-char.avia-svg-icon svg:first-child",
 						'li-front-title'			=> ".avia-icon-grid-container .avia-icongrid-wrapper.{$element_id} .icongrid_title",
 						'li-front-subtitle'			=> ".avia-icon-grid-container .avia-icongrid-wrapper.{$element_id} .icongrid_subtitle",
 						'li-content'				=> ".avia-icon-grid-container .avia-icongrid-wrapper.{$element_id} .avia-icongrid-content",
@@ -2188,7 +2209,6 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 				}
 			}
 
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
 			$title_el = ! empty( $meta['heading_tag'] ) ? $meta['heading_tag'] : 'h4';
 			$title_el_cls = ! empty( $meta['heading_class'] ) ? $meta['heading_class'] : '';
 
@@ -2243,6 +2263,17 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 			$markup_sub = avia_markup_helper( array( 'context' => 'entry_subtitle', 'echo' => false, 'custom_markup' => $atts['custom_markup'] ) );
 			$markup_text  = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'custom_markup' => $atts['custom_markup'] ) );
 
+			$aria_label = 'aria-label="' . __( 'Icon:', 'avia_framework' ) . ' ' . esc_attr( $atts['title'] ) . '"';
+
+			/**
+			 * @since 6.0.3
+			 * @param string $aria_label
+			 * @param string $context
+			 * @param array $atts
+			 * @return string
+			 */
+			$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $atts );
+
 			/**
 			 * @since 4.8.8
 			 * @param string $heading_tag
@@ -2269,12 +2300,17 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 
 			if( '' == $atts['show_icon'] )
 			{
-				$output .=				"<div class='avia-icongrid-icon avia-font-{$atts['font']}'>";
-				$output .=					"<span class='icongrid-char' {$display_char}></span>";
+				$display_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
+				$icon_class = $element_styling->get_class_string( 'grid-icon' );
+
+				$output .=				"<div class='avia-icongrid-icon'>";
+				$output .=					"<span class='icongrid-char {$icon_class}' {$display_char['attr']}>";
+				$output .=						$display_char['svg'];
+				$output .=					'</span>';
 				$output .=				'</div>';
 			}
 
-			$output .=					'<header class="entry-content-header">';
+			$output .=					'<header class="entry-content-header" ' . $aria_label . '>';
 
 			if( ! empty( $atts['title'] ) )
 			{

@@ -141,6 +141,13 @@ SUBMENU
 	position: relative;
 }
 
+#top .mobile_menu_toggle .avia-svg-icon svg:first-child,
+#top .mobile_menu_toggle .avia-svg-icon img[is-svg-img="true"]{
+	margin-bottom: -4px;
+	height: 1em;
+	width: 1em;
+}
+
 #top .mobile_menu_toggle .av-current-placeholder{
 	font-size: 14px;
 	vertical-align: bottom;
@@ -208,10 +215,10 @@ SUBMENU
 
 	.responsive #top .av-switch-990 .av-menu-mobile-active .av-subnav-menu > li a:before{
 		content: "\25BA";
+		font-family: Arial, Helvetica, sans-serif;
 		position: absolute;
 		top: 15px;
 		margin-left: -10px;
-		font-family: 'entypo-fontello';
 		font-size: 7px;
 	}
 
@@ -297,10 +304,10 @@ SUBMENU
 
 	.responsive #top .av-switch-768 .av-menu-mobile-active .av-subnav-menu > li a:before{
 		content: "\25BA";
+		font-family: Arial, Helvetica, sans-serif;
 		position: absolute;
 		top: 15px;
 		margin-left: -10px;
-		font-family: 'entypo-fontello';
 		font-size: 7px;
 	}
 
@@ -386,10 +393,10 @@ SUBMENU
 
 	.responsive #top .av-switch-480 .av-menu-mobile-active .av-subnav-menu > li a:before{
 		content: "\25BA";
+		font-family: Arial, Helvetica, sans-serif;
 		position: absolute;
 		top: 15px;
 		margin-left: -10px;
-		font-family: 'entypo-fontello';
 		font-size: 7px;
 	}
 

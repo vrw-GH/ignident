@@ -1652,7 +1652,7 @@ if( ! class_exists( 'aviaElementManager', false ) )
 
 			$out = '';
 
-			$out .=		"[av_tab title='" . __( 'Shortcode Usage Overview', 'avia_framework' ) . "' icon_select='yes' icon='ue823' font='entypo-fontello']";
+			$out .=		"[av_tab title='" . __( 'Shortcode Usage Overview', 'avia_framework' ) . "' icon_select='yes' icon='attach' font='svg_entypo-fontello']";
 
 			$out .=			"[av_toggle_container initial='0' mode='toggle' sort='true' styling='' colors='' font_color='' background_color='' border_color='' custom_class='']";
 
@@ -1700,7 +1700,7 @@ if( ! class_exists( 'aviaElementManager', false ) )
 			$out .=		"[/av_tab]";
 
 
-			$out .=		"[av_tab title='" . __( 'Detailed Shortcode Usage', 'avia_framework' ) . "' icon_select='yes' icon='ue826' font='entypo-fontello']";
+			$out .=		"[av_tab title='" . __( 'Detailed Shortcode Usage', 'avia_framework' ) . "' icon_select='yes' icon='eye' font='svg_entypo-fontello']";
 
 			$out .=			"[av_toggle_container initial='0' mode='toggle' sort='true' styling='' colors='' font_color='' background_color='' border_color='' custom_class='']";
 

@@ -720,7 +720,7 @@ if( ! function_exists( 'avia_logo' ) )
 				else
 				{
 					$logo_class .= ' avia-svg-logo';
-					$logo_img = avia_SVG()->get_html( $logo_id, $logo_url, avia_SVG()->get_header_logo_aspect_ratio(), 'html', $title );
+					$logo_img = avia_SVG()->get_logo_html( $logo_id, $logo_url, avia_SVG()->get_header_logo_aspect_ratio(), $title );
 				}
 
 				if( false !== strpos( $logo_class, '-svg-' ) )
@@ -1365,6 +1365,64 @@ if( ! function_exists( 'avia_get_link' ) )
 	}
 }
 
+if( ! function_exists( 'avia_responsive_lightbox_image' ) )
+{
+	/**
+	 *
+	 * @since 7.0						code moved from ALB  AviaHelper::get_url()
+	 * @param int|false $post_id
+	 * @param boolean $responsive_lightbox
+	 * @return string|array
+	 */
+	function avia_responsive_lightbox_image( $post_id = false, $responsive_lightbox = false )
+	{
+		/**
+		 *
+		 * @used_by			config-wpml\config.php  avia_wpml_get_attachment_id()		10
+		 * @since 4.8
+		 * @since 7.0					moved to this file
+		 * @param int $post_id;
+		 * @return int
+		 */
+		$post_id = apply_filters( 'avf_alb_attachment_id', $post_id );
+
+		/**
+		 * @since ???
+		 * @since 7.0								moved to this file
+		 * @param string $image_size
+		 * @param string $link						@added 4.8.2
+		 * @param int|false $post_id				@added 4.8.2
+		 * @param boolean $responsive_lightbox		@added 4.8.2
+		 * @return string
+		 */
+		$lightbox_size = apply_filters( 'avf_avia_builder_helper_lightbox_size', 'large', 'lightbox', $post_id, $responsive_lightbox );
+
+
+		if( true !== $responsive_lightbox )
+		{
+			$link = wp_get_attachment_image_src( $post_id, $lightbox_size );
+			return is_array( $link ) ? $link[0] : '';
+		}
+
+		//	create array with responsive info for lightbox
+		$link = Av_Responsive_Images()->responsive_image_src( $post_id, $lightbox_size );
+
+		if( ! is_array( $link ) )
+		{
+			$img_link = '';
+		}
+		else
+		{
+			$img_link = array(
+						0			=> esc_url( $link[0] ),
+						'srcset'	=> $link['srcset'],
+						'sizes'		=> $link['sizes']
+					);
+		}
+
+		return $img_link;
+	}
+}
 
 if( ! function_exists( 'avia_pagination' ) )
 {

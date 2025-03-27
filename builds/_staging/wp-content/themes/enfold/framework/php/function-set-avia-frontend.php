@@ -720,7 +720,7 @@ if( ! function_exists( 'avia_logo' ) )
 				else
 				{
 					$logo_class .= ' avia-svg-logo';
-					$logo_img = avia_SVG()->get_html( $logo_id, $logo_url, avia_SVG()->get_header_logo_aspect_ratio(), 'html', $title );
+					$logo_img = avia_SVG()->get_logo_html( $logo_id, $logo_url, avia_SVG()->get_header_logo_aspect_ratio(), $title );
 				}
 
 				if( false !== strpos( $logo_class, '-svg-' ) )
@@ -1365,6 +1365,64 @@ if( ! function_exists( 'avia_get_link' ) )
 	}
 }
 
+if( ! function_exists( 'avia_responsive_lightbox_image' ) )
+{
+	/**
+	 *
+	 * @since 7.0						code moved from ALB  AviaHelper::get_url()
+	 * @param int|false $post_id
+	 * @param boolean $responsive_lightbox
+	 * @return string|array
+	 */
+	function avia_responsive_lightbox_image( $post_id = false, $responsive_lightbox = false )
+	{
+		/**
+		 *
+		 * @used_by			config-wpml\config.php  avia_wpml_get_attachment_id()		10
+		 * @since 4.8
+		 * @since 7.0					moved to this file
+		 * @param int $post_id;
+		 * @return int
+		 */
+		$post_id = apply_filters( 'avf_alb_attachment_id', $post_id );
+
+		/**
+		 * @since ???
+		 * @since 7.0								moved to this file
+		 * @param string $image_size
+		 * @param string $link						@added 4.8.2
+		 * @param int|false $post_id				@added 4.8.2
+		 * @param boolean $responsive_lightbox		@added 4.8.2
+		 * @return string
+		 */
+		$lightbox_size = apply_filters( 'avf_avia_builder_helper_lightbox_size', 'large', 'lightbox', $post_id, $responsive_lightbox );
+
+
+		if( true !== $responsive_lightbox )
+		{
+			$link = wp_get_attachment_image_src( $post_id, $lightbox_size );
+			return is_array( $link ) ? $link[0] : '';
+		}
+
+		//	create array with responsive info for lightbox
+		$link = Av_Responsive_Images()->responsive_image_src( $post_id, $lightbox_size );
+
+		if( ! is_array( $link ) )
+		{
+			$img_link = '';
+		}
+		else
+		{
+			$img_link = array(
+						0			=> esc_url( $link[0] ),
+						'srcset'	=> $link['srcset'],
+						'sizes'		=> $link['sizes']
+					);
+		}
+
+		return $img_link;
+	}
+}
 
 if( ! function_exists( 'avia_pagination' ) )
 {
@@ -2470,13 +2528,16 @@ if( ! function_exists( 'avia_get_theme_name' ) )
 	}
 }
 
-
 if( ! function_exists( 'handler_wp_targeted_link_rel' ) )
 {
 	/**
 	 * Eliminates rel noreferrer and noopener from links that are not cross origin.
+	 * WP deprecated function wp_targeted_link_rel() with version 6.7
+	 * We keept it only for backwards comp. in case 3rd party use this.
+	 * Function does nothing any more.
 	 *
 	 * @since 4.6.3
+	 * @deprecated since version 6.0.7
 	 * @added_by Günter
 	 * @param string $rel				'noopener noreferrer'
 	 * @param string $link_html			space separated string of a attributes
@@ -2484,6 +2545,15 @@ if( ! function_exists( 'handler_wp_targeted_link_rel' ) )
 	 */
 	function handler_wp_targeted_link_rel( $rel, $link_html )
 	{
+		global $wp_version;
+
+		if( version_compare( $wp_version, '6.7', '>=' ) )
+		{
+			_deprecated_function( 'handler_wp_targeted_link_rel', '6.0.7' );
+
+			return $rel;
+		}
+
 		$url = get_bloginfo( 'url' );
 		$url = str_ireplace( array( 'http://', 'https://' ), '', $url );
 
@@ -2513,7 +2583,12 @@ if( ! function_exists( 'handler_wp_walker_nav_menu_start_el' ) )
 	/**
 	 * Apply security fix for external links
 	 *
+	 * WP deprecated function wp_targeted_link_rel() with version 6.7
+	 * We keept it only for backwards comp. in case 3rd party use this.
+	 * Function does nothing any more.
+	 *
 	 * @since 4.6.3
+	 * @deprecated since version 6.0.7
 	 * @added_by Günter
 	 * @param string $item_output			The menu item's starting HTML output.
 	 * @param WP_Post|mixed $item			Menu item data object.
@@ -2523,6 +2598,13 @@ if( ! function_exists( 'handler_wp_walker_nav_menu_start_el' ) )
 	 */
 	function handler_wp_walker_nav_menu_start_el( $item_output, $item, $depth, $args )
 	{
+		global $wp_version;
+
+		if( version_compare( $wp_version, '6.7', '>=' ) )
+		{
+			return $item_output;
+		}
+
 		$item_output = avia_targeted_link_rel( $item_output );
 
 		return $item_output;
@@ -2536,8 +2618,11 @@ if( ! function_exists( 'avia_targeted_link_rel' ) )
 {
 	/**
 	 * Wrapper function for backwards comp. with older WP vrsions
+	 * WP deprecated function wp_targeted_link_rel() with version 6.7
+	 * Function does nothing any more when WP version is higher.
 	 *
 	 * @since 4.6.3
+	 * @deprecated since version 6.0.7
 	 * @uses wp_targeted_link_rel				@since 5.1.0
 	 * @uses handler_wp_targeted_link_rel		filter wp_targeted_link_rel
 	 * @added_by Günter
@@ -2547,6 +2632,13 @@ if( ! function_exists( 'avia_targeted_link_rel' ) )
 	 */
 	function avia_targeted_link_rel( $text, $exec_call = true )
 	{
+		global $wp_version;
+
+		if( version_compare( $wp_version, '6.7', '>=' ) )
+		{
+			return $text;
+		}
+
 		/**
 		 * For older WP versions we skip this feature
 		 */
@@ -2554,8 +2646,6 @@ if( ! function_exists( 'avia_targeted_link_rel' ) )
 		{
 			return $text;
 		}
-
-		global $wp_version;
 
 		/**
 		 * WP changed the way it splits the attributes. '_' is not supported as a valid attribute and removes these attributes.
@@ -2796,7 +2886,7 @@ if( ! function_exists( 'avia_accessibility_body_class' ) )
 		return $classes;
 	}
 
-	add_filter( 'body_class', 'avia_accessibility_body_class' );
+	add_filter( 'body_class', 'avia_accessibility_body_class', 10, 1 );
 }
 
 
@@ -2837,5 +2927,59 @@ if( ! function_exists( 'avia_post_swipe_body_class' ) )
 		return $classes;
 	}
 
-	add_filter( 'body_class', 'avia_post_swipe_body_class' );
+	add_filter( 'body_class', 'avia_post_swipe_body_class', 10, 1 );
+}
+
+if( ! function_exists( 'avia_add_metadata_to_body_class' ) )
+{
+	/**
+	 * Add post specific metadata info to body class
+	 * inspired and contributed by Guennoi007
+	 *
+	 * @since 6.0.8
+	 * @param array $body_classes
+	 * @return array
+	 */
+	function avia_add_metadata_to_body_class( array $body_classes )
+	{
+		global $post;
+
+		if( ! $post instanceof WP_Post )
+		{
+			return $body_classes;
+		}
+
+		$classes = [];
+
+		if( is_singular() )
+		{
+			$classes[] = 'post-type-' . sanitize_html_class( $post->post_type );
+
+			$taxonomies = get_object_taxonomies( $post->post_type, 'objects' );
+
+			foreach( $taxonomies as $taxonomy )
+			{
+				$terms = get_the_terms( $post->ID, $taxonomy->name );
+
+				if( ! is_wp_error( $terms ) && ! empty( $terms ) )
+				{
+					foreach( $terms as $term )
+					{
+						$classes[] = sanitize_html_class( $taxonomy->name ) . '-' . sanitize_html_class( $term->slug );
+					}
+				}
+			}
+		}
+
+		/**
+		 * @since 6.0.8
+		 * @param array $classes
+		 * @return array
+		 */
+		$classes = apply_filters( 'avf_metadata_to_body_class', $classes );
+
+		return array_merge( $body_classes, $classes );
+	}
+
+	add_filter( 'body_class', 'avia_add_metadata_to_body_class', 10, 1 );
 }

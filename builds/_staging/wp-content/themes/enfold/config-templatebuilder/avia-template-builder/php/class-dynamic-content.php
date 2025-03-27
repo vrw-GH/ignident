@@ -1521,12 +1521,16 @@ if( ! class_exists( 'aviaDynamicContent', false ) )
 				$this->set_source_post();
 			}
 
-			$title = __( 'At cursor position insert a dynamic content replacement from dropdown', 'avia_framework' );
+			$char = \avia_font_manager::get_frontend_icon( 'database', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+			$char_class = \avia_font_manager::get_frontend_icon_classes( $char['font'], 'string' );
 
-			$output = '';
+			$title = esc_attr( __( 'At cursor position insert a dynamic content replacement from dropdown', 'avia_framework' ) );
 
-			$char = \avia_font_manager::get_display_char( 'ue8d3', 'entypo-fontello' );
-			$output .= '<span class="avia-dynamic-char avia-font-entypo-fontello" title="' . esc_attr( $title ) . '">' . $char . '</span>';
+			$output  = '';
+			$output .= "<span class='avia-dynamic-char avia-font-entypo-fontello {$char_class}' {$char['attr']} title='{$title}'>";
+			$output .=		$char['svg'];
+			$output .= '</span>';
+			
 			$output .= $this->create_select_list( $element );
 
 			return $output;

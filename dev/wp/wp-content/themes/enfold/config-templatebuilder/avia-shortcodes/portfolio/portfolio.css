@@ -373,6 +373,13 @@ div .portfolio-preview-image:last-child{
 	text-align: center;
 }
 
+.ajax_controlls a.avia-svg-icon svg:first-child,
+.ajax_controlls a.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+	margin-top: 11px;
+}
+
 /*deactivate gallery animation*/
 .avia_transform .portfolio-preview-image .avia-gallery-thumb img{
 	opacity: 1;

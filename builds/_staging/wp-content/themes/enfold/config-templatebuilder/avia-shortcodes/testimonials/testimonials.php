@@ -861,6 +861,7 @@ if( ! class_exists( 'avia_sc_testimonial', false ) )
 							'atts'				=> $atts,
 							'autoplay_option'	=> 'true',
 							'context'			=> __CLASS__,
+							'force_important'	=> ' !important'
 						);
 
 				$this->addSlideshowAttributes( $ui_args );
@@ -1116,8 +1117,9 @@ if( ! class_exists( 'avia_sc_testimonial', false ) )
 		protected function slide_navigation_arrows( array $atts )
 		{
 			$args = array(
-						'context'			=> get_class( $this ),
-						'params'			=> $atts
+						'context'	=> get_class( $this ),
+						'params'	=> $atts,
+						'svg_icon'	=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );

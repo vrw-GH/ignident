@@ -1,5 +1,203 @@
 ﻿== Changelog ==
 
+= 2.10.1 March 03, 2025 =
+
+* Bugfixes:
+
+  - Fixed: Security issue CVE ID: CVE-2025-1702.
+  - Fixed: Activation link redirects to Reset Password after registration without password field and required email activation.
+  - Fixed: Honeypot scripts/styles for themes without pre-rendered shortcodes. Enqueue honeypot scripts/styles everytime.
+  - Fixed: Profile photo metadata when Gravatar image is used.
+
+* Cached and optimized/minified assets(JS/CSS) must be flushed/re-generated after upgrade *
+
+= 2.10.0 February 18, 2025 =
+
+* Enhancements:
+
+  - Added: User Profile `form-id` attribute and updated code for Profile/Cover photos actions dropdowns.
+  - Added: Honeypot scripts/styles via `wp_add_inline_script()`, `wp_add_inline_style()` changed from direct adding in header and footer.
+  - Updated: We've made improvements to requests for extension updates to boost stability.
+  - Updated: PHP requirement - the minimum PHP version is now upgraded to 7.0.
+  - Updated: Using $wpdb and WPCS for queries. Set minimum required version to 6.2 due to using %i for `$wpdb->prepare()`.
+  - Updated: Revised wp-admin user actions handling. Now, the required capability is `edit_users` instead of `manage_options`.
+  - Removed: User Profile hidden inputs on view mode.
+  - Tweak: WPCS enhancements.
+
+* Bugfixes:
+
+  - Fixed: Security issue CVE ID: CVE-2024-12276.
+  - Fixed: Custom usermeta table metakeys for filtering in member directory (from `_money_spent` to `wc_money_spent_` and added `wc_order_count_`).
+  - Fixed: Layout for "Download your data" and "Erase of your data" fields.
+  - Fixed: Image sizes used for Open Graph meta in User Profile headers are now corrected.
+  - Fixed: "Delete account text" settings visibility issue in wp-admin.
+  - Fixed: The "Privacy Policy" field in the registration form. Disallowed HTML from the "Privacy Policy" content (like `<form>`) is filtered out by the `wp_kses()` function.
+  - Fixed: Password fields are now sanitized the WordPress native way, with `wp_unslash()` omitted post-submission.
+
+* Templates required update:
+
+  - gdpr-register.php
+  - profile.php
+
+* Cached and optimized/minified assets(JS/CSS) must be flushed/re-generated after upgrade *
+
+= 2.9.2 January 14, 2025 =
+
+* Enhancements:
+
+  - Added: Compatibility with the new [Ultimate Member - Zapier](https://ultimatemember.com/extensions/zapier/) extension
+  - Added: Only approved user Reset Password setting defined as true by default
+  - Added: `UM()->is_new_ui()` function for future enhancements related to new UI
+  - Added: Filter hook `um_before_user_submitted_registration_data`
+  - Tweak: Changed hook's priority for initialization of email templates paths
+  - Tweak: Removed `load_plugin_textdomain` due to (article)[https://make.wordpress.org/core/2024/10/21/i18n-improvements-6-7/#Enhanced-support-for-only-using-PHP-translation-files]
+
+* Bugfixes:
+
+  - Fixed: Security issue CVE ID: CVE-2025-0308
+  - Fixed: Security issue CVE ID: CVE-2025-0318
+  - Fixed: Using placeholders in email templates when Action Scheduler is active. Using `fetch_user_id` attribute for fetching necessary user before sending email
+  - Fixed: PHP 8.4 compatibility. Using WordPress native `wp_is_mobile()` instead of MobileDetect library
+  - Fixed: PHP errors related to `UM()->localize()` function
+  - Fixed: PHP errors in user meta header when `last_update` meta is empty
+  - Fixed: Small CSS changes and avoid duplicates
+  - Fixed: Removed ms-native show password button for type="password" field in UM forms
+  - Fixed: Define scalable attribute for cropper
+
+* Deprecated:
+
+  - Fully deprecated `UM()->mobile()` function
+  - Fully deprecated `UM()->localize()` function
+  - Fully deprecated `um_language_textdomain` filter hook
+
+* Templates required update:
+
+  - account.php
+
+* Cached and optimized/minified assets(JS/CSS) must be flushed/re-generated after upgrade
+
+= 2.9.1 November 15, 2024 =
+
+* Enhancements:
+
+  - Added: `um_image_upload_validation` hook for 3rd-party validation during upload images
+
+* Bugfixes:
+
+  - Fixed: "Load textdomain just in time" issue
+  - Fixed: Capabilities checking in the wp-admin > Users list table
+  - Fixed: File/image upload on the role specific profile form
+  - Fixed: Issues when the form's custom fields meta has a wrong format
+  - Fixed: Validation of the "Registration Default Role" slug
+  - Fixed: Allowed query variables via registered REST API class only when REST_REQUEST is defined
+
+= 2.9.0 November 12, 2024 =
+
+* Enhancements:
+
+  - Added: Action Scheduler (version 3.8.1) for email sending. More info is [here](https://actionscheduler.org/)
+  - Added: Supporting new `wp_register_block_metadata_collection()` function for registering WP Blocks
+
+* Bugfixes:
+
+  - Fixed: `ajax_image_upload()` and `ajax_resize_image()` handlers vulnerability. CVE ID: CVE-2024-10528
+  - Fixed: Disabling user status column wp-admin > Users screen
+  - Fixed: User status filter on wp-admin > Users on mobile devices
+  - Fixed: Extra unwrapping of the WP Editor field's value
+
+* Cached and optimized/minified assets(JS/CSS) must be flushed/re-generated after upgrade
+
+= 2.8.9 October 14, 2024 =
+
+* Enhancements:
+
+  - Added: Using PHP tidy extension (if it's active) to make HTML textarea value clear
+  - Added: `um_tidy_config` filter hook for setting PHP tidy config
+  - Tweak: Avoid using force `set_status()` function.
+  - Tweak: Properly using `UM()->common()->users()->get_status( $user_id )` instead of `um_user( 'account_status' )`
+  - Tweak: Properly using `UM()->common()->users()->get_status( $user_id, 'formatted' )` instead of `um_user( 'account_status_name' )`
+  - Tweak: Properly using `um_user( 'status' )` for getting user role setting while registration
+
+* Bugfixes:
+
+  - Fixed: UM tipsy removing inside .um-page selector (e.g. tipsy init from um-modal)
+  - Fixed: Rollback using `<iframe>` for displaying HTML formatted textarea value
+  - Fixed: Capability to edit user profile for Administrator when user doesn't have a capability to edit its profile
+  - Fixed: Sending email notifications based on user status after registration
+  - Fixed: PHP error when meta `um_member_directory_data` has a wrong format
+
+* Cached and optimized/minified assets(JS/CSS) must be flushed/re-generated after upgrade
+
+= 2.8.8 October 04, 2024 =
+
+* Bugfixes:
+
+  - Fixed: Download routing initialization
+  - Fixed: Textarea height and HTML formatted textarea field height isolated via `<iframe>` on view mode
+  - Fixed: User registration if email activation or admin review are required
+  - Fixed: First installation errors
+
+* Cached and optimized/minified assets(JS/CSS) must be flushed/re-generated after upgrade
+
+= 2.8.7 October 01, 2024 =
+
+* Enhancements:
+
+  - Added: Single user actions on WP Users list table
+  - Updated: User status filter on WP Users list table
+  - Updated: User bulk actions on WP Users list table
+  - Updated: User actions on User Profile and Member Directory card
+  - Added: Applying shortcodes in the post restriction message
+  - Added: ProfilePage Structured Data
+  - Added: Ability to use HTML tags (allowed in `wp_kses_post`) in the global block restriction message
+  - Changed: Some wp-admin fields descriptions
+  - Updated: Data format in `um_admin_bulk_user_actions_hook` filter hook. Changed format from `$action_slug => array( 'label' => $action_title )` to `$action_slug => $action_title`
+  - Added: `$old_status` param to `um_after_user_status_is_changed` action hook
+  - Added: `$user_id` param to `um_before_user_hash_is_changed` action hook
+  - Added: `$user_id, $hash, $expiration` params to `um_after_user_hash_is_changed` action hook
+  - Added: `um_restricted_post_content` filter hook
+  - Added: `um_loggedin_inner_content` filter hook
+  - Added: `um_profile_dynamic_meta_profile_schema` filter hook
+  - Removed: `UM()->fields()->get_restricted_fields_for_edit()` function from a fields loop
+
+* Bugfixes:
+
+  - Fixed: Single user action on User Profile security vulnerability. CVE ID: CVE-2024-8520
+  - Fixed: [um_loggedin] shortcode security vulnerability. CVE ID: CVE-2024-8519
+  - Fixed: Performance issue related to Settings > Secure tab
+  - Fixed: The "Clear All" button in the member directory did not reset all dependent dropdowns
+  - Fixed: Telegram and Discord social links in profile header
+  - Fixed: UM links to empty phone numbers
+  - Fixed: Email changing via User Account flush session. Security enhancement because email can be used for login
+  - Fixed: User Profile image URL in meta tags
+  - Fixed: Empty User Profile and PHP Fatal error when cannot get profile field data
+  - Fixed: Parsing /modal/ templates and parsing templates on the Windows hosting
+  - Fixed: Validation `form_id` attribute in the `ultimatemember` shortcode
+
+* Templates required update:
+
+  - login-to-view.php
+
+* Cached and optimized/minified assets(JS/CSS) must be flushed/re-generated after upgrade
+
+* Deprecated:
+
+  - Hook: Action hook `um_after_user_status_is_changed_hook`. Use action hook `um_after_user_status_is_changed` instead.
+  - Hook: Action hook `um_when_status_is_set`. Use action hook `um_before_user_status_is_set` instead.
+  - Hook: Action hook `um_admin_user_action_hook`. Use filter hook `um_handle_bulk_actions-users-{$current_action}` for custom user bulk actions instead.
+  - Hook: Action hook `um_admin_user_action_{$bulk_action}_hook`. Use filter hook `um_handle_bulk_actions-users-{$current_action}` for custom user bulk actions instead.
+  - Hook: Action hook `um_admin_custom_hook_{$action}`. Use filter hook `um_handle_bulk_actions-users-{$current_action}` for custom user bulk actions instead.
+  - Hook: Filter hook `um_admin_views_users`. Use filter 'um_user_statuses_admin_filter_options' hook instead.
+  - Function: `UM()->user()->set_status( $status )`. Use function `UM()->common()->users()->set_status( $status, $user_id )` instead.
+  - Function: `UM()->user()->assign_secretkey()`. Use function `UM()->common()->users()->assign_secretkey( $user_id )` instead.
+  - Function: `UM()->user()->approve( $repeat )`. Use function `UM()->common()->users()->approve( $user_id, $force )` instead.
+  - Function: `UM()->user()->email_pending()`. Use function `UM()->common()->users()->send_activation( $user_id, $force )` instead.
+  - Function: `UM()->user()->pending()`. Use function `UM()->common()->users()->set_as_pending( $user_id, $force )` instead.
+  - Function: `UM()->user()->reject()`. Use function `UM()->common()->users()->reject( $user_id )` instead.
+  - Function: `UM()->user()->deactivate()`. Use function `UM()->common()->users()->deactivate( $user_id )` instead.
+  - Function: `UM()->user()->user_exists_by_id( $user_id )`. Use function `UM()->common()->users()::user_exists( $user_id )` instead.
+  - Function: `UM()->files()->format_bytes( $size )`. Use function `UM()->common()->filesystem()::format_bytes( $size )` instead.
+
 = 2.8.6 May 22, 2024 =
 
 * Enhancements:

@@ -68,7 +68,7 @@ Slideshow
 	width:auto;
 }
 
-.avia-slideshow li>p{
+.avia-slideshow li > p{
 	margin:0;
 }
 
@@ -130,6 +130,21 @@ Slideshow
 	text-align: center;
 	line-height: 62px;
 	color: inherit;
+}
+
+#top .avia-slideshow-arrows a.avia-svg-icon{
+	text-indent: 0;
+	background: rgba(0,0,0,0.3);
+}
+
+#top .avia-slideshow-arrows a.avia-svg-icon > span{
+	text-indent: -600%;
+}
+
+#top .avia-slideshow-arrows a.avia-svg-icon svg:first-child{
+	margin-top: 17px;
+	stroke: #fff;
+	fill: #fff;
 }
 
 .prev-slide:before{
@@ -224,6 +239,8 @@ Slideshow
 	opacity: 0;
 }
 
+#av-admin-preview .av_slideshow.avia-slideshow.av-nav-arrows-visible .avia-slideshow-arrows a,
+#av-admin-preview .av-slideshow-ui.av-nav-arrows-visible .avia-slideshow-arrows a,
 .avia_desktop .av_slideshow.avia-slideshow.av-nav-arrows-visible .avia-slideshow-arrows a,
 .avia_desktop .av_slideshow.avia-slideshow.av-nav-dots-visible .avia-slideshow-dots a,
 .avia_desktop .av-slideshow-ui.av-nav-arrows-visible .avia-slideshow-arrows a,
@@ -236,6 +253,8 @@ Slideshow
 	opacity: 0.6;
 }
 
+#av-admin-preview .av_slideshow.avia-slideshow:hover .avia-slideshow-controls a:hover,
+#av-admin-preview .av-slideshow-ui:hover .avia-slideshow-controls a:hover,
 .avia_desktop .av_slideshow.avia-slideshow:hover .avia-slideshow-controls a:hover,
 .avia_desktop .av-slideshow-ui:hover .avia-slideshow-controls a:hover{
 	opacity: 0.8;
@@ -256,6 +275,16 @@ Slideshow
 	line-height: 60px;
 }
 
+#top .av-control-minimal .avia-slideshow-arrows a.avia-svg-icon{
+	border: 2px solid #fff;
+	background: transparent;
+}
+
+#top .av-control-minimal .avia-slideshow-arrows a.avia-svg-icon svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
 #top .av-control-minimal .avia-slideshow-dots a{
 	border: 2px solid #fff;
 	background: transparent;
@@ -274,6 +303,15 @@ Slideshow
 	border-color: #000;
 }
 
+#top .av-control-minimal-dark .avia-slideshow-arrows a.avia-svg-icon{
+	border-color: #000;
+}
+
+#top .av-control-minimal-dark .avia-slideshow-arrows a.avia-svg-icon svg:first-child{
+	stroke: #000;
+	fill: #000;
+}
+
 #top .av-control-minimal-dark .avia-slideshow-dots a{
 	border-color: #000;
 }
@@ -283,8 +321,9 @@ Slideshow
 }
 
 #top .scroll-down-link.av-control-minimal-dark{
-	color:#000;
+	color: #000;
 }
+
 #top .scroll-down-link.av-custom-scroll-down-color{
 	text-shadow: none;
 }

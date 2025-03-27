@@ -29,7 +29,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
     $(document).ready(function() {
-        var checkCountdownIsExists = $(document).find('#ays-pb-new-pb-banner-dicount-month-main-2024');
+        var checkCountdownIsExists = $(document).find('#ays-pb-new-mega-bundle-dicount-month-main');
 
         if (checkCountdownIsExists.length > 0) {
             var second = 1000,
@@ -38,7 +38,7 @@
                 day = hour * 24;
 
             var countdownEndTime = pb.pbBannerDate
-            // var countdownEndTime ='DEC 31, 2022 23:59:59',
+            // var countdownEndTime = "JAN 15, 2025 23:59:59";
             var countDown = new Date(countdownEndTime).getTime();
 
             if ( isNaN(countDown) || isFinite(countDown) == false ) {

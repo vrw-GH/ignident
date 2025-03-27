@@ -687,12 +687,10 @@ var aviaJS = aviaJS || {};
 			target.find('.avia-modal-group-element, .avia-insert-area').disableSelection();
 			target.sortable(params);
 
-
 	};
 
 	$.AviaModal.register_callback.modal_load_iconfont_filter = function()
 	{
-
 		let scope = this.modal,
 			filters = scope.find( '.av-icon-filter-container' );
 
@@ -760,7 +758,7 @@ var aviaJS = aviaJS || {};
 					icons.each( function()
 					{
 						let icon = $(this),
-							name = icon.data( 'element-name' ).toLowerCase();
+							name = icon.attr( 'data-element-name' ).toLowerCase();
 
 						if( name.indexOf( filterValue ) !== -1 )
 						{

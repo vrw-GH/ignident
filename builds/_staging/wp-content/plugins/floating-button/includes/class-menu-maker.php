@@ -173,7 +173,8 @@ class Menu_Maker {
 			case 'img':
 				$alt  = ! empty( $param['custom_icon_alt'] ) ? $param['custom_icon_alt'] : '';
 				$url  = $param['custom_icon_url'];
-				$icon = '<img src="' . esc_url( $url ) . '"' . wp_kses( $action, [ 'data-action' => [] ] ) . ' alt="' . esc_attr( $alt ) . '"' . ' class="notranslate">';
+
+				$icon = '<img src="' . esc_url( $url ) . '"' . wp_kses( $action, [ 'data-action' => [] ] ) . ' alt="' . esc_attr( $alt ) . '"' . ' class="notranslate">'; // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 				break;
 			case 'emoji':
 				$icon = '<span class="notranslate flbtn-emoji"' . wp_kses( $action, [ 'data-action' => [] ] ) . '>' . esc_html( $param['custom_icon_emoji'] ) . '</span>';
@@ -345,7 +346,7 @@ class Menu_Maker {
 			case 'img':
 				$alt  = ! empty( $arr['custom_icon_alt'][ $i ] ) ? $arr['custom_icon_alt'][ $i ] : '';
 				$url  = $arr['custom_icon_url'][ $i ];
-				$icon = '<img src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '"' . ' class="notranslate">';
+				$icon = '<img src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '"' . ' class="notranslate">'; // phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
 				break;
 			case 'emoji':
 				$icon = '<span class="notranslate flbtn-emoji">' . esc_html( $arr['custom_icon_emoji'][ $i ] ) . '</span>';

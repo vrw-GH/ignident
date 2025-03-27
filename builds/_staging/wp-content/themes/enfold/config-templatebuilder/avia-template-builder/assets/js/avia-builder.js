@@ -665,10 +665,10 @@ function avia_isNumeric( obj )
 
 
 			//re activate sorting and dropping after undo and redo changes
-			this.canvas.on('avia-history-update', function()
+			this.canvas.on( 'avia-history-update', function()
 			{
-				obj.activate_element_dragging(this.canvasParent,"");
-				obj.activate_element_dropping(this.canvasParent,"");
+				obj.activate_element_dragging( this.canvasParent, "" );
+				obj.activate_element_dropping( this.canvasParent, "" );
 			});
 
 			//	hide/show shortcodes when an element is added/removed to canvas
@@ -785,13 +785,18 @@ function avia_isNumeric( obj )
 		{
 			var stored = null;
 
+			if( typeof sessionStorage === 'undefined' )
+			{
+				return stored;
+			}
+
 			//	FF throws error when all cookies blocked !!
 			try
 			{
 				stored = sessionStorage.getItem( 'aviaModalPopupState' );
 				stored = ( null == stored ) ? {} : JSON.parse( stored );
 			}
-			catch(e)
+			catch( err )
 			{
 				this.modal_popup_state = false;
 				return this.modal_popup_state;
@@ -802,13 +807,27 @@ function avia_isNumeric( obj )
 
 		save_modal_popup_state: function()
 		{
+			if( typeof sessionStorage === 'undefined' )
+			{
+				return;
+			}
+
 			if( false === this.modal_popup_state )
 			{
 				return;
 			}
 
 			var value = JSON.stringify( this.modal_popup_state );
-			sessionStorage.setItem( 'aviaModalPopupState', value );
+
+			try
+			{
+				sessionStorage.setItem( 'aviaModalPopupState', value );
+			}
+			catch( err )
+			{
+				avia_log( 'Info - Session Storage: Browser memory limit reached, blocked or not supported. We are not able to save the state of the last open options tabs in modal popup windows of ALB elements.' );
+				avia_log( err );
+			}
 		},
 
 		sort_shortcode_buttons: function( sort_order )
@@ -1339,6 +1358,7 @@ function avia_isNumeric( obj )
 				}
 
 				self.body_container.addClass( 'avia-advanced-editor-enabled' );
+				self.body_container.removeClass( 'wp-default-editor-enabled' );
 				self.classic_editor_wrap.addClass( 'avia-hidden-editor' );
 				self.switch_button.addClass( 'avia-builder-active' ).text(self.switch_button.data( 'active-button' ) );
 				self.activeStatus.val( 'active' );
@@ -1366,6 +1386,7 @@ function avia_isNumeric( obj )
 			else
 			{
 				this.body_container.removeClass( 'avia-advanced-editor-enabled' );
+				this.body_container.addClass( 'wp-default-editor-enabled' );
 				this.classic_editor_wrap.removeClass( 'avia-hidden-editor' );
 				this.switch_button.removeClass( 'avia-builder-active' ).text( this.switch_button.data( 'inactive-button' ) );
 				this.activeStatus.val( "" );
@@ -1749,10 +1770,13 @@ function avia_isNumeric( obj )
 			{
 				if( this.activeStatus.val() != "active" )
 				{
+					this.body_container.addClass('wp-default-editor-enabled');
+					this.body_container.removeClass( 'avia-advanced-editor-enabled' );
 					return;
 				}
 
 				this.body_container.addClass('avia-advanced-editor-enabled');
+				this.body_container.removeClass( 'wp-default-editor-enabled' );
 			}
 
 			var obj = this;
@@ -1763,8 +1787,11 @@ function avia_isNumeric( obj )
 
 				if(text.indexOf('[') === -1)
 				{
-                	text = this.classic_textarea.val(); //entity-test: val() to html()
-                	if(this.tiny_active) text = window.switchEditors._wp_Nop(text);
+					text = this.classic_textarea.val(); //entity-test: val() to html()
+					if( this.tiny_active )
+					{
+						text = window.switchEditors._wp_Nop(text);
+					}
 
 					/**
 					 * With WP 4.9 we get an empty
@@ -1773,7 +1800,7 @@ function avia_isNumeric( obj )
 					 */
 					text = text.replace( /<\s*?span\b[^>]*mce_SELRES_start[^>]*>(.*?)<\/span\b[^>]*>/gi, '' );
 
-                	this.secureContent.val(text);
+					this.secureContent.val(text);
 				}
 			}
 
@@ -2293,10 +2320,17 @@ function avia_isNumeric( obj )
 									else
 									{
 										update_html = replace_val;
+
+										if( update_html.indexOf( '###avia64###:' ) !== -1 )
+										{
+											//	encode base64 string
+											update_html = update_html.replace( '###avia64###:', '' );
+											update_html = atob( update_html );
+										}
 									}
 
 									//update all elements
-									visual_el.html(update_html);
+									visual_el.html( update_html );
 								}
 							});
 

@@ -573,6 +573,7 @@ if( ! class_exists( 'avia_sc_cell', false ) )
 
 			if( ! empty( $atts['vertical_align'] ) )
 			{
+				$element_styling->add_classes( 'container', "content-align-{$atts['vertical_align']}" );
 				$element_styling->add_styles( 'container', array(
 												'vertical-align'	=> $atts['vertical_align']
 										) );

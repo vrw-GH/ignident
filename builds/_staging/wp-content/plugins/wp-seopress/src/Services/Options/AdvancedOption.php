@@ -347,20 +347,6 @@ class AdvancedOption
     }
 
     /**
-     * @since 5.4.0
-     */
-    public function getAppearanceGenesisSeoMetaboxe(){
-        return $this->searchOptionByKey('seopress_advanced_appearance_genesis_seo_metaboxe');
-    }
-
-    /**
-     * @since 5.4.0
-     */
-    public function getAppearanceGenesisSeoMenu(){
-        return $this->searchOptionByKey('seopress_advanced_appearance_genesis_seo_menu');
-    }
-
-    /**
      * @since 6.6.0
      */
     public function getAppearanceAdminBar(){
@@ -421,6 +407,13 @@ class AdvancedOption
      */
     public function getAdvancedImageAutoAltTargetKw(){
         return $this->searchOptionByKey('seopress_advanced_advanced_image_auto_alt_target_kw');
+    }
+
+    /**
+     * @since 8.3
+     */
+    public function getAdvancedImageAutoAltTxt(){
+        return $this->searchOptionByKey('seopress_advanced_advanced_image_auto_alt_txt');
     }
 
     /**

@@ -39,11 +39,14 @@
 
     $(document).ready(function() {
         // Fix list table pagination issue start
-        if ($('.pagination-links:visible').length) {
-            if ($('#ays-popup-box-search-input').length) {
-                var search_string = $('#ays-popup-box-search-input').val();
+        var $paginationLinks = $('.pagination-links:visible');
+        var $searchInput = $('#ays-popup-box-search-input');
+
+        if ($paginationLinks.length) {
+            if ($searchInput.length) {
+                var search_string = $searchInput.val();
                 if (search_string != '') {
-                    $('.pagination-links a').each(function() {
+                    $paginationLinks.find('a').each(function() {
                         this.href = this.href + '&s=' + search_string;
                     });
                 }
@@ -197,6 +200,12 @@
         });
         // Code Mirror end
 
+        // Tooltip displaying start
+        $('[data-toggle="tooltip"]').tooltip({
+            template: '<div class="tooltip ays-pb-custom-class-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+        });
+        // Tooltip displaying end
+
         // Starter variables declare start
         var toggle_ddmenu = $(document).find('.toggle_ddmenu');
         var ays_pb_overlay_color = $(document).find('#ays-pb-overlay_color').val();
@@ -349,17 +358,20 @@
         toggle_ddmenu.on('click', function() {
             var ddmenu = $(this).next();
             var state = ddmenu.attr('data-expanded');
+
             switch (state) {
                 case 'true':
                     $(this).find('img').css({
                         transform: 'rotate(0deg)'
                     });
+
                     ddmenu.attr('data-expanded', 'false');
                     break;
                 case 'false':
                     $(this).find('img').css({
                         transform: 'rotate(90deg)'
                     });
+
                     ddmenu.attr('data-expanded', 'true');
                     break;
             }
@@ -372,16 +384,14 @@
             var $this = $(this);
             var parent = $this.parents('.tablenav');
 
-            var html_name = '';
             var top_or_bottom = 'top';
-
             if (parent.hasClass('bottom')) {
                 top_or_bottom = 'bottom';
             }
 
-            var catFilter = $(document).find('select[name="filterby-'+ top_or_bottom +'"]').val();
-            var authorFilter = $(document).find('select[name="filterbyAuthor-'+ top_or_bottom +'"]').val();
-            var typeFilter = $(document).find('select[name="filterbyType-'+ top_or_bottom +'"]').val();
+            var catFilter = $(document).find('select[name="filterby-' + top_or_bottom + '"]').val();
+            var authorFilter = $(document).find('select[name="filterbyAuthor-' + top_or_bottom + '"]').val();
+            var typeFilter = $(document).find('select[name="filterbyType-' + top_or_bottom + '"]').val();
             var link = location.href;
 
             if (typeof catFilter != 'undefined') {
@@ -407,7 +417,7 @@
         })
         // List table | Filter end
 
-        // List table | Delete confiramtions start
+        // List table | Delete confirmations start
         $(document).find('input[type="submit"]#doaction, input[type="submit"]#doaction2').on('click', function(e) {
             showConfirmationIfDelete(e);
         })
@@ -422,7 +432,7 @@
                 window.location.replace($(this).attr('href'));
             }
         });
-        // List table | Delete confiramtions end
+        // List table | Delete confirmations end
 
         // Choose popup type start
         $(document).find('.ays_pb_layer_box_blocks .ays-pb-dblclick-layer').on('click',function(e) {
@@ -487,6 +497,7 @@
                     $(document).find('#ays_pb_hide_timer_popup').hide(250);
 
                     $(document).find('input#ays_popup_content_padding').val(0);
+                    $(document).find('input#ays_popup_content_padding_mobile').val(0);
                     $(document).find('span.ays-pb-padding-default-value').text(0);
 
                     $(document).find('input#image_type_img_theme_view_type').prop('checked',true);
@@ -675,6 +686,37 @@
         });
         // Close cache note start
 
+        // Options accordion effect start
+        // $(document).on('click', '.ays-pb-accordion-arrow-box', function() {
+        //     toggleOptionsAccordion($(this));
+        // });
+
+        $(document).on('click', '.ays-pb-accordion-header', function() {
+            toggleOptionsAccordion($(this).find('.ays-pb-accordion-arrow-box'));
+        });
+
+        $(document).on('click', '.ays-pb-collapse-all-options', function(){
+            var $thisMainParent = $(this).parents('.ays-pb-tab-content');
+
+            var arrowBtn = $thisMainParent.find('.ays-pb-accordion-arrow-box');
+            var arrowSvg = arrowBtn.find('svg');
+            var accordionMainContainer = arrowBtn.parents('.ays-pb-accordion-options-main-container');
+            var accordionBody = accordionMainContainer.find('.ays-pb-accordion-body');
+            arrowSvg.removeClass('ays-pb-accordion-arrow-active');
+            accordionBody.slideUp();
+        });
+
+        $(document).on('click', '.ays-pb-expand-all-options', function(){
+            var $thisMainParent = $(this).parents('.ays-pb-tab-content');
+            var arrowBtn = $thisMainParent.find('.ays-pb-accordion-arrow-box');
+            var arrowSvg = arrowBtn.find('svg');
+            var accordionMainContainer = arrowBtn.parents('.ays-pb-accordion-options-main-container');
+            var accordionBody = accordionMainContainer.find('.ays-pb-accordion-body');    
+            arrowSvg.addClass('ays-pb-accordion-arrow-active');
+            accordionBody.slideDown();
+        });
+        // Options accordion effect end
+
         // Toggle mobile settings start
         $(document).find('.ays_pb_different_settings_for_mobile').on('change', toggleMobileSettings);
         $(document).find('.ays_pb_option_for_desktop, .ays_pb_option_for_mobile_device_cb').on('click', toggleMobileSettingsCb);
@@ -745,12 +787,28 @@
         });
         // Image type | Remove popup image end
 
+        // Notification type | Add banner logo start
+        $(document).on('click', 'a.ays-pb-notification-type-add-logo-img', function(e) {
+            openMediaUploaderNotificationLogoImg(e, $(this));
+        });
+        // Notification type | Add banner logo start
+
+        // Notification type | Remove banner logo start
+        $(document).on('click','.ays-remove-notification-type-logo-img', function() {
+            $('img#ays_pb_notification_logo').attr('src', '');
+            $('input#ays_pb_notification_logo_image').val('');
+            $('.ays-pb-notification-logo-container-main').fadeOut();
+            $('.ays-pb-notification-logo-settings-container').addClass('display_none');
+            $('a.ays-pb-notification-type-add-logo-img').text(pb.addImage);
+        });
+        // Notification type | Remove banner logo end
+
         // Notification type components section start
         $(document).on('click', 'div.open_component_options', openComponentOptions);
         $(document).on('click', 'div.close_component_options', closeComponentOptions);
         // Notification type components section end
 
-        // Change post taype start
+        // Change post type start
         $(document).on('change', '#ays_pb_post_types', function() {
             var selected = $('.select2-selection__choice');
             var arr = pb.post_types;
@@ -802,7 +860,7 @@
                 },
             });
         });
-        // Change post taype end
+        // Change post type end
 
         // Change popup trigger start
         $(document).on('change', '#ays-pb-action_button_type', function() {
@@ -1390,6 +1448,7 @@
             $form.find('input#ays_pb_enable_animate_out_mobile').prop('checked', defaultValues.enableCloseAnimMobile).change();
             $form.find('select#ays-pb-animate_out_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.closeAnimTextMobile).change();
             $form.find('div.ays_pb_animate_out_mobile_container').css('display', 'none').change();
+            $form.find('div.ays_pb_padding_mobile_container').css('display', 'none').change();
 
             $form.find('select#ays-pb-animate_in').val(defaultValues.openAnim).change();
             $form.find('select#ays-pb-animate_in').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.openAnimText).change();
@@ -1445,7 +1504,7 @@
             $form.find('select#ays_pb_gradient_direction_mobile').val(defaultValues.bgGradDirMobile).change();
             $form.find('select#ays_pb_gradient_direction_mobile').parent('div.ays_pb_aysDropdown').find('div.text').text(defaultValues.bgGradDirTextMobile).change();
 
-            $form.find('input#ays-pb-header_bgcolor').wpColorPicker('color', defaultValues.headerBgColor).change();
+            $form.find('input#ays-pb-header_bgcolor,input#ays-pb-header_bgcolor_mobile').wpColorPicker('color', defaultValues.headerBgColor).change();
 
             $form.find('input.ays_pb_overlay_color_change').wpColorPicker('color', defaultValues.overlayColor).change();
             $form.find('input#ays_pb_enable_overlay_color_mobile').prop('checked', defaultValues.enableOverlayColorMobile).change();
@@ -1560,6 +1619,27 @@
         });
         // Background music | Remove music end
 
+        // Active time start
+        $('#ays-deactive-time-label').on('click', function() {
+            let $timeInput = $('#ays-deactive-time')[0]; 
+    
+            if ($timeInput.showPicker) {
+                $timeInput.showPicker(); 
+            } else {
+                $timeInput.focus(); 
+            }
+        });
+        $('#ays-active-time-label').on('click', function() {
+            let $timeInput = $('#ays-active-time')[0]; 
+        
+            if ($timeInput.showPicker) {
+                $timeInput.showPicker(); 
+            } else {
+                $timeInput.focus(); 
+            }
+        });        
+        // Active time end
+
         // Pro features start
         $(document).find('.ays-pro-features-v2-upgrade-button:not(.ays-pro-features-v2-upgrade-button-view-demo)').hover(
             function() {
@@ -1637,6 +1717,120 @@
         });
         // Go to next/prev popup confirmation end
 
+        // Our Products | Plugins installation start
+        $(document).on('click', '.ays-pb-cards-block .ays-pb-card__footer button.status-missing', function(e) {
+            var $this = $(this);
+            var thisParent = $this.parents('.ays-pb-cards-block');
+            var attr_plugin = $this.attr('data-plugin');
+            var wp_nonce = thisParent.find('#ays_pb_ajax_install_plugin_nonce').val();
+            var loader_html = $this.find('.ays_pb_loader');
+
+            $this.prop('disabled', true);
+            $this.addClass('disabled');
+            $this.html(loader_html);
+            loader_html.removeClass('display_none');
+
+            var data = {
+                action: 'ays_pb_install_plugin',
+                _ajax_nonce: wp_nonce,
+                plugin: attr_plugin,
+                type: 'plugin'
+            };
+
+            $.ajax({
+                url: pb.ajax,
+                method: 'post',
+                dataType: 'json',
+                data: data,
+                success: function (response) {
+                    if (response.success) {
+                        swal.fire({
+                            type: 'success',
+                            html: '<h4>' + response['data']['msg'] + '</h4>'
+                        }).then( function(res) {
+                            if ( $this.hasClass('status-missing') ) {
+                                $this.removeClass('status-missing');
+                            }
+                            $this.text(pb.activated);
+                            $this.addClass('status-active');
+                        });
+                    } else {
+                        swal.fire({
+                            type: 'info',
+                            html: '<h4>' + response['data'][0]['message'] + '</h4>'
+                        }).then( function(res) {
+                            $this.text(pb.errorMsg);
+                        });
+                    }
+                },
+                error: function() {
+                    swal.fire({
+                        type: 'info',
+                        html: '<h2>' + pb.loadResource + '</h2><br><h6>' + pb.somethingWentWrong + '</h6>'
+                    }).then(function(res) {
+                        $this.text(pb.errorMsg);
+                    });
+                }
+            });
+        });
+        // Our Products | Plugins installation end
+
+        // Our Products | Plugins activation start
+        $(document).on('click', '.ays-pb-cards-block .ays-pb-card__footer button.status-installed', function(e) {
+            var $this = $(this);
+            var thisParent = $this.parents('.ays-pb-cards-block');
+            var attr_plugin = $this.attr('data-plugin');
+            var wp_nonce = thisParent.find('#ays_pb_ajax_install_plugin_nonce').val();
+            var loader_html = $this.find('.ays_pb_loader');
+            
+            $this.prop('disabled', true);
+            $this.addClass('disabled');
+            $this.html(loader_html);
+            loader_html.removeClass('display_none');
+
+            var data = {
+                action: 'ays_pb_activate_plugin',
+                _ajax_nonce: wp_nonce,
+                plugin: attr_plugin,
+                type: 'plugin'
+            };
+
+            $.ajax({
+                url: pb.ajax,
+                method: 'post',
+                dataType: 'json',
+                data: data,
+                success: function (response) {
+                    if (response.success) {
+                        swal.fire({
+                            type: 'success',
+                            html: '<h4>' + response['data'] + '</h4>'
+                        }).then( function(res) {
+                            if ( $this.hasClass('status-installed') ) {
+                                $this.removeClass('status-installed');
+                            }
+                            $this.text(pb.activated);
+                            $this.addClass('status-active disabled');
+                        });
+                    } else {
+                        swal.fire({
+                            type: 'info',
+                            html: '<h4>' + response['data'][0]['message'] + '</h4>'
+                        });
+                    }
+                },
+                error: function() {
+                    swal.fire({
+                        type: 'info',
+                        html: '<h2>' + pb.loadResource + '</h2><br><h6>' + pb.somethingWentWrong + '</h6>'
+                    }).then(function(res) {
+                        $this.text(pb.errorMsg);
+                    });
+                }
+            });
+        });
+        // Our Products | Plugins activation end
+
         function submitOnce(subButton) {
             var subLoader = subButton.siblings('.display_none');
     
@@ -1669,9 +1863,6 @@
             var linkModified = link.split('?')[1].split('&');
 
             for (var i = 0; i < linkModified.length; i++) {
-                if (linkModified[i].split('=')[0] == 'ays_result_tab' ) {
-                    linkModified.splice(i, 1, 'ays_result_tab=poststuff');
-                }
                 if (linkModified[i].split('=')[0] == options.what) {
                     linkModified.splice(i, 1);
                 }
@@ -1747,6 +1938,15 @@
                 warningNoteContainer.fadeOut('slow');
             }
         });
+    }
+
+    function toggleOptionsAccordion(arrowBtn) {
+        var arrowSvg = arrowBtn.find('svg');
+        var accordionMainContainer = arrowBtn.parents('.ays-pb-accordion-options-main-container');
+        var accordionBody = accordionMainContainer.find('.ays-pb-accordion-body');
+
+        arrowSvg.toggleClass('ays-pb-accordion-arrow-active');
+        accordionBody.slideToggle();
     }
 
     function toggleMobileSettings() {
@@ -1949,6 +2149,32 @@
             $('.ays-pb-image-type-img-settings-container').removeClass('display_none');
             $('input#ays_pb_image_type_img_src').val(attachment.url);
             $('img.image_type_img_live').attr('src', attachment.url);
+        }).open();
+
+        return false;
+    }
+
+    function openMediaUploaderNotificationLogoImg(e, element) {
+        e.preventDefault();
+
+        let aysUploader = wp.media({
+            title: 'Upload',
+            button: {
+                text: 'Upload'
+            },
+            library: {
+                type: 'image'
+            },
+            multiple: false
+        }).on('select', function () {
+            let attachment = aysUploader.state().get('selection').first().toJSON();
+
+            element.text(pb.editImage);
+
+            $('.ays-pb-notification-logo-container-main').fadeIn();
+            $('img#ays_pb_notification_logo').attr('src', attachment.url);
+            $('.ays-pb-notification-logo-settings-container').removeClass('display_none');
+            $('input#ays_pb_notification_logo_image').val(attachment.url);
         }).open();
 
         return false;

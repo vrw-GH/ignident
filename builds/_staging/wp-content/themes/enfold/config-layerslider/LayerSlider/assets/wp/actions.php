@@ -263,6 +263,7 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_get_taxonomies', 'ls_get_taxonomies');
 		add_action('wp_ajax_ls_upload_from_url', 'ls_upload_from_url');
 		add_action('wp_ajax_ls_store_opened', 'ls_store_opened');
+		add_action('wp_ajax_ls_addons_opened', 'ls_addons_opened');
 		add_action('wp_ajax_ls_create_slider_group', 'ls_create_slider_group');
 		add_action('wp_ajax_ls_add_slider_to_group', 'ls_add_slider_to_group');
 		add_action('wp_ajax_ls_rename_slider_group', 'ls_rename_slider_group');
@@ -276,14 +277,13 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_download_object', 'ls_download_object');
 		add_action('wp_ajax_ls_assets_remote_download', 'ls_assets_remote_download');
 		add_action('wp_ajax_ls_assets_remote_search', 'ls_assets_remote_search');
-
-		add_action( 'wp_ajax_ls_get_popup_markup', 'ls_get_popup_markup' );
 	}
 
 	// ADMIN PUBLIC AJAX FUNCTIONS
 	add_action('wp_ajax_ls_slider_library_contents', 'ls_slider_library_contents');
 
-	// FRONT-END AJAX FUNCTIONS
+	// POPUP FUNCTIONS
+	add_action( 'wp_ajax_ls_get_popup_markup', 'ls_get_popup_markup' );
 	add_action( 'wp_ajax_nopriv_ls_get_popup_markup', 'ls_get_popup_markup' );
 });
 
@@ -446,7 +446,17 @@ function ls_delete_slider_group() {
 
 // Template store last viewed
 function ls_store_opened() {
-	update_user_meta(get_current_user_id(), 'ls-store-last-viewed', date('Y-m-d'));
+	update_user_meta( get_current_user_id(), 'ls-store-last-viewed', date('Y-m-d'));
+	exit;
+}
+
+function ls_addons_opened() {
+
+	if( ! wp_verify_nonce( $_GET['nonce'], 'ls-dashboard-nonce') ) {
+		die( json_encode( [ 'success' => false ] ) );
+	}
+
+	update_user_meta( get_current_user_id(), 'ls-addons-last-version', LS_ADDONS_VERSION );
 	exit;
 }
 
@@ -1211,11 +1221,11 @@ function ls_import_online() {
 
 	$name 			= $_GET['name'];
 	$slider 		= urlencode( $_GET['slider'] );
-	$category 	= ! empty( $_GET['category'] ) ? urlencode( $_GET['category'] ) : '';
+	$category 		= ! empty( $_GET['category'] ) ? urlencode( $_GET['category'] ) : '';
 	$remoteURL 		= LS_REPO_BASE_URL.'sliders/download.php?slider='.$slider.'&collection='.$category;
-
-	$uploads 		= wp_upload_dir();
-	$downloadPath 	= $uploads['basedir'].'/lsimport.zip';
+	$fileName 		= sanitize_file_name( $slider );
+	$tmpFolder 		= LS_FileSystem::createUniqueTmpFolder( $fileName.'_zip' );
+	$downloadPath 	= $tmpFolder . '/'.$fileName.'.zip';
 
 	// Download package
 	$zip 			= $GLOBALS['LS_AutoUpdate']->sendApiRequest( $remoteURL );
@@ -1273,12 +1283,13 @@ function ls_import_online() {
 
 	// Load importUtil & import the slider
 	require_once LS_ROOT_PATH.'/classes/class.ls.importutil.php';
-	$import = new LS_ImportUtil( $downloadPath, null, $name );
+	$import = new LS_ImportUtil( $downloadPath, null, $name, true );
 	$id = $import->lastImportId;
 	$sliderCount = (int)$import->sliderCount;
 
 	// Remove package
-	unlink( $downloadPath );
+	LS_FileSystem::deleteDir( $tmpFolder );
+	LS_FileSystem::cleanupTmpFiles();
 
 	$url = admin_url('admin.php?page=layerslider&action=edit&id='.$id);
 

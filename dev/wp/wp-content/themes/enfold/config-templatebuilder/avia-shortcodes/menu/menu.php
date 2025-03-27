@@ -767,7 +767,16 @@ if( ! class_exists( 'avia_sc_submenu', false ) )
 
 			if( ! empty( $mobile ) && 'active' == $mobile )
 			{
-				$mobile_button  = '<a href="#" class="mobile_menu_toggle" ' . av_icon_string( 'mobile_menu' ) . '>';
+				$add_atts = [
+						'aria-hidden'	=> 'true'
+					];
+
+				$char = avia_font_manager::get_frontend_icon( 'list', 'svg_entypo-fontello', $add_atts );
+
+				$mobile_button  = '<a href="#" class="mobile_menu_toggle">';
+				$mobile_button .=		"<span class='avia-svg-icon avia-font-svg_entypo-fontello' {$char['attr']}>";
+				$mobile_button .=			$char['svg'];
+				$mobile_button .=		'</span>';
 				$mobile_button .=		'<span class="av-current-placeholder">' . __( 'Menu', 'avia_framework' ) . '</span>';
 				$mobile_button .= '</a>';
 			}

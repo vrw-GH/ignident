@@ -132,11 +132,12 @@ div.avia-popup button.mfp-arrow:hover:before{
 
 div.avia-popup button.mfp-arrow:before{
 	content:"\E87d";
-	font-family: 'entypo-fontello';
+	font-family: 'entypo-fontello-enfold';
 }
 
 div.avia-popup button.mfp-arrow-left:before{
-	content:"\E87c"; font-family: 'entypo-fontello';
+	content:"\E87c";
+	font-family: 'entypo-fontello-enfold';
 }
 
 /*seems to cause problems on safari and chrome so disabled temp: https://github.com/KriesiMedia/wp-themes/issues/1171

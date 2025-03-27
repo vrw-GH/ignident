@@ -11,64 +11,11 @@
 jQuery(function($)
 {
 	$('.avia_colorpicker').avia_color_picker_activation();
-	$('body').avia_color_picker_autodetection();
 });
 
 (function($)
 {
-	$.fn.avia_color_picker_autodetection = function(variables)
-	{
-		return this.each(function()
-		{
-			var button = $('.avia_autodetect').on('click', function()
-			{
-				var container = $(this).parents('.avia_control').eq( 0 ),
-					colorfield = $('.avia_color_picker', container),
-					colordiv = $('.avia_color_picker_div', container),
-					loading = $('.avia_loading', container),
-					searchfor = '#avia_'+ this.hash.substring(1),
-					search_id = this.id.split("-__-"),
-					adjustableImage = container.parents('.avia_visual_set').eq( 0 ).find('.avia_preview_pic');
-
-				if(typeof search_id[1] != 'undefined')
-				{
-					searchfor = searchfor + "-__-" +search_id[1];
-				}
-
-				var image = $(searchfor + " .avia_upload_input").val();
-
-				$.ajax({
-					type: "POST",
-					url: window.ajaxurl,
-					data: "action=avia_ajax_get_image_color&attachment_id="+image,
-					beforeSend: function()
-					{
-						loading.css({display:"none", visibility:'visible'}).fadeIn(400);
-					},
-
-					success: function(msg)
-					{
-						loading.fadeOut();
-						if(msg.length == 7)
-						{
-							colordiv.css('backgroundColor', msg);
-							colorfield.val(msg);
-							adjustableImage.css('backgroundColor', msg);
-						}
-					}
-				});
-
-				return false;
-			});
-		});
-	};
-})(jQuery);
-
-
-
-(function($)
-{
-	$.fn.avia_color_picker_activation = function(variables)
+	$.fn.avia_color_picker_activation = function()
 	{
 		return this.each(function()
 		{
@@ -83,12 +30,13 @@ jQuery(function($)
 					bgCol = avia_cp.val(),
 					defaultCol = '#fff';
 
+				if(bgCol != "" )
+				{
+					avia_cp_div.css('backgroundColor', bgCol);
+					defaultCol = bgCol;
+				}
 
-
-
-				if(bgCol != "" ) { avia_cp_div.css('backgroundColor', bgCol); defaultCol = bgCol; }
-
-				  avia_cp.AviaColorPicker(
+				avia_cp.AviaColorPicker(
 				  {
 						color:  defaultCol,
 						onShow: function (colpkr)
@@ -110,23 +58,23 @@ jQuery(function($)
 						}
 					});
 
-			adjustableImage.css('backgroundColor', avia_cp_div.css('backgroundColor') );
+				adjustableImage.css('backgroundColor', avia_cp_div.css('backgroundColor') );
 
-			var picker = $('#'+avia_cp.data('colorpickerId'));
-			avia_cp.on('change keyup', function()
-			{
-				var hexCol = $(this).val();
+				var picker = $('#'+avia_cp.data('colorpickerId'));
 
-				if(hexCol.length == 7)
+				avia_cp.on('change keyup', function()
 				{
-					adjustableImage.css('backgroundColor', hexCol);
-					avia_cp_div.css('backgroundColor',  hexCol);
-					avia_cp.val( hexCol);
+					var hexCol = $(this).val();
 
-					picker.find('.colorpicker_hex input').val(hexCol).trigger('change');
-				}
-			});
+					if(hexCol.length == 7)
+					{
+						adjustableImage.css('backgroundColor', hexCol);
+						avia_cp_div.css('backgroundColor',  hexCol);
+						avia_cp.val( hexCol);
 
+						picker.find('.colorpicker_hex input').val(hexCol).trigger('change');
+					}
+				});
 			});
 
 			$('.avia_color_picker_div').on('click', function()
@@ -137,9 +85,6 @@ jQuery(function($)
 		});
 	};
 })(jQuery);
-
-
-
 
 
  /**

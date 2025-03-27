@@ -50,7 +50,19 @@ if( $sidebar == 'left' )
 	$sidebar_text_alignment = $sidebar_left_textalign !== '' ? 'sidebar_' . $sidebar_left_textalign : '';
 }
 
-echo "<aside class='sidebar sidebar_{$sidebar} {$sidebar_text_alignment} {$sidebar_smartphone} " . avia_layout_class( 'sidebar', false ) . " units' " . avia_markup_helper( array( 'context' => 'sidebar', 'echo' => false ) ) . '>';
+$aria_label = 'aria-label="' . __( 'Sidebar', 'avia_framework' ) . '"';
+
+/**
+ * @since 6.0.3
+ * @param string $aria_label
+ * @param string $context
+ * @param mixed $additional_args
+ * @return string
+ */
+$aria_label = apply_filters( 'avf_aria_label_for_sidebar', $aria_label, __FILE__, null );
+
+
+echo "<aside class='sidebar sidebar_{$sidebar} {$sidebar_text_alignment} {$sidebar_smartphone} " . avia_layout_class( 'sidebar', false ) . " units' {$aria_label} " . avia_markup_helper( array( 'context' => 'sidebar', 'echo' => false ) ) . '>';
 	echo '<div class="inner_sidebar extralight-border">';
 
 		//Display a subnavigation for pages that is automatically generated, so the users do not need to work with widgets

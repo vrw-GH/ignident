@@ -92,7 +92,7 @@ if( ! class_exists( 'avia_sc_section', false ) )
 			 * @return string
 			 */
 			$this->section_padding_default = apply_filters('avf_section_padding_default', 'default' );
-			
+
 			parent::__construct($builder);
 		}
 
@@ -608,9 +608,10 @@ if( ! class_exists( 'avia_sc_section', false ) )
 						array(
 							'name'		=> __( 'Background Video', 'avia_framework' ),
 							'desc'		=> __( 'You can also place a video as background for your section. Enter the URL to the Video. Currently supported are Youtube, Vimeo and direct linking of web-video files (mp4, webm, ogv)', 'avia_framework' ) . '<br/><br/>' .
-											__( 'Working examples Youtube & Vimeo:', 'avia_framework' ) . '<br/>
-											<strong>https://vimeo.com/1084537</strong><br/>
-											<strong>https://www.youtube.com/watch?v=5guMumPFBag</strong><br/><br/>',
+											__( 'Working examples Youtube & Vimeo:', 'avia_framework' ) . '<br/>' .
+											'<strong>https://vimeo.com/1084537</strong><br/>' .
+											'<strong>https://www.youtube.com/watch?v=5guMumPFBag</strong><br/>' .
+											'<strong>https://www.youtube.com/shorts/00-KSfJYZDA</strong><br/><br/>',
 							'id'		=> 'video',
 							'type'		=> 'input',
 							'std'		=> '',
@@ -852,6 +853,8 @@ if( ! class_exists( 'avia_sc_section', false ) )
 			$output .=			"<a class='avia-delete'  href='#delete' title='" . __( 'Delete Section', 'avia_framework' ) . "'>x</a>";
 			$output .=			"<a class='avia-toggle-visibility'  href='#toggle' title='" . __( 'Show/Hide Section', 'avia_framework' ) . "'></a>";
 
+			$output .=			avia_font_manager::html_frontend_icon( 'lock', 'svg_entypo-fontello', 'custom-elements-lock element-section' );
+
 			if( ! empty( $this->config['popup_editor'] ) )
 			{
 				$output .=		"<a class='avia-edit-element'  href='#edit-element' title='" . __( 'Edit Section', 'avia_framework' ) . "'>edit</a>";
@@ -987,6 +990,7 @@ if( ! class_exists( 'avia_sc_section', false ) )
 			$element_styling->add_classes( 'section-outer', $classes );
 			$element_styling->add_classes_from_array( 'section-outer', $meta, 'el_class' );
 			$element_styling->add_responsive_classes( 'section-outer', 'hide_element', $atts );
+			$element_styling->add_responsive_classes( 'fold_button', 'hide_element', $atts );
 
 			//	Style background
 			if( empty( $atts['attachment'] ) )
@@ -1188,6 +1192,8 @@ if( ! class_exists( 'avia_sc_section', false ) )
 				{
 					$element_styling->add_styles( 'scroll-down', array( 'color' => $atts['custom_arrow_bg'] ) );
 					$element_styling->add_classes( 'scroll-down', 'av-custom-scroll-down-color' );
+
+					$element_styling->add_styles( 'scroll-down-svg', array( 'stroke' => $atts['custom_arrow_bg'], 'fill' => $atts['custom_arrow_bg'] ) );
 				}
 			}
 
@@ -1305,6 +1311,7 @@ if( ! class_exists( 'avia_sc_section', false ) )
 							'section-parallax-inner'	=> ".avia-section.{$element_id} .av-parallax .av-parallax-inner",
 							'overlay'					=> ".avia-section.{$element_id} .av-section-color-overlay",
 							'scroll-down'				=> "#top .avia-section.{$element_id} .scroll-down-link",
+							'scroll-down-svg'			=> "#top .avia-section.{$element_id} .scroll-down-link.avia-svg-icon svg:first-child",
 							'extra-border-inner'		=> ".avia-section.{$element_id} .av-extra-border-element .av-extra-border-inner",
 							'divider-top-div'			=> ".avia-section.{$element_id} .avia-divider-svg-top",
 							'divider-bottom-div'		=> ".avia-section.{$element_id} .avia-divider-svg-bottom",
@@ -1488,7 +1495,13 @@ if( ! class_exists( 'avia_sc_section', false ) )
 					$params['attach'] .= $pre_wrap;
 				}
 
-				$params['attach'] .= "<a href='#next-section' title='' class='scroll-down-link {$arrow_class}' " . av_icon_string( 'scrolldown' ) . '></a>';
+				$icon_title = esc_html( __( 'Scroll to next section', 'avia_framework' ) );
+				$icon_class = avia_font_manager::get_shortcut_icon_class( 'svg__scrolldown' );
+				$icon = avia_font_manager::get_frontend_icon( 'svg__scrolldown', false, [ 'aria-hidden' => 'true', 'title' => $icon_title, 'desc' => $icon_title ] );
+
+				$params['attach'] .= "<a href='#next-section' title='' class='scroll-down-link {$arrow_class} {$icon_class}' {$icon['attr']}>";
+				$params['attach'] .=	$icon['svg'];
+				$params['attach'] .= '</a>';
 			}
 
 
@@ -1526,11 +1539,13 @@ if( ! class_exists( 'avia_sc_section', false ) )
 			$fold_after = '';
 			if( $fold_type != '' )
 			{
+				$hide = $element_styling->get_class_string( 'fold_button' );
 				$fold_section_class = $element_styling->get_class_string( 'fold-section' );
 				$fold_section_data = $element_styling->get_data_attributes_json_string( 'fold-section', 'fold_unfold' );
+
 				$args = [
 						'atts'			=> $atts,
-						'wrapper_class'	=> 'av-section-fold-btn-wrap av-fold-btn-padding',
+						'wrapper_class'	=> "av-section-fold-btn-wrap av-fold-btn-padding {$hide}",
 						'context'		=> __CLASS__
 					];
 

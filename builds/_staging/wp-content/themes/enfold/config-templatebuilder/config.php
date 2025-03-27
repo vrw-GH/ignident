@@ -12,7 +12,6 @@ function avia_builder_plugin_enabled()
 	if( class_exists( 'AviaBuilder', false ) )
 	{
 		return true;
-
 	}
 
 	return false;

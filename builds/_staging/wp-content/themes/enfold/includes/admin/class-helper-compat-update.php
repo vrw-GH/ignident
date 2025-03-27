@@ -82,6 +82,8 @@ if( ! class_exists( __NAMESPACE__ . '\helperCompatUpdate', false ) )
 			add_action( 'ava_trigger_updates', [ $this, 'handler_update_5_3' ], 24, 2 );
 			add_action( 'ava_trigger_updates', [ $this, 'handler_update_6_0' ], 25, 2 );
 			add_action( 'ava_trigger_updates', [ $this, 'handler_update_6_0_1' ], 26, 2 );
+			add_action( 'ava_trigger_updates', [ $this, 'handler_update_7_0' ], 27, 2 );
+			
 		}
 
 
@@ -341,6 +343,23 @@ if( ! class_exists( __NAMESPACE__ . '\helperCompatUpdate', false ) )
 			}
 
 			\aviaFramework\avia_AdminNotices()->add_notice( 'enfold_601_welcome', time() + \aviaFramework\avia_AdminNotices()->get_default_expire_time( 'handler_update_6_0_1' ) );
+			\aviaFramework\updates\aviaThemeDataUpdater()->show_default_notice( false );
+		}
+
+		/**
+		 *
+		 * @param string $prev_version
+		 * @param string $new_version
+		 */
+		public function handler_update_7_0( $prev_version, $new_version )
+		{
+			//if the previous theme version is equal or bigger to 7.0 we don't need to update
+			if( version_compare( $prev_version, '7.0', ">=" ) )
+			{
+				return;
+			}
+
+			\aviaFramework\avia_AdminNotices()->add_notice( 'enfold_70_welcome', time() + \aviaFramework\avia_AdminNotices()->get_default_expire_time( 'handler_update_7_0' ) );
 			\aviaFramework\updates\aviaThemeDataUpdater()->show_default_notice( false );
 		}
 	}

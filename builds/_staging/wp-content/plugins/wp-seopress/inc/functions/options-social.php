@@ -6,7 +6,6 @@ defined('ABSPATH') or exit('Please don&rsquo;t call the plugin directly. Thanks 
 //Website Schema.org in JSON-LD - Sitelinks
 if ('1' !== seopress_get_service('TitleOption')->getNoSiteLinksSearchBox()) {
 	function seopress_social_website_option() {
-		$target = get_home_url() . '/?s={search_term_string}';
 		$site_tile = !empty(seopress_get_service('TitleOption')->getHomeSiteTitle()) ? seopress_get_service('TitleOption')->getHomeSiteTitle() : get_bloginfo('name');
 		$alt_site_title = !empty(seopress_get_service('TitleOption')->getHomeSiteTitleAlt()) ? seopress_get_service('TitleOption')->getHomeSiteTitleAlt() : get_bloginfo('name');
 		$site_desc = !empty(seopress_get_service('TitleOption')->getHomeDescriptionTitle()) ? seopress_get_service('TitleOption')->getHomeDescriptionTitle() : get_bloginfo('description');
@@ -29,14 +28,6 @@ if ('1' !== seopress_get_service('TitleOption')->getNoSiteLinksSearchBox()) {
 			'alternateName' => esc_html($alt_site_title),
 			'description' => esc_html($site_desc),
 			'url' => get_home_url(),
-			'potentialAction' => [
-				'@type' => 'SearchAction',
-				'target' => [
-					'@type' => 'EntryPoint',
-					'urlTemplate' => $target
-				],
-				'query-input' => 'required name=search_term_string'
-			],
 		];
 
 		$website_schema = apply_filters( 'seopress_schemas_website', $website_schema );
@@ -632,9 +623,15 @@ function seopress_social_fb_img_hook() {
 			$seopress_social_og_thumb .= seopress_social_fb_img_size_from_url(seopress_social_fb_img_home_option());
 
 		} elseif ((is_singular() || (function_exists('is_shop') && is_shop())) && '1' === seopress_get_service('SocialOption')->getSocialFacebookOGEnable() && '' != seopress_social_fb_img_post_option()) {//Custom OG:IMAGE from SEO metabox
+			
 			$seopress_social_og_thumb .= seopress_get_service('FacebookImageOptionMeta')->getMetasBy('id');
 
+		} elseif ((function_exists('is_shop') && is_shop()) && '1' === seopress_get_service('SocialOption')->getSocialFacebookOGEnable() && !empty(seopress_get_service('SocialOption')->getSocialFacebookImgCpt())) { //Default OG:IMAGE from global CPT settings
+			
+			$seopress_social_og_thumb .= seopress_social_fb_img_size_from_url(seopress_get_service('SocialOption')->getSocialFacebookImgCpt($post->ID));
+
 		} elseif ((is_singular() || (function_exists('is_shop') && is_shop())) && '1' === seopress_get_service('SocialOption')->getSocialFacebookOGEnable() && '1' === seopress_get_service('SocialOption')->getSocialFacebookImgDefault() && '' !== seopress_get_service('SocialOption')->getSocialFacebookImg()) {//If "Apply this image to all your og:image tag" ON
+			
 			$seopress_social_og_thumb .= seopress_get_service('FacebookImageOptionMeta')->getMetasBy('id');
 
 		} elseif ((is_singular() || (function_exists('is_shop') && is_shop())) && '1' === seopress_get_service('SocialOption')->getSocialFacebookOGEnable() && has_post_thumbnail()) {//If post thumbnail
@@ -649,7 +646,7 @@ function seopress_social_fb_img_hook() {
 
 			$seopress_social_og_thumb .= seopress_social_fb_img_size_from_url(seopress_social_fb_img_product_cat_option());
 
-		} elseif (is_post_type_archive() && !is_search() && '1' === seopress_get_service('SocialOption')->getSocialFacebookOGEnable() && !empty(seopress_get_service('SocialOption')->getSocialFacebookImgCpt()) ) {//Default OG:IMAGE from global settings
+		} elseif (is_post_type_archive() && !is_search() && '1' === seopress_get_service('SocialOption')->getSocialFacebookOGEnable() && !empty(seopress_get_service('SocialOption')->getSocialFacebookImgCpt()) ) {//Default OG:IMAGE from global CPT settings
 
 			$seopress_social_og_thumb .= seopress_social_fb_img_size_from_url(seopress_get_service('SocialOption')->getSocialFacebookImgCpt($post->ID));
 

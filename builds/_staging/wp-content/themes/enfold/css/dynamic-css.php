@@ -315,6 +315,13 @@ $key .fallback-post-type-icon{
 	color:$bg;
 }
 
+$key .rounded-container .avia-svg-icon svg:first-child,
+$key .small-preview .avia-svg-icon svg:first-child,
+$key .fallback-post-type-icon.avia-svg-icon svg:first-child{
+	fill: $bg;
+	stroke: $bg;
+}
+
 $key .av-default-color,
 #top $key .av-force-default-color,
 $key .av-catalogue-item,
@@ -355,6 +362,14 @@ $key .av-hotspot-fallback-tooltip-count{
 	color: $color;
 }
 
+$key .ajax_controlls a.avia-svg-icon svg:first-child,
+$key .avia-svg-icon svg:first-child,
+$key .av-share-box ul li svg:first-child,
+#top $key .avia-slider-testimonials.av-slideshow-ui .avia-slideshow-arrows a.avia-svg-icon svg:first-child{
+	stroke: $color;
+	fill: $color;
+}
+
 $key .avia-fold-unfold-section .av-fold-unfold-container::after{
 	background: linear-gradient( to bottom, rgba({$bg_rgb[0]},{$bg_rgb[1]},{$bg_rgb[2]},0), rgba({$bg_rgb[0]},{$bg_rgb[1]},{$bg_rgb[2]},1) );
 }
@@ -379,10 +394,20 @@ $key .avia-icon-circles-icon{
 	color:$color;
 }
 
+$key .avia-icon-circles-icon.avia-svg-icon svg:first-child{
+	fill: $color;
+	stroke: $color;
+}
+
 $key .avia-icon-circles-icon.active{
 	background:$secondary;
 	border-color:$secondary;
 	color:$bg;
+}
+
+$key .avia-icon-circles-icon.avia-svg-icon.active  svg:first-child{
+	fill: $bg;
+	stroke: $bg;
 }
 
 $key .avia-icon-circles-icon-text{
@@ -420,7 +445,15 @@ $key .av-default-style.av-countdown-timer.av-flip-numbers .card__top.card-time-c
 $key .av-default-style.av-countdown-timer.av-flip-numbers .card__bottom.card-time-color,
 $key .av-default-style.av-countdown-timer.av-flip-numbers .card__back.card-time-color::before,
 $key .av-default-style.av-countdown-timer.av-flip-clock .flip-clock__card .flip-clock-counter{
-    color:$heading;
+    color: $heading;
+}
+
+$key .heading .avia-svg-icon svg:first-child,
+$key .av-special-heading .avia-svg-icon svg:first-child,
+$key a.iconbox_icon.avia-svg-icon:hover svg:first-child,
+$key .iconbox_icon.heading-color.avia-svg-icon svg:first-child{
+	fill: $heading;
+	stroke: $heading;
 }
 
 $key .av-countdown-timer.av-events-countdown a .av-countdown-time-label{
@@ -450,7 +483,7 @@ $key #js_sort_items a,
 $key .avia-testimonial-subtitle,
 $key .commentmetadata a,
 $key .social_bookmarks a,
-$key .meta-heading>*,
+$key .meta-heading > *,
 $key .slide-meta,
 $key .slide-meta a,
 $key .taglist,
@@ -465,6 +498,18 @@ $key .wp-playlist-item-length,
 .html_modern-blog #top div $key .blog-categories a,
 .html_modern-blog #top div $key .blog-categories a:hover{
 	color: $meta;
+}
+
+$key .team-social a.avia-svg-icon svg:first-child,
+$key .meta-heading .avia-svg-icon svg:first-child,
+$key .social_bookmarks .avia-svg-icon a svg:first-child{
+	stroke: $meta;
+	fill: $meta;
+}
+
+$key .team-social a.avia-svg-icon:hover svg:first-child{
+	stroke: $secondary;
+	fill: $secondary;
 }
 
 $key .special-heading-inner-border{
@@ -489,7 +534,14 @@ $key #commentform .required,
 #top $key .av-no-color.av-icon-style-border a.av-icon-char,
 .html_elegant-blog #top $key .blog-categories a,
 .html_elegant-blog #top $key .blog-categories a:hover{
-	color:$primary;
+	color: $primary;
+}
+
+$key a.avia-button .avia-svg-icon svg:first-child,
+$key a.more-link .avia-svg-icon svg:first-child,
+#top $key .av-no-color.av-icon-style-border a.av-icon-char svg:first-child{
+	stroke: $primary;
+	fill: $primary;
 }
 
 $key a:hover,
@@ -503,6 +555,12 @@ $key .template-search  a.news-content:hover,
 $key .wp-playlist-item .wp-playlist-caption:hover{
 	color: $secondary;
 }
+
+$key a.more-link:hover .avia-svg-icon svg:first-child{
+	stroke: $secondary;
+	fill: $secondary;
+}
+
 
 $key .primary-background,
 $key .primary-background a,
@@ -529,6 +587,31 @@ $key .wc-block-components-button:not(.is-link) {
 	border-color:$button_border;
 }
 
+$key #searchform .av_searchform_search.avia-svg-icon svg:first-child{
+	fill: $constant_font;
+	stroke: $constant_font;
+}
+
+$key .av_searchform_wrapper .av-search-icon:not(.av-input-field-icon){
+	color: $constant_font;
+}
+
+$key .av_searchform_wrapper .av-search-icon.avia-svg-icon:not(.av-input-field-icon) svg:first-child{
+	fill: $constant_font;
+	stroke: $constant_font;
+}
+
+$key a.avia-button:hover .avia-svg-icon svg:first-child{
+	fill: $secondary;
+	stroke: $secondary;
+}
+
+$key.iconbox_top .iconbox_icon.avia-svg-icon svg:first-child,
+$key .iconbox_top a.iconbox_icon.avia-svg-icon:hover svg:first-child{
+	fill: $constant_font;
+	stroke: $constant_font;
+}
+
 $key .av-colored-style.av-countdown-timer.av-flip-numbers .card__top,
 $key .av-colored-style.av-countdown-timer.av-flip-numbers .card__bottom,
 $key .av-colored-style.av-countdown-timer.av-flip-numbers .card__back::before,
@@ -553,6 +636,11 @@ $key .av-colored-style.av-countdown-timer.av-flip-clock .flip-clock-counter{
 	background:$bg;
 }
 
+#top $key .mobile_menu_toggle .avia-svg-icon svg:first-child{
+	fill: $primary;
+	stroke: $primary;
+}
+
 #top $key .av-menu-mobile-active .av-subnav-menu > li > a:before{
 	color: $primary;
 }
@@ -569,14 +657,29 @@ $key .contentSlideControlls a:hover,
 $key #submit:hover ,
 $key input[type='submit']:hover{
 	background-color: $secondary;
-	color:$bg;
-	border-color:$button_border2;
+	color: $bg;
+	border-color: $button_border2;
+}
+
+$key #searchform .av_searchform_search.avia-svg-icon svg:first-child:hover{
+	fill: $bg;
+	stroke: $bg;
+}
+
+$key #searchform .av_searchform_search.avia-svg-icon:hover ~ #searchsubmit{
+	background-color: $secondary;
+	border-color: $button_border2;
+}
+
+$key .ajax_controlls a.avia-svg-icon:hover svg:first-child{
+	fill: $bg;
+	stroke: $bg;
 }
 
 $key .avia-toc-style-elegant a.avia-toc-level-0:last-child:after,
 $key .avia-toc-style-elegant a:first-child:after,
 $key .avia-toc-style-elegant a.avia-toc-level-0:after {
-	background-color:$bg; border-color: $secondary
+	background-color:$bg; border-color: $secondary;
 }
 
 $key .avia-toc-style-elegant a:first-child span:after,
@@ -676,14 +779,29 @@ $key .av-default-style.av-countdown-timer.av-flip-clock .flip-clock-counter{
 	color:$meta;
 }
 
+$key .av-icon-display.avia-svg-icon svg:first-child{
+	fill: $meta;
+	stroke: $meta;
+}
+
 $key .av-masonry-entry:hover .av-icon-display{
 	background-color: $primary;
 	color:$constant_font;
 	border-color:$button_border;
 }
 
+$key .av-masonry-entry:hover .av-icon-display.avia-svg-icon svg:first-child{
+	fill: $constant_font;
+	stroke: $constant_font;
+}
+
 #top $key .av-masonry-entry.format-quote:hover .av-icon-display{
 	color:$primary;
+}
+
+#top $key .av-masonry-entry.format-quote:hover .av-icon-display.avia-svg-icon svg:first-child{
+	fill: $primary;
+	stroke: $primary;
 }
 
 $key textarea::placeholder,
@@ -716,8 +834,8 @@ $key .av-subnav-menu ul a:focus{
 	background-color:$bg2;
 }
 
-$key .sub_menu>ul>li>a,
-$key .sub_menu>div>ul>li>a,
+$key .sub_menu > ul > li > a,
+$key .sub_menu > div > ul > li > a,
 $key .main_menu ul:first-child > li > a,
 #top $key .main_menu .menu ul .current_page_item > a,
 #top $key .main_menu .menu ul .current-menu-item > a,
@@ -725,9 +843,20 @@ $key .main_menu ul:first-child > li > a,
 	color:$meta;
 }
 
+$key .main_menu ul:first-child > li > a svg:first-child{
+	stroke: $meta;
+	fill: $meta;
+}
+
+$key .main_menu ul:first-child > li > a:hover svg:first-child,
+$key .main_menu ul:first-child > li > a:focus svg:first-child{
+	stroke: $color;
+	fill: $color;
+}
+
 #top $key .main_menu .menu ul li > a:hover,
 #top $key .main_menu .menu ul li > a:focus{
-	color:$color;
+	color: $color;
 }
 
 $key .av-subnav-menu a:hover,
@@ -737,18 +866,18 @@ $key .main_menu ul:first-child > li a:focus,
 $key .main_menu ul:first-child > li.current-menu-item > a,
 $key .main_menu ul:first-child > li.current_page_item > a,
 $key .main_menu ul:first-child > li.active-parent-item > a{
-	color:$color;
+	color: $color;
 }
 
 #top $key .main_menu .menu .avia_mega_div ul .current-menu-item > a{
-	color:$primary;
+	color: $primary;
 }
 
 $key .sub_menu > ul > li > a:hover,
 $key .sub_menu > ul > li > a:focus,
 $key .sub_menu > div > ul > li > a:hover,
 $key .sub_menu > div > ul > li > a:focus{
-	color:$color;
+	color: $color;
 }
 
 #top $key .sub_menu ul li a:hover,
@@ -786,6 +915,11 @@ color: $secondary;
 		border-color: $border;
 	}
 
+	#top #wrap_all .av_header_transparency .avia-svg-icon svg:first-child{
+		stroke: $color;
+		fill: $color;
+	}
+
 }
 
 @media only screen and (max-width: 989px) {
@@ -794,6 +928,11 @@ color: $secondary;
 		background-color:$bg;
 		color: $color;
 		border-color: $border;
+	}
+
+	.html_mobile_menu_tablet #top #wrap_all .av_header_transparency .avia-svg-icon svg:first-child{
+		stroke: $color;
+		fill: $color;
 	}
 
 }
@@ -830,6 +969,11 @@ $key .av_ajax_search_image{
 	color:$bg;
 }
 
+$key .av_ajax_search_image.avia-svg-icon svg:first-child{
+	stroke: $bg;
+	fill: $bg;
+}
+
 $key .ajax_search_excerpt{
 	color: $meta;
 }
@@ -856,15 +1000,29 @@ $output .= "
 	border-color: $button_border;
 }
 
+#top $key .avia-color-theme-color .avia-svg-icon svg:first-child{
+	fill: $button_font;
+	stroke: $button_font;
+}
 
 $key .avia-color-theme-color-subtle{
 	background-color:$bg2;
 	color: $color;
 }
 
+#top $key .avia-color-theme-color-subtle .avia-svg-icon svg:first-child{
+	fill: $color;
+	stroke: $color;
+}
+
 $key .avia-color-theme-color-subtle:hover{
 	background-color:$bg;
 	color: $heading;
+}
+
+#top $key .avia-color-theme-color-subtle:hover .avia-svg-icon svg:first-child{
+	fill: $heading;
+	stroke: $heading;
 }
 
 #top $key .avia-color-theme-color-highlight{
@@ -873,24 +1031,49 @@ $key .avia-color-theme-color-subtle:hover{
 	background-color: $secondary;
 }
 
-
+#top $key .avia-color-theme-color-highlight .avia-svg-icon svg:first-child{
+	fill: $button_font;
+	stroke: $button_font;
+}
 
 #top $key .avia-font-color-theme-color,
 #top $key .avia-font-color-theme-color-hover:hover{
 	color: $button_font;
 }
 
+#top $key .avia-font-color-theme-color .avia-svg-icon svg:first-child,
+#top $key .avia-font-color-theme-color-hover:hover .avia-svg-icon svg:first-child{
+	fill: $button_font;
+	stroke: $button_font;
+}
+
 $key .avia-font-color-theme-color-subtle{
 	color: $color;
+}
+
+$key .avia-font-color-theme-color-subtle .avia-svg-icon svg:first-child{
+	fill: $color;
+	stroke: $color;
 }
 
 $key .avia-font-color-theme-color-subtle-hover:hover{
 	color: $heading;
 }
 
+$key .avia-font-color-theme-color-subtle-hover:hover .avia-svg-icon svg:first-child{
+	fill: $heading;
+	stroke: $heading;
+}
+
 #top $key .avia-font-color-theme-color-highlight,
 #top $key .avia-font-color-theme-color-highlight-hover:hover{
 	color: $button_font;
+}
+
+#top $key .avia-font-color-theme-color-highlight .avia-svg-icon svg:first-child,
+#top $key .avia-font-color-theme-color-highlight-hover:hover .avia-svg-icon svg:first-child{
+	fill: $button_font;
+	stroke: $button_font;
 }
 
 ";
@@ -1035,6 +1218,11 @@ div $key .tabcontainer .active_tab{
 	color:$color;
 }
 
+div $key .tabcontainer .active_tab .tab_icon.avia-svg-icon svg:first-child{
+	fill: $color;
+	stroke: $color;
+}
+
 .responsive.js_active #top $key .avia_combo_widget .top_tab .tab{
 	border-top-color:$border;
 }
@@ -1043,7 +1231,13 @@ div $key .tabcontainer .active_tab{
 $key .template-archives .tabcontainer a,
 #top $key .tabcontainer .tab:hover,
 #top $key .tabcontainer .tab.active_tab{
-	color:$color;
+	color: $color;
+}
+
+#top $key .tabcontainer .tab:hover .tab_icon.avia-svg-icon svg:first-child,
+#top $key .tabcontainer .tab.active_tab .tab_icon.avia-svg-icon svg:first-child{
+	fill: $color;
+	stroke: $color;
 }
 
 $key .template-archives .tabcontainer a:hover{
@@ -1423,6 +1617,11 @@ $key .widget_display_stats dd{
 						color: {$avia_config['backend_colors']['menu_transparent']};
 					}
 
+					#top #wrap_all {$key}.av_header_transparency .avia-svg-icon svg:first-child{
+						stroke: {$avia_config['backend_colors']['menu_transparent']};
+						fill: {$avia_config['backend_colors']['menu_transparent']};
+					}
+
 					#top {$key}.av_header_transparency .avia-menu-fx,
 					.av_header_transparency div .av-hamburger-inner,
 					.av_header_transparency div .av-hamburger-inner::before,
@@ -1445,6 +1644,12 @@ $key .widget_display_stats dd{
 								color: {$avia_config['backend_colors']['menu_transparent_hover']};
 								opacity: 1;
 								transition: color 0.4s ease-in-out;
+							}
+
+							#top #header{$key}.av_header_transparency a.avia-svg-icon:hover svg:first-child,
+							#top #header{$key}.av_header_transparency a.avia-svg-icon:focus svg:first-child{
+								stroke: {$avia_config['backend_colors']['menu_transparent_hover']};
+								fill: {$avia_config['backend_colors']['menu_transparent_hover']};
 							}
 
 							#top #header{$key}.av_header_transparency .av-main-nav > li > a:hover .av-hamburger-inner,
@@ -1470,6 +1675,11 @@ $key .widget_display_stats dd{
 							color: $meta
 						}
 
+						#top #wrap_all {$key}.av_header_transparency .avia-svg-icon svg:first-child{
+							stroke: $meta;
+							fill: $meta;
+						}
+
 						$key div .av-hamburger-inner,
 						$key div .av-hamburger-inner::before,
 						$key div .av-hamburger-inner::after{
@@ -1491,6 +1701,11 @@ $key .widget_display_stats dd{
 						.html_mobile_menu_tablet #top #header{$key}.av_header_transparency .av-main-nav > li > a .avia-menu-text,
 						.html_mobile_menu_tablet #top #header{$key}.av_header_transparency .av-main-nav > li > a .avia-menu-subtex{
 							color: $meta
+						}
+
+						.html_mobile_menu_tablet #top #wrap_all {$key}.av_header_transparency .avia-svg-icon svg:first-child{
+							stroke: $meta;
+							fill: $meta;
 						}
 
 						.html_mobile_menu_tablet $key div .av-hamburger-inner,
@@ -1534,6 +1749,12 @@ $key .widget_display_stats dd{
 					background-color: $bg2;
 					color: $primary;
 					border:1px solid $border;
+				}
+
+				#scroll-top-link.avia-svg-icon:hover svg:first-child,
+				#av-cookie-consent-badge.avia-svg-icon:hover svg:first-child{
+					stroke: $primary;
+					fill: $primary;
 				}
 
 				.html_stretched #wrap_all{
@@ -1614,11 +1835,16 @@ $key .widget_display_stats dd{
 				}
 
 				#top .av-section-tab-title{
-					color:$meta;
+					color: $meta;
+				}
+
+				#top .av-section-tab-title .av-tab-section-icon.avia-svg-icon svg:first-child{
+					fill: $meta;
+					stroke: $meta;
 				}
 
 				#top a.av-active-tab-title{
-					color:$primary;
+					color: $primary;
 				}
 
 				#top .av-tab-arrow-container span{
@@ -1650,6 +1876,12 @@ $key .widget_display_stats dd{
 				#av-cookie-consent-badge{
 					color: $color;
 					border:1px solid $border;
+				}
+
+				#scroll-top-link.avia-svg-icon svg:first-child,
+				#av-cookie-consent-badge.avia-svg-icon svg:first-child{
+					stroke: $color;
+					fill: $color;
 				}
 
 			";
@@ -1688,46 +1920,44 @@ $output = apply_filters( 'avia_dynamic_css_output', $output, $color_set );
 //forum topic icons
 $output .= "
 
-	.bbp-topics .bbp-body .bbp-topic-title:before{ " . av_icon_css_string( 'one_voice' ) . " }
-	.bbp-topics .bbp-body .topic-voices-multi .bbp-topic-title:before { " . av_icon_css_string( 'multi_voice' ) . " }
-	.bbp-topics .bbp-body .super-sticky .bbp-topic-title:before { " . av_icon_css_string( 'supersticky' ) . " }
-	.bbp-topics .bbp-body .sticky .bbp-topic-title:before { " . av_icon_css_string( 'sticky' ) . " }
-	.bbp-topics .bbp-body .status-closed .bbp-topic-title:before { " . av_icon_css_string( 'closed' ) . " }
-	.bbp-topics .bbp-body .super-sticky.status-closed .bbp-topic-title:before{ " . av_icon_css_string( 'supersticky_closed' ) . " }
-	.bbp-topics .bbp-body .sticky.status-closed .bbp-topic-title:before{ " . av_icon_css_string( 'sticky_closed' ) . " }
+	.bbp-topics .bbp-body .bbp-topic-title:before{ " . av_icon_css_string( 'core__one_voice' ) . " }
+	.bbp-topics .bbp-body .topic-voices-multi .bbp-topic-title:before { " . av_icon_css_string( 'core__multi_voice' ) . " }
+	.bbp-topics .bbp-body .super-sticky .bbp-topic-title:before { " . av_icon_css_string( 'core__supersticky' ) . " }
+	.bbp-topics .bbp-body .sticky .bbp-topic-title:before { " . av_icon_css_string( 'core__sticky' ) . " }
+	.bbp-topics .bbp-body .status-closed .bbp-topic-title:before { " . av_icon_css_string( 'core__closed' ) . " }
+	.bbp-topics .bbp-body .super-sticky.status-closed .bbp-topic-title:before{ " . av_icon_css_string( 'core__supersticky_closed' ) . " }
+	.bbp-topics .bbp-body .sticky.status-closed .bbp-topic-title:before{ " . av_icon_css_string( 'core__sticky_closed' ) . " }
 
 ";
 
 //layerslider nav icons
 $output .= "
 
-	#top .avia-layerslider .ls-nav-prev:before{  " . av_icon_css_string( 'prev_big' ) . " }
-	#top .avia-layerslider .ls-nav-next:before{  " . av_icon_css_string( 'next_big' ) . " }
+	#top .avia-layerslider .ls-nav-prev:before{  " . av_icon_css_string( 'core__prev_big' ) . " }
+	#top .avia-layerslider .ls-nav-next:before{  " . av_icon_css_string( 'core__next_big' ) . " }
 
 	#top .avia-layerslider .ls-nav-start:before,
-	#top .avia_playpause_icon:before{ " . av_icon_css_string( 'play' ) . " }
+	#top .avia_playpause_icon:before{ " . av_icon_css_string( 'core__play' ) . " }
 
 	#top .avia-layerslider .ls-nav-stop:before,
-	#top .avia_playpause_icon.av-pause:before{ " . av_icon_css_string( 'pause' ) . " }
+	#top .avia_playpause_icon.av-pause:before{ " . av_icon_css_string( 'core__pause' ) . " }
 
 ";
 
 //image hover overlay icons
 $output .= "
 
-	.image-overlay .image-overlay-inside:before{ " . av_icon_css_string( 'ov_image' ) . " }
-	.image-overlay.overlay-type-extern .image-overlay-inside:before{ " . av_icon_css_string( 'ov_external' ) . " }
-	.image-overlay.overlay-type-video .image-overlay-inside:before{ " . av_icon_css_string( 'ov_video' ) . " }
+	.image-overlay .image-overlay-inside:before{ " . av_icon_css_string( 'core__ov_image' ) . " }
+	.image-overlay.overlay-type-extern .image-overlay-inside:before{ " . av_icon_css_string( 'core__ov_external' ) . " }
+	.image-overlay.overlay-type-video .image-overlay-inside:before{ " . av_icon_css_string( 'core__ov_video' ) . " }
 
 ";
 
 //lightbox next/prev icons
 $output .= "
-	div.avia-popup button.mfp-arrow:before		{ " . av_icon_css_string( 'next_big' ) . " }
-	div.avia-popup button.mfp-arrow-left:before { " . av_icon_css_string( 'prev_big' ) . "}
+	div.avia-popup button.mfp-arrow:before		{ " . av_icon_css_string( 'core__next_big' ) . " }
+	div.avia-popup button.mfp-arrow-left:before { " . av_icon_css_string( 'core__prev_big' ) . "}
 ";
-
-
 
 
 ######################################################################
@@ -1740,7 +1970,7 @@ $avia_config['style'] = array(
 
 		array(
 			'key'	=> 'direct_input',
-			'value'	=> aviaAssetManager::css_strip_whitespace( $output, true )
+			'value'	=> AviaSuperobject()->styleGenerator()->css_strip_whitespace( $output, true )
 		),
 
 		array(
@@ -1773,7 +2003,7 @@ if( ! empty( $quick_css ) )
 	$avia_config['style'][] =
 			array(
 					'key'	=> 'direct_input',
-					'value'	=> aviaAssetManager::css_strip_whitespace( avia_get_option( 'quick_css' ), true )
+					'value'	=> AviaSuperobject()->styleGenerator()->css_strip_whitespace( avia_get_option( 'quick_css' ), true )
 				);
 }
 

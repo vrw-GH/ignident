@@ -13,6 +13,7 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 	{
 		use \aviaBuilder\traits\scNamedColors;
 		use \aviaBuilder\traits\scButtonStyles;
+		use \aviaBuilder\traits\modalIconfontHelper;
 
 		/**
 		 * @since 4.8.4
@@ -226,11 +227,11 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Show Button Icon', 'avia_framework' ),
-							'desc' 	=> __( 'Should an icon be displayed at the left or right side of the button', 'avia_framework' ),
-							'id' 	=> 'icon_select',
-							'type' 	=> 'select',
-							'std' 	=> 'yes',
+							'name'		=> __( 'Show Button Icon', 'avia_framework' ),
+							'desc'		=> __( 'Should an icon be displayed at the left or right side of the button', 'avia_framework' ),
+							'id'		=> 'icon_select',
+							'type'		=> 'select',
+							'std'		=> 'yes',
 							'lockable'	=> true,
 							'subtype'	=> array(
 												__( 'No Icon', 'avia_framework' )					=> 'no',
@@ -240,22 +241,24 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Button Icon', 'avia_framework' ),
-							'desc' 	=> __( 'Select an icon for your Button below', 'avia_framework' ),
-							'id' 	=> 'icon',
-							'type' 	=> 'iconfont',
-							'std' 	=> '',
+							'name'		=> __( 'Button Icon', 'avia_framework' ),
+							'desc'		=> __( 'Select an icon for your Button below', 'avia_framework' ),
+							'id'		=> 'icon',
+							'type'		=> 'iconfont',
+							'std'		=> 'note',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'icon_select', 'not_empty_and', 'no' )
 						),
 
 						array(
-							'name' 	=> __( 'Icon Visibility', 'avia_framework' ),
-							'desc' 	=> __( 'Check to only display icon on hover', 'avia_framework' ),
-							'id' 	=> 'icon_hover',
-							'type' 	=> 'checkbox',
-							'std' 	=> '',
+							'name'		=> __( 'Icon Visibility', 'avia_framework' ),
+							'desc'		=> __( 'Check to only display icon on hover', 'avia_framework' ),
+							'id'		=> 'icon_hover',
+							'type'		=> 'checkbox',
+							'std'		=> '',
 							'lockable'	=> true,
 							'required'	=> array( 'icon_select', 'not_empty_and', 'no' )
 						),
@@ -459,11 +462,11 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 			$c = array(
 
 						array(
-							'name' 	=> __( 'Button Colors Selection', 'avia_framework' ),
-							'desc' 	=> __( 'Select the available options for button colors. Switching to advanced options for already existing buttons you need to set all options (color settings from basic options are ignored).', 'avia_framework' ),
-							'id' 	=> 'color_options',
-							'type' 	=> 'select',
-							'std' 	=> '',
+							'name'		=> __( 'Button Colors Selection', 'avia_framework' ),
+							'desc'		=> __( 'Select the available options for button colors. Switching to advanced options for already existing buttons you need to set all options (color settings from basic options are ignored).', 'avia_framework' ),
+							'id'		=> 'color_options',
+							'type'		=> 'select',
+							'std'		=> '',
 							'lockable'	=> true,
 							'subtype'	=> array(
 												__( 'Basic options only', 'avia_framework' )	=> '',
@@ -480,21 +483,23 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Background Color', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom background color for your button here', 'avia_framework' ),
-							'id' 	=> 'custom_bg',
-							'type' 	=> 'colorpicker',
-							'std' 	=> '#444444',
+							'name'		=> __( 'Custom Background Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom background color for your button here', 'avia_framework' ),
+							'id'		=> 'custom_bg',
+							'type'		=> 'colorpicker',
+							'std'		=> '#444444',
+							'rgba'		=> true,
 							'lockable'	=> true,
 							'required'	=> array( 'color', 'equals', 'custom' )
 						),
 
 						array(
-							'name' 	=> __( 'Custom Font Color', 'avia_framework' ),
-							'desc' 	=> __( 'Select a custom font color for your button here', 'avia_framework' ),
-							'id' 	=> 'custom_font',
-							'type' 	=> 'colorpicker',
-							'std' 	=> '#ffffff',
+							'name'		=> __( 'Custom Font Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom font color for your button here', 'avia_framework' ),
+							'id'		=> 'custom_font',
+							'type'		=> 'colorpicker',
+							'std'		=> '#ffffff',
+							'rgba'		=> true,
 							'lockable'	=> true,
 							'required'	=> array( 'color', 'equals', 'custom')
 						),
@@ -576,7 +581,7 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 			$attr = $params['args'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$inner  = "<div class='avia_button_box avia_hidden_bg_box avia_textblock avia_textblock_style' data-update_element_template='yes'>";
 			$inner .=		'<div ' . $this->class_by_arguments_lockable( 'icon_select, color, size, position', $attr, $locked ) . '>';
@@ -635,6 +640,7 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $shortcodename, $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'manually', 'single', 'taxonomy' ] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			$classes = array(
 						'avia-button',
@@ -647,6 +653,7 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 			$element_styling->add_responsive_classes( 'container', 'hide_element', $atts );
 			$element_styling->add_responsive_font_sizes( 'container', 'size-text', $atts, $this );
 
+			$element_styling->add_classes( 'icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 			$element_styling->add_classes( 'wrap', $element_id . '-wrap' );
 
 			$this->set_button_styes( $element_styling, $atts );
@@ -714,6 +721,8 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 						'container-after'			=> ".avia-button.{$element_id}.avia-sonar-shadow:after",
 						'container-after-hover'		=> ".avia-button.{$element_id}.avia-sonar-shadow:hover:after",
 						'curtain'					=> ".avia-button-wrap.{$element_id}-wrap .avia-curtain-reveal-overlay",
+						'icon-svg'					=> "#top #wrap_all .avia-button.{$element_id} .avia-svg-icon svg:first-child",
+						'icon-svg-hover'			=> "#top #wrap_all .avia-button.{$element_id}:hover .avia-svg-icon svg:first-child"
 					);
 
 			$element_styling->add_selectors( $selectors );
@@ -745,7 +754,8 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 			$background_hover = '';
 			$style_hover = '';
 
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
+
+			$display_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
 
 			if( '' != $atts['color_options'] )
 			{
@@ -798,19 +808,24 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 			$style_tag = $element_styling->get_style_tag( $element_id );
 			$wrap_class = $element_styling->get_class_string( 'wrap' );
 			$container_class = $element_styling->get_class_string( 'container' );
+			$icon_class = $element_styling->get_class_string( 'icon' );
 
 			$content_html = '';
 
 			if( 'yes-left-icon' == $atts['icon_select'] )
 			{
-				$content_html .= "<span class='avia_button_icon avia_button_icon_left' {$display_char}></span>";
+				$content_html .= "<span class='avia_button_icon avia_button_icon_left {$icon_class}' {$display_char['attr']}>";
+				$content_html .=		$display_char['svg'];
+				$content_html .= '</span>';
 			}
 
 			$content_html .= "<span class='avia_iconbox_title' >{$atts['label']}</span>";
 
 			if( 'yes-right-icon' == $atts['icon_select'] )
 			{
-				$content_html .= "<span class='avia_button_icon avia_button_icon_right' {$display_char}></span>";
+				$content_html .= "<span class='avia_button_icon avia_button_icon_right {$icon_class}' {$display_char['attr']}>";
+				$content_html .=		$display_char['svg'];
+				$content_html .= '</span>';
 			}
 
 			$curtain_reveal_overlay = '';

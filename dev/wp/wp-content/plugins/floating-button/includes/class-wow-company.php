@@ -60,6 +60,7 @@ final class Wow_Company {
 	public function footer_text( $footer_text ) {
 		global $pagenow;
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $pagenow === 'admin.php' && ( isset( $_GET['page'] ) && $_GET['page'] === 'wow-company' ) ) {
 			$text = __( 'Thank you for using <b>Our plugins</b>! Our website <a href="https://wow-estore.com/" target="_blank">Wow-Estore.com</a>',
 				'floating-button' );

@@ -28,11 +28,15 @@ if( is_child_theme() )
 			);
 }
 
+$desc  = __( 'Click the button to generate and download a config file which contains the theme settings. You can use the config file to import the theme settings on another sever.', 'avia_framework' );
+$desc .= '<br /><strong>';
+$desc .=	__( 'Since x.x.x this is restricted to admins only (vulnerability report by WordFence) !!', 'avia_framework' );
+$desc .= '</strong>';
 
 $avia_elements[] = array(
 			'slug'	=> 'upload',
 			'name' 	=> __( 'Export Theme Settings File', 'avia_framework' ),
-			'desc' 	=> __( 'Click the button to generate and download a config file which contains the theme settings. You can use the config file to import the theme settings on another sever.', 'avia_framework' ),
+			'desc' 	=> $desc,
 			'id' 	=> 'theme_settings_export',
 			'type' 	=> 'theme_settings_export'
 		);
@@ -182,18 +186,25 @@ $avia_elements[] = array(
 			'file_type'			=> 'text/plain',
 		);
 
+
+$desc  = __( 'You can upload additional SVG iconset zip packages (added with 7.0). Also colored svg can be used. For more detailed information check our', 'avia_framework' );
+$desc .= ' <a href="https://kriesi.at/documentation/enfold/svg-icon-sets/" target="_blank" rel="noopener noreferrer">' . __( 'documentation', 'avia_framework' ) . '.</a><br/><br/>';
+$desc .= __( 'You can also upload additional Iconfont packages generated with', 'avia_framework' ) . " <a href='http://fontello.com/' target='_blank' rel='noopener noreferrer'>Fontello</a>  ";
+$desc .= __( 'or use monocolored icon sets from', 'avia_framework' ) . " <a href='http://www.flaticon.com/' target='_blank' rel='noopener noreferrer'>Flaticon</a>.<br/><br/>";
+$desc .= __( 'Those icons can then be used in the &quot;Layout Builder&quot; elements.', 'avia_framework' ) . '<br/><br/>';
+$desc .= __( 'Make sure to delete any iconfonts that you are not using, to keep the loading time low for your visitors.', 'avia_framework' ) . ' ';
+$desc .= __( 'The &quot;Default&quot; icons cannot be deleted.', 'avia_framework' ) . ' ';
+$desc .= __( 'If you deactivate the iconfont &quot;Entypo Fontello&quot;, all iconfont icons and social icons you have used will be replaced with svg icons on the fly during pageload and the font will not be loaded any longer. Please check the layout. We recommend to replace the icons with svg icons before doing this.', 'avia_framework' );
+
+
 $avia_elements[] = array(
 			'slug'				=> 'upload',
-			'name'				=> __( 'Iconfont Manager', 'avia_framework' ),
-			'desc'				=> __( 'You can upload additional Iconfont Packages generated with', 'avia_framework' ) . " <a href='http://fontello.com/' target='_blank' rel='noopener noreferrer'>Fontello</a>  ".
-										__( 'or use monocolored icon sets from', 'avia_framework' ) . " <a href='http://www.flaticon.com/' target='_blank' rel='noopener noreferrer'>Flaticon</a>. ".
-										__( 'Those icons can then be used in your Layout Builder.', 'avia_framework' ) . '<br/><br/>'.
-										__( "The 'Default Font' can't be deleted.", 'avia_framework' ) . '<br/><br/>'.
-										__( 'Make sure to delete any fonts that you are not using, to keep the loading time for your visitors low', 'avia_framework' ),
+			'name'				=> __( 'SVG Iconset and Iconfont Manager', 'avia_framework' ),
+			'desc'				=> $desc,
 			'id'				=> 'iconfont_upload',
 			'type'				=> 'file_upload',
 			'std'				=> '',
-			'title'				=> __( 'Upload/Select Fontello Font Zip', 'avia_framework' ),
+			'title'				=> __( 'Upload/Select SVG or Fontello Font Zip', 'avia_framework' ),
 			'button'			=> __( 'Insert Zip File', 'avia_framework' ),
 			'trigger'			=> 'av_fontello_zip_insert',
 			// 'fopen_check' 	=> 'true',
@@ -201,14 +212,14 @@ $avia_elements[] = array(
 			'file_type'			=> 'application/octet-stream, application/zip', //used for javascript gallery to display file types
 		);
 
-$desc  = __( 'You can upload your custom Font zip files. Intended for <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google Webkit Fonts</a>.', 'avia_framework' ) . '<br/><br/>';
+$desc  = __( 'You can upload your custom type font zip files. Intended for <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google Webkit Fonts</a>.', 'avia_framework' ) . '<br/><br/>';
 $desc .= __( 'Variable fonts can be uploaded, but currently only <a href="https://fonts.google.com/knowledge/glossary/instance/" target="_blank" rel="noopener noreferrer">named instances</a> are supported by default.', 'avia_framework' ) . ' ';
 $desc .= __( 'Please read our <a href="https://kriesi.at/documentation/enfold/typography/#using-variable-fonts" target="_blank" rel="noopener noreferrer">documentation</a> how to create the zip files and a fallback scenario.', 'avia_framework' ) . '<br/><br/>';
 $desc .= __( 'Make sure to delete any fonts that you are not using, to keep the loading time for your visitors low', 'avia_framework' );
 
 $avia_elements[] = array(
 			'slug'				=> 'upload',
-			'name'				=> __( 'Custom Font Manager', 'avia_framework' ),
+			'name'				=> __( 'Custom Type Fonts Manager', 'avia_framework' ),
 			'desc'				=> $desc,
 			'id'				=> 'typefont_upload',
 			'type'				=> 'file_upload',

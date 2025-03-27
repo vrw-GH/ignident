@@ -10,28 +10,28 @@ class Field {
 		self::check_name( $name );
 		$value = self::get_value( $name, $default );
 		$name  = self::get_name( $name );
-		$id = self::get_id( $name );
-		echo '<textarea name="' . esc_attr( $name ) . '" id="'.esc_attr($id).'">' . esc_html( $value ) . '</textarea>';
+		$id    = self::get_id( $name );
+		echo '<textarea name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '">' . esc_html( $value ) . '</textarea>';
 	}
 
-	public static function select( $name = '', $default = '', $options = [] , $order = ''): void {
+	public static function select( $name = '', $default = '', $options = [], $order = '' ): void {
 		self::check_name( $name );
 		$pre_name = $name;
 		if ( is_numeric( $order ) ) {
 			$pre_name = $name . '[' . $order . ']';
 		}
 		$value = self::get_value( $pre_name, $default );
-		$name  = self::get_name( $name , $order);
-		$id = self::get_id( $pre_name );
-		echo '<select name="' . esc_attr( $name ) . '" id="'.esc_attr($id).'">';
+		$name  = self::get_name( $name, $order );
+		$id    = self::get_id( $pre_name );
+		echo '<select name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '">';
 		foreach ( $options as $key => $val ) {
-
 			if ( strrpos( $key, '_start' ) ) {
 				echo '<optgroup label="' . esc_attr( $val ) . '">';
 			} elseif ( strrpos( $key, '_end' ) ) {
 				echo '</optgroup>';
 			} else {
-				echo '<option value="' . esc_attr( $key ) . '"' . selected( $value, $key, false ) . '>' . esc_html( $val ) . '</option>';
+				echo '<option value="' . esc_attr( $key ) . '"' . selected( $value, $key,
+						false ) . '>' . esc_html( $val ) . '</option>';
 			}
 		}
 		echo '</select>';
@@ -44,15 +44,13 @@ class Field {
 			$pre_name = $name . '[' . $order . ']';
 		}
 		$value = self::get_value( $pre_name, $default );
-		$name  = self::get_name( $name , $order);
-		$id = self::get_id( $pre_name );
+		$name  = self::get_name( $name, $order );
+		$id    = self::get_id( $pre_name );
 		$class = ( $type === 'color' ) ? 'wowp-field-color' : '';
 		if ( empty( $class ) ) {
-			echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" id="'.esc_attr($id).'">';
-
+			echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" id="' . esc_attr( $id ) . '">';
 		} else {
-			echo '<input type="text" data-alpha-enabled="true" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" class="' . esc_attr( $class ) . '" id="'.esc_attr($id).'">';
-
+			echo '<input type="text" data-alpha-enabled="true" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" class="' . esc_attr( $class ) . '" id="' . esc_attr( $id ) . '">';
 		}
 	}
 
@@ -63,10 +61,10 @@ class Field {
 			$pre_name = $name . '[' . $order . ']';
 		}
 		$value = self::get_value( $pre_name );
-		$name  = self::get_name( $name , $order);
-		$id = self::get_id( $pre_name );
-		echo '<input type="checkbox" value="1" id="checkbox_'.esc_attr($id).'">';
-		echo '<input type="hidden" name="' . esc_attr( $name ) . '" value="'.esc_attr($value).'" class="checkbox-helper" id="'.esc_attr($id).'">';
+		$name  = self::get_name( $name, $order );
+		$id    = self::get_id( $pre_name );
+		echo '<input type="checkbox" value="1" id="checkbox_' . esc_attr( $id ) . '">';
+		echo '<input type="hidden" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '" class="checkbox-helper" id="' . esc_attr( $id ) . '">';
 	}
 
 	private static function get_name( $name, $order = '' ) {
@@ -74,6 +72,7 @@ class Field {
 			if ( is_numeric( $order ) ) {
 				return 'param' . $name . '[]';
 			}
+
 			return 'param' . $name;
 		}
 
@@ -81,18 +80,15 @@ class Field {
 	}
 
 	private static function get_value( $name, $defval = '' ) {
-
 		$default = self::getDefault();
 
 		if ( strpos( $name, '[' ) !== false ) {
-
 			$value = self::get_param_value( 'param' . $name, $default );
 			if ( ! isset( $value ) && ! empty( $defval ) ) {
 				return $defval;
 			}
 
 			return $value;
-
 		}
 
 		if ( empty( $default[ $name ] ) && ! empty( $defval ) ) {
@@ -135,11 +131,10 @@ class Field {
 			return self::get_data();
 		}
 
-		$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( $_REQUEST['action'] ) : 'update';
+		$action = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : 'update';
 		$result = DBManager::get_data_by_id( $id );
 
 		if ( $action === 'update' ) {
-
 			return self::get_data( $result );
 		}
 
@@ -174,10 +169,11 @@ class Field {
 		return $data;
 	}
 
-	public static function add_prefix($prefix, $arr): array {
-		foreach ($arr as $key => $val) {
-			$arr[$key]['name'] = $prefix. $val['name'];
+	public static function add_prefix( $prefix, $arr ): array {
+		foreach ( $arr as $key => $val ) {
+			$arr[ $key ]['name'] = $prefix . $val['name'];
 		}
+
 		return $arr;
 	}
 }

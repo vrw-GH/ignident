@@ -113,10 +113,20 @@ global $avia_config;
 				 * Wrap footer page in case we need extra CSS changes
 				 *
 				 * @since 4.7.4.1
+				 * @since 6.0.9			added <footer> tag
 				 */
-				echo '<div class="' . $extra_class . '" id="footer-page">';
-				echo	$content;
-				echo '</div>';
+				if( 'page_in_footer' == $footer_option )
+				{
+					echo '<footer class="' . $extra_class . '" id="footer-page">';
+					echo	$content;
+					echo '</footer>';
+				}
+				else
+				{
+					echo '<div class="' . $extra_class . '" id="footer-page">';
+					echo	$content;
+					echo '</div>';
+				}
 			}
 		}
 
@@ -229,9 +239,20 @@ global $avia_config;
 			if( in_array( $footer_option, array( 'all', 'nofooterwidgets', 'page_in_footer_socket' ) ) )
 			{
 
+				$aria_label = 'aria-label="' . __( 'Copyright and company info', 'avia_framework' ) . '"';
+
+				/**
+				 * @since 6.0.3
+				 * @param string $aria_label
+				 * @param string $context
+				 * @param mixed $additional_args
+				 * @return string
+				 */
+				$aria_label = apply_filters( 'avf_aria_label_for_footer', $aria_label, __FILE__, null );
+
 			?>
 
-				<footer class='container_wrap socket_color' id='socket' <?php avia_markup_helper( array( 'context' => 'footer' ) ); ?>>
+				<footer class='container_wrap socket_color' id='socket' <?php echo $aria_label . ' ' . avia_markup_helper( array( 'context' => 'footer' ) ); ?>>
                     <div class='container'>
 
                         <span class='copyright'><?php echo $copyright . $kriesi_at_backlink; ?></span>
@@ -322,10 +343,15 @@ global $avia_config;
 		<?php
 			echo "<div class='bg_container' style='background-image:url(" . $avia_config['fullscreen_image'] . ");'></div>";
 		}
+
+		$icon_title = __( 'Scroll to top', 'avia_framework' );
+		$icon_top = avia_font_manager::get_frontend_icon( 'svg__scrolltop', false, [ 'aria-hidden' => 'true', 'title' => $icon_title, 'desc' => $icon_title ] );
 	?>
 
-
-<a href='#top' title='<?php _e( 'Scroll to top', 'avia_framework' ); ?>' id='scroll-top-link' <?php echo av_icon_string( 'scrolltop' ); ?> tabindex='-1'><span class="avia_hidden_link_text"><?php _e( 'Scroll to top', 'avia_framework' ); ?></span></a>
+<a href='#top' title='<?php echo $icon_title; ?>' id='scroll-top-link' class='avia-svg-icon avia-font-svg_entypo-fontello' <?php echo $icon_top['attr']; ?> tabindex='-1' aria-hidden='true'>
+	<?php echo $icon_top['svg']; ?>
+	<span class="avia_hidden_link_text"><?php echo $icon_title; ?></span>
+</a>
 
 <div id="fb-root"></div>
 

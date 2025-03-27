@@ -417,7 +417,7 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 		var hook = jQuery(this).data('hook');
 		var user_id = jQuery(this).data('user_id');
-		var arguments = jQuery(this).data('arguments');
+		var args = jQuery(this).data('args');
 
 		if ( jQuery(this).data('js-remove') ){
 			jQuery(this).parents('.'+jQuery(this).data('js-remove')).fadeOut('fast');
@@ -430,7 +430,7 @@ jQuery(document).ready(function() {
 				action: 'um_muted_action',
 				hook: hook,
 				user_id: user_id,
-				arguments: arguments,
+				arguments: args,
 				nonce: um_scripts.nonce
 			},
 			success: function(data){
@@ -698,3 +698,12 @@ jQuery(document).ready(function() {
 		}
 	});
 });
+
+// Makes the honeypot.
+jQuery( window ).on( 'load', function() {
+	let $honeypotField = jQuery('input[name="um_request"]');
+	if ( $honeypotField.length ) {
+		$honeypotField.val('');
+	}
+});
+

@@ -302,3 +302,30 @@ body.block-editor-page .postbox.avia-expanded {
 .components-editor-notices__dismissible, .components-editor-notices__pinned {
 	z-index: 20000;
 }
+
+
+/* WP v3 block support  v3 adds iframe except blocks < v3 are registered (like Layerslider uses)
+ *
+ *  @since 6.0.7
+ */
+body.block-editor-page.avia-block-editor-expand.av-block-v3 .edit-post-meta-boxes-main {
+	overflow: unset;
+	padding-top: 0;
+}
+
+body.block-editor-page.av-block-v3.avia-advanced-editor-enabled .edit-post-meta-boxes-main__presenter{
+	display: none;
+}
+
+body.block-editor-page.av-block-v3.avia-advanced-editor-enabled .edit-post-visual-editor.is-iframed{
+	display: none;
+}
+
+body.block-editor-page.av-block-v3.wp-default-editor-enabled .edit-post-visual-editor.is-iframed{
+	min-height: 900px;	/* this is only a dummy value - should show complete content if possible */
+}
+
+body.block-editor-page.av-block-v3.wp-default-editor-enabled #avia_sc_parser{
+	margin-top: 24px;
+}
+

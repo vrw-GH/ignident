@@ -96,6 +96,12 @@ Tabs
 	font-size: 1em;
 }
 
+.tabcontainer .tab_icon.avia-svg-icon svg:first-child{
+	height: 1.1em;
+	width: 1.1em;
+	margin-bottom: -2px;
+}
+
 .tab_inner_content{
 	margin: 11px 0;
 	left:-200%;

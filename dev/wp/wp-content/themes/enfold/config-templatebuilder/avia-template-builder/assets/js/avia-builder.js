@@ -2320,10 +2320,17 @@ function avia_isNumeric( obj )
 									else
 									{
 										update_html = replace_val;
+
+										if( update_html.indexOf( '###avia64###:' ) !== -1 )
+										{
+											//	encode base64 string
+											update_html = update_html.replace( '###avia64###:', '' );
+											update_html = atob( update_html );
+										}
 									}
 
 									//update all elements
-									visual_el.html(update_html);
+									visual_el.html( update_html );
 								}
 							});
 

@@ -7,6 +7,8 @@ global $avia_config, $post_loop_count;
 $post_loop_count = 1;
 $post_class = 'post-entry-' . avia_get_the_id();
 
+$more_link_arrow = class_exists( 'avia_font_manager', false ) ? avia_font_manager::html_more_link_arrow() : '<span class="more-link-arrow"></span>';
+
 
 // check if we got posts to display:
 if( have_posts() )
@@ -44,7 +46,7 @@ if( have_posts() )
 
 				//display the actual post content
 				echo '<div class="entry-content" '.avia_markup_helper( array( 'context' => 'entry_content','echo' => false ) ) . '>';
-					the_content( __( 'Read more', 'avia_framework' ) . '<span class="more-link-arrow"></span>' );
+					the_content( __( 'Read more', 'avia_framework' ) . $more_link_arrow );
 				echo '</div>';
 
 				echo '<footer class="entry-footer">';

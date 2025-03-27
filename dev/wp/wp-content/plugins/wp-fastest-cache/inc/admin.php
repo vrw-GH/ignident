@@ -390,14 +390,14 @@
 				}
 			}
 
-			if(get_option('template') == "Divi"){
-				// Divi Theme - Static CSS File Generation
-				if($et_divi = get_option("et_divi")){
-					if(isset($et_divi["et_pb_static_css_file"]) && $et_divi["et_pb_static_css_file"] == "on"){
-						return array("You have to disable the <u><a target='_blank' href='https://www.wpfastestcache.com/tutorial/divi-theme-settings/'>Static CSS File Generation</a></u> option of Divi Theme", "error");
-					}
-				}
-			}
+			// if(get_option('template') == "Divi"){
+			// 	// Divi Theme - Static CSS File Generation
+			// 	if($et_divi = get_option("et_divi")){
+			// 		if(isset($et_divi["et_pb_static_css_file"]) && $et_divi["et_pb_static_css_file"] == "on"){
+			// 			return array("You have to disable the <u><a target='_blank' href='https://www.wpfastestcache.com/tutorial/divi-theme-settings/'>Static CSS File Generation</a></u> option of Divi Theme", "error");
+			// 		}
+			// 	}
+			// }
 
 			if($this->isPluginActive('elementor/elementor.php')){
 				// Elementor Plugin - Element Caching

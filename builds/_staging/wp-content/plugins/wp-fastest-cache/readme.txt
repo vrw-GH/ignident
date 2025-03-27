@@ -3,8 +3,8 @@ Contributors: emrevona
 Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
 Requires at least: 3.3
-Tested up to: 6.6
-Stable tag: 1.2.9
+Tested up to: 6.7
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,36 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.3.5 =
+* Updated cache creation time display to follow WordPress date and time format settings
+* Removed the 'Static CSS File Generation' warning when using the Divi theme.
+
+= 1.3.4 =
+* to fix PHP Fatal error: Class "VarnishWPFC" not found in preload.php
+* to fix Undefined property: stdClass::$total in preload.php on line 753
+
+= 1.3.3 =
+* <strong>[Improvement]</strong> Toolbar style adjusted to align with WordPress standard for better consistency and user experience
+* to change the cache path for the Polylang-Pro plugin
+* <strong>[Improvement]</strong> Modified the toolbar menu of WP Fastest Cache plugin to improve usability and navigation
+* <strong>[FEATURE]</strong> Added a filter that allows users to easily remove the WP Fastest Cache menu from the admin toolbar [<a target="_blank" href="https://www.wpfastestcache.com/features/clear-cache-link-on-the-toolbar/#wpft-method-1-using-filter">Details</a>]
+
+= 1.3.2 =
+* <strong>[Improvement]</strong> Added a new action to handle the addition of keyword items in the Preload Wizard
+* Corrected typos in the Cloudflare CDN integration wizard and in the DB tab
+* <strong>[FEATURE]</strong> Added a filter to define the token for preload functionality [<a target="_blank" href="https://www.wpfastestcache.com/features/clear-cache-via-url/#wpft-method-2-using-filter">Details</a>]
+
+= 1.3.1 =
+* <strong>[FEATURE]</strong> Added a filter that allows users to easily remove the cache creation comment from the footer [<a target="_blank" href="https://www.wpfastestcache.com/tutorial/how-to-remove-the-footer-comment/">Details</a>]
+* <strong>[Improvement]</strong> Added a warning notification to alert users if the "Element Caching" option in the Elementor plugin is not inactive [<a target="_blank" href="https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/">Details</a>]
+* Refactored `remove_url_parameters()` for improved efficiency
+* Fix issue: Logic to determine the $number variable based on the WPFC_PRELOAD_NUMBER constant for preload when a sitemap is used
+
+= 1.3.0 =
+* Prevent caching of 403 Forbidden error pages
+* Fix issue: Exclude JS files with the "data-no-minify" attribute from the combining process
+* Fixed PHP Notice: Undefined index: HTTP_HOST in wpFastestCache.php on line 489
 
 = 1.2.9 =
 * Refactored 'Clear Cache via URL' feature

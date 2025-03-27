@@ -1,0 +1,402 @@
+#wpwrap{
+    background: #ffffff !important;
+    background: #F3F4F5 !important;
+}
+
+#wpwrap #wpfooter{
+    padding: 10px 30px !important;
+    bottom: -30px;
+    background: #F3F4F5;
+}
+
+#wpwrap .ays_help {
+    color: #005AE0  !important;
+}
+
+.ays-pb-dashboard-main-wrap .button.ays_default_btn,
+.button.ays_default_btn {
+    background-color: #ffa500;
+    color: #fffdfd;
+    border-color: #ffa500;
+    margin-right: 0;
+    margin-left: 10px;
+    text-shadow: unset;
+    box-shadow: unset;
+}
+
+.ays_items_count_div{
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 30px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    z-index: 999;
+}
+
+.ays-pb-open-pbzes-list{
+    color: #005AE0;
+}
+
+.ays-pb-accordion-container .ays-pb-accordion-arrow-down path {
+    fill: #005AE0;
+}
+
+/*Dashboard Redesign | Start*/
+
+.ays-pb-dashboard-main-wrap .top-menu-buttons-container{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+.ays-top-menu-container-wrapper .nav-tab{
+    padding: 8px 25px;
+    font-size: 15px;
+}
+
+.ays-top-menu-container-wrapper .nav-tab-wrapper.ays-pb-top-tab-wrapper{
+    border: 0;
+}
+
+.ays-pb-dashboard-main-wrap .button-primary.ays-top-menu-save-and-close,
+.ays-pb-dashboard-main-wrap .button-primary.ays-bottom-menu-save-and-close{
+    height: 32px;
+    border-radius: 4px;
+    border-color:#005AE0;
+    padding:4px 18px;
+    background-color: white;
+    color:#005AE0;
+    margin-left:10px;
+    line-height: unset;
+}
+
+.ays-pb-dashboard-main-wrap .button-primary.ays-top-menu-save-and-close:hover,
+.ays-pb-dashboard-main-wrap .button-primary.ays-bottom-menu-save-and-close:hover{
+    background-color: #E5EEFF;
+    color:#005AE0;
+}
+
+.ays-pb-dashboard-main-wrap .button#ays-button-top-apply,
+.ays-pb-dashboard-main-wrap .button#ays-button-apply{
+    margin-left: 0px;
+}
+
+.ays-pb-dashboard-main-wrap .button#ays-button-apply:focus,
+.ays-pb-dashboard-main-wrap .button#ays-button-top-apply:focus,
+.ays-pb-dashboard-main-wrap .button#ays-button-apply:hover,
+.ays-pb-dashboard-main-wrap .button#ays-button-top-apply:hover{
+    background-color: #004CBD;
+}
+
+.ays-pb-dashboard-main-wrap .button {
+    margin-right:10px;
+}
+
+.ays-pb-dashboard-main-wrap .button:not(.button-primary,.wp-color-result),
+.ays-pb-dashboard-main-wrap .button:not(.button-primary,.wp-color-result):active {
+    border-radius: 4px;
+    border-color:#005AE0;
+    padding: 0 10px;
+    background-color: white;
+    color:#005AE0;
+    /* line-height: normal !important; */
+    transition: all 0.3s;
+}
+
+.ays-pb-dashboard-main-wrap button.button.add_media,
+.ays-pb-dashboard-main-wrap button.button.add_media:active {
+    top: 0;
+    margin: 0;
+}
+
+.ays-pb-dashboard-main-wrap .button:not(.button-primary,.wp-color-result):focus,
+.ays-pb-dashboard-main-wrap .button:not(.button-primary,.wp-color-result):hover {
+    background-color: #E5EEFF;
+    color:#005AE0;
+}
+
+.ays-pb-dashboard-main-wrap .button-primary,
+.ays-pb-dashboard-main-wrap .button-primary:active {
+    border-radius: 4px;
+    border-color:#005AE0;
+    padding: 0 10px;
+    background-color: #005AE0;
+    color: #fff;
+    line-height: normal !important;
+    transition: all 0.3s;
+    top: 0px;
+}
+
+.ays-pb-dashboard-main-wrap .button-primary:focus,
+.ays-pb-dashboard-main-wrap .button-primary:hover {
+    background-color: #004CBD;
+}
+
+.ays-pb-dashboard-main-wrap .button#ays_pb_cancel_top:focus,
+.ays-pb-dashboard-main-wrap .button#ays_pb_cancel:focus,
+.ays-pb-dashboard-main-wrap .button#ays_pb_cancel_top:hover,
+.ays-pb-dashboard-main-wrap .button#ays_pb_cancel:hover{
+    background-color: #E5EEFF;
+    color:#005AE0;
+}
+
+.ays-pb-dashboard-main-wrap div.ays-top-menu-container-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 95%;
+    max-width: 100%;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.ays-pb-dashboard-main-wrap div.ays-pb-top-menu-wrapper div.ays-top-menu div.ays-top-tab-wrapper {
+    border-bottom: none;
+}
+
+.ays-pb-dashboard-main-wrap div.ays-pb-top-menu-wrapper div.ays-top-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.ays-pb-dashboard-main-wrap.ays-pb-dashboard-main-wrap .ays-pb-top-menu-wrapper .nav-tab{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    margin-left: 0px;
+    padding-bottom: 12px;
+    background-color: transparent;
+    border-bottom: 1px solid #c7c3c3;
+    color: black;
+    margin-bottom: 0px;
+}
+
+.ays-pb-dashboard-main-wrap .ays-pb-top-menu-wrapper .nav-tab:hover{
+    border-bottom:1px solid #005AE0 !important;
+    text-decoration: none;
+}
+
+.ays-pb-dashboard-main-wrap .nav-tab-active{
+    border-bottom:1px solid #005AE0 !important;
+    color: #005AE0 !important;
+}
+
+.ays-pb-dashboard-main-wrap .ays_pb_fa-info-circle:before{
+    color: #005AE0;
+}
+
+.ays-pb-dashboard-main-wrap input[type="text"]:focus{
+    border-color: #005AE0;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: 2px solid transparent;
+}
+
+.ays-pb-dashboard-main-wrap #tab1 .add-option-top-container .ays-add-answer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 34px;
+    border-radius: 4px;
+    border-color:#ADC6FF;
+    padding:4px 15px 4px 10px;
+    background-color: #F0F5FF;
+    color:#005AE0;
+    border: 1px solid;
+    font-size: 16px;
+}
+
+.ays-pb-dashboard-main-wrap #tab1 .add-option-top-container .ays-add-answer:hover{
+    background-color: #d1def5 !important; 
+    cursor: pointer;
+}
+
+.ays-pb-dashboard-main-wrap #tab1 .plus-sign{
+    height: 17px;
+    margin-right: 7px;
+}
+
+.ays-pb-dashboard-main-wrap .ays-text-input{
+    border-color:rgba(0, 0, 0, 0.25);
+}
+
+/* pics */
+
+.ays-pb-dashboard-main-wrap #tab1 .ays-pb-answer-image-container img {    
+    min-width: 60px;
+    min-height: 60px;
+    width: 60px;
+    height: 60px;
+}
+
+.ays-pb-dashboard-main-wrap #tab1 .ays-pb-answer-image-container{
+    width: 60px;
+    height: 60px;
+    margin:5px auto;
+}
+
+.ays-pb-dashboard-main-wrap .ays-top-menu{
+    background-color: transparent;
+}
+
+.ays-pb-dashboard-main-wrap div.ays-top-menu-container-wrapper,
+.ays-pb-dashboard-main-wrap .ays_save_buttons_content,
+.ays-pb-dashboard-main-wrap .ays-pb-tab-content {
+    width: 95%;
+    max-width: 100%;
+}
+.ays-pb-dashboard-main-wrap .ays_save_buttons_bottom_content .ays-save-buttons-just-save-button{
+    margin: 0;
+}
+
+.ays-pb-dashboard-main-wrap div.ays-pb-top-menu-wrapper {
+    width: 67%;
+}
+
+.ays-pb-dashboard-main-wrap.ays-pb-dashboard-main-nowrap div.ays-pb-top-menu-wrapper {
+    width: 40%;
+}
+
+.ays-pb-dashboard-main-wrap .ays_save_buttons_content {
+    margin: 0 auto;
+}
+
+.ays-pb-dashboard-main-wrap .ays_save_buttons_content.ays_save_buttons_bottom_content {
+    flex-direction: row-reverse;
+}
+
+.ays-pb-dashboard-main-wrap .ays_save_buttons_bottom_content p.submit {
+    margin: 0;
+    padding: 0;
+}
+
+.ays-pb-dashboard-main-wrap .ays_pb_loader_box {
+    margin-right: 10px;
+}
+
+.ays-pb-dashboard-main-wrap .ays-pb-tab-content{
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin: 20px auto 0;
+}
+
+.ays-pb-dashboard-main-wrap input[type=checkbox] {
+    accent-color: #005AE0;
+}
+
+.ays-pb-dashboard-main-wrap input[type="checkbox"]:checked::before {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(6593%) hue-rotate(211deg) brightness(98%) contrast(103%);
+}
+
+.ays-pb-dashboard-main-wrap input[type="radio"]:checked::before {
+    background-color: #005AE0;
+}
+
+.ays-pb-dashboard-main-wrap .only_pro input[type="radio"]:checked::before {
+    opacity: 0.5;
+}
+
+.ays-pb-dashboard-main-wrap input[type="checkbox"]:focus {
+    border-color: #005AE0;
+    box-shadow: 0 0 0 1px #005AE0;
+}
+
+.ays-pb-dashboard-main-wrap label.ays_switch_toggle:after {
+    background: #005AE0;
+}
+
+.ays-bottom-menu-buttons{
+    max-height: 30px !important;
+    min-height: 30px !important;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    margin-top: 4px !important;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.ays-pb-dashboard-main-wrap .ays-loader-img {
+    width: 16px;
+    height: 16px;
+}
+
+/* @media screen and (max-width: 1550px){
+    
+} */
+
+@media screen and (max-width: 1270px) {
+    .ays-pb-dashboard-main-wrap .top-menu-buttons-container{
+        justify-content: flex-start;
+    }
+    div.ays-pb-dashboard-main-wrap:not(.ays-pb-dashboard-main-nowrap) div.ays-pb-top-menu-wrapper {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .ays-pb-answer-image-container {
+        width: 48px;
+    }
+
+    .ays-pb-answer-image-container img {
+        min-width: 48px;
+    }
+
+    div.ays-pb-dashboard-main-wrap div.ays-pb-top-menu-wrapper,
+    div.ays-pb-dashboard-main-wrap.ays-pb-dashboard-main-nowrap div.ays-pb-top-menu-wrapper {
+        width: 100%;
+    }
+
+    div.ays-pb-dashboard-main-wrap div.ays-top-menu-container-wrapper,
+    div.ays-pb-dashboard-main-wrap .ays_save_buttons_content,
+    div.ays-pb-dashboard-main-wrap .ays-pb-tab-content {
+        width: 100%;
+    }
+
+    div.ays-pb-dashboard-main-wrap .ays-pb-tab-content {
+        padding: 20px 15px;
+    }
+
+    div.ays-pb-dashboard-main-wrap div.ays-top-menu-container-wrapper {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    div.ays-pb-dashboard-main-wrap .ays_save_buttons_content.ays_save_buttons_bottom_content .ays-pb-add-new-button-pb-edit-box,
+    div.ays-pb-dashboard-main-wrap .ays_save_buttons_content.ays_save_buttons_bottom_content .ays-question-button-first-row{
+        margin-bottom: 10px;
+    }
+
+    div.ays-pb-dashboard-main-wrap .button#ays-button-top-apply,
+    div.ays-pb-dashboard-main-wrap .button#ays-button-apply{
+        margin-left: 0 !important;
+    }
+
+    div.ays-pb-dashboard-main-wrap .button-primary.ays-pb-loader-banner,
+    div.ays-pb-dashboard-main-wrap .button.ays-save-buttons-just-save-button,
+    div.ays-pb-dashboard-main-wrap .button.ays-pb-loader-banner.ays-pb-submit-button-margin-unset{
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .ays-pb-prev-next-button-content{
+        margin-top: 10px;
+    }
+}
+
+/*Dashboard Redesign | End*/
+

@@ -5,10 +5,10 @@ defined('ABSPATH') or exit('Please don&rsquo;t call the plugin directly. Thanks 
 function seopress_migration_tool($plugin, $name) {
     $seo_title = 'SEOPress';
     if (method_exists(seopress_get_service('ToggleOption'), 'getToggleWhiteLabel') && '1' === seopress_get_service('ToggleOption')->getToggleWhiteLabel()) {
-        $seo_title = method_exists(seopress_pro_get_service('OptionPro'), 'getWhiteLabelListTitle') && seopress_pro_get_service('OptionPro')->getWhiteLabelListTitle() ? seopress_pro_get_service('OptionPro')->getWhiteLabelListTitle() : 'SEOPress';
+        $seo_title = function_exists('seopress_pro_get_service') && method_exists(seopress_pro_get_service('OptionPro'), 'getWhiteLabelListTitle') && seopress_pro_get_service('OptionPro')->getWhiteLabelListTitle() ? seopress_pro_get_service('OptionPro')->getWhiteLabelListTitle() : 'SEOPress';
     }
 
-    $html = '<div id="' . $plugin . '-migration-tool" class="postbox section-tool">
+    $html = '<div id="' . $plugin . '-migration-tool" class="postbox section-tool" tabindex="-1">
         <div class="inside">
                 <h3>' . /* translators: %s SEO plugin name */ sprintf(__('Import posts and terms (if available) metadata from %s', 'wp-seopress'), $name) . '</h3>
 
@@ -33,8 +33,11 @@ function seopress_migration_tool($plugin, $name) {
     if ('wp-meta-seo' != $plugin && 'premium-seo-pack' != $plugin && 'seo-ultimate' != $plugin && 'squirrly' != $plugin && 'aio' != $plugin && 'slim-seo' != $plugin) {
         $html .= '<li>' . __('Primary category', 'wp-seopress') . '</li>';
     }
-    if ('wpseo' == $plugin || 'platinum-seo' == $plugin || 'smart-crawl' == $plugin || 'seopressor' == $plugin || 'rk' == $plugin || 'seo-framework' == $plugin || 'aio' == $plugin) {
+    if ('smart-crawl' == $plugin || 'rk' == $plugin || 'seo-framework' == $plugin || 'aio' == $plugin) {
         $html .= '<li>' . __('Redirect URL', 'wp-seopress') . '</li>';
+    }
+    if ('yoast' == $plugin) {
+        $html .= '<li>' . __('Breadcrumb Title', 'wp-seopress') . '</li>';
     }
     $html .= '</ul>
 
@@ -48,9 +51,9 @@ function seopress_migration_tool($plugin, $name) {
                     ' . __('Migrate now', 'wp-seopress') . '
                 </button>
 
-                <span class="spinner"></span>
+                <span class="spinner" aria-hidden="true"></span>
 
-                <div class="log"></div>
+                <div class="log" aria-live="polite"></div>
             </div>
         </div>';
 

@@ -332,7 +332,7 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Gallery', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_gallery' ), $template );
@@ -360,7 +360,7 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Navigation Controls', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_controls' ), $template );
@@ -396,11 +396,11 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 
 			$c = array(
 						array(
-							'name' 	=> __( 'Image Link', 'avia_framework' ),
-							'desc' 	=> __( 'By default images link to a larger image version in a lightbox. You can change this here. A custom link can be added when editing the images in the gallery.', 'avia_framework' ),
-							'id' 	=> 'imagelink',
-							'type' 	=> 'select',
-							'std' 	=> 'lightbox',
+							'name'		=> __( 'Image Link', 'avia_framework' ),
+							'desc'		=> __( 'By default images link to a larger image version in a lightbox. You can change this here. A custom link can be added when editing the images in the gallery.', 'avia_framework' ),
+							'id'		=> 'imagelink',
+							'type'		=> 'select',
+							'std'		=> 'lightbox',
 							'lockable'	=> true,
 							'required'	=> array( 'style', 'not', 'big_thumb lightbox_gallery' ),
 							'subtype'	=> array(
@@ -450,7 +450,7 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Link Settings', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'advanced_link' ), $template );
@@ -482,7 +482,6 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'advanced_animation' ), $template );
-
 
 		}
 
@@ -660,6 +659,11 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 				{
 					$element_styling->add_styles( 'slide-arrows', array( 'color' => $atts['nav_arrow_color'] ), 'skip_empty' );
 					$element_styling->add_styles( 'slide-arrows', array( 'background-color' => $atts['nav_arrow_bg_color'] ), 'skip_empty' );
+
+					$element_styling->add_styles( 'slide-arrows-svg', array(
+																'stroke'	=> $atts['nav_arrow_color'],
+																'fill'		=> $atts['nav_arrow_color']
+														), 'skip_empty' );
 				}
 			}
 
@@ -673,9 +677,10 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 			$element_styling->add_styles( 'thumb-link', array( 'width' => $thumb_width . '%' ) );
 
 			$selectors = array(
-						'container'		=> ".avia-gallery.{$element_id}",
-						'thumb-link'	=> "#top .avia-gallery.{$element_id} .avia-gallery-thumb a",
-						'slide-arrows'	=> "#top .avia-gallery.{$element_id} .avia-slideshow-controls a"
+						'container'			=> ".avia-gallery.{$element_id}",
+						'thumb-link'		=> "#top .avia-gallery.{$element_id} .avia-gallery-thumb a",
+						'slide-arrows'		=> "#top .avia-gallery.{$element_id} .avia-slideshow-controls a",
+						'slide-arrows-svg'	=> "#top .avia-gallery.{$element_id} .avia-slideshow-controls a.avia-svg-icon svg:first-child"
 					);
 
 			$element_styling->add_selectors( $selectors );
@@ -872,12 +877,12 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 						'class_prev'	=> 'av-gallery-prev',
 						'class_next'	=> 'av-gallery-next',
 						'context'		=> get_class( $this ),
-						'params'		=> $atts
+						'params'		=> $atts,
+						'svg_icon'		=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );
 		}
-
 	}
 }
 

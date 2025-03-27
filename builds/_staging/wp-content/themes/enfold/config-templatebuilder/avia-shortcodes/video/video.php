@@ -719,11 +719,11 @@ if( ! class_exists( 'avia_sc_video', false ) )
 				$overlay .=		'</div>';
 				$overlay .=	'</div>';
 
-				if( ( false !== stripos( $src, 'youtube.com/watch' ) ) || ( false !== stripos( $src, 'vimeo.com/' ) ) )
+				if( ( false !== stripos( $src, 'youtube.com/watch' ) ) || ( false !== stripos( $src, 'youtube.com/shorts' ) ) || ( false !== stripos( $src, 'vimeo.com/' ) ) )
 				{
 					$element_styling->add_classes( 'container', 'avia-video-external-service' );
 
-					$src .= ( strpos( $src, '?' ) === false ) ? '?autoplay=1' : '&autoplay=1';
+					$src .= ( strpos( $src, '?' ) === false ) ? '?autoplay=1&allow=“autoplay”' : '&autoplay=1&allow=“autoplay”';
 					$output_html = "<a href='{$src}' class='mfp-iframe lightbox-link' data-custom_class='avia-mfp-is-video avia-mfp-video-{$format} {$meta['custom_class']} {$lb_class}'></a>";
 				}
 				else if( ! empty( $src ) )

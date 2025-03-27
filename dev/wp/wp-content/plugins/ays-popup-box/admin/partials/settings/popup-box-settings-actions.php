@@ -144,11 +144,11 @@ class Ays_PopupBox_Settings_Actions {
             return;
 
         if ( 'saved' == $status )
-            $updated_message = esc_html( __( 'Changes saved.', "ays-popup-box" ) );
+            $updated_message = esc_html( esc_html__( 'Changes saved.', "ays-popup-box" ) );
         elseif ( 'updated' == $status )
-            $updated_message = esc_html( __( 'PopupBox attribute.', "ays-popup-box" ) );
+            $updated_message = esc_html( esc_html__( 'PopupBox attribute.', "ays-popup-box" ) );
         elseif ( 'deleted' == $status )
-            $updated_message = esc_html( __( 'PopupBox attribute deleted.', "ays-popup-box" ) );
+            $updated_message = esc_html( esc_html__( 'PopupBox attribute deleted.', "ays-popup-box" ) );
 
         if ( empty( $updated_message ) )
             return;

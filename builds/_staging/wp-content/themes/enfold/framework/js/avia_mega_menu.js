@@ -11,8 +11,8 @@
 
 (function($)
 {
-	var avia_mega_menu = {
-
+	var avia_mega_menu =
+	{
 		recalcTimeout: false,
 
 		// bind the click event to all elements with the class avia_uploader
@@ -36,7 +36,6 @@
 
 					//check if anything in the dom needs to be changed to reflect the (de)activation of the mega menu
 					avia_mega_menu.recalc();
-
 				});
 		},
 
@@ -51,7 +50,6 @@
 				}
 			});
 		},
-
 
 		recalc : function()
 		{
@@ -76,17 +74,12 @@
 						megaMenuCheckbox.attr('checked','');
 					}
 				}
-
-
-
-
-
 			});
-
 		},
 
 		//clone of the jqery menu-item function that calls a different ajax admin action so we can insert our own walker
-		addItemToMenu : function(menuItem, processMethod, callback) {
+		addItemToMenu : function(menuItem, processMethod, callback)
+		{
 			var menu = $('#menu').val(),
 				nonce = $('#menu-settings-column-nonce').val();
 
@@ -100,25 +93,32 @@
 				'menu-item': menuItem
 			};
 
-			$.post( ajaxurl, params, function(menuMarkup) {
+			$.post( ajaxurl, params, function(menuMarkup)
+			{
 				var ins = $('#menu-instructions');
 				processMethod(menuMarkup, params);
+
 				if( ! ins.hasClass('menu-instructions-inactive') && ins.siblings().length )
+				{
 					ins.addClass('menu-instructions-inactive');
+				}
+
 				callback();
 			});
 		}
 
-};
-
-
+	};
 
 	$(function()
 	{
 		avia_mega_menu.bind_click();
 		avia_mega_menu.recalcInit();
 		avia_mega_menu.recalc();
-		if(typeof wpNavMenu != 'undefined'){ wpNavMenu.addItemToMenu = avia_mega_menu.addItemToMenu; }
+
+		if(typeof wpNavMenu != 'undefined')
+		{
+			wpNavMenu.addItemToMenu = avia_mega_menu.addItemToMenu;
+		}
  	});
 
 

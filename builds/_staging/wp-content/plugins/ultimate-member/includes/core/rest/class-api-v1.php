@@ -110,14 +110,16 @@ if ( ! class_exists( 'um\core\rest\API_v1' ) ) {
 			$user = get_transient( md5( 'um_api_user_' . $key ) );
 
 			if ( false === $user ) {
-				$user = $wpdb->get_var( $wpdb->prepare(
-					"SELECT user_id
-					FROM $wpdb->usermeta
-					WHERE meta_key = 'um_user_public_key' AND
-					      meta_value = %s
-					LIMIT 1",
-					$key
-				) );
+				$user = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT user_id
+						FROM $wpdb->usermeta
+						WHERE meta_key = 'um_user_public_key' AND
+							  meta_value = %s
+						LIMIT 1",
+						$key
+					)
+				);
 				set_transient( md5( 'um_api_user_' . $key ) , $user, DAY_IN_SECONDS );
 			}
 
@@ -174,7 +176,7 @@ if ( ! class_exists( 'um\core\rest\API_v1' ) ) {
 					$val->roles                = $user->roles;
 					$val->first_name           = um_user( 'first_name' );
 					$val->last_name            = um_user( 'last_name' );
-					$val->account_status       = um_user( 'account_status' );
+					$val->account_status       = UM()->common()->users()->get_status( $user->ID );
 					$val->profile_pic_original = um_get_user_avatar_url( '', 'original' );
 					$val->profile_pic_normal   = um_get_user_avatar_url( '', 200 );
 					$val->profile_pic_small    = um_get_user_avatar_url( '', 40 );
@@ -239,7 +241,8 @@ if ( ! class_exists( 'um\core\rest\API_v1' ) ) {
 
 			switch ( $data ) {
 				case 'status':
-					UM()->user()->set_status( $value );
+					// Force update of the user status without email notifications.
+					UM()->common()->users()->set_status( $id, $value );
 					$response['success'] = __( 'User status has been changed.', 'ultimate-member' );
 					break;
 				case 'role':
@@ -361,7 +364,7 @@ if ( ! class_exists( 'um\core\rest\API_v1' ) ) {
 							$response['profile_pic_small']    = um_get_user_avatar_url( '', 40 );
 							break;
 						case 'status':
-							$response['status'] = um_user( 'account_status' );
+							$response['status'] = UM()->common()->users()->get_status( $user->ID );
 							break;
 						case 'role':
 							//get priority role here
@@ -382,7 +385,7 @@ if ( ! class_exists( 'um\core\rest\API_v1' ) ) {
 					$val->roles                = $user->roles;
 					$val->first_name           = um_user( 'first_name' );
 					$val->last_name            = um_user( 'last_name' );
-					$val->account_status       = um_user( 'account_status' );
+					$val->account_status       = UM()->common()->users()->get_status( $user->ID );
 					$val->profile_pic_original = um_get_user_avatar_url( '', 'original' );
 					$val->profile_pic_normal   = um_get_user_avatar_url( '', 200 );
 					$val->profile_pic_small    = um_get_user_avatar_url( '', 40 );

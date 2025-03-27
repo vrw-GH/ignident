@@ -43,6 +43,16 @@ if( have_posts() )
 
 		$with_slider = empty( $current_post['slider'] ) ? '' : 'with-slider';
 
+		$aria_label = 'aria-label="' . __( 'Author Archive Post:', 'avia_framework' ) . ' ' . esc_attr( $current_post['title'] ) . '"';
+
+		/**
+		 * @since 6.0.3
+		 * @param string $aria_label
+		 * @param string $context
+		 * @param array $current_post
+		 * @return string
+		 */
+		$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, $current_post );
 
 		/*
 		 * ...now apply a filter, based on the post type... (filter function is located in includes/helper-post-format.php)
@@ -59,6 +69,7 @@ if( have_posts() )
 		 */
 		extract( $current_post );
 
+
 		/*
 		 * render the html:
 		 */
@@ -66,7 +77,7 @@ if( have_posts() )
 		<article <?php post_class( "'post-entry post-entry-type-{$post_format} {$post_class} {$with_slider}" ); ?>' <?php avia_markup_helper( array( 'context' => 'entry' ) ); ?>>
 
 			<div class="entry-content-wrapper clearfix <?php echo $post_format; ?>-content">
-				<header class="entry-content-header">
+				<header class="entry-content-header" <?php echo $aria_label; ?> >
 <?php
 
 					$content_output  =  '<div class="entry-content" ' . avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false ) ) . '>';
@@ -248,10 +259,22 @@ else
 
 	$heading = ! empty( $args['heading'] ) ? $args['heading'] : $default_heading;
 	$css = ! empty( $args['extra_class'] ) ? $args['extra_class'] : '';
+
+	$aria_label = 'aria-label="' . __( 'No Author Archive Posts Found', 'avia_framework' ) . '"';
+
+	/**
+	 * @since 6.0.3
+	 * @param string $aria_label
+	 * @param string $context
+	 * @param array $nothing_found
+	 * @return string
+	 */
+	$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __FILE__, [] );
+
 ?>
 
 	<article class="entry">
-		<header class="entry-content-header">
+		<header class="entry-content-header" <?php echo $aria_label; ?> >
 			<?php echo "<{$heading} class='post-title entry-title {$css}'>" . __( 'Nothing Found', 'avia_framework' ) . "</{$heading}>"; ?>
 		</header>
 

@@ -11,6 +11,8 @@ if( ! class_exists( 'avia_sc_promobox', false ) )
 {
 	class avia_sc_promobox extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * Create the config array for the shortcode button
 		 */
@@ -250,10 +252,12 @@ if( ! class_exists( 'avia_sc_promobox', false ) )
 
 						array(
 							'name'		=> __( 'Button Icon','avia_framework' ),
-							'desc'		=> __( 'Select an icon for your Button below','avia_framework' ),
+							'desc'		=> __( 'Select an icon for your button below','avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'alert',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'icon_select', 'equals', 'yes' )
@@ -502,7 +506,7 @@ if( ! class_exists( 'avia_sc_promobox', false ) )
 			$content = $params['content'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked, $content );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$params['class'] = '';
 			$params['innerHtml']  = '';

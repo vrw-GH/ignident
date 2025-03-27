@@ -29,6 +29,18 @@ ICONGRID
     color: initial;
 }
 
+.avia-icongrid-icon .icongrid-char.avia-svg-icon svg:first-child{
+	fill: initial;
+	stroke: initial;
+	height: 1em;
+	width: 1em;
+}
+
+.avia-icongrid-icon .icongrid-char.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+}
+
 .avia-icongrid .av-icon-cell-item .avia-icongrid-wrapper{
     position: relative;
     display: block;

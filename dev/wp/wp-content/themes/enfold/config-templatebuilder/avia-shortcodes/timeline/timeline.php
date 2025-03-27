@@ -15,6 +15,8 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 {
     class avia_sc_timeline extends aviaShortcodeTemplate
     {
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 * @since 4.5.7.2
 		 * @var int
@@ -231,22 +233,28 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 							'tmpl_set_default'	=> false,
 							'std'			=> array(
 													array(
-														'date'	=> __( '2016', 'avia_framework' ),
-														'title'	=> __( 'Milestone 1', 'avia_framework' ),
-														'icon'	=> 'ue803',
-														'content'	=> __( 'Enter content here', 'avia_framework' ),
+														'date'			=> __( '2016', 'avia_framework' ),
+														'title'			=> __( 'Milestone 1', 'avia_framework' ),
+														'icon_image'	=> 'icon',
+														'icon'			=> 'search',
+														'font'			=> 'svg_entypo-fontello',
+														'content'		=> __( 'Enter content here', 'avia_framework' ),
 													),
 													array(
-														'date'	=> __( '2017', 'avia_framework' ),
-														'title'	=> __( 'Milestone 2', 'avia_framework' ),
-														'icon'	=> 'ue856',
-														'content'	=> __( 'Enter content here', 'avia_framework' ),
+														'date'			=> __( '2017', 'avia_framework' ),
+														'title'			=> __( 'Milestone 2', 'avia_framework' ),
+														'icon_image'	=> 'icon',
+														'icon'			=> 'tools',
+														'font'			=> 'svg_entypo-fontello',
+														'content'		=> __( 'Enter content here', 'avia_framework' ),
 													),
 													array(
-														'date'	=> __( '2018', 'avia_framework' ),
-														'title'	=> __( 'Milestone 3', 'avia_framework' ),
-														'icon'	=> 'ue806',
-														'content'	=> __( 'Enter content here', 'avia_framework' ),
+														'date'			=> __( '2018', 'avia_framework' ),
+														'title'			=> __( 'Milestone 3', 'avia_framework' ),
+														'icon_image'	=> 'icon',
+														'icon'			=> 'heart',
+														'font'			=> 'svg_entypo-fontello',
+														'content'		=> __( 'Enter content here', 'avia_framework' ),
 													),
 												),
 							'subelements'	=> $this->create_modal()
@@ -762,18 +770,18 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Milestone Description', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'modal_content_desc' ), $template );
 
 			$c = array(
 						array(
-							'name'	=> __( 'Bullet Content', 'avia_framework' ),
-							'desc'	=> __( 'Select the type of content for your milestone bullet', 'avia_framework' ),
-							'id'	=> 'icon_image',
-							'type'	=> 'select',
-							'std'	=> 'icon',
+							'name'		=> __( 'Bullet Content', 'avia_framework' ),
+							'desc'		=> __( 'Select the type of content for your milestone bullet', 'avia_framework' ),
+							'id'		=> 'icon_image',
+							'type'		=> 'select',
+							'std'		=> 'icon',
 							'lockable'	=> true,
 							'subtype'	=> array(
 											__( 'Add Icon', 'avia_framework' )			=> 'icon',
@@ -783,11 +791,11 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
                         ),
 
 						array(
-							'name'	=> __( 'Bullet Shape', 'avia_framework' ),
-							'desc'	=> __( 'Arrow shaped bullet', 'avia_framework' ),
-							'id'	=> 'number_arrow',
-							'type'	=> 'select',
-							'std'	=> '',
+							'name'		=> __( 'Bullet Shape', 'avia_framework' ),
+							'desc'		=> __( 'Arrow shaped bullet', 'avia_framework' ),
+							'id'		=> 'number_arrow',
+							'type'		=> 'select',
+							'std'		=> '',
 							'lockable'	=> true,
 							'required'	=> array( 'icon_image', 'equals', 'number' ),
 							'subtype'	=> array(
@@ -797,12 +805,14 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 						),
 
 						array(
-							'name'	=> __( 'Milestone Icon', 'avia_framework' ),
-							'desc'	=> __( 'Select an icon for your milestone below', 'avia_framework' ),
+							'name'		=> __( 'Milestone Icon', 'avia_framework' ),
+							'desc'		=> __( 'Select an icon for your milestone below', 'avia_framework' ),
 							'required'	=> array( 'icon_image', 'equals', 'icon' ),
-							'id'	=> 'icon',
-							'type'	=> 'iconfont',
-							'std'	=> '',
+							'id'		=> 'icon',
+							'type'		=> 'iconfont',
+							'std'		=> 'tools',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' )
 						),
@@ -827,7 +837,7 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Milestone Bullet', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'modal_content_bullet' ), $template );
@@ -840,11 +850,11 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 
 			$c = array(
 						array(
-							'name' => __( 'Vertical Alignment Title and Content', 'avia_framework' ),
-							'desc' => __( 'Applies only for the vertical timeline.', 'avia_framework' ),
-							'id' => 'milestone_valign',
-							'type' => 'select',
-							'std' => 'baseline',
+							'name'		=> __( 'Vertical Alignment Title and Content', 'avia_framework' ),
+							'desc'		=> __( 'Applies only for the vertical timeline.', 'avia_framework' ),
+							'id'		=> 'milestone_valign',
+							'type'		=> 'select',
+							'std'		=> 'baseline',
 							'lockable'	=> true,
 							'subtype'	=> array(
 											__( 'Baseline (Default)', 'avia_framework' )	=> 'baseline',
@@ -859,21 +869,19 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Text Alignment', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'modal_styling_text' ), $template );
 
 
-
-
 			$c = array(
 						array(
-							'name'	=> __( 'Milestone Colors', 'avia_framework' ),
-							'desc'	=> __( 'Either use the themes default colors or apply some custom ones', 'avia_framework' ),
-							'id'	=> 'milestone_color',
-							'type'	=> 'select',
-							'std'	=> '',
+							'name'		=> __( 'Milestone Colors', 'avia_framework' ),
+							'desc'		=> __( 'Either use the themes default colors or apply some custom ones', 'avia_framework' ),
+							'id'		=> 'milestone_color',
+							'type'		=> 'select',
+							'std'		=> '',
 							'lockable'	=> true,
 							'subtype'	=> array(
 											__( 'Default', 'avia_framework' )				=> '',
@@ -882,17 +890,16 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 						),
 
 						array(
-							'name'	=> __( 'Custom Milestone Icon Background Color', 'avia_framework' ),
-							'desc'	=> __( 'Select a custom background color for the icon. Leave empty to use the default', 'avia_framework' ),
-							'id'	=> 'custom_milestone_color',
-							'type'	=> 'colorpicker',
-							'rgba'	=> true,
-							'std'	=> '',
+							'name'		=> __( 'Custom Milestone Icon Background Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom background color for the icon. Leave empty to use the default', 'avia_framework' ),
+							'id'		=> 'custom_milestone_color',
+							'type'		=> 'colorpicker',
+							'rgba'		=> true,
+							'std'		=> '',
 							'container_class'	=> 'av_half av_half_first',
 							'lockable'	=> true,
 							'required'	=> array( 'milestone_color', 'equals', 'custom' )
-						),
-
+						)
 				);
 
 			$template = array(
@@ -901,7 +908,7 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'Colors', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'modal_styling_colors' ), $template );
@@ -941,7 +948,6 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 											__( 'Apply link to icon only', 'avia_framework' )				=> 'icon_only'
 										)
 						)
-
 				);
 
 			$template = array(
@@ -950,12 +956,10 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 					'template_id'	=> 'toggle',
 					'title'			=> __( 'Milestone Link', 'avia_framework' ),
 					'content'		=> $c
-				),
+				)
 			);
 
-
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'modal_advanced_link' ), $template );
-
 		}
 
 		/**
@@ -992,7 +996,7 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 			$attr = $params['args'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode_nested'][0], $default, $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$params['innerHtml'] = '';
 			$params['innerHtml'] .= "<div class='avia_title_container' data-update_element_template='yes'>";
@@ -1131,6 +1135,11 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 													'color'				=> $atts['icon_custom_font']
 												) );
 
+				$element_styling->add_styles( 'milestone-char-svg', array(
+													'fill'		=> $atts['icon_custom_font'],
+													'stroke'	=> $atts['icon_custom_font']
+												) );
+
 				$element_styling->add_styles( 'milestone-icon-border', array( 'background-color' => $atts['icon_custom_border'] ) );
 
 				$element_styling->add_styles( 'milestone-indicator', array( 'background-color' => $atts['icon_custom_bg'] ) );
@@ -1147,7 +1156,8 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 							'milestone-icon-border'		=> ".avia-timeline-container.{$element_id} .av-milestone-icon.milestone-icon-hasborder",
 							'milestone-icon-inner'		=> ".avia-timeline-container.{$element_id} .av-milestone-icon-inner",
 							'milestone-indicator'		=> ".avia-timeline-container.{$element_id} .av-milestone-indicator",
-							'milestone-article-footer'	=> ".avia-timeline-container.{$element_id} .av-milestone-article-footer"
+							'milestone-article-footer'	=> ".avia-timeline-container.{$element_id} .av-milestone-article-footer",
+							'milestone-char-svg'		=> ".avia-timeline-container.{$element_id} i.milestone-char.avia-svg-icon svg:first-child"
 				);
 
 			$element_styling->add_selectors( $selectors );
@@ -1222,6 +1232,7 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $this->config['shortcode_nested'][0], $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'no', 'manually', 'single', 'taxonomy' ] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			/**
 			 * @since 5.3
@@ -1313,13 +1324,18 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
                 }
             }
 
+			if( $atts['icon_image'] == 'icon' )
+			{
+				$element_styling->add_classes( 'milestone-char', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
+			}
 
 			$selectors = array(
 							'container'					=> ".avia-timeline-container .av-milestone.{$element_id}",
 							'milestone-icon'			=> ".avia-timeline-container .av-milestone.{$element_id} .x-av-milestone-icon",
 							'milestone-icon-inner'		=> ".avia-timeline-container .av-milestone.{$element_id} .av-milestone-icon-inner",
 							'milestone-indicator'		=> ".avia-timeline-container .av-milestone.{$element_id} .av-milestone-indicator",
-							'milestone-article-footer'	=> ".avia-timeline-container .av-milestone.{$element_id} .av-milestone-article-footer"
+							'milestone-article-footer'	=> ".avia-timeline-container .av-milestone.{$element_id} .av-milestone-article-footer",
+
 
 					);
 
@@ -1377,7 +1393,8 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 				$args = array(
 							'class_main'	=> 'avia-slideshow-arrows avia-slideshow-controls av-timeline-nav ' . $element_styling->responsive_classes_string( 'hide_element', $atts ),
 							'class_prev'	=> 'prev-slide av-timeline-nav-prev av-nav-btn',
-							'class_next'	=> 'next-slide av-timeline-nav-next av-nav-btn'
+							'class_next'	=> 'next-slide av-timeline-nav-next av-nav-btn',
+							'svg_icon'		=> true
 						);
 
 				$output .= aviaFrontTemplates::slide_navigation_arrows( $args );
@@ -1432,7 +1449,7 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 			$container_class = $element_styling->get_class_string( 'container' );
 			$milestone_icon_class = $element_styling->get_class_string( 'milestone-icon' );
 			$milestone_icon_inner_class = $element_styling->get_class_string( 'milestone-icon-inner' );
-
+			$milestone_char_class = $element_styling->get_class_string( 'milestone-char' );
 
 			/**
 			 * Icon / image
@@ -1459,11 +1476,13 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 			}
 			else if( $atts['icon_image'] == 'icon' )
 			{
-				$display_char = av_icon( $atts['icon'], $atts['font'] );
+				$display_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
 
 				$icon .= "<span class='{$milestone_icon_class} avia-font-{$atts['font']}'>";
 				$icon .=	"<span class='{$milestone_icon_inner_class}'>";
-				$icon .=		"<i class='milestone-char' {$display_char}></i>";
+				$icon .=		"<i class='milestone-char {$milestone_char_class}' {$display_char['attr']}>";
+				$icon .=			$display_char['svg'];
+				$icon .=		'</i>';
 				$icon .=	'</span>';
 				$icon .= '</span>';
 			}
@@ -1605,7 +1624,6 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 					break;
 
 				case 'av-milestone-placement-right':
-					$output .= $date;
 					$output .= $article;
 					$output .= $icon;
 					$output .= $date;
@@ -1620,11 +1638,6 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 					}
 					else
 					{
-						if( 'vertical' == $this->parent_atts['orientation'] )
-						{
-							$output .= $date;
-						}
-
 						$output .= $article;
 						$output .= $icon;
 						$output .= $date;

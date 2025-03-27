@@ -105,6 +105,12 @@ Post Slider
 	border-radius: 100px;
 }
 
+.fallback-post-type-icon.avia-svg-icon svg:first-child,
+.fallback-post-type-icon.avia-svg-icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+}
+
 .avia-content-slider .slide-image:hover .fallback-post-type-icon{
 	opacity: 0;
 }

@@ -9,11 +9,14 @@ if( ! defined( 'ABSPATH' ) ) {  exit;  }    // Exit if accessed directly
 
 global $avia_config, $avia_pages, $avia_elements;
 
+$desc  = __( 'You can enter links to your social profiles here. Afterwards you can choose where to display them by activating them in the respective area', 'avia_framework' );
+$desc .= ' ( ' . __( 'e.g:', 'avia_framework' ) . " <a href='#goto_layout'>" . __( 'General Layout', 'avia_framework' ) . "</a>, <a href='#goto_header'>" . __( 'Header', 'avia_framework' ) . "</a>, <a href='#goto_footer'>" . __( 'Footer', 'avia_framework' ) . '</a> )';
+$icon_info = '<br /><strong class="av-text-notice">' . __( 'We recommend that you use SVG icons on new sites and switch to the SVG icons on existing sites because the default icon font might get deprecated in a future version.', 'avia_framework' ) . '</strong>';
 
 $avia_elements[] = array(
 			'slug'			=> 'social',
 			'name'			=> __( 'Your social profiles', 'avia_framework' ),
-			'desc'			=> __( 'You can enter links to your social profiles here. Afterwards you can choose where to display them by activating them in the respective area', 'avia_framework' ) .' ( '. __( 'e.g:', 'avia_framework' ) . " <a href='#goto_layout'>". __( 'General Layout', 'avia_framework' ) . "</a>, <a href='#goto_header'>". __( 'Header', 'avia_framework' ) . "</a>, <a href='#goto_footer'>". __( 'Footer', 'avia_framework' ) . '</a> )',
+			'desc'			=> $desc . $icon_info,
 			'id'			=> 'socialdescription',
 			'type'			=> 'heading',
 			'std'			=> '',

@@ -90,17 +90,17 @@ class NoticeOption
      *
      * @return string
      */
-    public function getNoticeInsightsWizard(){
-        return $this->searchOptionByKey('notice-insights-wizard');
+    public function getNoticeAMPAnalytics(){
+        return $this->searchOptionByKey('notice-amp-analytics');
     }
 
     /**
-     * @since 6.0.0
+     * @since 8.1.0
      *
      * @return string
      */
-    public function getNoticeAMPAnalytics(){
-        return $this->searchOptionByKey('notice-amp-analytics');
+    public function getNoticeLiteSpeedCache(){
+        return $this->searchOptionByKey('notice-litespeed-cache');
     }
 
     /**
@@ -203,6 +203,15 @@ class NoticeOption
     }
 
     /**
+     * @since 8.3.0
+     *
+     * @return string
+     */
+    public function getNoticeXMLSitemaps(){
+        return $this->searchOptionByKey('notice-xml-sitemaps');
+    }
+
+    /**
      * @since 6.0.0
      *
      * @return string
@@ -225,8 +234,8 @@ class NoticeOption
      *
      * @return string
      */
-    public function getNoticeGoPro(){
-        return $this->searchOptionByKey('notice-go-pro');
+    public function getNoticeEbooks(){
+        return $this->searchOptionByKey('notice-ebooks');
     }
 
     /**
@@ -234,8 +243,8 @@ class NoticeOption
      *
      * @return string
      */
-    public function getNoticeGoInsights(){
-        return $this->searchOptionByKey('notice-go-insights');
+    public function getNoticeIntegrations(){
+        return $this->searchOptionByKey('notice-integrations');
     }
 
     /**

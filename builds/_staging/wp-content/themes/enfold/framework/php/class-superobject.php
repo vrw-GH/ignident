@@ -174,10 +174,16 @@ if( ! class_exists( 'avia_superobject', false ) )
 		 *
 		 * @param array|null $base_data
          */
-		protected function __construct( $base_data )
+		protected function __construct( $base_data = null )
 		{
 			$this->base_data = $base_data;
-			$this->option_prefix = 'avia_options_' . avia_backend_safe_string( $this->base_data['prefix'] );
+			$this->option_prefix = 'avia_options_';
+
+			if( is_array( $this->base_data ) && ! empty( $this->base_data['prefix'] ) )
+			{
+				$this->option_prefix .= avia_backend_safe_string( $this->base_data['prefix'] );
+			}
+
 			$this->subpages = array();
 			$this->option_pages = array();
 			$this->option_page_data = array();
@@ -240,6 +246,20 @@ if( ! class_exists( 'avia_superobject', false ) )
 			{
 				new avia_sidebar();
 			}
+		}
+
+		/**
+		 * @since 7.0
+		 * @return avia_style_generator
+		 */
+		public function styleGenerator()
+		{
+			if( ! $this->style instanceof avia_style_generator )
+			{
+				$this->style = new avia_style_generator( $this );
+			}
+
+			return $this->style;
 		}
 
 		/**

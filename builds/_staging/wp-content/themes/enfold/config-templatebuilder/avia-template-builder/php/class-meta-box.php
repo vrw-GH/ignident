@@ -169,37 +169,38 @@ if ( ! class_exists( 'MetaBoxBuilder', false ) )
 				//loop over the box array
 				foreach( $this->default_boxes as $key => $box )
 				{
-					foreach( $box['page'] as $area )
+					if( isset( $box['page'] ) && is_array( $box['page'] ) )
 					{
-						//class filter for expanded items
-						if( ! empty( $box['expandable'] ) )
+						foreach( $box['page'] as $area )
 						{
-							if( ! empty( $_GET['avia-expanded'] ) && $_GET['avia-expanded'] === $box['id'] )
+							//class filter for expanded items
+							if( ! empty( $box['expandable'] ) )
 							{
-								add_filter( "postbox_classes_{$area}_{$box['id']}" , array( $this, 'add_meta_box_class' ) ); //postbox class filter
+								if( ! empty( $_GET['avia-expanded'] ) && $_GET['avia-expanded'] === $box['id'] )
+								{
+									add_filter( "postbox_classes_{$area}_{$box['id']}" , array( $this, 'add_meta_box_class' ) ); //postbox class filter
+								}
 							}
+
+							//class filter for hiden items
+							if( ( 'avia_builder' === $box['id'] && isset( $_GET['post'] ) && Avia_Builder()->get_alb_builder_status( $_GET['post'] ) != 'active' ) || ( 'avia_builder' === $box['id'] && empty( $_GET['post'] ) ) )
+							{
+								add_filter( "postbox_classes_{$area}_{$box['id']}" , array( $this, 'add_meta_box_hidden' ) ); //postbox class filter
+							}
+
+							//meta box creation
+							$box['iteration'] = $key;
+
+							add_meta_box(
+									$box['id'], 							// HTML 'id' attribute of the edit screen section
+									$box['title'],							// Title of the edit screen section, visible to user
+									array( $this, 'create_meta_box' ),		// Function that prints out the HTML for the edit screen section.
+									$area, 									// The type of Write screen on which to show the edit screen section ('post', 'page', etc)
+									$box['context'], 						// The part were box is shown: ('normal', 'advanced', or 'side').
+									$box['priority'],						// The priority within the context where the boxes should show ('high' or 'low')
+									array( 'avia_current_box' => $box ) 	// callback arguments so we know which box we are in
+								);
 						}
-
-						global $post_ID;
-
-						//class filter for hiden items
-						if( ( 'avia_builder' === $box['id'] && isset( $_GET['post'] ) && Avia_Builder()->get_alb_builder_status( $_GET['post'] ) != 'active' ) || ( 'avia_builder' === $box['id'] && empty( $_GET['post'] ) ) )
-						{
-							add_filter( "postbox_classes_{$area}_{$box['id']}" , array( $this, 'add_meta_box_hidden' ) ); //postbox class filter
-						}
-
-						//meta box creation
-						$box['iteration'] = $key;
-
-						add_meta_box(
-								$box['id'], 							// HTML 'id' attribute of the edit screen section
-								$box['title'],							// Title of the edit screen section, visible to user
-								array( $this, 'create_meta_box' ),		// Function that prints out the HTML for the edit screen section.
-								$area, 									// The type of Write screen on which to show the edit screen section ('post', 'page', etc)
-								$box['context'], 						// The part were box is shown: ('normal', 'advanced', or 'side').
-								$box['priority'],						// The priority within the context where the boxes should show ('high' or 'low')
-								array( 'avia_current_box' => $box ) 	// callback arguments so we know which box we are in
-							);
 					}
 				}
 			}
@@ -305,14 +306,23 @@ if ( ! class_exists( 'MetaBoxBuilder', false ) )
 
 			// don't run the saving if no meta box was attached to this post type
 			$must_check = false;
+
 			foreach( $this->default_boxes as $default_box )
 			{
-				if( in_array( $data['post_type'], $default_box['page'] ) )
+				/**
+				 * @iink  https://kriesi.at/support/topic/compatibility-issues-with-enfold-builder-on-php-8-2-and-wordpress-6-7/#post-1477120
+				 * @since 7.0
+				 */
+				if( isset( $default_box['page'] ) && is_array( $default_box['page'] ) )
 				{
-					$must_check = true;
-					break;
+					if( in_array( $data['post_type'], $default_box['page'] ) )
+					{
+						$must_check = true;
+						break;
+					}
 				}
 			}
+
 			if( ! $must_check )
 			{
 				return $data;
@@ -378,9 +388,12 @@ if ( ! class_exists( 'MetaBoxBuilder', false ) )
 			// don't run the saving if no meta box was attached to this post type
 			foreach( $this->default_boxes as $default_box )
 			{
-				if( in_array( $_POST['post_type'], $default_box['page'] ) )
+				if( isset( $_POST['post_type'] ) && isset( $default_box['page'] ) && is_array( $default_box['page'] ) )
 				{
-					$must_check = true;
+					if( in_array( sanitize_text_field( $_POST['post_type'] ), $default_box['page'] ) )
+					{
+						$must_check = true;
+					}
 				}
 			}
 

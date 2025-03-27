@@ -110,7 +110,7 @@ Horizontal Gallery
 	margin-right: 1px;
 }
 
-#top .av-horizontal-gallery-link {
+#top .av-horizontal-gallery-link{
 	color: #fff;
 	background: rgba(0,0,0,0.3);
 	display: block;
@@ -120,6 +120,22 @@ Horizontal Gallery
 	border-radius: 3px;
 	text-decoration: none;
 	transition: all 0.2s ease-in-out;
+}
+
+#top .av-horizontal-gallery-link.avia-svg-icon svg:first-child{
+	position: relative;
+	top: 2px;
+	height: 14px;
+	width: 14px;
+	stroke: #fff;
+	fill: #fff;
+}
+
+#top .av-horizontal-gallery-link.avia-svg-icon img[is-svg-img="true"]{
+	position: relative;
+	top: 2px;
+	height: 14px;
+	width: 14px;
 }
 
 #top .av-horizontal-gallery-link:hover{

@@ -18,6 +18,7 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
     {
 		use \aviaBuilder\traits\scNamedColors;
 		use \aviaBuilder\traits\scButtonStyles;
+		use \aviaBuilder\traits\modalIconfontHelper;
 
 		/**
 		 *
@@ -239,9 +240,21 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 							'lockable'		=> true,
 							'tmpl_set_default'	=> false,
 							'std'			=> array(
-													array( 'label' => __( 'Click me', 'avia_framework' ), 'icon' => 'ue841' ),
-													array( 'label' => __( 'Call to Action', 'avia_framework' ), 'icon' => 'ue805' ),
-													array( 'label' => __( 'Click me', 'avia_framework' ), 'icon' => 'ue836' ),
+													array(
+														'label'	=> __( 'Click me', 'avia_framework' ),
+														'icon'	=> 'address',
+														'font'	=> 'svg_entypo-fontello'
+													),
+													array(
+														'label'	=> __( 'Call to Action', 'avia_framework' ),
+														'icon'	=> 'mail',
+														'font'	=> 'svg_entypo-fontello'
+													),
+													array(
+														'label'	=> __( 'Click me', 'avia_framework' ),
+														'icon'	=> 'pencil',
+														'font'	=> 'svg_entypo-fontello'
+													)
 												),
 							'subelements'	=> $this->create_modal()
 						),
@@ -517,7 +530,9 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 							'desc'		=> __( 'Select an icon for your Button below', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'note',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'icon_select', 'not_empty_and', 'no' )
@@ -762,7 +777,7 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 
 			$template = $this->update_template_lockable( 'label', __( 'Button', 'avia_framework' ) . ': {{label}}', $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$params['innerHtml'] = '';
 			$params['innerHtml'] .= "<div class='avia_title_container' data-update_element_template='yes'>";
@@ -904,6 +919,7 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $this->config['shortcode_nested'][0], $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'manually', 'single', 'taxonomy' ] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
 
 			$classes = array(
 						'avia-button',
@@ -912,6 +928,7 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 
 			$element_styling->add_classes( 'container', $classes );
 			$element_styling->add_classes( 'container', $this->class_by_arguments( 'icon_select, size', $atts, true, 'array' ) );
+			$element_styling->add_classes( 'icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 			$element_styling->add_responsive_font_sizes( 'container', 'size-text', $atts, $this );
 
 			$this->set_button_styes( $element_styling, $atts, true );
@@ -959,7 +976,9 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 						'container-hover'			=> "#top #wrap_all .avia-button.{$element_id}:hover",
 						'container-hover-overlay'	=> "#top #wrap_all .avia-button.{$element_id}:hover .avia_button_background",
 						'container-after'			=> ".avia-button.{$element_id}.avia-sonar-shadow:after",
-						'container-after-hover'		=> ".avia-button.{$element_id}.avia-sonar-shadow:hover:after"
+						'container-after-hover'		=> ".avia-button.{$element_id}.avia-sonar-shadow:hover:after",
+						'icon-svg'					=> "#top #wrap_all .avia-button.{$element_id} .avia-svg-icon svg:first-child",
+						'icon-svg-hover'			=> "#top #wrap_all .avia-button.{$element_id}:hover .avia-svg-icon svg:first-child"
 					);
 
 			$element_styling->add_selectors( $selectors );
@@ -1033,7 +1052,7 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 			$style_hover = '';
 			$background_hover = '';
 
-			$display_char = av_icon( $atts['icon'], $atts['font'] );
+			$display_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
 
 			if( '' != $atts['color_options'] )
 			{
@@ -1071,17 +1090,23 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 				$aria_label = 'aria-label="' . esc_attr( $atts['label'] ) . '"';
 			}
 
+			$icon_class = $element_styling->get_class_string( 'icon' );
+
 			$content_html = '';
 			if( 'yes-left-icon' == $atts['icon_select'] )
 			{
-				$content_html .= "<span class='avia_button_icon avia_button_icon_left ' {$display_char}></span>";
+				$content_html .= "<span class='avia_button_icon avia_button_icon_left {$icon_class}' {$display_char['attr']}>";
+				$content_html .=		$display_char['svg'];
+				$content_html .= '</span>';
 			}
 
 			$content_html .= "<span class='avia_iconbox_title' >" . $atts['label'] . "</span>";
 
 			if( 'yes-right-icon' == $atts['icon_select'] )
 			{
-				$content_html .= "<span class='avia_button_icon avia_button_icon_right' {$display_char}></span>";
+				$content_html .= "<span class='avia_button_icon avia_button_icon_right {$icon_class}' {$display_char['attr']}>";
+				$content_html .=		$display_char['svg'];
+				$content_html .= '</span>';
 			}
 
 			$style_tag = $element_styling->get_style_tag( $element_id );

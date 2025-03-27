@@ -3,8 +3,8 @@ Contributors: ays-pro
 Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
-Tested up to: 6.6
-Stable tag: 4.6.5
+Tested up to: 6.7
+Stable tag: 5.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -170,7 +170,7 @@ So according to selected sizes, you can have a full-screen popup.
 
 You will be able to preview the changes before saving them.
 
-**[PRO](https://ays-pro.com/wordpress/popup-box)|[DEMO](https://ays-demo.com/popup-box-plugin-pro-demo/)|[DOCUMENTATION](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)**
+**[PRO](https://ays-pro.com/wordpress/popup-box) | [DEMO](https://ays-demo.com/popup-box-plugin-pro-demo/) | [DOCUMENTATION](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)**
 
 == Why us? What advantages does popup box offer? ==
 
@@ -334,6 +334,195 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 5.2.1 =
+* Added: Some sanitization functions in the admin dashboard
+
+= 5.2.0 =
+* Added: Some sanitization functions in the admin page
+
+= 5.1.9 =
+* Updated: POT file
+* Fixed: Some issues
+
+= 5.1.8 =
+* Improved: Some changes on the admin dashboard
+
+= 5.1.7 =
+* Added: Time-based scheduling feature for popups
+* Tested: Compatible up to 6.7.2
+
+= 5.1.6 =
+* Improved: Code correction on the front-end and admin dashboard
+
+= 5.1.5 =
+* Fixed: Responsive issue on mobile the Popups page
+
+= 5.1.4 =
+* Added: Header background color mobile option
+
+= 5.1.3 =
+* Added: Global Collapse/Expand functionality on the Popups page
+
+= 5.1.2 =
+* Improved: The Popups page design
+
+= 5.1.1 =
+* Improved: Top banner styles on the admin dashboard
+
+= 5.1.0 =
+* Added: Content padding mobile option
+
+= 5.0.9 =
+* Added: Logo image shape option for notification popup
+
+= 5.0.8 =
+* Fixed: Some styles on the admin dashboard
+* Updated: POT file
+
+= 5.0.7 =
+* Fixed: Issue connected to the popup background image
+* Improved: Some changes on the admin dashboard 
+
+= 5.0.6 =
+* Improved: Some changes on the admin dashboard
+
+= 5.0.5 =
+* Added: Logo image sizing option for notification popup
+
+= 5.0.4 =
+* Improved: Some changes on the admin dashboard
+
+= 5.0.3 =
+* Fixed: Sorting issue on the popup list tables
+* Fixed: Some style issues on the front end
+
+= 5.0.2 =
+* Fixed: Some issues on the front end
+* Updated: POT file
+
+= 5.0.1 =
+* Improved: Some changes on the admin dashboard
+* Tested: Compatible up to 6.7.1
+
+= 5.0.0 =
+* Added: Mobile min-width option for notification popup logo
+
+= 4.9.9 =
+* Fixed: Some styles on the admin dashboard
+* Fixed: JS issues on the front end
+
+= 4.9.8 =
+* Fixed: Security issue connected to the plugin deactivation
+
+= 4.9.7 =
+* Added: Mobile max-width option for notification popup logo
+* Tested: Compatible up to 6.7
+
+= 4.9.6 =
+* Added: Mobile width option for notification popup logo
+
+= 4.9.5 =
+* Added: Button letter spacing on mobile option for notification popup type
+
+= 4.9.4 =
+* Added: Button font weight on mobile option for notification popup type
+
+= 4.9.3 =
+* Added: Button font size on mobile option for notification popup type
+
+= 4.9.2 =
+* Fixed: Issue connected to the autoclose on video completion option
+* Updated: POT file
+
+= 4.9.1 =
+* Added: Transition option for notification popup button
+
+= 4.9.0 =
+* Added: Max-height option for notification popup logo
+
+= 4.8.9 =
+* Added: Min-height option for notification popup logo
+
+= 4.8.8 =
+* Added: Width by pixels option for notification popup logo
+
+= 4.8.7 =
+* Added: Min-width by percentage option for notification popup logo
+
+= 4.8.6 =
+* Added: Max-width by percentage option for notification popup logo
+
+= 4.8.5 =
+* Improved: Styles on the admin dashboard
+* Updated: POT file
+
+= 4.8.4 =
+* Added: Min-width option for notification popup logo
+
+= 4.8.3 =
+* Added: Width option for notification popup logo
+
+= 4.8.2 =
+* Fixed: Security issue on the admin dashboard
+* Improved: Styles on the admin dashboard
+
+= 4.8.1 =
+* Added: Max-width option for notification popup logo
+
+= 4.8.0 =
+* Added: Font weight option for notification popup button
+* Tested: Compatible up to 6.6.2
+
+= 4.7.9 =
+* Added: Button hover text option for notification popup type
+
+= 4.7.8 =
+* Added: Text decoration option for notification popup button
+* Fixed: Security issue connected to the change creation date option
+
+= 4.7.7 =
+* Added: Text transformation option for notification popup button
+
+= 4.7.6 =
+* Improved: Styles on the admin dashboard
+* Updated: POT file
+
+= 4.7.5 =
+* Added: Expand/Collapse functionality for popup options on the Popups page
+
+= 4.7.4 =
+* Added: Redirect to the new tab option for notification popup logo
+* Fixed: Style issue on the admin dashboard
+
+= 4.7.3 =
+* Improved: Styles on the admin dashboard
+
+= 4.7.2 =
+* Added: Logo redirect URL option for notification popup type
+* Fixed: Some styles on the front end
+
+= 4.7.1 =
+* Added: Logo option for notification popup type
+
+= 4.7.0 =
+* Added: Automatic activation/installation of the plugin on the Our Products submenu
+
+= 4.6.9 =
+* Fixed: Some issues on PRO Features page
+* Updated: POT file
+
+= 4.6.8 =
+* Fixed: Some style issues on the admin dashboard
+
+= 4.6.7 =
+* Added: Confirmation Box before deleting the popup categories
+* Fixed: Some style issues on the admin dashboard
+
+= 4.6.6 =
+* Fixed: Some style issues on the admin dashboard
+* Fixed: Issue connected to the popup categories list table search box
+* Tested: Compatible up to 6.6.1
 
 = 4.6.5 =
 * Added: Button letter spacing option for notification popup type

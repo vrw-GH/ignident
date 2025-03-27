@@ -36,6 +36,17 @@ ICONLIST
 	color:#fff;
 }
 
+#top .avia-icon-list:not(.av-iconlist-small) .iconlist_icon svg:first-child{
+	stroke: #fff;
+	fill: #fff;
+}
+
+.avia-icon-list .iconlist_icon svg:first-child,
+.avia-icon-list .iconlist_icon img[is-svg-img="true"]{
+	margin-top: 16px;
+	margin-left: 1px;
+}
+
 .avia-icon-list a.iconlist_icon:hover{
 	color:#fff;
 	text-decoration: none;
@@ -120,6 +131,13 @@ ICONLIST
 	line-height: 1.45em;
 	font-size: inherit;
 	margin-right: 0.25em;
+}
+
+.av-iconlist-small .iconlist_icon svg:first-child,
+.av-iconlist-small .iconlist_icon img[is-svg-img="true"]{
+	height: 1em;
+	width: 1em;
+	margin-top: 0.2em;
 }
 
 #top .av-iconlist-small.avia-icon-list-right .iconlist_icon {

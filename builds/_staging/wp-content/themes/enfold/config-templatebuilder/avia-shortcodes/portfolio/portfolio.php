@@ -946,14 +946,29 @@ if ( ! class_exists( 'avia_post_grid', false ) )
 			{
 				$container_class = $fullscreen ? 'container' : '';
 
-				$output .= "<div class='portfolio_preview_container {$container_class}' data-portfolio-id='{$container_id}'>
-								<div class='ajax_controlls iconfont'>
-									<a href='#prev' class='ajax_previous' 	" . av_icon_string('prev') . "></a>
-									<a href='#next' class='ajax_next'		" . av_icon_string('next') . "></a>
-									<a class='avia_close' href='#close'		" . av_icon_string('close') . "></a>
-								</div>
-								<div class='portfolio-details-inner'></div>
-							</div>";
+				$display_char_prev = \avia_font_manager::get_frontend_shortcut_icon( "svg__prev", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class_prev = \avia_font_manager::get_frontend_icon_classes( $display_char_prev['font'], 'string' );
+
+				$display_char_next = \avia_font_manager::get_frontend_shortcut_icon( "svg__next", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class_next = \avia_font_manager::get_frontend_icon_classes( $display_char_next['font'], 'string' );
+
+				$display_char_close = \avia_font_manager::get_frontend_shortcut_icon( "svg__close", [ 'title' => '', 'desc' => '', 'aria-hidden' => 'true' ] );
+				$char_class_close = \avia_font_manager::get_frontend_icon_classes( $display_char_close['font'], 'string' );
+
+				$output .= "<div class='portfolio_preview_container {$container_class}' data-portfolio-id='{$container_id}'>";
+				$output .=		"<div class='ajax_controlls iconfont'>";
+				$output .=			"<a href='#prev' class='ajax_previous {$char_class_prev}' {$display_char_prev['attr']}>";
+				$output .=				$display_char_prev['svg'];
+				$output .=			'</a>';
+				$output .=			"<a href='#next' class='ajax_next {$char_class_next}' {$display_char_next['attr']}>";
+				$output .=				$display_char_next['svg'];
+				$output .=			'</a>';
+				$output .=			"<a href='#close' class='avia_close {$char_class_close}' {$display_char_close['attr']}>";
+				$output .=				$display_char_close['svg'];
+				$output .=			'</a>';
+				$output .=		'</div>';
+				$output .=		'<div class="portfolio-details-inner"></div>';
+				$output .= '</div>';
 			}
 
 			$output .= "<div {$el_id} class='{$class} grid-sort-container isotope {$av_display_classes} {$av_column_classes} {$style_class}-container with-{$contents}-container grid-total-{$total} grid-col-{$columns} grid-links-{$linking}' data-portfolio-id='{$container_id}'>";
@@ -1064,55 +1079,67 @@ if ( ! class_exists( 'avia_post_grid', false ) )
 						$heading = ! empty( $args['heading'] ) ? $args['heading'] : $default_heading;
 						$css = ! empty( $args['extra_class'] ) ? $args['extra_class'] : '';
 
-                        $output .= '<header class="entry-content-header">';
+
+						$aria_label = 'aria-label="' . __( 'Portfolio:', 'avia_framework' ) . ' ' . esc_attr( $title ) . '"';
+
+						/**
+						 * @since 6.0.3
+						 * @param string $aria_label
+						 * @param string $context
+						 * @param WP_Post $entry
+						 * @return string
+						 */
+						$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $entry );
+
+						$output .= '<header class="entry-content-header" ' . $aria_label . '>';
 						$output .= "<{$heading} class='portfolio-grid-title entry-title {$css}' {$markup}>";
 
-                        if( ! empty( $title_link ) )
-                        {
-                        	$output .= "<a href='{$title_link}'>{$title}</a>";
-                        }
-                        else
-                        {
-                        	$output .= $title;
-                        }
-                        $output .= "</{$heading}></header>";
-                    }
+						if( ! empty( $title_link ) )
+						{
+							$output .= "<a href='{$title_link}'>{$title}</a>";
+						}
+						else
+						{
+							$output .= $title;
+						}
+						$output .= "</{$heading}></header>";
+					}
 
-                    if( ! empty( $excerpt ) )
-                    {
-                        $markup = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) );
+					if( ! empty( $excerpt ) )
+					{
+						$markup = avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) );
 
-                        $output .= '<div class="entry-content-wrapper">';
-                        $output .=		"<div class='grid-entry-excerpt entry-content' {$markup}>{$excerpt}</div>";
-                        $output .= '</div>';
-                    }
-                    $output .= '<div class="avia-arrow"></div>';
-                    $output .= '</div>';
+						$output .= '<div class="entry-content-wrapper">';
+						$output .=		"<div class='grid-entry-excerpt entry-content' {$markup}>{$excerpt}</div>";
+						$output .= '</div>';
+					}
+					$output .= '<div class="avia-arrow"></div>';
+					$output .= '</div>';
 
-                    $image = get_the_post_thumbnail( $the_id, $image_size, $image_attrs );
-                    if( ! empty( $image ) )
-                    {
-                        $output .= '<div class="av_table_col portfolio-grid-image">';
-                        $output .= "<{$link_markup[0]} data-rel='grid-" . avia_post_grid::$grid . "' class='grid-image avia-hover-fx'>{$custom_overlay} {$image}</{$link_markup[1]}>";
-                        $output .= '</div>';
-                    }
-                    $output .= '<footer class="entry-footer"></footer>';
-                    $output .= '</article>';
-                    $output .= '</div>';
-                }
-                else
-                {
-                    $extraClass .= ' default_av_fullwidth ';
+					$image = get_the_post_thumbnail( $the_id, $image_size, $image_attrs );
+					if( ! empty( $image ) )
+					{
+						$output .= '<div class="av_table_col portfolio-grid-image">';
+						$output .= "<{$link_markup[0]} data-rel='grid-" . avia_post_grid::$grid . "' class='grid-image avia-hover-fx'>{$custom_overlay} {$image}</{$link_markup[1]}>";
+						$output .= '</div>';
+					}
+					$output .= '<footer class="entry-footer"></footer>';
+					$output .= '</article>';
+					$output .= '</div>';
+				}
+				else
+				{
+					$extraClass .= ' default_av_fullwidth ';
 
-                    $output .= "<div data-ajax-id='{$the_id}' class=' grid-entry flex_column isotope-item all_sort {$style_class} {$post_class} {$sort_class} {$grid} {$extraClass}'>";
-                    $output .= "<article class='main_color inner-entry' " . avia_markup_helper( array( 'context' => 'entry', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) ) . '>';
-                    $output .= apply_filters( 'avf_portfolio_extra', '', $entry );
-                    $output .= "<{$link_markup[0]} data-rel='grid-" . avia_post_grid::$grid.  "' class='grid-image avia-hover-fx'>{$custom_overlay} " . get_the_post_thumbnail( $the_id, $image_size, $image_attrs ) . "</{$link_markup[1]}>";
-                    $output .= ! empty( $title ) || ! empty( $excerpt ) ? "<div class='grid-content'><div class='avia-arrow'></div>" : '';
+					$output .= "<div data-ajax-id='{$the_id}' class=' grid-entry flex_column isotope-item all_sort {$style_class} {$post_class} {$sort_class} {$grid} {$extraClass}'>";
+					$output .= "<article class='main_color inner-entry' " . avia_markup_helper( array( 'context' => 'entry', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) ) . '>';
+					$output .= apply_filters( 'avf_portfolio_extra', '', $entry );
+					$output .= "<{$link_markup[0]} data-rel='grid-" . avia_post_grid::$grid.  "' class='grid-image avia-hover-fx'>{$custom_overlay} " . get_the_post_thumbnail( $the_id, $image_size, $image_attrs ) . "</{$link_markup[1]}>";
+					$output .= ! empty( $title ) || ! empty( $excerpt ) ? "<div class='grid-content'><div class='avia-arrow'></div>" : '';
 
-                    if( ! empty( $title ) )
-                    {
-                        $markup = avia_markup_helper( array( 'context' => 'entry_title', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) );
+					if( ! empty( $title ) )
+					{
+						$markup = avia_markup_helper( array( 'context' => 'entry_title', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) );
 
 						$default_heading = 'h3';
 						$args = array(
@@ -1131,27 +1158,38 @@ if ( ! class_exists( 'avia_post_grid', false ) )
 						$heading = ! empty( $args['heading'] ) ? $args['heading'] : $default_heading;
 						$css = ! empty( $args['extra_class'] ) ? $args['extra_class'] : '';
 
-                        $output .= '<header class="entry-content-header">';
-                        $output .= "<{$heading} class='grid-entry-title entry-title {$css}' $markup>";
+						$aria_label = 'aria-label="' . __( 'Portfolio:', 'avia_framework' ) . ' ' . esc_attr( $title ) . '"';
 
-                        if( ! empty( $title_link ) )
-                        {
-                        	$output .= "<a href='{$title_link}' title='" . esc_attr( strip_tags( $title ) ) . "'>" . $title . "</a>";
-                        }
-                        else
-                        {
-                        	$output .= $title;
-                        }
+						/**
+						 * @since 6.0.3
+						 * @param string $aria_label
+						 * @param string $context
+						 * @param WP_Post $entry
+						 * @return string
+						 */
+						$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $entry );
 
-                        $output .= "</{$heading}></header>";
-                    }
+						$output .= '<header class="entry-content-header" ' . $aria_label . '>';
+						$output .= "<{$heading} class='grid-entry-title entry-title {$css}' $markup>";
 
-                    $output .= ! empty( $excerpt ) ? "<div class='grid-entry-excerpt entry-content' " . avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) ) . ">{$excerpt}</div>" : '';
-                    $output .= ! empty( $title ) || ! empty( $excerpt ) ? '</div>' : '';
-                    $output .= '<footer class="entry-footer"></footer>';
-                    $output .= '</article>';
-                    $output .= '</div>';
-                }
+						if( ! empty( $title_link ) )
+						{
+							$output .= "<a href='{$title_link}' title='" . esc_attr( strip_tags( $title ) ) . "'>" . $title . "</a>";
+						}
+						else
+						{
+							$output .= $title;
+						}
+
+						$output .= "</{$heading}></header>";
+					}
+
+					$output .= ! empty( $excerpt ) ? "<div class='grid-entry-excerpt entry-content' " . avia_markup_helper( array( 'context' => 'entry_content', 'echo' => false, 'id' => $the_id, 'custom_markup' => $custom_markup ) ) . ">{$excerpt}</div>" : '';
+					$output .= ! empty( $title ) || ! empty( $excerpt ) ? '</div>' : '';
+					$output .= '<footer class="entry-footer"></footer>';
+					$output .= '</article>';
+					$output .= '</div>';
+				}
 
 				$loop_counter ++;
 				$post_loop_count ++;
@@ -1438,10 +1476,21 @@ if ( ! class_exists( 'avia_post_grid', false ) )
 				$heading = ! empty( $args['heading'] ) ? $args['heading'] : $default_heading;
 				$css = ! empty( $args['extra_class'] ) ? $args['extra_class'] : '';
 
+				$aria_label = 'aria-label="' . __( 'Portfolio:', 'avia_framework' ) . ' ' . esc_attr( $entry->post_title ) . '"';
+
+				/**
+				 * @since 6.0.3
+				 * @param string $aria_label
+				 * @param string $context
+				 * @param WP_Post $entry
+				 * @return string
+				 */
+				$aria_label = apply_filters( 'avf_aria_label_for_header', $aria_label, __CLASS__, $entry );
+
 
 				$output .=	"<div class='av_table_col $nogalleryclass portfolio-entry portfolio-preview-content'>";
 
-				$output .=		'<header class="entry-content-header">';
+				$output .=		'<header class="entry-content-header" ' . $aria_label . '>';
 				$output .=			"<{$heading} class='portfolio-preview-title entry-title {$css}' {$markup}><a href='{$link}'>" . avia_wp_get_the_title( $entry ) . "</a></{$heading}>";
 				$output .=		'</header>';
 

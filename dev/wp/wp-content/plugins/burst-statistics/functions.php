@@ -10,12 +10,92 @@ if ( ! function_exists( 'burst_is_logged_in_rest' ) ) {
 	}
 }
 
+if ( !function_exists( 'burst_maybe_update_total_pageviews_count')) {
+    function burst_maybe_update_total_pageviews_count()
+    {
+        //we don't do this on high traffic sites.
+        if ( get_option( 'burst_is_high_traffic_site') ) {
+            return;
+        }
+        
+        $page_views_to_update = get_option('burst_pageviews_to_update', array());
+        if (empty($page_views_to_update)) {
+            return;
+        }
+
+        //clean up first.
+        update_option('burst_pageviews_to_update', []);
+        foreach ($page_views_to_update as $page_url => $added_count) {
+            $page_id = url_to_postid($page_url);
+            unset($page_views_to_update[$page_url]);
+            if ($page_id) {
+                $count = (int)get_post_meta($page_id, 'burst_total_pageviews_count', true);
+                update_post_meta($page_id, 'burst_total_pageviews_count', $count + $added_count);
+            }
+        }
+    }
+    add_action('burst_every_hour', 'burst_maybe_update_total_pageviews_count');
+}
+
+if ( !function_exists( 'burst_add_index') ) {
+    function burst_add_index( string $table_name, array $indexes ): void
+    {
+        global $wpdb;
+        if ( !burst_user_can_manage() ) {
+            return;
+        }
+
+        $indexes = array_map( 'sanitize_key', $indexes );
+        $table_name = esc_sql(sanitize_key($table_name));
+        $index = esc_sql(implode(', ', $indexes));
+        $index_name = esc_sql(implode('_', $indexes).'_index');
+        $sql = $wpdb->prepare("SHOW INDEX FROM $table_name WHERE Key_name = %s", $index_name );
+        $result = $wpdb->get_results($sql);
+        $index_exists = !empty($result);
+        if ( !$index_exists ) {
+            $sql = "ALTER TABLE $table_name ADD INDEX $index_name ($index)";
+            $wpdb->query($sql);
+            if ( $wpdb->last_error ) {
+                burst_error_log("Error creating index $index_name in $table_name: " . $wpdb->last_error);
+                // If the error is about key length, try with reduced length
+                if ( str_contains($wpdb->last_error, 'Specified key was too long') ) {
+                    // Remove the original index
+                    $drop_sql = "ALTER TABLE $table_name DROP INDEX $index_name";
+                    $wpdb->query($drop_sql);
+
+                    // Try with reduced length
+                    $reduced_sql = "ALTER TABLE $table_name ADD INDEX $index_name ($index(100))";
+                    $wpdb->query($reduced_sql);
+                    if ($wpdb->last_error) {
+                        burst_error_log("Error creating reduced length sessions index: " . $wpdb->last_error);
+                    }
+                }
+            }
+        }
+    }
+}
+
 if ( ! function_exists( 'burst_admin_logged_in' ) ) {
 	function burst_admin_logged_in() {
 		return ( is_admin() && is_user_logged_in() && burst_user_can_view() )
 		       || burst_is_logged_in_rest()
 		       || wp_doing_cron()
 		       || ( defined( 'WP_CLI' ) && WP_CLI );
+	}
+}
+
+if ( ! function_exists( 'burst_verify_nonce' ) ) {
+    /**
+     * Add some additional sanitizing
+     * https://developer.wordpress.org/news/2023/08/understand-and-use-wordpress-nonces-properly/#verifying-the-nonce
+     *
+     * @param string $nonce
+     * @param string $action
+     * @return bool
+     */
+	function burst_verify_nonce( string $nonce, string $action ): bool
+    {
+        return wp_verify_nonce( sanitize_text_field( wp_unslash( $nonce ) ), $action );
 	}
 }
 
@@ -382,11 +462,21 @@ if ( ! function_exists( 'burst_get_date_ranges' ) ) {
 
 if ( ! function_exists( 'burst_sanitize_filters' ) ) {
 	/**
-	 * @param $filters
+	 * @param mixed $filters JSON string, stdClass, or array
 	 *
-	 * @return array
+	 * @return array Sanitized array of filters
 	 */
 	function burst_sanitize_filters( $filters ) {
+		// Ensure $filters is an array
+		if ( ! is_array( $filters ) ) {
+			if ( $filters instanceof stdClass ) {
+				$filters = (array) $filters; // Convert stdClass to array if needed
+			} else {
+				$filters = []; // Default to an empty array for invalid input
+			}
+		}
+
+		// Filter out false or empty values
 		$filters = array_filter(
 			$filters,
 			static function ( $item ) {
@@ -394,6 +484,7 @@ if ( ! function_exists( 'burst_sanitize_filters' ) ) {
 			}
 		);
 
+		// Sanitize keys and values
 		$out = [];
 		foreach ( $filters as $key => $value ) {
 			$out[ esc_sql( $key ) ] = esc_sql( $value );
@@ -402,6 +493,7 @@ if ( ! function_exists( 'burst_sanitize_filters' ) ) {
 		return $out;
 	}
 }
+
 
 if ( ! function_exists( 'burst_sanitize_relative_url' ) ) {
 	/**
@@ -602,18 +694,18 @@ if ( ! function_exists( 'burst_get_value' ) ) {
 
 if ( ! function_exists('burst_get_website_url') ) {
 	/**
-	 * @param $url
-	 * @param $params
+	 * @param string $url
+	 * @param array $params
 	 *               Example usage:
 	 *               burst_content=page-analytics -> specifies that the user is interacting with the page analytics feature.
 	 *               burst_source=download-button -> indicates that the click originated from the download button.
 	 *
 	 * @return string
 	 */
-	function burst_get_website_url( $url = '/', $params = []) {
-		$base_url = 'https://burst-statistics.com/';
+	function burst_get_website_url(string $url = '/', array $params = []): string
+    {
 		$version = defined('burst_pro') ? 'pro' : 'free';
-		$version_nr = defined('burst_version') ? burst_version : 'undefined';
+		$version_nr = defined('burst_version') ? burst_version : '0';
 
 		// strip debug time from version nr
 		$version_nr = explode('#', $version_nr);
@@ -623,8 +715,9 @@ if ( ! function_exists('burst_get_website_url') ) {
 		];
 
 		$params = wp_parse_args($params, $default_params);
-		$params = http_build_query($params);
+        //remove slash prepending the $url
+        $url = ltrim($url, '/');
 
-		return trailingslashit($base_url) . trailingslashit($url) . '?' . $params;
+		return add_query_arg($params, "https://burst-statistics.com/" . trailingslashit($url) );
 	}
 }

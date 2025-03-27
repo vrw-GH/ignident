@@ -14,7 +14,7 @@
  *				'msg'				=> content to display placed inside <p> tag
  *				'html'				=> HTML content placed inside <div> tag
  *				'template'			=> [complete path to file] - must echo valid HTML in own container   e.g. 'c:/your_server/..../templates/v6_0.php'
- *				'close'				=> 'dismiss' | 'hide'
+ *				'close'				=> 'dismiss' | 'hide'		hide will show both "Dismiss" and "X"
  *				'dismiss'			=> 'user_only' | 'all_users'
  *				'capability'		=> [user capability] | 'all'		manage_options,edit_posts
  *
@@ -57,7 +57,7 @@ $notices['gdpr_update_2'] = [
 $notices['enfold_60_welcome'] = [
 				'class'			=> 'custom',
 				'template'		=> trailingslashit( dirname( __FILE__ ) ) . 'templates/v6_0.php',
-				'close'			=> 'hide',
+				'close'			=> 'dismiss',
 				'dismiss'		=> 'user_only',
 				'capability'	=> 'manage_options'
 			];
@@ -65,7 +65,15 @@ $notices['enfold_60_welcome'] = [
 $notices['enfold_601_welcome'] = [
 				'class'			=> 'custom',
 				'template'		=> trailingslashit( dirname( __FILE__ ) ) . 'templates/v6_0_1.php',
-				'close'			=> 'hide',
+				'close'			=> 'dismiss',
+				'dismiss'		=> 'user_only',
+				'capability'	=> 'manage_options'
+			];
+
+$notices['enfold_70_welcome'] = [
+				'class'			=> 'custom',
+				'template'		=> trailingslashit( dirname( __FILE__ ) ) . 'templates/v7_0.php',
+				'close'			=> 'dismiss',
 				'dismiss'		=> 'user_only',
 				'capability'	=> 'manage_options'
 			];

@@ -744,6 +744,11 @@ if( ! class_exists( 'Avia_Config_LayerSlider', false ) )
 				return true;
 			}
 
+			if( ! class_exists( 'ShortcodeHelper', false ) )
+			{
+				return false;
+			}
+
 			$matches = array();
 			preg_match_all( "/" . ShortcodeHelper::get_fake_pattern() . "/s", $content, $matches );
 			if( is_array( $matches ) && is_array( $matches[0] ) && ( ! empty( $matches[0] ) ) )

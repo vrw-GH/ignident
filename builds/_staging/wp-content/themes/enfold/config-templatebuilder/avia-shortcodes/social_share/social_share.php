@@ -228,12 +228,144 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						),
 
 						array(
+							'name'		=> __( 'Facebook SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__facebook',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third av_third_first',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'X SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__twitter',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Square-X-Twitter SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__square-x-twitter',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'WhatsApp SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__whatsapp',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Pinterest SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__pinterest',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Reddit SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__reddit',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Telegram SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__telegram',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'LinkedIn SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__linkedin',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Tumblr SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__tumblr',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'VK SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__vk',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Email SVG link', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__mail',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Yelp SVG', 'avia_framework' ),
+							'desc'		=> $check,
+							'id'		=> 'share_svg__yelp',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
 							'name'		=> __( 'Facebook link', 'avia_framework' ),
 							'desc'		=> $check,
 							'id'		=> 'share_facebook',
 							'type'		=> 'checkbox',
 							'std'		=> '',
-							'container_class' => 'av_third av_third_first',
+							'container_class' => 'av_third ',
 							'lockable'	=> true,
 							'required'	=> array( 'buttons', 'equals', 'custom' )
 						),
@@ -360,6 +492,16 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						),
 
 						array(
+							'name'		=> __( 'Yelp SVG Share Link', 'avia_framework' ),
+							'desc'		=> __( 'Enter the share link to Yelp for this button.', 'avia_framework' ),
+							'id'		=> 'svg__yelp_link',
+							'type'		=> 'input',
+							'std'		=> 'https://www.yelp.com/svg',
+							'lockable'	=> true,
+							'required'	=> array( 'share_svg__yelp', 'not', '' )
+						),
+
+						array(
 							'name'		=> __( 'Yelp Share Link', 'avia_framework' ),
 							'desc'		=> __( 'Enter the share link to Yelp for this button.', 'avia_framework' ),
 							'id'		=> 'yelp_link',
@@ -375,6 +517,138 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 							'type'		=> 'heading',
 							'required'	=> array( 'buttons', 'equals', 'custom' ),
 							'description_class' => 'av-builder-note av-neutral'
+						),
+
+						array(
+							'name'		=> __( '500px SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__five_100_px',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Behance SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__behance',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Dribbble SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__dribbble',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Flickr SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__flickr',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Instagram SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__instagram',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Skype SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__skype',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Soundcloud SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__soundcloud',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Threads SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__threads',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'TikTok SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__tiktok',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Vimeo SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__vimeo',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Xing SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__xing',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'YouTube SVG Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_svg__youtube',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
 						),
 
 						array(
@@ -455,6 +729,28 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						),
 
 						array(
+							'name'		=> __( 'Threads Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_threads',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'TikTok Link', 'avia_framework' ),
+							'desc'		=> $check_profile,
+							'id'		=> 'share_tiktok',
+							'type'		=> 'checkbox',
+							'std'		=> '',
+							'container_class' => 'av_third ',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
 							'name'		=> __( 'Vimeo Link', 'avia_framework' ),
 							'desc'		=> $check_profile,
 							'id'		=> 'share_vimeo',
@@ -485,7 +781,7 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 							'container_class' => 'av_third ',
 							'lockable'	=> true,
 							'required'	=> array( 'buttons', 'equals', 'custom' )
-						),
+						)
 
 				);
 
@@ -520,6 +816,126 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						),
 
 						array(
+							'name'		=> __( 'Facebook SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__facebook_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'X SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__twitter_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'Threads SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__threads_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'TikTok SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__tiktok_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'WhatsApp SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__whatsapp_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'Pinterest SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__pinterest_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'Reddit SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__reddit_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'LinkedIn SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__linkedin_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'Tumblr SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__tumblr_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'VK SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__vk_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'Email SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__mail_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'Yelp SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__yelp_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
 							'name'		=> __( 'Facebook Profile Link', 'avia_framework' ),
 							'desc'		=> $desc_link,
 							'id'		=> 'facebook_profile',
@@ -533,6 +949,26 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 							'name'		=> __( 'X Profile Link', 'avia_framework' ),
 							'desc'		=> $desc_link,
 							'id'		=> 'twitter_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'Threads Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'threads_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( 'TikTok Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'tiktok_profile',
 							'type'		=> 'input',
 							'std'		=> '',
 							'lockable'	=> true,
@@ -617,6 +1053,106 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 							'std'		=> '',
 							'lockable'	=> true,
 							'required'	=> array( 'btn_action', 'not', '' )
+						),
+
+						array(
+							'name'		=> __( '500px SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__five_100_px_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Behance SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__behance_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Dribbble SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__dribbble_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Flickr SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__flickr_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Instagram SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__instagram_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Skype SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__skype_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Soundcloud SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__soundcloud_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Vimeo SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__vimeo_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Xing SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__xing_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'YouTube SVG Profile Link', 'avia_framework' ),
+							'desc'		=> $desc_link,
+							'id'		=> 'svg__youtube_profile',
+							'type'		=> 'input',
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'buttons', 'equals', 'custom' )
 						),
 
 						array(
@@ -717,7 +1253,7 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 							'std'		=> '',
 							'lockable'	=> true,
 							'required'	=> array( 'buttons', 'equals', 'custom' )
-						),
+						)
 
 				);
 
@@ -746,7 +1282,7 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 												__( 'Circle', 'avia_framework' )				=> 'av-social-sharing-box-circle',
 												__( 'Icon', 'avia_framework' )					=> 'av-social-sharing-box-icon',
 												__( 'Icon simple', 'avia_framework' )			=> 'av-social-sharing-box-icon-simple',
-											),
+											)
 
 						),
 
@@ -764,7 +1300,7 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 												__( 'Right', 'avia_framework' )		=> 'av-social-sharing-right',
 											)
 
-						),
+						)
 
 				);
 
@@ -812,6 +1348,8 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						'share_youtube'		=> '',
 						'facebook_profile'	=> '',
 						'twitter_profile'	=> '',
+						'threads_profile'	=> '',
+						'tiktok_profile'	=> '',
 						'whatsapp_profile'	=> '',
 						'vk_profile'		=> '',
 						'tumblr_profile'	=> '',
@@ -820,7 +1358,7 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 						'mail_profile'		=> '',
 						'reddit_profile'	=> '',
 						'yelp_link'			=> '',
-						'telegram_link'			=> '',
+						'telegram_link'		=> '',
 						'yelp_profile'		=> '',
 						'five_100_px_profile' => '',
 						'behance_profile'	=> '',
@@ -845,7 +1383,7 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 			$atts = shortcode_atts( $default, $atts, $this->config['shortcode'] );
 
 			Avia_Dynamic_Content()->read( $atts, $this, $shortcodename, $content );
-			
+
 
 			/**
 			 * Set style classes - were extended to support multiple stylings for buttons

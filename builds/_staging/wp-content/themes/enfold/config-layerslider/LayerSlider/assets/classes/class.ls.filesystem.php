@@ -11,7 +11,7 @@ class LS_FileSystem {
 	}
 
 
-	public static function emptyDir( $path ) {
+	public static function emptyDir( $path, $removeDir = false ) {
 
 		if( ! file_exists( $path ) ) {
 			return true;
@@ -33,10 +33,12 @@ class LS_FileSystem {
 			}
 
 			foreach( $scan as $index => $item) {
-				self::emptyDir( $item );
+				self::emptyDir( $item, true );
 			}
 
-			return @rmdir($path);
+			if( $removeDir ) {
+				return @rmdir($path);
+			}
 		}
 
 		return true;
@@ -117,5 +119,46 @@ class LS_FileSystem {
 		}
 
 		return true;
+	}
+
+
+	public static function createUniqueTmpFolder( $prefix = 'upload' ) {
+
+		self::createUploadDirs();
+		self::cleanupTmpFiles();
+
+		$uploads 		= wp_upload_dir();
+		$uploadsBaseDir = $uploads['basedir'];
+		$tmpFolder 		= $uploadsBaseDir.'/layerslider/tmp';
+
+		$uniqueFolder = $tmpFolder . '/' . uniqid( $prefix.'_', true);
+		wp_mkdir_p( $uniqueFolder );
+
+		return $uniqueFolder;
+	}
+
+
+	public static function cleanupTmpFiles( $expSeconds = 3600 ) {
+
+		$uploads 		= wp_upload_dir();
+		$uploadsBaseDir = $uploads['basedir'];
+		$tmpFolder 		= $uploadsBaseDir.'/layerslider/tmp';
+
+		$files = @scandir( $tmpFolder );
+		$now = time();
+
+		if( ! $files || ! is_array( $files ) ) {
+			return;
+		}
+
+		foreach( $files as $file ) {
+			if( $file !== '.' && $file !== '..' ) {
+				$filePath = $tmpFolder . '/' . $file;
+
+				if( is_dir( $filePath ) && ( $now - filemtime($filePath ) > $expSeconds ) ) {
+					self::deleteDir( $filePath );
+				}
+			}
+		}
 	}
 }

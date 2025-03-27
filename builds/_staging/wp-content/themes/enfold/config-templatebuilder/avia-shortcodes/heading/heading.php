@@ -14,6 +14,7 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 {
 	class avia_sc_heading extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
 
 		/**
 		 * Create the config array for the shortcode button
@@ -258,7 +259,9 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 							'desc'		=> __( 'Select an icon to display above the headline', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'note',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'show_icon', 'equals', 'custom_icon' )
@@ -577,7 +580,7 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 			$content = $params['content'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked, $content );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$content = stripslashes( wpautop( trim( html_entity_decode( $content ) ) ) );
 
@@ -660,6 +663,8 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 			Avia_Dynamic_Content()->read( $atts, $this, $shortcodename, $content );
 			$atts['link'] = Avia_Dynamic_Content()->check_link( $atts['link_dynamic'], $atts['link'], [ 'no', 'manually', 'single', 'taxonomy' ] );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
+			
 			if( empty( $atts['subheading_size'] ) )
 			{
 				$atts['subheading_size'] = '15';
@@ -702,6 +707,8 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 			$element_styling->add_responsive_font_sizes( 'heading-text', 'size-title', $atts, $this );
 			$element_styling->add_responsive_font_sizes( 'subheading', 'size', $atts, $this );
 			$element_styling->add_responsive_font_sizes( 'heading-icon', 'size-1', $atts, $this );
+
+			$element_styling->add_classes( 'heading-icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 
 			//if the heading contains a strong tag make apply a custom class that makes the rest of the font appear smaller for a better effect
@@ -797,6 +804,10 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 					if( $atts['icon_color'] !== '' && 'custom-color-heading' == $atts['color'] )
 					{
 						$element_styling->add_styles( 'heading-icon', array( 'color' => $atts['icon_color'] ) );
+						$element_styling->add_styles( 'heading-icon-svg', array(
+																	'fill'		=> $atts['icon_color'],
+																	'stroke'	=> $atts['icon_color']
+																) );
 					}
 
 					$element_styling->add_responsive_styles( 'heading-icon', 'icon_padding', $atts, $this );
@@ -806,6 +817,7 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 			$selectors = array(
 						'container'			=> "#top .av-special-heading.{$element_id}",
 						'heading-icon'		=> "body .av-special-heading.{$element_id} .av-special-heading-tag .heading-char",
+						'heading-icon-svg'	=> "body .av-special-heading.{$element_id} .av-special-heading-tag .heading-char.avia-svg-icon svg:first-child",
 						'heading-text'		=> "#top #wrap_all .av-special-heading.{$element_id} .av-special-heading-tag",
 						'heading-border'	=> ".av-special-heading.{$element_id} .special-heading-inner-border",
 						'subheading'		=> ".av-special-heading.{$element_id} .av-subheading",
@@ -890,8 +902,12 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 
 				if( $show_icon == 'custom_icon' && $icon !== '' )
 				{
-					$display_char = av_icon( $icon, $font );
-					$output_before = "<span class='heading-char avia-font-{$font}' {$display_char}></span>";
+					$display_char = avia_font_manager::get_frontend_icon( $icon, $font );
+					$icon_class = $element_styling->get_class_string( 'heading-icon' );
+
+					$output_before  = "<span class='heading-char {$icon_class}' {$display_char['attr']}>";
+					$output_before .=		$display_char['svg'];
+					$output_before .= '</span>';
 				}
 
 				$output_before .= '<span class="heading-wrap">';

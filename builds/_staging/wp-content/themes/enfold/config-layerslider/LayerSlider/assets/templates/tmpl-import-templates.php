@@ -19,6 +19,7 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 	if( empty( $items ) ) { return ''; }
 
 	$counter = 0;
+	$dateFormat = get_option('date_format');
 
 	foreach( $items as $handle => $item ) {
 
@@ -45,7 +46,12 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 			break;
 		}
 
+
 		$item['order'] 			= ! empty( $item['released'] ) ? str_replace('-', '', $item['released']) : '19700101';
+
+		//$item['releasedStr'] 	= ! empty( $item['released'] ) ? ls_date( $dateFormat , strtotime( $item['released'] ) ) : '';
+		//$item['updatedStr'] 	= ! empty( $item['updated'] ) ? ls_date( $dateFormat , strtotime( $item['updated'] ) ) : $item['released'];
+
 		$item['collections'] 	= ! empty( $item['collections'] ) ? $item['collections'] : '';
 		$item['bundled'] 		= ! empty( $item['bundled'] ) ? 'true' : 'false';
 		$item['premium'] 		= ! empty( $item['premium'] ) ? 'true' : 'false';
@@ -56,8 +62,8 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 	<ls-template data-groups="<?= $item['groups'] ?>" data-collections="<?= $item['collections'] ?>" data-order="<?= $item['order'] ?>">
 		<ls-wrapper>
 			<ls-image-holder style="background-image: url(<?= $item['preview'] ?>);"></ls-image-holder>
+			<ls-image-holder-effect></ls-image-holder-effect>
 			<ls-content-wrapper>
-				<ls-template-name><?= $item['name'] ?></ls-template-name>
 				<ls-template-buttons>
 
 					<?php if( ! empty( $item['url'] ) ) : ?>
@@ -65,12 +71,25 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 						href="<?= $item['url'] ?>"
 						class="ls--button"
 						target="_blank">
+						<?= lsGetSVGIcon('eye'); ?>
+						<ls-text>
 							<?= __('Preview', 'LayerSlider') ?>
+						</ls-text>
 					</a>
 					<?php endif ?>
 
-					<a
+					<!-- <a
 						href="#"
+						class="ls--button ls-open-inspector-button"
+						target="_blank">
+						<?= lsGetSVGIcon('circle-info'); ?>
+						<ls-text>
+							<?= __('More Info', 'LayerSlider') ?>
+						</ls-text>
+					</a> -->
+
+					<a
+						href="#download-template=<?= $handle ?>"
 						class="ls--button ls--import-template-button"
 						data-name="<?= $item['name'] ?>"
 						data-handle="<?= $handle ?>"
@@ -78,12 +97,16 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 						data-bundled="<?= $item['bundled'] ?>"
 						data-premium="<?= $item['premium'] ?>"
 						data-version-warning="<?= $item['warning'] ?>">
-							<?= __('Import', 'LayerSlider') ?>
+						<?= lsGetSVGIcon('cloud-arrow-down'); ?>
+						<ls-text>
+							<?= __('Download', 'LayerSlider') ?>
+						</ls-text>
 					</a>
 				</ls-template-buttons>
 			</ls-content-wrapper>
 		</ls-wrapper>
-	</ls-template>
+		<ls-template-name><?= $item['name'] ?></ls-template-name>
+		</ls-template>
 <?php } } ?>
 
 
@@ -98,7 +121,7 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 
 <script type="text/html" id="tmpl-import-sliders">
 
-	<div id="ls-import-modal-window" class="<?php if( $lsTemplatesConnectionError ) : ?>connection-failed<?php endif ?> <?= $lsStoreHasUpdate ? 'has-updates' : '' ?>">
+	<div id="ls-import-modal-window" class=" <?php if( $lsTemplatesConnectionError ) : ?>connection-failed<?php endif ?> <?= $lsStoreHasUpdate ? 'has-updates' : '' ?>">
 
 		<ls-templates>
 
@@ -272,6 +295,7 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 							<ls-template class="<?= $activeClass ?>" data-handle="<?= $handle ?>" data-name="<?= $collection['name'] ?>">
 								<ls-wrapper>
 									<ls-image-holder <?= ! empty( $collection['image'] ) ? 'style="background-image: url('.$collection['image'].');"' : '' ?>></ls-image-holder>
+									<ls-image-holder-effect></ls-image-holder-effect>
 									<ls-content-wrapper>
 										<ls-template-name>
 											<?= $collection['icon'] ?>
@@ -359,6 +383,80 @@ function lsPrintTemplateGridItems( $originalCategory, $items, $max = 9999, $excl
 				<?php endif ?>
 
 			</ls-templates-containers>
+
+			<ls-templates-inspector-overlay></ls-templates-inspector-overlay>
+
+			<!-- <ls-templates-inspector>
+				<ls-block class="lse-scrollbar lse-scrollbar-dark">
+					<ls-templates-inspector-content>
+						<ls-h1>Template Title</ls-h1>
+
+						<ls-themes-preview-container>
+							<video src="http://georges-mini.lan:5757/wp-content/uploads/2024/06/Black-Friday-2020.mp4" poster="https://images.pexels.com/videos/3249935/free-video-3249935.jpg?auto=compress&amp;cs=tinysrgb&amp;w=520&amp;h=300" preload="auto" controlslist="nodownload" controls loop autoplay muted playsinline></video>
+						</ls-themes-preview-container>
+
+						<ls-button-group id="ls-templates-inspector-buttons">
+							<a class="ls--button" href="" id="ls-preview-template">
+								<ls-text><?= __('Live Preview') ?></ls-text>
+							</a>
+							<a class="ls--button" href="" id="ls-download-template">
+								<ls-text><?= __('Download Template') ?></ls-text>
+							</a>
+						</ls-button-group>
+
+						<ls-b id="ls-template-inspector-about">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos voluptas, iusto tenetur qui exercitationem dolor, ducimus atque aperiam libero voluptatem optio obcaecati voluptatum culpa necessitatibus quae soluta fuga ut cum?
+							Quo provident odit, ipsa assumenda quae accusantium explicabo, perspiciatis excepturi facere repudiandae hic earum ea? Deleniti ducimus doloribus sed nulla natus accusamus, fugit nesciunt error harum aperiam magni dolorem. Ad.
+							Hic sequi voluptatem quod maxime quibusdam illum nam, dignissimos, sed aut facere atque. Eos officiis, tempora sed at magni quaerat reiciendis possimus, molestias suscipit odit dolore expedita dolores, neque veritatis.
+						</ls-b>
+
+						<ls-grid class="ls--h-1 ls--v-1">
+
+							<ls-row class="ls--flex-stretch">
+
+								<ls-col class="ls--col1-2">
+									<ls-box>
+										<ls-box-inner>
+											<ls-h2><?= __('Released', 'LayerSlider') ?></ls-h2>
+											<ls-text id="ls-templates-inspector-released">Jun 24, 2024</ls-text>
+										</ls-box-inner>
+									</ls-box>
+								</ls-col>
+
+								<ls-col class="ls--col1-2">
+									<ls-box>
+										<ls-box-inner>
+											<ls-h2><?= __('Updated', 'LayerSlider') ?></ls-h2>
+											<ls-text id="ls-templates-inspector-updated">Jun 24, 2024</ls-text>
+										</ls-box-inner>
+									</ls-box>
+								</ls-col>
+
+								<ls-col class="ls--col1-2">
+									<ls-box>
+										<ls-box-inner>
+											<ls-h2><?= __('Requires', 'LayerSlider') ?></ls-h2>
+											<ls-text id="ls-templates-inspector-requires">LayerSlider 7.11.1</ls-text>
+										</ls-box-inner>
+									</ls-box>
+								</ls-col>
+
+								<ls-col class="ls--col1-2">
+									<ls-box>
+										<ls-box-inner>
+											<ls-h2><?= __('Status', 'LayerSlider') ?></ls-h2>
+											<ls-text id="ls-templates-inspector-version">Downloadable</ls-text>
+										</ls-box-inner>
+									</ls-box>
+								</ls-col>
+
+							</ls-row>
+
+						</ls-grid>
+					</ls-templates-inspector-content>
+				</ls-block>
+				<?= lsGetSVGIcon('times',false,['class' => 'ls-templates-inspector-close']) ?>
+			</ls-templates-inspector> -->
 
 		</ls-templates>
 

@@ -10,9 +10,12 @@ if( class_exists( 'WooCommerce', false ) && function_exists( 'WC' ) && version_c
 {
 	require_once( 'config.php' );
 
-	if( 'block' == AviaGutenberg()->selected_editor() )
+	if( function_exists( 'AviaGutenberg' ) )
 	{
-		require_once( 'class-avia-wc-block-editor.php' );
+		if( 'block' == AviaGutenberg()->selected_editor() )
+		{
+			require_once( 'class-avia-wc-block-editor.php' );
+		}
 	}
 }
 else

@@ -584,6 +584,7 @@ if( ! class_exists( 'avia_sc_gallery_horizontal', false ) )
 
 			if( 'av-control-default' == $atts['control_layout'] )
 			{
+				$element_styling->add_styles( 'gallery-link-icon', array( 'fill' => $atts['lightbox_arrow_color'], 'stroke' => $atts['lightbox_arrow_color'] ), 'skip_empty' );
 				$element_styling->add_styles( 'gallery-link', array( 'color' => $atts['lightbox_arrow_color'] ), 'skip_empty' );
 				$element_styling->add_styles( 'gallery-link', array( 'background-color' => $atts['lightbox_arrow_bg_color'] ), 'skip_empty' );
 			}
@@ -630,6 +631,7 @@ if( ! class_exists( 'avia_sc_gallery_horizontal', false ) )
 						'container-inner'	=> ".av-horizontal-gallery.{$element_id} .av-horizontal-gallery-inner",
 						'slider'			=> ".av-horizontal-gallery.{$element_id} .av-horizontal-gallery-slider",
 						'gallery-link'		=> "#top .av-horizontal-gallery.{$element_id} .av-horizontal-gallery-link",
+						'gallery-link-icon'	=> "#top .av-horizontal-gallery.{$element_id} .av-horizontal-gallery-link svg:first-child",
 						'copyright'			=> ".av-horizontal-gallery.{$element_id} .av-image-copyright"
 					);
 
@@ -673,9 +675,6 @@ if( ! class_exists( 'avia_sc_gallery_horizontal', false ) )
 								'orderby'			=> 'post__in'
 							)
 						);
-
-
-			$display_char = av_icon( 'ue869', 'entypo-fontello' );
 
 			$output = '';
 
@@ -795,7 +794,14 @@ if( ! class_exists( 'avia_sc_gallery_horizontal', false ) )
 					else if( $links == 'active' )
 					{
 						$lightbox_attr = Av_Responsive_Images()->html_attr_image_src( $lightbox_img_src, false );
-						$output .= "<a {$lightbox_attr} class='av-horizontal-gallery-link' {$display_char} title='{$lightbox_title}' alt='{$alt}'>";
+						$svg_title = __( 'Open image in lightbox', 'avia_framework' ) . ': ' . $attachment->post_title;
+						$aria = esc_attr( $svg_title );
+
+						$icon_class = avia_font_manager::get_shortcut_icon_class( 'svg__lightbox_link' );
+						$icon_lightbox = avia_font_manager::get_frontend_icon( 'svg__lightbox_link', false, [ 'aria-hidden' => 'true', 'title' => esc_html( $svg_title ), 'desc' => esc_html( $svg_title ) ] );
+
+						$output .= "<a {$lightbox_attr} class='av-horizontal-gallery-link {$icon_class}' {$icon_lightbox['attr']} title='{$lightbox_title}' alt='{$alt}' aria-label='{$aria}'>";
+						$output .=		$icon_lightbox['svg'];
 						$output .= '</a>';
 					}
 
@@ -892,7 +898,8 @@ if( ! class_exists( 'avia_sc_gallery_horizontal', false ) )
 						'class_prev'	=> 'av-horizontal-gallery-prev',
 						'class_next'	=> 'av-horizontal-gallery-next',
 						'context'		=> get_class( $this ),
-						'params'		=> $atts
+						'params'		=> $atts,
+						'svg_icon'		=> true
 					);
 
 			return aviaFrontTemplates::slide_navigation_arrows( $args );

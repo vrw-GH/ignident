@@ -769,6 +769,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 		/**
 		 * The iconfont method renders a single icon-select element based on a font
 		 *
+		 * @since 7.0					support for svg icon sets
 		 * @param array $element		the array holds data like type, value, id, class, description which are necessary to render the whole option-section
 		 * @return string				the string returned contains the html code generated within the method
 		 */
@@ -814,6 +815,93 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 				$chars = avia_font_manager::load_charlist();
 			}
 
+			if( ! isset( $element['locked_value'] ) )
+			{
+				$output .= '<div class="av-builder-note av-notice">';
+				$output .=		__( 'We recommend to use &quot;SVG Iconset: Entypo Fontello&quot; instead of &quot;Iconfont: Entypo Fontello&quot; for new sites and to switch to SVG iconset for existing sites.', 'avia_framework' ) . ' ';
+				$output .=		__( 'This will allow you to disable loading the default font &quot;Entypo Fontello&quot; in theme option &quot;SVG Iconset and Iconfont Manager&quot; to speed up page loading.', 'avia_framework' );
+				$output .= '</div>';
+			}
+
+			//	in a first step we need to make sure that every element can handle this
+			$svg_support = isset( $element['svg_sets'] ) && 'yes' == $element['svg_sets'];
+
+			$font_list = avia_font_manager::load_iconfont_list();
+			$svg_group = [];
+			$icon_group = [];
+
+			$name = 'avia-icon-filter-' . $count;
+			$placeholder = esc_attr( __( 'Enter string to filter icons', 'avia_framework' ) );
+
+			$filter  = '<div class="av-icon-filter-container">';
+			$filter .=		"<label for='{$name}'>" .  __( 'Filter Icons By Font Family And/Or Name/Charactercode:', 'avia_framework' ) . "</label>";
+			$filter .=		"<select name='{$name}-select' id='{$name}-select' class='av-icon-filter-select avia_ignore_on_save'>";
+			$filter .=			'<option value="" selected="selected">' . __( 'All icons', 'avia_framework' ) . '</option>';
+
+			foreach( $chars as $font => $charset )
+			{
+				$config = isset( $font_list[ $font ] ) ? $font_list[ $font ] : [];
+
+				if( isset( $config['is_activ'] ) && 'no' == $config['is_activ'] )
+				{
+					continue;
+				}
+
+				$default = ( isset( $font_list[ $font ] ) && isset( $font_list[ $font ]['full_path'] ) ) ? '  ' . __( '(Default)', 'avia_framework' ) : '';
+
+				if( avia_font_manager::are_svg_icons( $font ) )
+				{
+					if( ! $svg_support )
+					{
+						continue;
+					}
+
+					if( 'svg_wp-media-library' == $font )
+					{
+						$svg_group[ $font ] = __( 'WordPress Media Library', 'avia_framework' );
+					}
+					else
+					{
+						$svg_group[ $font ] = ucwords( str_replace( [ '_', '-' ], ' ', substr( $font, 4 ) ) ) . $default;
+					}
+				}
+				else
+				{
+					$icon_group[ $font ] = ucwords( str_replace( [ '_', '-' ], ' ', $font ) ) . $default;
+				}
+			}
+
+			asort( $svg_group );
+			asort( $icon_group );
+
+			if( ! empty( $svg_group ) )
+			{
+				$filter .=		'<optgroup label="' . __( 'SVG Iconsets', 'avia_framework' ) . '">';
+
+				foreach( $svg_group as $font_key => $readable )
+				{
+					$filter .=		"<option value='{$font_key}'>{$readable}</option>";
+				}
+
+				$filter .=		'</optgroup>';
+			}
+
+			if( ! empty( $icon_group ) )
+			{
+				$filter .=		'<optgroup label="' . __( 'Iconfonts', 'avia_framework' ) . '">';
+
+				foreach( $icon_group as $font_key => $readable )
+				{
+					$filter .=		"<option value='{$font_key}'>{$readable}</option>";
+				}
+
+				$filter .=		'</optgroup>';
+			}
+
+			$filter .=		'<select>';
+			$filter .=		"<input type='text' class='av-icon-filter-input avia_ignore_on_save' value='' name='{$name}-input' id='{$name}-input' placeholder='{$placeholder}' />";
+			$filter .= '</div>';
+
 			/**
 			 *
 			 * @since 5.6.11
@@ -825,38 +913,71 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 
 			if( false === $supress_filter )
 			{
-				$name = 'avia-icon-filter-' . $count;
-				$placeholder = esc_attr( __( 'Enter string to filter icons', 'avia_framework' ) );
-
-				$filter  = '<div class="av-icon-filter-container">';
-				$filter .=		"<label for='{$name}'>" .  __( 'Filter Icons By Font Family And/Or Name/Charactercode:', 'avia_framework' ) . "</label>";
-				$filter .=		"<select name='{$name}-select' id='{$name}-select' class='av-icon-filter-select avia_ignore_on_save'>";
-				$filter .=			'<option value="" selected="selected">' . __( 'All iconfonts', 'avia_framework' ) . '</option>';
-
-				foreach( $chars as $font => $charset )
-				{
-					$filter .=		"<option value='{$font}'>{$font}</option>";
-				}
-
-				$filter .=		'<select>';
-				$filter .=		"<input type='text' class='av-icon-filter-input avia_ignore_on_save' value='' name='{$name}-input' id='{$name}-input' placeholder='{$placeholder}' />";
-				$filter .= '</div>';
-
 				$output .= $filter;
 			}
 
 			//get either the passed font or the default font
-			$std_font = isset( $element['shortcode_data']['font'] ) ? $element['shortcode_data']['font'] : key( AviaBuilder::$default_iconfont );
+			if( isset( $element['shortcode_data']['font'] ) )
+			{
+				$std_font = $element['shortcode_data']['font'];
+			}
+			else if( ! empty( $element['std_font'] ) && avia_font_manager::font_exists( $element['std_font'] ) )
+			{
+				$std_font = $element['std_font'];
+			}
+			else
+			{
+				$std_font = key( AviaBuilder::$default_iconfont );
+			}
 
 			$output .= "<div class='avia_icon_select_container avia-attach-element-container {$element['class']}' {$data}>";
 
 			$run = 0;
 			$active_font = '';
+			$standard = '';
+			$fake_arg = '';
 
 			foreach( $chars as $font => $charset )
 			{
+				$config = isset( $font_list[ $font ] ) ? $font_list[ $font ] : [];
+
+				if( isset( $config['is_activ'] ) && 'no' == $config['is_activ'] )
+				{
+					continue;
+				}
+
+				$are_svg_icons = avia_font_manager::are_svg_icons( $font );
+
+				if( ! $svg_support && $are_svg_icons )
+				{
+					continue;
+				}
+
+				if( $are_svg_icons )
+				{
+					$firstKey = 'dummy';
+
+					// media library key = attachment ID
+					if( function_exists( 'array_key_first' ) )
+					{
+						$firstKey = array_key_first( $charset );
+					}
+
+					if( is_numeric( $firstKey ) )
+					{
+						asort( $charset );
+					}
+					else
+					{
+						ksort( $charset );
+					}
+				}
+				else
+				{
+					asort( $charset );
+				}
+
 				$run ++;
-				asort( $charset );
 
 				if( $run === 1 )
 				{
@@ -866,25 +987,51 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 						$element['std'] = key( $charset );
 					}
 
-					$standard = avia_font_manager::get_display_char( $element['std'], $std_font );
+					$standard = avia_font_manager::get_display_char( $element['std'], $std_font, 'svg_key' );
+
+					// esc_attr must be used to avoid breaking of output in icon select window !!!!
+					$fake_arg = esc_attr( avia_font_manager::get_display_char( $element['std'], $std_font ) );
 				}
 
-				$output .= "<div class='av-iconselect-heading' data-element-font='{$font}'>Font: {$font}</div>";
+				if( avia_font_manager::are_svg_icons( $font ) )
+				{
+					$info = 'SVG Iconset';
+					$readable = $svg_group[ $font ];
+				}
+				else
+				{
+					$info = 'Iconfont';
+					$readable = $icon_group[ $font ];
+				}
+
+
+				$output .= "<div class='av-iconselect-heading' data-element-font='{$font}'>{$info}: {$readable}</div>";
 
 				foreach( $charset as $key => $char )
 				{
-					$char = avia_font_manager::try_decode_icon( $char );
-					$char_name = avia_font_manager::get_char_name( $key, $font );
-
-					$active_char = '';
-
-					if( $char == $standard && ! empty( $std_font ) && $std_font == $font )
+					if( ! $are_svg_icons )
 					{
-						$active_char = 'avia-active-element';
+						$char = avia_font_manager::try_decode_icon( $char );
+						$icon_html = $char;
+					}
+					else
+					{
+						$icon_html = avia_font_manager::get_raw_svg_icon_html( $key, $font );
+					}
+
+					$char_name = avia_font_manager::get_char_name( $key, $font );
+					$char_search = avia_font_manager::get_char_search_text( $key, $font );
+
+					$active_char = $are_svg_icons ? "avia-svg-icon avia-font-{$font}" : '';
+					$check_char = $are_svg_icons ? $key : $char;
+
+					if( $check_char == $standard && ! empty( $std_font ) && $std_font == $font )
+					{
+						$active_char .= ' avia-active-element';
 						$active_font = $font;
 					}
 
-					$output .= "<span title='{$char_name}' data-element-nr='{$key}' data-element-name='{$char_name}' data-element-font='{$font}' class='avia-attach-element-select avia_icon_preview avia-font-{$font} {$active_char}'>{$char}</span>";
+					$output .= "<span title='{$char_name}' data-element-nr='{$key}' data-element-name='{$char_search}' data-element-font='{$font}' class='avia-attach-element-select avia_icon_preview avia-font-{$font} {$active_char}'>{$icon_html}</span>";
 				}
 			}
 
@@ -893,7 +1040,8 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 
 			//fake character value needed for backend editor
 			$element['id'] = $element['id'] . "_fakeArg";
-			$element['std'] = empty( $standard ) ? '' : $standard;
+//			$element['std'] = empty( $standard ) ? '' : $standard;
+			$element['std'] = empty( $fake_arg ) ? '' : $fake_arg;
 
 			$output .= AviaHtmlHelper::hidden( $element );
 
@@ -1428,7 +1576,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 			}
 
 			//$output .= AviaHtmlHelper::$element['data']['save_to']($element);
-			$output .= call_user_func( array( 'self', $element['data']['save_to'] ), $element );
+			$output .= call_user_func( array( 'AviaHtmlHelper', $element['data']['save_to'] ), $element );
 
 			//fake img for multi_image element
 			if( isset( $fetch ) && ! isset( $element['is_locked_area'] ) )

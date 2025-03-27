@@ -1,6 +1,8 @@
 <?php
 namespace um\core;
 
+use Exception;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -441,10 +443,14 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param array  $position
 		 */
 		private function add_field_from_predefined( $global_id, $form_id, $position = array() ) {
-			$fields      = UM()->query()->get_attr( 'custom_fields', $form_id );
-			$field_scope = UM()->builtin()->predefined_fields;
+			$fields = UM()->query()->get_attr( 'custom_fields', $form_id );
+			if ( empty( $fields ) || ! is_array( $fields ) ) {
+				$fields = array();
+			}
 
 			if ( ! isset( $fields[ $global_id ] ) ) {
+				$field_scope = UM()->builtin()->predefined_fields;
+
 				$count = 1;
 				if ( ! empty( $fields ) ) {
 					$count = count( $fields ) + 1;
@@ -745,13 +751,13 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			$output .= '</label>';
 
 			if ( ! empty( $data['help'] ) && false === $this->viewing && false === strpos( $key, 'confirm_user_pass' ) ) {
-				if ( ! UM()->mobile()->isMobile() ) {
+				if ( ! wp_is_mobile() ) {
 					if ( false === $this->disable_tooltips ) {
 						$output .= '<span class="um-tip um-tip-' . ( is_rtl() ? 'e' : 'w' ) . '" title="' . esc_attr__( $data['help'], 'ultimate-member' ) . '"><i class="um-icon-help-circled"></i></span>';
 					}
 				}
 
-				if ( false !== $this->disable_tooltips || UM()->mobile()->isMobile() ) {
+				if ( false !== $this->disable_tooltips || wp_is_mobile() ) {
 					$output .= '<span class="um-tip-text">' . __( $data['help'], 'ultimate-member' ) . '</span>';
 				}
 			}
@@ -1513,24 +1519,24 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			return '';
 		}
 
-
 		/**
 		 * Get field label
 		 *
-		 * @param  string $key
+		 * @param string $key Field meta key
 		 *
 		 * @return string
 		 */
-		function get_label( $key ) {
-			$label = '';
+		public function get_label( $key ) {
+			$label      = '';
+			$fields     = UM()->builtin()->all_user_fields;
+			$field_data = array_key_exists( $key, $fields ) ? $fields[ $key ] : array();
 
-			$fields = UM()->builtin()->all_user_fields;
-			if ( isset( $fields[ $key ]['label'] ) ) {
-				$label = stripslashes( $fields[ $key ]['label'] );
+			if ( array_key_exists( 'label', $field_data ) ) {
+				$label = stripslashes( $field_data['label'] );
 			}
 
-			if ( empty( $label ) && isset( $fields[ $key ]['title'] ) ) {
-				$label = stripslashes( $fields[ $key ]['title'] );
+			if ( empty( $label ) && array_key_exists( 'title', $field_data ) ) {
+				$label = stripslashes( $field_data['title'] );
 			}
 
 			/**
@@ -1556,12 +1562,10 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			 * }
 			 * add_filter( 'um_change_field_label', 'my_change_field_label', 10, 3 );
 			 */
-			$label = apply_filters( 'um_change_field_label', $label, $key, $fields[ $key ] );
+			$label = apply_filters( 'um_change_field_label', $label, $key, $field_data );
 
-			$label = sprintf( __( '%s', 'ultimate-member' ), $label );
-			return $label;
+			return sprintf( __( '%s', 'ultimate-member' ), $label );
 		}
-
 
 		/**
 		 * Get field title
@@ -1626,7 +1630,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param $key
 		 *
 		 * @return mixed
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function get_field( $key ) {
 			$fields = $this->get_fields();
@@ -2112,7 +2116,6 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			return apply_filters( 'um_field_non_utf8_value', $option_value );
 		}
 
-
 		/**
 		 * Getting the fields that need to be disabled in edit mode (profile)
 		 *
@@ -2121,6 +2124,13 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @return array
 		 */
 		public function get_restricted_fields_for_edit( $_um_profile_id = false ) {
+			static $cache = array();
+
+			$cache_key = absint( $_um_profile_id );
+			if ( array_key_exists( $cache_key, $cache ) ) {
+				return $cache[ $cache_key ];
+			}
+
 			// fields that need to be disabled in edit mode (profile)
 			$arr_restricted_fields = array( 'user_email', 'username', 'user_login', 'user_password', '_um_last_login', 'user_registered' );
 			/**
@@ -2143,7 +2153,9 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			 * }
 			 * add_filter( 'um_user_profile_restricted_edit_fields', 'my_make_email_editable', 10, 2 );
 			 */
-			return apply_filters( 'um_user_profile_restricted_edit_fields', $arr_restricted_fields, $_um_profile_id );
+			$cache[ $cache_key ] = apply_filters( 'um_user_profile_restricted_edit_fields', $arr_restricted_fields, $_um_profile_id );
+
+			return $cache[ $cache_key ];
 		}
 
 		/**
@@ -2155,7 +2167,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param array  $args
 		 *
 		 * @return string|null
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function edit_field( $key, $data, $rule = false, $args = array() ) {
 			global $_um_profile_id;
@@ -2799,7 +2811,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 							'media_buttons' => false,
 							'wpautop'       => false,
 							'editor_class'  => $this->get_class( $key, $data ),
-							'editor_height' => $data['height'],
+							'editor_height' => absint( $data['height'] ),
 							'tinymce'       => array(
 								'toolbar1' => 'formatselect,bullist,numlist,bold,italic,underline,forecolor,blockquote,hr,removeformat,link,unlink,undo,redo',
 								'toolbar2' => '',
@@ -2829,6 +2841,8 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 						 * add_filter( 'um_form_fields_textarea_settings', 'function_name', 10, 2 );
 						 */
 						$textarea_settings = apply_filters( 'um_form_fields_textarea_settings', $textarea_settings, $data );
+
+						$field_value = empty( $field_value ) ? '' : $field_value;
 
 						// turn on the output buffer
 						ob_start();
@@ -4022,7 +4036,6 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			return $arr;
 		}
 
-
 		/**
 		 * Get fields in row
 		 *
@@ -4030,8 +4043,8 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 *
 		 * @return string
 		 */
-		function get_fields_by_row( $row_id ) {
-			if ( ! isset( $this->get_fields ) ) {
+		public function get_fields_by_row( $row_id ) {
+			if ( ! isset( $this->get_fields ) || ! is_array( $this->get_fields ) ) {
 				return '';
 			}
 
@@ -4041,9 +4054,8 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 				}
 			}
 
-			return ( isset ( $results ) ) ? $results : '';
+			return isset( $results ) ? $results : '';
 		}
-
 
 		/**
 		 * Get fields by sub row
@@ -4111,7 +4123,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param array $args
 		 *
 		 * @return string|null
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function display( $mode, $args ) {
 			$output = null;
@@ -4281,7 +4293,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param bool $rule
 		 *
 		 * @return string|null
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function view_field( $key, $data, $rule = false ) {
 			if ( '_um_last_login' === $key ) {
@@ -4297,6 +4309,11 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			// Get whole field data.
 			if ( is_array( $data ) ) {
 				$data = $this->get_field( $key );
+			}
+
+			// Invalid field data.
+			if ( ! is_array( $data ) ) {
+				return '';
 			}
 
 			//hide if empty type
@@ -4631,7 +4648,6 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			return apply_filters( "um_view_field_output_" . $data['type'], $data );
 		}
 
-
 		/**
 		 * Display fields ( view mode )
 		 *
@@ -4639,7 +4655,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 		 * @param array $args
 		 *
 		 * @return string|null
-		 * @throws \Exception
+		 * @throws Exception
 		 */
 		public function display_view( $mode, $args ) {
 			$output = null;
@@ -4651,7 +4667,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 			$this->set_mode = $mode;
 			$this->set_id   = absint( $this->global_args['form_id'] );
 
-			$this->field_icons = ( isset( $this->global_args['icons'] ) ) ? $this->global_args['icons'] : 'label';
+			$this->field_icons = isset( $this->global_args['icons'] ) ? $this->global_args['icons'] : 'label';
 
 			// start output here
 			$this->get_fields = $this->get_fields();
@@ -4681,8 +4697,7 @@ if ( ! class_exists( 'um\core\Fields' ) ) {
 				}
 			}
 
-			if ( ! empty( $this->get_fields ) ) {
-
+			if ( ! empty( $this->get_fields ) && is_array( $this->get_fields ) ) {
 				// find rows
 				foreach ( $this->get_fields as $key => $array ) {
 					if ( isset( $array['type'] ) && 'row' === $array['type'] ) {

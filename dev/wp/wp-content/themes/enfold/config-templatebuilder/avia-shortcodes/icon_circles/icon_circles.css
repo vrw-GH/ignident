@@ -41,6 +41,11 @@
 	z-index: 5;
 }
 
+.avia-icon-circles-icon.avia-svg-icon svg:first-child,
+.avia-icon-circles-icon.avia-svg-icon img[is-svg-img="true"]{
+	margin-top: 15px;
+}
+
 .avia-icon-circles-icon.av-linked-icon{
 	cursor: pointer;
 }

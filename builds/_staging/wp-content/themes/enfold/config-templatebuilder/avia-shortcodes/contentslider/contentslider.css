@@ -25,6 +25,13 @@ Partner/Logo Slider + Content Slider
 	top: 0;
 }
 
+#top .avia-smallarrow-slider .avia-slideshow-arrows a.avia-svg-icon svg:first-child,
+#top .avia-smallarrow-slider .avia-slideshow-arrows a.avia-svg-icon img[is-svg-img="true"]{
+	height: 10px;
+	width: auto;
+	margin-top: 8px;
+}
+
 #top .avia-smallarrow-slider:not(.av-slideshow-ui) .avia-slideshow-arrows a,
 #top .avia-smallarrow-slider.av-slideshow-ui .avia-slideshow-arrows.av-visible-prev a.prev-slide,
 #top .avia-smallarrow-slider.av-slideshow-ui .avia-slideshow-arrows.av-visible-next a.next-slide{

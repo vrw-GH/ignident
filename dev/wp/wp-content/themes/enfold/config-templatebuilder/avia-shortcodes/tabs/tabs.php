@@ -11,6 +11,8 @@ if( ! class_exists( 'avia_sc_tab', false ) )
 {
 	class avia_sc_tab extends aviaShortcodeTemplate
 	{
+		use \aviaBuilder\traits\modalIconfontHelper;
+
 		/**
 		 *
 		 * @var int
@@ -414,7 +416,9 @@ if( ! class_exists( 'avia_sc_tab', false ) )
 							'desc'		=> __( 'Select an icon for your tab title below', 'avia_framework' ),
 							'id'		=> 'icon',
 							'type'		=> 'iconfont',
-							'std'		=> '',
+							'std'		=> 'tools',
+							'std_font'	=> 'svg_entypo-fontello',
+							'svg_sets'	=> 'yes',
 							'lockable'	=> true,
 							'locked'	=> array( 'icon', 'font' ),
 							'required'	=> array( 'icon_select', 'equals', 'yes' )
@@ -474,7 +478,7 @@ if( ! class_exists( 'avia_sc_tab', false ) )
 			$title_templ = $this->update_option_lockable( 'title', $locked );
 			$content_templ = $this->update_option_lockable( 'content', $locked );
 
-			extract( av_backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
+			extract( avia_font_manager::backend_icon( array( 'args' => $attr ) ) ); // creates $font and $display_char if the icon was passed as param 'icon' and the font as 'font'
 
 			$params['innerHtml']  = '';
 			$params['innerHtml'] .= "<div class='avia_title_container' data-update_element_template='yes'>";
@@ -607,6 +611,8 @@ if( ! class_exists( 'avia_sc_tab', false ) )
 
 			Avia_Dynamic_Content()->read( $atts, $this, $shortcodename, $content );
 
+			avia_font_manager::switch_to_svg( $atts['font'], $atts['icon'] );
+			
 			$classes = array(
 						'av_tab_section',
 						$element_id
@@ -616,6 +622,7 @@ if( ! class_exists( 'avia_sc_tab', false ) )
 
 			$element_styling->add_classes( 'tab', 'tab' );
 			$element_styling->add_classes( 'tab-content', 'tab_content' );
+			$element_styling->add_classes( 'tab-icon', avia_font_manager::get_frontend_icon_classes( $atts['font'] ) );
 
 			if( is_numeric( avia_sc_tab::$initial ) && avia_sc_tab::$counter == avia_sc_tab::$initial )
 			{
@@ -697,8 +704,12 @@ if( ! class_exists( 'avia_sc_tab', false ) )
 			$icon = '';
 			if( $atts['icon_select'] == 'yes' )
 			{
-				$display_char = av_icon( $atts['icon'], $atts['font'] );
-				$icon = "<span class='tab_icon' {$display_char}></span>";
+				$icon_char = avia_font_manager::get_frontend_icon( $atts['icon'], $atts['font'] );
+				$icon_class = $element_styling->get_class_string( 'tab-icon' );
+
+				$icon  = "<span class='tab_icon {$icon_class}' {$icon_char['attr']}>";
+				$icon .=		$icon_char['svg'];
+				$icon .= '</span>';
 			}
 
 
