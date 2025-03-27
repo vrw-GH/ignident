@@ -39,29 +39,22 @@ if ( ! class_exists( 'burst_upgrade_to_pro' ) ) {
                 return;
             }
 
-			if ( isset( $_GET['license'] ) ) {
-				$this->license = sanitize_title( $_GET['license'] );
-			}
+            $this->license = sanitize_title( $_GET['license'] );
+            $this->item_id = sanitize_title( $_GET['item_id'] );
+            $plugin = sanitize_title( $_GET['plugin'] );
+            switch ( $plugin ) {
+                case 'burst_pro':
+                    $this->slug            = 'burst-pro/burst-pro.php';
+                    $this->plugin_name     = 'Burst';
+                    $this->plugin_constant = 'burst_pro';
+                    $this->prefix          = 'burst_';
+                    $this->api_url         = 'https://burst-statistics.com';
+                    $this->dashboard_url   = add_query_arg( array( 'page' => 'burst' ), admin_url( 'admin.php' ) );
+                    $this->account_url     = 'https://burst-statistics.com/account';
+                    $this->instructions    = 'https://burst-statistics.com/how-to-install-burst-pro';
+                    break;
+            }
 
-			if ( isset( $_GET['item_id'] ) ) {
-				$this->item_id = sanitize_title( $_GET['item_id'] );
-			}
-
-			if ( isset( $_GET['plugin'] ) ) {
-				$plugin = sanitize_title( $_GET['plugin'] );
-				switch ( $plugin ) {
-					case 'burst_pro':
-						$this->slug            = 'burst-pro/burst-pro.php';
-						$this->plugin_name     = 'Burst';
-						$this->plugin_constant = 'burst_pro';
-						$this->prefix          = 'burst_';
-						$this->api_url         = 'https://burst-statistics.com';
-						$this->dashboard_url   = add_query_arg( array( 'page' => 'burst' ), admin_url( 'admin.php' ) );
-						$this->account_url     = 'https://burst-statistics.com/account';
-						$this->instructions    = 'https://burst-statistics.com/how-to-install-burst-pro';
-						break;
-				}
-			}
 
 			$this->steps = array(
 				array(
@@ -362,10 +355,10 @@ if ( ! class_exists( 'burst_upgrade_to_pro' ) ) {
 		 * Echoes array [success]
 		 */
 		public function process_ajax_destination_clear() {
-			$error    = false;
-			$response = array(
-				'success' => false,
-			);
+            $error    = false;
+            $response = array(
+                'success' => false,
+            );
 
             if ( empty($this->slug) ) {
                 $error = true;

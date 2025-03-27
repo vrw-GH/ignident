@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The base configuration for WordPress
  *
@@ -86,17 +87,18 @@ $table_prefix = 'OrIAaSFc';
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
 define( 'WP_DEBUG', true );
-define( 'WP_DEBUG_LOG', false );  // wp-content/debug.log
-define( 'WP_DEBUG_DISPLAY', false ); // errors appearing on the front-end
 
 /* Add any custom values between this line and the "stop editing" line. */
 
+# ------------------------------------------------------------------------------VW
+define( 'WP_HOME',          'http://ignident.beta.localhost:8800' );
+define( 'WP_SITEURL',       'http://ignident.beta.localhost:8800' );
+define( 'APP_VER',          '25.03.dev');  //! replace dev as .yymmdd, or auto .= "(alpha)"
+define( 'WP_CONTENT_URL',   '/wp-content' );  //! for content = relative-URLs
+define( 'WP_DEBUG_LOG',      WP_DEBUG );  // wp-content/debug.log
+define( 'WP_DEBUG_DISPLAY',  WP_DEBUG ); // errors appearing on the front-end
 
-
-define( 'WP_HOME', 'http://ignident.beta.localhost:8800' );
-define( 'WP_SITEURL', 'http://ignident.beta.localhost:8800' );
-
-
+# ------------------------------------------------------------------------------VW
 
 /* That's all, stop editing! Happy publishing. */
 

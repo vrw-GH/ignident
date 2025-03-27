@@ -219,15 +219,15 @@ function burst_add_option_menu() {
 		}
 	}
 
-		$menu_label = __( 'Statistics', 'burst-statistics' );
-	$warnings       = BURST()->notices->count_plusones( array( 'plus_ones' => true ) );
-	$warning_title  = esc_attr( burst_sprintf( '%d plugin warnings', $warnings ) );
-	if ( $warnings > 0 ) {
-		$warning_title .= ' ' . esc_attr( burst_sprintf( '(%d plus ones)', $warnings ) );
+    $menu_label = __( 'Statistics', 'burst-statistics' );
+	$count       = BURST()->tasks->plusone_count();
+	$warning_title  = esc_attr( burst_sprintf( '%d plugin warnings', $count ) );
+	if ( $count > 0 ) {
+		$warning_title .= ' ' . esc_attr( burst_sprintf( '(%d plus ones)', $count ) );
 		$menu_label    .=
-			"<span class='update-plugins count-$warnings' title='$warning_title'>
+			"<span class='update-plugins count-$count' title='$warning_title'>
 			<span class='update-count'>
-				" . number_format_i18n( $warnings ) . '
+				" . number_format_i18n( $count ) . '
 			</span>
 		</span>';
 	}
@@ -589,11 +589,14 @@ function burst_do_action( $request, $ajax_data = false ) {
 		case 'plugin_actions':
 			$data = burst_plugin_actions( $request, $data );
 			break;
-		case 'notices':
-			$data = BURST()->notices->get();
+		case 'tasks':
+			$data = BURST()->tasks->get();
 			break;
 		case 'dismiss_task':
-			$data = BURST()->notices->dismiss_notice( $data );
+            if ( isset($data['id']) ) {
+                $id = sanitize_title( $data['id'] );
+                BURST()->tasks->dismiss_task($id);
+            }
 			break;
 		case 'otherpluginsdata':
 			$data = burst_other_plugins_data();
@@ -729,7 +732,7 @@ function burst_get_data( WP_REST_Request $request ) {
     
 
     // possible args
-    $available_args = ['filters', 'metrics', 'group_by'];
+    $available_args = ['filters', 'metrics', 'group_by', 'goal_id'];
     // check for args from $request->get_param( 'filters') etc. and add to $args
     foreach ($available_args as $arg) {
         if ($request->get_param($arg)) {
@@ -747,11 +750,11 @@ function burst_get_data( WP_REST_Request $request ) {
 			$data = BURST()->statistics->get_today_data( $args );
 			break;
 		case 'goals':
-			$args['goal_id'] = $request_args['goal_id'] ?? 0;
+            $args['goal_id'] = $args['goal_id'] ?? 0;
 			$data            = BURST()->goal_statistics->get_goals_data( $args );
 			break;
 		case 'live-goals':
-			$args['goal_id'] = $request_args['goal_id'] ?? 0;
+			$args['goal_id'] = $args['goal_id'] ?? 0;
 			$data            = BURST()->goal_statistics->get_live_goals_data( $args );
 			break;
 		case 'insights':
@@ -921,7 +924,7 @@ function burst_rest_api_fields_set( $request, $ajax_data = false ) {
 	$response_data = [
 		'success'         => true,
 		'request_success' => true,
-		'progress'        => BURST()->notices->get(),
+		'progress'        => BURST()->tasks->get(),
 		'fields'          => burst_fields( true ),
 	];
 	if ( ob_get_length() ) {
@@ -1020,7 +1023,7 @@ function burst_rest_api_fields_get( $request ) {
 
 	$output['fields']          = $fields;
 	$output['request_success'] = true;
-	$output['progress']        = BURST()->notices->get();
+	$output['progress']        = BURST()->tasks->get();
 
 	$output = apply_filters( 'burst_rest_api_fields_get', $output );
 	if ( ob_get_length() ) {
@@ -1101,9 +1104,11 @@ function burst_rest_api_goals_set( $request, $ajax_data = false ) {
 	if ( ! burst_user_can_manage() ) {
 		return new WP_Error( 'rest_forbidden', 'You do not have permission to perform this action.', array( 'status' => 403 ) );
 	}
+
 	$data  = $ajax_data ?: $request->get_json_params();
 	$nonce = $data['nonce'];
 	$goals = $data['goals'];
+
 	// get the nonce
 	if ( ! burst_verify_nonce( $nonce, 'burst_nonce' ) ) {
 		return new WP_Error( 'rest_invalid_nonce', 'The provided nonce is not valid.', array( 'status' => 400 ) );

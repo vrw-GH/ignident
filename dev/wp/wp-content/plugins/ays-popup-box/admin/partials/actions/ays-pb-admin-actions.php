@@ -290,6 +290,8 @@ $options = array(
     'pb_font_family' => 'inherit',
     'pb_font_size' => 13,
     'pb_font_size_for_mobile' => 13,
+    'pb_description_alignment_for_pc' => 'left',
+    'pb_description_alignment_for_mobile' => 'left',
     'enable_pb_title_text_shadow' => 'off',
     'pb_title_text_shadow' => 'rgba(255,255,255,0)',
     'pb_title_text_shadow_x_offset' => 2,
@@ -1056,6 +1058,12 @@ $pb_font_size = (isset($options['pb_font_size']) && $options['pb_font_size'] != 
 
 // Description font size | On mobile
 $pb_font_size_for_mobile = (isset($options['pb_font_size_for_mobile']) && $options['pb_font_size_for_mobile'] != '') ? absint( intval($options['pb_font_size_for_mobile']) ) : 13;
+
+// Description text align
+$pb_text_align = (isset($options['pb_description_alignment_for_pc']) && $options['pb_description_alignment_for_pc'] != '') ? esc_attr( stripslashes($options['pb_description_alignment_for_pc']) ) : 'left';
+
+// Description text align mobile
+$pb_text_align_mobile = (isset($options['pb_description_alignment_for_mobile']) && $options['pb_description_alignment_for_mobile'] != '') ? esc_attr( stripslashes($options['pb_description_alignment_for_mobile']) ) : 'left';
 
 // Title text shadow | On desktop
 $options['enable_pb_title_text_shadow'] = (isset($options['enable_pb_title_text_shadow']) && $options['enable_pb_title_text_shadow'] == 'on') ? 'on' : 'off';
@@ -5465,6 +5473,58 @@ $ays_users_roles = $wp_roles->roles;
                                     </div>
                                 </div>
                                 <!-- Font Size end -->
+                                <hr class="ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                                <!-- Description Alignment start -->
+                                <div class="form-group row ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                                    <div class="col-sm-4">
+                                        <label for="ays_pb_description_alignment">
+                                            <?php echo  esc_html__('Description alignment',"ays-popup-box") ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__("Define the alignment of the popup description.", "ays-popup-box"); ?>">
+                                               <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-6 ays_divider_left">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_pb_description_alignment_for_pc">
+                                                    <?php echo  esc_html__('On desktop',"ays-popup-box") ?>  
+                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Define the description alignment for desktop devices.', 'ays-popup-box'); ?>">
+                                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                        </a>
+                                                    </label>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <select id="ays_pb_description_alignment_for_pc" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_description_alignment_for_pc">
+                                                    <option value="left" <?php echo $pb_text_align == 'left' ? 'selected' : ''; ?>><?php echo esc_html__('Left', 'ays-popup-box');  ?></option>
+                                                    <option value="center" <?php echo $pb_text_align == 'center' ? 'selected' : ''; ?>  ><?php echo esc_html__('Center', 'ays-popup-box'); ?></option>
+                                                    <option value="right" <?php echo $pb_text_align == 'right' ? 'selected' : ''; ?>><?php  echo esc_html__('Right', 'ays-popup-box'); ?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_pb_description_alignment_for_mobile">
+                                                    <?php echo  esc_html__('On mobile',"ays-popup-box") ?>  
+                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Define the description alignment for mobile devices.', 'ays-popup-box'); ?>">
+                                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                        </a>
+                                                    </label>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <select id="ays_pb_description_alignment_for_mobile" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_description_alignment_for_mobile">
+                                                    <option value="left" <?php echo $pb_text_align_mobile == 'left' ? 'selected' : ''; ?>><?php echo esc_html__('Left', 'ays-popup-box'); ?></option>
+                                                    <option value="center" <?php echo $pb_text_align_mobile == 'center' ? 'selected' : ''; ?>><?php echo esc_html__('Center', 'ays-popup-box'); ?></option>
+                                                    <option value="right" <?php echo $pb_text_align_mobile == 'right' ? 'selected' : ''; ?>><?php echo esc_html__('Right', 'ays-popup-box'); ?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Description Alignment end -->
                                 <hr class="ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>">
                                 <!-- title styles start -->
                                 <!-- title text shadow start -->

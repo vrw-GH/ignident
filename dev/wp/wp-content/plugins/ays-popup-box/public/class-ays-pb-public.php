@@ -1099,6 +1099,9 @@ class Ays_Pb_Public {
 
             //Font Size for mobile
             $pb_font_size_for_mobile = (isset($options['pb_font_size_for_mobile']) && $options['pb_font_size_for_mobile'] != '') ? absint($options['pb_font_size_for_mobile']) : 13;
+            
+            // Description text align for mobile
+            $pb_text_align_mobile = (isset($options['pb_description_alignment_for_mobile']) && $options['pb_description_alignment_for_mobile'] != '') ? esc_attr( stripslashes($options['pb_description_alignment_for_mobile']) ) : 'left';
 
             ///////////////////////////////////////////////////////////////////////////////////
 
@@ -1816,9 +1819,13 @@ class Ays_Pb_Public {
                             }
 
                             .ays-pb-modal_".$id."  .ays_pb_description > p{
-                                font-size: {$pb_font_size_for_mobile}px !important;
                                 word-break: break-word !important;
                                 word-wrap: break-word;
+                            }
+
+                            .ays-pb-modal_".$id."  .ays_pb_description {
+                                font-size: {$pb_font_size_for_mobile}px !important;
+                                text-align: {$pb_text_align_mobile} !important;
                             }
 
                             .ays-pb-modal_".$id.".ays_template_window p.ays_pb_timer.ays_pb_timer_".$id."{

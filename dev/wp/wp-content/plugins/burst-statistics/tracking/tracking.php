@@ -66,8 +66,7 @@ if ( ! function_exists( 'burst_track_hit' ) ) {
 		// validate & sanitize all data
 		$sanitized_data = burst_prepare_tracking_data( $data );
 		$sanitized_data = apply_filters( 'before_burst_track_hit', $sanitized_data );
-
-		if ( $sanitized_data['referrer'] === 'spammer' ) {
+        if ( $sanitized_data['referrer'] === 'spammer' ) {
 			burst_error_log( 'Referrer spam prevented.' );
 			return 'referrer is spam';
 		}
@@ -172,6 +171,19 @@ if ( ! function_exists( 'burst_track_hit' ) ) {
 				}
 			}
 		}
+
+        // update total pageviews count, but not on high traffic, as it is too performance heavy on the server.
+        if ( !get_option( 'burst_is_high_traffic_site') ) {
+            $page_url = isset($sanitized_data['page_url']) ? esc_url_raw($sanitized_data['host'] . $sanitized_data['page_url']) : '';
+            $page_views_to_update = get_option('burst_pageviews_to_update', array());
+            if (!in_array($page_url, $page_views_to_update)) {
+                $page_views_to_update[$page_url] = 1;
+            } else {
+                $page_views_to_update[$page_url]++;
+            }
+
+            update_option('burst_pageviews_to_update', $page_views_to_update);
+        }
 
 		return 'success';
 	}
@@ -856,7 +868,6 @@ if ( ! function_exists( 'burst_update_statistic' ) ) {
 	function burst_update_statistic( $data ) {
 		global $wpdb;
 		$data = burst_remove_empty_values( $data );
-
 		// Ensure 'ID' is present for update
 		if ( ! isset( $data['ID'] ) ) {
 			burst_error_log( 'Missing ID for statistic update. Data: ' . print_r( $data, true ) );
@@ -956,6 +967,10 @@ if ( ! function_exists( 'burst_remove_empty_values' ) ) {
 			if ( $value === null || $value === '' ) {
 				unset( $data[ $key ] );
 			}
+
+            if ( strpos($key, '_id') !== false && $value === 0 ) {
+                unset($data[$key]);
+            }
 		}
 		unset( $data['host'] );
 		return $data;
