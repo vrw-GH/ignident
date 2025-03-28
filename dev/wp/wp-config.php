@@ -97,6 +97,7 @@ define( 'APP_VER',          '25.03.dev-250327');  //! replace dev as .yymmdd, or
 #define( 'WP_CONTENT_URL',   '/wp-content' );  //! for content = relative-URLs
 #define( 'WP_DEBUG_LOG',      WP_DEBUG );  // wp-content/debug.log
 #define( 'WP_DEBUG_DISPLAY',  WP_DEBUG ); // errors appearing on the front-end
+#define('WP_ALLOW_REPAIR', true); // (reset false after) ...wp-admin/maint/repair.php
 
 # ------------------------------------------------------------------------------VW
 
