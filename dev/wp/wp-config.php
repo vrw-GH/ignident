@@ -94,9 +94,9 @@ define( 'WP_DEBUG', false );
 define( 'WP_HOME',          'http://ignident.beta.localhost:8800' );
 define( 'WP_SITEURL',       'http://ignident.beta.localhost:8800' );
 define( 'APP_VER',          '25.03.dev-250327');  //! replace dev as .yymmdd, or auto .= "(alpha)"
-define( 'WP_CONTENT_URL',   '/wp-content' );  //! for content = relative-URLs
-define( 'WP_DEBUG_LOG',      WP_DEBUG );  // wp-content/debug.log
-define( 'WP_DEBUG_DISPLAY',  WP_DEBUG ); // errors appearing on the front-end
+#define( 'WP_CONTENT_URL',   '/wp-content' );  //! for content = relative-URLs
+#define( 'WP_DEBUG_LOG',      WP_DEBUG );  // wp-content/debug.log
+#define( 'WP_DEBUG_DISPLAY',  WP_DEBUG ); // errors appearing on the front-end
 
 # ------------------------------------------------------------------------------VW
 
