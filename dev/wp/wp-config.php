@@ -86,17 +86,18 @@ $table_prefix = 'OrIAaSFc';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', true );
+define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
 # ------------------------------------------------------------------------------VW
 define( 'WP_HOME',          'http://ignident.beta.localhost:8800' );
 define( 'WP_SITEURL',       'http://ignident.beta.localhost:8800' );
-define( 'APP_VER',          '25.03.dev');  //! replace dev as .yymmdd, or auto .= "(alpha)"
-define( 'WP_CONTENT_URL',   '/wp-content' );  //! for content = relative-URLs
-define( 'WP_DEBUG_LOG',      WP_DEBUG );  // wp-content/debug.log
-define( 'WP_DEBUG_DISPLAY',  WP_DEBUG ); // errors appearing on the front-end
+define( 'APP_VER',          '25.03.dev-250327');  //! replace dev as .yymmdd, or auto .= "(alpha)"
+#define( 'WP_CONTENT_URL',   '/wp-content' );  //! for content = relative-URLs
+#define( 'WP_DEBUG_LOG',      WP_DEBUG );  // wp-content/debug.log
+#define( 'WP_DEBUG_DISPLAY',  WP_DEBUG ); // errors appearing on the front-end
+#define('WP_ALLOW_REPAIR', true); // (reset false after) ...wp-admin/maint/repair.php
 
 # ------------------------------------------------------------------------------VW
 
