@@ -72,7 +72,10 @@ define( 'NONCE_SALT',       'put your unique phrase here' );
  *
  * @link https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#table-prefix
  */
-$table_prefix = 'OrIAaSFc';
+#$table_prefix = 'OrIAaSFc';
+$table_prefix = 'oriaasfc';
+
+
 
 /**
  * For developers: WordPress debugging mode.
@@ -93,11 +96,12 @@ define( 'WP_DEBUG', false );
 # ------------------------------------------------------------------------------VW
 define( 'WP_HOME',          'http://ignident.beta.localhost:8800' );
 define( 'WP_SITEURL',       'http://ignident.beta.localhost:8800' );
-define( 'APP_VER',          '25.03.dev-250327');  //! replace dev as .yymmdd, or auto .= "(alpha)"
+define( 'APP_VER',          '25.03.dev-250329-1750');  //! replace dev as .yymmdd, or auto .= "(alpha)"
 #define( 'WP_CONTENT_URL',   '/wp-content' );  //! for content = relative-URLs
 #define( 'WP_DEBUG_LOG',      WP_DEBUG );  // wp-content/debug.log
 #define( 'WP_DEBUG_DISPLAY',  WP_DEBUG ); // errors appearing on the front-end
-#define('WP_ALLOW_REPAIR', true); // (reset false after) ...wp-admin/maint/repair.php
+#define( 'WP_ALLOW_REPAIR',   true); // (reset false after) ...wp-admin/maint/repair.php
+#define( 'WP_MEMORY_LIMIT',   '512M' );
 
 # ------------------------------------------------------------------------------VW
 
