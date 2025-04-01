@@ -1,0 +1,14 @@
+#ls-maintenance-addon-settings .ls-settings-table tr {
+	display: none;
+}
+
+#ls-maintenance-addon-settings[data-content="project"] .ls--maintenance-project-content-only,
+#ls-maintenance-addon-settings[data-content="page"] .ls--maintenance-page-content-only,
+#ls-maintenance-addon-settings .ls--maintenance-content-tr {
+	display: table-row !important;
+}
+
+
+#ls-maintenance-addon-settings[data-enabled="false"] .ls-maintenance-preview-button {
+	display: none !important;
+}
