@@ -1,0 +1,13 @@
+<?php $chars = array();
+$chars['entypo-fontello-enfold']['ue808'] = 'ue808';
+$chars['entypo-fontello-enfold']['ue809'] = 'ue809';
+$chars['entypo-fontello-enfold']['ue824'] = 'ue824';
+$chars['entypo-fontello-enfold']['ue825'] = 'ue825';
+$chars['entypo-fontello-enfold']['ue832'] = 'ue832';
+$chars['entypo-fontello-enfold']['ue83b'] = 'ue83b';
+$chars['entypo-fontello-enfold']['ue83c'] = 'ue83c';
+$chars['entypo-fontello-enfold']['ue869'] = 'ue869';
+$chars['entypo-fontello-enfold']['ue87c'] = 'ue87c';
+$chars['entypo-fontello-enfold']['ue87d'] = 'ue87d';
+$chars['entypo-fontello-enfold']['ue897'] = 'ue897';
+$chars['entypo-fontello-enfold']['ue899'] = 'ue899';

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Icons" width="16px" height="16px" style="fill:#5561A3" viewBox="0 0 32 32" xml:space="preserve">
+
+<g>
+	<path d="M8.3,11l2.3-6H5C4.7,5,4.4,5.2,4.2,5.4L0.5,11H8.3z"/>
+	<polygon points="0.5,13 13.9,29.1 8.3,13  "/>
+</g>
+<g>
+	<polygon points="21.6,11 19.3,5 12.7,5 10.4,11  "/>
+	<polygon points="10.4,13 16,29 21.6,13  "/>
+</g>
+<g>
+	<path d="M31.5,11l-3.7-5.6C27.6,5.2,27.3,5,27,5h-5.6l2.3,6H31.5z"/>
+	<polygon points="23.7,13 18.1,29.1 31.5,13  "/>
+</g>
+</svg>

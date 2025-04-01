@@ -1,0 +1,112 @@
+.flBtn *,
+.flBtn {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  text-decoration: none;
+}
+
+.flBtn {
+  --flBtn-color: #ffffff;
+  --flBtn-h-color: var(--flBtn-color);
+  --flBtn-bg: #009688;
+  --flBtn-h-bg: #21759b;
+  --flBtn-tooltip-color: #ffffff;
+  --flBtn-tooltip-bg: rgba(0, 0, 0, 0.8);
+  --flBtn-size: 16px;
+  --flBtn-box: calc(var(--flBtn-size) * 2.5);
+  --flBtn-gap: 5px;
+  --flBtn-h-position: 20px;
+  --flBtn-v-position: 20px;
+  --flBtn-v-offset: 0px;
+  --flBtn-h-offset: 0px;
+  --flBtn-menu-height: 360px;
+  --flBtn-menu-width: 400px;
+
+  z-index: 1000;
+
+  > .checkbox {
+    display: none;
+
+    &:checked {
+
+      + .flBtn-label {
+        color: var(--flBtn-h-color);
+        background: var(--flBtn-h-bg);
+      }
+
+      + .flBtn-label [data-action=open] {
+        display: none;
+      }
+
+      + .flBtn-label [data-action=close] {
+        display: inline-block;
+      }
+
+      ~ .flBtn-first,
+      ~ .flBtn-second {
+        visibility: visible;
+
+        li {
+          visibility: visible;
+          opacity: 1;
+        }
+
+        [data-tooltip][data-btn-tooltip=show]:before {
+          visibility: visible;
+          opacity: 1;
+          transition-delay: 0.5s;
+        }
+      }
+    }
+  }
+
+  .flBtn-label,
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--flBtn-color);
+    background: var(--flBtn-bg);
+    transition: all 0.5s;
+    &:hover {
+      color: var(--flBtn-h-color);
+      background: var(--flBtn-h-bg);
+    }
+    &._active {
+      color: var(--flBtn-h-color);
+      background: var(--flBtn-h-bg);
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  ul li {
+    display: inline-block;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+  }
+
+  &.-shadow {
+    .flBtn-label,
+    a {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &.is-hidden {
+    display: none;
+  }
+
+  @media print {
+    display: none !important;
+  }
+
+}

@@ -1,0 +1,12 @@
+1743090107.346 (R) [notice] Tables examined: 0
+1743090107.346 (R) [notice] Rows examined: 0
+1743090107.346 (R) [notice] Changes made: 0
+1743090107.346 (R) [notice] SQL update commands run: 0
+1743090107.346 (R) [notice] Errors: 0
+1743090107.346 (R) [notice] Time taken (seconds): 0
+1743090165.398 (R) [notice] Tables examined: 0
+1743090165.398 (R) [notice] Rows examined: 0
+1743090165.398 (R) [notice] Changes made: 0
+1743090165.398 (R) [notice] SQL update commands run: 0
+1743090165.398 (R) [notice] Errors: 0
+1743090165.398 (R) [notice] Time taken (seconds): 0

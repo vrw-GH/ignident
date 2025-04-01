@@ -1,0 +1,10 @@
+.wowp-file input::file-selector-button {
+  color: #14102C;
+  padding: 0.5em;
+  border: thin solid var(--wowp-yellow);
+  border-radius: 4px;
+}
+
+.wowp-file input[type="file"]:valid {
+  color: var(--wowp-orange);
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30" xml:space="preserve">
+    <g transform="translate(-450 -80)">
+        <g xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="magic-wand-7">
+		<path d="M475.314,86.807l-2.121-2.121l-20.506,20.506l2.121,2.121L475.314,86.807z M473.193,86.1l0.707,0.707l-4.951,4.951    l-0.707-0.709L473.193,86.1z M467.535,91.758l0.707,0.707l-13.434,13.434l-0.707-0.707L467.535,91.758z"/>
+		<polygon points="462,91 463,91 463,87 467,87 467,86 463,86 463,82 462,82 462,86 458,86 458,87 462,87   "/>
+		<polygon points="473,93 473,97 469,97 469,98 473,98 473,102 474,102 474,98 478,98 478,97 474,97 474,93   "/>
+		<polygon points="469,85 470,85 470,83 472,83 472,82 470,82 470,80 469,80 469,82 467,82 467,83 469,83   "/>
+		<polygon points="478,88 477,88 477,90 475,90 475,91 477,91 477,93 478,93 478,91 480,91 480,90 478,90   "/>
+	</g>
+	
+    </g>
+</svg>

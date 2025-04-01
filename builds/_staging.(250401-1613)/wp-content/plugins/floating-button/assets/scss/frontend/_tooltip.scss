@@ -1,0 +1,36 @@
+.flBtn {
+
+  [data-tooltip] {
+    position: relative;
+    &:before {
+      position: absolute;
+      content: attr(data-tooltip) ' ' attr(data-counter);
+      visibility: hidden;
+      padding: 0.25em 0.5em;
+      opacity: 0;
+      white-space: nowrap;
+      background: var(--flBtn-tooltip-bg);
+      color: var(--flBtn-tooltip-color);
+      transition: all 0.5s;
+      z-index: 3;
+    }
+    &:hover:before {
+      visibility: visible;
+      opacity: 1;
+      z-index: 4;
+    }
+    &[data-btn-tooltip=show]:before {
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.5s;
+    }
+  }
+
+
+
+  [data-role][data-tooltip][data-btn-tooltip=show]:before {
+    visibility: visible;
+    opacity: 1;
+  }
+
+}

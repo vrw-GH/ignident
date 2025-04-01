@@ -1,0 +1,31 @@
+.flBtn {
+  &.flBtn-shape-circle {
+    > .flBtn-label,
+    a,
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  &.flBtn-shape-ellipse {
+    > .flBtn-label,
+    a, img {
+      border-radius: 25% 75%;
+    }
+  }
+
+  &.flBtn-shape-square {
+    > .flBtn-label,
+    a, img {
+      border-radius: 0;
+    }
+  }
+
+  &.flBtn-shape-rsquare {
+    > .flBtn-label,
+    a, img {
+      border-radius: 25%;
+    }
+  }
+
+}

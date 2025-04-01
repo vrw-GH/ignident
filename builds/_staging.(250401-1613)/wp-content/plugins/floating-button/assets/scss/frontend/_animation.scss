@@ -1,0 +1,99 @@
+.flBtn {
+  /* Rotate Effect*/
+  &.flBtn-effect-rotate {
+    .checkbox:checked ~ ul li {
+      rotate: 360deg;
+    }
+  }
+
+  /* Scale Effect*/
+  &.flBtn-effect-scale {
+    li {
+      scale: 0.1 0.1;
+    }
+    .checkbox:checked ~ ul li {
+      scale: 1 1;
+    }
+  }
+
+  /* Translate Effect*/
+  &.flBtn-effect-translate {
+
+    .flBtn-first li {
+      translate: 0 100%
+    }
+  
+    .flBtn-second li {
+      translate: 0 -100%
+    }
+
+    .checkbox:checked ~ .flBtn-first li,
+    .checkbox:checked ~ .flBtn-second li {
+      translate: 0 0;
+    }
+
+
+    &.flBtn-position-tl,
+    &.flBtn-position-tr {
+      .flBtn-first li {
+        translate: 0 -100%;
+      }
+    }
+
+    &.flBtn-position-b,
+    &.flBtn-position-t {
+      .flBtn-first li {
+        translate: 100% 0;
+      }
+      .checkbox:checked ~ .flBtn-first li {
+        translate: 0 0;
+      }
+
+    }
+
+    &.flBtn-position-b,
+    &.flBtn-position-t,
+    &.flBtn-position-tl,
+    &.flBtn-position-bl,
+    &.flBtn-position-tr,
+    &.flBtn-position-br {
+      .flBtn-second li {
+        translate: -100% 0;
+      }
+      .checkbox:checked ~ .flBtn-second li {
+        translate: 0 0;
+      }
+    }
+
+
+    &.flBtn-position-tr,
+    &.flBtn-position-br {
+      .flBtn-second li {
+        translate: 100% 0;
+      }
+    }
+
+  }
+
+  &.flBtn-effect-rotate-scale {
+    @extend .flBtn-effect-rotate;
+    @extend .flBtn-effect-scale;
+  }
+
+  &.flBtn-effect-rotate-translate {
+    @extend .flBtn-effect-rotate;
+    @extend .flBtn-effect-translate;
+  }
+
+  &.flBtn-effect-translate-scale {
+    @extend .flBtn-effect-scale;
+    @extend .flBtn-effect-translate;
+  }
+
+  &.flBtn-effect-rotate-translate-scale {
+    @extend .flBtn-effect-rotate;
+    @extend .flBtn-effect-scale;
+    @extend .flBtn-effect-translate;
+  }
+
+}

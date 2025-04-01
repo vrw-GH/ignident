@@ -1,0 +1,251 @@
+/*
+	Contains vendor prefixed CSS rules that have been removed from core files because no longer needed
+	Cannot be minified because old rules are removed !!!!
+
+	@source			enfold/config_*			(not template_builder)
+	@since 5.6.3
+*/
+
+
+/*	woocommerce	*/
+a.button.loading,
+button.button.loading,
+input.button.loading,
+#review_form #submit.loading{
+	filter:alpha(opacity=50);
+}
+
+#top .quantity .no-spin-num {
+	-moz-appearance: textfield;
+}
+
+.avia-product-hover{
+	filter:alpha(opacity=00); /* For IE8 and earlier */
+}
+
+.inner_product:hover .avia-product-hover{
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+
+form .form-row input.input-text,#content .form-row input.input-text,form .form-row textarea,#content .form-row textarea{
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+}
+
+.pointer_arrow{
+	-ms-transform:rotate(45deg); /* IE 9 */
+	-moz-transform:rotate(45deg); /* Firefox */
+	-webkit-transform:rotate(45deg); /* Safari and Chrome */
+}
+
+.cart_dropdown {
+	-webkit-transition: all ease-in-out 0.8s;
+}
+
+.html_visible_cart.html_stretched.html_header_top.html_header_stretch .main_menu{
+	-webkit-transition: right ease-in-out 0.8s;
+}
+
+#menu-item-shop .cart_dropdown_link{
+	-webkit-transition: color 0.15s ease-out;
+}
+
+.animator2{
+	-webkit-transition: all ease-in-out 0.2s;
+	-moz-transition: all ease-in-out 0.2s;
+}
+
+.animator3, .thumbnail_container{
+	-webkit-transition: all linear 0.3s;
+	-moz-transition: all linear 0.3s;
+}
+
+.cart-loading{
+	-webkit-transition: 	all 0.3s ease;
+	-moz-transition: 		all 0.3s ease-in-out;
+	-webkit-transform: 	scale(0.3);
+	-ms-transform: 		scale(0.3);
+}
+
+.adding-to-cart-loading:hover .cart-loading{
+	-webkit-transform: 	scale(1);
+	-ms-transform: 		scale(1);
+}
+
+#top .added-to-cart-check .cart-loading{
+	-webkit-transform: 	scale(0);
+	-ms-transform: 		scale(0);
+}
+
+#top .added-to-cart-check:hover .cart-loading{
+	-webkit-transition-delay: 300ms;
+	-webkit-transform: 	scale(1);
+	-ms-transform: 		scale(1);
+}
+
+.avia_transform .added-to-cart-check .cart-loading{
+	-webkit-transition-delay: 300ms;
+}
+
+.thumbnail_container .rating_container{
+	-webkit-transition: 	all 0.3s ease;
+	-moz-transition: 		all 0.3s ease-in-out;
+}
+
+.avia_cart_buttons{
+	-webkit-transition: 	all 0.3s ease;
+	-moz-transition: 		all 0.3s ease-in-out;
+}
+
+#top div form .form-row input.input-text,
+#top div  #content .form-row input.input-text,
+#top div  form .form-row textarea,
+#top div #content .form-row textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+#top  div .quantity input.plus,
+#top  div .quantity input.minus {
+	-webkit-appearance: none;
+}
+
+.quantity input[type=number]::-webkit-inner-spin-button,
+.quantity input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.avia-product-hover{
+	-webkit-transition: all ease-in-out 0.3s;
+	-moz-transition: 	all ease-in-out 0.3s;
+}
+
+#top .products .product-category h3:before{
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+}
+
+#top .av-cart-counter {
+	-webkit-transform: 	scale(0.3);
+}
+
+#top .av-cart-counter.av-active-counter{
+	-webkit-transition: all cubic-bezier(0.175, 0.885, 0.320, 1.275) 0.3s;
+	-webkit-transform: 	scale(1);
+}
+
+#top #wrap_all .av-product-class-minimal-overlay .inner_product_header{
+    -webkit-transition: 	all 0.3s ease;
+	-moz-transition: 		all 0.3s ease-in-out;
+}
+
+.single-product div.product .woocommerce-product-gallery .flex-control-thumbs li img {
+  -webkit-transition:all,ease,.2s;
+  -moz-transition:all,ease,.2s;
+}
+
+#top .quantity .no-spin-num::-webkit-inner-spin-button,
+#top .quantity .no-spin::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+}
+
+p.demo_store{
+    background:-webkit-gradient(linear, left top, left bottom, from(#f7f5c6), to(#eeeac1));
+    background:-webkit-linear-gradient(#f7f5c6, #eeeac1);
+    background:-moz-linear-gradient(center top, #f7f5c6 0%, #eeeac1 100%);
+    background:-moz-gradient(center top, #f7f5c6 0%, #eeeac1 100%);
+}
+
+#top .wc-bookings-date-picker .ui-widget-content{
+	-moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+/* leaflet */
+.leaflet-fade-anim .leaflet-popup {
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	}
+
+.leaflet-control-scale-line {
+	-moz-box-sizing: border-box;
+}
+
+.leaflet-zoom-box {
+	-moz-box-sizing: border-box;
+}
+
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	-moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+}
+
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+}
+
+.leaflet-popup-tip {
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+}
+
+/* the events calendar tec */
+
+#top #wrap_all .tribe-events-button {
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+}
+
+.tribe-events-tooltip .tribe-events-arrow {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+}
+
+/* bbpress */
+textarea#bbp_reply_content,
+textarea#bbp_topic_content,
+textarea#bbp_forum_content {
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing: border-box;
+}
+
+.bbp-form a{
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+}
+
+.avia_transform .bbp-replies .bbp-reply-author::before,
+.avia_transform .forum-search .bbp-reply-author::before,
+.avia_transform .forum-search .bbp-topic-author::before
+{
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+}
+
+#bbpress-forums  .wp-core-ui .button{
+	-moz-transition: 	none;
+	-webkit-transition: none;
+}
+
+
+/* gutenberg */
+pre{
+background-image: -webkit-linear-gradient(rgba(0, 0, 0, .05) 50%, transparent 50%, transparent);
+background-image: -moz-linear-gradient(rgba(0, 0, 0, .05) 50%, transparent 50%, transparent);
+-webkit-transition: all ease-in-out 0.5s;
+-moz-transition: all ease-in-out 0.5s;
+}
+
+
+body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded .avia-fixed-controls {
+	-webkit-box-shadow: 0 4px 4px 0px rgb(0 0 0 / 10%);
+	-moz-box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.1);
+}

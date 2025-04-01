@@ -1,0 +1,45 @@
+.wowp-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  margin-top: 25px;
+}
+
+.wowp-tabs-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  a {
+    position: relative;
+    color: var(--wowp-dark);
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px;
+
+    &.is-active {
+      color: var(--wowp-blue);
+      &:after {
+        position: absolute;
+        left: 0;
+        content: " ";
+        width: 100%;
+        height: 2px;
+        background-color: var(--wowp-yellow);
+        bottom: 0;
+      }
+    }
+  }
+}
+
+.wowp-tabs-content {
+  display: none;
+  gap: 15px;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+  &.is-active{
+    display: flex;
+  }
+}

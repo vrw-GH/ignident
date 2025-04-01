@@ -1,0 +1,3366 @@
+# Translation of Plugins - Popup Box &#8211; Best WordPress Popup Plugin - Stable (latest release) in Russian
+# This file is distributed under the same license as the Plugins - Popup Box &#8211; Best WordPress Popup Plugin - Stable (latest release) package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Plugins - Popup Box &#8211; Best WordPress Popup Plugin - Stable (latest release)\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2024-12-02 15:08+0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: Poedit 3.5\n"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2195
+#: admin/partials/actions/ays-pb-admin-actions.php:2230
+#: admin/partials/actions/ays-pb-admin-actions.php:2818
+#: admin/partials/actions/ays-pb-admin-actions.php:2910
+#: admin/partials/actions/ays-pb-admin-actions.php:3929
+#: admin/partials/actions/ays-pb-admin-actions.php:3947
+#: admin/partials/actions/ays-pb-admin-actions.php:4922
+#: admin/partials/actions/ays-pb-admin-actions.php:4940
+#: admin/partials/actions/ays-pb-admin-actions.php:5730
+#: admin/partials/actions/ays-pb-admin-actions.php:5781
+#: admin/partials/actions/ays-pb-admin-actions.php:5844
+msgid "View demo"
+msgstr "Смотреть демонстрацию"
+
+#: admin/partials/settings/popup-box-settings.php:218
+msgid "Watch Video"
+msgstr "Смотреть видео"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2203
+#: admin/partials/actions/ays-pb-admin-actions.php:2238
+#: admin/partials/actions/ays-pb-admin-actions.php:2826
+#: admin/partials/actions/ays-pb-admin-actions.php:2918
+#: admin/partials/actions/ays-pb-admin-actions.php:3937
+#: admin/partials/actions/ays-pb-admin-actions.php:3955
+#: admin/partials/actions/ays-pb-admin-actions.php:4930
+#: admin/partials/actions/ays-pb-admin-actions.php:4948
+#: admin/partials/actions/ays-pb-admin-actions.php:5738
+#: admin/partials/actions/ays-pb-admin-actions.php:5789
+#: admin/partials/actions/ays-pb-admin-actions.php:5852
+#: admin/partials/actions/ays-pb-categories-actions.php:109
+#: admin/partials/attributes/actions/ays-pb-attributes-actions.php:17
+#: admin/partials/attributes/actions/ays-pb-attributes-actions.php:25
+#: admin/partials/export-import/ays-pb-export-import.php:21
+#: admin/partials/export-import/ays-pb-export-import.php:30
+#: admin/partials/export-import/ays-pb-export-import.php:67
+#: admin/partials/export-import/ays-pb-export-import.php:76
+#: admin/partials/reports/ays-pb-reports-display.php:43
+#: admin/partials/reports/ays-pb-reports-display.php:52
+#: admin/partials/reports/ays-pb-reports-display.php:66
+#: admin/partials/reports/ays-pb-reports-display.php:75
+#: admin/partials/settings/popup-box-settings.php:226
+#: admin/partials/subscribes/ays-pb-subscribes-display.php:21
+#: admin/partials/subscribes/ays-pb-subscribes-display.php:30 ays-pb.php:115
+#: includes/class-ays-pb-integrations.php:149
+#: includes/class-ays-pb-integrations.php:209
+#: includes/class-ays-pb-integrations.php:282
+#: includes/class-ays-pb-integrations.php:340
+#: includes/class-ays-pb-integrations.php:415
+#: includes/class-ays-pb-integrations.php:484
+#: includes/class-ays-pb-integrations.php:558
+#: includes/class-ays-pb-integrations.php:607
+#: includes/class-ays-pb-integrations.php:667
+#: includes/class-ays-pb-integrations.php:714
+#: includes/class-ays-pb-integrations.php:778
+#: includes/class-ays-pb-integrations.php:829
+#: includes/class-ays-pb-integrations.php:886
+#: includes/class-ays-pb-integrations.php:945
+msgid "Upgrade"
+msgstr "Обновить"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1677
+#: admin/partials/actions/ays-pb-admin-actions.php:1752
+#: admin/partials/actions/ays-pb-admin-actions.php:1806
+#: admin/partials/actions/ays-pb-admin-actions.php:1869
+#: admin/partials/actions/ays-pb-admin-actions.php:1947
+#: admin/partials/actions/ays-pb-admin-actions.php:1995
+#: admin/partials/actions/ays-pb-admin-actions.php:2063
+#: admin/partials/actions/ays-pb-admin-actions.php:2103
+#: admin/partials/actions/ays-pb-admin-actions.php:2164
+#: admin/partials/actions/ays-pb-admin-actions.php:2347
+#: admin/partials/actions/ays-pb-admin-actions.php:2391
+#: admin/partials/actions/ays-pb-admin-actions.php:2703
+#: admin/partials/actions/ays-pb-admin-actions.php:2744
+#: admin/partials/actions/ays-pb-admin-actions.php:2788
+#: admin/partials/actions/ays-pb-admin-actions.php:3486
+#: admin/partials/actions/ays-pb-admin-actions.php:4135
+#: admin/partials/actions/ays-pb-admin-actions.php:4165
+#: admin/partials/actions/ays-pb-admin-actions.php:4239
+#: admin/partials/actions/ays-pb-admin-actions.php:4357
+#: admin/partials/actions/ays-pb-admin-actions.php:4433
+#: admin/partials/actions/ays-pb-admin-actions.php:4474
+#: admin/partials/actions/ays-pb-admin-actions.php:4528
+#: admin/partials/actions/ays-pb-admin-actions.php:4577
+#: admin/partials/actions/ays-pb-admin-actions.php:4744
+#: admin/partials/actions/ays-pb-admin-actions.php:4776
+#: admin/partials/actions/ays-pb-admin-actions.php:4822
+#: admin/partials/actions/ays-pb-admin-actions.php:4869
+#: admin/partials/actions/ays-pb-admin-actions.php:4901
+msgid "Mobile"
+msgstr "Мобильный"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1651
+#: admin/partials/actions/ays-pb-admin-actions.php:1739
+#: admin/partials/actions/ays-pb-admin-actions.php:1794
+#: admin/partials/actions/ays-pb-admin-actions.php:1863
+#: admin/partials/actions/ays-pb-admin-actions.php:1934
+#: admin/partials/actions/ays-pb-admin-actions.php:1983
+#: admin/partials/actions/ays-pb-admin-actions.php:2050
+#: admin/partials/actions/ays-pb-admin-actions.php:2097
+#: admin/partials/actions/ays-pb-admin-actions.php:2146
+#: admin/partials/actions/ays-pb-admin-actions.php:2330
+#: admin/partials/actions/ays-pb-admin-actions.php:2385
+#: admin/partials/actions/ays-pb-admin-actions.php:2697
+#: admin/partials/actions/ays-pb-admin-actions.php:2728
+#: admin/partials/actions/ays-pb-admin-actions.php:2782
+#: admin/partials/actions/ays-pb-admin-actions.php:3476
+#: admin/partials/actions/ays-pb-admin-actions.php:4130
+#: admin/partials/actions/ays-pb-admin-actions.php:4160
+#: admin/partials/actions/ays-pb-admin-actions.php:4190
+#: admin/partials/actions/ays-pb-admin-actions.php:4308
+#: admin/partials/actions/ays-pb-admin-actions.php:4428
+#: admin/partials/actions/ays-pb-admin-actions.php:4458
+#: admin/partials/actions/ays-pb-admin-actions.php:4507
+#: admin/partials/actions/ays-pb-admin-actions.php:4567
+#: admin/partials/actions/ays-pb-admin-actions.php:4739
+#: admin/partials/actions/ays-pb-admin-actions.php:4771
+#: admin/partials/actions/ays-pb-admin-actions.php:4801
+#: admin/partials/actions/ays-pb-admin-actions.php:4864
+#: admin/partials/actions/ays-pb-admin-actions.php:4896
+msgid "PC"
+msgstr "ПК"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1672
+#: admin/partials/actions/ays-pb-admin-actions.php:1769
+#: admin/partials/actions/ays-pb-admin-actions.php:1823
+#: admin/partials/actions/ays-pb-admin-actions.php:1960
+#: admin/partials/actions/ays-pb-admin-actions.php:2007
+#: admin/partials/actions/ays-pb-admin-actions.php:2076
+#: admin/partials/actions/ays-pb-admin-actions.php:2182
+#: admin/partials/actions/ays-pb-admin-actions.php:2364
+#: admin/partials/actions/ays-pb-admin-actions.php:2761
+#: admin/partials/actions/ays-pb-admin-actions.php:3496
+#: admin/partials/actions/ays-pb-admin-actions.php:4140
+#: admin/partials/actions/ays-pb-admin-actions.php:4170
+#: admin/partials/actions/ays-pb-admin-actions.php:4288
+#: admin/partials/actions/ays-pb-admin-actions.php:4406
+#: admin/partials/actions/ays-pb-admin-actions.php:4438
+#: admin/partials/actions/ays-pb-admin-actions.php:4489
+#: admin/partials/actions/ays-pb-admin-actions.php:4551
+#: admin/partials/actions/ays-pb-admin-actions.php:4587
+#: admin/partials/actions/ays-pb-admin-actions.php:4749
+#: admin/partials/actions/ays-pb-admin-actions.php:4781
+#: admin/partials/actions/ays-pb-admin-actions.php:4843
+#: admin/partials/actions/ays-pb-admin-actions.php:4874
+#: admin/partials/actions/ays-pb-admin-actions.php:4906
+msgid "Use a different setting for Mobile"
+msgstr "Используйте другую настройку для мобильных устройств"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3594
+msgid "Specify the height of the popup in pixels."
+msgstr "Укажите высоту всплывающего окна в пикселях."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3509
+msgid "Specify the width of the popup in pixels."
+msgstr "Укажите ширину всплывающего окна в пикселях."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1340
+msgid "Show popup only for author"
+msgstr "Показывать всплывающее окно только для автора"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2133
+msgid "Close button delay"
+msgstr "Задержка кнопки закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1724
+msgid "Open Delay "
+msgstr "Задержка открытия "
+
+#: includes/lists/class-ays-pb-list-table.php:119
+msgid "Filter"
+msgstr "Фильтр"
+
+#: includes/lists/class-ays-pb-list-table.php:106
+msgid "Select Author"
+msgstr "Выбрать автора"
+
+#: includes/lists/class-ays-pb-list-table.php:114
+msgid "Select Type"
+msgstr "Выбрать тип"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2119
+msgid "Automatically close the popup after a video completion."
+msgstr "Авто закрытие всплывающего окна после завершения видео."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2117
+msgid "Autoclose on video completion"
+msgstr "Авто закрытие по завершению видео"
+
+#: admin/class-ays-pb-admin.php:782
+msgid "If you love our plugin, please do big favor and rate us on WordPress.org"
+msgstr "Если вам понравился наш плагин, пожалуйста, сделайте большое одолжение и оцените нас на WordPress.org"
+
+#: includes/class-ays-pb-data.php:720
+msgid "Hurry up! <a href='https://ays-pro.com/wordpress/popup-box' target='_blank'>Check it out!</a>"
+msgstr "Hurry up! <a href='https://ays-pro.com/wordpress/popup-box' target='_blank'>Проверьте это!</a>"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2019
+msgid "Displays text when cursor is placed over the close button"
+msgstr "Отображает текст при наведении курсора на кнопку закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2018
+msgid "Close button hover text"
+msgstr "Текст при наведении на кнопку «Закрыть»"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3692
+msgid "Default value = "
+msgstr "Значение по умолчанию = "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3682
+msgid "Content padding"
+msgstr "Внутренний отступ содержимого"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3683
+msgid "Specify the padding of the popup in pixels. It accepts only numerical values and you can choose whether to define the value by percentage or in pixels."
+msgstr "Укажите заполнение всплывающего окна в пикселях. Он принимает только числовые значения, и вы можете выбрать, определять ли значение в процентах или в пикселях."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3593
+msgid "Height"
+msgstr "Высота"
+
+#: admin/class-ays-pb-admin.php:463
+#: admin/partials/actions/ays-pb-admin-actions.php:1300
+#: admin/partials/settings/popup-box-settings.php:70
+msgid "Settings"
+msgstr "Настройки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3508
+msgid "Width"
+msgstr "Ширина"
+
+#: public/partials/ays-pb-public-templates.php:3728
+#: public/partials/ays-pb-public-templates.php:3730
+#: public/partials/ays-pb-public-templates.php:3732
+msgid " seconds"
+msgstr " секунд"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3536
+#: admin/partials/actions/ays-pb-admin-actions.php:3702
+msgid "%"
+msgstr "%"
+
+#: admin/partials/settings/popup-box-settings.php:247
+msgid "Ability to manage Popup Box plugin only for selected user roles."
+msgstr "Возможность управлять плагином Popup Box только для выбранных ролей пользователей."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6221
+msgid "Accept Cookie"
+msgstr "Принять Cookie"
+
+#: admin/partials/features/popup-box-pro-features-display.php:391
+#: admin/partials/features/popup-box-pro-features-display.php:396
+msgid "Actions while clicking on the popup"
+msgstr "Действия при нажатии на всплывающее окно"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1906
+msgid "Activate Close button while hovering on popup"
+msgstr "Активировать кнопку закрытия при наведении курсора мыши на всплывающее окно"
+
+#: includes/class-ays-pb-integrations.php:474
+msgid "ActiveCampaign"
+msgstr "ActiveCampaign"
+
+#: includes/class-ays-pb-integrations.php:442
+msgid "ActiveCampaign automation"
+msgstr "Автоматизация ActiveCampaign"
+
+#: includes/class-ays-pb-integrations.php:431
+msgid "ActiveCampaign list"
+msgstr "Список ActiveCampaign"
+
+#: includes/class-ays-pb-integrations.php:405
+msgid "ActiveCampaign Settings"
+msgstr "Настройки ActiveCampaign"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4449
+msgid "Add a background image to the popup. Note: If you want to apply background color, remove the image or don't add it."
+msgstr "Добавьте фоновое изображение во всплывающее окно. Примечание. Если вы хотите применить цвет фона, удалите изображение или не добавляйте его."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5078
+msgid "Add an image which will be displayed instead of the close button."
+msgstr "Добавьте изображение, которое будет отображаться вместо кнопки закрытия."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4598
+msgid "Add background gradient for the popup, choose gradient color stops and direction."
+msgstr "Добавьте фоновый градиент для всплывающего окна, выберите цвет градиента и направление."
+
+#: admin/class-ays-pb-admin.php:172
+#: admin/partials/actions/ays-pb-admin-actions.php:571
+#: admin/partials/actions/ays-pb-admin-actions.php:581
+#: admin/partials/actions/ays-pb-admin-actions.php:827
+msgid "Add Image"
+msgstr "Добавить Изображение"
+
+#: admin/partials/ays-pb-admin-display.php:41
+#: admin/partials/ays-pb-admin-display.php:68
+#: admin/partials/ays-pb-admin-display.php:77
+#: admin/partials/ays-pb-admin-display.php:83
+#: admin/partials/ays-pb-categories-display.php:25
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:23
+msgid "Add New"
+msgstr "Добавить Новый"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3822
+msgid "Add text shadow to the popup title."
+msgstr "Добавьте текстовую тень к заголовку всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:735
+msgid "Add Video"
+msgstr "Добавить Видео"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2265
+msgid "Advanced Settings"
+msgstr "Расширенные Настройки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2774
+msgid "After enabling this option the content in the popup will not be scrolled."
+msgstr "После включения этой опции содержимое всплывающего окна прокручиваться не будет."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2717
+msgid "After enabling this option the dismiss ad button will be displayed in the popup. After clicking on the button the ads will be dismissed for 1 month."
+msgstr "После включения этой опции во всплывающем окне будет отображаться кнопка отклонить рекламу. После нажатия на кнопку объявления будут удалены на 1 месяц."
+
+#: includes/lists/class-ays-pb-list-table.php:149
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:43
+msgid "All"
+msgstr "Все"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1458
+#: admin/partials/actions/ays-pb-categories-actions.php:128
+msgid "All pages"
+msgstr "Все страницы"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1471
+#: admin/partials/actions/ays-pb-categories-actions.php:141
+msgid "All pages - The popup will display on all pages."
+msgstr "Все страницы - всплывающее окно будет отображаться на всех страницах."
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:107
+msgid "Allow your students to create personal dictionary, study and memorize the words."
+msgstr "Позвольте своим ученикам создать личный словарь, изучать и запоминать слова."
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:109
+#: admin/partials/features/ays-pb-plugin-featured-display.php:128
+msgid "Allow your users to create their own digital dictionaries and learn new words and terms as fastest as possible."
+msgstr "Позвольте вашим пользователям создавать свои собственные цифровые словари и изучать новые слова и термины как можно быстрее."
+
+#: admin/class-ays-pb-admin.php:336
+msgid "Analytics"
+msgstr "Аналитика"
+
+#: includes/class-ays-pb-integrations.php:506
+msgid "API Access Key"
+msgstr "Ключ Доступа к API"
+
+#: includes/class-ays-pb-integrations.php:492
+msgid "API Access URL"
+msgstr "URL Доступа к API"
+
+#: includes/class-ays-pb-integrations.php:675
+#: includes/class-ays-pb-integrations.php:837
+#: includes/class-ays-pb-integrations.php:953
+msgid "API Key"
+msgstr "API-ключ"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:208
+msgid "Are you sure you want to go to the next popup category page?"
+msgstr "Вы уверены, что хотите перейти на следующую всплывающую страницу категории?"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:198
+msgid "Are you sure you want to go to the previous popup category page?"
+msgstr "Вы уверены, что хотите перейти на предыдущую страницу всплывающей категории?"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:715
+#: admin/partials/actions/ays-pb-admin-actions.php:3985
+msgid "Arial"
+msgstr "Arial"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:716
+msgid "Arial Black"
+msgstr "Arial Black"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2038
+msgid "Autoclose Delay (in seconds)"
+msgstr "Задержка Автозакрытия (в секундах)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4418
+msgid "Background color"
+msgstr "Цвет фона"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4597
+msgid "Background gradient"
+msgstr "Градиент фона"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4447
+msgid "Background Image"
+msgstr "Фоновое изображение"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4498
+msgid "Background image position"
+msgstr "Позиция фонового изображения"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4559
+msgid "Background image sizing"
+msgstr "Размер фонового изображения"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5263
+msgid "Background image style on mobile"
+msgstr "Стиль фонового изображения на мобильном устройстве"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4412
+msgid "Background style"
+msgstr "Стиль фона"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2554
+msgid "Behance link"
+msgstr "Ссылка на Behance"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2555
+msgid "Behance page link for showing at the end of the popup."
+msgstr "Ссылка на страницу Behance для отображения в конце всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:717
+msgid "Book Antique"
+msgstr "Book Antique"
+
+#: public/partials/ays-pb-public-templates.php:1341
+msgid "Bookmarks"
+msgstr "Закладки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4854
+msgid "Border color"
+msgstr "Цвет границы"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4755
+#: admin/partials/actions/ays-pb-admin-actions.php:4791
+msgid "Border style"
+msgstr "Стиль границы"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4761
+msgid "Border Width"
+msgstr "Ширина Границы"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5161
+msgid "Box shadow"
+msgstr "Тень контейнера"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5187
+#: admin/partials/actions/ays-pb-admin-actions.php:5232
+msgid "Box shadow color"
+msgstr "Цвет тени контейнера"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:33
+msgid "Build up various types of polls in a minute and get instant feedback on any topic or product."
+msgstr "Создавайте различные типы опросов за минуту и получайте мгновенные отзывы по любой теме или продукту."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4995
+msgid "Button background color"
+msgstr "Цвет фона кнопки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5058
+msgid "Button border-radius"
+msgstr "Радиус границы кнопки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5008
+msgid "Button font-size"
+msgstr "Размер шрифта кнопки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5037
+msgid "Button padding"
+msgstr "Внутренние отступы кнопки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4957
+msgid "Button size"
+msgstr "Размер кнопки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4913
+msgid "Button Style"
+msgstr "Стиль Кнопки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4981
+msgid "Button text color"
+msgstr "Цвет текста кнопки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5022
+msgid "Button width"
+msgstr "Ширина кнопки"
+
+#: includes/class-ays-pb-integrations.php:330
+msgid "Campaign Monitor"
+msgstr "Мониторинг Кампаний"
+
+#: includes/class-ays-pb-integrations.php:362
+msgid "Campaign Monitor API Key"
+msgstr "API-ключ Мониторинга Кампаний"
+
+#: includes/class-ays-pb-integrations.php:348
+msgid "Campaign Monitor Client ID"
+msgstr "ID Мониторинга Кампаний"
+
+#: includes/class-ays-pb-integrations.php:298
+msgid "Campaign Monitor list"
+msgstr "Список Мониторинга Кампаний"
+
+#: includes/class-ays-pb-integrations.php:272
+msgid "Campaign Monitor Settings"
+msgstr "Настройки Монитора Кампании"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4072
+msgid "Capitalize - Transforms the first character of each word to uppercase."
+msgstr "Capitalize - Переводит первый символ каждого слова в верхний регистр."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2285
+msgid "Categorize your popup selecting from the premade categories."
+msgstr "Разделите всплывающее окно на категории, выбрав одну из готовых категорий."
+
+#: admin/partials/actions/ays-pb-categories-actions.php:77
+msgid "Category name"
+msgstr "Название категории"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2657
+msgid "Change the popup author"
+msgstr "Измените автора всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2636
+msgid "Change the popup creation date"
+msgstr "Изменение даты создания всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2637
+msgid "Change the popup creation date to the preferred date."
+msgstr "Измените дату создания всплывающего окна на предпочтительную дату."
+
+#: admin/partials/settings/popup-box-settings-actions.php:141
+msgid "Changes saved."
+msgstr "Изменения сохранены."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4299
+msgid "Choose the entry effect for the popup opening."
+msgstr "Выберите эффект входа для всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4181
+msgid "Choose the exit effect for the popup closing."
+msgstr "Выберите эффект выхода для закрытия всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4050
+msgid "Choose the horizontal alignment of the text of the popup title."
+msgstr "Выберите горизонтальное выравнивание текста заголовка всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4095
+msgid "Choose the kind of decoration added to text of the popup title."
+msgstr "Выберите вид оформления, добавляемого к тексту заголовка всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1469
+#: admin/partials/actions/ays-pb-categories-actions.php:139
+msgid "Choose the method of calculation."
+msgstr "Выберите способ расчета."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3734
+msgid "Choose the popup text font family."
+msgstr "Выберите семейство шрифтов всплывающего текста."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3977
+msgid "Choose your preferred font family from the suggested variants for the popup title."
+msgstr "Выберите предпочитаемое вами семейство шрифтов из предложенных вариантов заголовка всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4792
+msgid "Choose your preferred style of the border."
+msgstr "Выберите предпочтительный стиль границы."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:809
+msgid "Chrome"
+msgstr "Chrome"
+
+#: admin/class-ays-pb-admin.php:184
+msgid "Clear color"
+msgstr "Очистить цвет"
+
+#: includes/lists/class-ays-pb-list-table.php:121
+msgid "Clear filters"
+msgstr "Очистить фильтры"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5107
+msgid "Close button color"
+msgstr "Цвет кнопки закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5077
+msgid "Close button image"
+msgstr "Изображение кнопки закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1922
+msgid "Close button position"
+msgstr "Положение кнопки закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5143
+msgid "Close button size"
+msgstr "Размер кнопки закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1971
+msgid "Close button text"
+msgstr "Текст кнопки закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2245
+msgid "Close by classname (onclick)"
+msgstr "Закрыть по имени класса (onclick)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1854
+msgid "Close by clicking outside the box"
+msgstr "Закрыть при клике за пределами поля"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1836
+msgid "Close by pressing ESC"
+msgstr "Закройте, нажав ESC"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2039
+msgid "Close the popup after a specified time delay (in seconds). To disable the option leave it blank or set it to 0."
+msgstr "Закрыть всплывающее окно по истечении заданного времени задержки (в секундах). Чтобы отключить параметр, оставьте его пустым или установите для него значение 0."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2210
+msgid "Close the popup on scroll"
+msgstr "Закройте всплывающее окно при прокрутке"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4180
+msgid "Closing animation"
+msgstr "Анимация закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4150
+msgid "Closing animation speed"
+msgstr "Скорость закрытия анимации"
+
+#: admin/partials/settings/popup-box-settings.php:192
+msgid "Closing sound"
+msgstr "Звук закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3847
+#: admin/partials/actions/ays-pb-admin-actions.php:3892
+msgid "Color"
+msgstr "Цвет"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4622
+#: admin/partials/actions/ays-pb-admin-actions.php:4673
+msgid "Color 1"
+msgstr "Цвет 1"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4631
+#: admin/partials/actions/ays-pb-admin-actions.php:4682
+msgid "Color 2"
+msgstr "Цвет 2"
+
+#: admin/class-ays-pb-admin.php:188
+msgid "Color value"
+msgstr "Значение цвета"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3443
+#: admin/partials/actions/ays-pb-admin-actions.php:3451
+msgid "Command prompt"
+msgstr "Командная строка"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6109
+msgid "Contact form"
+msgstr "Контактная форма"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4570
+#: admin/partials/actions/ays-pb-admin-actions.php:4580
+msgid "Contain"
+msgstr "Содержит"
+
+#: includes/class-ays-pb-integrations.php:657
+msgid "ConvertKit"
+msgstr "ConvertKit"
+
+#: includes/class-ays-pb-integrations.php:730
+msgid "ConvertKit List"
+msgstr "Список ConvertKit"
+
+#: includes/class-ays-pb-integrations.php:704
+msgid "ConvertKit Settings"
+msgstr "Настройки ConvertKit"
+
+#: admin/partials/features/popup-box-pro-features-display.php:721
+#: admin/partials/features/popup-box-pro-features-display.php:726
+msgid "Cookie popup"
+msgstr "Всплывающее окно согласия с cookie"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3218
+#: admin/partials/actions/ays-pb-admin-actions.php:3227
+msgid "Coral"
+msgstr "Коралловый"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5758
+msgid "Count"
+msgstr "Счетчик"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6193
+msgid "Countdown"
+msgstr "Обратный отсчет"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6165
+msgid "Coupon"
+msgstr "Купон"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:718
+msgid "Courier New"
+msgstr "Courier New"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4569
+#: admin/partials/actions/ays-pb-admin-actions.php:4579
+msgid "Cover"
+msgstr "Обложка"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:31
+msgid "Create amazing online polls for your WordPress website super easily."
+msgstr "Создавайте удивительные онлайн-опросы для вашего сайта WordPress очень легко."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1384
+msgid "Create fully customized popup content with the help of HTML."
+msgstr "Создавайте полностью настраиваемое содержимое всплывающих окон с помощью HTML."
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:69
+msgid "Create unlimited galleries and include unlimited images in those galleries."
+msgstr "Создавайте неограниченное количество галерей и добавляйте неограниченное количество изображений в эти галереи."
+
+#: admin/partials/ays-pb-admin-display.php:71
+msgid "Create Your First Popup in Under One Minute"
+msgstr "Создайте Свое Первое Всплывающее Окно Менее Чем за Минуту"
+
+#: includes/lists/class-ays-pb-list-table.php:1810
+msgid "Created"
+msgstr "Создано"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:719
+msgid "Cursive"
+msgstr "Cursive"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1039
+#: admin/partials/actions/ays-pb-admin-actions.php:1051
+#: admin/partials/actions/ays-pb-admin-actions.php:1383
+#: admin/partials/actions/ays-pb-admin-actions.php:5961
+#: admin/partials/actions/ays-pb-admin-actions.php:6382
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:29
+#: admin/partials/settings/popup-box-settings.php:435
+#: admin/partials/settings/popup-box-settings.php:441
+#: includes/lists/class-ays-pb-list-table.php:115
+#: includes/lists/class-ays-pb-list-table.php:1646
+#: includes/lists/class-ays-pb-list-table.php:1655
+msgid "Custom Content"
+msgstr "Пользовательский Контент"
+
+#: admin/class-ays-pb-admin.php:352 admin/class-ays-pb-admin.php:353
+#: admin/partials/attributes/actions/ays-pb-attributes-actions.php:3
+msgid "Custom Fields"
+msgstr "Пользовательские Поля"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:872
+msgid "Dashed"
+msgstr "Пунктир"
+
+#: includes/class-ays-pb-data.php:601
+msgid "Days"
+msgstr "Дни"
+
+#: admin/class-ays-pb-admin.php:185
+#: admin/partials/actions/ays-pb-admin-actions.php:3037
+#: admin/partials/actions/ays-pb-admin-actions.php:3045
+#: includes/lists/class-ays-pb-list-table.php:1668
+#: includes/lists/class-ays-pb-list-table.php:1698
+msgid "Default"
+msgstr "По умолчанию"
+
+#: admin/partials/settings/popup-box-settings.php:106
+msgid "Default popup parameters"
+msgstr "Параметры всплывающего окна по умолчанию"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4560
+msgid "Define the background image size if needed."
+msgstr "При необходимости определите размер фонового изображения."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3994
+msgid "Define the boldness of the popup title."
+msgstr "Определите толщину заголовка всплывающего окна."
+
+#: admin/partials/actions/ays-pb-categories-actions.php:78
+msgid "Define the category name."
+msgstr "Определить название категории."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5108
+msgid "Define the close button color."
+msgstr "Определите цвет кнопки закрытия."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5144
+msgid "Define the close button size in pixels."
+msgstr "Определите размер кнопки закрытия в пикселях."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3777
+msgid "Define the font size of the popup description in pixels."
+msgstr "Определите размер шрифта всплывающего описания в пикселях."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4011
+msgid "Define the font size of the popup title in pixels."
+msgstr "Определите размер шрифта заголовка всплывающего окна в пикселях."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4037
+msgid "Define the height of a line of the popup title."
+msgstr "Определите высоту строки заголовка всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5577
+msgid "Define the interval between the popup sessions in minutes. To disable the option, set 0. E.g. set it to 1440 to show the popup once a day to each user."
+msgstr "Определите интервал между сеансами всплывающих окон в минутах. Чтобы отключить эту опцию, установите значение 0. Например, установите его равным 1440, чтобы показывать всплывающее окно раз в день каждому пользователю."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1451
+msgid "Define the pages your popup will be loaded on."
+msgstr "Определите страницы, на которых будет появляться ваше всплывающее окно."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2575
+msgid "Define the period of time when the popup will be active."
+msgstr "Определите период времени, в течение которого всплывающее окно будет активным."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2211
+msgid "Define the scroll length by pixels to close the popup when scrolling."
+msgstr "Определите длину прокрутки в пикселях, чтобы закрыть всплывающее окно при прокрутке."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4024
+msgid "Define the space between characters in a text of the popup title in pixels."
+msgstr "Определите интервал между символами в тексте заголовка всплывающего окна в пикселях."
+
+#: includes/lists/class-ays-pb-list-table.php:1631
+#: includes/lists/class-ays-pb-list-table.php:1844
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:360
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:442
+msgid "Delete"
+msgstr "Удалить"
+
+#: admin/class-ays-pb-admin.php:464
+msgid "Demo"
+msgstr "Демо"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:91
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:409
+msgid "Description"
+msgstr "Описание"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3776
+msgid "Description font size"
+msgstr "Размер шрифта описания"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4648
+#: admin/partials/actions/ays-pb-admin-actions.php:4699
+msgid "Diagonal left to right"
+msgstr "Диагональ слева направо"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4649
+#: admin/partials/actions/ays-pb-admin-actions.php:4700
+msgid "Diagonal right to left"
+msgstr "Диагональ справа налево"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5745
+msgid "Disable by view count"
+msgstr "Отключать по количеству просмотров"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2773
+msgid "Disable popup scrolling"
+msgstr "Отключить прокрутку всплывающих окон"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5746
+msgid "Disable the popup after certain views."
+msgstr "Отключить всплывающее окно после определенных просмотров."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5677
+msgid "Disable the popup on mobile devices."
+msgstr "Отключите всплывающее окно на мобильных устройствах."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5694
+msgid "Disable the popup on pc."
+msgstr "Отключите всплывающее окно на ПК."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5711
+msgid "Disable the popup on tablets."
+msgstr "Отключить всплывающее окно на планшетах."
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:88
+msgid "Disable the right click, copy paste, content selection and copy shortcut keys on your website."
+msgstr "Отключите правый клик, копирование-вставку, выделение содержимого и клавиши быстрого копирования на вашем сайте."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1020
+#: admin/partials/actions/ays-pb-admin-actions.php:1022
+#: includes/class-ays-pb-data.php:627
+#: public/partials/ays-pb-public-templates.php:316
+#: public/partials/ays-pb-public-templates.php:322
+#: public/partials/ays-pb-public-templates.php:619
+#: public/partials/ays-pb-public-templates.php:625
+#: public/partials/ays-pb-public-templates.php:951
+#: public/partials/ays-pb-public-templates.php:957
+#: public/partials/ays-pb-public-templates.php:1305
+#: public/partials/ays-pb-public-templates.php:1311
+#: public/partials/ays-pb-public-templates.php:1641
+#: public/partials/ays-pb-public-templates.php:1647
+#: public/partials/ays-pb-public-templates.php:1972
+#: public/partials/ays-pb-public-templates.php:1978
+#: public/partials/ays-pb-public-templates.php:2282
+#: public/partials/ays-pb-public-templates.php:2288
+#: public/partials/ays-pb-public-templates.php:2605
+#: public/partials/ays-pb-public-templates.php:2611
+#: public/partials/ays-pb-public-templates.php:2932
+#: public/partials/ays-pb-public-templates.php:2938
+#: public/partials/ays-pb-public-templates.php:3258
+#: public/partials/ays-pb-public-templates.php:3264
+msgid "Dismiss ad"
+msgstr "Отклонить объявление"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2732
+#: admin/partials/actions/ays-pb-admin-actions.php:2748
+msgid "Dismiss ad text"
+msgstr "Отклонить текст объявления"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3467
+msgid "Display Content"
+msgstr "Показывать Контент"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5817
+msgid "Display for certain browser"
+msgstr "Отображать для определенного браузера"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5796
+msgid "Display for certain OS"
+msgstr "Отображать для определенных ОС"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5619
+msgid "Display for certain user roles"
+msgstr "Отображение для определенных ролей пользователей"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5658
+msgid "Display for guests"
+msgstr "Отображать для гостей"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5604
+msgid "Display for logged-in users"
+msgstr "Отображать для вошедших в систему пользователей"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5576
+msgid "Display once per session"
+msgstr "Отображение один раз за сеанс"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5546
+msgid "Display popup once per user"
+msgstr "Отображение всплывающего окна один раз для каждого пользователя"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2431
+msgid "Display social media links at the bottom of your popup container."
+msgstr "Отобразите ссылки на социальные сети в нижней части вашего всплывающего контейнера."
+
+#: admin/class-ays-pb-admin.php:299
+msgid "Documentation: "
+msgstr "Документация: "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:871
+msgid "Dotted"
+msgstr "Точки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:873
+msgid "Double"
+msgstr "Двойной"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6249
+msgid "Download"
+msgstr "Загрузить"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:18
+msgid "Edit category"
+msgstr "Редактировать категорию"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:741
+msgid "Edit Video"
+msgstr "Редактировать Видео"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6081
+msgid "Embed( Iframe )"
+msgstr "Встроить (Iframe)"
+
+#: includes/class-ays-pb-integrations.php:422
+msgid "Enable ActiveCampaign"
+msgstr "Включить ActiveCampaign"
+
+#: includes/class-ays-pb-integrations.php:289
+msgid "Enable Campaign Monitor"
+msgstr "Включить Мониторинг Кампании"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2942
+msgid "Enable closing"
+msgstr "Включить закрытие"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2926
+msgid "Enable closing the popup and/or redirecting to the custom URL in case of clicking on any area of the popup container."
+msgstr "Включите закрытие всплывающего окна и / или перенаправление на пользовательский URL-адрес в случае нажатия на любую область всплывающего контейнера."
+
+#: includes/class-ays-pb-integrations.php:721
+msgid "Enable ConvertKit"
+msgstr "Включить ConvertKit"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2716
+msgid "Enable dismiss ad"
+msgstr "Включить отклонить объявление"
+
+#: includes/class-ays-pb-integrations.php:614
+msgid "Enable GetResponse"
+msgstr "Включить GetResponse"
+
+#: includes/class-ays-pb-integrations.php:156
+msgid "Enable MailChimp"
+msgstr "Включить MailChimp"
+
+#: includes/class-ays-pb-integrations.php:893
+msgid "Enable MailerLite"
+msgstr "Включить MailerLite"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1315
+msgid "Enable popup"
+msgstr "Включить всплывающее окно"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2405
+msgid "Enable popup sound"
+msgstr "Включить звук всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2960
+msgid "Enable redirection"
+msgstr "Включить перенаправление"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2961
+msgid "Enable redirection to the custom URL when the user clicks on any area inside the popup."
+msgstr "Включите перенаправление на пользовательский URL, когда пользователь нажимает на любую область внутри всплывающего окна."
+
+#: includes/class-ays-pb-integrations.php:785
+msgid "Enable Sendinblue"
+msgstr "Включить Sendinblue"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2430
+msgid "Enable Social Media links"
+msgstr "Включить Ссылки на Социальные Сети"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3963
+msgid "Enable the option to customize the style of the popup title."
+msgstr "Включите опцию настройки стиля заголовка всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1907
+msgid "Enable this option to close the popup by hovering over the popup container."
+msgstr "Включите эту опцию, чтобы закрыть всплывающее окно, наведя указатель мыши на контейнер всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5660
+msgid "Enable this option to display the popup for guest visitors."
+msgstr "Включите эту опцию, чтобы отображать всплывающее окно для гостевых посетителей."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5606
+msgid "Enable this option to display the popup for logged-in users."
+msgstr "Включите эту опцию, чтобы отобразить всплывающее окно для вошедших в систему пользователей."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3669
+msgid "Enable this option to display the popup on a full screen."
+msgstr "Включите этот параметр, чтобы отобразить всплывающее окно на весь экран."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5547
+msgid "Enable this option to display the popup once per visitor."
+msgstr "Включите эту опцию, чтобы отображать всплывающее окно один раз для каждого посетителя."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2312
+msgid "Enable to show the overlay outside the popup."
+msgstr "Включите отображение наложения вне всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2611
+#: admin/partials/actions/ays-pb-admin-actions.php:2861
+#: admin/partials/actions/ays-pb-admin-actions.php:2884
+msgid "End date:"
+msgstr "Дата окончания:"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1461
+#: admin/partials/actions/ays-pb-categories-actions.php:131
+msgid "Except"
+msgstr "Исключить"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1472
+#: admin/partials/actions/ays-pb-categories-actions.php:142
+msgid "Except - Choose the post/page and post/page types excluding the popup."
+msgstr "Исключить - Выберите типы постов/страниц и постов/страниц, исключающие всплывающее окно."
+
+#: admin/partials/settings/popup-box-settings.php:126
+msgid "Excerpt words count in list tables"
+msgstr "Excerpt words count in list tables"
+
+#: admin/partials/export-import/ays-pb-export-import.php:10
+msgid "Export"
+msgstr "Экспорт"
+
+#: admin/partials/export-import/ays-pb-export-import.php:53
+msgid "Export to JSON"
+msgstr "Экспорт в JSON"
+
+#: admin/class-ays-pb-admin.php:364
+#: admin/partials/features/popup-box-pro-features-display.php:349
+#: admin/partials/features/popup-box-pro-features-display.php:354
+msgid "Export/Import"
+msgstr "Экспорт/Импорт"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2479
+msgid "Facebook link"
+msgstr "Ссылка на Facebook"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2480
+msgid "Facebook profile or page link for showing at the end of the popup."
+msgstr "Ссылка на профиль или страницу Facebook для отображения в конце всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:720
+msgid "Fantasy"
+msgstr "Fantasy"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5291
+msgid "Field for entering your own CSS code."
+msgstr "Поле для ввода собственного кода CSS."
+
+#: public/partials/ays-pb-public-templates.php:1338
+msgid "File"
+msgstr "Файл"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:810
+msgid "Firefox"
+msgstr "Firefox"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3733
+#: admin/partials/actions/ays-pb-admin-actions.php:3976
+msgid "Font family"
+msgstr "Семейство шрифтов"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4010
+msgid "Font size(px)"
+msgstr "Размер шрифта (px)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3251
+#: admin/partials/actions/ays-pb-admin-actions.php:3260
+msgid "Food"
+msgstr "Еда"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3528
+#: admin/partials/actions/ays-pb-admin-actions.php:3557
+#: admin/partials/actions/ays-pb-admin-actions.php:3581
+msgid "For 100% leave blank"
+msgstr "Для 100% оставить пустым"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5030
+msgid "For an initial width, leave the field blank."
+msgstr "Для начальной ширины оставьте поле пустым."
+
+#: admin/class-ays-pb-admin.php:294
+msgid "For more information:"
+msgstr "Дополнительная информация:"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3267
+#: admin/partials/actions/ays-pb-admin-actions.php:3276
+msgid "Forest"
+msgstr "Лес"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3235
+#: admin/partials/actions/ays-pb-admin-actions.php:3244
+msgid "Frozen"
+msgstr "Замороженный"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3668
+msgid "Full-screen mode"
+msgstr "Полноэкранный режим"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:68
+msgid "Gallery Photo Gallery"
+msgstr "Gallery Photo Gallery"
+
+#: admin/class-ays-pb-admin.php:284
+msgid ""
+"General Information:\n"
+"                    "
+msgstr ""
+"Общая Информация:\n"
+"                    "
+
+#: admin/class-ays-pb-admin.php:394 admin/class-ays-pb-admin.php:395
+#: admin/partials/actions/ays-pb-admin-actions.php:1309
+#: admin/partials/actions/ays-pb-admin-actions.php:2418
+#: admin/partials/actions/ays-pb-admin-actions.php:2420
+#: admin/partials/settings/popup-box-settings.php:100
+msgid "General Settings"
+msgstr "Общие Настройки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:721
+msgid "Georgia"
+msgstr "Georgia"
+
+#: includes/class-ays-pb-integrations.php:548
+msgid "GetResponse"
+msgstr "GetResponse"
+
+#: includes/class-ays-pb-integrations.php:566
+msgid "GetResponse API Key"
+msgstr "Ключ API GetResponse"
+
+#: includes/class-ays-pb-integrations.php:623
+msgid "GetResponse List"
+msgstr "Список GetResponse"
+
+#: includes/class-ays-pb-integrations.php:598
+msgid "GetResponse Settings"
+msgstr "Настройки GetResponse"
+
+#: admin/partials/settings/popup-box-settings.php:112
+msgid "Give the default height value to the WP Editor. It will apply to all WP Editors within the plugin on the dashboard."
+msgstr "Задайте редактору WP значение высоты по умолчанию. Это будет применяться ко всем редакторам WP в плагине на панели инструментов."
+
+#: public/partials/ays-pb-public-templates.php:1340
+msgid "Go"
+msgstr "Перейти"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6333
+msgid "Google Map"
+msgstr "Google Map"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4640
+#: admin/partials/actions/ays-pb-admin-actions.php:4691
+msgid "Gradient direction"
+msgstr "Направление градиента"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:874
+msgid "Groove"
+msgstr "Канавка"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4713
+msgid "Header background color"
+msgstr "Цвет фона заголовка"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2445
+msgid "Heading for share buttons"
+msgstr "Заголовок для кнопок поделиться"
+
+#: public/partials/ays-pb-public-templates.php:1343
+msgid "Help"
+msgstr "Помощь"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:722
+msgid "Helvetia"
+msgstr "Helvetia"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1890
+msgid "Hide close button"
+msgstr "Скрыть кнопку закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5675
+msgid "Hide popup on mobile"
+msgstr "Скрыть всплывающее окно на мобильном устройстве"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5692
+msgid "Hide popup on PC"
+msgstr "Скрыть всплывающее окно на ПК"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5709
+msgid "Hide popup on tablets"
+msgstr "Скрыть всплывающее окно на планшетах"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2089
+msgid "Hide the timer when the Autoclose Delay option is enabled."
+msgstr "Скрыть таймер, если включена опция Задержка Автозакрытия."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2087
+msgid "Hide timer"
+msgstr "Скрыть таймер"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4647
+#: admin/partials/actions/ays-pb-admin-actions.php:4698
+msgid "Horizontal"
+msgstr "Горизонтально"
+
+#: includes/lists/class-ays-pb-list-table.php:1812
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:412
+msgid "ID"
+msgstr "ID"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1553
+msgid "If the checkbox is ticked, then the popup will be loaded on the Home page too, in addition to the values given above."
+msgstr "Если флажок установлен, то всплывающее окно также будет загружено на главную страницу в дополнение к указанным выше значениям."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1855
+msgid "If the option is enabled, the user can close the popup by clicking outside the box.  Notice: This option works only if the “Enable Overlay”option is ticked."
+msgstr "Если эта опция включена, пользователь может закрыть всплывающее окно, кликнув вне поля.  Обратите внимание: Эта опция работает только в том случае, если установлен флажок “Включить Наложение”."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1837
+msgid "If the option is enabled, the user can close the popup by pressing the ESC button from the keyboard."
+msgstr "Если опция включена, пользователь может закрыть всплывающее окно, нажав кнопку ESC на клавиатуре."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2943
+msgid "If the option is enabled, then the popup will be closed if the user clicks on any area inside it."
+msgstr "Если опция включена, то всплывающее окно будет закрыто, если пользователь нажмет на любую область внутри него."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2985
+msgid "If the option is enabled, then the system will redirect the URL in a separate new tab."
+msgstr "Если опция включена, то система перенаправит URL-адрес на отдельную новую вкладку."
+
+#: admin/partials/actions/ays-pb-categories-actions.php:117
+msgid "If this option is enabled a random popup will be displayed from the selected category based on the chosen post."
+msgstr "Если эта опция включена, будет отображаться случайное всплывающее окно из выбранной категории на основе выбранного сообщения."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1341
+msgid "If this option is enabled only the author of the popup will be able to see it."
+msgstr "Если эта опция включена, ее сможет видеть только автор всплывающего окна."
+
+#: includes/lists/class-ays-pb-list-table.php:1805
+msgid "Image"
+msgstr "Изображение"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:723
+msgid "Impact"
+msgstr "Impact"
+
+#: admin/partials/export-import/ays-pb-export-import.php:11
+msgid "Import"
+msgstr "Импорт"
+
+#: admin/partials/export-import/ays-pb-export-import.php:87
+msgid "Import file"
+msgstr "Импортировать файл"
+
+#: admin/partials/export-import/ays-pb-export-import.php:88
+msgid "Import now"
+msgstr "Импортировать сейчас"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1464
+#: admin/partials/actions/ays-pb-categories-actions.php:134
+msgid "Include"
+msgstr "Включить"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1473
+#: admin/partials/actions/ays-pb-categories-actions.php:143
+msgid "Include - Choose the post/page and post/page types including the popup."
+msgstr "Включить - Выберите типы постов/страниц и постов/страниц, включающие всплывающее окно."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:876
+msgid "Inset"
+msgstr "Вставка"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2539
+msgid "Instagram link"
+msgstr "Ссылка на Instagram"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2540
+msgid "Instagram page link for showing at the end of the popup."
+msgstr "Ссылка на страницу Instagram для показа в конце всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1303
+#: admin/partials/actions/ays-pb-admin-actions.php:5882
+#: admin/partials/settings/popup-box-settings.php:87
+#: admin/partials/settings/popup-box-settings.php:255
+msgid "Integrations"
+msgstr "Интеграции"
+
+#: admin/partials/settings/popup-box-settings.php:358
+msgid "It will show the current author of the particular popup."
+msgstr "Он покажет текущего автора конкретного всплывающего окна."
+
+#: includes/class-ays-pb-integrations.php:436
+#: includes/class-ays-pb-integrations.php:448
+msgid "Just create contact"
+msgstr "Просто создайте контакт"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4972
+msgid "Large"
+msgstr "Большой"
+
+#: admin/partials/attributes/actions/ays-pb-attributes-actions.php:6
+msgid "Learn How to Use Custom Fields in Popup Box"
+msgstr "Узнайте, Как Использовать Пользовательские Поля во Всплывающем Окне"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:52
+msgid "Learn what your website visitors want, need, and expect with the help of Survey Maker. Build surveys without limiting your needs."
+msgstr "Узнайте, чего хотят, в чем нуждаются и чего ожидают посетители вашего сайта, с помощью Создателя Опроса. Создавайте опросы, не ограничивая свои потребности."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5045
+msgid "Left / Right"
+msgstr "Влево / Вправо"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1939
+#: admin/partials/actions/ays-pb-admin-actions.php:1952
+msgid "Left Bottom"
+msgstr "Слева Снизу"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1938
+#: admin/partials/actions/ays-pb-admin-actions.php:1951
+msgid "Left Top"
+msgstr "Слева Верху"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4023
+msgid "Letter spacing(px)"
+msgstr "Расстояние между буквами (px)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5859
+#: admin/partials/features/popup-box-pro-features-display.php:491
+#: admin/partials/features/popup-box-pro-features-display.php:496
+msgid "Limit by country"
+msgstr "Ограничение по стране"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5540
+msgid "Limitation of Users"
+msgstr "Ограничение Пользователей"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1302
+msgid "Limitation Users"
+msgstr "Ограничение Пользователей"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:804
+msgid "Linux"
+msgstr "Linux"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:724
+msgid "Lusida Console"
+msgstr "Lusida Console"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:803
+msgid "Mac OS X"
+msgstr "Mac OS X"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3337
+msgid "MacOS window"
+msgstr "Окно MacOS"
+
+#: includes/class-ays-pb-integrations.php:199
+msgid "MailChimp"
+msgstr "MailChimp"
+
+#: includes/class-ays-pb-integrations.php:231
+msgid "MailChimp API Key"
+msgstr "API-ключ MailChimp"
+
+#: includes/class-ays-pb-integrations.php:166
+msgid "MailChimp list"
+msgstr "Список MailChimp"
+
+#: includes/class-ays-pb-integrations.php:138
+msgid "MailChimp Settings"
+msgstr "Настройки MailChimp"
+
+#: includes/class-ays-pb-integrations.php:217
+msgid "MailChimp Username"
+msgstr "Имя Пользователя MailChimp"
+
+#: includes/class-ays-pb-integrations.php:935
+msgid "MailerLite"
+msgstr "MailerLite"
+
+#: includes/class-ays-pb-integrations.php:876
+msgid "MailerLite Settings"
+msgstr "Настройки MailerLite"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:50
+msgid "Make amazing online surveys and get real-time feedback quickly and easily."
+msgstr "Проводите удивительные онлайн-опросы и получайте отзывы в режиме реального времени быстро и легко."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3572
+msgid "Max-width for mobile"
+msgstr "Макс ширина для мобильных устройств"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4969
+msgid "Medium"
+msgstr "Средний"
+
+#: admin/partials/settings/popup-box-settings.php:94
+#: admin/partials/settings/popup-box-settings.php:433
+msgid "Message variables"
+msgstr "Переменные сообщений"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3116
+#: admin/partials/actions/ays-pb-admin-actions.php:3124
+#: includes/lists/class-ays-pb-list-table.php:1677
+msgid "Minimal"
+msgstr "Минимальный"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3090
+#: admin/partials/actions/ays-pb-admin-actions.php:3098
+#: includes/lists/class-ays-pb-list-table.php:1674
+msgid "Modern"
+msgstr "Модерн"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:211
+msgid "Next Popup Category"
+msgstr "Следующая Категория Всплывающего Окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1328
+msgid "OFF"
+msgstr "ВЫКЛ"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1327
+msgid "ON"
+msgstr "ВКЛ"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3548
+#: admin/partials/actions/ays-pb-admin-actions.php:3625
+#: admin/partials/actions/ays-pb-admin-actions.php:3801
+msgid "On mobile"
+msgstr "На мобильном"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5264
+msgid "On mobile mode the background image will change it style and it will be displayed at the top of the text. Note: It will work only for the Sale template."
+msgstr "В мобильном режиме фоновое изображение изменит свой стиль и будет отображаться в верхней части текста. Примечание. Это будет работать только для шаблона Распродажа."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3519
+#: admin/partials/actions/ays-pb-admin-actions.php:3604
+#: admin/partials/actions/ays-pb-admin-actions.php:3786
+#: admin/partials/actions/ays-pb-admin-actions.php:3833
+#: admin/partials/actions/ays-pb-admin-actions.php:4608
+#: admin/partials/actions/ays-pb-admin-actions.php:5172
+msgid "On PC"
+msgstr "На ПК"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1581
+#: admin/partials/actions/ays-pb-admin-actions.php:1594
+msgid "Onload"
+msgstr "Загрузка"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1780
+msgid "Open by Scrolling Down"
+msgstr "Открыть при прокрутке вниз"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2984
+msgid "Open in new tab"
+msgstr "Открыть в новой вкладке"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4114
+msgid "Opening and Closing effects"
+msgstr "Эффекты Открытия и Закрытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4298
+msgid "Opening animation"
+msgstr "Начальная анимация"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4120
+msgid "Opening animation speed"
+msgstr "Скорость анимации открытия"
+
+#: admin/partials/settings/popup-box-settings.php:177
+msgid "Opening sound"
+msgstr "Звук открытия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:812
+msgid "Opera"
+msgstr "Opera"
+
+#: admin/class-ays-pb-admin.php:418 admin/class-ays-pb-admin.php:419
+msgid "Our Products"
+msgstr "Наши Товары"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:877
+msgid "Outset"
+msgstr "Отступ"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4729
+msgid "Overlay color"
+msgstr "Цвет наложения"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5038
+msgid "Padding of buttons."
+msgstr "Внутренние отступы кнопок."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2418
+#: admin/partials/actions/ays-pb-admin-actions.php:2420
+msgid "page"
+msgstr "страница"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:725
+msgid "Palatino Linotype"
+msgstr "Palatino Linotype"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3186
+msgid "Peachy"
+msgstr "Персиковый"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:106
+msgid "Personal Dictionary"
+msgstr "Personal Dictionary"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:3
+msgid "Please feel free to use our other awesome plugins!"
+msgstr "Пожалуйста, не стесняйтесь использовать другие наши замечательные плагины!"
+
+#: admin/class-ays-pb-admin.php:173
+msgid "Please select more"
+msgstr "Пожалуйста, выберите еще"
+
+#: admin/partials/export-import/ays-pb-export-import.php:83
+msgid "Please upload the popup file in a .json format here."
+msgstr "Пожалуйста, загрузите файл всплывающего окна в формате .json здесь."
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:30
+msgid "Poll Maker"
+msgstr "Poll Maker"
+
+#. Plugin Name of the plugin
+#: admin/class-ays-pb-admin.php:250 admin/class-ays-pb-admin.php:251
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:15
+msgid "Popup Box"
+msgstr "Всплывающее Окно"
+
+#: admin/class-ays-pb-admin.php:302
+msgid "Popup Box plugin Premium version:"
+msgstr "Плагин Popup Box Премиум-версия:"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5059
+msgid "Popup buttons border-radius in pixels. It accepts only numeric values."
+msgstr "Граница всплывающих кнопок - радиус в пикселях. Принимает только числовые значения."
+
+#: admin/partials/settings/popup-box-settings.php:390
+msgid "Popup categories"
+msgstr "Категории всплывающих окон"
+
+#: admin/partials/settings/popup-box-settings.php:145
+msgid "Popup categories list table"
+msgstr "Таблица списка категорий всплывающих окон"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2284
+msgid "Popup category"
+msgstr "Категория всплывающих окон"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:555
+msgid "Popup category created."
+msgstr "Создана категория всплывающего окна."
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:559
+msgid "Popup category deleted."
+msgstr "Категория всплывающего окна удалена."
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:557
+msgid "Popup category saved."
+msgstr "Категория всплывающего окна сохранена."
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:561
+msgid "Popup category(s) published."
+msgstr "Опубликована категория(и) всплывающих окон."
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:563
+msgid "Popup category(s) unpublished."
+msgstr "Категория(и) всплывающих окон не опубликована."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1830
+msgid "Popup Closing"
+msgstr "Закрытие Всплывающего Окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1429
+msgid "Popup description"
+msgstr "Описание всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3502
+msgid "Popup Dimensions"
+msgstr "Размеры Всплывающего Окна"
+
+#: admin/class-ays-pb-admin.php:287
+msgid "Popup Information"
+msgstr "Информация о Всплывающем Окне"
+
+#: admin/partials/settings/popup-box-settings.php:131
+msgid "Popup list table"
+msgstr "Таблица всплывающего списка"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1705
+msgid "Popup margin(px)"
+msgstr "Margin(px) всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3648
+msgid "Popup min-height"
+msgstr "Мин высота всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2270
+msgid "Popup name"
+msgstr "Название всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1718
+msgid "Popup opening"
+msgstr "Открытие всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1642
+msgid "Popup position"
+msgstr "Позиция всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3004
+msgid "Popup Styles"
+msgstr "Стили Всплывающих Окон"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1355
+msgid "Popup title"
+msgstr "Заголовок всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1576
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:34
+msgid "Popup trigger"
+msgstr "Триггер всплывающего окна"
+
+#: admin/class-ays-pb-admin.php:563
+#: includes/lists/class-ays-pb-list-table.php:11
+msgid "PopupBox"
+msgstr "PopupBox"
+
+#: admin/partials/settings/popup-box-settings-actions.php:145
+msgid "PopupBox attribute deleted."
+msgstr "Атрибут PopupBox удален."
+
+#: includes/lists/class-ays-pb-list-table.php:1963
+msgid "PopupBox created."
+msgstr "PopupBox создан."
+
+#: includes/lists/class-ays-pb-list-table.php:1967
+msgid "PopupBox deleted."
+msgstr "PopupBox удален."
+
+#: includes/lists/class-ays-pb-list-table.php:1969
+msgid "PopupBox duplicated."
+msgstr "PopupBox дублируется."
+
+#: includes/lists/class-ays-pb-list-table.php:1971
+msgid "PopupBox published."
+msgstr "PopupBox опубликован."
+
+#: includes/lists/class-ays-pb-list-table.php:1965
+msgid "PopupBox saved."
+msgstr "PopupBox сохранен."
+
+#: includes/lists/class-ays-pb-list-table.php:1973
+msgid "PopupBox unpublished."
+msgstr "PopupBox не опубликован."
+
+#: admin/class-ays-pb-admin.php:263 admin/class-ays-pb-admin.php:264
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:23
+msgid "Popups"
+msgstr "Всплывающие окна"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:410
+msgid "Popups Count"
+msgstr "Счетчик Всплывающих Окон"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:201
+msgid "Previous Popup Category"
+msgstr "Предыдущая Категория Всплывающего Окна"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:90
+msgid "Protect web content from being plagiarized. Prevent plagiarism from your website with this easy to use plugin."
+msgstr "Защитите веб-контент от плагиата. Предотвратите плагиат с вашего сайта с помощью этого простого в использовании плагина."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2973
+msgid "Provide the redirection URL."
+msgstr "Укажите URL-адрес перенаправления."
+
+#: admin/partials/actions/ays-pb-categories-actions.php:167
+#: includes/lists/class-ays-pb-list-table.php:150
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:44
+msgid "Published"
+msgstr "Опубликовано"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3533
+#: admin/partials/actions/ays-pb-admin-actions.php:3699
+msgid "px"
+msgstr "px"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:11
+msgid "Quiz Maker"
+msgstr "Quiz Maker"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3063
+#: admin/partials/actions/ays-pb-admin-actions.php:3072
+#: includes/lists/class-ays-pb-list-table.php:1671
+msgid "Red"
+msgstr "Красный"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2972
+msgid "Redirection URL"
+msgstr "URL-адрес перенаправления"
+
+#: admin/partials/reports/ays-pb-reports-display.php:11
+msgid "Reports"
+msgstr "Отчеты"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:71
+msgid "Represent images in an attractive way. Attract people with your own single and multiple free galleries from your photo library."
+msgstr "Представляйте изображения в привлекательном виде. Привлекайте людей с помощью собственных одиночных и многочисленных бесплатных галерей из вашей фото библиотеки."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:875
+msgid "Ridge"
+msgstr "Ребристый"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1940
+#: admin/partials/actions/ays-pb-admin-actions.php:1953
+msgid "Right Bottom"
+msgstr "Справа Внизу"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1937
+#: admin/partials/actions/ays-pb-admin-actions.php:1950
+msgid "Right Top"
+msgstr "Справа Вверху"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:811
+msgid "Safari"
+msgstr "Safari"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3142
+#: admin/partials/actions/ays-pb-admin-actions.php:3150
+#: admin/partials/actions/ays-pb-admin-actions.php:3195
+#: admin/partials/actions/ays-pb-admin-actions.php:3211
+#: includes/class-ays-pb-data.php:588
+#: includes/lists/class-ays-pb-list-table.php:1680
+msgid "Sale"
+msgstr "Распродажа"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1240
+#: admin/partials/actions/ays-pb-admin-actions.php:5908
+#: admin/partials/actions/ays-pb-categories-actions.php:189
+msgid "Save"
+msgstr "Сохранить"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1239
+#: admin/partials/actions/ays-pb-admin-actions.php:5907
+#: admin/partials/actions/ays-pb-categories-actions.php:188
+msgid "Save and close"
+msgstr "Сохранить и закрыть"
+
+#: admin/partials/settings/popup-box-settings.php:561
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2573
+msgid "Schedule the popup"
+msgstr "Запланируйте всплывающее окно"
+
+#: admin/partials/ays-pb-admin-display.php:55
+msgid "Search"
+msgstr "Поиск"
+
+#: includes/class-ays-pb-data.php:604
+msgid "Seconds"
+msgstr "Секунд"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:759
+#: admin/partials/actions/ays-pb-admin-actions.php:761
+#: admin/partials/actions/ays-pb-admin-actions.php:5527
+msgid "seconds"
+msgstr "секунд"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:87
+msgid "Secure Copy Content Protection"
+msgstr "Secure Copy Content Protection"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:140
+msgid "See All Plugins"
+msgstr "Посмотреть Все Плагины"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5314
+msgid "See PopupBox in live preview"
+msgstr "Посмотрите PopupBox в режиме реального просмотра"
+
+#: admin/class-ays-pb-admin.php:187
+msgid "Select Color"
+msgstr "Выбрать Цвет"
+
+#: admin/class-ays-pb-admin.php:186
+msgid "Select default color"
+msgstr "Выбрать цвет по умолчанию"
+
+#: includes/class-ays-pb-integrations.php:302
+#: includes/class-ays-pb-integrations.php:435
+#: includes/class-ays-pb-integrations.php:447
+msgid "Select List"
+msgstr "Выбрать Список"
+
+#: includes/class-ays-pb-integrations.php:170
+msgid "Select list"
+msgstr "Список выбора"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1486
+msgid "Select post types."
+msgstr "Выберите типы постов."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1511
+msgid "Select posts."
+msgstr "Выберите посты."
+
+#: admin/partials/settings/popup-box-settings.php:180
+#: admin/partials/settings/popup-box-settings.php:195
+msgid "Select sound"
+msgstr "Выберите звук"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4499
+msgid "Select the position of the background image of the popup."
+msgstr "Выберите положение фонового изображения всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2665
+msgid "Select User"
+msgstr "Выбрать Пользователя"
+
+#: admin/partials/settings/popup-box-settings.php:234
+msgid "Select user role"
+msgstr "Выберите роль пользователя"
+
+#: admin/partials/settings/popup-box-settings.php:235
+msgid "Select user roles allowed to see the plugin on their WP dashboard and make changes in the plugins settings."
+msgstr "Выберите роли пользователей, которым разрешено видеть плагин на их панели управления WP, и внесите изменения в настройки плагинов."
+
+#: admin/partials/actions/ays-pb-categories-actions.php:158
+msgid "Select whether or not to display the new category in the settings."
+msgstr "Выберите, отображать или нет новую категорию в настройках."
+
+#: includes/class-ays-pb-integrations.php:819
+msgid "Sendinblue"
+msgstr "Sendinblue"
+
+#: includes/class-ays-pb-integrations.php:768
+msgid "Sendinblue Settings"
+msgstr "Настройки Sendinblue"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5798
+msgid "Set on which operating systems your popup will be displayed."
+msgstr "Установите, в каких операционных системах будет отображаться ваше всплывающее окно."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5023
+msgid "Set the button width in pixels. For an initial width, leave the field blank."
+msgstr "Установите ширину кнопки в пикселях. Для начальной ширины оставьте поле пустым."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1043
+#: admin/partials/actions/ays-pb-admin-actions.php:5988
+#: admin/partials/actions/ays-pb-admin-actions.php:6367
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:28
+#: admin/partials/settings/popup-box-settings.php:397
+#: admin/partials/settings/popup-box-settings.php:415
+#: includes/lists/class-ays-pb-list-table.php:116
+#: includes/lists/class-ays-pb-list-table.php:1649
+msgid "Shortcode"
+msgstr "Шорткод"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1369
+msgid "Shortcode "
+msgstr "Шорткод "
+
+#: admin/partials/settings/popup-box-settings.php:91
+#: admin/partials/settings/popup-box-settings.php:265
+msgid "Shortcodes"
+msgstr "Шорткоды"
+
+#: admin/partials/settings/popup-box-settings.php:357
+msgid "Show current popup author"
+msgstr "Показать текущего автора всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3480
+#: admin/partials/actions/ays-pb-admin-actions.php:3490
+msgid "Show description"
+msgstr "Показать описание"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1552
+msgid "Show on Home page"
+msgstr "Показать на Главной странице"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:116
+msgid "Show random popup by category"
+msgstr "Показывать случайные всплывающие окна по категориям"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5621
+msgid "Show the popup only to certain user role(s) mentioned in the list. Leave it blank for showing the popup to all user roles."
+msgstr "Показывать всплывающее окно только определенной роли пользователя (ролям), указанным в списке. Оставьте этот параметр пустым, чтобы показать всплывающее окно всем ролям пользователей."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5819
+#: admin/partials/actions/ays-pb-admin-actions.php:5861
+msgid "Show the popup only to visitors using certain browser(s) mentioned in the list. Leave it blank for showing the popup to all browsers users."
+msgstr "Показывать всплывающее окно только посетителям, использующим определенные браузеры, указанные в списке. Оставьте его пустым, чтобы показать всплывающее окно всем пользователям браузеров."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3477
+#: admin/partials/actions/ays-pb-admin-actions.php:3487
+msgid "Show title"
+msgstr "Показывать заголовок"
+
+#: admin/partials/settings/popup-box-settings.php:372
+msgid "Show user roles"
+msgstr "Показывать роли пользователей"
+
+#: admin/partials/settings/popup-box-settings.php:310
+msgid "Shows the logged-in user's Display name. If the user is not logged-in, the shortcode will be empty."
+msgstr "Показывает отображаемое имя пользователя, вошедшего в систему. Если пользователь не вошел в систему, шорткод будет пустым."
+
+#: admin/partials/settings/popup-box-settings.php:342
+msgid "Shows the logged-in user's email. If the user is not logged-in, the shortcode will be empty."
+msgstr "Показывает электронную почту вошедшего в систему пользователя. Если пользователь не вошел в систему, шорткод будет пустым."
+
+#: admin/partials/settings/popup-box-settings.php:279
+msgid "Shows the logged-in user's First Name. If the user is not logged-in, the shortcode will be empty."
+msgstr "Показывает Имя пользователя, вошедшего в систему. Если пользователь не вошел в систему, шорткод будет пустым."
+
+#: admin/partials/settings/popup-box-settings.php:294
+msgid "Shows the logged-in user's Last Name. If the user is not logged-in, the shortcode will be empty."
+msgstr "Показывает фамилию вошедшего в систему пользователя. Если пользователь не вошел в систему, шорткод будет пустым."
+
+#: admin/partials/settings/popup-box-settings.php:326
+msgid "Shows the logged-in user's nickname. If the user is not logged-in, the shortcode will be empty."
+msgstr "Показывает псевдоним вошедшего в систему пользователя. Если пользователь не вошел в систему, шорткод будет пустым."
+
+#: admin/partials/settings/popup-box-settings.php:373
+msgid "Shows the logged-in user's role(s). If the user is not logged-in, the shortcode will be empty."
+msgstr "Показывает роль (роли) вошедшего в систему пользователя. Если пользователь не вошел в систему, шорткод будет пустым."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4966
+msgid "Small"
+msgstr "Маленький"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2420
+msgid "Sounds are not selected. For selecting sounds go to"
+msgstr "Звуки не выбраны. Для выбора звуков перейдите к"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2418
+msgid "Sounds are selected. For change sounds go to"
+msgstr "Звуки выбраны. Для изменения звуков перейдите в раздел"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3848
+#: admin/partials/actions/ays-pb-admin-actions.php:3893
+msgid "Specify text shadow color."
+msgstr "Укажите цвет тени текста."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4996
+msgid "Specify the backgound color of buttons inside the popup."
+msgstr "Укажите цвет фона кнопок внутри всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4419
+msgid "Specify the background color of the popup."
+msgstr "Укажите цвет фона всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4855
+msgid "Specify the border color of the popup."
+msgstr "Укажите цвет границы всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4762
+msgid "Specify the border size of the popup in pixels."
+msgstr "Укажите размер границы всплывающего окна в пикселях."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5759
+msgid "Specify the count of views."
+msgstr "Укажите количество просмотров."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4151
+msgid "Specify the ending animation speed of the popup in seconds."
+msgstr "Укажите скорость анимации при завершении всплывающего окна в секундах."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4121
+msgid "Specify the entry effect speed of the popup in seconds."
+msgstr "Укажите скорость ввода эффекта всплывающего окна в секундах."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3573
+msgid "Specify the max-width of the popup for mobile in percentage. Note: This option works for screens with less than 768 pixels width."
+msgstr "Укажите максимальную ширину всплывающего окна для мобильных устройств в процентах. Примечание: Этот параметр работает для экранов с шириной менее 768 пикселей."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4730
+msgid "Specify the overlay color."
+msgstr "Укажите цвет наложения."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1706
+msgid "Specify the popup margin in pixels. It accepts only numerical values."
+msgstr "Укажите значение margin всплывающего окна в пикселях. Принимает только числовые значения."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1643
+msgid "Specify the position of the popup on the screen. "
+msgstr "Укажите положение всплывающего окна на экране. "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4887
+msgid "Specify the radius of the border. Allows adding rounded corners to the popup. "
+msgstr "Укажите радиус границы. Позволяет добавить закругленные углы к всплывающему окну. "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4982
+msgid "Specify the text color of buttons inside the popup."
+msgstr "Укажите цвет текста кнопок внутри всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3717
+msgid "Specify the text color written inside the popup."
+msgstr "Укажите цвет текста, написанного внутри всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2592
+#: admin/partials/actions/ays-pb-admin-actions.php:2852
+#: admin/partials/actions/ays-pb-admin-actions.php:2875
+msgid "Start date:"
+msgstr "Start date:"
+
+#: admin/partials/reports/ays-pb-reports-display.php:12
+msgid "Statistics"
+msgstr "Статистика"
+
+#: includes/lists/class-ays-pb-list-table.php:1807
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:411
+msgid "Status"
+msgstr "Статус"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1301
+#: admin/partials/features/popup-box-pro-features-display.php:194
+#: admin/partials/features/popup-box-pro-features-display.php:199
+msgid "Styles"
+msgstr "Стили"
+
+#: admin/class-ays-pb-admin.php:378
+msgid "Submissions"
+msgstr "Допуски"
+
+#: admin/partials/subscribes/ays-pb-subscribes-display.php:11
+msgid "Subscribers"
+msgstr "Подписчики"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6023
+msgid "Subscription"
+msgstr "Подписка"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:49
+msgid "Survey Maker"
+msgstr "Survey Maker"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:726
+msgid "Tahoma"
+msgstr "Tahoma"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4049
+msgid "Text alignment"
+msgstr "Выравнивание текста"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3716
+msgid "Text color"
+msgstr "Цвет текста"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2446
+msgid "Text that will be displayed over share buttons."
+msgstr "Текст, который будет отображаться поверх кнопок поделиться."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4066
+msgid "Text transform"
+msgstr "Преобразование текста"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5188
+#: admin/partials/actions/ays-pb-admin-actions.php:5233
+msgid "The color of the shadow of the popup container"
+msgstr "Цвет тени всплывающего контейнера"
+
+#: admin/partials/settings/popup-box-settings.php:533
+msgid "The creation date of the popup."
+msgstr "Дата создания всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4958
+msgid "The default sizes of buttons."
+msgstr "Размеры кнопок по умолчанию."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4641
+#: admin/partials/actions/ays-pb-admin-actions.php:4692
+msgid "The direction of the color gradient"
+msgstr "Направление цветового градиента"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5009
+msgid "The font size of the buttons in pixels in the popup. It accepts only numeric values."
+msgstr "Размер шрифта кнопок во всплывающем окне в пикселях. Принимает только числовые значения."
+
+#: admin/partials/settings/popup-box-settings.php:452
+msgid "The title of the popup"
+msgstr "Заголовок всплывающего окна"
+
+#: admin/partials/settings/popup-box-settings.php:461
+msgid "The user's display name that was filled in their WordPress site during registration."
+msgstr "Отображаемое имя пользователя, которое было указано на его сайте WordPress во время регистрации."
+
+#: admin/partials/settings/popup-box-settings.php:470
+msgid "The user's email that was filled in their WordPress site during registration."
+msgstr "Электронный адрес пользователя, который был заполнен на сайте WordPress при регистрации."
+
+#: admin/partials/settings/popup-box-settings.php:479
+msgid "The user's first name that was filled in their WordPress site during registration."
+msgstr "Имя пользователя, которое было введено на его сайте WordPress при регистрации."
+
+#: admin/partials/settings/popup-box-settings.php:488
+msgid "The user's last name that was filled in their WordPress site during registration."
+msgstr "Фамилия пользователя, которая была введена на его сайте WordPress при регистрации."
+
+#: admin/partials/settings/popup-box-settings.php:524
+msgid "The user's nickname that was filled in their WordPress profile."
+msgstr "Ник пользователя, который был указан в его профиле WordPress."
+
+#: admin/partials/settings/popup-box-settings.php:515
+msgid "The user's role(s) when logged-in. In case the user is not logged-in, the field will be empty."
+msgstr "Роль(и) пользователя при входе в систему. Если пользователь не вошел в систему, поле будет пустым."
+
+#: admin/class-ays-pb-admin.php:289
+msgid "The WordPress Popup plugin will help you to create engaging popups with fully customizable and responsive designs. Attract your audience and convert them into email subscribers or paying customers.  Construct advertising offers, generate more leads by creating option forms and subscription popups."
+msgstr "Плагин WordPress Popup поможет вам создавать привлекательные всплывающие окна с полностью настраиваемым и адаптивным дизайном. Привлекайте свою аудиторию и превращайте ее в подписчиков электронной почты или платящих клиентов. Создавайте рекламные предложения, привлекайте больше потенциальных клиентов, создавая формы опций и всплывающие окна подписки."
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:293
+msgid "There are no popup categories yet."
+msgstr "Пока нет ни одной категории всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3825
+msgid "This option is not available currently as the Show title Option is disable."
+msgstr "В настоящее время эта опция недоступна, так как опция Показывать заголовок отключена."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:759
+#: admin/partials/actions/ays-pb-admin-actions.php:761
+msgid "This will close in"
+msgstr "Он будет закрыт в"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5527
+#: public/partials/ays-pb-public-templates.php:3728
+#: public/partials/ays-pb-public-templates.php:3730
+#: public/partials/ays-pb-public-templates.php:3732
+msgid "This will close in "
+msgstr "Он будет закрыт в "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:727
+msgid "Times New Roman"
+msgstr "Times New Roman"
+
+#: includes/lists/class-ays-pb-list-table.php:1804
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:408
+msgid "Title"
+msgstr "Заголовок"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3962
+#: admin/partials/features/popup-box-pro-features-display.php:405
+#: admin/partials/features/popup-box-pro-features-display.php:410
+msgid "Title style"
+msgstr "Стиль заголовка"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3821
+msgid "Title text shadow"
+msgstr "Тень текста заголовка"
+
+#: public/partials/ays-pb-public-templates.php:1342
+msgid "Tools"
+msgstr "Инструменты"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5049
+msgid "Top / Bottom"
+msgstr "Верх / Низ"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1317
+msgid "Turn on the popup for the website based on your configured options."
+msgstr "Включить всплывающее окно для сайта в соответствии с настроенными параметрами."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2494
+msgid "Twitter link"
+msgstr "Ссылка на Twitter"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2495
+msgid "Twitter profile or page link for showing at the end of the popup."
+msgstr "Ссылка на профиль или страницу Twitter для отображения в конце всплывающего окна."
+
+#: includes/lists/class-ays-pb-list-table.php:1808
+msgid "Type"
+msgstr "Тип"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3363
+#: admin/partials/actions/ays-pb-admin-actions.php:3371
+#: includes/lists/class-ays-pb-list-table.php:1686
+msgid "Ubuntu"
+msgstr "Ubuntu"
+
+#: public/partials/class-ays-pb-user-information-shortcodes.php:389
+msgid "Unknown"
+msgstr "Неизвестный"
+
+#: includes/lists/class-ays-pb-list-table.php:1611
+#: includes/lists/class-ays-pb-list-table.php:1843
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:441
+msgid "Unpublish"
+msgstr "Не публиковать"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:171
+#: includes/lists/class-ays-pb-list-table.php:151
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:45
+msgid "Unpublished"
+msgstr "Неопубликовано"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4074
+msgid "Uppercase - Transforms all characters to uppercase."
+msgstr "Uppercase - Преобразование всех символов в верхний регистр."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5278
+msgid "Use your custom HTML class for adding your custom styles to popup container."
+msgstr "Используйте свой пользовательский HTML-класс для добавления пользовательских стилей во всплывающий контейнер."
+
+#: admin/partials/settings/popup-box-settings.php:309
+msgid "User display name"
+msgstr "Отображаемое имя пользователя"
+
+#: admin/partials/settings/popup-box-settings.php:341
+msgid "User email"
+msgstr "Email пользователя"
+
+#: admin/partials/settings/popup-box-settings.php:278
+msgid "User first name"
+msgstr "Имя пользователя"
+
+#: admin/partials/settings/popup-box-settings.php:271
+msgid "User Information"
+msgstr "Информация о пользователе"
+
+#: admin/partials/settings/popup-box-settings.php:293
+msgid "User last name"
+msgstr "Фамилия пользователя"
+
+#: admin/partials/settings/popup-box-settings.php:325
+msgid "User nickname"
+msgstr "Ник пользователя"
+
+#: includes/lists/class-ays-pb-list-table.php:1975
+msgid "version"
+msgstr "версия"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4646
+#: admin/partials/actions/ays-pb-admin-actions.php:4697
+msgid "Vertical"
+msgstr "Вертикально"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1047
+#: admin/partials/actions/ays-pb-admin-actions.php:1404
+#: admin/partials/actions/ays-pb-admin-actions.php:3169
+#: admin/partials/actions/ays-pb-admin-actions.php:3177
+#: admin/partials/actions/ays-pb-admin-actions.php:6007
+#: admin/partials/actions/ays-pb-admin-actions.php:6389
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:30
+#: includes/lists/class-ays-pb-list-table.php:117
+#: includes/lists/class-ays-pb-list-table.php:1652
+msgid "Video"
+msgstr "Видео"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1225
+#: admin/partials/actions/ays-pb-categories-actions.php:66
+#: admin/partials/ays-pb-admin-display.php:34
+#: admin/partials/ays-pb-categories-display.php:18
+#: admin/partials/features/popup-box-pro-features-display.php:12
+#: admin/partials/settings/popup-box-settings.php:64
+msgid "View Documentation"
+msgstr "Просмотреть Документацию"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2509
+msgid "VKontakte link"
+msgstr "Ссылка ВКонтакте"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2510
+msgid "VKontakte profile or page link for showing at the end of the popup."
+msgstr "Ссылка на профиль или страницу ВКонтакте для отображения в конце всплывающего окна."
+
+#: admin/partials/settings/popup-box-settings.php:210
+msgid "Who will have permission to Popup menu"
+msgstr "У кого будет разрешение на меню Всплывающего Окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:801
+msgid "Windows 10"
+msgstr "Windows 10"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:802
+msgid "Windows 7"
+msgstr "Windows 7"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3417
+#: admin/partials/actions/ays-pb-admin-actions.php:3425
+#: includes/lists/class-ays-pb-list-table.php:1692
+msgid "Windows 98"
+msgstr "Windows 98"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3390
+#: admin/partials/actions/ays-pb-admin-actions.php:3398
+#: includes/lists/class-ays-pb-list-table.php:1689
+msgid "Windows XP"
+msgstr "Windows XP"
+
+#: admin/partials/settings/popup-box-settings.php:111
+msgid "WP Editor height"
+msgstr "Высота Редактора WP"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:92
+msgid "Write category description if necessary."
+msgstr "При необходимости напишите описание категории."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2271
+msgid "Write the name of the particular Popup. The name will be shown in the Popup list table."
+msgstr "Напишите имя конкретного Всплывающего Окна. Это имя будет отображаться в таблице списка всплывающих окон."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2733
+#: admin/partials/actions/ays-pb-admin-actions.php:2749
+msgid "Write the text that you want to be displayed on the dismiss ad button."
+msgstr "Напишите текст, который вы хотите отобразить на кнопке отклонения объявления."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3858
+#: admin/partials/actions/ays-pb-admin-actions.php:3903
+#: admin/partials/actions/ays-pb-admin-actions.php:5198
+#: admin/partials/actions/ays-pb-admin-actions.php:5243
+msgid "X"
+msgstr "X"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3862
+#: admin/partials/actions/ays-pb-admin-actions.php:3907
+#: admin/partials/actions/ays-pb-admin-actions.php:5202
+#: admin/partials/actions/ays-pb-admin-actions.php:5247
+msgid "Y"
+msgstr "Y"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3202
+msgid "Yellowish"
+msgstr "Желтоватый"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6053
+msgid "Yes or No"
+msgstr "Да или Нет"
+
+#: admin/partials/settings/popup-box-settings.php:434
+#: admin/partials/settings/popup-box-settings.php:440
+msgid "You can copy these variables and paste them in the following options from the popup settings"
+msgstr "Вы можете скопировать эти переменные и вставить их в следующие параметры из всплывающих настроек"
+
+#: includes/class-ays-pb-integrations.php:374
+msgid "You can get your API key and Client ID from your Account Settings page."
+msgstr "Ключ API и ID клиента можно получить на странице настроек аккаунта."
+
+#: includes/class-ays-pb-integrations.php:243
+#: includes/class-ays-pb-integrations.php:573
+#: includes/class-ays-pb-integrations.php:682
+#: includes/class-ays-pb-integrations.php:844
+#: includes/class-ays-pb-integrations.php:960
+msgid "You can get your API key from your "
+msgstr "Вы можете получить ключ API от вашего "
+
+#: admin/partials/settings/popup-box-settings.php:416
+msgid "You need to insert Your Popup Category ID in the shortcode. It will show the category description. If there is no popup category available/unavailable with that particular Popup Box Category ID, the shortcode will stay empty."
+msgstr "Вам нужно вставить ID вашей всплывающей категории в шорткод. Он покажет описание категории. Если нет доступной/недоступной категории всплывающих окон с данным ID категории всплывающего окна, шорткод останется пустым."
+
+#: admin/partials/settings/popup-box-settings.php:398
+msgid "You need to insert Your Popup Category ID in the shortcode. It will show the category title. If there is no popup category available/unavailable with that particular Popup Box Category ID, the shortcode will stay empty."
+msgstr "Вам нужно вставить ID вашей всплывающей категории в шорткод. Он покажет название категории. Если нет доступной/недоступной категории всплывающих окон с данным ID категории всплывающего окна, шорткод останется пустым."
+
+#: includes/lists/class-ays-pb-list-table.php:1975
+msgid "You're not allowed to add popupbox for more popupboxes please checkout to "
+msgstr "Вы не можете добавить popupbox для получения большего количества всплывающих окон, пожалуйста, обратитесь к "
+
+#: includes/class-ays-pb-integrations.php:518
+msgid "Your API URL and Key can be found in your account on the My Settings page under the “Developer” tab."
+msgstr "URL и ключ API можно найти в вашем аккаунте на странице Мои Настройки на вкладке \"Разработчик\"."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2524
+msgid "Youtube link"
+msgstr "Ссылка на Youtube"
+
+#: admin/class-ays-pb-admin.php:296
+msgid "Youtube video tutorials"
+msgstr "Видеоуроки Youtube"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3866
+#: admin/partials/actions/ays-pb-admin-actions.php:3911
+#: admin/partials/actions/ays-pb-admin-actions.php:5206
+#: admin/partials/actions/ays-pb-admin-actions.php:5251
+msgid "Z"
+msgstr "Z"
+
+#: includes/lists/class-ays-pb-list-table.php:1695
+msgid "Command Prompt"
+msgstr "Командная строка"
+
+#: includes/lists/class-ays-pb-list-table.php:102
+msgid "On"
+msgstr "Вкл."
+
+#: includes/lists/class-ays-pb-list-table.php:101
+msgid "Select Status"
+msgstr "Выберите статус"
+
+#: includes/class-ays-pb-data.php:618
+msgid "Get Your Deal"
+msgstr "Получите вашу сделку"
+
+#: includes/class-ays-pb-data.php:588
+msgid "Limited Time"
+msgstr "Ограниченный срок"
+
+#: includes/class-ays-pb-data.php:318 includes/class-ays-pb-data.php:406
+#: includes/class-ays-pb-data.php:553 includes/class-ays-pb-data.php:761
+msgid "Buy Now !"
+msgstr "Купить Сейчас!"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:54
+msgid "Community"
+msgstr "Сообщество"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:23
+msgid "button"
+msgstr "кнопку"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:23
+msgid "page and click on the "
+msgstr "страницу и нажмите на "
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:23
+msgid "Go to the"
+msgstr "Перейти к"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:16
+msgid "plugin."
+msgstr "плагин."
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:14
+msgid "How to create a simple popup in 4 steps with the"
+msgstr "Как создать простое всплывающее окно за 4 шага с помощью"
+
+#: admin/partials/features/popup-box-pro-features-display.php:58
+#: admin/partials/features/popup-box-pro-features-display.php:68
+#: admin/partials/features/popup-box-pro-features-display.php:811
+#: admin/partials/features/popup-box-pro-features-display.php:817
+msgid "Buy now"
+msgstr "Купить сейчас"
+
+#: admin/partials/features/popup-box-pro-features-display.php:791
+#: admin/partials/features/popup-box-pro-features-display.php:796
+msgid "Scrolling to Element Trigger"
+msgstr "Прокрутка до элемента триггера"
+
+#: admin/partials/features/popup-box-pro-features-display.php:777
+#: admin/partials/features/popup-box-pro-features-display.php:782
+msgid "After visiting X pages Trigger"
+msgstr "После посещения X страниц Триггер"
+
+#: admin/partials/features/popup-box-pro-features-display.php:763
+#: admin/partials/features/popup-box-pro-features-display.php:768
+msgid "Inactivity Trigger"
+msgstr "Триггер неактивности"
+
+#: admin/partials/features/popup-box-pro-features-display.php:749
+#: admin/partials/features/popup-box-pro-features-display.php:754
+msgid "On Hover Trigger"
+msgstr "Триггер при наведении"
+
+#: admin/partials/features/popup-box-pro-features-display.php:735
+#: admin/partials/features/popup-box-pro-features-display.php:740
+msgid "Exit Intent Popup"
+msgstr "Выход из всплывающего окна"
+
+#: admin/partials/features/popup-box-pro-features-display.php:707
+#: admin/partials/features/popup-box-pro-features-display.php:712
+msgid "Countdown popup"
+msgstr "Всплывающее окно с обратным отсчетом"
+
+#: admin/partials/features/popup-box-pro-features-display.php:693
+#: admin/partials/features/popup-box-pro-features-display.php:698
+msgid "Coupon popup"
+msgstr "Всплывающее окно с купоном"
+
+#: admin/partials/features/popup-box-pro-features-display.php:679
+#: admin/partials/features/popup-box-pro-features-display.php:684
+msgid "Send file after subscription popup"
+msgstr "Отправить файл после появления всплывающего окна подписки"
+
+#: admin/partials/features/popup-box-pro-features-display.php:664
+#: admin/partials/features/popup-box-pro-features-display.php:669
+msgid "Contact form popup"
+msgstr "Всплывающее окно с контактной формой"
+
+#: admin/partials/features/popup-box-pro-features-display.php:419
+#: admin/partials/features/popup-box-pro-features-display.php:424
+msgid "Video theme"
+msgstr "Тема видео"
+
+#: admin/partials/features/popup-box-pro-features-display.php:377
+#: admin/partials/features/popup-box-pro-features-display.php:382
+msgid "Close by classname"
+msgstr "Закрыть по имени класса"
+
+#: admin/partials/features/popup-box-pro-features-display.php:363
+#: admin/partials/features/popup-box-pro-features-display.php:368
+msgid "Close by scrolling down"
+msgstr "Закрыть прокруткой вниз"
+
+#: admin/partials/features/popup-box-pro-features-display.php:335
+#: admin/partials/features/popup-box-pro-features-display.php:340
+msgid "Limitation count"
+msgstr "Количество ограничений"
+
+#: admin/partials/features/popup-box-pro-features-display.php:326
+msgid "Enable for selected browser"
+msgstr "Активировать для выбранного браузера"
+
+#: admin/partials/features/popup-box-pro-features-display.php:321
+msgid "Enable for selected browsers"
+msgstr "Включить для выбранных браузеров"
+
+#: admin/partials/features/popup-box-pro-features-display.php:307
+#: admin/partials/features/popup-box-pro-features-display.php:312
+msgid "Enable for selected user OS"
+msgstr "Включить для выбранной операционной системы пользователя"
+
+#: admin/partials/features/popup-box-pro-features-display.php:278
+#: admin/partials/features/popup-box-pro-features-display.php:283
+msgid "Multiple scheduling"
+msgstr "Несколько расписаний"
+
+#: admin/partials/features/popup-box-pro-features-display.php:250
+#: admin/partials/features/popup-box-pro-features-display.php:255
+msgid "Custom content"
+msgstr "Произвольный контент"
+
+#: admin/partials/features/popup-box-pro-features-display.php:236
+#: admin/partials/features/popup-box-pro-features-display.php:241
+msgid "Open with click"
+msgstr "Открыть одним кликом"
+
+#: admin/partials/features/popup-box-pro-features-display.php:208
+#: admin/partials/features/popup-box-pro-features-display.php:213
+msgid "Display on pages"
+msgstr "Отображать на страницах"
+
+#: admin/partials/features/popup-box-pro-features-display.php:166
+#: admin/partials/features/popup-box-pro-features-display.php:171
+msgid "Responsive design"
+msgstr "Адаптивный дизайн"
+
+#: admin/partials/features/popup-box-pro-features-display.php:152
+#: admin/partials/features/popup-box-pro-features-display.php:157
+msgid "Session time option"
+msgstr "Опция времени сеанса"
+
+#: admin/partials/export-import/ays-pb-export-import.php:41
+msgid "Specify the popup boxes which must be exported. If you want to export all popup boxes just leave blank."
+msgstr "Укажите всплывающие окна, которые необходимо экспортировать. Если вы хотите экспортировать все всплывающие окна, просто оставьте поле пустым."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6030
+#: admin/partials/actions/ays-pb-admin-actions.php:6060
+#: admin/partials/actions/ays-pb-admin-actions.php:6088
+#: admin/partials/actions/ays-pb-admin-actions.php:6116
+#: admin/partials/actions/ays-pb-admin-actions.php:6144
+#: admin/partials/actions/ays-pb-admin-actions.php:6172
+#: admin/partials/actions/ays-pb-admin-actions.php:6200
+#: admin/partials/actions/ays-pb-admin-actions.php:6228
+#: admin/partials/actions/ays-pb-admin-actions.php:6256
+#: admin/partials/actions/ays-pb-admin-actions.php:6284
+#: admin/partials/actions/ays-pb-admin-actions.php:6312
+#: admin/partials/actions/ays-pb-admin-actions.php:6340
+msgid "Upgrade Now"
+msgstr "Обновите сейчас"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5933
+msgid "Next Popup"
+msgstr "Следующее всплывающее окно"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5924
+msgid "Prev popup"
+msgstr "Предыдущее всплывающее окно"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5884
+#: admin/partials/settings/popup-box-settings.php:258
+msgid "The Integrations tab works only with Contact Form, Subscription and Send File after subscription types"
+msgstr "Вкладка «Интеграция» работает только с следующими типами: Контактная форма, подписка и отправка файла"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5334
+#: admin/partials/actions/ays-pb-admin-actions.php:5349
+#: admin/partials/actions/ays-pb-admin-actions.php:5372
+#: admin/partials/actions/ays-pb-admin-actions.php:5400
+#: admin/partials/actions/ays-pb-admin-actions.php:5420
+#: admin/partials/actions/ays-pb-admin-actions.php:5437
+#: admin/partials/actions/ays-pb-admin-actions.php:5454
+#: admin/partials/actions/ays-pb-admin-actions.php:5470
+#: admin/partials/actions/ays-pb-admin-actions.php:5492
+#: admin/partials/actions/ays-pb-admin-actions.php:5510
+msgid "Here can be custom HTML or shortcode"
+msgstr "Здесь может быть пользовательский HTML или шорткод"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5302
+msgid "Reset popup styles to default values"
+msgstr "Сбросить стили всплывающих окон к значениям по умолчанию"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5301
+msgid "Reset styles"
+msgstr "Сбросить стили"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5162
+msgid "Allow popup container box shadow."
+msgstr "Разрешить тень контейнера всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5126
+msgid "Define the close button color on hover."
+msgstr "Определите цвет кнопки закрытия при наведении."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5125
+msgid "Close button hover color"
+msgstr "Цвет кнопки закрытия при наведении"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2377
+msgid "Enable blurred overlay of the popup."
+msgstr "Разрешить размытое наложение всплывающего окна."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2376
+msgid "Enable blured overlay"
+msgstr "Разрешить размытое наложение"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2335
+#: admin/partials/actions/ays-pb-admin-actions.php:2352
+msgid "Opacity:"
+msgstr "Непрозрачность:"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1923
+msgid "Select the place of the popup close button. "
+msgstr "Выберите место кнопки закрытия всплывающего окна. "
+
+#: admin/partials/export-import/ays-pb-export-import.php:80
+msgid "Import popups"
+msgstr "Импорт всплывающих окон"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1878
+msgid "How to close Popup by clicking outside the box"
+msgstr "Как закрыть всплывающее окно, нажав за пределами окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1817
+msgid "How to Create a Login Form Popup"
+msgstr "Как создать всплывающее окно с формой входа"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1781
+msgid "Define the scroll length by pixels to open the popup when scrolling. To disable the option leave it blank or set it to 0."
+msgstr "Определите длину прокрутки в пикселях, чтобы при прокрутке всплывающее окно открывалось. Чтобы отключить параметр, оставьте его пустым или установите для него значение 0."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1763
+msgid "How to Show Popup after a Time Delay"
+msgstr "Как показать всплывающее окно после временной задержки"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1737
+#: admin/partials/actions/ays-pb-admin-actions.php:1750
+#: admin/partials/actions/ays-pb-admin-actions.php:2152
+#: admin/partials/actions/ays-pb-admin-actions.php:2170
+msgid "1 sec = 1000 ms"
+msgstr "1 сек = 1000 мс"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1634
+msgid "Enter the class starting with a “ . ” and id with a “ # ”"
+msgstr "Введите класс, начинающийся с « . \" и идентификатор с \" # \""
+
+#: admin/class-ays-pb-admin.php:325 admin/class-ays-pb-admin.php:326
+msgid "PRO Features"
+msgstr "ПРО Функции"
+
+#: admin/class-ays-pb-admin.php:167
+#: admin/partials/actions/ays-pb-admin-actions.php:5922
+msgid "Are you sure you want to go to the previous popup page?"
+msgstr "Вы уверены, что хотите перейти на предыдущую страницу?"
+
+#: admin/class-ays-pb-admin.php:166
+#: admin/partials/actions/ays-pb-admin-actions.php:5931
+msgid "Are you sure you want to go to the next popup page?"
+msgstr "Вы уверены, что хотите перейти на следующую страницу?"
+
+#. Author URI of the plugin
+msgid "http://ays-pro.com/"
+msgstr "http://ays-pro.com/"
+
+#. Author of the plugin
+msgid "Popup Box Team"
+msgstr "Команда Popup Box"
+
+#. Description of the plugin
+msgid "Pop up anything you want! Create informative and promotional popups all in one plugin. Boost your website traffic with eye-catching popups."
+msgstr "Всплывай все, что хочешь! Создавайте информационные и рекламные всплывающие окна в одном плагине. Увеличьте посещаемость вашего сайта с помощью привлекательных всплывающих окон."
+
+#. Plugin URI of the plugin
+msgid "http://ays-pro.com/wordpress/popup-box"
+msgstr "http://ays-pro.com/wordpress/popup-box"
+
+#: includes/lists/class-ays-pb-list-table.php:1683
+msgid "MacOs window"
+msgstr "MacOs window"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:46
+msgid "That's it! Your popup is ready to be displayed!"
+msgstr "Вот и все! Ваше всплывающее окно готово к показу!"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:41
+msgid "button."
+msgstr "кнопка."
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:41
+msgid "In the end, click on the"
+msgstr "В конце нажмите на"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:37
+msgid "Choose to show the popup as soon as the user clicks on the assigned CSS element(s). You can assign CSS elements with the"
+msgstr "Выберите отображение всплывающего окна, как только пользователь нажмет на назначенный элемент (элементы) CSS. Вы можете назначать элементы CSS с помощью"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:37
+msgid "On click:"
+msgstr "При нажатии:"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:36
+msgid "Choose to show the popup as soon as the page is loaded."
+msgstr "Выберите отображение всплывающего окна сразу после загрузки страницы."
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:34
+msgid "Choose when to show the popup with the"
+msgstr "Выберите, когда показывать всплывающее окно"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:26
+msgid "Select the popup type."
+msgstr "Выберите тип всплывающего окна."
+
+#: admin/partials/features/popup-box-pro-features-display.php:505
+#: admin/partials/features/popup-box-pro-features-display.php:510
+msgid "MailChimp integration"
+msgstr "Интеграция с MailChimp"
+
+#: admin/partials/features/popup-box-pro-features-display.php:476
+#: admin/partials/features/popup-box-pro-features-display.php:481
+msgid "User role permission"
+msgstr "Полномочия пользователя"
+
+#: admin/partials/features/popup-box-pro-features-display.php:461
+#: admin/partials/features/popup-box-pro-features-display.php:466
+msgid "Coral theme"
+msgstr "Тема Coral"
+
+#: admin/partials/features/popup-box-pro-features-display.php:447
+#: admin/partials/features/popup-box-pro-features-display.php:452
+msgid "Yellowish theme"
+msgstr "Тема Yellowish"
+
+#: admin/partials/features/popup-box-pro-features-display.php:433
+#: admin/partials/features/popup-box-pro-features-display.php:438
+msgid "Peachy theme"
+msgstr "Тема Peachy"
+
+#: admin/partials/features/popup-box-pro-features-display.php:112
+#: admin/partials/features/popup-box-pro-features-display.php:132
+#: admin/partials/features/popup-box-pro-features-display.php:145
+#: admin/partials/features/popup-box-pro-features-display.php:146
+#: admin/partials/features/popup-box-pro-features-display.php:147
+msgid "Lifetime"
+msgstr "Навсегда"
+
+#: admin/partials/features/popup-box-pro-features-display.php:109
+#: admin/partials/features/popup-box-pro-features-display.php:129
+msgid "12 months"
+msgstr "12 месяцев"
+
+#: admin/partials/features/popup-box-pro-features-display.php:98
+#: admin/partials/features/popup-box-pro-features-display.php:103
+msgid "Upgrade for"
+msgstr "Обновление для"
+
+#: admin/partials/features/popup-box-pro-features-display.php:92
+msgid "Unlimited sites"
+msgstr "Неограниченное количество сайтов"
+
+#: admin/partials/features/popup-box-pro-features-display.php:89
+msgid "5 sites"
+msgstr "5 сайтов"
+
+#: admin/partials/features/popup-box-pro-features-display.php:86
+msgid "1 site"
+msgstr "1 сайт"
+
+#: admin/partials/features/popup-box-pro-features-display.php:78
+#: admin/partials/features/popup-box-pro-features-display.php:83
+#: admin/partials/features/popup-box-pro-features-display.php:118
+#: admin/partials/features/popup-box-pro-features-display.php:123
+msgid "Support for"
+msgstr "Поддержка для"
+
+#: admin/partials/features/popup-box-pro-features-display.php:50
+msgid "Free"
+msgstr "Бесплатно"
+
+#: admin/partials/features/popup-box-pro-features-display.php:40
+msgid "Developer"
+msgstr "Developer"
+
+#: admin/partials/features/popup-box-pro-features-display.php:34
+msgid "Business"
+msgstr "Business"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2925
+msgid " Actions while clicking on the popup"
+msgstr " Действия при нажатии на всплывающее окно"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2835
+msgid "The period of time when Popup will be active"
+msgstr "Период времени, в течение которого всплывающее окно будет активным"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2833
+msgid "Multiple Scheduling"
+msgstr "Несколько расписаний"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1614
+msgid "View how to make popup on button click"
+msgstr "Посмотрите, как сделать всплывающее окно при нажатии на кнопку"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1599
+msgid "Inactivity (Pro)"
+msgstr "Неактивность (Pro)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1597
+msgid "Exit Intent (Pro)"
+msgstr "Выход из всплывающего окна (Pro)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1596
+msgid "On hover (Pro)"
+msgstr "При наведении (Pro)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1582
+msgid "Onclick"
+msgstr "По щелчку"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1579
+msgid "Choose the trigger causing the popup to open on certain events."
+msgstr "Выберите триггер, заставляющий всплывающее окно открываться при определенных событиях."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1565
+msgid "How to Create Homepage Popup"
+msgstr "Как создать всплывающее окно на главной странице"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1406
+msgid "Add video to the popup."
+msgstr "Добавить видео в всплывающее окно."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1370
+msgid "You can pop up any form by inserting its shortcode. Please copy and paste the shortcode from another plugin to display it in a popup. For example, Contact forms, surveys, polls, quizzes, Google map, etc."
+msgstr "Вы можете открыть любую форму, вставив ее шорткод. Скопируйте и вставьте шорткод из другого плагина, чтобы отобразить его во всплывающем окне. Например, Контактные формы, опросы, голосование, викторины, карта Google и т. д."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1357
+#: admin/partials/actions/ays-pb-admin-actions.php:1430
+msgid "The option is not being displayed on the front-end by default. Please activate it from the Styles tab."
+msgstr "По умолчанию этот параметр не отображается в интерфейсе. Пожалуйста, активируйте его на вкладке Стили."
+
+#: admin/partials/features/popup-box-pro-features-display.php:649
+#: admin/partials/features/popup-box-pro-features-display.php:654
+msgid "Subscription popup"
+msgstr "Всплывающее окно подписки"
+
+#: admin/partials/features/popup-box-pro-features-display.php:634
+#: admin/partials/features/popup-box-pro-features-display.php:639
+msgid "Iframe popup"
+msgstr "всплывающее окно с Iframe"
+
+#: admin/partials/features/popup-box-pro-features-display.php:619
+#: admin/partials/features/popup-box-pro-features-display.php:624
+msgid "Video popup"
+msgstr "Всплывающее окно с видео"
+
+#: admin/partials/features/popup-box-pro-features-display.php:604
+#: admin/partials/features/popup-box-pro-features-display.php:609
+msgid "Yes or No popup"
+msgstr "Да или нет всплывающее окно"
+
+#: admin/partials/features/popup-box-pro-features-display.php:575
+#: admin/partials/features/popup-box-pro-features-display.php:580
+msgid "Sendinblue integration"
+msgstr "Интеграция с SendinBlue"
+
+#: admin/partials/features/popup-box-pro-features-display.php:589
+#: admin/partials/features/popup-box-pro-features-display.php:594
+msgid "MailerLite integration"
+msgstr "Интеграция с MailerLite"
+
+#: admin/partials/features/popup-box-pro-features-display.php:561
+#: admin/partials/features/popup-box-pro-features-display.php:566
+msgid "ConvertKit integration"
+msgstr "Интеграция с ConvertKit"
+
+#: admin/partials/features/popup-box-pro-features-display.php:547
+#: admin/partials/features/popup-box-pro-features-display.php:552
+msgid "GetResponse integration"
+msgstr "Интеграция с GetResponse"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:41
+msgid "Save Changes"
+msgstr "Сохранить Изменения"
+
+#: admin/partials/features/popup-box-pro-features-display.php:533
+#: admin/partials/features/popup-box-pro-features-display.php:538
+msgid "ActiveCampaign integration"
+msgstr "Интеграция с ActiveCampaign"
+
+#: admin/partials/features/popup-box-pro-features-display.php:519
+#: admin/partials/features/popup-box-pro-features-display.php:524
+msgid "Campaign Monitor integration"
+msgstr "Интеграция с Campaign Monitor"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3709
+msgid "Text style"
+msgstr "Стиль текста"
+
+#: admin/partials/export-import/ays-pb-export-import.php:40
+msgid "Select popups"
+msgstr "Выберите всплывающие окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3649
+msgid "Define the popup's minimal height in pixels."
+msgstr "Определить минимальную высоту всплывающего окна в пикселях."
+
+#: admin/partials/features/popup-box-pro-features-display.php:180
+#: admin/partials/features/popup-box-pro-features-display.php:185
+msgid "Scroll from top"
+msgstr "Прокрутка сверху"
+
+#: includes/lists/class-ays-pb-list-table.php:12
+msgid "PopupBoxes"
+msgstr "Всплывающие окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3014
+msgid "Choose a pre-made popup template and customize it using options below."
+msgstr "Выберите готовый шаблон всплывающего окна и настройте его, используя параметры ниже."
+
+#: admin/partials/features/popup-box-pro-features-display.php:292
+#: admin/partials/features/popup-box-pro-features-display.php:297
+msgid "PopupBox Reports"
+msgstr "Отчеты"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1048
+msgid "Watch how to add a video popup"
+msgstr "Посмотрите, как добавить всплывающее окно с видео"
+
+#: admin/partials/settings/popup-box-settings.php:160
+msgid "Popup sound"
+msgstr "Звук всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1044
+msgid "Watch how to add a shortcode popup"
+msgstr "Посмотрите, как добавить всплывающее окно с шорткодом."
+
+#: admin/partials/features/popup-box-pro-features-display.php:264
+#: admin/partials/features/popup-box-pro-features-display.php:269
+msgid "Popup box position"
+msgstr "Позиция всплывающего окна"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:714
+msgid "Inherit"
+msgstr "Унаследовать"
+
+#: admin/class-ays-pb-admin.php:474
+msgid "Free Support"
+msgstr "Бесплатная служба поддержки"
+
+#: admin/class-ays-pb-admin.php:406 admin/class-ays-pb-admin.php:407
+msgid "How to use"
+msgstr "Как пользоваться"
+
+#: admin/partials/features/popup-box-pro-features-display.php:28
+msgid "Personal"
+msgstr "Персональный"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:126
+msgid "Chart Builder plugin allows you to create beautiful charts and graphs easily and quickly."
+msgstr "Плагин Chart Builder позволяет легко и быстро создавать красивые диаграммы и графики."
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:125
+msgid "Chartify - Best Chart Builder Plugin"
+msgstr "Chartify - Лучший плагин для создания диаграмм"
+
+#: admin/partials/features/popup-box-pro-features-display.php:106
+#: admin/partials/features/popup-box-pro-features-display.php:126
+msgid "1 months"
+msgstr "1 месяцы"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5156
+msgid "Advanced style"
+msgstr "Расширенный Стиль"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:14
+msgid "Attract your visitors and convert them into email subscribers and paying customers."
+msgstr "Привлекайте посетителей и превращайте их в подписчиков и платящих клиентов."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1598
+msgid "After visiting x pages (Pro)"
+msgstr "После посещения x страниц"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1626
+msgid "Add your preferred CSS selector(s) if you have given “On click” or “Both” value to the “Popup trigger” option. For example #mybutton or .mybutton."
+msgstr "Добавьте предпочтительные селекторы CSS, если вы указали значение «По клику» или «Оба» для параметра «Триггер Всплывающего Окна». Например, #mybutton или .mybutton"
+
+#: admin/partials/export-import/ays-pb-export-import.php:34
+msgid "Export popups"
+msgstr "Экспорт всплывающих окон"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4632
+#: admin/partials/actions/ays-pb-admin-actions.php:4683
+msgid "Select the second color stop."
+msgstr "Выберите вторую точку цвета."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1583
+msgid "Both(On page load & On click)"
+msgstr "Оба (при загрузке страницы и при нажатии)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1625
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:37
+msgid "CSS selector(s) for trigger click"
+msgstr "CSS-селектор(ы) для триггерного клика/наведении"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4623
+#: admin/partials/actions/ays-pb-admin-actions.php:4674
+msgid "Select the first color stop."
+msgstr "Выберите первую точку цвета."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2688
+msgid "Disable page scrolling"
+msgstr "Отключить прокрутку страницы"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:12
+msgid "Create powerful and engaging quizzes. Build as many quizzes as you wish. No limit on the count of participants taking the test at the same time. Use the easy-to-use features in the plugin and attract your visitors."
+msgstr "Создавайте мощные и увлекательные викторины. Создавайте столько викторин, сколько хотите. Нет ограничений на количество участников, сдающих тест одновременно. Используйте простые в использовании функции плагина и привлекайте посетителей."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2246
+msgid "Copy the given classname, assign it to any tag in the content as well as inside the popup. And the popup will close when the user clicks on the classname.Note: Save your popup before copying the given classname."
+msgstr "Скопируйте заданное имя класса, присвойте его любому тегу в контенте, а также внутри всплывающего окна. Всплывающее окно закроется, когда пользователь щелкнет по имени класса. Примечание: Сохраните всплывающее окно перед копированием заданного имени класса."
+
+#: includes/class-ays-pb-integrations.php:576
+msgid "For security reasons, unused API keys expire after 90 days. When that happens, you'll need to generate a new key."
+msgstr "В целях безопасности срок действия неиспользованных ключей API истекает через 90 дней. Когда это произойдет, вам нужно будет сгенерировать новый ключ."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2406
+msgid "In case of enabling this option, insert and select the sound from the General Settings of Popup Box navigation menu. Note: This function only works with “On Click” or “Both” trigger types."
+msgstr "В случае включения этой опции вставьте и выберите звук из общих настроек навигационного меню всплывающего окна. Примечание: Эта функция работает только с триггерами “По Клику” или “Оба” типа."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2311
+msgid "Enable Overlay"
+msgstr "Включить наложение"
+
+#: admin/partials/settings/popup-box-settings.php:132
+msgid "Determine the length of the Popups to be shown in the Popup List Table by putting your preferred count of words in the following field. (E.g., if you put 10,  you will see the first 10 words of each Popup Title on the Popups page of your dashboard)."
+msgstr "Определите длину всплывающих окон, которые будут отображаться в таблице Списка всплывающих окон, указав желаемое количество слов в следующем поле. (Например, если вы поставите 10, вы увидите первые 10 слов заголовка каждого всплывающего окна на странице всплывающих окон вашей панели мониторинга)."
+
+#: admin/partials/features/popup-box-pro-features-display.php:222
+#: admin/partials/features/popup-box-pro-features-display.php:227
+msgid "Delay"
+msgstr "Задержка"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:157
+msgid "Category status"
+msgstr "Статус Категории"
+
+#: admin/partials/settings/popup-box-settings.php:146
+msgid "Determine the length of the results to be shown in the Popup categories List Table by putting your preferred count of words in the following field. (For example: if you put 10,  you will see the first 10 words of each result in the Popup categories page of your dashboard)."
+msgstr "Определите длину результатов, которые будут показаны в таблице списка всплывающих категорий, указав желаемое количество слов в следующем поле. (Например: если вы поставите 10, вы увидите первые 10 слов каждого результата на странице всплывающих категорий вашей приборной панели)."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6305
+msgid "Login Form"
+msgstr "Форма входа"
+
+#: admin/partials/settings/popup-box-settings.php:167
+msgid "Insert popup opening and closing sound by clicking on “Select sound”."
+msgstr "Вставьте звук открытия и закрытия всплывающего окна, нажав «Выбрать звук»․"
+
+#: includes/class-ays-pb-integrations.php:902
+msgid "MailerLite List"
+msgstr "Списки MailerLite"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:36
+msgid "On page load:"
+msgstr "При загрузке страницы"
+
+#: admin/partials/settings/popup-box-settings.php:166
+msgid "Opening and closing sounds"
+msgstr "Звук открытия и закрытия"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:34
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:37
+msgid "option."
+msgstr "Опция."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1600
+msgid "Scrolling to element (Pro)"
+msgstr "Прокрутка к элементу"
+
+#: includes/class-ays-pb-integrations.php:794
+msgid "Sendinblue List"
+msgstr "Списки Sendinblue"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4714
+msgid "Specify the background color of the box's header. Note: It works with the following themes: Red, Sale."
+msgstr "Укажите цвет фона заголовка окна. Примечание. Работает со следующими темами: Красный, Распродажа."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6137
+msgid "Subscribe and get file"
+msgstr "Подписаться и получить файл"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1725
+msgid "Open the popup when a visitor has viewed your website content for a specified period of time (in milliseconds). To disable the option leave it blank or set it to 0."
+msgstr "Откройте всплывающее окно, когда посетитель просматривал содержимое вашего веб-сайта в течение определенного периода времени. (в миллисекундах) Чтобы отключить эту опцию, оставьте ее пустой или установите значение 0."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1595
+msgid "On Click"
+msgstr "При нажатии"
+
+#: includes/lists/class-ays-pb-list-table.php:1550
+msgid "There are no popupboxes yet."
+msgstr "Всплывающих окон пока нет."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4070
+msgid " None - No capitalization. The text renders as it is."
+msgstr " None — без заглавных букв. Текст отображается как есть."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2134
+msgid " Set delay in milliseconds for displaying the popup close button. To disable the option leave it blank or set it to 0."
+msgstr " Установка задержки в миллисекундах для отображения кнопки закрытия всплывающего окна. Для отключения опции оставьте это значение пустым или установите его равным 0."
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5277
+msgid "Custom class for Popup container "
+msgstr "Пользовательский класс для контейнера Всплывающего Окна "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1891
+msgid "If the option is enabled, the close button of the popup will be disappeared. "
+msgstr "Если опция включена, кнопка закрытия всплывающего окна исчезнет. "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4068
+msgid "Choose the capitalization of the text of the popup title. "
+msgstr "Выберите заглавную букву текста заголовка всплывающего окна. "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3345
+msgid "MacOS "
+msgstr "MacOS "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1972
+msgid "Define the close button text. The default value is “✕”."
+msgstr "Определите текст кнопки закрытия. Значение по умолчанию - \"x\"."
+
+#: admin/partials/actions/ays-pb-categories-actions.php:14
+msgid "Add new category"
+msgstr "Добавить новую рубрику"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4886
+msgid "Border radius"
+msgstr "Скругление границ"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1242
+#: admin/partials/actions/ays-pb-admin-actions.php:5910
+msgid "Cancel"
+msgstr "Отмена"
+
+#: admin/class-ays-pb-admin.php:311 admin/class-ays-pb-admin.php:312
+#: admin/class-ays-pb-admin.php:576
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:12
+msgid "Categories"
+msgstr "Рубрики"
+
+#: includes/lists/class-ays-pb-list-table.php:1806
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:11
+msgid "Category"
+msgstr "Рубрика"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4058
+msgid "Center"
+msgstr "По центру"
+
+#: admin/class-ays-pb-admin.php:183
+msgid "Clear"
+msgstr "Сброс"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5290
+msgid "Custom CSS"
+msgstr "Произвольные CSS-стили"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1448
+msgid "Display"
+msgstr "Отображение"
+
+#: includes/lists/class-ays-pb-list-table.php:1627
+msgid "Duplicate"
+msgstr "Дублировать"
+
+#: includes/lists/class-ays-pb-list-table.php:1626
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:356
+#: public/partials/ays-pb-public-templates.php:1339
+msgid "Edit"
+msgstr "Изменить"
+
+#: admin/class-ays-pb-admin.php:171
+#: admin/partials/actions/ays-pb-admin-actions.php:576
+#: admin/partials/actions/ays-pb-admin-actions.php:586
+#: admin/partials/actions/ays-pb-admin-actions.php:832
+msgid "Edit Image"
+msgstr "Редактировать"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3993
+msgid "Font weight"
+msgstr "Толщина шрифта"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1299
+#: admin/partials/settings/popup-box-settings.php:84
+msgid "General"
+msgstr "Общие"
+
+#: includes/class-ays-pb-data.php:602
+msgid "Hours"
+msgstr "Часы"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4036
+msgid "Line height"
+msgstr "Высота строки"
+
+#: includes/class-ays-pb-data.php:603
+msgid "Minutes"
+msgstr "Минуты"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4086
+#: admin/partials/actions/ays-pb-admin-actions.php:4103
+#: admin/partials/actions/ays-pb-admin-actions.php:4571
+#: admin/partials/actions/ays-pb-admin-actions.php:4581
+msgid "None"
+msgstr "Нет"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4002
+msgid "Normal"
+msgstr "Обычный"
+
+#: includes/lists/class-ays-pb-list-table.php:103
+msgid "Off"
+msgstr "Выключить"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1484
+msgid "Post type"
+msgstr "Тип записи"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1509
+msgid "Posts"
+msgstr "Записи"
+
+#: includes/lists/class-ays-pb-list-table.php:1614
+#: includes/lists/class-ays-pb-list-table.php:1842
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:440
+msgid "Publish"
+msgstr "Опубликовать"
+
+#: includes/lists/class-ays-pb-list-table.php:93
+msgid "Select Category"
+msgstr "Выберите рубрику"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:870
+msgid "Solid"
+msgstr "Сплошной"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3013
+#: includes/lists/class-ays-pb-list-table.php:1809
+msgid "Template"
+msgstr "Шаблон"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4094
+msgid "Text decoration"
+msgstr "Украшение текста"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4572
+#: admin/partials/actions/ays-pb-admin-actions.php:4582
+msgid "Unset"
+msgstr "Сброс"
+
+#: includes/class-ays-pb-data.php:281
+msgid "Hurry up! Ending on. <a href='https://ays-pro.com/winter-bundle' target='_blank'>Check it out!</a>"
+msgstr "Торопиться! Окончание на. <a href='https://ays-pro.com/winter-bundle' target='_blank'>Посмотрите!</a>"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:21
+#: admin/partials/features/ays-pb-plugin-featured-display.php:40
+#: admin/partials/features/ays-pb-plugin-featured-display.php:59
+#: admin/partials/features/ays-pb-plugin-featured-display.php:78
+#: admin/partials/features/ays-pb-plugin-featured-display.php:97
+#: admin/partials/features/ays-pb-plugin-featured-display.php:116
+#: admin/partials/features/ays-pb-plugin-featured-display.php:135
+#: includes/class-ays-pb-data.php:856
+msgid "Buy Now"
+msgstr "Купить сейчас"

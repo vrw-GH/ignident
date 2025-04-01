@@ -1,0 +1,13 @@
+/*
+ * This file holds javascript functions needed in frontend for the functionallity of the Google Maps widgets and shortcodes
+ * Handles conditional loading of Google API script.
+ *
+ * @author		Christian "Kriesi" Budschedl
+ * @copyright	Copyright ( c ) Christian Budschedl
+ * @link		http://kriesi.at
+ * @link		http://aviathemes.com
+ * @since		Version 1.0
+ * @package 	AviaFramework
+ *
+ */
+"use strict";!function(a){var s=null,i=function(){void 0!==window.av_google_map&&"undefined"!=typeof avia_framework_globals&&null==s&&(s=this,this.document=a(document),this.script_loading=!1,this.script_loaded=!1,this.script_source=avia_framework_globals.gmap_avia_api,this.maps={},this.loading_icon_html='<div class="ajax_load"><span class="ajax_load_inner"></span></div>',this.LoadAviaMapsAPIScript())};i.prototype={LoadAviaMapsAPIScript:function(){if(this.maps=a("body").find(".avia-google-map-container"),0!=this.maps.length){var s=!1;if(this.maps.each((function(i){var o=a(this);if(o.hasClass("av_gmaps_show_unconditionally")||o.hasClass("av_gmaps_show_delayed"))return s=!0,!1})),s){var i=a("html").hasClass("av-cookies-needs-opt-in")||a("html").hasClass("av-cookies-can-opt-out"),o=!0,e=a("html").hasClass("av-cookies-user-silent-accept");if(i&&!e&&(!document.cookie.match(/aviaCookieConsent/)||a("html").hasClass("av-cookies-session-refused")?o=!1:document.cookie.match(/aviaPrivacyRefuseCookiesHideBar/)&&document.cookie.match(/aviaPrivacyEssentialCookiesEnabled/)?document.cookie.match(/aviaPrivacyGoogleMapsDisabled/)&&(o=!1):o=!1),window.wp&&wp.hooks&&(o=wp.hooks.applyFilters("aviaCookieConsent_allow_continue",o)),o)if(void 0===a.AviaMapsAPI){a("body").on("avia-google-maps-api-script-loaded",this.AviaMapsScriptLoaded.bind(this)),this.script_loading=!0;var t=document.createElement("script");t.id="avia-gmaps-api-script",t.type="text/javascript",t.src=this.script_source,document.body.appendChild(t)}else this.AviaMapsScriptLoaded();else a(".av_gmaps_main_wrap").addClass("av-maps-user-disabled")}}},AviaMapsScriptLoaded:function(){this.script_loading=!1,this.script_loaded=!0;var s=this;this.maps.each((function(i){var o=a(this);if(!o.hasClass("av_gmaps_show_page_only")){var e=o.data("mapid");if(void 0!==window.av_google_map[e])if(o.hasClass("av_gmaps_show_unconditionally"))o.aviaMaps();else if(o.hasClass("av_gmaps_show_delayed")){o.closest(".av_gmaps_main_wrap").find("a.av_text_confirm_link").on("click",s.AviaMapsLoadConfirmed)}else console.log("Map cannot be displayed because missing display class: "+e);else console.log("Map cannot be displayed because no info: "+e)}}))},AviaMapsLoadConfirmed:function(s){s.preventDefault(),a(this).closest(".av_gmaps_main_wrap").find(".avia-google-map-container").aviaMaps()}},a((function(){new i}))}(jQuery);
