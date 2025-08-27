@@ -1513,6 +1513,8 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 					$this->config['modal_on_load'][] = $element['modal_on_load'];
 				}
 			}
+
+			$this->config['modal_on_load'][] = 'modal_description_info_boxes';
 		}
 
 		/**

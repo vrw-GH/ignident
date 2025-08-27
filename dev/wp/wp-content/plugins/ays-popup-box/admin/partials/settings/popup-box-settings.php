@@ -250,7 +250,7 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                                                 </div>
                                             </a>
                                         </div>
-                                        <a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                                        <a href="https://popup-plugin.com" target="_blank" class="ays-pro-features-v2-upgrade-button">
                                             <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
                                             <div class="ays-pro-features-v2-upgrade-text">
                                                 <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
@@ -579,6 +579,33 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                                     <span> - </span>
                                     <span style="font-size:18px;">
                                         <?php echo esc_html__( "It will show the current date upon opening a popup.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%current_time%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "It will show the current time upon opening a popup.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%current_day%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "It will show the current day upon opening a popup.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%current_month%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "It will show the current month upon opening a popup.", "ays-popup-box"); ?>
                                     </span>
                                 </p>
                             </div>

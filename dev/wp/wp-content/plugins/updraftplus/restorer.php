@@ -391,7 +391,7 @@ class Updraft_Restorer {
 					$pdata = is_string($data) ? $data : serialize($data);
 					$updraftplus->log(__('Error data:', 'updraftplus').' '.$pdata, 'warning-restore');
 					if (false !== strpos($pdata, 'PCLZIP_ERR_BAD_FORMAT (-10)')) {
-						$url = apply_filters('updraftplus_com_link', 'https://updraftplus.com/faqs/error-message-pclzip_err_bad_format-10-invalid-archive-structure-mean/');
+						$url = apply_filters('updraftplus_com_link', 'https://teamupdraft.com/documentation/updraftplus/topics/restoration/troubleshooting/what-does-error-message-pclzip_err_bad_format-10-mean/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=unknown&utm_creative_format=unknown');
 						if ($browser_context) {
 							echo '<a href="'.esc_url($url).'" target="_blank"><strong>'.esc_html__('Follow this link for more information', 'updraftplus').'</strong></a><br>';
 						} else {
@@ -1493,15 +1493,20 @@ class Updraft_Restorer {
 				$updraftplus->log_e('wp-config.php from backup: will restore as wp-config-pre-ud-restore-backup.php', 'updraftplus');
 				if (!$wpfs->move($working_dir . "/$file", $working_dir . "/wp-config-pre-ud-restore-backup.php", true)) {
 					$this->restore_log_permission_failure_message($working_dir, 'Move '.$working_dir . "/$file -> ".$working_dir . "/wp-config-pre-ud-restore-backup.php", 'Destination');
+					// rename failed - take no further action with this file; we should not restore unless rename successful
+					$ret['result'] = true;
+					return $ret;
+				} else {
+					$wpcore_config_moved = true;
+					$ret['filename'] = 'wp-config-pre-ud-restore-backup.php';
 				}
-				$wpcore_config_moved = true;
-				$ret['filename'] = 'wp-config-pre-ud-restore-backup.php';
 			} else {
 				$updraftplus->log_e("wp-config.php from backup: restoring (as per user's request)", 'updraftplus');
 			}
 		} elseif ('wpcore' == $type && 'wp-config-pre-ud-restore-backup.php' == $file && $wpcore_config_moved) {
 			// The file is already gone; nothing to do
 			$ret['result'] = true;
+			return $ret;
 		}
 		
 		if (('object-cache.php' == $file || 'advanced-cache.php' == $file) && 'others' == $type) {
@@ -1509,14 +1514,20 @@ class Updraft_Restorer {
 				$nfile = preg_replace('/\.php$/', '-backup.php', $file);
 				if (!$wpfs->move($working_dir . "/$file", $working_dir . "/" .$nfile, true)) {
 					$this->restore_log_permission_failure_message($working_dir, 'Move '. $working_dir . '/' . $file .' -> '.$working_dir . '/' . $nfile, 'Destination');
+					// rename failed - take no further action with this file, as `updraftplus_restorecachefiles` indicated we should not restore the file without renaming it
+					$ret['result'] = true;
+					return $ret;
+				} else {
+					// the file was moved successfully, return the new filename so restore process can move it into place
+					$ret['filename'] = $nfile;
 				}
-				$file = $nfile;
 			}
 		} elseif (('object-cache-backup.php' == $file || 'advanced-cache-backup.php' == $file) && 'others' == $type) {
 			if (!$wpfs->delete($working_dir."/".$file)) {
 				$this->restore_log_permission_failure_message($working_dir, 'Delete '.$working_dir."/".$file);
 			}
 			$ret['result'] = true;
+			return $ret;
 		}
 		
 		$ret['result'] = false;
@@ -2080,6 +2091,7 @@ class Updraft_Restorer {
 			'clear_cache_wpsupercache',
 			'clear_avada_fusion_cache', // avada theme with its theme engine called fusion
 			'clear_elementor_cache',
+			'clear_divi_cache',
 		);
 		
 		foreach ($methods as $method) {
@@ -2115,6 +2127,24 @@ class Updraft_Restorer {
 		if (is_dir($fusion_css_dir)) {
 			$updraftplus->log("Avada/Fusion's dynamic CSS folder exists, and will be emptied (so that it will be automatically regenerated)");
 			UpdraftPlus_Filesystem_Functions::remove_local_directory($fusion_css_dir, true);
+		}
+	}
+
+	/**
+	 * Clear cached Divi Theme Dynamic CSS
+	 */
+	private function clear_divi_cache() {
+		global $updraftplus;
+		$clear_cache = true;
+		$divi_cache_dir = (defined('ET_CORE_CACHE_DIR')) ? ET_CORE_CACHE_DIR : WP_CONTENT_DIR.DIRECTORY_SEPARATOR.'et-cache';
+		if (apply_filters('updraftplus_divi_direct_clear_cache', $clear_cache) && class_exists('ET_Core_PageResource') && method_exists('ET_Core_PageResource', 'remove_static_resources')) {
+			$updraftplus->log("Divi's clear cache method exists and will be executed");
+			ET_Core_PageResource::remove_static_resources('all', 'all');
+			$clear_cache = false;
+		}
+		if (apply_filters('updraftplus_divi_manual_clear_cache', $clear_cache) && is_dir($divi_cache_dir)) {
+			$updraftplus->log("Divi's cache directory exists, and will be emptied (so that it will be automatically regenerated)");
+			UpdraftPlus_Filesystem_Functions::remove_local_directory($divi_cache_dir, true);
 		}
 	}
 

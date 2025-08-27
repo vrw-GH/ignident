@@ -2319,7 +2319,7 @@ function avia_isNumeric( obj )
 									}
 									else
 									{
-										update_html = replace_val;
+										update_html = replace_val + '';		// force convert of numbers
 
 										if( update_html.indexOf( '###avia64###:' ) !== -1 )
 										{

@@ -111,13 +111,9 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 		}
 
 
-
-
-
 		######################################################################
 		# Rendering Functions
 		######################################################################
-
 
 		/**
 		 *
@@ -134,12 +130,6 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 
 			//subpage heading
 			$output .= $this->render_page_container( $option_page, $firstClass );
-
-			//remove button if available:
-//			if( isset( $option_page['removable'] ) )
-//			{
-//				$output .= "<a href='#{$option_page['slug']}' title='{$option_page['removable']}' class='avia_remove_dynamic_page'>{$option_page['removable']}</a>";
-//			}
 
 			//page elements
 			foreach( $page_elements as $key => $element )
@@ -220,19 +210,6 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 				//check if its a dynamic (sortable) element
 				$dynamic_end = '';
 
-//				if( $element['dynamic'] )
-//				{
-//					$output .= '<div class="avia_row">';
-//					$output .= '	<div class="avia_style_wrap avia_style_wrap_portlet">';
-//					$output .= '		<div class="avia-row-portlet-header">'.$element['name'].'<a href="#" class="avia-item-edit">+</a></div>';
-//					$output .= '		<div class="avia-portlet-content">';
-//					$output .= '		<span class="avia_clone_loading avia_removable_element_loading avia_hidden">Loading</span>';
-//					$output .= "		<a href='#".$element['id']."' title='".$element['removable']."' class='avia_remove_dynamic_element'><span>".$element['removable']."</span></a>";
-//					$dynamic_end = '<div class="avia_clear"></div></div></div></div>';
-//				}
-
-
-
 				//check if we should only render the element itself or description as well
 				if( $element['type'] == 'group' || ( isset( $element['nodescription'] ) && $element['nodescription'] != '' ) )
 				{
@@ -248,13 +225,8 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 				else
 				{
 					$output .= $this->section_start( $element );
-//					if( isset( $element['removable'] ) && ! isset( $element['dynamic'] ) )
-//					{
-//						$output .= '		<span class="avia_clone_loading avia_removable_element_loading avia_hidden">Loading</span>';
-//						$output .= "		<a href='#".$element['id']."' title='".$element['removable']."' class='avia_remove_dynamic_element'><span>".$element['removable']."</span></a>";
-//					}
-
 					$output .= $this->description( $element );
+
 					if( isset( $element['use_function'] ) )
 					{
 						$output .= $element['type']( $element );
@@ -915,7 +887,7 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 			$output .=		'<input type="text" class="avia_color_picker ' . $element['class'] . '" value="' . $element['std'] . '" id="' . $element['id'] . '" name="' . $element['id_name'] . '"/>';
 			$output .=		'<span class="avia_color_picker_div"></span>';
 			$output .= '</span>';
-			
+
 			return $output;
 		}
 
@@ -2166,6 +2138,17 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 			}
 
 			$output .=		$element['desc'];
+
+			if( isset( $element['info'] ) || isset( $element['attention'] ) || isset( $element['docu'] ) )
+			{
+				$dummy = $element;
+				$dummy['desc'] = '';
+
+				$output .=	$this->description( $dummy );
+
+				$output .=	'</div>';		//	close avia_control container
+			}
+
 			$output .= '</div>';
 
 			return $output;
@@ -2614,23 +2597,167 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 		/**
 		 * Renders the description of the current option-section
 		 *
+		 *		'desc'		- description text - shown permanent
+		 *		'info'		- info icon, display text on click
+		 *		'attention' - attention icon, display text on click
+		 *		'docu'		- docu icon, links to docu. Content is  [ 'url' => '....',  'title' => '....' ]
+		 *
+		 * @since ???
+		 * @since x.x.x				modified to support hover popup and multiple icons
 		 * @param array $element			holds data like type, value, id, class, description which are necessary to render the whole option-section
 		 * @return string $output			contains the html code generated within the method
 		 */
 		protected function description( array $element )
 		{
+			static $desc_chars = null;
+			static $desc_char_classes = null;
+			static $icon = null;
+			static $read = null;
+
+			if( is_null( $desc_chars ) )
+			{
+				$desc_chars = [];
+				$desc_char_classes = [];
+				$icon = [];
+				$read = [];
+
+				$desc_chars['info'] = \avia_font_manager::get_frontend_icon( 'down-circled', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+				$desc_chars['attention'] = $desc_chars['info'];
+				$desc_chars['docu'] = \avia_font_manager::get_frontend_icon( 'docs', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+
+				$read['more']['info'] = __( 'More', 'avia_framework' );
+				$read['less']['info'] = __( 'Less', 'avia_framework' );
+				$read['more']['attention'] = __( 'Important', 'avia_framework' );
+				$read['less']['attention'] = __( 'Less', 'avia_framework' );
+
+				/**
+				 *
+				 * @since x.x.x
+				 * @param array $desc_chars
+				 * @return array
+				 */
+				$desc_chars = apply_filters( 'avf_theme_option_desc_chars', $desc_chars );
+
+				/**
+				 *
+				 * @since x.x.x
+				 * @param array $read
+				 * @return array
+				 */
+				$read = apply_filters( 'avf_theme_option_desc_read', $read );
+
+
+				foreach( $desc_chars as $key => $value )
+				{
+					$desc_char_classes[ $key ] = \avia_font_manager::get_frontend_icon_classes( $desc_chars[ $key ]['font'], 'string' );
+
+					$class = '';
+					$tooltip = '';
+					$aria = '';
+					$text = '';
+
+					if( $key != 'docu' )
+					{
+						$class = 'av-show-hide-icon';
+						$tooltip = __( 'Click to show/hide infobox', 'avia_framework' );
+						$aria = "role='button' tabindex='0'";
+
+						$text .=	"<span class='av-read-more' data-more='{$read['more'][ $key ]}' data-less='{$read['less'][ $key ]}'>";
+						$text .=		$read['more'][ $key ];
+						$text .=	'</span>';
+					}
+
+					$icon[ $key ]  = '';
+					$icon[ $key ] .= "<div class='av-description-icon-wrap av-icon-{$key} {$class}' {$aria} title='{$tooltip}' data-popup='av-popup-{$key}'>";
+					$icon[ $key ] .=	$text;
+					$icon[ $key ] .=	"<span class='avia-svg-{$key} avia-font-entypo-fontello {$desc_char_classes[ $key ]}' {$desc_chars[ $key ]['attr']} >";
+					$icon[ $key ] .=		$desc_chars[ $key ]['svg'];
+					$icon[ $key ] .=	'</span>';
+
+					$icon[ $key ] .= '</div>';
+				}
+			}
+
+
 			$tags = array( 'div', 'div' );
+
+			/**
+			 * use class av-animation for animated loading of info box
+			 * use class av-no-animation for simple popup of info box
+			 */
+			$container_class = 'av-icons av-no-animation';
 
 			if( $element['type'] == 'checkbox' )
 			{
 				$tags = array( 'label for="' . $element['id'] . '"', 'label' );
 			}
 
-			$desc = apply_filters( 'avf_theme_options_element_desc', $element['desc'], $element );
+			/**
+			 * @since ???
+			 * @deprecated x.x.x
+			 * @param string $element['desc']
+			 * @param array $element
+			 * @return string
+			 */
+			$element['desc'] = apply_filters_deprecated( 'avf_theme_options_element_desc', [ $element['desc'], $element ], 'x.x.x', 'avf_theme_option_descriptions' );
 
-			$output  = "<{$tags[0]} class='avia_description'>";
-			$output .=		$desc;
+			/**
+			 * Filter description elements of rendered option
+			 *
+			 * @since x.x.x
+			 * @param array $element
+			 * @return array
+			 */
+			$element = apply_filters( 'avf_theme_option_descriptions', $element );
+
+
+			$output  =	"<{$tags[0]} class='avia_description {$container_class}'>";
+			$output .=		$element['desc'];
+
+
+			$output .=		'<div class="av-container-icons">';
+			$output .=			! empty( $element['info'] ) ? $icon['info'] : '';
+			$output .=			! empty( $element['attention'] ) ? $icon['attention'] : '';
+
+			if( ! empty( $element['docu'] ) && ! empty( $element['docu']['url'] ) )
+			{
+				if( empty( $element['docu']['title'] ) )
+				{
+					$title = __( 'Check our documentation for more info.', 'avia_framework' );
+				}
+				else
+				{
+					$title = esc_attr( $element['docu']['title'] );
+				}
+
+				$html = $icon['docu'];
+				$html = str_replace( '<span', '<a href="' . esc_url( $element['docu']['url'] ) . '" target="_blank" rel="noopener noreferrer" title="' . $title . '" ', $html );
+				$html = str_replace( '</span>', '</a>', $html );
+
+				$output .= $html;
+			}
+
+			$output .=		'</div>';
+
+			$output .=		'<div class="av-popup-wrap">';
+
+			if( ! empty( $element['info'] ) )
+			{
+				$output .=			'<div class="av-container-popup av-popup-info">';
+				$output .=				$element['info'];
+				$output .=			'</div>';
+			}
+
+			if( ! empty( $element['attention'] ) )
+			{
+				$output .=			'<div class="av-container-popup av-popup-attention">';
+				$output .=				$element['attention'];
+				$output .=			'</div>';
+			}
+
+			$output .=		'</div>';
 			$output .=	"</{$tags[1]}>"; // <!--end avia_description-->
+
 			$output .=	'<div class="avia_control">';
 
 			return $output;

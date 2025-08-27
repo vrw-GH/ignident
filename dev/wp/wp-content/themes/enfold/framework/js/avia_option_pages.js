@@ -103,7 +103,11 @@ jQuery(function($) {
 		{
 			//gather form data
 			var container = $(this);
-			if(container.length != 1) return;
+
+			if( container.length != 1 )
+			{
+				return;
+			}
 
 			var saveButtons = $('.avia_submit', this),
 				resetButtons = $('.avia_reset', this),
@@ -112,6 +116,8 @@ jQuery(function($) {
 				deleteDemoButton = $('.avia_import_delete_demo_button', this),
 				importParentSettingsButton = $('.avia_import_parent_button', this),
 				hiddenDataContainer = $('#avia_hidden_data', this),
+				descriptionToggle = $( '.avia_description.av-icons .av-show-hide-icon', this ),
+				descriptionPopup = $( '.avia_checkbox .avia_description.av-icons .av-popup-wrap', this ),
 				saveData = {
 								container: 		$(this),
 								ajaxUrl :		$('input[name=admin_ajax_url]', hiddenDataContainer).val(),
@@ -137,6 +143,9 @@ jQuery(function($) {
 			importButton.on('click', {set: saveData}, methods.do_import);						//download demo files and imports demo date
 			deleteDemoButton.on('click', {set: saveData}, methods.delete_demo_files);			//delete downloaded demo files from server
 			importParentSettingsButton.on('click', {set: saveData}, methods.do_parent_import);	//imports parent theme data
+			descriptionToggle.on('click', methods.ShowHideDescInfo);
+			descriptionToggle.on('keydown', methods.ShowHideDescInfoByKey);
+			descriptionPopup.on('click', methods.descriptionPopupClick);
 
 			//add "form listener"
 			methods.activateSaveButton(container);
@@ -181,7 +190,6 @@ jQuery(function($) {
 
 					return false;
 				});
-
 		},
 
 		/**
@@ -887,6 +895,78 @@ jQuery(function($) {
 			}
 
 			return false;
+		},
+
+		descriptionPopupClick: function( e )
+		{
+			// prevents default label behaviour for checkboxes to toggle
+			e.preventDefault();
+			e.stopImmediatePropagation();
+		},
+
+		ShowHideDescInfo: function( event )
+		{
+			event.preventDefault();
+
+			let moreButton = $(this),
+				popup_key = moreButton.data('popup'),
+				container = moreButton.closest('.av-icons'),
+				hasAnimation = container.hasClass('av-animation'),
+				popup = container.find( '.av-popup-wrap .' + popup_key ),
+				readMore = moreButton.find('.av-read-more'),
+				moreText = readMore.data('more'),
+				lessText = readMore.data('less'),
+				isPopupOpen = moreButton.hasClass( 'av-popup-open' );
+
+				if( isPopupOpen )
+				{
+					readMore.html( moreText );
+				}
+				else
+				{
+					readMore.html( lessText );
+				}
+
+				if( hasAnimation )
+				{
+					if( isPopupOpen )
+					{
+						popup.css("max-height", "0px");
+						popup.removeClass( 'av-show-popup' ).css("visibility", "hidden");
+						moreButton.removeClass( 'av-popup-open' );
+					}
+					else
+					{
+						popup.addClass( 'av-show-popup' ).css("visibility", "visible");
+						let scrollHeight = popup.prop("scrollHeight");
+						popup.css("max-height", ( scrollHeight + 50 ) + "px");
+						moreButton.addClass( 'av-popup-open' );
+					}
+				}
+				else
+				{
+					if( isPopupOpen )
+					{
+						popup.removeClass( 'av-show-popup' );
+						moreButton.removeClass( 'av-popup-open' );
+					}
+					else
+					{
+						popup.addClass( 'av-show-popup' );
+						moreButton.addClass( 'av-popup-open' );
+					}
+				}
+		},
+
+		ShowHideDescInfoByKey: function( event )
+		{
+			let moreButton = $(this);
+
+			if( event.key === "Enter" || event.key === " " )
+			{
+				event.preventDefault(); // Verhindert Scrollen bei Space
+				methods.ShowHideDescInfo.call( moreButton, event );	// in context of moreButton
+			}
 		}
 
 	};	//	end methods

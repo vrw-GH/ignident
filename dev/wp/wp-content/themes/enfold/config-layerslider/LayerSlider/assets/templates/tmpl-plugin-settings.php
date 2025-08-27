@@ -232,6 +232,11 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 							<td><?= lsGetSwitchOptionField('wpml_media_translation', true ) ?></td>
 							<td><?= __('Media Translation allows you to translate images. You can provide language-specific alternative versions of the images in your Media Library, and LayerSlider will automatically show the right one. Consider disabling this feature if you use Media Translation on your site but don’t want images in your projects to be changed.', 'LayerSlider') ?></td>
 						</tr>
+						<tr>
+							<td><?= __('Auto Translation Cleanup', 'LayerSlider') ?></td>
+							<td><?= lsGetSwitchOptionField('wpml_auto_cleanup', true ) ?></td>
+							<td><?= __('Automatically removes unused translation strings when deleting projects or layers to keep your translation database organized. Consider disabling this option if you wish to retain previously translated content for potential restoration, such as when using the Revisions feature.', 'LayerSlider') ?></td>
+						</tr>
 					</table>
 
 					<ls-h5><?= __('Page Builders', 'LayerSlider') ?></ls-h5>
@@ -321,6 +326,12 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 							<td><?= __('Clear 3rd party caches', 'LayerSlider') ?></td>
 							<td><?= lsGetSwitchOptionField('clear_3rd_party_caches', true) ?></td>
 							<td><?= __('Attempts to automatically clear the caches of the most popular caching plugins. It can help to avoid certain issues like changes not showing up on your front-end pages.', 'LayerSlider') ?></td>
+						</tr>
+
+						<tr>
+							<td><?= __('Fix 3rd party optimizer issues', 'LayerSlider') ?></td>
+							<td><?= lsGetSwitchOptionField('fix_optimizer_issues', true ) ?></td>
+							<td><?= __('This setting resolves conflicts caused by third-party optimizer plugins that may apply incorrect optimizations to scripts, such as adding the defer attribute to critical scripts. Enabling this option helps ensure proper script loading and improves site stability.', 'LayerSlider') ?></td>
 						</tr>
 
 						<tr>

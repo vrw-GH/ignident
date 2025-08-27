@@ -93,7 +93,7 @@ $avia_elements[] = array(
 
 $avia_elements[] = array(
 			'slug'		=> 'sidebars',
-			'name'		=> __( 'Sidebar on Smartphones', 'avia_framework' ),
+			'name'		=> __( 'Sidebar On Smartphones', 'avia_framework' ),
 			'desc'		=> __( 'Show sidebar on smartphones (Sidebar is displayed then below the actual content)', 'avia_framework' ),
 			'id'		=> 'smartphones_sidebar',
 			'type'		=> 'checkbox',

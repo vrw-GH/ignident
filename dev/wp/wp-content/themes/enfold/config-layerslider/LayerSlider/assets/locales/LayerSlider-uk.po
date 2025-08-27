@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: LayerSlider WP 7.14.0\n"
+"Project-Id-Version: LayerSlider WP 7.14.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-12 14:53+0100\n"
-"PO-Revision-Date: 2024-11-12 14:54+0100\n"
+"POT-Creation-Date: 2025-01-15 16:13+0100\n"
+"PO-Revision-Date: 2025-01-15 16:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: Українська\n"
 "Language: uk\n"
@@ -966,7 +966,7 @@ msgstr ""
 msgid "Performance Mode"
 msgstr "Постійно"
 
-#: assets/config/defaults.php:280 assets/templates/tmpl-plugin-settings.php:267
+#: assets/config/defaults.php:280 assets/templates/tmpl-plugin-settings.php:272
 msgid ""
 "Performance mode suspends every background activity when your sliders are "
 "out of the viewport and not visible. This can dramatically increase "
@@ -2924,7 +2924,7 @@ msgid "Use srcset Attribute"
 msgstr "Використовувати атрибут srcset"
 
 #: assets/config/defaults.php:1620
-#: assets/templates/tmpl-plugin-settings.php:376
+#: assets/templates/tmpl-plugin-settings.php:387
 msgid ""
 "The srcset attribute allows loading dynamically scaled images based on "
 "screen resolution. It can save bandwidth and allow using retina-ready images "
@@ -2942,7 +2942,7 @@ msgid "Enhanced Lazy Load"
 msgstr ""
 
 #: assets/config/defaults.php:1635
-#: assets/templates/tmpl-plugin-settings.php:382
+#: assets/templates/tmpl-plugin-settings.php:393
 #, fuzzy
 #| msgid ""
 #| "The default lazy loading behavior makes a compromise to ensure maximum "
@@ -4547,7 +4547,7 @@ msgstr ""
 
 #: assets/config/defaults.php:5020 assets/config/defaults.php:5226
 #: assets/templates/tmpl-add-layer.php:14 assets/views/project-editor.php:2246
-#: assets/views/project-editor.php:10387 assets/wp/scripts_l10n.php:374
+#: assets/views/project-editor.php:10429 assets/wp/scripts_l10n.php:374
 msgid "Text"
 msgstr "Текст"
 
@@ -5520,51 +5520,51 @@ msgid "Add New Layer"
 msgstr "Додати шар"
 
 #: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:2245
-#: assets/views/project-editor.php:2335 assets/views/project-editor.php:10383
+#: assets/views/project-editor.php:2335 assets/views/project-editor.php:10425
 #: assets/wp/scripts_l10n.php:372
 msgid "Image"
 msgstr "Зображення"
 
 #: assets/templates/tmpl-add-layer.php:18
 #: assets/templates/tmpl-project-settings.php:59
-#: assets/views/project-editor.php:2247 assets/views/project-editor.php:10391
+#: assets/views/project-editor.php:2247 assets/views/project-editor.php:10433
 #: assets/wp/scripts_l10n.php:376
 msgid "Video / Audio"
 msgstr "Відео/аудіо"
 
 #: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:2248
-#: assets/views/project-editor.php:10395 assets/wp/scripts_l10n.php:322
+#: assets/views/project-editor.php:10437 assets/wp/scripts_l10n.php:322
 #: assets/wp/scripts_l10n.php:375
 msgid "Button"
 msgstr "Кнопка"
 
-#: assets/templates/tmpl-add-layer.php:27 assets/views/project-editor.php:10399
+#: assets/templates/tmpl-add-layer.php:27 assets/views/project-editor.php:10441
 msgid "Asset"
 msgstr ""
 
 #: assets/templates/tmpl-add-layer.php:31 assets/views/project-editor.php:2249
-#: assets/views/project-editor.php:10403 assets/wp/scripts_l10n.php:379
+#: assets/views/project-editor.php:10445 assets/wp/scripts_l10n.php:379
 msgid "Shape"
 msgstr ""
 
 #: assets/templates/tmpl-add-layer.php:35 assets/views/project-editor.php:2250
 #: assets/views/project-editor.php:2480 assets/views/project-editor.php:2992
-#: assets/views/project-editor.php:10407 assets/wp/scripts_l10n.php:373
+#: assets/views/project-editor.php:10449 assets/wp/scripts_l10n.php:373
 msgid "Icon"
 msgstr "Іконка"
 
 #: assets/templates/tmpl-add-layer.php:39 assets/views/project-editor.php:2251
-#: assets/views/project-editor.php:10411 assets/wp/scripts_l10n.php:380
+#: assets/views/project-editor.php:10453 assets/wp/scripts_l10n.php:380
 msgid "SVG"
 msgstr ""
 
 #: assets/templates/tmpl-add-layer.php:44 assets/views/project-editor.php:2252
-#: assets/views/project-editor.php:10415 assets/wp/scripts_l10n.php:377
+#: assets/views/project-editor.php:10457 assets/wp/scripts_l10n.php:377
 msgid "HTML"
 msgstr "HTML"
 
 #: assets/templates/tmpl-add-layer.php:48 assets/views/project-editor.php:2253
-#: assets/views/project-editor.php:10419
+#: assets/views/project-editor.php:10461
 msgid "Dynamic Layer"
 msgstr "Динамічний шар"
 
@@ -6537,7 +6537,7 @@ msgstr ""
 
 #: assets/templates/tmpl-countdown-presets.php:108
 #: assets/templates/tmpl-counter-presets.php:25
-#: assets/views/project-editor.php:10693
+#: assets/views/project-editor.php:10735
 #, fuzzy
 #| msgid "Right"
 msgid "Light"
@@ -6624,7 +6624,7 @@ msgid "Widget"
 msgstr ""
 
 #: assets/templates/tmpl-embed-slider.php:26
-#: assets/templates/tmpl-plugin-settings.php:237
+#: assets/templates/tmpl-plugin-settings.php:242
 #, fuzzy
 #| msgid "Method 4: Page Builders"
 msgid "Page Builders"
@@ -6862,7 +6862,7 @@ msgid "Try a different search term."
 msgstr "Введіть тут для пошуку..."
 
 #: assets/templates/tmpl-import-layer.php:6 assets/views/project-editor.php:968
-#: assets/views/project-editor.php:10507
+#: assets/views/project-editor.php:10549
 msgid "Import Layer"
 msgstr "Шар імпорту"
 
@@ -7624,11 +7624,25 @@ msgid ""
 "your projects to be changed."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:240
+#: assets/templates/tmpl-plugin-settings.php:236
+#, fuzzy
+#| msgid "Custom 2D transitions"
+msgid "Auto Translation Cleanup"
+msgstr "Настроювані 2D-переходи"
+
+#: assets/templates/tmpl-plugin-settings.php:238
+msgid ""
+"Automatically removes unused translation strings when deleting projects or "
+"layers to keep your translation database organized. Consider disabling this "
+"option if you wish to retain previously translated content for potential "
+"restoration, such as when using the Revisions feature."
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:245
 msgid "Enable TinyMCE helper"
 msgstr "Увімкніть TinyMCE помічник"
 
-#: assets/templates/tmpl-plugin-settings.php:242
+#: assets/templates/tmpl-plugin-settings.php:247
 #, fuzzy
 #| msgid ""
 #| "Allows the LayerSlider helper utility for the classic WordPress page "
@@ -7643,11 +7657,11 @@ msgstr ""
 "WordPress, що дозволяє легко вставляти повзунки в ваші сторінки. Вимкнути, "
 "лише якщо виникають проблеми з редактором."
 
-#: assets/templates/tmpl-plugin-settings.php:246
+#: assets/templates/tmpl-plugin-settings.php:251
 msgid "Enable Gutenberg block"
 msgstr "Увімкнути блок Гутенберга"
 
-#: assets/templates/tmpl-plugin-settings.php:248
+#: assets/templates/tmpl-plugin-settings.php:253
 #, fuzzy
 #| msgid ""
 #| "Allows the LayerSlider block for  WordPress’s new Gutenberg page editor, "
@@ -7662,11 +7676,11 @@ msgstr ""
 "WordPress, що дозволяє легко вставляти повзунки у ваші сторінки. Вимкнути, "
 "лише якщо виникають проблеми з редактором."
 
-#: assets/templates/tmpl-plugin-settings.php:252
+#: assets/templates/tmpl-plugin-settings.php:257
 msgid "Enable Elementor widget"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:254
+#: assets/templates/tmpl-plugin-settings.php:259
 #, fuzzy
 #| msgid ""
 #| "Allows the LayerSlider helper utility for the classic WordPress page "
@@ -7681,20 +7695,20 @@ msgstr ""
 "WordPress, що дозволяє легко вставляти повзунки в ваші сторінки. Вимкнути, "
 "лише якщо виникають проблеми з редактором."
 
-#: assets/templates/tmpl-plugin-settings.php:265
+#: assets/templates/tmpl-plugin-settings.php:270
 #, fuzzy
 #| msgid "Permanently"
 msgid "Performance mode"
 msgstr "Постійно"
 
-#: assets/templates/tmpl-plugin-settings.php:271
+#: assets/templates/tmpl-plugin-settings.php:276
 #: assets/views/system-status.php:273
 #, fuzzy
 #| msgid "Use slider markup caching"
 msgid "Use markup caching"
 msgstr "Використання кешування розмітки слайдера"
 
-#: assets/templates/tmpl-plugin-settings.php:274
+#: assets/templates/tmpl-plugin-settings.php:279
 #, fuzzy
 #| msgid ""
 #| "Enabled caching can drastically increase the plugin performance and spare "
@@ -7710,15 +7724,15 @@ msgstr ""
 "ваш сервер від непотрібних навантажень. LayerSlider буде служити свіжою, не "
 "кешованих версій для адміністраторів і тих, хто може керувати повзунків."
 
-#: assets/templates/tmpl-plugin-settings.php:275
+#: assets/templates/tmpl-plugin-settings.php:280
 msgid "Empty caches"
 msgstr "Пусті кеш"
 
-#: assets/templates/tmpl-plugin-settings.php:280
+#: assets/templates/tmpl-plugin-settings.php:285
 msgid "Include scripts in the footer"
 msgstr "Долучати сценарії до нижнього колонтитула"
 
-#: assets/templates/tmpl-plugin-settings.php:282
+#: assets/templates/tmpl-plugin-settings.php:287
 msgid ""
 "Including resources in the footer can improve load times and solve other "
 "type of issues. Outdated themes might not support this method."
@@ -7727,11 +7741,11 @@ msgstr ""
 "завантаження і вирішити інші види питань. Застарілі теми можуть не "
 "підтримувати цей метод."
 
-#: assets/templates/tmpl-plugin-settings.php:286
+#: assets/templates/tmpl-plugin-settings.php:291
 msgid "Conditional script loading"
 msgstr "Завантаження умовного сценарію"
 
-#: assets/templates/tmpl-plugin-settings.php:288
+#: assets/templates/tmpl-plugin-settings.php:293
 msgid ""
 "Increase your site’s performance by loading resources only when necessary. "
 "Outdated themes might not support this method."
@@ -7739,11 +7753,11 @@ msgstr ""
 "Збільшуйте ефективність свого сайту, завантажуючи ресурси тільки в разі "
 "потреби. Застарілі теми можуть не підтримувати цей метод."
 
-#: assets/templates/tmpl-plugin-settings.php:292
+#: assets/templates/tmpl-plugin-settings.php:297
 msgid "Concatenate output"
 msgstr "Об'єднати вихід"
 
-#: assets/templates/tmpl-plugin-settings.php:294
+#: assets/templates/tmpl-plugin-settings.php:299
 msgid ""
 "Concatenating the plugin’s output could solve issues caused by custom "
 "filters your theme might use."
@@ -7751,11 +7765,11 @@ msgstr ""
 "Об'єднання виводу плагіна може вирішити проблеми, викликані настроюваними "
 "фільтрами ваша тема може використовувати."
 
-#: assets/templates/tmpl-plugin-settings.php:298
+#: assets/templates/tmpl-plugin-settings.php:303
 msgid "Defer JavaScript loading"
 msgstr "Відкласти завантаження JavaScript"
 
-#: assets/templates/tmpl-plugin-settings.php:300
+#: assets/templates/tmpl-plugin-settings.php:305
 #, fuzzy
 #| msgid ""
 #| "Eliminates render-blocking JavaScript files, but might also delay a bit "
@@ -7767,44 +7781,56 @@ msgstr ""
 "Усуває відтворення для блокування JavaScript файлів, але також може "
 "затримати трохи відображення повзунків вище рази."
 
-#: assets/templates/tmpl-plugin-settings.php:304
+#: assets/templates/tmpl-plugin-settings.php:309
 #, fuzzy
 #| msgid "Use srcset attribute"
 msgid "Use “loading” attribute"
 msgstr "Використовувати атрибут srcset"
 
-#: assets/templates/tmpl-plugin-settings.php:306
+#: assets/templates/tmpl-plugin-settings.php:311
 msgid ""
 "Enables the use of the HTML native lazy loading feature. LayerSlider has its "
 "own lazy loading mechanism more suitable for general use and we recommend "
 "leaving this option off."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:316
+#: assets/templates/tmpl-plugin-settings.php:321
 #, php-format
 msgid ""
 "Visiting %sSystem Status%s is recommended if you’re experiencing issues on "
 "your site or with LayerSlider."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:321
+#: assets/templates/tmpl-plugin-settings.php:326
 #: assets/views/system-status.php:279
 msgid "Clear 3rd party caches"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:323
+#: assets/templates/tmpl-plugin-settings.php:328
 msgid ""
 "Attempts to automatically clear the caches of the most popular caching "
 "plugins. It can help to avoid certain issues like changes not showing up on "
 "your front-end pages."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:327
+#: assets/templates/tmpl-plugin-settings.php:332
+msgid "Fix 3rd party optimizer issues"
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:334
+msgid ""
+"This setting resolves conflicts caused by third-party optimizer plugins that "
+"may apply incorrect optimizations to scripts, such as adding the defer "
+"attribute to critical scripts. Enabling this option helps ensure proper "
+"script loading and improves site stability."
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:338
 #: assets/views/system-status.php:286
 msgid "No-conflict mode"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:328
+#: assets/templates/tmpl-plugin-settings.php:339
 #, fuzzy
 #| msgid ""
 #| "Do not enable this option unless you’re  experiencing issues with jQuery "
@@ -7819,18 +7845,18 @@ msgstr ""
 "сайті. Ця опція може легко призвести до неочікуваних проблем у разі "
 "неправильного використання. Продовжити?"
 
-#: assets/templates/tmpl-plugin-settings.php:329
+#: assets/templates/tmpl-plugin-settings.php:340
 msgid ""
 "Removes extraneous scripts and styles on LayerSlider admin pages to reduce "
 "conflicts with 3rd party plugins and themes. Disable this option if you "
 "experience any issue."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:333
+#: assets/templates/tmpl-plugin-settings.php:344
 msgid "RocketScript compatibility"
 msgstr "Сумісність з Rockbiscript"
 
-#: assets/templates/tmpl-plugin-settings.php:335
+#: assets/templates/tmpl-plugin-settings.php:346
 msgid ""
 "Enable this option to ignore LayerSlider files by CloudFlare’s Rocket "
 "Loader, which can help overcoming potential issues."
@@ -7838,11 +7864,11 @@ msgstr ""
 "Увімкніть цей параметр, щоб ігнорувати LayerSlider файлів ракетного "
 "навантажувача Cloud's, які можуть допомогти подолати потенційні проблеми."
 
-#: assets/templates/tmpl-plugin-settings.php:339
+#: assets/templates/tmpl-plugin-settings.php:350
 msgid "Always load all JavaScript files"
 msgstr "Завжди завантажуйте всі файли JavaScript"
 
-#: assets/templates/tmpl-plugin-settings.php:341
+#: assets/templates/tmpl-plugin-settings.php:352
 msgid ""
 "Enabling this option will likely help if you’re experiencing issues with CDN "
 "services or JavaScript minify/combine features in a 3rd party plugin. "
@@ -7854,19 +7880,19 @@ msgstr ""
 "учасника. Тим не менш, він може також негативно впливати на продуктивність, "
 "оскільки ресурси не будуть завантажені умовно."
 
-#: assets/templates/tmpl-plugin-settings.php:345
+#: assets/templates/tmpl-plugin-settings.php:356
 #: assets/views/system-status.php:292
 msgid "Use GreenSock (GSAP) sandboxing"
 msgstr "Використання greensock (gsap) пісочниці"
 
-#: assets/templates/tmpl-plugin-settings.php:347
+#: assets/templates/tmpl-plugin-settings.php:358
 msgid ""
 "Leaving this option enabled is strongly recommended to maximize "
 "compatibility with other plugins and themes. Disabling it might cause "
 "unexpected issues. Do you wish to proceed?"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:349
+#: assets/templates/tmpl-plugin-settings.php:360
 msgid ""
 "Enabling GreenSock sandboxing can solve issues when other plugins are using "
 "multiple/outdated versions of this library."
@@ -7874,12 +7900,12 @@ msgstr ""
 "Увімкнення greensock пісочниці може вирішити питання, коли інші плагіни "
 "використовують кілька/застарілих версіях цієї бібліотеки."
 
-#: assets/templates/tmpl-plugin-settings.php:353
+#: assets/templates/tmpl-plugin-settings.php:364
 #: assets/views/system-status.php:298
 msgid "Use Google CDN version of jQuery"
 msgstr "Використовуйте Google CDN версію jQuery"
 
-#: assets/templates/tmpl-plugin-settings.php:354
+#: assets/templates/tmpl-plugin-settings.php:365
 #, fuzzy
 #| msgid ""
 #| "Do not enable this option unless you’re  experiencing issues with jQuery "
@@ -7894,7 +7920,7 @@ msgstr ""
 "сайті. Ця опція може легко призвести до неочікуваних проблем у разі "
 "неправильного використання. Продовжити?"
 
-#: assets/templates/tmpl-plugin-settings.php:355
+#: assets/templates/tmpl-plugin-settings.php:366
 msgid ""
 "This option will likely solve “Old jQuery” issues, but can easily have other "
 "side effects. Use it only when it is necessary."
@@ -7903,11 +7929,11 @@ msgstr ""
 "легко мати інші побічні ефекти. Використовуйте його тільки тоді, коли це "
 "необхідно."
 
-#: assets/templates/tmpl-plugin-settings.php:359
+#: assets/templates/tmpl-plugin-settings.php:370
 msgid "Scripts priority"
 msgstr "Пріоритет сценаріїв"
 
-#: assets/templates/tmpl-plugin-settings.php:361
+#: assets/templates/tmpl-plugin-settings.php:372
 msgid ""
 "Used to specify the order in which scripts are loaded. Lower numbers "
 "correspond with earlier execution."
@@ -7915,21 +7941,21 @@ msgstr ""
 "Використовується для визначення порядку завантаження скриптів. Менші числа "
 "відповідають попереднім виконанню."
 
-#: assets/templates/tmpl-plugin-settings.php:374
+#: assets/templates/tmpl-plugin-settings.php:385
 msgid "Use srcset attribute"
 msgstr "Використовувати атрибут srcset"
 
-#: assets/templates/tmpl-plugin-settings.php:380
+#: assets/templates/tmpl-plugin-settings.php:391
 msgid "Enhanced lazy load"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:392
+#: assets/templates/tmpl-plugin-settings.php:403
 #, fuzzy
 #| msgid "Play By Scroll"
 msgid "Enable “Play By Scroll”"
 msgstr "Грати, прокручуючи"
 
-#: assets/templates/tmpl-plugin-settings.php:394
+#: assets/templates/tmpl-plugin-settings.php:405
 msgid ""
 "“Play By Scroll” is a discontinued feature replaced by Scroll Scene. Sliders "
 "using “Play By Scroll” remain working as expected, but we’re hiding this "
@@ -7937,11 +7963,11 @@ msgid ""
 "LayerSlider."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:398
+#: assets/templates/tmpl-plugin-settings.php:409
 msgid "Suppress debug info"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:400
+#: assets/templates/tmpl-plugin-settings.php:411
 msgid ""
 "Hides useful information such as the version number in the browser’s debug "
 "console and in the site HTML markup. We recommend leaving this option "
@@ -8116,7 +8142,7 @@ msgstr "Параметри макета"
 
 #: assets/templates/tmpl-project-settings.php:22
 #: assets/templates/tmpl-project-settings.php:111
-#: assets/views/project-editor.php:10238 assets/wp/scripts_l10n.php:15
+#: assets/views/project-editor.php:10280 assets/wp/scripts_l10n.php:15
 msgid "Publish"
 msgstr "Опублікувати"
 
@@ -9086,7 +9112,7 @@ msgid "Unhide"
 msgstr "Відобразити"
 
 #: assets/templates/tmpl-sliders-list-context-menu.php:38
-#: assets/views/dashboard.php:572 assets/views/project-editor.php:10365
+#: assets/views/dashboard.php:572 assets/views/project-editor.php:10407
 msgid "Delete"
 msgstr ""
 
@@ -9172,7 +9198,7 @@ msgid "Circle"
 msgstr ""
 
 #: assets/templates/tmpl-smart-help.php:107
-#: assets/views/project-editor.php:10467
+#: assets/views/project-editor.php:10509
 msgid "Center Center"
 msgstr "Центр Центр"
 
@@ -10666,7 +10692,7 @@ msgid "Drop Shadow"
 msgstr ""
 
 #: assets/templates/tmpl-smart-help.php:1491
-#: assets/views/project-editor.php:10694
+#: assets/views/project-editor.php:10736
 msgid "Grayscale"
 msgstr "Відтінки сірого"
 
@@ -11599,7 +11625,7 @@ msgstr "Відновити виділені"
 msgid "Merge selected as new"
 msgstr "Об'єднати виділені як нові"
 
-#: assets/views/dashboard.php:737 assets/views/project-editor.php:10359
+#: assets/views/dashboard.php:737 assets/views/project-editor.php:10401
 msgid "Apply"
 msgstr "Застосувати"
 
@@ -12192,7 +12218,7 @@ msgstr "Параметри шару"
 msgid "Layers List"
 msgstr "Макет"
 
-#: assets/views/project-editor.php:963 assets/views/project-editor.php:10377
+#: assets/views/project-editor.php:963 assets/views/project-editor.php:10419
 msgid "Add Layer"
 msgstr "Додати шар"
 
@@ -14175,53 +14201,63 @@ msgstr "ДОБРЕ"
 msgid "Show more embed options"
 msgstr "Показати додаткові параметри"
 
-#: assets/views/project-editor.php:10232 assets/views/project-editor.php:10362
+#: assets/views/project-editor.php:10229
+msgid "Dont’t forget to update your project’s translations."
+msgstr ""
+
+#: assets/views/project-editor.php:10257
+#, fuzzy
+#| msgid "Ending<br>Transition"
+msgid "Go to String Translation"
+msgstr "Закінчення<br>Перехід"
+
+#: assets/views/project-editor.php:10274 assets/views/project-editor.php:10404
 #: assets/wp/scripts_l10n.php:11
 #, fuzzy
 #| msgid "Saved"
 msgid "Save"
 msgstr "Збережено"
 
-#: assets/views/project-editor.php:10233
+#: assets/views/project-editor.php:10275
 #, fuzzy
 #| msgid "Saving ..."
 msgid "Saving"
 msgstr "Збереження..."
 
-#: assets/views/project-editor.php:10239
+#: assets/views/project-editor.php:10281
 #, fuzzy
 #| msgid "Publish"
 msgid "Publishing"
 msgstr "Опублікувати"
 
-#: assets/views/project-editor.php:10266
+#: assets/views/project-editor.php:10308
 msgid ""
 "The transition property will be normalized regarding to the current "
 "responsive ratio of the slider."
 msgstr ""
 
-#: assets/views/project-editor.php:10269
+#: assets/views/project-editor.php:10311
 msgid ""
 "The transition will play backward after the layer leaves its center point."
 msgstr ""
 
-#: assets/views/project-editor.php:10272
+#: assets/views/project-editor.php:10314
 msgid "The transition will start from the opposite value of this property."
 msgstr ""
 
-#: assets/views/project-editor.php:10276
+#: assets/views/project-editor.php:10318
 #, fuzzy
 #| msgid "leave it empty to use default"
 msgid "Restore to defaults"
 msgstr "залиште пустим, щоб використовувати за промовчанням"
 
-#: assets/views/project-editor.php:10281
+#: assets/views/project-editor.php:10323
 #, fuzzy
 #| msgid "Advanced option"
 msgid "Advanced Option"
 msgstr "Розширена опція"
 
-#: assets/views/project-editor.php:10284
+#: assets/views/project-editor.php:10326
 #, fuzzy
 #| msgid ""
 #| "This feature requires product activation. Click on the padlock icon to "
@@ -14231,7 +14267,7 @@ msgstr ""
 "Ця функція потребує активації продукту. Натисніть на іконку замка, щоб "
 "дізнатися більше."
 
-#: assets/views/project-editor.php:10287
+#: assets/views/project-editor.php:10329
 #, fuzzy
 #| msgid ""
 #| "Plays a transition based on the options below when the user moves the "
@@ -14243,7 +14279,7 @@ msgstr ""
 "Відтворює перехід на основі наведених нижче параметрів, коли користувач "
 "переміщує курсор миші на цей шар."
 
-#: assets/views/project-editor.php:10290
+#: assets/views/project-editor.php:10332
 msgid ""
 "In some cases your layers may be wrapped by another element. For example, an "
 "＜A＞ tag when you use layer linking. By default, new attributes will be "
@@ -14260,399 +14296,399 @@ msgstr ""
 "прапорець, якщо потрібно застосувати цей атрибут до елементу Layer у всіх "
 "випадках."
 
-#: assets/views/project-editor.php:10293
+#: assets/views/project-editor.php:10335
 #, fuzzy
 #| msgid "Layer position"
 msgid "Set layers list position"
 msgstr "Положення шару"
 
-#: assets/views/project-editor.php:10296
+#: assets/views/project-editor.php:10338
 #, fuzzy
 #| msgid "Lock layer"
 msgid "Dock layers list"
 msgstr "Заблокувати шар"
 
-#: assets/views/project-editor.php:10299
+#: assets/views/project-editor.php:10341
 #, fuzzy
 #| msgid "Align layer(s)"
 msgid "Pin layers list"
 msgstr "Вирівняти шар (и)"
 
-#: assets/views/project-editor.php:10302
+#: assets/views/project-editor.php:10344
 #, fuzzy
 #| msgid "Choose a layer type"
 msgid "Close layers list"
 msgstr "Вибір типу шару"
 
-#: assets/views/project-editor.php:10305
+#: assets/views/project-editor.php:10347
 #, fuzzy
 #| msgid "Align layer(s)"
 msgid "Pin slides list"
 msgstr "Вирівняти шар (и)"
 
-#: assets/views/project-editor.php:10308
+#: assets/views/project-editor.php:10350
 #, fuzzy
 #| msgid "Align layer(s)"
 msgid "Unpin slides list"
 msgstr "Вирівняти шар (и)"
 
-#: assets/views/project-editor.php:10311
+#: assets/views/project-editor.php:10353
 #, fuzzy
 #| msgid "Style properties"
 msgid "Copy all style properties"
 msgstr "Властивості стилю"
 
-#: assets/views/project-editor.php:10314
+#: assets/views/project-editor.php:10356
 #, fuzzy
 #| msgid "Style properties"
 msgid "Paste all style properties"
 msgstr "Властивості стилю"
 
-#: assets/views/project-editor.php:10317
+#: assets/views/project-editor.php:10359
 #, fuzzy
 #| msgid "Copy transition properties"
 msgid "Copy all transition properties"
 msgstr "Копіювати властивості переходу"
 
-#: assets/views/project-editor.php:10320
+#: assets/views/project-editor.php:10362
 #, fuzzy
 #| msgid "Paste transition properties"
 msgid "Paste all transition properties"
 msgstr "Вставлення властивостей переходу"
 
-#: assets/views/project-editor.php:10323
+#: assets/views/project-editor.php:10365
 #, fuzzy
 #| msgid "Additional Slide Settings"
 msgid "Copy section settings"
 msgstr "Додаткові параметри слайду"
 
-#: assets/views/project-editor.php:10326
+#: assets/views/project-editor.php:10368
 #, fuzzy
 #| msgid "Paste layer settings"
 msgid "Paste section settings"
 msgstr "Вставити параметри шару"
 
-#: assets/views/project-editor.php:10329
+#: assets/views/project-editor.php:10371
 msgid "Expand / shrink sidebar"
 msgstr ""
 
-#: assets/views/project-editor.php:10332
+#: assets/views/project-editor.php:10374
 #, fuzzy
 #| msgid "Fade to top left"
 msgid "Align item to top left"
 msgstr "Fade до верхнього лівого"
 
-#: assets/views/project-editor.php:10335
+#: assets/views/project-editor.php:10377
 #, fuzzy
 #| msgid "by lines edge to center"
 msgid "Align item to top center"
 msgstr "за лініями EDGE до центру"
 
-#: assets/views/project-editor.php:10338
+#: assets/views/project-editor.php:10380
 #, fuzzy
 #| msgid "Fade to top right"
 msgid "Align item to top right"
 msgstr "Fade to верхньому правому"
 
-#: assets/views/project-editor.php:10341
+#: assets/views/project-editor.php:10383
 #, fuzzy
 #| msgid "by lines edge to center"
 msgid "Align item to center left"
 msgstr "за лініями EDGE до центру"
 
-#: assets/views/project-editor.php:10344
+#: assets/views/project-editor.php:10386
 #, fuzzy
 #| msgid "center center"
 msgid "Align item to center center"
 msgstr "по центру"
 
-#: assets/views/project-editor.php:10347
+#: assets/views/project-editor.php:10389
 #, fuzzy
 #| msgid "center right"
 msgid "Align item to center right"
 msgstr "центрувати праворуч"
 
-#: assets/views/project-editor.php:10350
+#: assets/views/project-editor.php:10392
 #, fuzzy
 #| msgid "Fade to bottom left"
 msgid "Align item to bottom left"
 msgstr "Плавно донизу ліворуч"
 
-#: assets/views/project-editor.php:10353
+#: assets/views/project-editor.php:10395
 #, fuzzy
 #| msgid "bottom center"
 msgid "Align item to bottom center"
 msgstr "нижньому центрі"
 
-#: assets/views/project-editor.php:10356
+#: assets/views/project-editor.php:10398
 #, fuzzy
 #| msgid "Fade to bottom right"
 msgid "Align item to bottom right"
 msgstr "Поступова поява в нижньому правому куті"
 
-#: assets/views/project-editor.php:10426
+#: assets/views/project-editor.php:10468
 msgid "Overlapping Layers"
 msgstr "Шари, що перекриваються"
 
-#: assets/views/project-editor.php:10434
+#: assets/views/project-editor.php:10476
 msgid "Align Layer"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:10435
+#: assets/views/project-editor.php:10477
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Align Layers"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:10441 assets/views/project-editor.php:10480
+#: assets/views/project-editor.php:10483 assets/views/project-editor.php:10522
 msgid "Left Edge"
 msgstr "Лівому краю"
 
-#: assets/views/project-editor.php:10445 assets/views/project-editor.php:10484
+#: assets/views/project-editor.php:10487 assets/views/project-editor.php:10526
 msgid "Horizontal Center"
 msgstr "Горизонтальний центр"
 
-#: assets/views/project-editor.php:10449 assets/views/project-editor.php:10488
+#: assets/views/project-editor.php:10491 assets/views/project-editor.php:10530
 msgid "Right Edge"
 msgstr "Правого краю"
 
-#: assets/views/project-editor.php:10454 assets/views/project-editor.php:10493
+#: assets/views/project-editor.php:10496 assets/views/project-editor.php:10535
 msgid "Top Edge"
 msgstr "Верхній край"
 
-#: assets/views/project-editor.php:10458 assets/views/project-editor.php:10497
+#: assets/views/project-editor.php:10500 assets/views/project-editor.php:10539
 msgid "Vertical Center"
 msgstr "Вертикальний центр"
 
-#: assets/views/project-editor.php:10462 assets/views/project-editor.php:10501
+#: assets/views/project-editor.php:10504 assets/views/project-editor.php:10543
 msgid "Bottom Edge"
 msgstr "Нижній край"
 
-#: assets/views/project-editor.php:10474
+#: assets/views/project-editor.php:10516
 #, fuzzy
 #| msgid "View Selection"
 msgid "Align Layers in Selection"
 msgstr "Переглянути виділений фрагмент"
 
-#: assets/views/project-editor.php:10511
+#: assets/views/project-editor.php:10553
 msgid "Duplicate Layer"
 msgstr "Дублювати шар"
 
-#: assets/views/project-editor.php:10512
+#: assets/views/project-editor.php:10554
 #, fuzzy
 #| msgid "Duplicate Layer"
 msgid "Duplicate Layers"
 msgstr "Дублювати шар"
 
-#: assets/views/project-editor.php:10521 assets/wp/scripts_l10n.php:340
+#: assets/views/project-editor.php:10563 assets/wp/scripts_l10n.php:340
 msgid "Remove Layer"
 msgstr "Видалити шар"
 
-#: assets/views/project-editor.php:10522 assets/wp/scripts_l10n.php:344
+#: assets/views/project-editor.php:10564 assets/wp/scripts_l10n.php:344
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove Layers"
 msgstr "Видалити шар"
 
-#: assets/views/project-editor.php:10527
+#: assets/views/project-editor.php:10569
 msgid "Copy Layer"
 msgstr "Копіювати шар"
 
-#: assets/views/project-editor.php:10528
+#: assets/views/project-editor.php:10570
 #, fuzzy
 #| msgid "Copy Layer"
 msgid "Copy Layers"
 msgstr "Копіювати шар"
 
-#: assets/views/project-editor.php:10537
+#: assets/views/project-editor.php:10579
 msgid "Paste Layer"
 msgstr "Вставити шар"
 
-#: assets/views/project-editor.php:10538
+#: assets/views/project-editor.php:10580
 #, fuzzy
 #| msgid "Paste Layer"
 msgid "Paste Layers"
 msgstr "Вставити шар"
 
-#: assets/views/project-editor.php:10548
+#: assets/views/project-editor.php:10590
 msgid "Toggle Layer Visibility"
 msgstr "Переключити видимість шару"
 
-#: assets/views/project-editor.php:10549
+#: assets/views/project-editor.php:10591
 #, fuzzy
 #| msgid "Toggle Layer Visibility"
 msgid "Toggle Layers Visibility"
 msgstr "Переключити видимість шару"
 
-#: assets/views/project-editor.php:10553
+#: assets/views/project-editor.php:10595
 msgid "Toggle Layer Locking"
 msgstr "Переключити блокування шару"
 
-#: assets/views/project-editor.php:10554
+#: assets/views/project-editor.php:10596
 #, fuzzy
 #| msgid "Toggle Layer Locking"
 msgid "Toggle Layers Locking"
 msgstr "Переключити блокування шару"
 
-#: assets/views/project-editor.php:10559
+#: assets/views/project-editor.php:10601
 msgid "Copy Layer Styles"
 msgstr "Копіювання стилів шарів"
 
-#: assets/views/project-editor.php:10563
+#: assets/views/project-editor.php:10605
 msgid "Paste Layer Styles"
 msgstr "Вставити стилі шару"
 
-#: assets/views/project-editor.php:10570
+#: assets/views/project-editor.php:10612
 #, fuzzy
 #| msgid "Slide image"
 msgid "Pick image"
 msgstr "Слайд-зображення"
 
-#: assets/views/project-editor.php:10571
+#: assets/views/project-editor.php:10613
 #, fuzzy
 #| msgid "use post image"
 msgid "Use post image"
 msgstr "використовувати поштове зображення"
 
-#: assets/views/project-editor.php:10572
+#: assets/views/project-editor.php:10614
 #, fuzzy
 #| msgid "insert from URL"
 msgid "Enter from URL"
 msgstr "вставити з URL-адреси"
 
-#: assets/views/project-editor.php:10574
+#: assets/views/project-editor.php:10616
 #, fuzzy
 #| msgid "Image Editor"
 msgid "Image editor"
 msgstr "Редактор зображень"
 
-#: assets/views/project-editor.php:10576
+#: assets/views/project-editor.php:10618
 #, fuzzy
 #| msgid "Remove slide image"
 msgid "Remove image"
 msgstr "Видалення зображення слайду"
 
-#: assets/views/project-editor.php:10584
+#: assets/views/project-editor.php:10626
 #, fuzzy
 #| msgid "Duplicate"
 msgid "Duplicate Slide"
 msgstr "Дублювати"
 
-#: assets/views/project-editor.php:10588
+#: assets/views/project-editor.php:10630
 #, fuzzy
 #| msgid "Unpublished slider"
 msgid "Unpublish Slide"
 msgstr "Неопублікований повзунок"
 
-#: assets/views/project-editor.php:10592
+#: assets/views/project-editor.php:10634
 #, fuzzy
 #| msgid "Unpublished slider"
 msgid "Publish Slide"
 msgstr "Неопублікований повзунок"
 
-#: assets/views/project-editor.php:10596 assets/wp/scripts_l10n.php:335
+#: assets/views/project-editor.php:10638 assets/wp/scripts_l10n.php:335
 #, fuzzy
 #| msgid "Removed slider"
 msgid "Remove Slide"
 msgstr "Видалений повзунок"
 
-#: assets/views/project-editor.php:10601
+#: assets/views/project-editor.php:10643
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Generate Thumbnail"
 msgstr "Мініатюра слайда"
 
-#: assets/views/project-editor.php:10608
+#: assets/views/project-editor.php:10650
 #, fuzzy
 #| msgid "Slider Settings"
 msgid "Sidebar Settings"
 msgstr "Налаштування слайдера"
 
-#: assets/views/project-editor.php:10615
+#: assets/views/project-editor.php:10657
 #, fuzzy
 #| msgid "Actions"
 msgid "Section tabs"
 msgstr "Дії"
 
-#: assets/views/project-editor.php:10619
+#: assets/views/project-editor.php:10661
 msgid "Expand all"
 msgstr ""
 
-#: assets/views/project-editor.php:10628
+#: assets/views/project-editor.php:10670
 msgid "Collapse all"
 msgstr ""
 
-#: assets/views/project-editor.php:10634
+#: assets/views/project-editor.php:10676
 #, fuzzy
 #| msgid "Reset on close"
 msgid "Auto close"
 msgstr "Скидання під час закриття"
 
-#: assets/views/project-editor.php:10643
+#: assets/views/project-editor.php:10685
 #, fuzzy
 #| msgid "Layer editor"
 msgid "Layers List Pos."
 msgstr "Редактор шарів"
 
-#: assets/views/project-editor.php:10648
+#: assets/views/project-editor.php:10690
 #, fuzzy
 #| msgid "Left Edge"
 msgid "Left side"
 msgstr "Лівому краю"
 
-#: assets/views/project-editor.php:10649
+#: assets/views/project-editor.php:10691
 #, fuzzy
 #| msgid "Right Edge"
 msgid "Right side"
 msgstr "Правого краю"
 
-#: assets/views/project-editor.php:10656
+#: assets/views/project-editor.php:10698
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Pin Layers List"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:10665
+#: assets/views/project-editor.php:10707
 msgid "Show Quick Tip when publishing"
 msgstr ""
 
-#: assets/views/project-editor.php:10678
+#: assets/views/project-editor.php:10720
 #, fuzzy
 #| msgid "Basic Settings"
 msgid "Workspace Settings"
 msgstr "Базові налаштування"
 
-#: assets/views/project-editor.php:10686
+#: assets/views/project-editor.php:10728
 #, fuzzy
 #| msgid "Editor, Admin"
 msgid "Editor Theme"
 msgstr "Редактор, адміністратор"
 
-#: assets/views/project-editor.php:10692
+#: assets/views/project-editor.php:10734
 #, fuzzy
 #| msgid "Default quality"
 msgid "Default (Dark)"
 msgstr "Якість за умовчанням"
 
-#: assets/views/project-editor.php:10701
+#: assets/views/project-editor.php:10743
 #, fuzzy
 #| msgid "Show me"
 msgid "Show rulers"
 msgstr "Показати більше"
 
-#: assets/views/project-editor.php:10707
+#: assets/views/project-editor.php:10749
 #, fuzzy
 #| msgid "Show me"
 msgid "Show guides"
 msgstr "Показати більше"
 
-#: assets/views/project-editor.php:10713
+#: assets/views/project-editor.php:10755
 #, fuzzy
 #| msgid "Show info"
 msgid "Show info panel"
 msgstr "Показати інформацію"
 
-#: assets/views/project-editor.php:10722
+#: assets/views/project-editor.php:10764
 msgid "Workspace Padding"
 msgstr ""
 
@@ -15397,13 +15433,13 @@ msgstr " %s тому"
 msgid "Unnamed Project"
 msgstr "назва"
 
-#: assets/wp/actions.php:1233 assets/wp/scripts_l10n.php:125
+#: assets/wp/actions.php:1238 assets/wp/scripts_l10n.php:125
 #, fuzzy
 #| msgid "Import Layer"
 msgid "Import Error"
 msgstr "Шар імпорту"
 
-#: assets/wp/actions.php:1234
+#: assets/wp/actions.php:1239
 #, fuzzy, php-format
 #| msgid ""
 #| "It seems there is a server issue that prevented LayerSlider from "
@@ -15426,7 +15462,7 @@ msgstr ""
 "провайдера для вирішення проблем конфігурації сервера. Повторна спроба "
 "імпортування також може допомогти."
 
-#: assets/wp/actions.php:1280
+#: assets/wp/actions.php:1285
 #, fuzzy, php-format
 #| msgid ""
 #| "LayerSlider couldn’t save the downloaded slider on your server. Please "
@@ -15444,32 +15480,32 @@ msgstr ""
 "проблем. Найпоширенішою причиною цього випуску є відсутність дозволу на "
 "записування в каталозі/wp-content/uploads/."
 
-#: assets/wp/actions.php:1327
+#: assets/wp/actions.php:1332
 #, fuzzy
 #| msgid "Import Layer"
 msgid "Imported Group"
 msgstr "Шар імпорту"
 
-#: assets/wp/actions.php:1469 assets/wp/actions.php:1497
+#: assets/wp/actions.php:1474 assets/wp/actions.php:1502
 msgid ""
 "It looks like your files isn’t writable, so PHP couldn’t make any changes "
 "(CHMOD)."
 msgstr ""
 "Схоже, що ваші файли не є записувані, тому PHP не може вносити зміни (CHMOD)."
 
-#: assets/wp/actions.php:1469 assets/wp/actions.php:1497
+#: assets/wp/actions.php:1474 assets/wp/actions.php:1502
 msgid "Cannot write to file"
 msgstr "Не вдалося записати на файл"
 
-#: assets/wp/actions.php:1483
+#: assets/wp/actions.php:1488
 msgid "It looks like you haven’t selected any skin to edit."
 msgstr "Схоже, ви не вибрали будь-яку шкіру для редагування."
 
-#: assets/wp/actions.php:1483
+#: assets/wp/actions.php:1488
 msgid "No skin selected."
 msgstr "Жодна шкіра не обрана."
 
-#: assets/wp/actions.php:1875 assets/wp/actions.php:2053
+#: assets/wp/actions.php:1933 assets/wp/actions.php:2111
 #, fuzzy
 #| msgid ""
 #| "This feature requires product activation. Click on the padlock icon to "
@@ -15479,21 +15515,21 @@ msgstr ""
 "Ця функція потребує активації продукту. Натисніть на іконку замка, щоб "
 "дізнатися більше."
 
-#: assets/wp/actions.php:1876 assets/wp/actions.php:2054
+#: assets/wp/actions.php:1934 assets/wp/actions.php:2112
 msgid ""
 "An error occurred while we tried to validate your LayerSlider license. "
 "Please verify that you’re using a genuine copy of LayerSlider and that "
 "you’ve registered a valid license key."
 msgstr ""
 
-#: assets/wp/actions.php:1952 assets/wp/scripts_l10n.php:62
+#: assets/wp/actions.php:2010 assets/wp/scripts_l10n.php:62
 #: assets/wp/scripts_l10n.php:67
 #, fuzzy
 #| msgid "Upload error"
 msgid "Download Error"
 msgstr "Помилка завантаження"
 
-#: assets/wp/actions.php:1953 assets/wp/actions.php:2133
+#: assets/wp/actions.php:2011 assets/wp/actions.php:2191
 #: assets/wp/scripts_l10n.php:86
 #, fuzzy, php-format
 #| msgid ""
@@ -15516,7 +15552,7 @@ msgstr ""
 "провайдера для вирішення проблем конфігурації сервера. Повторна спроба "
 "імпортування також може допомогти."
 
-#: assets/wp/actions.php:2006 assets/wp/actions.php:2142
+#: assets/wp/actions.php:2064 assets/wp/actions.php:2200
 #, fuzzy, php-format
 #| msgid ""
 #| "LayerSlider couldn’t save the downloaded slider on your server. Please "
@@ -15533,12 +15569,12 @@ msgstr ""
 "проблем. Найпоширенішою причиною цього випуску є відсутність дозволу на "
 "записування в каталозі/wp-content/uploads/."
 
-#: assets/wp/actions.php:2086 assets/wp/actions.php:2189
+#: assets/wp/actions.php:2144 assets/wp/actions.php:2247
 #: assets/wp/scripts_l10n.php:355
 msgid "Server Error"
 msgstr ""
 
-#: assets/wp/actions.php:2087 assets/wp/actions.php:2190
+#: assets/wp/actions.php:2145 assets/wp/actions.php:2248
 #: assets/wp/scripts_l10n.php:84
 #, fuzzy, php-format
 #| msgid ""
@@ -15562,7 +15598,7 @@ msgstr ""
 "провайдера для вирішення проблем конфігурації сервера. Повторна спроба "
 "імпортування також може допомогти."
 
-#: assets/wp/actions.php:2108 assets/wp/scripts_l10n.php:82
+#: assets/wp/actions.php:2166 assets/wp/scripts_l10n.php:82
 msgid ""
 "It seems the remote API is experiencing a temporary outage, and we couldn’t "
 "load the assets you’re looking for. Please try again in a few minutes."
@@ -15711,17 +15747,17 @@ msgstr ""
 "того, щоб насолодитися нашою премією вигоди.  %spread ліцензія %s або %sread "
 "документацію %s, щоб дізнатися більше.  %sGot повзунок LayerSlider в темі? %s"
 
-#: assets/wp/scripts.php:465
+#: assets/wp/scripts.php:478
 #, fuzzy
 #| msgid "Getting Started"
 msgid "Settings saved."
 msgstr "Починаємо"
 
-#: assets/wp/scripts.php:466
+#: assets/wp/scripts.php:479
 msgid "An error occurred while saving settings."
 msgstr ""
 
-#: assets/wp/scripts.php:467
+#: assets/wp/scripts.php:480
 msgid "Add-on disabled."
 msgstr ""
 

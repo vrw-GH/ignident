@@ -2072,9 +2072,11 @@ div .avia_sortable_gallery_container .set_is_open{
 }
 
 #wpwrap #avia_options_page .avia_section.av_2columns select,
-#wpwrap #avia_options_page .avia_section.av_2columns input{}
+#wpwrap #avia_options_page .avia_section.av_2columns input{
+}
 
-#wpwrap #avia_options_page .avia_section.av_2columns .avia_style_wrap{}
+#wpwrap #avia_options_page .avia_section.av_2columns .avia_style_wrap{
+}
 
 #wpwrap #avia_options_page .avia_section.av_3columns.av_col_1{
 	clear:both;

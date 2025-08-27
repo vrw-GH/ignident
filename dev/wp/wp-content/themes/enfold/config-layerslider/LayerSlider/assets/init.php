@@ -15,6 +15,9 @@ define('LS_MARKETPLACE_ID', '1362246');
 define('LS_TEXTDOMAIN', 'LayerSlider');
 define('LS_REPO_BASE_URL', 'https://repository.kreaturamedia.com/v4/');
 
+define('LS_WPML_SP_TITLE', 'LayerSlider');
+define('LS_WPML_SP_SLUG', 'layerslider');
+
 
 
 if( ! defined('NL')  ) { define('NL', "\r\n"); }
@@ -29,6 +32,7 @@ LS_Config::init();
 
 // Shared
 include LS_ROOT_PATH.'/wp/compatibility.php';
+include LS_ROOT_PATH.'/wp/compatibility-vendor.php';
 include LS_ROOT_PATH.'/wp/scripts.php';
 include LS_ROOT_PATH.'/wp/menus.php';
 include LS_ROOT_PATH.'/wp/hooks.php';

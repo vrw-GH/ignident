@@ -15,7 +15,7 @@ global $avia_config, $avia_pages, $avia_elements;
 
 $avia_elements[] = array(
 			'slug'          => 'cookie',
-			'name'          => __( 'Privacy and Cookies','avia_framework' ),
+			'name'          => __( 'Privacy And Cookies','avia_framework' ),
 			'desc'          => '',
 			'id'            => 'avia_p_and_c',
 			'type'          => 'heading',
@@ -303,7 +303,7 @@ $avia_elements[] =	array(
 
 $avia_elements[] = array(
 			'slug'	=> 'cookie',
-			'name'	=> __( 'Enable cookie consent messages', 'avia_framework' ),
+			'name'	=> __( 'Enable Cookie Consent Messages', 'avia_framework' ),
 			'desc'	=> __( 'Enable cookie consent messages to use message bar and modal popup.', 'avia_framework' ),
 			'id'	=> 'cookie_consent',
 			'type'	=> 'select',
@@ -748,7 +748,7 @@ $avia_elements[] = array(
 
 $avia_elements[] =	array(
 			'slug'	=> 'cookie',
-			'name'	=> __( 'Show advanced options', 'avia_framework' ),
+			'name'	=> __( 'Show Advanced Options', 'avia_framework' ),
 			'desc'	=> __( 'Contains options for special use cases like using the message bar just for simple notifications', 'avia_framework' ),
 			'id'	=> 'cookie_show_advanced_options',
 			'type'	=> 'checkbox',
@@ -769,7 +769,7 @@ $desc .= __( 'To use cookie logic without showing a message bar please check our
 
 $avia_elements[] = array(
 			'slug'		=> 'cookie',
-			'name'		=> __( 'Select use of the message bar', 'avia_framework' ),
+			'name'		=> __( 'Select Use Of The Message Bar', 'avia_framework' ),
 			'desc'		=> $desc,
 			'id'		=> 'cookie_message_bar_only',
 			'type'		=> 'select',
@@ -805,7 +805,7 @@ $avia_elements[] = array(
 
 $avia_elements[] = array(
 			'slug'		=> 'cookie',
-			'name'		=> __( 'Show reopen badge', 'avia_framework' ),
+			'name'		=> __( 'Show Reopen Badge', 'avia_framework' ),
 			'desc'		=> __( 'Select to show a badge to reopen the message bar', 'avia_framework' ),
 			'id'		=> 'cookie_consent_badge',
 			'type'		=> 'select',

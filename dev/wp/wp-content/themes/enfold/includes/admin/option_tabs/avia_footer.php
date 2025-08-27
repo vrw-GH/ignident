@@ -9,7 +9,7 @@ if( ! defined( 'ABSPATH' ) ) {  exit;  }    // Exit if accessed directly
 
 global $avia_config, $avia_pages, $avia_elements;
 
-$desc1  = '<strong><br />';
+$desc1  = '<strong>';
 $desc1 .=		__( 'Info: If a footer page is selected and no &quot;Page Based Footer&quot; option is selected, the selected page will show a message in the page list, that this option is inactive, so that editors are reminded that it is a &quot;special&quot; page and making changes might break intended site layout when reactivated.', 'avia_framework' ) . ' ';
 $desc1 .=		__( 'To disable this message in the page list please change your page selection to &quot;Select Page&quot; so no page is selected and then disable "Page Based Footer" option.', 'avia_framework' );
 $desc1 .= '</strong>';
@@ -17,7 +17,8 @@ $desc1 .= '</strong>';
 $avia_elements[] = array(
 			'slug'		=> 'footer',
 			'name'		=> __( 'Default Footer &amp; Socket Settings', 'avia_framework' ),
-			'desc'		=> __( 'Do you want to display the footer widgets &amp; footer socket or a page content as footer? This default setting can be changed individually for each page.', 'avia_framework' ) . $desc1,
+			'desc'		=> __( 'Do you want to display the footer widgets &amp; footer socket or a page content as footer? This default setting can be changed individually for each page.', 'avia_framework' ),
+			'attention'	=> $desc1,
 			'id'		=> 'display_widgets_socket',
 			'type'		=> 'select',
 			'std'		=> 'all',
@@ -74,7 +75,7 @@ $desc .= '</strong>';
 
 $avia_elements[] = array(
 			'slug'		=> 'footer',
-			'name'		=> __( 'Footer Behavior (currently in beta)', 'avia_framework' ),
+			'name'		=> __( 'Footer Behavior', 'avia_framework' ),
 			'desc'		=> $desc,
 			'id'		=> 'footer_behavior',
 			'type'		=> 'select',

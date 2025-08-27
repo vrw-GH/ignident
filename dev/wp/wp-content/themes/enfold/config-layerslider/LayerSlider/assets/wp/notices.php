@@ -140,7 +140,7 @@ function layerslider_plugins_screen_notice( $plugin_file, $plugin_data, $status 
 	$table = _get_list_table('WP_Plugins_List_Table');
 	if( empty( $plugin_data['update'] ) ) {
 	?>
-	<tr class="plugin-update-tr active ls-plugin-update-row" data-slug="<?= LS_PLUGIN_SLUG ?>" data-plugin="<?= LS_PLUGIN_BASE ?>">
+	<tr class="plugin-update-tr active ls-plugin-update-tr" data-slug="<?= LS_PLUGIN_SLUG ?>" data-plugin="<?= LS_PLUGIN_BASE ?>">
 		<td colspan="<?= $table->get_column_count(); ?>" class="plugin-update colspanchange">
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>

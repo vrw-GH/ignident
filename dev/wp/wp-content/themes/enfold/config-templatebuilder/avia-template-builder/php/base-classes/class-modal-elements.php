@@ -676,6 +676,8 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 		 *
 		 * @todo: fix: checkboxes at metaboxes currently dont work
 		 *
+		 * @since ????
+		 * @since x.x.x					support for checkbox toggles
 		 * @param array $element		the array holds data like type, value, id, class, description which are necessary to render the whole option-section
 		 * @return string				the string returned contains the html code generated within the method
 		 */
@@ -691,7 +693,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 
 			if( isset( $element['std_fakeArg'] ) && $element['std_fakeArg'] != '' )
 			{
-				$checked = 'checked = "checked"';
+				$checked = 'checked="checked"';
 			}
 
 			$attr = isset( $element['attr'] ) ? $element['attr'] : '';
@@ -714,6 +716,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 				$locked_data = AviaHtmlHelper::checkbox( $dummy );
 
 				$element['class'] .= ' avia-locked-data-hide';
+				$element['lockable_check'] = $element['id'];
 			}
 
 			$output  = '';
@@ -721,7 +724,21 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 			$output .= $locked_data;
 			$output .= '<input '. $checked . ' type="checkbox" class="' . $element['class'] . '" value="' . $element['id'] . '" id="' . $element['id'] . '" name="' . $element['id'] . '" ' . $attr . $data . $title . '/>';
 
-			return $output;
+
+			if( ! current_theme_supports( 'avia_alb_checkbox_toggles' ) || isset( $element['lockable_check'] ) )
+			{
+				return $output;
+			}
+
+			$html  =	'';
+			$html .=	'<div class="av-switch-' . $element['id'] . ' av-toggle-switch active ' . $element['class'] . '">';
+			$html .=		'<label>';
+			$html .=			$output;
+			$html .=			'<span class="toggle-track"></span>';
+			$html .=		'</label>';
+			$html .=	'</div>';
+
+			return $html;
 		}
 
 		/**
@@ -815,14 +832,6 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 				$chars = avia_font_manager::load_charlist();
 			}
 
-			if( ! isset( $element['locked_value'] ) )
-			{
-				$output .= '<div class="av-builder-note av-notice">';
-				$output .=		__( 'We recommend to use &quot;SVG Iconset: Entypo Fontello&quot; instead of &quot;Iconfont: Entypo Fontello&quot; for new sites and to switch to SVG iconset for existing sites.', 'avia_framework' ) . ' ';
-				$output .=		__( 'This will allow you to disable loading the default font &quot;Entypo Fontello&quot; in theme option &quot;SVG Iconset and Iconfont Manager&quot; to speed up page loading.', 'avia_framework' );
-				$output .= '</div>';
-			}
-
 			//	in a first step we need to make sure that every element can handle this
 			$svg_support = isset( $element['svg_sets'] ) && 'yes' == $element['svg_sets'];
 
@@ -898,7 +907,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 				$filter .=		'</optgroup>';
 			}
 
-			$filter .=		'<select>';
+			$filter .=		'</select>';
 			$filter .=		"<input type='text' class='av-icon-filter-input avia_ignore_on_save' value='' name='{$name}-input' id='{$name}-input' placeholder='{$placeholder}' />";
 			$filter .= '</div>';
 
@@ -911,7 +920,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 			 */
 			$supress_filter = apply_filters( 'avf_icon_font_filter_suppress', false, $element );
 
-			if( false === $supress_filter )
+			if( false === $supress_filter && ! isset( $element['locked_value'] ) )
 			{
 				$output .= $filter;
 			}
@@ -3187,5 +3196,35 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 			return $post_type_option;
 		}
 
+		/**
+		 * Allows to add fixed description text to popup boxes.
+		 * Avoids to write text that is the same for all elements in each definition
+		 *
+		 * @since x.x.x
+		 * @param array $element
+		 * @return array
+		 */
+		static public function add_description_info_text( array $element = [] )
+		{
+			if( ! isset( $element['type'] ) )
+			{
+				return $element;
+			}
+
+			switch( $element['type'] )
+			{
+				case 'iconfont':
+					if( ! isset( $element['info'] ) )
+					{
+						$element['info']  = __( 'We recommend to use &quot;SVG Iconset: Entypo Fontello&quot; instead of &quot;Iconfont: Entypo Fontello&quot; for new sites and to switch to SVG iconset for existing sites.', 'avia_framework' ) . ' ';
+						$element['info'] .=	__( 'This will allow you to disable loading the default font &quot;Entypo Fontello&quot; in theme option &quot;SVG Iconset and Iconfont Manager&quot; to speed up page loading.', 'avia_framework' );
+					}
+					break;
+			}
+
+			return $element;
+		}
 	}
+//
+	add_filter( 'avf_alb_modal_element_descriptions', [ 'AviaHtmlHelper', 'add_description_info_text' ], 10, 1 );
 }

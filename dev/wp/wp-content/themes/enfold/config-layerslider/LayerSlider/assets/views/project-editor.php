@@ -10218,6 +10218,49 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 														</lse-button>
 													</lse-ib>
 												</lse-col>
+
+											<?php if( ls_should_use_string_translation() ) : ?>
+												<lse-separator></lse-separator>
+												<lse-col class="lse-wide lse-col-notice lse-translation-notice">
+													<lse-ib>
+														<lse-text>
+															<?= __('Dont’t forget to update your project’s translations.', 'LayerSlider') ?>
+														</lse-text>
+													</lse-ib>
+												</lse-col>
+												<lse-col class="lse-wide">
+													<lse-ib class="lse-jcc">
+														<?php
+															$stURL = '';
+															$strButtonLabel = __('Go to String Translation', 'LayerSlider');
+
+															// WPML
+															if( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+
+																$createdWith = ! empty( $slider['properties']['createdWith'] ) ? $slider['properties']['createdWith'] : null;
+																$importVersion = ! empty( $slider['properties']['importVersion'] ) ? $slider['properties']['importVersion'] : null;
+
+																// New implementation: Translation Management
+																if( ls_should_use_wpml_string_packages( $createdWith, $importVersion ) ) {
+																	$stURL = admin_url('admin.php?page=tm/menu/main.php&sections=string,stringPackage/layerslider&predefinedStringDomain=LayerSlider Sliders');
+																	$strButtonLabel = __('Go to Translation Management', 'LayerSlider');
+
+																// Old implementation: String Translation
+																} else {
+																	$stURL = admin_url( 'admin.php?page=wpml-string-translation/menu/string-translation.php&context=LayerSlider Sliders&search=slider-' . $id );
+																}
+
+															// Polylang
+															} elseif( defined( 'POLYLANG_VERSION' ) ) {
+																$stURL = admin_url( 'admin.php?page=mlang_strings&s=slider-'.$id.'&group=LayerSlider Sliders&paged=1' );
+															}
+														?>
+														<a href="<?= $stURL ?>" target="_blank" class="lse-button">
+															<lse-text class="lse-f11 lse-tac"><?= $strButtonLabel ?></lse-text>
+														</a>
+													</lse-ib>
+												</lse-col>
+											<?php endif ?>
 											</lse-row>
 										</lse-grid>
 									</lse-b>

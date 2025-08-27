@@ -75,7 +75,7 @@ $avia_elements[] = array(
 
 $avia_elements[] = array(
 			'slug'		=> 'google',
-			'name'		=> __( 'Enable Google Maps on your site', 'avia_framework' ),
+			'name'		=> __( 'Enable Google Maps On Your Site', 'avia_framework' ),
 			'desc'		=> __( 'Select if you want to use Google Maps on your site. If it is disabled no Javascript to connect to Google Maps will be loaded in frontend.', 'avia_framework' ),
 			'id'		=> 'gmap_enabled',
 			'type'		=> 'select',
@@ -90,7 +90,7 @@ $avia_elements[] = array(
 
 $avia_elements[] = array(
 			'slug'           => 'google',
-			'name'           => __( 'Enter a valid Google Maps API Key to use all map related theme functions', 'avia_framework' ),
+			'name'           => __( 'Enter A Valid Google Maps API Key To Use All Map Related Theme Functions', 'avia_framework' ),
 			'desc'           => '',
 			'id'             => 'gmap_api',
 			'type'           => 'verification_field',
@@ -159,7 +159,7 @@ $avia_elements[] = array(
 
 $avia_elements[] = array(
 			'slug'     => 'google',
-			'name'     => __( 'Select if you want to use Google reCAPTCHA', 'avia_framework' ),
+			'name'     => __( 'Select If You Want To Use Google reCAPTCHA', 'avia_framework' ),
 			'desc'     => $recaptcha_v3,
 			'id'       => 'avia_recaptcha_version',
 			'type'     => 'select',

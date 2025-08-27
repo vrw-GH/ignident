@@ -32,13 +32,14 @@ if($_POST)
             wp_nonce_ays( 'bulk_actions_ips' );
             exit;
         }
+		$xyz_ips_snippet_ids = [];
 			$ips_bulk_actions_snippet=$_POST['ips_bulk_actions_snippet'];
-			if (isset($_POST['xyz_ips_snippet_ids']))
-				$xyz_ips_snippet_ids = $_POST['xyz_ips_snippet_ids'];
+			if (isset($_POST['xyz_ips_snippet_ids']) && is_array($_POST['xyz_ips_snippet_ids']))
+			$xyz_ips_snippet_ids = array_map('intval', $_POST['xyz_ips_snippet_ids']);
  				$xyz_ips_pageno = isset( $_GET['pagenum'] ) ? absint( $_GET['pagenum'] ) : 1;
  				if (empty($xyz_ips_snippet_ids))
 				{
-					header("Location:".admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=8&pagenum='.$xyz_ips_pageno));
+					wp_safe_redirect(admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=8&pagenum='.$xyz_ips_pageno));
 					exit();
 				}
 				if ($ips_bulk_actions_snippet==2)//bulk-delete
@@ -47,26 +48,26 @@ if($_POST)
 					{
 						$wpdb->query($wpdb->prepare( 'DELETE FROM  '.$wpdb->prefix.'xyz_ips_short_code  WHERE id=%d',$snippet_id)) ;
 					}
-					header("Location:".admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=3&pagenum='.$xyz_ips_pageno));
+					wp_safe_redirect(admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=3&pagenum='.$xyz_ips_pageno));
 					exit();
 				}
 				elseif ($ips_bulk_actions_snippet==0)//bulk-Deactivate
 				{
 					foreach ($xyz_ips_snippet_ids as $xyz_ips_snippetId)
 						$wpdb->update($wpdb->prefix.'xyz_ips_short_code', array('status'=>2), array('id'=>$xyz_ips_snippetId));
-						header("Location:".admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=4&pagenum='.$xyz_ips_pageno));
+						wp_safe_redirect(admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=4&pagenum='.$xyz_ips_pageno));
 						exit();
 				}
 				elseif ($ips_bulk_actions_snippet==1)//bulk-activate
 				{
 					foreach ($xyz_ips_snippet_ids as $xyz_ips_snippetId)
 						$wpdb->update($wpdb->prefix.'xyz_ips_short_code', array('status'=>1), array('id'=>$xyz_ips_snippetId));
-						header("Location:".admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=4&pagenum='.$xyz_ips_pageno));
+						wp_safe_redirect(admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=4&pagenum='.$xyz_ips_pageno));
 						exit();
 				}
 				elseif ($ips_bulk_actions_snippet==-1)//no action selected
 				{
-					header("Location:".admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=7&pagenum='.$xyz_ips_pageno));
+					wp_safe_redirect(admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=7&pagenum='.$xyz_ips_pageno));
 					exit();
 				}
 		}
@@ -77,12 +78,12 @@ if($_POST)
 if($xyz_ips_message == 1){
 
 	?>
-<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
 <span id="system_notice_area_common_msg">
 PHP Snippet successfully added.&nbsp;&nbsp;&nbsp;
 </span>
 <span
-id="xyz_system_notice_area_dismiss">Dismiss</span>
+id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 </div>
 <?php
 
@@ -90,12 +91,12 @@ id="xyz_system_notice_area_dismiss">Dismiss</span>
 if($xyz_ips_message == 2){
 
 	?>
-<div class="xyz_system_notice_area_style0" id="xyz_system_notice_area">
+<div class="xyz_ips_system_notice_area_style0" id="xyz_ips_system_notice_area">
 <span id="system_notice_area_common_msg">
 PHP Snippet not found.&nbsp;&nbsp;&nbsp;
 </span>
 <span
-id="xyz_system_notice_area_dismiss">Dismiss</span>
+id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 </div>
 <?php
 
@@ -103,12 +104,12 @@ id="xyz_system_notice_area_dismiss">Dismiss</span>
 if($xyz_ips_message == 3){
 
 	?>
-<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
 <span id="system_notice_area_common_msg">
 PHP Snippet successfully deleted.&nbsp;&nbsp;&nbsp;
 </span>
 <span
-id="xyz_system_notice_area_dismiss">Dismiss</span>
+id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 </div>
 <?php
 
@@ -116,12 +117,12 @@ id="xyz_system_notice_area_dismiss">Dismiss</span>
 if($xyz_ips_message == 4){
 
 	?>
-<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
 <span id="system_notice_area_common_msg">
 PHP Snippet status successfully changed.&nbsp;&nbsp;&nbsp;
 </span>
 <span
-id="xyz_system_notice_area_dismiss">Dismiss</span>
+id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 </div>
 <?php
 
@@ -129,12 +130,12 @@ id="xyz_system_notice_area_dismiss">Dismiss</span>
 if($xyz_ips_message == 5){
 
 	?>
-<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
 <span id="system_notice_area_common_msg">
 PHP Snippet successfully updated.&nbsp;&nbsp;&nbsp;
 </span>
 <span
-id="xyz_system_notice_area_dismiss">Dismiss</span>
+id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 </div>
 <?php
 
@@ -142,21 +143,21 @@ id="xyz_system_notice_area_dismiss">Dismiss</span>
 if($xyz_ips_message == 7)
 {
 	?>
-	<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+	<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
 	<span id="system_notice_area_common_msg">	Please select an action to apply.&nbsp;&nbsp;&nbsp;
 	</span>	
-		<span id="xyz_system_notice_area_dismiss">Dismiss</span>
+		<span id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 	</div>
 <?php
 }
 if($xyz_ips_message == 8)
 {
 	?>
-	<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+	<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
 	<span id="system_notice_area_common_msg">
 		Please select at least one snippet to perform this action.&nbsp;&nbsp;&nbsp;
 		</span>
-		<span id="xyz_system_notice_area_dismiss">Dismiss</span>
+		<span id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 	</div>
 <?php
 }
@@ -421,22 +422,22 @@ const xyz_ips_copy_shortcode = (id) => {
 const xyz_ips_notice = (msg = '', flag = 0) => {
 
 
-const noticeElement = jQuery('#xyz_system_notice_area');
+const noticeElement = jQuery('#xyz_ips_system_notice_area');
 if (noticeElement.length > 0) 
 {
 
   jQuery('#system_notice_area_common_msg').text(msg);
   if (flag === 0) {
-  if(noticeElement.hasClass('system_notice_area_style1'))
-  noticeElement.removeClass('system_notice_area_style1')
-  if(! noticeElement.hasClass('system_notice_area_style0'))
-  noticeElement.addClass('system_notice_area_style0');
+  if(noticeElement.hasClass('xyz_ips_system_notice_area_style1'))
+  noticeElement.removeClass('xyz_ips_system_notice_area_style1')
+  if(! noticeElement.hasClass('xyz_ips_system_notice_area_style0'))
+  noticeElement.addClass('xyz_ips_system_notice_area_style0');
 
   } else {
-  if(noticeElement.hasClass('system_notice_area_style0'))
-  noticeElement.removeClass('system_notice_area_style0')
-  if(! noticeElement.hasClass('system_notice_area_style1'))
-  noticeElement.addClass('system_notice_area_style1');
+  if(noticeElement.hasClass('xyz_ips_system_notice_area_style0'))
+  noticeElement.removeClass('xyz_ips_system_notice_area_style0')
+  if(! noticeElement.hasClass('xyz_ips_system_notice_area_style1'))
+  noticeElement.addClass('xyz_ips_system_notice_area_style1');
 
   }
   noticeElement.animate({
@@ -450,9 +451,9 @@ else{
 
 
   let noticeElementString = 
-  `<div class="system_notice_area_style${flag}" id="xyz_system_notice_area">
+  `<div class="xyz_ips_system_notice_area_style${flag}" id="xyz_ips_system_notice_area">
     <span id="system_notice_area_common_msg">${msg}.&nbsp;&nbsp;&nbsp;</span>
-    <span id="xyz_system_notice_area_dismiss">Dismiss</span>
+    <span id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
   </div>`;
 
   let noticeElement = jQuery(noticeElementString);

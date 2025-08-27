@@ -178,7 +178,7 @@ if( ! class_exists( 'av_responsive_images', false ) )
 			add_filter( 'wp_lazy_loading_enabled', array( $this, 'handler_wp_lazy_loading_enabled' ), 99, 3 );
 			add_filter( 'wp_img_tag_add_loading_attr', array( $this, 'handler_wp_img_tag_add_loading_attr' ), 99, 3 );
 
-			//	reset postmeta and delete all css files
+			//	reset database
 			add_action( 'ava_after_theme_update', array( $this, 'handler_ava_reset_db_options' ), 100 );
 			add_action( 'ava_after_import_demo_settings', array( $this, 'handler_ava_reset_db_options'), 100 );
 			add_action( 'avia_ajax_after_save_options_page', array( $this, 'handler_ava_reset_db_options'), 100 );

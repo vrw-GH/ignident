@@ -23,7 +23,7 @@ function xyz_ips_execute_shortcode() {
             $id =intval($_POST['id']);
 
 
-			$shortcodeDetails = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."xyz_ips_short_code WHERE id=".$id." AND insertionMethod =3");
+            $shortcodeDetails = $wpdb->get_results($wpdb->prepare( "SELECT * FROM {$wpdb->prefix}xyz_ips_short_code WHERE id = %d AND insertionMethod = %d",$id, 3 ));
 			if(!empty($shortcodeDetails))
 			{
 				$shortcode =$shortcodeDetails[0];

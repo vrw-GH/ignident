@@ -1,0 +1,4487 @@
+# Translation of Plugins - Popup Box &#8211; Create Countdown, Coupon, Video, Contact Form Popups - Stable (latest release) in Chinese (China)
+# This file is distributed under the same license as the Plugins - Popup Box &#8211; Create Countdown, Coupon, Video, Contact Form Popups - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-03-07 10:50:23+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: zh_CN\n"
+"Project-Id-Version: Plugins - Popup Box &#8211; Create Countdown, Coupon, Video, Contact Form Popups - Stable (latest release)\n"
+
+#: includes/class-ays-pb-data.php:599
+msgid "Hurry up! <a href='https://popup-plugin.com' target='_blank'>Check it out!</a>"
+msgstr ""
+
+#: ays-pb.php:124 ays-pb.php:132 ays-pb.php:142
+msgid "Pricing"
+msgstr ""
+
+#: ays-pb.php:118
+msgid "summer2025"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8385
+msgid "Get Learning Management System and online course solution in WordPress now."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8380
+msgid "Download FREE version"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8365
+msgid "WordPress LMS Plugin"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6889
+msgid "Add an image which will be displayed instead of the close button or choose from predefined icons."
+msgstr ""
+
+#: ays-pb.php:120
+msgid "Extra 20% Coupon"
+msgstr ""
+
+#: ays-pb.php:118
+msgid "Click for copy"
+msgstr ""
+
+#. translators: %s: link to Essential Bundle and %s: (Quiz + Form + Popup)
+#: includes/class-ays-pb-data.php:675 includes/class-ays-pb-data.php:763
+msgid "Quiz + Form + Popup"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1032
+msgid "With the FoxLMS plugin, you can create, sell, and organize courses, lessons, and quizzes, transforming your website into a dynamic e-learning platform."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1031
+msgid "Build and manage online courses directly on your WordPress site."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1030
+msgid "Fox LMS"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4087
+msgid "Telegram page link for showing at the end of the popup."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4086
+msgid "Telegram link"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5572
+msgid "Define the description alignment for mobile devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5563
+#: admin/partials/actions/ays-pb-admin-actions.php:5582
+msgid "Right"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5561
+#: admin/partials/actions/ays-pb-admin-actions.php:5580
+msgid "Left"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5553
+msgid "Define the description alignment for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5543
+msgid "Define the alignment of the popup description."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5542
+msgid "Description alignment"
+msgstr ""
+
+#. translators: %1$s: opening anchor tag, %2$s: closing anchor tag
+#: includes/class-ays-pb-integrations.php:1081
+msgid "You need to set up reCAPTCHA in your Google account to generate the required keys and get them by %1$s Google's reCAPTCHA admin console %2$s."
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:1075
+msgid "Dark"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:1074
+msgid "Light"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:1070
+msgid "reCAPTCHA Theme"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:1061
+msgid "reCAPTCHA Language"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:1052
+msgid "reCAPTCHA v2 Secret Key"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:1043
+msgid "reCAPTCHA v2 Site Key"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:1025
+msgid "reCAPTCHA"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:1000
+msgid "Enable reCAPTCHA"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:983
+msgid "reCAPTCHA Settings"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4206
+msgid "End time:"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4187
+msgid "Start time:"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4171
+msgid "Specify the hours of the day when the popup should be displayed."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4169
+msgid "Popup Display Hours"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3209
+#: admin/partials/actions/ays-pb-admin-actions.php:4619
+#: admin/partials/actions/ays-pb-admin-actions.php:7431
+#: admin/partials/actions/ays-pb-admin-actions.php:7838
+msgid "Expand All"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3205
+#: admin/partials/actions/ays-pb-admin-actions.php:4615
+#: admin/partials/actions/ays-pb-admin-actions.php:7427
+#: admin/partials/actions/ays-pb-admin-actions.php:7834
+msgid "Collapse All"
+msgstr ""
+
+#: includes/class-ays-pb-data.php:877
+msgid "Christmas Sale"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2326
+msgid "Circle"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2325
+msgid "Rectangle"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2318
+msgid "Select the desired shape for the logo image"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2317
+msgid "Logo Image Shape"
+msgstr ""
+
+#: includes/class-ays-pb-data.php:886
+msgid "20% Extra OFF"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2290
+msgid "Define the logo image size if needed."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2289
+msgid "Logo image sizing"
+msgstr ""
+
+#: includes/class-ays-pb-data.php:912
+msgid "20% Extra Discount Coupon"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2216
+msgid "Specify the min-width of the logo for mobile devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2188
+msgid "Specify the min-width of the logo for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2148
+msgid "Specify the max-width of the logo for mobile devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2120
+msgid "Specify the max-width of the logo for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2080
+msgid "Specify the width of the logo for mobile devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2052
+msgid "Specify the width of the logo for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2566
+msgid "Define the space between the letters of the button in pixels for mobile devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2552
+msgid "Define the space between the letters of the button in pixels for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2660
+msgid "Specify the font weight for the button for mobile devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2632
+msgid "Specify the font weight for the button for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2606
+msgid "Define the font size of the button text in pixels for mobile devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2592
+msgid "Define the font size of the button text in pixels for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2051
+#: admin/partials/actions/ays-pb-admin-actions.php:2119
+#: admin/partials/actions/ays-pb-admin-actions.php:2187
+#: admin/partials/actions/ays-pb-admin-actions.php:2551
+#: admin/partials/actions/ays-pb-admin-actions.php:2591
+#: admin/partials/actions/ays-pb-admin-actions.php:2631
+msgid "On Desktop"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2802
+msgid "Set the button's transition duration in seconds. This controls the time it takes for the button's style changes, such as hover effects, to animate smoothly."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2801
+msgid "Transition"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2245
+msgid "Max-height"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2267
+msgid "Min-height"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2178
+msgid "Specify the min-width of the logo."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2042
+msgid "Specify the width of the logo."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4011
+msgid "X link"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2110
+msgid "Specify the max-width of the logo."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2771
+msgid "Container styles"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2690
+msgid "Border styles"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2450
+msgid "Font styles"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2414
+msgid "Background styles"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2268
+msgid "Specify the min-height of the logo in pixels. "
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2177
+msgid "Min-width"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7595
+msgid "Disable the popup on desktop."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7593
+msgid "Hide popup on desktop"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5114
+#: admin/partials/actions/ays-pb-admin-actions.php:5206
+#: admin/partials/actions/ays-pb-admin-actions.php:5262
+#: admin/partials/actions/ays-pb-admin-actions.php:5508
+#: admin/partials/actions/ays-pb-admin-actions.php:5552
+#: admin/partials/actions/ays-pb-admin-actions.php:5607
+#: admin/partials/actions/ays-pb-admin-actions.php:6376
+#: admin/partials/actions/ays-pb-admin-actions.php:7017
+msgid "On desktop"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3134
+#: admin/partials/actions/ays-pb-admin-actions.php:3238
+#: admin/partials/actions/ays-pb-admin-actions.php:3293
+#: admin/partials/actions/ays-pb-admin-actions.php:3369
+#: admin/partials/actions/ays-pb-admin-actions.php:3521
+#: admin/partials/actions/ays-pb-admin-actions.php:3570
+#: admin/partials/actions/ays-pb-admin-actions.php:3637
+#: admin/partials/actions/ays-pb-admin-actions.php:3684
+#: admin/partials/actions/ays-pb-admin-actions.php:3733
+#: admin/partials/actions/ays-pb-admin-actions.php:3847
+#: admin/partials/actions/ays-pb-admin-actions.php:3902
+#: admin/partials/actions/ays-pb-admin-actions.php:4485
+#: admin/partials/actions/ays-pb-admin-actions.php:4538
+#: admin/partials/actions/ays-pb-admin-actions.php:4566
+#: admin/partials/actions/ays-pb-admin-actions.php:4594
+#: admin/partials/actions/ays-pb-admin-actions.php:5073
+#: admin/partials/actions/ays-pb-admin-actions.php:5369
+#: admin/partials/actions/ays-pb-admin-actions.php:5893
+#: admin/partials/actions/ays-pb-admin-actions.php:6011
+#: admin/partials/actions/ays-pb-admin-actions.php:6129
+#: admin/partials/actions/ays-pb-admin-actions.php:6159
+#: admin/partials/actions/ays-pb-admin-actions.php:6198
+#: admin/partials/actions/ays-pb-admin-actions.php:6228
+#: admin/partials/actions/ays-pb-admin-actions.php:6277
+#: admin/partials/actions/ays-pb-admin-actions.php:6337
+#: admin/partials/actions/ays-pb-admin-actions.php:6490
+#: admin/partials/actions/ays-pb-admin-actions.php:6520
+#: admin/partials/actions/ays-pb-admin-actions.php:6559
+#: admin/partials/actions/ays-pb-admin-actions.php:6589
+#: admin/partials/actions/ays-pb-admin-actions.php:6666
+#: admin/partials/actions/ays-pb-admin-actions.php:6698
+msgid "Desktop"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2246
+msgid "Specify the max-height of the logo in pixels. "
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2109
+msgid "Max-width"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2622
+msgid "Specify the font weight for the button. Note: By default, it is set as Normal."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:124
+msgid "Bolder"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:123
+msgid "Bold"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:122
+msgid "Lighter"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2372
+msgid "Displays text when cursor is placed over the button."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2371
+msgid "Button hover text"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2514
+msgid "Choose the line position for the button on the front end. Note: It is set as None by default."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:117
+msgid "Underline"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:116
+msgid "Line through"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:115
+msgid "Overline"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2486
+msgid "Specify how the text appears in all-uppercase or all-lowercase, or with each word capitalized."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2485
+msgid "Text transformation"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:110
+msgid "Lowercase"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:109
+msgid "Uppercase"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:108
+msgid "Capitalize"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2005
+msgid "The URL for redirecting after the user clicks on the logo."
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:85
+msgid "Contact"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7813
+msgid "After clicking on the x button the popup will not be displayed for the user."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7811
+msgid "Dismiss by closing"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1981
+msgid "Add a logo for the notification banner."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1980
+msgid "Banner logo"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:74
+msgid "Logo"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1400
+msgid "Plugin installed and activated."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1389
+msgid "Plugin installed."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1319
+msgid "Could not install the plugin. Please download and install it manually."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1311
+msgid "There was an error while performing your request."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1299
+msgid "Could not activate the plugin. Please activate it on the Plugins page."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1295
+msgid "Plugin activated."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1287
+msgid "Plugin activation is disabled for you on this site."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1267
+msgid "Install Plugin"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1264
+msgid "Not Installed"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1252
+msgid "Activate"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1249
+msgid "Inactive"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1241
+msgid "Active"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1095
+msgid " and graphs easily and quickly."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1094
+msgid "Chart Builder plugin allows you to create beautiful charts"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1093
+msgid "Chart Builder"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1041
+msgid "You to add images to your quiz, order unlimited questions. Also you can style your quiz to satisfy your visitors."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:1040
+msgid "With our Quiz Maker plugin it’s easy to make a quiz in a short time."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:969
+msgid "WordPress.org"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:142
+msgid "Can't load resource."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:145 admin/class-ays-pb-admin.php:1244
+msgid "Activated"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:855
+#: admin/partials/features/popup-box-pro-features-display.php:860
+msgid "Forest theme"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:841
+#: admin/partials/features/popup-box-pro-features-display.php:846
+msgid "Food theme"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:827
+#: admin/partials/features/popup-box-pro-features-display.php:832
+msgid "Frozen theme"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:715
+#: admin/partials/features/popup-box-pro-features-display.php:720
+msgid "Google map popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:701
+#: admin/partials/features/popup-box-pro-features-display.php:706
+msgid "Login form popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:687
+#: admin/partials/features/popup-box-pro-features-display.php:692
+msgid "WooCommerce popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:673
+#: admin/partials/features/popup-box-pro-features-display.php:678
+msgid "Download popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:547
+#: admin/partials/features/popup-box-pro-features-display.php:552
+msgid "reCAPTCHA integration"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:351
+#: admin/partials/features/popup-box-pro-features-display.php:356
+msgid "Popup Reports"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:239
+#: admin/partials/features/popup-box-pro-features-display.php:244
+msgid "Notification popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:225
+#: admin/partials/features/popup-box-pro-features-display.php:230
+msgid "Facebook popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:211
+#: admin/partials/features/popup-box-pro-features-display.php:216
+msgid "Image popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:183
+#: admin/partials/features/popup-box-pro-features-display.php:188
+msgid "Shortcode popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:169
+#: admin/partials/features/popup-box-pro-features-display.php:174
+msgid "Custom content popup"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:67
+#: admin/partials/features/popup-box-pro-features-display.php:72
+msgid "Can Be Used On"
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:83
+msgid "Get 12 months updates and support for the Business package and lifetime updates and support for the Developer package."
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:82
+msgid "Premium support"
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:75
+msgid "Join"
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:73
+msgid "With the Free version, you get a lifetime usage for the plugin, however, you will get new updates and support for only 1 month."
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:72
+msgid "Best Free Support"
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:65
+msgid "Subscribe"
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:63
+msgid "Our YouTube community guides you to step by step tutorials about our products and not only..."
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:62
+msgid "YouTube community"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:966
+msgid ""
+"We're sure that you'll love our Popup box plugin, but, if for some reason, you're not\n"
+"                        satisfied in the first 30 days of using our product, there is a money-back guarantee and\n"
+"                        we'll issue a refund."
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:964
+msgid "30 DAY MONEY BACK GUARANTEE !!!"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2542
+msgid "Define the space between the letters of the button in pixels."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2541
+msgid "Letter spacing"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2472
+msgid "Specify the text color of the button on hover."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2471
+msgid "Text hover color"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2436
+msgid "Specify the background color of the button on hover."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2435
+msgid "Background hover color"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2839
+msgid "The color of the shadow of the button"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2824
+msgid "Allow button box shadow."
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:495
+msgid "General Information:"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1867
+#: admin/partials/actions/ays-pb-admin-actions.php:2019
+#: admin/partials/actions/ays-pb-admin-actions.php:2400
+msgid "Tick this option to redirect to another tab."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1866
+#: admin/partials/actions/ays-pb-admin-actions.php:2018
+#: admin/partials/actions/ays-pb-admin-actions.php:2399
+msgid "Redirect to the new tab"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1902
+msgid "Select this option if you want to hide the cover photo of your Facebook page when it is displayed in the popup."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1917
+msgid "Use small header"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2780
+msgid "Padding of button."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2779
+msgid "Padding"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2726
+msgid "Specify the border color of the button."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2712
+msgid "Specify the border size of the button in pixels."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2711
+msgid "Border width"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2698
+msgid "Specify the radius of the border. Allows adding rounded corners to the button."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2582
+msgid "Define the font size of the button text in pixels."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2581
+msgid "Font size (px)"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:806
+msgid "Suggest a Feature"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:804
+msgid "Docs"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:802
+msgid "Support"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3097
+msgid "How to Set Popup Triggers with WordPress Popup Plugin (PRO)"
+msgstr ""
+
+#: admin/partials/settings/popup-box-settings.php:223
+msgid "If the option is enabled, then, the Animation CSS (given by the plugin) will not be applied to the website."
+msgstr ""
+
+#: admin/partials/settings/popup-box-settings.php:222
+msgid "Exclude the Animation CSS file"
+msgstr ""
+
+#: admin/partials/settings/popup-box-settings.php:216
+msgid "Animation CSS File"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2458
+msgid "Specify the text color of the button."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2422
+msgid "Specify the background color of the button."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2386
+msgid "The URL for redirecting after the user clicks on the button."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2358
+msgid "Define the notification button text. Default value is 'Click!'"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2357
+msgid "Button text"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:76
+msgid "Button"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:75
+msgid "Content"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:486
+#: admin/partials/actions/ays-pb-admin-actions.php:8033
+#: admin/partials/actions/ays-pb-admin-actions.php:8348
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:32
+#: includes/lists/class-ays-pb-list-table.php:451
+msgid "Notification"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1918
+msgid "Select this option if you want to use a smaller header for your Facebook page when it is displayed in the popup."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1901
+msgid "Hide FB page cover photo"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1886
+msgid "With the help of this insert field, it notes Facebook URL address seen in PopupBox"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1885
+msgid "Facebook page url"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:483
+#: admin/partials/actions/ays-pb-admin-actions.php:8012
+#: admin/partials/actions/ays-pb-admin-actions.php:8342
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:31
+#: includes/lists/class-ays-pb-list-table.php:448
+msgid "Facebook"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1852
+msgid "The URL for redirecting after the user clicks on the image."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1851
+#: admin/partials/actions/ays-pb-admin-actions.php:2004
+#: admin/partials/actions/ays-pb-admin-actions.php:2385
+msgid "Redirect URL"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1828
+msgid "Add image to the popup."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1827
+msgid "Main Image"
+msgstr ""
+
+#: public/partials/ays-pb-public-templates.php:4137
+msgid "Popup link"
+msgstr ""
+
+#: admin/partials/settings/popup-box-settings.php:545
+msgid "Prints the webpage link where the current popup is displayed."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2881
+msgid "This option is currently unavailable as the 'Show Description' option is disabled."
+msgstr ""
+
+#: includes/lists/class-ays-pb-list-table.php:223
+msgid "Conversions"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1789
+msgid "To track conversions for this popup, add the class 'asypb-cta' to any element you want to count as a conversion. When a visitor clicks on an element with this class, it will be recorded as a conversion."
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:818
+msgid "Brevo"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:793
+msgid "Brevo List"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:784
+msgid "Enable Brevo"
+msgstr ""
+
+#: includes/class-ays-pb-integrations.php:767
+msgid "Brevo Settings"
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:519
+#: admin/partials/features/popup-box-pro-features-display.php:524
+msgid "Brevo integration"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3402
+#: admin/partials/actions/ays-pb-admin-actions.php:3439
+#: admin/partials/settings/popup-box-settings.php:249
+msgid "Watch video"
+msgstr ""
+
+#: includes/lists/class-ays-pb-list-table.php:222
+msgid "Views"
+msgstr "浏览量"
+
+#: ays-pb.php:133 ays-pb.php:143
+msgid "Documentation"
+msgstr "文档"
+
+#: ays-pb.php:128 ays-pb.php:136 ays-pb.php:147
+msgid "Contact us"
+msgstr "联系我们"
+
+#: ays-pb.php:127 ays-pb.php:146
+msgid "Make a Suggestion"
+msgstr "提出建议"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7933
+#: admin/partials/actions/ays-pb-admin-actions.php:7954
+#: admin/partials/actions/ays-pb-admin-actions.php:7975
+#: admin/partials/actions/ays-pb-admin-actions.php:7996
+#: admin/partials/actions/ays-pb-admin-actions.php:8017
+#: admin/partials/actions/ays-pb-admin-actions.php:8037
+msgid "Select"
+msgstr "选择"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1776
+msgid "What is a Custom Content Popup?"
+msgstr "什么是自定义内容弹出窗口？"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2904
+msgid "For testing"
+msgstr "用于测试"
+
+#: admin/partials/ays-pb-admin-display.php:94
+msgid "How to create a popup in one minute?"
+msgstr "如何在一分钟内创建一个弹出窗口？"
+
+#: admin/partials/ays-pb-admin-display.php:84
+msgid "Please note that this video will disappear once you created 4 popups."
+msgstr "请注意，一旦您创建了4个弹出窗口，此视频将消失。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2260
+#: admin/partials/actions/ays-pb-admin-actions.php:2282
+#: admin/partials/actions/ays-pb-admin-actions.php:5284
+#: admin/partials/actions/ays-pb-admin-actions.php:5315
+msgid "For auto leave blank"
+msgstr "自动保留空白"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5252
+msgid "Specify the max height of the popup in pixels and percentages."
+msgstr "指定弹出窗口的最大高度（像素和百分比）。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5251
+msgid "Popup max-height"
+msgstr "弹出窗口最大高度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6428
+msgid "Define the background gradient for mobile devices."
+msgstr "为移动设备定义背景渐变。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6377
+msgid "Define the background gradient for desktop devices."
+msgstr ""
+
+#: admin/partials/features/popup-box-pro-features-display.php:127
+#: admin/partials/features/popup-box-pro-features-display.php:132
+msgid "Usage for"
+msgstr "用法"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7464
+#: admin/partials/actions/ays-pb-admin-actions.php:7492
+msgid "Note: This option works via cookies. If you are using a plugin that disables cookies, there may be a conflict leading to the incorrect operation of this feature."
+msgstr "注意：此选项通过Cookie工作。如果您使用禁用Cookie的插件，可能会导致此功能操作不正确。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7063
+msgid "Define the box shadow for mobile devices."
+msgstr "为移动设备定义框阴影。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7018
+msgid "Define the box shadow for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5653
+msgid "Define the title text shadow for mobile devices."
+msgstr "为移动设备定义标题文字阴影。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5608
+msgid "Define the title text shadow for desktop devices."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5293
+#: admin/partials/actions/ays-pb-admin-actions.php:5652
+#: admin/partials/actions/ays-pb-admin-actions.php:6427
+#: admin/partials/actions/ays-pb-admin-actions.php:7062
+msgid "On Mobile"
+msgstr "在移动设备上"
+
+#: admin/partials/settings/popup-box-settings.php:581
+msgid "It will show the current date upon opening a popup."
+msgstr "打开弹出窗口时会显示当前日期。"
+
+#: admin/partials/settings/popup-box-settings.php:536
+msgid "It will show the author email of the current form."
+msgstr "会显示当前表单的作者电子邮件。"
+
+#: includes/class-ays-pb-data.php:431
+msgid "( Quiz + Form + Popup )"
+msgstr "（问卷+表格+弹出窗口）"
+
+#: includes/class-ays-pb-data.php:431
+msgid "Essential Bundle"
+msgstr "基本套餐"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1659
+msgid "If you have a cache plugin, clear the caches and exclude the link where the popup is enabled to see immediate front-end changes"
+msgstr "如果您安装了缓存插件，请清除缓存并排除启用弹出窗口的链接，以查看即时的前端更改"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1658
+msgid "Please Note: "
+msgstr "请注意： "
+
+#: includes/class-ays-pb-data.php:360
+msgid ""
+"Hurry up! \n"
+"                                                <a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=helloween-sale-banner' target='_blank' style='color:#ffc700;'>\n"
+"                                                    Check it out!\n"
+"                                                </a>"
+msgstr ""
+"赶快！\n"
+"                                                <a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=helloween-sale-banner' target='_blank' style='color:#ffc700;'>\n"
+"                                                    立即查看！\n"
+"                                                </a>"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7915
+msgid "Choose Your Popup Type"
+msgstr "选择您的弹出窗口类型"
+
+#: admin/class-ays-pb-admin.php:617
+msgid "Upgrade 30% Sale"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:144
+msgid "Maybe something went wrong."
+msgstr "也许出了些问题。"
+
+#: admin/class-ays-pb-admin.php:143
+msgid "Error"
+msgstr "错误"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4586
+msgid "Enable this option to display the popup scrollbar."
+msgstr "启用此选项以显示弹出窗口滚动条。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4585
+msgid "Show scrollbar"
+msgstr "显示滚动条"
+
+#: includes/class-ays-pb-data.php:711 includes/class-ays-pb-data.php:848
+#: includes/class-ays-pb-data.php:981
+msgid "Offer ends in:"
+msgstr "优惠结束时间："
+
+#: includes/class-ays-pb-data.php:683 includes/class-ays-pb-data.php:768
+msgid "30 Day Money Back Guarantee"
+msgstr "30天退款保证"
+
+#: admin/partials/features/popup-box-pro-features-display.php:49
+#: admin/partials/features/popup-box-pro-features-display.php:59
+#: admin/partials/features/popup-box-pro-features-display.php:946
+#: admin/partials/features/popup-box-pro-features-display.php:952
+#: ays-pb.php:114 includes/class-ays-pb-data.php:737
+#: includes/class-ays-pb-data.php:820 includes/class-ays-pb-data.php:921
+msgid "One-time payment"
+msgstr "一次性付款"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7931
+#: admin/partials/actions/ays-pb-admin-actions.php:7952
+#: admin/partials/actions/ays-pb-admin-actions.php:7973
+#: admin/partials/actions/ays-pb-admin-actions.php:8060
+#: admin/partials/actions/ays-pb-admin-actions.php:8083
+#: admin/partials/actions/ays-pb-admin-actions.php:8105
+#: admin/partials/actions/ays-pb-admin-actions.php:8127
+#: admin/partials/actions/ays-pb-admin-actions.php:8149
+#: admin/partials/actions/ays-pb-admin-actions.php:8171
+#: admin/partials/actions/ays-pb-admin-actions.php:8193
+#: admin/partials/actions/ays-pb-admin-actions.php:8215
+#: admin/partials/actions/ays-pb-admin-actions.php:8237
+#: admin/partials/actions/ays-pb-admin-actions.php:8278
+#: admin/partials/actions/ays-pb-admin-actions.php:8300
+msgid "View demo"
+msgstr "查看演示"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4236
+#: admin/partials/actions/ays-pb-admin-actions.php:4330
+#: admin/partials/actions/ays-pb-admin-actions.php:6731
+#: admin/partials/actions/ays-pb-admin-actions.php:6752
+#: admin/partials/actions/ays-pb-admin-actions.php:7634
+#: admin/partials/actions/ays-pb-admin-actions.php:7687
+#: admin/partials/actions/ays-pb-admin-actions.php:7752
+#: admin/partials/actions/ays-pb-admin-actions.php:7797
+msgid "Watch Video"
+msgstr "观看视频"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3409
+#: admin/partials/actions/ays-pb-admin-actions.php:3446
+#: admin/partials/actions/ays-pb-admin-actions.php:4243
+#: admin/partials/actions/ays-pb-admin-actions.php:4337
+#: admin/partials/actions/ays-pb-admin-actions.php:5702
+#: admin/partials/actions/ays-pb-admin-actions.php:5711
+#: admin/partials/actions/ays-pb-admin-actions.php:6739
+#: admin/partials/actions/ays-pb-admin-actions.php:6759
+#: admin/partials/actions/ays-pb-admin-actions.php:7641
+#: admin/partials/actions/ays-pb-admin-actions.php:7694
+#: admin/partials/actions/ays-pb-admin-actions.php:7759
+#: admin/partials/actions/ays-pb-admin-actions.php:7804
+#: admin/partials/actions/ays-pb-categories-actions.php:113
+#: admin/partials/attributes/actions/ays-pb-attributes-actions.php:20
+#: admin/partials/attributes/actions/ays-pb-attributes-actions.php:28
+#: admin/partials/export-import/ays-pb-export-import.php:20
+#: admin/partials/export-import/ays-pb-export-import.php:28
+#: admin/partials/export-import/ays-pb-export-import.php:61
+#: admin/partials/export-import/ays-pb-export-import.php:69
+#: admin/partials/reports/ays-pb-reports-display.php:20
+#: admin/partials/reports/ays-pb-reports-display.php:28
+#: admin/partials/reports/ays-pb-reports-display.php:41
+#: admin/partials/reports/ays-pb-reports-display.php:49
+#: admin/partials/settings/popup-box-settings.php:256
+#: admin/partials/subscribes/ays-pb-subscribes-display.php:19
+#: admin/partials/subscribes/ays-pb-subscribes-display.php:27 ays-pb.php:112
+#: includes/class-ays-pb-integrations.php:148
+#: includes/class-ays-pb-integrations.php:208
+#: includes/class-ays-pb-integrations.php:281
+#: includes/class-ays-pb-integrations.php:339
+#: includes/class-ays-pb-integrations.php:414
+#: includes/class-ays-pb-integrations.php:483
+#: includes/class-ays-pb-integrations.php:557
+#: includes/class-ays-pb-integrations.php:606
+#: includes/class-ays-pb-integrations.php:666
+#: includes/class-ays-pb-integrations.php:713
+#: includes/class-ays-pb-integrations.php:777
+#: includes/class-ays-pb-integrations.php:828
+#: includes/class-ays-pb-integrations.php:885
+#: includes/class-ays-pb-integrations.php:944
+#: includes/class-ays-pb-integrations.php:993
+#: includes/class-ays-pb-integrations.php:1035
+msgid "Upgrade"
+msgstr "升级"
+
+#: includes/class-ays-pb-data.php:593
+msgid "Limited Time <span style='color:#E85011;'>20%</span> SALE on <span><a href='https://popup-plugin.com' target='_blank' style='color:#E85011; text-decoration: underline;'>Popup Box</a></span>"
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3160
+#: admin/partials/actions/ays-pb-admin-actions.php:3251
+#: admin/partials/actions/ays-pb-admin-actions.php:3305
+#: admin/partials/actions/ays-pb-admin-actions.php:3375
+#: admin/partials/actions/ays-pb-admin-actions.php:3534
+#: admin/partials/actions/ays-pb-admin-actions.php:3582
+#: admin/partials/actions/ays-pb-admin-actions.php:3650
+#: admin/partials/actions/ays-pb-admin-actions.php:3690
+#: admin/partials/actions/ays-pb-admin-actions.php:3751
+#: admin/partials/actions/ays-pb-admin-actions.php:3864
+#: admin/partials/actions/ays-pb-admin-actions.php:3908
+#: admin/partials/actions/ays-pb-admin-actions.php:4501
+#: admin/partials/actions/ays-pb-admin-actions.php:4544
+#: admin/partials/actions/ays-pb-admin-actions.php:4572
+#: admin/partials/actions/ays-pb-admin-actions.php:4600
+#: admin/partials/actions/ays-pb-admin-actions.php:5083
+#: admin/partials/actions/ays-pb-admin-actions.php:5391
+#: admin/partials/actions/ays-pb-admin-actions.php:5942
+#: admin/partials/actions/ays-pb-admin-actions.php:6060
+#: admin/partials/actions/ays-pb-admin-actions.php:6134
+#: admin/partials/actions/ays-pb-admin-actions.php:6164
+#: admin/partials/actions/ays-pb-admin-actions.php:6203
+#: admin/partials/actions/ays-pb-admin-actions.php:6244
+#: admin/partials/actions/ays-pb-admin-actions.php:6298
+#: admin/partials/actions/ays-pb-admin-actions.php:6347
+#: admin/partials/actions/ays-pb-admin-actions.php:6495
+#: admin/partials/actions/ays-pb-admin-actions.php:6525
+#: admin/partials/actions/ays-pb-admin-actions.php:6564
+#: admin/partials/actions/ays-pb-admin-actions.php:6617
+#: admin/partials/actions/ays-pb-admin-actions.php:6671
+#: admin/partials/actions/ays-pb-admin-actions.php:6703
+msgid "Mobile"
+msgstr "移动设备"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3155
+#: admin/partials/actions/ays-pb-admin-actions.php:3268
+#: admin/partials/actions/ays-pb-admin-actions.php:3322
+#: admin/partials/actions/ays-pb-admin-actions.php:3547
+#: admin/partials/actions/ays-pb-admin-actions.php:3594
+#: admin/partials/actions/ays-pb-admin-actions.php:3663
+#: admin/partials/actions/ays-pb-admin-actions.php:3769
+#: admin/partials/actions/ays-pb-admin-actions.php:3881
+#: admin/partials/actions/ays-pb-admin-actions.php:4518
+#: admin/partials/actions/ays-pb-admin-actions.php:5093
+#: admin/partials/actions/ays-pb-admin-actions.php:5414
+#: admin/partials/actions/ays-pb-admin-actions.php:5991
+#: admin/partials/actions/ays-pb-admin-actions.php:6109
+#: admin/partials/actions/ays-pb-admin-actions.php:6139
+#: admin/partials/actions/ays-pb-admin-actions.php:6169
+#: admin/partials/actions/ays-pb-admin-actions.php:6208
+#: admin/partials/actions/ays-pb-admin-actions.php:6259
+#: admin/partials/actions/ays-pb-admin-actions.php:6321
+#: admin/partials/actions/ays-pb-admin-actions.php:6357
+#: admin/partials/actions/ays-pb-admin-actions.php:6500
+#: admin/partials/actions/ays-pb-admin-actions.php:6530
+#: admin/partials/actions/ays-pb-admin-actions.php:6569
+#: admin/partials/actions/ays-pb-admin-actions.php:6645
+#: admin/partials/actions/ays-pb-admin-actions.php:6676
+#: admin/partials/actions/ays-pb-admin-actions.php:6708
+msgid "Use a different setting for Mobile"
+msgstr "手机使用不同的设置"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5196
+msgid "Specify the height of the popup in pixels."
+msgstr "指定弹出窗口的高度（像素）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5104
+msgid "Specify the width of the popup in pixels."
+msgstr "指定弹出窗口的宽度（像素）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3069
+msgid "Both (On page load & On click)"
+msgstr "两者（页面加载时和点击时）都是"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2899
+msgid "Show popup only for author"
+msgstr "只为作者显示弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3720
+msgid "Close button delay"
+msgstr "关闭按钮延迟"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3223
+msgid "Open Delay "
+msgstr "打开延迟 "
+
+#: includes/lists/class-ays-pb-list-table.php:833
+msgid "Filter"
+msgstr "过滤器"
+
+#: includes/lists/class-ays-pb-list-table.php:826
+msgid "Select Type"
+msgstr "选择类型"
+
+#: includes/lists/class-ays-pb-list-table.php:818
+msgid "Select Author"
+msgstr "选择作者"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4530
+msgid "The page will not be scrolled while the popup is displaying. Note: When the option is enabled, the system hides the scrolling of the HTML tag. As the scrolling is hidden, it is automatically scrolling the popup to the top and the plugin doesn't have a connection to this. "
+msgstr "当弹出窗口显示时，页面将不会滚动。注意：启用选项时，系统会隐藏HTML标签的滚动。由于滚动被隐藏，它会自动将弹出窗口滚动到顶部，而插件与此没有任何关联。 "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3706
+msgid "Automatically close the popup after a video completion."
+msgstr "视频播放完成后自动关闭弹出框。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3704
+msgid "Autoclose on video completion"
+msgstr "视频完成后自动关闭"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3606
+msgid "Displays text when cursor is placed over the close button"
+msgstr "当光标放在关闭按钮上时显示文本"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3605
+msgid "Close button hover text"
+msgstr "关闭按钮悬停文本"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5374
+#: admin/partials/actions/ays-pb-admin-actions.php:5396
+msgid "Default value = "
+msgstr "默认值 = "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5361
+msgid "Specify the padding of the popup in pixels. It accepts only numerical values and you can choose whether to define the value by percentage or in pixels."
+msgstr "指定弹出框的像素填充。它只接受数字值，您可以选择以百分比或像素定义值。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5360
+msgid "Content padding"
+msgstr "内容填充"
+
+#: public/partials/class-ays-pb-user-information-shortcodes.php:388
+msgid "Unknown"
+msgstr "未知"
+
+#: public/partials/ays-pb-public-templates.php:1304
+msgid "Help"
+msgstr "帮助"
+
+#: public/partials/ays-pb-public-templates.php:1303
+msgid "Tools"
+msgstr "工具"
+
+#: public/partials/ays-pb-public-templates.php:1302
+msgid "Bookmarks"
+msgstr "书签"
+
+#: public/partials/ays-pb-public-templates.php:1301
+msgid "Go"
+msgstr "前往"
+
+#: public/partials/ays-pb-public-templates.php:1299
+msgid "File"
+msgstr "文件"
+
+#: public/partials/ays-pb-public-templates.php:4221
+#: public/partials/ays-pb-public-templates.php:4223
+#: public/partials/ays-pb-public-templates.php:4225
+#: public/partials/ays-pb-public-templates.php:4227
+msgid " seconds"
+msgstr " 秒"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:35
+msgid "Popup category(s) unpublished."
+msgstr "弹出分类未发布。"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:33
+msgid "Popup category(s) published."
+msgstr "弹出分类已发布。"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:31
+msgid "Popup category deleted."
+msgstr "弹出类别已删除"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:29
+msgid "Popup category saved."
+msgstr "弹出类别已保存"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:27
+msgid "Popup category created."
+msgstr "弹出类别已创建"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:180
+msgid "Popups Count"
+msgstr "弹出计数"
+
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:167
+msgid "There are no popup categories yet."
+msgstr "目前没有弹出类别"
+
+#: includes/lists/class-ays-pb-list-table.php:40
+msgid "version"
+msgstr "版本"
+
+#: includes/lists/class-ays-pb-list-table.php:40
+msgid "You're not allowed to add popupbox for more popupboxes please checkout to "
+msgstr "您无法再添加弹出框，请切换至 "
+
+#: includes/lists/class-ays-pb-list-table.php:38
+msgid "PopupBox unpublished."
+msgstr "弹出框未发布"
+
+#: includes/lists/class-ays-pb-list-table.php:36
+msgid "PopupBox published."
+msgstr "弹出框已发布"
+
+#: includes/lists/class-ays-pb-list-table.php:34
+msgid "PopupBox duplicated."
+msgstr "弹出框已复制"
+
+#: includes/lists/class-ays-pb-list-table.php:32
+msgid "PopupBox deleted."
+msgstr "已删除弹出框。"
+
+#: includes/lists/class-ays-pb-list-table.php:30
+msgid "PopupBox saved."
+msgstr "已保存弹出框。"
+
+#: includes/lists/class-ays-pb-list-table.php:28
+msgid "PopupBox created."
+msgstr "已创建弹出框。"
+
+#: includes/lists/class-ays-pb-list-table.php:224
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:182
+msgid "ID"
+msgstr "标识"
+
+#: includes/lists/class-ays-pb-list-table.php:221
+msgid "Created"
+msgstr "创建时间"
+
+#: includes/lists/class-ays-pb-list-table.php:219
+msgid "Type"
+msgstr "类型"
+
+#: includes/lists/class-ays-pb-list-table.php:218
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:181
+msgid "Status"
+msgstr "状态"
+
+#: includes/lists/class-ays-pb-list-table.php:217
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:13
+msgid "Category"
+msgstr "类别"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:480
+#: admin/partials/actions/ays-pb-admin-actions.php:7991
+#: admin/partials/actions/ays-pb-admin-actions.php:8336
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:30
+#: includes/lists/class-ays-pb-list-table.php:216
+#: includes/lists/class-ays-pb-list-table.php:445
+msgid "Image"
+msgstr "图片"
+
+#: includes/lists/class-ays-pb-list-table.php:215
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:178
+msgid "Title"
+msgstr "标题"
+
+#: includes/lists/class-ays-pb-list-table.php:500
+msgid "Command Prompt"
+msgstr "命令提示符"
+
+#: includes/lists/class-ays-pb-list-table.php:488
+msgid "MacOs window"
+msgstr "MacOs 窗口"
+
+#: includes/lists/class-ays-pb-list-table.php:311
+#: includes/lists/class-ays-pb-list-table.php:724
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:264
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:475
+msgid "Delete"
+msgstr "删除"
+
+#: includes/lists/class-ays-pb-list-table.php:310
+msgid "Duplicate"
+msgstr "复制"
+
+#: includes/lists/class-ays-pb-list-table.php:309
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:260
+#: public/partials/ays-pb-public-templates.php:1300
+msgid "Edit"
+msgstr "编辑"
+
+#: includes/lists/class-ays-pb-list-table.php:722
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:473
+msgid "Publish"
+msgstr "发布"
+
+#: includes/lists/class-ays-pb-list-table.php:723
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:474
+msgid "Unpublish"
+msgstr "取消发布"
+
+#: includes/lists/class-ays-pb-list-table.php:204
+msgid "There are no popupboxes yet."
+msgstr "尚无弹出框。"
+
+#: includes/lists/class-ays-pb-list-table.php:79
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:78
+msgid "All"
+msgstr "全部"
+
+#: includes/lists/class-ays-pb-list-table.php:835
+msgid "Clear filters"
+msgstr "清除筛选"
+
+#: includes/lists/class-ays-pb-list-table.php:810
+msgid "Select Category"
+msgstr "选择类别"
+
+#: includes/lists/class-ays-pb-list-table.php:14
+msgid "PopupBoxes"
+msgstr "弹出框"
+
+#: includes/class-ays-pb-integrations.php:934
+msgid "MailerLite"
+msgstr "MailerLite"
+
+#: includes/class-ays-pb-integrations.php:901
+msgid "MailerLite List"
+msgstr "MailerLite列表"
+
+#: includes/class-ays-pb-integrations.php:892
+msgid "Enable MailerLite"
+msgstr "启用MailerLite"
+
+#: includes/class-ays-pb-integrations.php:875
+msgid "MailerLite Settings"
+msgstr "MailerLite设置"
+
+#: includes/class-ays-pb-integrations.php:729
+msgid "ConvertKit List"
+msgstr "ConvertKit列表"
+
+#: includes/class-ays-pb-integrations.php:720
+msgid "Enable ConvertKit"
+msgstr "启用ConvertKit"
+
+#: includes/class-ays-pb-integrations.php:703
+msgid "ConvertKit Settings"
+msgstr "ConvertKit设置"
+
+#: includes/class-ays-pb-integrations.php:674
+#: includes/class-ays-pb-integrations.php:836
+#: includes/class-ays-pb-integrations.php:952
+msgid "API Key"
+msgstr "API密钥"
+
+#: includes/class-ays-pb-integrations.php:656
+msgid "ConvertKit"
+msgstr "ConvertKit"
+
+#: includes/class-ays-pb-integrations.php:622
+msgid "GetResponse List"
+msgstr "GetResponse列表"
+
+#: includes/class-ays-pb-integrations.php:613
+msgid "Enable GetResponse"
+msgstr "启用GetResponse"
+
+#: includes/class-ays-pb-integrations.php:597
+msgid "GetResponse Settings"
+msgstr "GetResponse 设置"
+
+#: includes/class-ays-pb-integrations.php:575
+msgid "For security reasons, unused API keys expire after 90 days. When that happens, you'll need to generate a new key."
+msgstr "出于安全原因，未使用的 API 密钥在90天后会过期。在这种情况下，您需要生成一个新密钥。"
+
+#: includes/class-ays-pb-integrations.php:565
+msgid "GetResponse API Key"
+msgstr "GetResponse API 密钥"
+
+#: includes/class-ays-pb-integrations.php:547
+msgid "GetResponse"
+msgstr "GetResponse"
+
+#: includes/class-ays-pb-integrations.php:517
+msgid "Your API URL and Key can be found in your account on the My Settings page under the “Developer” tab."
+msgstr "您的 API URL 和 Key 可以在您的账户中的“我的设置”页面下的“开发人员”选项卡中找到。"
+
+#: includes/class-ays-pb-integrations.php:505
+msgid "API Access Key"
+msgstr "API 访问密钥"
+
+#: includes/class-ays-pb-integrations.php:491
+msgid "API Access URL"
+msgstr "API 访问 URL"
+
+#: includes/class-ays-pb-integrations.php:473
+msgid "ActiveCampaign"
+msgstr "ActiveCampaign"
+
+#: includes/class-ays-pb-integrations.php:441
+msgid "ActiveCampaign automation"
+msgstr "ActiveCampaign 自动化"
+
+#: includes/class-ays-pb-integrations.php:435
+#: includes/class-ays-pb-integrations.php:447
+msgid "Just create contact"
+msgstr "仅创建联系人"
+
+#: includes/class-ays-pb-integrations.php:430
+msgid "ActiveCampaign list"
+msgstr "ActiveCampaign列表"
+
+#: includes/class-ays-pb-integrations.php:421
+msgid "Enable ActiveCampaign"
+msgstr "启用ActiveCampaign"
+
+#: includes/class-ays-pb-integrations.php:404
+msgid "ActiveCampaign Settings"
+msgstr "ActiveCampaign设置"
+
+#: includes/class-ays-pb-integrations.php:373
+msgid "You can get your API key and Client ID from your Account Settings page."
+msgstr "您可以从您的账户设置页面获取API密钥和客户端ID。"
+
+#: includes/class-ays-pb-integrations.php:361
+msgid "Campaign Monitor API Key"
+msgstr "Campaign Monitor API密钥"
+
+#: includes/class-ays-pb-integrations.php:347
+msgid "Campaign Monitor Client ID"
+msgstr "Campaign Monitor客户端ID"
+
+#: includes/class-ays-pb-integrations.php:329
+msgid "Campaign Monitor"
+msgstr "Campaign Monitor"
+
+#: includes/class-ays-pb-integrations.php:301
+#: includes/class-ays-pb-integrations.php:434
+#: includes/class-ays-pb-integrations.php:446
+msgid "Select List"
+msgstr "选择列表"
+
+#: includes/class-ays-pb-integrations.php:297
+msgid "Campaign Monitor list"
+msgstr "Campaign Monitor列表"
+
+#: includes/class-ays-pb-integrations.php:288
+msgid "Enable Campaign Monitor"
+msgstr "启用Campaign Monitor"
+
+#: includes/class-ays-pb-integrations.php:271
+msgid "Campaign Monitor Settings"
+msgstr "Campaign Monitor设置"
+
+#: includes/class-ays-pb-integrations.php:242
+#: includes/class-ays-pb-integrations.php:572
+#: includes/class-ays-pb-integrations.php:681
+#: includes/class-ays-pb-integrations.php:843
+#: includes/class-ays-pb-integrations.php:959
+msgid "You can get your API key from your "
+msgstr "您可以从以下地址获取您的API秘钥 "
+
+#: includes/class-ays-pb-integrations.php:230
+msgid "MailChimp API Key"
+msgstr "MailChimp API密钥"
+
+#: includes/class-ays-pb-integrations.php:216
+msgid "MailChimp Username"
+msgstr "MailChimp用户名"
+
+#: includes/class-ays-pb-integrations.php:198
+msgid "MailChimp"
+msgstr "MailChimp"
+
+#: includes/class-ays-pb-integrations.php:169
+msgid "Select list"
+msgstr "选择列表"
+
+#: includes/class-ays-pb-integrations.php:165
+msgid "MailChimp list"
+msgstr "MailChimp列表"
+
+#: includes/class-ays-pb-integrations.php:155
+msgid "Enable MailChimp"
+msgstr "启用MailChimp"
+
+#: includes/class-ays-pb-integrations.php:137
+msgid "MailChimp Settings"
+msgstr "MailChimp设置"
+
+#: includes/class-ays-pb-data.php:460 includes/class-ays-pb-data.php:918
+msgid "Get Your Deal"
+msgstr "获取您的交易"
+
+#: includes/class-ays-pb-data.php:446 includes/class-ays-pb-data.php:801
+#: includes/class-ays-pb-data.php:855
+msgid "Seconds"
+msgstr "秒"
+
+#: includes/class-ays-pb-data.php:445 includes/class-ays-pb-data.php:800
+#: includes/class-ays-pb-data.php:854
+msgid "Minutes"
+msgstr "分钟"
+
+#: includes/class-ays-pb-data.php:444 includes/class-ays-pb-data.php:799
+#: includes/class-ays-pb-data.php:853
+msgid "Hours"
+msgstr "小时"
+
+#: includes/class-ays-pb-data.php:443 includes/class-ays-pb-data.php:798
+#: includes/class-ays-pb-data.php:852
+msgid "Days"
+msgstr "天"
+
+#: includes/class-ays-pb-data.php:435
+msgid "50% off"
+msgstr "50% 折扣"
+
+#: includes/class-ays-pb-data.php:430
+msgid "Limited Time"
+msgstr "限时优惠"
+
+#: includes/class-ays-pb-data.php:347
+msgid ""
+"Limited Time \n"
+"                            <span class='ays-pb-dicount-wrap-color-helloween' style='color:#b2ff00;'>20%</span> \n"
+"                            <span>\n"
+"                                SALE on\n"
+"                            </span> \n"
+"                            <br>\n"
+"                            <span style='' class='ays-pb-helloween-bundle'>\n"
+"                                <a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=helloween-sale-banner' target='_blank' class='ays-pb-dicount-wrap-color-helloween ays-pb-dicount-wrap-text-decoration-helloween' style='display:block; color:#b2ff00;margin-right:6px;'>\n"
+"                                    Popup Box\n"
+"                                </a>\n"
+"                            </span>"
+msgstr ""
+"限时优惠\n"
+"                            <span class='ays-pb-dicount-wrap-color-helloween' style='color:#b2ff00;'>20%</span> \n"
+"                            <span>\n"
+"                                SALE on\n"
+"                            </span> \n"
+"                            <br>\n"
+"                            <span style='' class='ays-pb-helloween-bundle'>\n"
+"                                <a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=helloween-sale-banner' target='_blank' class='ays-pb-dicount-wrap-color-helloween ays-pb-dicount-wrap-text-decoration-helloween' style='display:block; color:#b2ff00;margin-right:6px;'>\n"
+"                                    弹出框\n"
+"                                </a>\n"
+"                            </span>"
+
+#: includes/class-ays-pb-data.php:278
+msgid ""
+"Spring is here! \n"
+"                                                    <span class='ays-pb-dicount-wrap-color'>50%</span> \n"
+"                                                        SALE on \n"
+"                                                    <span>\n"
+"                                                        <a href='https://ays-pro.com/spring-bundle' target='_blank' class='ays-pb-dicount-wrap-color ays-pb-dicount-wrap-text-decoration'>\n"
+"                                                            Spring Bundle\n"
+"                                                        </a>\n"
+"                                                    </span>\n"
+"                                                    <span style='display: block;'>\n"
+"                                                        pb + Popup + Copy\n"
+"                                                    </span>"
+msgstr ""
+"春天来了！\n"
+"                                                    <span class='ays-pb-dicount-wrap-color'>50%</span> \n"
+"                                                        折扣销售 \n"
+"                                                    <span>\n"
+"                                                        <a href='https://ays-pro.com/spring-bundle' target='_blank' class='ays-pb-dicount-wrap-color ays-pb-dicount-wrap-text-decoration'>\n"
+"                                                            春季捆绑包\n"
+"                                                        </a>\n"
+"                                                    </span>\n"
+"                                                    <span style='display: block;'>\n"
+"                                                        弹出框 + 弹窗 + 复制\n"
+"                                                    </span>"
+
+#: includes/class-ays-pb-data.php:257 includes/class-ays-pb-data.php:329
+#: includes/class-ays-pb-data.php:395 includes/class-ays-pb-data.php:640
+#: includes/class-ays-pb-data.php:1005
+msgid "Buy Now !"
+msgstr "立即购买！"
+
+#: includes/class-ays-pb-data.php:220
+msgid "Hurry up! Ending on. <a href='https://ays-pro.com/winter-bundle' target='_blank'>Check it out!</a>"
+msgstr "赶快！截止至。 <a href='https://ays-pro.com/winter-bundle' target='_blank'>立即查看！</a>"
+
+#: includes/class-ays-pb-data.php:214
+msgid "Limited Time <span class='ays-pb-dicount-wrap-color'>50%</span> SALE on <br><span><a href='https://ays-pro.com/winter-bundle' target='_blank' class='ays-pb-dicount-wrap-color ays-pb-dicount-wrap-text-decoration' style='display:block;'>Winter Bundle</a></span> (Copy + Popup + Survey)!"
+msgstr "限时 <span class='ays-pb-dicount-wrap-color'>50%</span> 折扣优惠销售，包含拷贝、弹出和调查！<br><span><a href='https://ays-pro.com/winter-bundle' target='_blank' class='ays-pb-dicount-wrap-color ays-pb-dicount-wrap-text-decoration' style='display:block;'>冬季套餐</a></span>"
+
+#: admin/partials/subscribes/ays-pb-subscribes-display.php:11
+msgid "Subscribers"
+msgstr "订阅者"
+
+#: admin/partials/settings/popup-box-settings.php:600
+msgid "Save changes"
+msgstr "保存更改"
+
+#: admin/partials/settings/popup-box-settings.php:563
+msgid "The user's nickname that was filled in their WordPress profile."
+msgstr "填写在其WordPress个人资料中的用户昵称。"
+
+#: admin/partials/settings/popup-box-settings.php:572
+msgid "The creation date of the popup."
+msgstr "弹出窗口的创建日期。"
+
+#: admin/partials/settings/popup-box-settings.php:554
+msgid "The user's role(s) when logged-in. In case the user is not logged-in, the field will be empty."
+msgstr "用户登录时的角色。如果用户未登录，则该字段将为空。"
+
+#: admin/partials/settings/popup-box-settings.php:527
+msgid "It will show the author of the current popup."
+msgstr "它将显示当前弹出窗口的作者。"
+
+#: admin/partials/settings/popup-box-settings.php:518
+msgid "The user's last name that was filled in their WordPress site during registration."
+msgstr "在注册期间填写在其WordPress网站的用户姓氏。"
+
+#: admin/partials/settings/popup-box-settings.php:509
+msgid "The user's first name that was filled in their WordPress site during registration."
+msgstr "在注册期间填写在其WordPress网站的用户名。"
+
+#: admin/partials/settings/popup-box-settings.php:500
+msgid "The user's email that was filled in their WordPress site during registration."
+msgstr "在注册期间填写在其WordPress网站的用户电子邮件。"
+
+#: admin/partials/settings/popup-box-settings.php:491
+msgid "The user's display name that was filled in their WordPress site during registration."
+msgstr "用户在注册时填写的显示名称。"
+
+#: admin/partials/settings/popup-box-settings.php:482
+msgid "The title of the popup"
+msgstr "弹出窗口的标题"
+
+#: admin/partials/settings/popup-box-settings.php:464
+#: admin/partials/settings/popup-box-settings.php:470
+msgid "You can copy these variables and paste them in the following options from the popup settings"
+msgstr "您可以复制这些变量并将它们粘贴到弹出窗口设置中的下列选项中。"
+
+#: admin/partials/settings/popup-box-settings.php:446
+msgid "You need to insert Your Popup Category ID in the shortcode. It will show the category description. If there is no popup category available/unavailable with that particular Popup Box Category ID, the shortcode will stay empty."
+msgstr "您需要在短代码中插入您的弹出类别ID。它将显示类别描述。如果具有特定弹出框类别ID的弹出类别不可用，则短代码将保持为空。"
+
+#: admin/partials/settings/popup-box-settings.php:428
+msgid "You need to insert Your Popup Category ID in the shortcode. It will show the category title. If there is no popup category available/unavailable with that particular Popup Box Category ID, the shortcode will stay empty."
+msgstr "您需要在短代码中插入您的弹出类别ID。它将显示类别标题。如果具有特定弹出框类别ID的弹出类别不可用，则短代码将保持为空。"
+
+#: admin/partials/settings/popup-box-settings.php:420
+msgid "Popup categories"
+msgstr "弹出类别"
+
+#: admin/partials/settings/popup-box-settings.php:403
+msgid "Shows the logged-in user's role(s). If the user is not logged-in, the shortcode will be empty."
+msgstr "显示已登录用户的角色。如果用户未登录，则短代码将为空。"
+
+#: admin/partials/settings/popup-box-settings.php:402
+msgid "Show user roles"
+msgstr "显示用户角色"
+
+#: admin/partials/settings/popup-box-settings.php:388
+msgid "It will show the current author of the particular popup."
+msgstr "它将显示特定弹出窗口的当前作者。"
+
+#: admin/partials/settings/popup-box-settings.php:387
+msgid "Show current popup author"
+msgstr "显示当前弹出窗口的作者"
+
+#: admin/partials/settings/popup-box-settings.php:372
+msgid "Shows the logged-in user's email. If the user is not logged-in, the shortcode will be empty."
+msgstr "用户邮箱"
+
+#: admin/partials/settings/popup-box-settings.php:371
+msgid "User email"
+msgstr "用户邮箱"
+
+#: admin/partials/settings/popup-box-settings.php:356
+msgid "Shows the logged-in user's nickname. If the user is not logged-in, the shortcode will be empty."
+msgstr "用户昵称"
+
+#: admin/partials/settings/popup-box-settings.php:355
+msgid "User nickname"
+msgstr "用户昵称"
+
+#: admin/partials/settings/popup-box-settings.php:340
+msgid "Shows the logged-in user's Display name. If the user is not logged-in, the shortcode will be empty."
+msgstr "用户显示名"
+
+#: admin/partials/settings/popup-box-settings.php:339
+msgid "User display name"
+msgstr "用户显示名称"
+
+#: admin/partials/settings/popup-box-settings.php:324
+msgid "Shows the logged-in user's Last Name. If the user is not logged-in, the shortcode will be empty."
+msgstr "用户姓氏"
+
+#: admin/partials/settings/popup-box-settings.php:323
+msgid "User last name"
+msgstr "用户姓氏"
+
+#: admin/partials/settings/popup-box-settings.php:309
+msgid "Shows the logged-in user's First Name. If the user is not logged-in, the shortcode will be empty."
+msgstr "用户名字"
+
+#: admin/partials/settings/popup-box-settings.php:308
+msgid "User first name"
+msgstr "用户名字"
+
+#: admin/partials/settings/popup-box-settings.php:301
+msgid "User Information"
+msgstr "用户信息"
+
+#: admin/partials/settings/popup-box-settings.php:277
+msgid "Ability to manage Popup Box plugin only for selected user roles."
+msgstr "仅能管理弹出框插件的特定用户角色。"
+
+#: admin/partials/settings/popup-box-settings.php:265
+msgid "Select user roles allowed to see the plugin on their WP dashboard and make changes in the plugins settings."
+msgstr "选择可以在他们的WP仪表板上看到插件并在插件设置中进行更改的用户角色。"
+
+#: admin/partials/settings/popup-box-settings.php:264
+msgid "Select user role"
+msgstr "选择用户角色"
+
+#: admin/partials/settings/popup-box-settings.php:238
+msgid "Who will have permission to Popup menu"
+msgstr "谁将有权限访问弹出菜单"
+
+#: admin/partials/settings/popup-box-settings.php:198
+msgid "Closing sound"
+msgstr "关闭声音"
+
+#: admin/partials/settings/popup-box-settings.php:186
+#: admin/partials/settings/popup-box-settings.php:201
+msgid "Select sound"
+msgstr "选择声音"
+
+#: admin/partials/settings/popup-box-settings.php:183
+msgid "Opening sound"
+msgstr "打开声音"
+
+#: admin/partials/settings/popup-box-settings.php:173
+msgid "Insert popup opening and closing sound by clicking on “Select sound”."
+msgstr "通过点击“选择声音”来插入弹出式打开和关闭声音。"
+
+#: admin/partials/settings/popup-box-settings.php:172
+msgid "Opening and closing sounds"
+msgstr "打开和关闭声音"
+
+#: admin/partials/settings/popup-box-settings.php:166
+msgid "Popup sound"
+msgstr "弹出声音"
+
+#: admin/partials/settings/popup-box-settings.php:152
+msgid "Determine the length of the results to be shown in the Popup categories List Table by putting your preferred count of words in the following field. (For example: if you put 10,  you will see the first 10 words of each result in the Popup categories page of your dashboard)."
+msgstr "通过在下面字段中填写您希望显示在弹出窗口类别列表表中的结果长度来确定结果的长度。（例如：如果您填写 10，您将在仪表板的弹出窗口类别页面中看到每个结果的前 10 个单词）"
+
+#: admin/partials/settings/popup-box-settings.php:151
+msgid "Popup categories list table"
+msgstr "弹出类别列表表"
+
+#: admin/partials/settings/popup-box-settings.php:138
+msgid "Determine the length of the Popups to be shown in the Popup List Table by putting your preferred count of words in the following field. (E.g., if you put 10,  you will see the first 10 words of each Popup Title on the Popups page of your dashboard)."
+msgstr "通过在下面字段中填写您希望在弹出窗口列表表中显示的弹出窗口长度来确定长度。（例如：如果您填写 10，您将在仪表板的弹出窗口页面上看到每个弹出窗口标题的前 10 个单词）"
+
+#: admin/partials/settings/popup-box-settings.php:137
+msgid "Popup list table"
+msgstr "弹出列表表"
+
+#: admin/partials/settings/popup-box-settings.php:132
+msgid "Excerpt words count in list tables"
+msgstr "列表表中的摘要单词数"
+
+#: admin/partials/settings/popup-box-settings.php:118
+msgid "Give the default height value to the WP Editor. It will apply to all WP Editors within the plugin on the dashboard."
+msgstr "为WP编辑器提供默认高度值。 它将适用于仪表板上的插件中的所有WP编辑器。"
+
+#: admin/partials/settings/popup-box-settings.php:117
+msgid "WP Editor height"
+msgstr "WP编辑器高度"
+
+#: admin/partials/settings/popup-box-settings.php:112
+msgid "Default popup parameters"
+msgstr "默认弹出参数"
+
+#: admin/partials/settings/popup-box-settings.php:100
+#: admin/partials/settings/popup-box-settings.php:463
+msgid "Message variables"
+msgstr "消息变量"
+
+#: admin/partials/settings/popup-box-settings.php:97
+#: admin/partials/settings/popup-box-settings.php:295
+msgid "Shortcodes"
+msgstr "短代码"
+
+#: admin/partials/settings/popup-box-settings-actions.php:151
+msgid "PopupBox attribute deleted."
+msgstr "弹出框属性已删除。"
+
+#: admin/partials/settings/popup-box-settings-actions.php:149
+msgid "PopupBox attribute."
+msgstr "弹出框属性。"
+
+#: admin/partials/settings/popup-box-settings-actions.php:147
+msgid "Changes saved."
+msgstr "更改已保存。"
+
+#: admin/partials/reports/ays-pb-reports-display.php:12
+msgid "Statistics"
+msgstr "统计数据"
+
+#: admin/partials/reports/ays-pb-reports-display.php:11
+msgid "Reports"
+msgstr "报告"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:55
+msgid "Community"
+msgstr "社区"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:48
+msgid "That's it! Your popup is ready to be displayed!"
+msgstr "完成！您的弹出框已准备好显示！"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:43
+msgid "button."
+msgstr "按钮。"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:43
+msgid "Save Changes"
+msgstr "保存更改"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:43
+msgid "In the end, click on the"
+msgstr "最后，点击"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:39
+msgid "Choose to show the popup as soon as the user clicks on the assigned CSS element(s). You can assign CSS elements with the"
+msgstr "选择在用户点击分配的CSS元素时立即显示弹出窗口。您可以使用CSS元素进行分配。"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:39
+msgid "On click:"
+msgstr "在点击时："
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:38
+msgid "Choose to show the popup as soon as the page is loaded."
+msgstr "选择在页面加载时立即显示弹出窗口。"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:38
+msgid "On page load:"
+msgstr "在页面加载时："
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:36
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:39
+msgid "option."
+msgstr "选项。"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:36
+msgid "Choose when to show the popup with the"
+msgstr "选择何时显示弹出窗口"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:25
+msgid "Select the popup type."
+msgstr "选择弹出窗口类型。"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:22
+msgid "button"
+msgstr "按钮"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:22
+msgid "page and click on the"
+msgstr ""
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:22
+msgid "Go to the"
+msgstr "前往"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:16
+msgid "plugin."
+msgstr "插件。"
+
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:14
+msgid "How to create a simple popup in 4 steps with the"
+msgstr "如何使用这个4个步骤创建简单弹出窗口"
+
+#: admin/partials/features/popup-box-pro-features-display.php:47
+#: admin/partials/features/popup-box-pro-features-display.php:57
+#: admin/partials/features/popup-box-pro-features-display.php:944
+#: admin/partials/features/popup-box-pro-features-display.php:950
+msgid "Buy now"
+msgstr "立即购买"
+
+#: admin/partials/features/popup-box-pro-features-display.php:925
+#: admin/partials/features/popup-box-pro-features-display.php:930
+msgid "Scrolling to Element Trigger"
+msgstr "滚动到元素触发器"
+
+#: admin/partials/features/popup-box-pro-features-display.php:897
+#: admin/partials/features/popup-box-pro-features-display.php:902
+msgid "After visiting X pages Trigger"
+msgstr "访问X页后触发"
+
+#: admin/partials/features/popup-box-pro-features-display.php:911
+#: admin/partials/features/popup-box-pro-features-display.php:916
+msgid "Inactivity Trigger"
+msgstr "不活动触发器"
+
+#: admin/partials/features/popup-box-pro-features-display.php:883
+#: admin/partials/features/popup-box-pro-features-display.php:888
+msgid "On Hover Trigger"
+msgstr "悬停触发器"
+
+#: admin/partials/features/popup-box-pro-features-display.php:869
+#: admin/partials/features/popup-box-pro-features-display.php:874
+msgid "Exit Intent Popup"
+msgstr "退出意图弹出窗口"
+
+#: admin/partials/features/popup-box-pro-features-display.php:659
+#: admin/partials/features/popup-box-pro-features-display.php:664
+msgid "Cookie popup"
+msgstr "Cookie弹出窗口"
+
+#: admin/partials/features/popup-box-pro-features-display.php:645
+#: admin/partials/features/popup-box-pro-features-display.php:650
+msgid "Countdown popup"
+msgstr "倒计时弹窗"
+
+#: admin/partials/features/popup-box-pro-features-display.php:631
+#: admin/partials/features/popup-box-pro-features-display.php:636
+msgid "Coupon popup"
+msgstr "优惠券弹窗"
+
+#: admin/partials/features/popup-box-pro-features-display.php:617
+#: admin/partials/features/popup-box-pro-features-display.php:622
+msgid "Send file after subscription popup"
+msgstr "订阅后发送文件弹窗"
+
+#: admin/partials/features/popup-box-pro-features-display.php:603
+#: admin/partials/features/popup-box-pro-features-display.php:608
+msgid "Contact form popup"
+msgstr "联系表单弹窗"
+
+#: admin/partials/features/popup-box-pro-features-display.php:589
+#: admin/partials/features/popup-box-pro-features-display.php:594
+msgid "Subscription popup"
+msgstr "订阅弹窗"
+
+#: admin/partials/features/popup-box-pro-features-display.php:575
+#: admin/partials/features/popup-box-pro-features-display.php:580
+msgid "Iframe popup"
+msgstr "嵌入式弹窗"
+
+#: admin/partials/features/popup-box-pro-features-display.php:197
+#: admin/partials/features/popup-box-pro-features-display.php:202
+msgid "Video popup"
+msgstr "视频弹窗"
+
+#: admin/partials/features/popup-box-pro-features-display.php:561
+#: admin/partials/features/popup-box-pro-features-display.php:566
+msgid "Yes or No popup"
+msgstr "是或否弹窗"
+
+#: admin/partials/features/popup-box-pro-features-display.php:533
+#: admin/partials/features/popup-box-pro-features-display.php:538
+msgid "MailerLite integration"
+msgstr "MailerLite集成"
+
+#: admin/partials/features/popup-box-pro-features-display.php:505
+#: admin/partials/features/popup-box-pro-features-display.php:510
+msgid "ConvertKit integration"
+msgstr "ConvertKit集成"
+
+#: admin/partials/features/popup-box-pro-features-display.php:491
+#: admin/partials/features/popup-box-pro-features-display.php:496
+msgid "GetResponse integration"
+msgstr "GetResponse集成"
+
+#: admin/partials/features/popup-box-pro-features-display.php:477
+#: admin/partials/features/popup-box-pro-features-display.php:482
+msgid "ActiveCampaign integration"
+msgstr "ActiveCampaign集成"
+
+#: admin/partials/features/popup-box-pro-features-display.php:463
+#: admin/partials/features/popup-box-pro-features-display.php:468
+msgid "Campaign Monitor integration"
+msgstr "Campaign Monitor集成"
+
+#: admin/partials/features/popup-box-pro-features-display.php:449
+#: admin/partials/features/popup-box-pro-features-display.php:454
+msgid "MailChimp integration"
+msgstr "MailChimp集成"
+
+#: admin/partials/features/popup-box-pro-features-display.php:421
+#: admin/partials/features/popup-box-pro-features-display.php:426
+msgid "User role permission"
+msgstr "用户角色权限"
+
+#: admin/partials/features/popup-box-pro-features-display.php:813
+#: admin/partials/features/popup-box-pro-features-display.php:818
+msgid "Coral theme"
+msgstr "珊瑚色主题"
+
+#: admin/partials/features/popup-box-pro-features-display.php:799
+#: admin/partials/features/popup-box-pro-features-display.php:804
+msgid "Yellowish theme"
+msgstr "浅黄色主题"
+
+#: admin/partials/features/popup-box-pro-features-display.php:785
+#: admin/partials/features/popup-box-pro-features-display.php:790
+msgid "Peachy theme"
+msgstr "桃色主题"
+
+#: admin/partials/features/popup-box-pro-features-display.php:757
+#: admin/partials/features/popup-box-pro-features-display.php:762
+msgid "Actions while clicking on the popup"
+msgstr "点击弹出窗口时的操作"
+
+#: admin/partials/features/popup-box-pro-features-display.php:743
+#: admin/partials/features/popup-box-pro-features-display.php:748
+msgid "Close by classname"
+msgstr "通过类名关闭"
+
+#: admin/partials/features/popup-box-pro-features-display.php:729
+#: admin/partials/features/popup-box-pro-features-display.php:734
+msgid "Close by scrolling down"
+msgstr "向下滚动关闭"
+
+#: admin/partials/features/popup-box-pro-features-display.php:393
+#: admin/partials/features/popup-box-pro-features-display.php:398
+msgid "Limitation count"
+msgstr "限制次数"
+
+#: admin/partials/features/popup-box-pro-features-display.php:384
+msgid "Enable for selected browser"
+msgstr "为选择的浏览器启用"
+
+#: admin/partials/features/popup-box-pro-features-display.php:379
+msgid "Enable for selected browsers"
+msgstr "为选择的浏览器启用"
+
+#: admin/partials/features/popup-box-pro-features-display.php:365
+#: admin/partials/features/popup-box-pro-features-display.php:370
+msgid "Enable for selected user OS"
+msgstr "为选择的用户操作系统启用"
+
+#: admin/partials/features/popup-box-pro-features-display.php:337
+#: admin/partials/features/popup-box-pro-features-display.php:342
+msgid "Multiple scheduling"
+msgstr "多次调度"
+
+#: admin/partials/features/popup-box-pro-features-display.php:309
+#: admin/partials/features/popup-box-pro-features-display.php:314
+msgid "Open with click"
+msgstr "点击打开"
+
+#: admin/partials/features/popup-box-pro-features-display.php:295
+#: admin/partials/features/popup-box-pro-features-display.php:300
+msgid "Delay"
+msgstr "延迟"
+
+#: admin/partials/features/popup-box-pro-features-display.php:281
+#: admin/partials/features/popup-box-pro-features-display.php:286
+msgid "Display on pages"
+msgstr "显示在页面上"
+
+#: admin/partials/features/popup-box-pro-features-display.php:253
+#: admin/partials/features/popup-box-pro-features-display.php:258
+msgid "Scroll from top"
+msgstr "从顶部滚动"
+
+#: admin/partials/features/popup-box-pro-features-display.php:155
+#: admin/partials/features/popup-box-pro-features-display.php:160
+msgid "Responsive design"
+msgstr "响应式设计"
+
+#: admin/partials/features/popup-box-pro-features-display.php:141
+#: admin/partials/features/popup-box-pro-features-display.php:146
+msgid "Session time option"
+msgstr "会话时间选项"
+
+#: admin/partials/features/popup-box-pro-features-display.php:101
+#: admin/partials/features/popup-box-pro-features-display.php:121
+#: admin/partials/features/popup-box-pro-features-display.php:134
+#: admin/partials/features/popup-box-pro-features-display.php:135
+#: admin/partials/features/popup-box-pro-features-display.php:136
+msgid "Lifetime"
+msgstr "终身"
+
+#: admin/partials/features/popup-box-pro-features-display.php:98
+#: admin/partials/features/popup-box-pro-features-display.php:118
+msgid "12 months"
+msgstr "12个月"
+
+#: admin/partials/features/popup-box-pro-features-display.php:95
+#: admin/partials/features/popup-box-pro-features-display.php:115
+msgid "1 months"
+msgstr "1个月"
+
+#: admin/partials/features/popup-box-pro-features-display.php:87
+#: admin/partials/features/popup-box-pro-features-display.php:92
+msgid "Upgrade for"
+msgstr "升级至"
+
+#: admin/partials/features/popup-box-pro-features-display.php:81
+msgid "Unlimited sites"
+msgstr "无限站点"
+
+#: admin/partials/features/popup-box-pro-features-display.php:78
+msgid "5 sites"
+msgstr "5个站点"
+
+#: admin/partials/features/popup-box-pro-features-display.php:75
+msgid "1 site"
+msgstr "1个站点"
+
+#: admin/partials/features/popup-box-pro-features-display.php:107
+#: admin/partials/features/popup-box-pro-features-display.php:112
+msgid "Support for"
+msgstr "支持"
+
+#: admin/partials/features/popup-box-pro-features-display.php:38
+msgid "Free"
+msgstr "免费"
+
+#: admin/partials/features/popup-box-pro-features-display.php:30
+msgid "Developer"
+msgstr "开发者"
+
+#: admin/partials/features/popup-box-pro-features-display.php:26
+msgid "Business"
+msgstr "商业"
+
+#: admin/partials/features/popup-box-pro-features-display.php:22
+msgid "Personal"
+msgstr "个人"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:5
+msgid "See All Plugins"
+msgstr "查看所有插件"
+
+#: admin/class-ays-pb-admin.php:1086
+msgid "Allow your users to create their own digital dictionaries and learn new words and terms as fastest as possible."
+msgstr "允许用户创建他们自己的数字词典，并尽可能快速地学习新单词和术语。"
+
+#: admin/class-ays-pb-admin.php:1085
+msgid "Allow your students to create personal dictionary, study and memorize the words."
+msgstr "允许学生创建个人词典，学习和记忆单词。"
+
+#: admin/class-ays-pb-admin.php:1084
+msgid "Personal Dictionary"
+msgstr "个人词典"
+
+#: admin/class-ays-pb-admin.php:1077
+msgid "Protect web content from being plagiarized. Prevent plagiarism from your website with this easy to use plugin."
+msgstr "保护网页内容免受剽窃。使用这款易于使用的插件防止您的网站被剽窃。"
+
+#: admin/class-ays-pb-admin.php:1076
+msgid "Disable the right click, copy paste, content selection and copy shortcut keys on your website."
+msgstr "禁用您网站上的右键点击、复制粘贴、内容选择和复制快捷键。"
+
+#: admin/class-ays-pb-admin.php:1075
+msgid "Secure Copy Content Protection"
+msgstr "安全复制内容保护"
+
+#: admin/class-ays-pb-admin.php:1068
+msgid "Represent images in an attractive way. Attract people with your own single and multiple free galleries from your photo library."
+msgstr "以吸引人的方式展示图像。用您的照片库中的单个和多个免费画廊吸引人们。"
+
+#: admin/class-ays-pb-admin.php:1067
+msgid "Create unlimited galleries and include unlimited images in those galleries."
+msgstr "创建无限数量的画廊，并在这些画廊中包含无限数量的图像。"
+
+#: admin/class-ays-pb-admin.php:1066
+msgid "Gallery Photo Gallery"
+msgstr "相册照片库"
+
+#: admin/class-ays-pb-admin.php:1059
+msgid "Learn what your website visitors want, need, and expect with the help of Survey Maker. Build surveys without limiting your needs."
+msgstr "通过Survey Maker了解您的网站访问者想要、需要和期望的内容。构建调查而不限制您的需求。"
+
+#: admin/class-ays-pb-admin.php:1058
+msgid "Make amazing online surveys and get real-time feedback quickly and easily."
+msgstr "制作令人惊叹的在线调查，快速而轻松地获得实时反馈。"
+
+#: admin/class-ays-pb-admin.php:1057
+msgid "Survey Maker"
+msgstr "调查制作者"
+
+#: admin/class-ays-pb-admin.php:1050
+msgid "Build up various types of polls in a minute and get instant feedback on any topic or product."
+msgstr "在一分钟内构建各种类型的投票，并即时获得关于任何主题或产品的反馈。"
+
+#: admin/class-ays-pb-admin.php:1049
+msgid "Create amazing online polls for your WordPress website super easily."
+msgstr "为您的WordPress网站轻松创建令人惊叹的在线投票。"
+
+#: admin/class-ays-pb-admin.php:1048
+msgid "Poll Maker"
+msgstr "Poll Maker"
+
+#: admin/class-ays-pb-admin.php:1039
+msgid "Quiz Maker"
+msgstr "Quiz Maker"
+
+#: admin/partials/features/ays-pb-plugin-featured-display.php:2
+msgid "Please feel free to use our other awesome plugins!"
+msgstr "请随意使用我们的其他出色插件！"
+
+#: admin/partials/export-import/ays-pb-export-import.php:81
+msgid "Import now"
+msgstr "立即导入"
+
+#: admin/partials/export-import/ays-pb-export-import.php:80
+msgid "Import file"
+msgstr "导入文件"
+
+#: admin/partials/export-import/ays-pb-export-import.php:77
+msgid "Please upload the popup file in a .json format here."
+msgstr "请在这里上传一个 .json 格式的弹出文件。"
+
+#: admin/partials/export-import/ays-pb-export-import.php:73
+msgid "Import popups"
+msgstr "导入弹出窗口"
+
+#: admin/partials/export-import/ays-pb-export-import.php:50
+msgid "Export to JSON"
+msgstr "导出为 JSON"
+
+#: admin/partials/export-import/ays-pb-export-import.php:39
+msgid "Specify the popup boxes which must be exported. If you want to export all popup boxes just leave blank."
+msgstr "指定要导出的弹出框。如果要导出所有弹出框，请留空。"
+
+#: admin/partials/export-import/ays-pb-export-import.php:38
+msgid "Select popups"
+msgstr "选择弹出窗口"
+
+#: admin/partials/export-import/ays-pb-export-import.php:32
+msgid "Export popups"
+msgstr "导出弹出窗口"
+
+#: admin/partials/export-import/ays-pb-export-import.php:12
+msgid "Import"
+msgstr "导入"
+
+#: admin/partials/export-import/ays-pb-export-import.php:11
+msgid "Export"
+msgstr "导出"
+
+#: admin/partials/ays-pb-admin-display.php:78
+msgid "Create Your First Popup in Under One Minute"
+msgstr "在一分钟内创建您的第一个弹出窗口"
+
+#: admin/partials/ays-pb-admin-display.php:60
+msgid "Search"
+msgstr "搜索"
+
+#: admin/partials/ays-pb-admin-display.php:47
+#: admin/partials/ays-pb-admin-display.php:72
+#: admin/partials/ays-pb-admin-display.php:87
+#: admin/partials/ays-pb-categories-display.php:29
+#: admin/partials/ays-pb-categories-display.php:53
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:22
+msgid "Add New"
+msgstr "添加新的"
+
+#: admin/partials/attributes/actions/ays-pb-attributes-actions.php:10
+msgid "Learn How to Use Custom Fields in Popup Box"
+msgstr "学习如何在弹出框中使用自定义字段"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:215
+msgid "Next Popup Category"
+msgstr "下一个弹出类别"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:212
+msgid "Are you sure you want to go to the next popup category page?"
+msgstr "您确定要进入下一个弹出类别页面吗？"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:205
+msgid "Previous Popup Category"
+msgstr "上一个弹出类别"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:202
+msgid "Are you sure you want to go to the previous popup category page?"
+msgstr "您确定要进入上一个弹出类别页面吗？"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:175
+#: includes/lists/class-ays-pb-list-table.php:81
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:80
+msgid "Unpublished"
+msgstr "未发布"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:171
+#: includes/lists/class-ays-pb-list-table.php:80
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:79
+msgid "Published"
+msgstr "已发布"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:162
+msgid "Select whether or not to display the new category in the settings."
+msgstr "选择是否在设置中显示新类别。"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:161
+msgid "Category status"
+msgstr "类别状态"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:121
+msgid "If this option is enabled a random popup will be displayed from the selected category based on the chosen post."
+msgstr "如果启用此选项，将根据选择的帖子从所选类别中显示随机弹出窗口。"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:120
+msgid "Show random popup by category"
+msgstr "按类别显示随机弹出窗口"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:96
+msgid "Write category description if necessary."
+msgstr "必要时编写类别描述。"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:95
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:179
+msgid "Description"
+msgstr "描述"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:82
+msgid "Define the category name."
+msgstr "定义类别名称。"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:81
+msgid "Category name"
+msgstr "类别名称"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:20
+msgid "Edit category"
+msgstr "编辑类别"
+
+#: admin/partials/actions/ays-pb-categories-actions.php:17
+msgid "Add new category"
+msgstr "添加新分类"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8292
+msgid "Google Map"
+msgstr "谷歌地图"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8270
+msgid "Login Form"
+msgstr "登录表单"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8251
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8229
+msgid "Download"
+msgstr "下载"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8207
+msgid "Accept Cookie"
+msgstr "接受Cookie"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8185
+msgid "Countdown"
+msgstr "倒计时"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8163
+msgid "Coupon"
+msgstr "优惠券"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8141
+msgid "Subscribe and get file"
+msgstr "订阅并获取文件"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8119
+msgid "Contact form"
+msgstr "联系表单"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8097
+msgid "Embed( Iframe )"
+msgstr "嵌入（iframe）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8075
+msgid "Yes or No"
+msgstr "是或否"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8057
+#: admin/partials/actions/ays-pb-admin-actions.php:8080
+#: admin/partials/actions/ays-pb-admin-actions.php:8102
+#: admin/partials/actions/ays-pb-admin-actions.php:8124
+#: admin/partials/actions/ays-pb-admin-actions.php:8146
+#: admin/partials/actions/ays-pb-admin-actions.php:8168
+#: admin/partials/actions/ays-pb-admin-actions.php:8190
+#: admin/partials/actions/ays-pb-admin-actions.php:8212
+#: admin/partials/actions/ays-pb-admin-actions.php:8234
+#: admin/partials/actions/ays-pb-admin-actions.php:8256
+#: admin/partials/actions/ays-pb-admin-actions.php:8275
+#: admin/partials/actions/ays-pb-admin-actions.php:8297
+msgid "Upgrade Now"
+msgstr "立即升级"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:8052
+msgid "Subscription"
+msgstr "订阅"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7900
+msgid "Next Popup"
+msgstr "下一个弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7891
+msgid "Prev popup"
+msgstr "上一个弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7849
+#: admin/partials/settings/popup-box-settings.php:288
+msgid "The Integrations tab works only with Contact Form, Subscription and Send File after subscription types"
+msgstr "集成选项卡仅与联系表单、订阅和订阅后发送文件类型一起使用"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7766
+#: admin/partials/features/popup-box-pro-features-display.php:435
+#: admin/partials/features/popup-box-pro-features-display.php:440
+msgid "Limit by country"
+msgstr "按国家限制"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7724
+#: admin/partials/actions/ays-pb-admin-actions.php:7768
+msgid "Show the popup only to visitors using certain browser(s) mentioned in the list. Leave it blank for showing the popup to all browsers users."
+msgstr "仅向使用列表中提到的某些浏览器的访问者显示弹出窗口。留空为显示给所有浏览器用户。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7722
+msgid "Display for certain browser"
+msgstr "为特定浏览器显示"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7703
+msgid "Set on which operating systems your popup will be displayed."
+msgstr "在哪些操作系统上显示弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7701
+msgid "Display for certain OS"
+msgstr "显示特定操作系统"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7521
+msgid "Show the popup only to certain user role(s) mentioned in the list. Leave it blank for showing the popup to all user roles."
+msgstr "仅向列表中提到的特定用户角色显示弹出窗口。将其留空以显示弹出窗口给所有用户角色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7519
+msgid "Display for certain user roles"
+msgstr "显示特定用户角色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7662
+msgid "Specify the count of views."
+msgstr "指定视图次数。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7661
+msgid "Count"
+msgstr "计数"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7649
+msgid "Disable the popup after certain views."
+msgstr "在特定次数后禁用弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7648
+msgid "Disable by view count"
+msgstr "按视图次数禁用"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7612
+msgid "Disable the popup on tablets."
+msgstr "在平板电脑上禁用弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7610
+msgid "Hide popup on tablets"
+msgstr "在平板电脑上隐藏弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7578
+msgid "Disable the popup on mobile devices."
+msgstr "在移动设备上禁用弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7576
+msgid "Hide popup on mobile"
+msgstr "在移动设备上隐藏弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7561
+msgid "Enable this option to display the popup for guest visitors."
+msgstr "启用此选项以显示弹出窗口给访客"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7559
+msgid "Display for guests"
+msgstr "显示给来宾"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7505
+msgid "Enable this option to display the popup for logged-in users."
+msgstr "启用此选项以显示弹出窗口给已登录用户"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7503
+msgid "Display for logged-in users"
+msgstr "显示给已登录用户"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7446
+msgid "Enable this option to display the popup once per visitor."
+msgstr "启用此选项以每位访客仅显示一次弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7445
+msgid "Display popup once per user"
+msgstr "每位用户仅显示一次"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7437
+msgid "Limitation of Users"
+msgstr "用户限制"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7373
+#: public/partials/ays-pb-public-templates.php:4221
+#: public/partials/ays-pb-public-templates.php:4223
+#: public/partials/ays-pb-public-templates.php:4225
+#: public/partials/ays-pb-public-templates.php:4227
+msgid "This will close in "
+msgstr "这将关闭于 "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7181
+#: admin/partials/actions/ays-pb-admin-actions.php:7196
+#: admin/partials/actions/ays-pb-admin-actions.php:7219
+#: admin/partials/actions/ays-pb-admin-actions.php:7247
+#: admin/partials/actions/ays-pb-admin-actions.php:7267
+#: admin/partials/actions/ays-pb-admin-actions.php:7284
+#: admin/partials/actions/ays-pb-admin-actions.php:7301
+#: admin/partials/actions/ays-pb-admin-actions.php:7317
+#: admin/partials/actions/ays-pb-admin-actions.php:7339
+#: admin/partials/actions/ays-pb-admin-actions.php:7357
+msgid "Here can be custom HTML or shortcode"
+msgstr "这里可以是自定义HTML或短代码"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7161
+msgid "See PopupBox in live preview"
+msgstr "在实时预览中查看PopupBox"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7147
+msgid "Reset popup styles to default values"
+msgstr "将弹出样式重置为默认值"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7146
+msgid "Reset styles"
+msgstr "重置样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7136
+msgid "Field for entering your own CSS code."
+msgstr "输入您自己的CSS代码的字段"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7135
+msgid "Custom CSS"
+msgstr "自定义CSS"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7123
+msgid "Use your custom HTML class for adding your custom styles to popup container."
+msgstr "使用您的自定义HTML类为弹出容器添加自定义样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7122
+msgid "Custom class for popup container "
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7109
+msgid "On mobile mode the background image will change it style and it will be displayed at the top of the text. Note: It will work only for the Sale template."
+msgstr "在移动模式下，背景图片的样式将会改变，并且将显示在文本顶部。注意：这仅适用于销售模板。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7108
+msgid "Background image style on mobile"
+msgstr "移动端背景图片样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7033
+#: admin/partials/actions/ays-pb-admin-actions.php:7078
+msgid "The color of the shadow of the popup container"
+msgstr "弹出容器阴影颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2838
+msgid "Box shadow color"
+msgstr "盒阴影颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7007
+msgid "Allow popup container box shadow."
+msgstr "允许弹出容器盒阴影。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2823
+#: admin/partials/actions/ays-pb-admin-actions.php:7006
+msgid "Box shadow"
+msgstr "盒阴影"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6999
+msgid "Advanced style"
+msgstr "高级样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6982
+msgid "Define the close button size in pixels."
+msgstr "定义关闭按钮大小（像素）。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6981
+msgid "Close button size"
+msgstr "关闭按钮大小"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6964
+msgid "Define the close button color on hover."
+msgstr "定义鼠标悬停时的关闭按钮颜色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6963
+msgid "Close button hover color"
+msgstr "关闭按钮悬停颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6946
+msgid "Define the close button color."
+msgstr "定义关闭按钮的颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6945
+msgid "Close button color"
+msgstr "关闭按钮颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6888
+msgid "Close button image"
+msgstr "关闭按钮图片"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6870
+msgid "Popup buttons border-radius in pixels. It accepts only numeric values."
+msgstr "弹出窗口按钮的边框半径（像素）。仅接受数字值"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6869
+msgid "Button border-radius"
+msgstr "按钮边框半径"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2792
+#: admin/partials/actions/ays-pb-admin-actions.php:6860
+msgid "Top / Bottom"
+msgstr "顶部/底部"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2788
+#: admin/partials/actions/ays-pb-admin-actions.php:6856
+msgid "Left / Right"
+msgstr "左侧/右侧"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6849
+msgid "Padding of buttons."
+msgstr "按钮的填充"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6848
+msgid "Button padding"
+msgstr "按钮填充"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6841
+msgid "For an initial width, leave the field blank."
+msgstr "对于初始宽度，请将字段留空。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6834
+msgid "Set the button width in pixels. For an initial width, leave the field blank."
+msgstr "以像素设置按钮宽度。对于初始宽度，请将字段留空。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6833
+msgid "Button width"
+msgstr "按钮宽度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6820
+msgid "The font size of the buttons in pixels in the popup. It accepts only numeric values."
+msgstr "弹出窗口中按钮的字体大小（以像素为单位）。仅接受数字值。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6819
+msgid "Button font-size"
+msgstr "按钮字体大小"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6807
+msgid "Specify the backgound color of buttons inside the popup."
+msgstr "指定弹出窗口中按钮的背景颜色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6806
+msgid "Button background color"
+msgstr "按钮背景颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6793
+msgid "Specify the text color of buttons inside the popup."
+msgstr "指定弹出窗口中按钮的文本颜色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6792
+msgid "Button text color"
+msgstr "按钮文本颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6783
+msgid "Large"
+msgstr "大号"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6780
+msgid "Medium"
+msgstr "中号"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6777
+msgid "Small"
+msgstr "小号"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6769
+msgid "The default sizes of buttons."
+msgstr "按钮的默认尺寸。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6768
+msgid "Button size"
+msgstr "按钮尺寸"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6720
+msgid "Button Style"
+msgstr "按钮样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6689
+msgid "Specify the radius of the border. Allows adding rounded corners to the popup."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2697
+#: admin/partials/actions/ays-pb-admin-actions.php:6688
+msgid "Border radius"
+msgstr "边框半径"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6657
+msgid "Specify the border color of the popup."
+msgstr "指定弹出框的边框颜色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2725
+#: admin/partials/actions/ays-pb-admin-actions.php:6656
+msgid "Border color"
+msgstr "边框颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2741
+#: admin/partials/actions/ays-pb-admin-actions.php:6580
+msgid "Choose your preferred style of the border."
+msgstr "选择您喜欢的边框样式。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6550
+msgid "Specify the border size of the popup in pixels."
+msgstr "指定弹出窗口的边框大小（以像素为单位）。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6549
+msgid "Border Width"
+msgstr "边框宽度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2740
+#: admin/partials/actions/ays-pb-admin-actions.php:6541
+#: admin/partials/actions/ays-pb-admin-actions.php:6579
+msgid "Border style"
+msgstr "边框样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6511
+msgid "Specify the overlay color."
+msgstr "指定覆盖色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6510
+msgid "Overlay color"
+msgstr "覆盖层颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6481
+msgid "Specify the background color of the box's header. Note: It works with the following themes: Red, Sale."
+msgstr "指定框标题的背景颜色。注意：它适用于以下主题：红色，特卖。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6480
+msgid "Header background color"
+msgstr "标题背景颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6417
+#: admin/partials/actions/ays-pb-admin-actions.php:6468
+msgid "Diagonal right to left"
+msgstr "从右上到左下的对角线"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6416
+#: admin/partials/actions/ays-pb-admin-actions.php:6467
+msgid "Diagonal left to right"
+msgstr "从左上到右下的对角线"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6415
+#: admin/partials/actions/ays-pb-admin-actions.php:6466
+msgid "Horizontal"
+msgstr "水平"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6414
+#: admin/partials/actions/ays-pb-admin-actions.php:6465
+msgid "Vertical"
+msgstr "垂直"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6409
+#: admin/partials/actions/ays-pb-admin-actions.php:6460
+msgid "The direction of the color gradient"
+msgstr "颜色渐变的方向"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6408
+#: admin/partials/actions/ays-pb-admin-actions.php:6459
+msgid "Gradient direction"
+msgstr "渐变方向"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6400
+#: admin/partials/actions/ays-pb-admin-actions.php:6451
+msgid "Select the second color stop."
+msgstr "选择第二个颜色停止点。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6399
+#: admin/partials/actions/ays-pb-admin-actions.php:6450
+msgid "Color 2"
+msgstr "颜色2"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6391
+#: admin/partials/actions/ays-pb-admin-actions.php:6442
+msgid "Select the first color stop."
+msgstr "选择第一个颜色停止点。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6390
+#: admin/partials/actions/ays-pb-admin-actions.php:6441
+msgid "Color 1"
+msgstr "颜色1"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6366
+msgid "Add background gradient for the popup, choose gradient color stops and direction."
+msgstr "为弹出窗口添加背景渐变，选择渐变颜色停止点和方向。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6365
+msgid "Background gradient"
+msgstr "背景渐变"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:103
+#: admin/partials/actions/ays-pb-admin-actions.php:6342
+#: admin/partials/actions/ays-pb-admin-actions.php:6352
+msgid "Unset"
+msgstr "取消设置"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:101
+#: admin/partials/actions/ays-pb-admin-actions.php:6340
+#: admin/partials/actions/ays-pb-admin-actions.php:6350
+msgid "Contain"
+msgstr "包含"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:100
+#: admin/partials/actions/ays-pb-admin-actions.php:6339
+#: admin/partials/actions/ays-pb-admin-actions.php:6349
+msgid "Cover"
+msgstr "覆盖"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6330
+msgid "Define the background image size if needed."
+msgstr "根据需要定义背景图片尺寸。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6329
+msgid "Background image sizing"
+msgstr "背景图片大小"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6269
+msgid "Select the position of the background image of the popup."
+msgstr "选择弹出窗口的背景图片位置。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6268
+msgid "Background image position"
+msgstr "背景图片位置"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6219
+msgid "Add a background image to the popup. Note: If you want to apply background color, remove the image or don't add it."
+msgstr "将背景图片添加到弹出窗口。注意: 如果要应用背景颜色，请移除图片或不要添加。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6217
+msgid "Background Image"
+msgstr "背景图片"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6189
+msgid "Specify the background color of the popup."
+msgstr "指定弹出窗口的背景颜色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2421
+#: admin/partials/actions/ays-pb-admin-actions.php:6188
+msgid "Background color"
+msgstr "背景颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6180
+msgid "Background style"
+msgstr "背景样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5884
+msgid "Choose the entry effect for the popup opening."
+msgstr "选择弹出窗口打开时的进入效果。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5883
+msgid "Opening animation"
+msgstr "打开动画"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6002
+msgid "Choose the exit effect for the popup closing."
+msgstr "选择弹出窗口关闭时的退出效果。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6001
+msgid "Closing animation"
+msgstr "关闭动画"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6150
+msgid "Specify the ending animation speed of the popup in seconds."
+msgstr "指定弹出窗口结束动画的速度，单位为秒。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6149
+msgid "Closing animation speed"
+msgstr "关闭动画速度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6120
+msgid "Specify the entry effect speed of the popup in seconds."
+msgstr "指定弹出窗口进入效果的速度，单位为秒。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:6119
+msgid "Opening animation speed"
+msgstr "打开动画速度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5875
+msgid "Opening and Closing effects"
+msgstr "打开和关闭效果"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5851
+msgid "Choose the kind of decoration added to text of the popup title."
+msgstr "选择要添加到弹出窗口标题文本的装饰类型。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2513
+#: admin/partials/actions/ays-pb-admin-actions.php:5850
+msgid "Text decoration"
+msgstr "文本装饰"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:102
+#: admin/partials/actions/ays-pb-admin-actions.php:107
+#: admin/partials/actions/ays-pb-admin-actions.php:114
+#: admin/partials/actions/ays-pb-admin-actions.php:5842
+#: admin/partials/actions/ays-pb-admin-actions.php:5859
+#: admin/partials/actions/ays-pb-admin-actions.php:6341
+#: admin/partials/actions/ays-pb-admin-actions.php:6351
+msgid "None"
+msgstr "无"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5832
+msgid " Lowercase - Transforms all characters to lowercase."
+msgstr " 小写 - 将所有字符转换为小写。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5830
+msgid "Uppercase - Transforms all characters to uppercase."
+msgstr "大写 - 将所有字符转换为大写。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5828
+msgid "Capitalize - Transforms the first character of each word to uppercase."
+msgstr "首字母大写 - 将每个单词的第一个字符转换为大写。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5826
+msgid " None - No capitalization. The text renders as it is."
+msgstr " 无 - 没有大写。文本按原样显示。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5824
+msgid "Choose the capitalization of the text of the popup title. "
+msgstr "选择弹出窗口标题文本的大写形式。 "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5822
+msgid "Text transform"
+msgstr "文本转换"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5562
+#: admin/partials/actions/ays-pb-admin-actions.php:5581
+#: admin/partials/actions/ays-pb-admin-actions.php:5814
+msgid "Center"
+msgstr "居中"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5806
+msgid "Choose the horizontal alignment of the text of the popup title."
+msgstr "选择弹出框标题文本的水平对齐方式。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5805
+msgid "Text alignment"
+msgstr "文本对齐"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5793
+msgid "Define the height of a line of the popup title."
+msgstr "定义弹出框标题文本的行高。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5792
+msgid "Line height"
+msgstr "行高"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5780
+msgid "Define the space between characters in a text of the popup title in pixels."
+msgstr "定义弹出框标题文本字符之间的像素间距。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5779
+msgid "Letter spacing(px)"
+msgstr "字符间距（像素）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5767
+msgid "Define the font size of the popup title in pixels."
+msgstr "定义弹出框标题文本的字体大小（像素）。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5766
+msgid "Font size(px)"
+msgstr "字体大小（像素）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:121
+#: admin/partials/actions/ays-pb-admin-actions.php:5758
+msgid "Normal"
+msgstr "正常"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5750
+msgid "Define the boldness of the popup title."
+msgstr "定义弹出窗口标题的粗细度。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2621
+#: admin/partials/actions/ays-pb-admin-actions.php:5749
+msgid "Font weight"
+msgstr "字重"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5733
+msgid "Choose your preferred font family from the suggested variants for the popup title."
+msgstr "从建议的变体中选择您喜欢的弹出窗口标题字体系列。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5719
+msgid "Enable the option to customize the style of the popup title."
+msgstr "启用自定义弹出窗口标题样式的选项。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5718
+#: admin/partials/features/popup-box-pro-features-display.php:771
+#: admin/partials/features/popup-box-pro-features-display.php:776
+msgid "Title style"
+msgstr "标题样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2857
+#: admin/partials/actions/ays-pb-admin-actions.php:5640
+#: admin/partials/actions/ays-pb-admin-actions.php:5685
+#: admin/partials/actions/ays-pb-admin-actions.php:7051
+#: admin/partials/actions/ays-pb-admin-actions.php:7096
+msgid "Z"
+msgstr "Z"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2853
+#: admin/partials/actions/ays-pb-admin-actions.php:5636
+#: admin/partials/actions/ays-pb-admin-actions.php:5681
+#: admin/partials/actions/ays-pb-admin-actions.php:7047
+#: admin/partials/actions/ays-pb-admin-actions.php:7092
+msgid "Y"
+msgstr "Y"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2849
+#: admin/partials/actions/ays-pb-admin-actions.php:5632
+#: admin/partials/actions/ays-pb-admin-actions.php:5677
+#: admin/partials/actions/ays-pb-admin-actions.php:7043
+#: admin/partials/actions/ays-pb-admin-actions.php:7088
+msgid "X"
+msgstr "X"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5622
+#: admin/partials/actions/ays-pb-admin-actions.php:5667
+msgid "Specify text shadow color."
+msgstr "指定文本阴影颜色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5621
+#: admin/partials/actions/ays-pb-admin-actions.php:5666
+#: admin/partials/actions/ays-pb-admin-actions.php:7032
+#: admin/partials/actions/ays-pb-admin-actions.php:7077
+msgid "Color"
+msgstr "颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5599
+msgid "This option is not available currently as the Show title Option is disable."
+msgstr "此选项当前不可用，因为显示标题选项被禁用。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5596
+msgid "Add text shadow to the popup title."
+msgstr "给弹出窗口标题添加文本阴影。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5595
+msgid "Title text shadow"
+msgstr "标题文本阴影"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2079
+#: admin/partials/actions/ays-pb-admin-actions.php:2147
+#: admin/partials/actions/ays-pb-admin-actions.php:2215
+#: admin/partials/actions/ays-pb-admin-actions.php:2565
+#: admin/partials/actions/ays-pb-admin-actions.php:2605
+#: admin/partials/actions/ays-pb-admin-actions.php:2659
+#: admin/partials/actions/ays-pb-admin-actions.php:5143
+#: admin/partials/actions/ays-pb-admin-actions.php:5227
+#: admin/partials/actions/ays-pb-admin-actions.php:5523
+#: admin/partials/actions/ays-pb-admin-actions.php:5571
+msgid "On mobile"
+msgstr "在移动端"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5499
+msgid "Define the font size of the popup description in pixels."
+msgstr "以像素为单位定义弹出窗口描述的字体大小。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5498
+msgid "Description font size"
+msgstr "描述字体大小"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5452
+msgid "Choose the popup text font family."
+msgstr "选择弹出窗口文字的字体系列。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5451
+#: admin/partials/actions/ays-pb-admin-actions.php:5732
+msgid "Font family"
+msgstr "字体系列"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5435
+msgid "Specify the text color written inside the popup."
+msgstr "指定弹出窗口内部文字的颜色。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2457
+#: admin/partials/actions/ays-pb-admin-actions.php:5434
+msgid "Text color"
+msgstr "文字颜色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5425
+msgid "Text style"
+msgstr "文字样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5347
+msgid "Enable this option to display the popup on a full screen."
+msgstr "启用此选项以在全屏上显示弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5346
+msgid "Full-screen mode"
+msgstr "全屏模式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5327
+msgid "Define the popup's minimal height in pixels."
+msgstr "定义弹出窗口的最小高度（像素）。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5326
+msgid "Popup min-height"
+msgstr "弹出窗口最小高度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5195
+msgid "Height"
+msgstr "高度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5175
+msgid "Specify the max-width of the popup for mobile in percentage. Note: This option works for screens with less than 768 pixels width."
+msgstr "指定移动设备弹出窗口的最大宽度百分比。注意：此选项适用于宽度小于768像素的屏幕。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5174
+msgid "Max-width for mobile"
+msgstr "移动设备的最大宽度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2068
+#: admin/partials/actions/ays-pb-admin-actions.php:2096
+#: admin/partials/actions/ays-pb-admin-actions.php:2136
+#: admin/partials/actions/ays-pb-admin-actions.php:2164
+#: admin/partials/actions/ays-pb-admin-actions.php:2204
+#: admin/partials/actions/ays-pb-admin-actions.php:2232
+#: admin/partials/actions/ays-pb-admin-actions.php:5131
+#: admin/partials/actions/ays-pb-admin-actions.php:5160
+#: admin/partials/actions/ays-pb-admin-actions.php:5279
+#: admin/partials/actions/ays-pb-admin-actions.php:5310
+#: admin/partials/actions/ays-pb-admin-actions.php:5384
+#: admin/partials/actions/ays-pb-admin-actions.php:5406
+msgid "%"
+msgstr "%"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2065
+#: admin/partials/actions/ays-pb-admin-actions.php:2093
+#: admin/partials/actions/ays-pb-admin-actions.php:2133
+#: admin/partials/actions/ays-pb-admin-actions.php:2161
+#: admin/partials/actions/ays-pb-admin-actions.php:2201
+#: admin/partials/actions/ays-pb-admin-actions.php:2229
+#: admin/partials/actions/ays-pb-admin-actions.php:5128
+#: admin/partials/actions/ays-pb-admin-actions.php:5157
+#: admin/partials/actions/ays-pb-admin-actions.php:5276
+#: admin/partials/actions/ays-pb-admin-actions.php:5307
+#: admin/partials/actions/ays-pb-admin-actions.php:5381
+#: admin/partials/actions/ays-pb-admin-actions.php:5403
+msgid "px"
+msgstr "像素"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5123
+#: admin/partials/actions/ays-pb-admin-actions.php:5152
+#: admin/partials/actions/ays-pb-admin-actions.php:5183
+msgid "For 100% leave blank"
+msgstr "留空以使用100%"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2041
+#: admin/partials/actions/ays-pb-admin-actions.php:5103
+msgid "Width"
+msgstr "宽度"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5057
+msgid "Popup Dimensions"
+msgstr "弹出窗口尺寸"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5077
+#: admin/partials/actions/ays-pb-admin-actions.php:5087
+msgid "Show description"
+msgstr "显示描述"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5074
+#: admin/partials/actions/ays-pb-admin-actions.php:5084
+msgid "Show title"
+msgstr "显示标题"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5065
+msgid "Show Popup head information - Enable to show the title and(or) the description inside the popup."
+msgstr "显示弹出窗口头部信息 - 启用以在弹出窗口内显示标题和(或)描述。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5064
+msgid "Display Content"
+msgstr "显示内容"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5035
+#: admin/partials/actions/ays-pb-admin-actions.php:5043
+msgid "Command prompt"
+msgstr "命令提示符"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:5009
+#: admin/partials/actions/ays-pb-admin-actions.php:5017
+#: includes/lists/class-ays-pb-list-table.php:497
+msgid "Windows 98"
+msgstr "Windows 98"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4982
+#: admin/partials/actions/ays-pb-admin-actions.php:4990
+#: includes/lists/class-ays-pb-list-table.php:494
+msgid "Windows XP"
+msgstr "Windows XP"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4955
+#: admin/partials/actions/ays-pb-admin-actions.php:4963
+#: includes/lists/class-ays-pb-list-table.php:491
+msgid "Ubuntu"
+msgstr "Ubuntu"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4937
+msgid "MacOS "
+msgstr "MacOS "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4929
+msgid "MacOS window"
+msgstr "MacOS 窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4891
+#: admin/partials/actions/ays-pb-admin-actions.php:4900
+msgid "Forest"
+msgstr "森林"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4875
+#: admin/partials/actions/ays-pb-admin-actions.php:4884
+msgid "Food"
+msgstr "食物"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4859
+#: admin/partials/actions/ays-pb-admin-actions.php:4868
+msgid "Frozen"
+msgstr "冰冻的"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4842
+#: admin/partials/actions/ays-pb-admin-actions.php:4851
+msgid "Coral"
+msgstr "珊瑚"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4826
+msgid "Yellowish"
+msgstr "微黄色的"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4810
+msgid "Peachy"
+msgstr "桃红色的"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4754
+#: admin/partials/actions/ays-pb-admin-actions.php:4762
+#: admin/partials/actions/ays-pb-admin-actions.php:4819
+#: admin/partials/actions/ays-pb-admin-actions.php:4835
+#: includes/class-ays-pb-data.php:430
+#: includes/lists/class-ays-pb-list-table.php:485
+msgid "Sale"
+msgstr "销售"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4728
+#: admin/partials/actions/ays-pb-admin-actions.php:4736
+#: includes/lists/class-ays-pb-list-table.php:482
+msgid "Minimal"
+msgstr "简约"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4702
+#: admin/partials/actions/ays-pb-admin-actions.php:4710
+#: includes/lists/class-ays-pb-list-table.php:479
+msgid "Modern"
+msgstr "现代"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4675
+#: admin/partials/actions/ays-pb-admin-actions.php:4684
+#: includes/lists/class-ays-pb-list-table.php:476
+msgid "Red"
+msgstr "红色"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4628
+#: includes/lists/class-ays-pb-list-table.php:220
+msgid "Template"
+msgstr "模板"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4404
+msgid "If the option is enabled, then the system will redirect the URL in a separate new tab."
+msgstr "如果选项已启用，则系统将在单独的新选项卡中重定向URL。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4403
+msgid "Open in new tab"
+msgstr "在新选项卡中打开"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4392
+msgid "Provide the redirection URL."
+msgstr "提供重定向的URL。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4391
+msgid "Redirection URL"
+msgstr "重定向URL"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4380
+msgid "Enable redirection to the custom URL when the user clicks on any area inside the popup."
+msgstr "当用户在弹出窗口内的任何区域点击时，启用重定向到自定义URL。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4379
+msgid "Enable redirection"
+msgstr "启用重定向"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4362
+msgid "If the option is enabled, then the popup will be closed if the user clicks on any area inside it."
+msgstr "如果选项已启用，则如果用户在其中的任何区域单击，则弹出窗口将被关闭。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4361
+msgid "Enable closing"
+msgstr "启用关闭"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4345
+msgid "Enable closing the popup and/or redirecting to the custom URL in case of clicking on any area of the popup container."
+msgstr "启用关闭弹出窗口和/或在单击弹出窗口容器的任何区域时重定向到自定义URL。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4344
+msgid " Actions while clicking on the popup"
+msgstr " 点击弹出窗口时的操作"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4252
+msgid "The period of time when Popup will be active"
+msgstr "弹出窗口将处于活动状态的时间段"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4250
+msgid "Multiple Scheduling"
+msgstr "多重计划安排"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4558
+msgid "After enabling this option the content in the popup will not be scrolled."
+msgstr "启用此选项后，弹出窗口中的内容将不会滚动。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4557
+msgid "Disable popup scrolling"
+msgstr "禁用弹出窗口滚动"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4490
+#: admin/partials/actions/ays-pb-admin-actions.php:4506
+msgid "Write the text that you want to be displayed on the dismiss ad button."
+msgstr "编写要显示在关闭广告按钮上的文本。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4489
+#: admin/partials/actions/ays-pb-admin-actions.php:4505
+msgid "Dismiss ad text"
+msgstr "关闭广告文本"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4474
+msgid "After enabling this option the dismiss ad button will be displayed in the popup. After clicking on the button the ads will be dismissed for 1 month."
+msgstr "启用此选项后，关闭广告按钮将显示在弹出窗口中。单击按钮后，广告将被关闭一个月。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4473
+msgid "Enable dismiss ad"
+msgstr "启用关闭广告"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4529
+msgid "Disable page scrolling"
+msgstr "禁用页面滚动"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4453
+msgid "Select User"
+msgstr "选择用户"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4446
+msgid "Change the popup author to the preferred one. Write the User ID in the field. To find the ID, go to the WordPress User's section and hover on the user. You can find the user ID in the link below. Please note, that in case you write an ID, by which there are no users found, the changes will not be applied and the previous author will remain the same."
+msgstr "将弹出作者更改为首选作者。在字段中写入用户ID。要查找ID，请转到WordPress用户部分，在用户上悬停。您可以在下面的链接中找到用户ID。请注意，如果您写入一个ID，那里找不到用户，更改将不会应用，上一个作者将保持不变。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4445
+msgid "Change the popup author"
+msgstr "更改弹出作者"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4425
+msgid "Change the popup creation date to the preferred date."
+msgstr "将弹出创建日期更改为首选日期。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4424
+msgid "Change the popup creation date"
+msgstr "更改弹出窗口创建日期"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4143
+#: admin/partials/actions/ays-pb-admin-actions.php:4278
+#: admin/partials/actions/ays-pb-admin-actions.php:4301
+msgid "End date:"
+msgstr "结束日期:"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4124
+#: admin/partials/actions/ays-pb-admin-actions.php:4269
+#: admin/partials/actions/ays-pb-admin-actions.php:4292
+msgid "Start date:"
+msgstr "开始日期:"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4107
+msgid "Define the period of time when the popup will be active."
+msgstr "定义弹出窗口将处于活动状态的时间段。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4105
+msgid "Schedule the popup"
+msgstr "安排弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4072
+msgid "Behance page link for showing at the end of the popup."
+msgstr "展示在弹出窗口末尾的Behance页面链接。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4071
+msgid "Behance link"
+msgstr "Behance链接"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4057
+msgid "Instagram page link for showing at the end of the popup."
+msgstr "展示在弹出窗口末尾的Instagram页面链接。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4056
+msgid "Instagram link"
+msgstr "Instagram链接"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4042
+msgid "YouTube page link for showing at the end of the popup."
+msgstr "展示在弹出窗口末尾的YouTube页面链接。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4041
+msgid "Youtube link"
+msgstr "Youtube链接"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4027
+msgid "VKontakte profile or page link for showing at the end of the popup."
+msgstr "VKontakte个人资料或页面链接，用于显示在弹出窗口末尾。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4026
+msgid "VKontakte link"
+msgstr "VKontakte链接"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:4012
+msgid "X profile or page link for showing at the end of the popup."
+msgstr ""
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3997
+msgid "Facebook profile or page link for showing at the end of the popup."
+msgstr "Facebook个人资料或页面链接，用于显示在弹出窗口末尾。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3996
+msgid "Facebook link"
+msgstr "Facebook链接"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3982
+msgid "LinkedIn profile or page link for showing at the end of the popup."
+msgstr "LinkedIn个人资料或页面链接，用于显示在弹出窗口末尾。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3981
+msgid "LinkedIn link"
+msgstr "LinkedIn链接"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3963
+msgid "Text that will be displayed over share buttons."
+msgstr "分享按钮上将显示的文字。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3962
+msgid "Heading for share buttons"
+msgstr "分享按钮标题"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3948
+msgid "Display social media links at the bottom of your popup container."
+msgstr "在您的弹出式容器底部显示社交媒体链接。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3947
+msgid "Enable Social Media links"
+msgstr "启用社交媒体链接"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3937
+msgid "Sounds are not selected. For selecting sounds go to"
+msgstr "未选择声音。要选择声音，请转到"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3935
+#: admin/partials/actions/ays-pb-admin-actions.php:3937
+msgid "page"
+msgstr "页面"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3935
+msgid "Sounds are selected. For change sounds go to"
+msgstr "已选择声音。要更改声音，请转到"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3923
+msgid "In case of enabling this option, insert and select the sound from the General Settings of Popup Box navigation menu. Note: This function only works with “On Click” or “Both” trigger types."
+msgstr "在启用此选项的情况下，请在弹出框导航菜单的常规设置中插入并选择声音。注意：此功能仅适用于“点击”或“两者”触发类型。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3922
+msgid "Enable popup sound"
+msgstr "启用弹出式音效"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7476
+msgid "Define the interval between the popup sessions in minutes. To disable the option, set 0. E.g. set it to 1440 to show the popup once a day to each user."
+msgstr "定义弹出式会话之间的间隔时间（分钟）。要禁用该选项，请将其设置为0。例如，将其设置为1440，以便每天向每个用户显示一次弹出式窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:7475
+msgid "Display once per session"
+msgstr "每次会话只显示一次"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3894
+msgid "Enable blurred overlay of the popup."
+msgstr "启用弹出窗口的模糊覆盖。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3893
+msgid "Enable blured overlay"
+msgstr "启用模糊叠加"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3852
+#: admin/partials/actions/ays-pb-admin-actions.php:3869
+msgid "Opacity:"
+msgstr "不透明度："
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3829
+msgid "Enable to show the overlay outside the popup."
+msgstr "启用在弹出窗口外显示叠加层"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3828
+msgid "Enable Overlay"
+msgstr "启用叠加层"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3802
+msgid "Categorize your popup selecting from the premade categories."
+msgstr "从预定义的类别中选择对弹出窗口进行分类"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3801
+msgid "Popup category"
+msgstr "弹出窗口类别"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3788
+msgid "Write the name of the particular Popup. The name will be shown in the Popup list table."
+msgstr "输入特定弹出窗口的名称。名称将显示在弹出窗口列表表中"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3787
+msgid "Popup name"
+msgstr "弹出窗口名称"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3780
+msgid "Advanced Settings"
+msgstr "高级设置"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3454
+msgid "Copy the given classname, assign it to any tag in the content as well as inside the popup. And the popup will close when the user clicks on the classname.Note: Save your popup before copying the given classname."
+msgstr "复制所给的类名，将其分配给内容中的任何标签以及弹出窗口中。当用户单击类名时，弹出窗口将关闭。注意：在复制所给的类名之前保存您的弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3453
+msgid "Close by classname (onclick)"
+msgstr "按类名关闭 (onclick)"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3417
+msgid "Define the scroll length by pixels to close the popup when scrolling."
+msgstr "定义滚动以像素为单位的长度来在滚动时关闭弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3416
+msgid "Close the popup on scroll"
+msgstr "滚动时关闭弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3721
+msgid " Set delay in milliseconds for displaying the popup close button. To disable the option leave it blank or set it to 0."
+msgstr " 以毫秒为单位设置弹出关闭按钮的延迟时间。要禁用该选项，请将其留空或设置为 0。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3676
+msgid "Hide the timer when the Autoclose Delay option is enabled."
+msgstr "在启用自动关闭延迟选项时隐藏定时器。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3674
+msgid "Hide timer"
+msgstr "隐藏计时器"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3626
+msgid "Close the popup after a specified time delay (in seconds). To disable the option leave it blank or set it to 0."
+msgstr "在指定的时间延迟（以秒为单位）后关闭弹出窗口。要禁用该选项，请将其留空或设置为 0。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3625
+msgid "Autoclose Delay (in seconds)"
+msgstr "自动关闭延迟（以秒为单位）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3559
+msgid "Define the close button text. The default value is “✕”."
+msgstr "定义关闭按钮的文本。默认值为“✕”。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3558
+msgid "Close button text"
+msgstr "关闭按钮文本"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3527
+#: admin/partials/actions/ays-pb-admin-actions.php:3540
+msgid "Right Bottom"
+msgstr "右下角"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3526
+#: admin/partials/actions/ays-pb-admin-actions.php:3539
+msgid "Left Bottom"
+msgstr "左下角"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3525
+#: admin/partials/actions/ays-pb-admin-actions.php:3538
+msgid "Left Top"
+msgstr "左上角"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3524
+#: admin/partials/actions/ays-pb-admin-actions.php:3537
+msgid "Right Top"
+msgstr "右上角"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3510
+msgid "Select the place of the popup close button. "
+msgstr "选择弹出窗口关闭按钮的位置。 "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3509
+msgid "Close button position"
+msgstr "关闭按钮位置"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3494
+msgid "Enable this option to close the popup by hovering over the popup container."
+msgstr "启用此选项可通过悬停在弹出容器上关闭弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3493
+msgid "Activate Close button while hovering on popup"
+msgstr "悬停在弹出窗口上时激活关闭按钮"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3478
+msgid "If the option is enabled, the close button of the popup will be disappeared. "
+msgstr "如果启用了该选项，弹出窗口的关闭按钮将消失。 "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3477
+msgid "Hide close button"
+msgstr "隐藏关闭按钮"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3384
+msgid "How to close Popup by clicking outside the box"
+msgstr "如何通过点击框外部关闭弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3361
+msgid "If the option is enabled, the user can close the popup by clicking outside the box.  Notice: This option works only if the “Enable Overlay”option is ticked."
+msgstr "如果选择启用，用户可以通过点击框外部关闭弹出窗口。注意：只有在选择“启用叠层”时，此选项才有效。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3360
+msgid "Close by clicking outside the box"
+msgstr "通过点击框外部关闭"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3343
+msgid "If the option is enabled, the user can close the popup by pressing the ESC button from the keyboard."
+msgstr "如果选择启用，用户可以通过从键盘上按ESC按钮关闭弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3342
+msgid "Close by pressing ESC"
+msgstr "通过按ESC关闭"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3334
+msgid "Popup Closing"
+msgstr "弹出窗口关闭"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3316
+msgid "How to Create a Login Form Popup"
+msgstr "如何创建登录表单弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3280
+msgid "Define the scroll length by pixels to open the popup when scrolling. To disable the option leave it blank or set it to 0."
+msgstr "定义滚动像素长度，以在滚动时打开弹出窗口。若要禁用该选项，请留空或设置为0。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3279
+msgid "Open by Scrolling Down"
+msgstr "向下滚动打开"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3262
+msgid "How to Show Popup after a Time Delay"
+msgstr "如何在延时后显示弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3236
+#: admin/partials/actions/ays-pb-admin-actions.php:3249
+#: admin/partials/actions/ays-pb-admin-actions.php:3739
+#: admin/partials/actions/ays-pb-admin-actions.php:3757
+msgid "1 sec = 1000 ms"
+msgstr "1秒 = 1000毫秒"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3224
+msgid "Open the popup when a visitor has viewed your website content for a specified period of time (in milliseconds). To disable the option leave it blank or set it to 0."
+msgstr "当访问者查看您的网站内容一段特定时间（以毫秒为单位）后，打开弹出窗口。要禁用此选项，请将其留空或设置为0。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3215
+msgid "Popup opening"
+msgstr "弹出窗口打开"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3189
+msgid "Specify the popup margin in pixels. It accepts only numerical values."
+msgstr "指定弹出窗口的边距（以像素为单位）。它只接受数字值。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3188
+msgid "Popup margin(px)"
+msgstr "弹出窗口边距（像素）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3126
+msgid "Specify the position of the popup on the screen. "
+msgstr "指定弹出窗口在屏幕上的位置。 "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3125
+#: admin/partials/features/popup-box-pro-features-display.php:323
+#: admin/partials/features/popup-box-pro-features-display.php:328
+msgid "Popup position"
+msgstr "弹出窗口位置"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3117
+msgid "Enter the class starting with a “ . ” and id with a “ # ”"
+msgstr "输入以 “. ” 开头的类，并使用 “# ” 输入 id。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3109
+msgid "Add your preferred CSS selector(s) if you have given “On click” or “Both” value to the “Popup trigger” option. For example #mybutton or .mybutton."
+msgstr "如果您已将“点击”或“两者”值分配给“弹出窗口触发器”选项，请添加您首选的CSS选择器。例如#mybutton或.mybutton。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3108
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:39
+msgid "CSS selector(s) for trigger click"
+msgstr "触发点击的CSS选择器"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3090
+msgid "View how to make popup on button click"
+msgstr "查看如何在按钮点击时制作弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3076
+msgid "Scrolling to element (Pro)"
+msgstr "滚动到元素（专业版）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3075
+msgid "Inactivity (Pro)"
+msgstr "不活动（专业版）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3074
+msgid "After visiting x pages (Pro)"
+msgstr "访问x个页面后（专业版）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3073
+msgid "Exit Intent (Pro)"
+msgstr "离开意图（专业版）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3072
+msgid "On hover (Pro)"
+msgstr "悬停时（专业版）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3071
+msgid "On Click"
+msgstr "点击时"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3059
+msgid "Both(On page load & On click)"
+msgstr "两者（页面加载时和点击时）"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3058
+msgid "Onclick"
+msgstr "点击时"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3057
+#: admin/partials/actions/ays-pb-admin-actions.php:3070
+msgid "Onload"
+msgstr "当加载时"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3055
+msgid "Choose the trigger causing the popup to open on certain events."
+msgstr "选择触发弹出窗口在特定事件上打开的触发器。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3052
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:36
+msgid "Popup trigger"
+msgstr "弹出触发器"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3041
+msgid "How to Create Homepage Popup"
+msgstr "如何创建首页弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3029
+msgid "If the checkbox is ticked, then the popup will be loaded on the Home page too, in addition to the values given above."
+msgstr "如果复选框被选中，那么弹出窗口将会加载到首页上，除了上面给出的值。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:3028
+msgid "Show on Home page"
+msgstr "在首页上显示"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2983
+msgid "Select posts."
+msgstr "选择文章。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2981
+msgid "Posts"
+msgstr "文章"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2953
+msgid "Select post types."
+msgstr "选择文章类型。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2951
+msgid "Post type"
+msgstr "文章类型"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2940
+#: admin/partials/actions/ays-pb-categories-actions.php:147
+msgid "Include - Choose the post/page and post/page types including the popup."
+msgstr "包括 - 选择包括弹出窗口的文章/页面和文章/页面类型。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2939
+#: admin/partials/actions/ays-pb-categories-actions.php:146
+msgid "Except - Choose the post/page and post/page types excluding the popup."
+msgstr "除了 - 选择排除弹出窗口的文章/页面和文章/页面类型。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2938
+#: admin/partials/actions/ays-pb-categories-actions.php:145
+msgid "All pages - The popup will display on all pages."
+msgstr "所有页面 - 弹出窗口将显示在所有页面上。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2936
+#: admin/partials/actions/ays-pb-categories-actions.php:143
+msgid "Choose the method of calculation."
+msgstr "选择计算方法。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2931
+#: admin/partials/actions/ays-pb-categories-actions.php:138
+msgid "Include"
+msgstr "包括 - 选择要包括在弹出窗口中的帖子/页面和帖子/页面类型。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2928
+#: admin/partials/actions/ays-pb-categories-actions.php:135
+msgid "Except"
+msgstr "排除 - 选择要排除在弹出窗口之外的帖子/页面和帖子/页面类型。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2925
+#: admin/partials/actions/ays-pb-categories-actions.php:132
+msgid "All pages"
+msgstr "所有页面 - 弹出窗口将显示在所有页面上。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2918
+msgid "Define the pages your popup will be loaded on."
+msgstr "定义弹出窗口将加载的页面。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2915
+msgid "Display"
+msgstr "显示"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2874
+msgid "Popup description"
+msgstr "弹出窗口描述"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1802
+msgid "Add video to the popup."
+msgstr "向弹出窗口添加视频。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1769
+msgid "Create fully customized popup content with the help of HTML."
+msgstr "借助 HTML 创造完全定制的弹出窗口内容。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1752
+msgid "You can pop up any form by inserting its shortcode. Please copy and paste the shortcode from another plugin to display it in a popup. For example, Contact forms, surveys, polls, quizzes, Google map, etc."
+msgstr "您可以通过插入其短代码来弹出任何表单。请从另一个插件复制并粘贴短代码以在弹出窗口中显示其内容。例如，联系表单，调查问卷，投票，测验，Google地图等。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1751
+msgid "Shortcode "
+msgstr "短代码 "
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1713
+#: admin/partials/actions/ays-pb-admin-actions.php:2875
+msgid "The option is not being displayed on the front-end by default. Please activate it from the Styles tab."
+msgstr "默认情况下，选项不会显示在前端。请从样式选项卡中激活它。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1711
+msgid "Popup title"
+msgstr "弹出窗口标题"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:2900
+msgid "If this option is enabled only the author of the popup will be able to see it."
+msgstr "如果启用此选项，只有弹出窗口的作者才能看到它。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1740
+msgid "OFF"
+msgstr "关闭"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1739
+msgid "ON"
+msgstr "打开"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1730
+msgid "Turn on the popup for the website based on your configured options."
+msgstr "根据您配置的选项为网站打开弹出窗口。"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1728
+msgid "Enable popup"
+msgstr "启用弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1681
+#: admin/partials/actions/ays-pb-admin-actions.php:7844
+#: admin/partials/settings/popup-box-settings.php:93
+#: admin/partials/settings/popup-box-settings.php:285
+msgid "Integrations"
+msgstr "集成"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1680
+msgid "Limitation Users"
+msgstr "用户限制"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1679
+#: admin/partials/actions/ays-pb-admin-actions.php:2034
+#: admin/partials/features/popup-box-pro-features-display.php:267
+#: admin/partials/features/popup-box-pro-features-display.php:272
+msgid "Styles"
+msgstr "样式"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1677
+#: admin/partials/actions/ays-pb-admin-actions.php:1973
+#: admin/partials/actions/ays-pb-admin-actions.php:2350
+#: admin/partials/settings/popup-box-settings.php:90
+msgid "General"
+msgstr "常规"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1698
+#: admin/partials/actions/ays-pb-admin-actions.php:7877
+msgid "Cancel"
+msgstr "取消"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1695
+#: admin/partials/actions/ays-pb-admin-actions.php:7874
+#: admin/partials/actions/ays-pb-categories-actions.php:193
+msgid "Save"
+msgstr "保存"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1696
+#: admin/partials/actions/ays-pb-admin-actions.php:7875
+#: admin/partials/actions/ays-pb-categories-actions.php:192
+msgid "Save and close"
+msgstr "保存并关闭"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1618
+#: admin/partials/actions/ays-pb-categories-actions.php:70
+#: admin/partials/ays-pb-admin-display.php:36
+#: admin/partials/ays-pb-categories-display.php:18
+#: admin/partials/features/popup-box-pro-features-display.php:6
+#: admin/partials/settings/popup-box-settings.php:70
+msgid "View Documentation"
+msgstr "查看文档"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:477
+msgid "Watch how to add a video popup"
+msgstr "查看如何添加视频弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:476
+#: admin/partials/actions/ays-pb-admin-actions.php:1800
+#: admin/partials/actions/ays-pb-admin-actions.php:4781
+#: admin/partials/actions/ays-pb-admin-actions.php:4789
+#: admin/partials/actions/ays-pb-admin-actions.php:7970
+#: admin/partials/actions/ays-pb-admin-actions.php:8330
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:29
+#: includes/lists/class-ays-pb-list-table.php:442
+msgid "Video"
+msgstr "视频"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:473
+msgid "Watch how to add a shortcode popup"
+msgstr "观看如何添加短代码弹出窗口"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:472
+#: admin/partials/actions/ays-pb-admin-actions.php:7949
+#: admin/partials/actions/ays-pb-admin-actions.php:8318
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:28
+#: admin/partials/settings/popup-box-settings.php:427
+#: admin/partials/settings/popup-box-settings.php:445
+#: includes/lists/class-ays-pb-list-table.php:439
+msgid "Shortcode"
+msgstr "短代码"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:469
+#: admin/partials/actions/ays-pb-admin-actions.php:489
+#: admin/partials/actions/ays-pb-admin-actions.php:1768
+#: admin/partials/actions/ays-pb-admin-actions.php:7928
+#: admin/partials/actions/ays-pb-admin-actions.php:8324
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:27
+#: admin/partials/settings/popup-box-settings.php:465
+#: admin/partials/settings/popup-box-settings.php:471
+#: includes/lists/class-ays-pb-list-table.php:436
+#: includes/lists/class-ays-pb-list-table.php:454
+msgid "Custom Content"
+msgstr "自定义内容"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:929
+#: admin/partials/actions/ays-pb-admin-actions.php:941
+#: includes/class-ays-pb-data.php:469 includes/class-ays-pb-data.php:780
+#: includes/class-ays-pb-data.php:896
+#: public/partials/ays-pb-public-templates.php:294
+#: public/partials/ays-pb-public-templates.php:300
+#: public/partials/ays-pb-public-templates.php:587
+#: public/partials/ays-pb-public-templates.php:593
+#: public/partials/ays-pb-public-templates.php:910
+#: public/partials/ays-pb-public-templates.php:916
+#: public/partials/ays-pb-public-templates.php:1254
+#: public/partials/ays-pb-public-templates.php:1260
+#: public/partials/ays-pb-public-templates.php:1580
+#: public/partials/ays-pb-public-templates.php:1586
+#: public/partials/ays-pb-public-templates.php:1901
+#: public/partials/ays-pb-public-templates.php:1907
+#: public/partials/ays-pb-public-templates.php:2198
+#: public/partials/ays-pb-public-templates.php:2204
+#: public/partials/ays-pb-public-templates.php:2513
+#: public/partials/ays-pb-public-templates.php:2519
+#: public/partials/ays-pb-public-templates.php:2824
+#: public/partials/ays-pb-public-templates.php:2830
+#: public/partials/ays-pb-public-templates.php:3137
+#: public/partials/ays-pb-public-templates.php:3143
+#: public/partials/ays-pb-public-templates.php:3567
+#: public/partials/ays-pb-public-templates.php:3573
+#: public/partials/ays-pb-public-templates.php:3791
+#: public/partials/ays-pb-public-templates.php:3797
+#: public/partials/ays-pb-public-templates.php:3930
+#: public/partials/ays-pb-public-templates.php:3936
+msgid "Dismiss ad"
+msgstr "关闭广告"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:144
+msgid "Outset"
+msgstr "外延"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:143
+msgid "Inset"
+msgstr "内凹"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:142
+msgid "Ridge"
+msgstr "脊"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:141
+msgid "Groove"
+msgstr "槽"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:140
+msgid "Double"
+msgstr "双"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:137
+msgid "Solid"
+msgstr "实线"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:139
+msgid "Dashed"
+msgstr "虚线"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:138
+msgid "Dotted"
+msgstr "点状线"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1501
+msgid "Opera"
+msgstr "Opera 浏览器"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1500
+msgid "Safari"
+msgstr "Safari 浏览器"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1499
+msgid "Firefox"
+msgstr "Firefox 浏览器"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1498
+msgid "Chrome"
+msgstr "Chrome 浏览器"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1493
+msgid "Linux"
+msgstr "Linux 操作系统"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1492
+msgid "Mac OS X"
+msgstr "Mac OS X 操作系统"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1491
+msgid "Windows 7"
+msgstr "Windows 7 操作系统"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1490
+msgid "Windows 10"
+msgstr "Windows 10"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1483
+#: admin/partials/actions/ays-pb-admin-actions.php:1485
+#: admin/partials/actions/ays-pb-admin-actions.php:7373
+msgid "seconds"
+msgstr "秒"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:1483
+#: admin/partials/actions/ays-pb-admin-actions.php:1485
+msgid "This will close in"
+msgstr "这将在"
+
+#: admin/class-ays-pb-admin.php:138
+msgid "Edit Video"
+msgstr "编辑视频"
+
+#: admin/class-ays-pb-admin.php:137
+msgid "Add Video"
+msgstr "添加视频"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:161
+msgid "Times New Roman"
+msgstr "新罗马"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:160
+msgid "Tahoma"
+msgstr "Tahoma"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:159
+msgid "Palatino Linotype"
+msgstr "Palatino Linotype"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:158
+msgid "Lusida Console"
+msgstr "Lusida控制台"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:157
+msgid "Impact"
+msgstr "影响"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:156
+msgid "Helvetia"
+msgstr "瑞士"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:155
+msgid "Georgia"
+msgstr "佐治亚"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:154
+msgid "Fantasy"
+msgstr "幻想"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:153
+msgid "Cursive"
+msgstr "草书"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:152
+msgid "Courier New"
+msgstr "新邮差"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:151
+msgid "Book Antique"
+msgstr "古董书"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:150
+msgid "Arial Black"
+msgstr "黑体"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:149
+#: admin/partials/actions/ays-pb-admin-actions.php:5741
+msgid "Arial"
+msgstr "Arial"
+
+#: admin/partials/actions/ays-pb-admin-actions.php:148
+msgid "Inherit"
+msgstr "继承"
+
+#: admin/class-ays-pb-admin.php:810
+msgid "If you love our plugin, please do big favor and rate us on"
+msgstr ""
+
+#: admin/class-ays-pb-admin.php:458
+#: includes/lists/class-ays-pb-list-table.php:13
+msgid "PopupBox"
+msgstr "弹出框"
+
+#: admin/class-ays-pb-admin.php:628 ays-pb.php:126 ays-pb.php:135
+#: ays-pb.php:145
+msgid "Free Support"
+msgstr "免费支持"
+
+#: admin/class-ays-pb-admin.php:974 includes/class-ays-pb-data.php:735
+#: includes/class-ays-pb-data.php:818
+msgid "Buy Now"
+msgstr "立即购买"
+
+#: admin/class-ays-pb-admin.php:616 ays-pb.php:125 ays-pb.php:134
+#: ays-pb.php:144
+msgid "Demo"
+msgstr "演示"
+
+#: admin/class-ays-pb-admin.php:615
+#: admin/partials/actions/ays-pb-admin-actions.php:1678
+msgid "Settings"
+msgstr "设置"
+
+#: admin/class-ays-pb-admin.php:373 admin/class-ays-pb-admin.php:374
+msgid "Our Products"
+msgstr "我们的产品"
+
+#: admin/class-ays-pb-admin.php:360 admin/class-ays-pb-admin.php:361
+msgid "How to use"
+msgstr "如何使用"
+
+#: admin/class-ays-pb-admin.php:346 admin/class-ays-pb-admin.php:347
+#: admin/partials/actions/ays-pb-admin-actions.php:1705
+#: admin/partials/actions/ays-pb-admin-actions.php:3935
+#: admin/partials/actions/ays-pb-admin-actions.php:3937
+#: admin/partials/settings/popup-box-settings.php:106
+msgid "General Settings"
+msgstr "通用设置"
+
+#: admin/class-ays-pb-admin.php:320 admin/class-ays-pb-admin.php:321
+msgid "Submissions"
+msgstr "提交"
+
+#: admin/class-ays-pb-admin.php:333 admin/class-ays-pb-admin.php:334
+#: admin/partials/features/popup-box-pro-features-display.php:407
+#: admin/partials/features/popup-box-pro-features-display.php:412
+msgid "Export/Import"
+msgstr "导出/导入"
+
+#: admin/class-ays-pb-admin.php:294 admin/class-ays-pb-admin.php:295
+msgid "Custom Fields"
+msgstr "自定义字段"
+
+#: admin/class-ays-pb-admin.php:307 admin/class-ays-pb-admin.php:308
+msgid "Analytics"
+msgstr "分析"
+
+#: admin/class-ays-pb-admin.php:386 admin/class-ays-pb-admin.php:387
+msgid "PRO Features"
+msgstr "专业功能"
+
+#: admin/class-ays-pb-admin.php:280 admin/class-ays-pb-admin.php:281
+#: admin/class-ays-pb-admin.php:471
+#: includes/lists/class-ays-pb-popup-categories-list-table.php:14
+msgid "Categories"
+msgstr "分类"
+
+#: admin/class-ays-pb-admin.php:513
+msgid "Popup Box plugin Premium version:"
+msgstr "弹出框插件高级版："
+
+#: admin/class-ays-pb-admin.php:510
+msgid "Documentation: "
+msgstr "文档： "
+
+#: admin/class-ays-pb-admin.php:507
+msgid "Youtube video tutorials"
+msgstr "Youtube视频教程"
+
+#: admin/class-ays-pb-admin.php:505
+msgid "For more information:"
+msgstr "更多信息："
+
+#: admin/class-ays-pb-admin.php:499
+msgid "The WordPress Popup plugin will help you to create engaging popups with fully customizable and responsive designs. Attract your audience and convert them into email subscribers or paying customers.  Construct advertising offers, generate more leads by creating option forms and subscription popups."
+msgstr "WordPress 弹出插件可帮助您创建引人入胜的弹出式窗口，并提供完全自定义和响应式设计。吸引受众并将他们转化为邮件订阅者或付费客户。 构建广告报价，通过创建选项表单和订阅弹出式窗口产生更多的潜在客户。"
+
+#: admin/class-ays-pb-admin.php:497
+msgid "Popup Information"
+msgstr "弹出窗口信息"
+
+#: admin/class-ays-pb-admin.php:266 admin/class-ays-pb-admin.php:267
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:22
+msgid "Popups"
+msgstr "弹出窗口"
+
+#: admin/class-ays-pb-admin.php:155
+msgid "Color value"
+msgstr "颜色数值"
+
+#: admin/class-ays-pb-admin.php:154
+msgid "Select Color"
+msgstr "选择颜色"
+
+#: admin/class-ays-pb-admin.php:153
+msgid "Select default color"
+msgstr "选择默认颜色"
+
+#: admin/class-ays-pb-admin.php:152
+#: admin/partials/actions/ays-pb-admin-actions.php:4649
+#: admin/partials/actions/ays-pb-admin-actions.php:4657
+#: includes/lists/class-ays-pb-list-table.php:473
+#: includes/lists/class-ays-pb-list-table.php:503
+msgid "Default"
+msgstr "默认"
+
+#: admin/class-ays-pb-admin.php:151
+msgid "Clear color"
+msgstr "清除颜色"
+
+#: admin/class-ays-pb-admin.php:150
+msgid "Clear"
+msgstr "清除"
+
+#: admin/class-ays-pb-admin.php:141
+msgid "Please select more"
+msgstr "请多选择一些"
+
+#: admin/class-ays-pb-admin.php:139
+#: admin/partials/actions/ays-pb-admin-actions.php:1809
+#: admin/partials/actions/ays-pb-admin-actions.php:1836
+#: admin/partials/actions/ays-pb-admin-actions.php:1988
+#: admin/partials/actions/ays-pb-admin-actions.php:6230
+#: admin/partials/actions/ays-pb-admin-actions.php:6246
+#: admin/partials/actions/ays-pb-admin-actions.php:6925
+msgid "Add Image"
+msgstr "添加图片"
+
+#: admin/class-ays-pb-admin.php:140
+#: admin/partials/actions/ays-pb-admin-actions.php:1809
+#: admin/partials/actions/ays-pb-admin-actions.php:1836
+#: admin/partials/actions/ays-pb-admin-actions.php:1988
+#: admin/partials/actions/ays-pb-admin-actions.php:6230
+#: admin/partials/actions/ays-pb-admin-actions.php:6246
+#: admin/partials/actions/ays-pb-admin-actions.php:6925
+msgid "Edit Image"
+msgstr "编辑图片"
+
+#: admin/class-ays-pb-admin.php:134
+#: admin/partials/actions/ays-pb-admin-actions.php:7889
+msgid "Are you sure you want to go to the previous popup page?"
+msgstr "您确定要返回上一个弹出页面吗？"
+
+#: admin/class-ays-pb-admin.php:133
+#: admin/partials/actions/ays-pb-admin-actions.php:7898
+msgid "Are you sure you want to go to the next popup page?"
+msgstr "您确定要前往下一个弹出页面吗？"
+
+#. Author URI of the plugin
+#: ays-pb.php
+msgid "http://ays-pro.com/"
+msgstr "http://ays-pro.com/"
+
+#. Author of the plugin
+#: ays-pb.php
+msgid "Popup Box Team"
+msgstr "弹出框团队"
+
+#. Description of the plugin
+#: ays-pb.php
+msgid "Pop up anything you want! Create informative and promotional popups all in one plugin. Boost your website traffic with eye-catching popups."
+msgstr "弹出您想要的任何内容！在一个插件中创建信息性和推广性弹出窗口。用引人注目的弹出窗口提升您的网站流量。"
+
+#. Plugin URI of the plugin
+#: ays-pb.php
+msgid "http://ays-pro.com/wordpress/popup-box"
+msgstr "http://ays-pro.com/wordpress/popup-box"
+
+#. Plugin Name of the plugin
+#: ays-pb.php admin/class-ays-pb-admin.php:253 admin/class-ays-pb-admin.php:254
+#: admin/partials/how-to-use/ays-pb-how-to-use.php:15
+msgid "Popup Box"
+msgstr "弹出框"

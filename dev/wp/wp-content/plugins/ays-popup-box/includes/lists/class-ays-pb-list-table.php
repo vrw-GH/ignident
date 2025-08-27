@@ -397,24 +397,24 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
     function column_onoffswitch($item) {
         $onoffswitch = ( isset($item['onoffswitch']) && $item['onoffswitch'] == 'On' ) ? true : false;
 
-        $nonce = $onoffswitch ? wp_create_nonce($this->plugin_name . "-unpublish-popupbox") : wp_create_nonce($this->plugin_name . "-publish-popupbox");
+        $nonce = wp_create_nonce($this->plugin_name . "-change-status-nonce");
 
         $checked = $onoffswitch ? 'checked' : '';
-        $href_value = $onoffswitch ? 'unpublish' : 'publish';
-        $href = sprintf('?page=%s&action=%s&popupbox=%d&_wpnonce=%s', esc_attr($_REQUEST['page']), $href_value, absint($item['id']), $nonce);
+        // $href_value = $onoffswitch ? 'unpublish' : 'publish';
+        // $href = sprintf('?page=%s&action=%s&popupbox=%d&_wpnonce=%s', esc_attr($_REQUEST['page']), $href_value, absint($item['id']), $nonce);
 
-        $href = $this->ays_pb_add_filters_to_link($href);
+        // $href = $this->ays_pb_add_filters_to_link($href);
 
-        if (isset($_GET['fstatus']) && $_GET['fstatus'] != '') {
-            $ays_pb_status = esc_sql(sanitize_text_field($_GET['fstatus']));
-            $href .= '&fstatus=' . $ays_pb_status;
-        }
+        // if (isset($_GET['fstatus']) && $_GET['fstatus'] != '') {
+        //     $ays_pb_status = esc_sql(sanitize_text_field($_GET['fstatus']));
+        //     $href .= '&fstatus=' . $ays_pb_status;
+        // }
 
         $status_html = array();
 
         $status_html[] = '<label class="ays-pb-enable-switch ays-pb-enable-switch-list-table">';
-            $status_html[] = '<input type="checkbox" class="ays-pb-onoffswitch-checkbox"' . $checked . '>';
-            $status_html[] = '<a href="' . $href . '" class="ays-pb-enable-switch-slider ays-pb-enable-switch-round"></a>';
+            $status_html[] = '<input type="checkbox" class="ays-pb-onoffswitch-checkbox-list-table" data-id="'.absint($item['id']).'" data-nonce="'.$nonce.'" '.$checked.'>';
+            $status_html[] = '<span class="ays-pb-enable-switch-slider ays-pb-enable-switch-round"></span>';
         $status_html[] = '</label>';
 
         $status_html = implode('', $status_html);
@@ -1036,6 +1036,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
 
         // Id
@@ -1431,6 +1433,12 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Enable social media links | Behance link
         $behance_link = (isset($ays_social_links['ays_pb_behance_link']) && $ays_social_links['ays_pb_behance_link'] != '') ? sanitize_text_field($ays_social_links['ays_pb_behance_link']) : '';
 
+        // Enable social media links | Telegram link
+        $telegram_link = (isset($ays_social_links['ays_pb_telegram_link']) && $ays_social_links['ays_pb_telegram_link'] != '') ? sanitize_text_field($ays_social_links['ays_pb_telegram_link']) : '';
+
+        // Enable social media links | TikTok link
+        $tiktok_link = (isset($ays_social_links['ays_pb_tiktok_link']) && $ays_social_links['ays_pb_tiktok_link'] != '') ? sanitize_text_field($ays_social_links['ays_pb_tiktok_link']) : '';
+
         $social_links = array(
             'linkedin_link' => $linkedin_link,
             'facebook_link' => $facebook_link,
@@ -1439,6 +1447,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'youtube_link' => $youtube_link,
             'instagram_link' => $instagram_link,
             'behance_link' => $behance_link,
+            'telegram_link' => $telegram_link,
+            'tiktok_link' => $tiktok_link,
         );
 
         // Schedule the popup
@@ -1506,7 +1516,10 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         // Show scrollbar
         $show_scrollbar = (isset($_POST['ays_pb_show_scrollbar']) && $_POST['ays_pb_show_scrollbar'] != '') ? 'on' : 'off';
-
+        
+        // Show scrollbar mobile
+        $show_scrollbar_mobile = (isset($_POST['ays_pb_show_scrollbar_mobile']) && $_POST['ays_pb_show_scrollbar_mobile'] != '') ? 'on' : 'off';
+        
         // Template
 		$view_type = (isset($_POST['ays-pb']['view_type']) && $_POST['ays-pb']['view_type'] != '') ? wp_unslash( sanitize_text_field($_POST['ays-pb']['view_type']) ) : '';
 
@@ -2048,6 +2061,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'disable_scroll_on_popup' => $disable_scroll_on_popup,
             'disable_scroll_on_popup_mobile' => $disable_scroll_on_popup_mobile,
             'show_scrollbar' => $show_scrollbar,
+            'show_scrollbar_mobile' => $show_scrollbar_mobile,
             'hide_on_pc' => $hide_on_pc,
             'hide_on_tablets' => $hide_on_tablets,
             'pb_bg_image_direction_on_mobile' => $pb_bg_image_direction_on_mobile,

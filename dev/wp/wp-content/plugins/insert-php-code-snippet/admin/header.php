@@ -58,9 +58,9 @@ if(!$_POST && isset($_GET['ips_blink'])&&isset($_GET['ips_blink'])=='en'){
 	}
 	update_option('xyz_credit_link',"ips");
 ?>
-<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
 Thank you for enabling backlink.
- &nbsp;&nbsp;&nbsp;<span id="xyz_system_notice_area_dismiss">Dismiss</span>
+ &nbsp;&nbsp;&nbsp;<span id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 </div>
 
 <style type="text/css">

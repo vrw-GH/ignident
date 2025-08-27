@@ -4,20 +4,20 @@ if ( ! defined( 'ABSPATH' ) )
 if(get_option('xyz_ips_premium_version_ads')==1){ ?>
 <div id="xyz-ips-premium">
 
-    <div class="ContentCenter">
+    <div class="xyz_ips_ContentCenter">
             <a target="_blank"
             href="https://xyzscripts.com/wordpress-plugins/xyz-wp-insert-code-snippet/details">🚀 Upgrade to the Fully Featured XYZ WP Insert Code Snippet Premium Plugin for </a>
              <span style="font-size: 28px; color:#fbff00;"> Just 19 USD</span>
-      <br/><span style="font-size: 14px;color:#fff;">Access exclusive features like advanced targeting, automatic snippet placements across your site, syntax highlighting for better code management, and easy snippet export/import!</span>
+      <br/><span style="font-size: 13px;color:#fff;">Access exclusive features like advanced targeting, automatic snippet placements across your site, syntax highlighting for better code management, and easy snippet export/import!</span>
     </div>
 	<div class="clear"></div>
-	<div class="ButtonWrap">
-    <div class="BuyNowButton">
+	<div class="xyz_ips_ButtonWrap">
+    <div class="xyz_ips_BuyNowButton">
         <a target="_blank"
             href="https://xyzscripts.com/members/product/purchase/XYZWPICSPRE">🛒 Buy Now
         </a>
     </div>
-    <div class="CompareButton">
+    <div class="xyz_ips_CompareButton">
     <h2>
              <a  href="<?php echo admin_url('admin.php?page=insert-php-code-snippet-about');?>">🔗 Compare Specs</a> 
     </h2>
@@ -34,10 +34,10 @@ if(get_option('xyz_ips_premium_version_ads')==1){ ?>
         <h3 class="xyz_ips_inner_head">
             Follow Us 
         </h3>
-        <a target="_blank" href="http://facebook.com/xyzscripts" class="xyz_home_fbook"></a>
-        <a target="_blank" href="http://twitter.com/xyzscripts" class="xyz_home_twitt"></a>
-        <a target="_blank" href="https://www.instagram.com/xyz_scripts/" class="xyz_home_insta"></a>
-        <a style="margin-right:0px;" target="_blank" href="https://www.linkedin.com/company/xyzscripts" class="xyz_home_linkedin"></a>
+        <a target="_blank" href="http://facebook.com/xyzscripts" class="xyz_ips_home_fbook"></a>
+        <a target="_blank" href="http://twitter.com/xyzscripts" class="xyz_ips_home_twitt"></a>
+        <a target="_blank" href="https://www.instagram.com/xyz_scripts/" class="xyz_ips_home_insta"></a>
+        <a style="margin-right:0px;" target="_blank" href="https://www.linkedin.com/company/xyzscripts" class="xyz_ips_home_linkedin"></a>
     </div>
     <div class="xyz_ips_sugession">
         <h3 class="xyz_ips_inner_head"> Support</h3>
@@ -45,7 +45,7 @@ if(get_option('xyz_ips_premium_version_ads')==1){ ?>
       <p  style="width:100%;"><a target="_blank" href="https://xyzscripts.com/support/" >Contact Us</a></p>
       <p  ><a target="_blank" href="https://wordpress.org/support/plugin/insert-php-code-snippet/reviews/" >Please Rate Us
        </a></p>
-       <a target="_blank" href="https://wordpress.org/support/plugin/insert-php-code-snippet/reviews/" ><span class="xyz_new_star"></span></a>
+       <a target="_blank" href="https://wordpress.org/support/plugin/insert-php-code-snippet/reviews/" ><span class="xyz_ips_new_star"></span></a>
        <p  style="width:100%;"><a target="_blank" href="https://wordpress.org/support/plugin/insert-php-code-snippet/" >Create a ticket at Wordpress forum</a>
        </p>    
     </div> 
@@ -130,16 +130,13 @@ type="text" placeholder="Email" value="<?php   echo esc_html($current_user->user
 <input type="hidden" name="listName" value="6,1,"/>
 </form>
     </div>
-<?php /*?><div class="xyz_ips_inmotion" >
-   <a target="_blank" href="http://inmotion-hosting.evyy.net/c/1150074/260033/4222">
-   <img src="<?php echo plugins_url()?>/insert-php-code-snippet/images/xyz.png" class="xyz_inmotion_label"></a>
-   </div><?php */?>
+
 </div>
 <div style="clear: both;">
 </div>
 <div style="width: 100%">
-    <div class="xyz_our_plugins_new">
-        <p class="xyz_plugin_head">
+    <div class="xyz_ips_our_plugins_new">
+        <p class="xyz_ips_plugin_head">
             Our Plugins : 
         </p>
         <a target="_blank"  href="https://wordpress.org/plugins/social-media-auto-publish/"><span>1</span>Social Media Auto Publish</a>
@@ -160,7 +157,7 @@ type="text" placeholder="Email" value="<?php   echo esc_html($current_user->user
         <a target="_blank"  href="https://wordpress.org/plugins/wp-gallery-manager/"><span>16</span>  WP Gallery Manager</a>
     </div>
 </div>
-<div class="xyz_poweredBy">
+<div class="xyz_ips_poweredBy">
     Powered by 
     <a href="http://xyzscripts.com" target="_blank">XYZScripts</a>
 </div>

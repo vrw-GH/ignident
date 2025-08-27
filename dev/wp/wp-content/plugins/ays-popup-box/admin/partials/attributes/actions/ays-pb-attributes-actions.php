@@ -14,7 +14,7 @@
         </div>
         <div class="col-sm-12 ays-pro-features-v2-main-box">
             <div class="ays-pro-features-v2-big-buttons-box">
-                <a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
                     <div class="ays-pro-features-v2-upgrade-icon" style="background-image:url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
                     <div class="ays-pro-features-v2-upgrade-text">
                         <?php echo esc_html__("Upgrade", "ays-popup-box"); ?>
@@ -22,7 +22,7 @@
                 </a>
             </div>
             <div class="ays-pro-features-v2-small-buttons-box">
-                <a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
                     <div class="ays-pro-features-v2-upgrade-icon" style="background-image:url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
                     <div class="ays-pro-features-v2-upgrade-text">
                         <?php echo esc_html__("Upgrade", "ays-popup-box"); ?>

@@ -217,15 +217,16 @@ if( ! class_exists( 'Avia_Config_LayerSlider', false ) )
 			$subtype = array_merge( $subtype, $subtype1 );
 
 			$desc = __( 'The theme bundles the LayerSlider Plugin which is activated by default if you do not have the original plugin installed.', 'avia_framework' );
-			$desc .= '<br/><br/>';
-			$desc .= __( 'If you do not want to use this plugin, you can deactivate it or remove it permanently from the theme directory - in that case you can delete all plugin data permanently or keep it for later reuse. The plugin files will be automatically removed on every update.', 'avia_framework' );
-			$desc .= '<br/><br/>';
-			$desc .= __( 'If you want to use this plugin again later, select &quot;Activate&quot;, save the options and reinstall the theme', 'avia_framework' );
+
+			$info  = __( 'If you do not want to use this plugin, you can deactivate it or remove it permanently from the theme directory - in that case you can delete all plugin data permanently or keep it for later reuse. The plugin files will be automatically removed on every update.', 'avia_framework' );
+			$info .= '<br/><br/>';
+			$info .= __( 'If you want to use this plugin again later, select &quot;Activate&quot;, save the options and reinstall the theme', 'avia_framework' );
 
 			$avia_elements[] = array(
 									'slug'		=> 'builder',
 									'name'		=> __( 'Integrated (Bundled) LayerSlider Plugin', 'avia_framework' ),
 									'desc'		=> $desc,
+									'info'		=> $info,
 									'id'		=> 'layerslider_activ',
 									'type'		=> 'select',
 									'std'		=> '',

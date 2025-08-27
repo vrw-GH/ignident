@@ -2,7 +2,7 @@
 /*
 	* LayerSlider Add-On: Popups
 	*
-	* (c) 2011-2024 George Krupa, John Gera & Kreatura Media
+	* (c) 2011-2025 George Krupa, John Gera & Kreatura Media
 	*
 	* LayerSlider home:		https://layerslider.com/popups/
 	* Licensing:			https://layerslider.com/licensing/

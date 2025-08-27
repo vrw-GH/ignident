@@ -30,7 +30,7 @@ if( is_child_theme() )
 
 $desc  = __( 'Click the button to generate and download a config file which contains the theme settings. You can use the config file to import the theme settings on another sever.', 'avia_framework' );
 $desc .= '<br /><strong>';
-$desc .=	__( 'Since x.x.x this is restricted to admins only (vulnerability report by WordFence) !!', 'avia_framework' );
+$desc .=	__( 'Since 7.0 this is restricted to admins only (vulnerability report by WordFence) !!', 'avia_framework' );
 $desc .= '</strong>';
 
 $avia_elements[] = array(
@@ -45,7 +45,11 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'	=> 'upload',
 			'name' 	=> __( 'Select Theme Options To Import', 'avia_framework' ),
-			'desc' 	=> __( 'Check if you do not want to import all settings from an exported theme settings file. Please read the <a href="https://kriesi.at/documentation/enfold/backup-theme-settings" target="_blank" rel="noopener noreferrer">documentation</a> for more information how to customize import.', 'avia_framework' ),
+			'desc' 	=> __( 'Check if you do not want to import all settings from an exported theme settings file.', 'avia_framework' ),
+			'docu'		=> [
+							'url'	=> 'https://kriesi.at/documentation/enfold/backup-theme-settings',
+							'title'	=> __( 'Read our documentation for more information how to customize import', 'avia_framework' )
+						],
 			'id' 	=> 'upload_filter_checkbox',
 			'type' 	=> 'checkbox',
 			'std'	=> ''
@@ -116,7 +120,11 @@ if( ! current_theme_supports( 'avia_disable_reset_options' ) )
 	$avia_elements[] = array(
 				'slug'	=> 'upload',
 				'name' 	=> __( 'Select Theme Options To Reset', 'avia_framework' ),
-				'desc' 	=> __( 'Check if you do not want to reset all options. Please read the <a href="https://kriesi.at/documentation/enfold/backup-theme-settings" target="_blank" rel="noopener noreferrer">documentation</a> for more information how to customize resetting theme options.', 'avia_framework' ),
+				'desc' 	=> __( 'Check if you do not want to reset all options.', 'avia_framework' ),
+				'docu'		=> [
+							'url'	=> 'https://kriesi.at/documentation/enfold/backup-theme-settings',
+							'title'	=> __( 'Read our documentation for more information how to customize resetting theme options', 'avia_framework' )
+						],
 				'id' 	=> 'reset_filter_checkbox',
 				'type' 	=> 'checkbox',
 				'std'	=> ''

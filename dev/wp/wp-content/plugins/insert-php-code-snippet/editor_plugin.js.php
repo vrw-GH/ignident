@@ -13,7 +13,7 @@ global $wpdb;
 $buttonName = 'xyz_ips_snippet_selecter';
 
 $xyz_snippets_arr=$wpdb->get_results($wpdb->prepare( "SELECT id,title FROM ".$wpdb->prefix."xyz_ips_short_code WHERE status=%d and insertionMethod=%d ORDER BY id DESC",1,2),ARRAY_A );
-// 		print_r($xyz_snippets_arr);
+
 if(empty($xyz_snippets_arr))//if(count($xyz_snippets_arr)==0)
 die;
 

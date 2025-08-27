@@ -76,6 +76,7 @@
         $(document).find('#ays_pb_close_button_hover_color').wpColorPicker();
         $(document).find('#ays_title_text_shadow_color_mobile').wpColorPicker();
         $(document).find('#ays_pb_box_shadow_color').wpColorPicker();
+        $(document).find("#ays-pb-ays_pb_textcolor").wpColorPicker();
         $(document).find('#ays_pb_box_shadow_color_mobile').wpColorPicker();
         $(document).find('#ays_pb_button_background_color').wpColorPicker();
         $(document).find('#ays-background-gradient-color-1').wpColorPicker(ays_pb_box_gradient_color1_picker);
@@ -1222,6 +1223,12 @@
         });
         // Toggle box shadow end
 
+        $(document).find('#ays-pb-ays_pb_textcolor').on('change', function() {
+            var textColor = $(document).find('#ays-pb-ays_pb_textcolor').val();
+            $(document).find('div.ays-pb-live-container .ays_title').css('color', textColor);
+            $(document).find('div.ays-pb-live-container .desc').css('color', textColor);
+        });
+
         // Close button image | Add start
         $(document).on('click', 'a.ays_pb_add_close_btn_bg_image', function(e) {
             openMediaUploaderCloseBtn(e, $(this));
@@ -1846,6 +1853,56 @@
                 subLoader.addClass('display_none');
             }, 5000);
         }
+
+        // AJAX handler for changing popupbox status in list table without reloading the page
+        $(document).on('change', '.ays-pb-onoffswitch-checkbox-list-table', function(e) {
+            var $this = $(this);
+            var popupbox_id = $this.data('id');
+            var status = $this.prop('checked');
+            var nonce = $this.data('nonce');
+
+            // Show loading indicator
+            $this.closest('label').css('opacity', '0.5');
+            
+            $.ajax({
+                url: pb.ajax,
+                method: 'POST',
+                data: {
+                    action: 'ays_pb_change_status',
+                    popupbox_id: popupbox_id,
+                    status: status,
+                    _ajax_nonce: nonce
+                },
+                success: function(response) {
+                    if (response.success) {                            
+                        // Remember the current state of the checkbox for the next change
+                        $this.data('was-checked', $this.prop('checked'));
+                    } else {
+                        // In case of an error, return the checkbox to the previous state
+                        $this.prop('checked', !status);
+                    }
+                    // Remove loading indicator
+                    $this.closest('label').css('opacity', '1');
+                },
+                error: function() {
+                    // In case of an error, return the checkbox to the previous state
+                    $this.prop('checked', !status);                    
+                    // Remove loading indicator
+                    $this.closest('label').css('opacity', '1');
+                }
+            });
+        });
+
+        $(document).on('change','#ays_pb_pricing_period,#ays_pb_pricing_period_mobile',function(){
+			if($(this).is(':checked')){
+				$('.features-lifetime').removeClass('display_none');
+				$('.features-annual').addClass('display_none');
+			} else {
+				$('.features-lifetime').addClass('display_none');
+				$('.features-annual').removeClass('display_none');
+			}
+		});
+
     });
 
     function aysPopupstripHTML(dirtyString) {
@@ -2250,6 +2307,22 @@
         return false;
     }
 
+    function updateCloseButtonImage(imageUrl) {
+        $('#close_btn_bg_img').val(imageUrl);
+        $('#ays_close_btn_bg_img').attr('src', imageUrl);
+        $('.ays_pb_close_btn_bg_img_container').show();
+        
+        $(document).find('img.close_btn_img').attr('src', imageUrl);
+        
+        $(document).find('img.close_btn_img').css('display', 'block');
+        $(document).find('label.close_btn_label > .close_btn_text').css('display', 'none');
+    }
+    
+    $(document).on('change', 'input[name="ays_pb_close_btn_icon"]', function() {
+        var selectedImageUrl = $(this).val();
+        updateCloseButtonImage(selectedImageUrl);
+    });
+
     function openMusicMediaUploader(e, element) {
         e.preventDefault();
 
@@ -2275,3 +2348,31 @@
     // Media uploaders start
 
 })(jQuery);
+
+selectAndCopyElementContents = function(el) {
+    if (window.getSelection && document.createRange) {
+        var $currentElement = jQuery(el);
+
+        var text      = el.textContent;
+        var textField = document.createElement('textarea');
+
+        textField.innerText = text;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
+
+        var selection = window.getSelection();
+        selection.setBaseAndExtent(el,0,el,1);
+
+        $currentElement.attr( "data-original-title", pb.copied );
+        $currentElement.attr( "title", pb.copied );
+
+        $currentElement.tooltip("show");
+
+    } else if (document.selection && document.body.createTextRange) {
+        var textRange = document.body.createTextRange();
+        textRange.moveToElementText(el);
+        textRange.select();
+    }
+};

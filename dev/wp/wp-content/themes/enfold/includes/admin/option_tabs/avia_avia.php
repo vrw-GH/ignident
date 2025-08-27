@@ -14,7 +14,8 @@ global $avia_config, $avia_pages, $avia_elements;
 $avia_elements[] = array(
 			'slug'		=> 'avia',
 			'name'		=> __( 'Frontpage Settings', 'avia_framework' ),
-			'desc'		=> __( 'Select which page to display on your Frontpage. If left blank the Blog will be displayed. In case you do not see a select box - you have to publish pages.', 'avia_framework' ),
+			'desc'		=> __( 'Select which page to display on your Frontpage. If left blank the Blog will be displayed.', 'avia_framework' ),
+			'attention'	=> '<strong>' . __( 'In case you do not see a select box - you have to publish pages !!', 'avia_framework' ) . '</strong>',
 			'id'		=> 'frontpage',
 			'type'		=> 'select',
 			'subtype'	=> 'page'
@@ -23,7 +24,8 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'avia',
 			'name'		=> __( 'Where Do You Want To Display The Blog', 'avia_framework' ),
-			'desc'		=> __( 'Select which page to display as your blog page. If left blank no blog will be displayed. In case you do not see a select box - you have to publish pages.', 'avia_framework' ),
+			'desc'		=> __( 'Select which page to display as your blog page. If left blank no blog will be displayed.', 'avia_framework' ),
+			'attention'	=> '<strong>' . __( 'In case you do not see a select box - you have to publish pages !!', 'avia_framework' ) . '</strong>',
 			'id'		=> 'blogpage',
 			'type'		=> 'select',
 			'subtype'	=> 'page',
@@ -32,7 +34,7 @@ $avia_elements[] = array(
 
 $avia_elements[] = array(
 			'slug'		=> 'avia',
-			'desc'		=> "<strong class='av-text-notice av-prev-el-notice'>" . __( 'Notice: Your blog is currently disabled. You can enable it', 'avia_framework' ) . ' <a target="_blank" href="' . admin_url( 'admin.php?page=avia#goto_performance' ) .'">' . __( 'here', 'avia_framework' ) . '</a></strong>',
+			'desc'		=> '<strong class="av-text-notice av-prev-el-notice">' . __( 'Notice: Your blog is currently disabled. You can enable it', 'avia_framework' ) . ' <a target="_blank" href="' . admin_url( 'admin.php?page=avia#goto_performance' ) .'">' . __( 'here', 'avia_framework' ) . '</a></strong>',
 			'id'		=> 'avia_avia_widgetdescription',
 			'std'		=> '',
 			'type'		=> 'heading',
@@ -40,16 +42,20 @@ $avia_elements[] = array(
 			'nodescription'	=> true
 		);
 
-$desc  = __( 'Upload a logo image, or enter the URL or ID of an image if its already uploaded. The themes default logo gets applied if the input field is left blank', 'avia_framework' ) . '<br/><br/>';
-$desc .= __( 'Logo Dimension: 340px * 156px (if your logo is larger you might need to change the Header size in your', 'avia_framework' );
-$desc .= ' <a href="#goto_header">' . __( 'Header Settings', 'avia_framework' ) . '</a>' . '<br /><br />';
-$desc .= __( 'You can learn more about Responsive Images and SVG Files support in the ', 'avia_framework' ) . ' ';
-$desc .= ' <a href="https://kriesi.at/documentation/enfold/logo/" title="Enfold Documentation Logo Article">' . __( 'Enfold documentation.', 'avia_framework' ) . '</a>';
+$desc  = __( 'Upload a logo image, or enter the URL or ID of an image if its already uploaded. The themes default logo gets applied if the input field is left blank', 'avia_framework' );
+$info  = __( 'Logo Dimension: 340px * 156px (if your logo is larger you might need to change the Header size in your', 'avia_framework' );
+$info .= ' <a href="#goto_header">' . __( 'Header Settings', 'avia_framework' ) . '</a><br /><br />';
+$info .= '<strong>' . __( 'Since 4.8.6.4 - support for svg files', 'avia_framework' ) . '</strong><br />';
 
 $avia_elements[] = array(
 			'slug'		=> 'avia',
 			'name'		=> __( 'Logo', 'avia_framework' ),
 			'desc'		=> $desc,
+			'info'		=> $info,
+			'docu'		=> [
+							'url'	=> 'https://kriesi.at/documentation/enfold/logo/',
+							'title'	=> __( 'You can learn more about Responsive Images and SVG Files support in the documentation', 'avia_framework' )
+						],
 			'id'		=> 'logo',
 			'type'		=> 'upload',
 			'label'		=> __( 'Use Image as logo', 'avia_framework' )
@@ -79,22 +85,26 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'			=> 'avia',
 			'name'			=> __( 'What Is Header Transparency', 'avia_framework' ),
-			'desc'			=> __( 'When creating/editing a page you can select to have the header be transparent and display the content (usually a fullwidth slideshow or a fullwidth image) beneath. In those cases you will usually need a different Logo and Main Menu color which can be set here.', 'avia_framework' ) . "<br/><a class='av-modal-image' href='" . get_template_directory_uri() . "/images/framework-helper/header_transparency.jpg'>" . __( '(Show example Screenshot)', 'avia_framework' ) . '</a>',
+			'desc'			=> __( 'When creating/editing a page you can select to have the header be transparent and display the content (usually a fullwidth slideshow or a fullwidth image) beneath. In those cases you will usually need a different Logo and Main Menu color which can be set here.', 'avia_framework' ),
 			'id'			=> 'transparency_description',
 			'type'			=> 'heading',
 			'std'			=> '',
-			'nodescription'	=> true
+			'nodescription'	=> true,
+			'docu'			=> [
+								'url'	=> get_template_directory_uri() . '/images/framework-helper/header_transparency.jpg',
+								'title'	=> __( 'Show example Screenshot', 'avia_framework' )
+							]
 		);
 
 $desc  = __( 'Upload a logo image, or enter the URL or ID of an image if its already uploaded. (Leave empty to use the default logo)', 'avia_framework' );
-$desc .= '<br /><br />';
-$desc .= '<strong>' . __( 'Since 4.8.6.4 (in beta) - support for svg files', 'avia_framework' ) . '</strong><br />';
-$desc .= __( 'Same rules as described at &quot;Theme Options -&gt; Logo&quot;. If you want to mix svg and other image formats for the logos you might need to add custom css.', 'avia_framework' );
+$info  = '<strong>' . __( 'Since 4.8.6.4 - support for svg files', 'avia_framework' ) . '</strong><br />';
+$info .= __( 'Same rules as described at &quot;Theme Options -&gt; Logo&quot;. If you want to mix svg and other image formats for the logos you might need to add custom css.', 'avia_framework' );
 
 $avia_elements[] =	array(
 			'slug'	=> 'avia',
 			'name' 	=> __( 'Transparency Logo', 'avia_framework' ),
 			'desc' 	=> $desc,
+			'info'	=> $info,
 			'id' 	=> 'header_replacement_logo',
 			'type' 	=> 'upload',
 			'label'	=> __( 'Use Image as logo', 'avia_framework' )
@@ -131,9 +141,7 @@ $avia_elements[] = array(
 
 
 
-
-$desc  = __( 'Specify a favicon for your site.', 'avia_framework' ) . ' <br/>'. __( 'Accepted formats: .ico, .png, .gif', 'avia_framework' ) . ' <br/><br/>';
-$desc .= __( 'What is a', 'avia_framework' ) . " <a target='_blank' href='http://en.wikipedia.org/wiki/Favicon' rel='noopener noreferrer'>" . __( 'favicon', 'avia_framework' ) . '?</a>';
+$desc  = __( 'Specify a favicon for your site.', 'avia_framework' ) . ' <br/>'. __( 'Accepted formats: .ico, .png, .gif', 'avia_framework' );
 
 $avia_elements[] = array(
 			'slug'		=> 'avia',
@@ -141,7 +149,11 @@ $avia_elements[] = array(
 			'desc'		=> $desc,
 			'id'		=> 'favicon',
 			'type'		=> 'upload',
-			'label'		=> __( 'Use Image as Favicon', 'avia_framework' )
+			'label'		=> __( 'Use Image as Favicon', 'avia_framework' ),
+			'docu'		=> [
+							'url'	=> 'http://en.wikipedia.org/wiki/Favicon',
+							'title'	=> __( 'What is a favicon', 'avia_framework' )
+						]
 		);
 
 
@@ -220,8 +232,8 @@ $avia_elements[] = array(
 		);
 
 
-$desc1  = '<strong><br />';
-$desc1 .=		__( 'Info: If a page is selected and this option is deactivated, the selected page will show a message in the page list, that this option is inactive, so that editors are reminded that it is a &quot;special&quot; page and making changes might break intended site layout when reactivated.', 'avia_framework' ) . ' ';
+$desc1  = '<strong>';
+$desc1 .=		__( 'If a page is selected and this option is deactivated, the selected page will show a message in the page list, that this option is inactive, so that editors are reminded that it is a &quot;special&quot; page and making changes might break intended site layout when reactivated.', 'avia_framework' ) . ' ';
 $desc1 .=		__( 'To disable this message in the page list please change your page selection to &quot;Select Page&quot; so no page is selected and then disable this option.', 'avia_framework' );
 $desc1 .= '</strong>';
 
@@ -241,7 +253,8 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'avia',
 			'name'		=> __( 'Custom Error 404 Page', 'avia_framework' ),
-			'desc'		=> __( 'Select if you want to use any of your pages as your custom Error 404 Page. This page will be excluded from page lists and search results. You must deselect the page to make it accessible for public again.', 'avia_framework' ) . $desc1,
+			'desc'		=> __( 'Select if you want to use any of your pages as your custom Error 404 Page. This page will be excluded from page lists and search results. You must deselect the page to make it accessible for public again.', 'avia_framework' ),
+			'attention'	=> $desc1,
 			'id'		=> 'error404_custom',
 			'type'		=> 'select',
 			'no_first'	=> true,
@@ -288,7 +301,8 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'avia',
 			'name'		=> __( 'Maintenance Mode', 'avia_framework' ),
-			'desc'		=> __( 'Check to enable maintenance mode and show or redirect all page requests to a maintenance page of your choice. This page will not be accessable and will be excluded from page lists and search results. You must deselect the page to make it accessible for public again.', 'avia_framework' ) . $desc1,
+			'desc'		=> __( 'Check to enable maintenance mode and show or redirect all page requests to a maintenance page of your choice. This page will not be accessable and will be excluded from page lists and search results. You must deselect the page to make it accessible for public again.', 'avia_framework' ),
+			'attention'	=> $desc1,
 			'id'		=> 'maintenance_mode',
 			'type'		=> 'select',
 			'no_first'	=> true,
@@ -303,7 +317,7 @@ $avia_elements[] = array(
 $avia_elements[] =	array(
 			'slug'		=> 'avia',
 			'name'		=> __( 'Select Your Maintenance Mode Page', 'avia_framework' ),
-			'desc'		=> __( 'Please note that logged in Administrators, Editors and Authors will still be able to access the site', 'avia_framework' ),
+			'info'		=> __( 'Please note that logged in Administrators, Editors and Authors will still be able to access the site', 'avia_framework' ),
 			'id'		=> 'maintenance_page',
 			'type'		=> 'select',
 			'subtype'	=> 'page',

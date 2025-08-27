@@ -34,9 +34,15 @@ if ($updraftplus_checkout_embed) {
 					<?php
 					$user_bought_udp = isset($_REQUEST['updraftplus_product']) && 'updraftpremium' === $_REQUEST['updraftplus_product'] && isset($_REQUEST['status']) && 'complete' === $_REQUEST['status'];
 					if (!$user_bought_udp) {
+						$aria_label = sprintf(
+							/* translators: %s: UpdraftPlus product name */
+							__('Get %s here', 'updraftplus'),
+							'UpdraftPlus Premium'
+						);
+						$aria_label .= ' '.__('Goes to the teamupdraft.com checkout page', 'updraftplus');
 					?>
-						<a aria-label="<?php echo esc_attr(sprintf(__('Get %s here', 'updraftplus'), 'UpdraftPlus Premium').'. '.__('Goes to the updraftplus.com checkout page', 'updraftplus')); ?>" target="_blank" class="button button-primary button-hero" href="<?php echo esc_url(apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_premium')));?>" <?php echo wp_kses($checkout_embed_premium_attribute, array()); ?>><?php esc_html_e('Get it here', 'updraftplus');?></a>
-						<small><span class="dashicons dashicons-external dashicons-adapt-size"></span> <?php esc_html_e('Goes to updraftplus.com checkout page', 'updraftplus'); ?></small>
+						<a aria-label="<?php echo esc_attr($aria_label); ?>" target="_blank" class="button button-primary button-hero" href="<?php echo esc_url(apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_premium')));?>" <?php echo wp_kses($checkout_embed_premium_attribute, array()); ?>><?php esc_html_e('Get it here', 'updraftplus');?></a>
+						<small><span class="dashicons dashicons-external dashicons-adapt-size"></span> <?php esc_html_e('Goes to teamupdraft.com checkout page', 'updraftplus'); ?></small>
 					<?php
 					}
 					?>

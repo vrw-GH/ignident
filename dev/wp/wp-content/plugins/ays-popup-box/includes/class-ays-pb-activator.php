@@ -197,11 +197,22 @@ class Ays_Pb_Activator {
                 delete_network_option($network_id, 'ays_pb_db_version');
             }
 
+            $is_plugin_downloaded = get_network_option('ays_pb_db_version', false) === false;
+            if ($is_plugin_downloaded) {
+                update_option('ays_pb_first_time_activation_page', true);
+            }
+
             if ( get_network_option($network_id, 'ays_pb_db_version') != $ays_pb_db_version ) {
                 self::activate();
                 self::alter_tables();
             }
         } else {
+
+            $is_plugin_downloaded = get_site_option('ays_pb_db_version', false) === false;
+            if ($is_plugin_downloaded) {
+                update_option('ays_pb_first_time_activation_page', true);
+            }
+
             if ( get_site_option('ays_pb_db_version') != $ays_pb_db_version ) {
                 self::activate();
                 self::alter_tables();
@@ -290,7 +301,7 @@ class Ays_Pb_Activator {
                         '',
                         '',
                         %s,
-                        'On',
+                        'off',
                         'off',
                         'all',
                         0,
@@ -445,6 +456,8 @@ class Ays_Pb_Activator {
                 'youtube_link' => '',
                 'instagram_link' => '',
                 'behance_link' => '',
+                'telegram_link' => '',
+                'tiktok_link' => '',
             ),
             'create_date' => current_time('mysql'),
             'create_author' => $pb_create_author,
@@ -457,6 +470,7 @@ class Ays_Pb_Activator {
             'disable_scroll_on_popup' => 'off',
             'disable_scroll_on_popup_mobile' => 'off',
             'show_scrollbar' => 'off',
+            'show_scrollbar_mobile' => 'off',
             // Styles
             'enable_display_content_mobile' => 'off',
             'show_popup_title_mobile' => 'off',
@@ -478,8 +492,8 @@ class Ays_Pb_Activator {
             'pb_font_family' => 'inherit',
             'pb_font_size' => 13,
             'pb_font_size_for_mobile' => 13,
-            'pb_description_alignment_for_pc' => 'left',
-            'pb_description_alignment_for_mobile' => 'left',
+            'pb_description_alignment_for_pc' => 'center',
+            'pb_description_alignment_for_mobile' => 'center',
             'enable_pb_title_text_shadow' => 'off',
             'pb_title_text_shadow' => 'rgba(255,255,255,0)',
             'pb_title_text_shadow_x_offset' => 2,

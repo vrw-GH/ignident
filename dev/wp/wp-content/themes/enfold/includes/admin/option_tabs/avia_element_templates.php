@@ -19,11 +19,13 @@ $advanced_class = current_theme_supports( 'show_advanced_custom_element_options'
 
 
 $desc  = __( 'Create your custom ALB elements from existing ALB elements with fixed styling and content. You can use these custom elements as a base for your elements when creating your pages.', 'avia_framework' ) . ' ';
-$desc .= __( 'Changes to these custom element templates will be used in the elements based on these templates. Please check our <a href="https://kriesi.at/documentation/enfold/custom-element-templates/" target="_blank" rel="noopener noreferrer">documentation</a> for more details.', 'avia_framework' ) . ' ';
-$desc .= __( 'Advanced Users can have <a href="https://kriesi.at/documentation/enfold/custom-element-templates/#custom-elements-advanced-options" target="_blank" rel="noopener noreferrer"> more options.</a>', 'avia_framework' );
-$desc .= '<br /><br /><strong class="av-text-notice">';
+$desc .= __( 'Changes to these custom element templates will be used in the elements based on these templates.', 'avia_framework' );
+$desc .= '<br /><strong class="av-text-notice">';
 $desc .=	__( 'Attention when using caching plugins: Whenever you make changes to a custom element template please clear your server cache to show the changes.', 'avia_framework' );
 $desc .= '</strong>';
+
+$info  = __( 'Advanced Users can have <a href="https://kriesi.at/documentation/enfold/custom-element-templates/#custom-elements-advanced-options" target="_blank" rel="noopener noreferrer"> more options.</a>', 'avia_framework' );
+
 
 /**
  * @used_by				avia_WPML					10
@@ -38,6 +40,11 @@ $avia_elements[] = array(
 			'slug'		=> 'avia_element_templates',
 			'name'		=> __( 'Custom Elements (Custom Element Templates - CET) For Advanced Layout Builder', 'avia_framework' ),
 			'desc'		=> $desc,
+			'info'		=> $info,
+			'docu'		=> [
+								'url'	=> 'https://kriesi.at/documentation/enfold/custom-element-templates/',
+								'title'	=> __( 'Read more in documentation', 'avia_framework' )
+							],
 			'id'		=> 'alb_element_templates_header',
 			'type'		=> 'heading',
 			'nodescription' => true
@@ -115,7 +122,7 @@ $avia_elements[] = array(
 
 $avia_elements[] =	array(
 			'slug'		=> 'avia_element_templates',
-			'name'		=> __( 'Show advanced options', 'avia_framework' ),
+			'name'		=> __( 'Show Advanced Options', 'avia_framework' ),
 			'desc'		=> __( 'Contains options to extend the functionality - recommended for advanced users.', 'avia_framework' ),
 			'id'		=> 'custom_el_advanced_options',
 			'type'		=> 'checkbox',

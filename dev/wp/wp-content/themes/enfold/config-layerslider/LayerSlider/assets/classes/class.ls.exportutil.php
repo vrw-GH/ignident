@@ -10,7 +10,7 @@ defined( 'LS_ROOT_FILE' ) || exit;
  * @package LS_ExportUtil
  * @since 5.0.3
  * @author John Gera
- * @copyright Copyright (c) 2024  John Gera, George Krupa, and Kreatura Media Kft.
+ * @copyright Copyright (c) 2025  John Gera, George Krupa, and Kreatura Media Kft.
  */
 
 class LS_ExportUtil {

@@ -1737,3 +1737,126 @@ div.ays_template_window header.ays_template_head div.ays_template_header .close-
         display: none !important
     }
 }
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    .ays_cmd_window.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays-pb-modal.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays-pb-modal-macos.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays_ubuntu_window.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays_winxp_window.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays_lil_window.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays_image_window .ays_image_main.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays_minimal_window .ays_minimal_main.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays_template_window.ays-pb-show-scrollbar::-webkit-scrollbar,
+    .ays_win98_window.ays-pb-show-scrollbar::-webkit-scrollbar {
+        width: 5px !important;
+        scrollbar-width: thin;
+    }
+
+    .ays_cmd_window.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays-pb-modal.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays-pb-modal-macos.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays_ubuntu_window.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays_winxp_window.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays_lil_window.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays_image_window .ays_image_main.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays_minimal_window .ays_minimal_main.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays_template_window.ays-pb-show-scrollbar::-webkit-scrollbar-thumb,
+    .ays_win98_window.ays-pb-show-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.3);
+        border-radius: 5px;
+    }
+}
+
+/* Scrollbar visibility styles */
+.ays-pb-modal:not(.ays-pb-show-scrollbar),
+.ays_cmd_window:not(.ays-pb-show-scrollbar),
+.ays-pb-modal-macos:not(.ays-pb-show-scrollbar),
+.ays_ubuntu_window:not(.ays-pb-show-scrollbar),
+.ays_winxp_window:not(.ays-pb-show-scrollbar),
+.ays_lil_window:not(.ays-pb-show-scrollbar),
+.ays_image_window .ays_image_main:not(.ays-pb-show-scrollbar),
+.ays_minimal_window .ays_minimal_main:not(.ays-pb-show-scrollbar),
+.ays_template_window:not(.ays-pb-show-scrollbar),
+.ays_win98_window:not(.ays-pb-show-scrollbar) {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.ays-pb-modal:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays_cmd_window:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays-pb-modal-macos:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays_ubuntu_window:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays_winxp_window:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays_lil_window:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays_image_window .ays_image_main:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays_minimal_window .ays_minimal_main:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays_template_window:not(.ays-pb-show-scrollbar)::-webkit-scrollbar,
+.ays_win98_window:not(.ays-pb-show-scrollbar)::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .ays-pb-modal:not(.ays-pb-show-scrollbar-mobile),
+    .ays_cmd_window:not(.ays-pb-show-scrollbar-mobile),
+    .ays-pb-modal-macos:not(.ays-pb-show-scrollbar-mobile),
+    .ays_ubuntu_window:not(.ays-pb-show-scrollbar-mobile),
+    .ays_winxp_window:not(.ays-pb-show-scrollbar-mobile),
+    .ays_lil_window:not(.ays-pb-show-scrollbar-mobile),
+    .ays_image_window .ays_image_main:not(.ays-pb-show-scrollbar-mobile),
+    .ays_minimal_window .ays_minimal_main:not(.ays-pb-show-scrollbar-mobile),
+    .ays_template_window:not(.ays-pb-show-scrollbar-mobile),
+    .ays_win98_window:not(.ays-pb-show-scrollbar-mobile) {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .ays-pb-modal:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays_cmd_window:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays-pb-modal-macos:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays_ubuntu_window:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays_winxp_window:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays_lil_window:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays_image_window .ays_image_main:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays_minimal_window .ays_minimal_main:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays_template_window:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar,
+    .ays_win98_window:not(.ays-pb-show-scrollbar-mobile)::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .ays-pb-modal:not(.ays-pb-show-scrollbar-desktop),
+    .ays_cmd_window:not(.ays-pb-show-scrollbar-desktop),
+    .ays-pb-modal-macos:not(.ays-pb-show-scrollbar-desktop),
+    .ays_ubuntu_window:not(.ays-pb-show-scrollbar-desktop),
+    .ays_winxp_window:not(.ays-pb-show-scrollbar-desktop),
+    .ays_lil_window:not(.ays-pb-show-scrollbar-desktop),
+    .ays_image_window .ays_image_main:not(.ays-pb-show-scrollbar-desktop),
+    .ays_minimal_window .ays_minimal_main:not(.ays-pb-show-scrollbar-desktop),
+    .ays_template_window:not(.ays-pb-show-scrollbar-desktop),
+    .ays_win98_window:not(.ays-pb-show-scrollbar-desktop) {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .ays-pb-modal:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays_cmd_window:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays-pb-modal-macos:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays_ubuntu_window:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays_winxp_window:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays_lil_window:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays_image_window .ays_image_main:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays_minimal_window .ays_minimal_main:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays_template_window:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar,
+    .ays_win98_window:not(.ays-pb-show-scrollbar-desktop)::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+}

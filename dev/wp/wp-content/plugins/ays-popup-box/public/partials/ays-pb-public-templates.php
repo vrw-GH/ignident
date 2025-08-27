@@ -203,6 +203,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
 
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -234,6 +236,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         // Heading for social buttons
@@ -304,12 +316,24 @@ class Ays_Pb_Public_Templates {
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
 
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
+
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $popupbox_view = "
                 <div class='ays-pb-modal ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ".$ays_pb_disable_scroll_on_popup_class." ".$ays_pb_show_scrollbar_class." ays-popup-box-main-box ays-pb-bg-styles_".$popup['id']." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; background-color:" .  $popup['ays_pb_bgcolor'] . "; color: " . $popup['ays_pb_textcolor'] . " !important; border: ".$popup['ays_pb_bordersize']."px  $border_style " .$popup['ays_pb_bordercolor']. "; border-radius: ".$popup['ays_pb_border_radius']."px;font-family:{$ays_pb_font_family};{$box_shadow};' >
@@ -463,6 +487,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -479,6 +505,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -509,6 +537,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         $ays_social_links = '';
@@ -572,12 +610,24 @@ class Ays_Pb_Public_Templates {
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
 
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
+
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $mac_view = "<div class='ays_window ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ".$ays_pb_disable_scroll_on_popup_class." ".$ays_pb_show_scrollbar_class." ays-pb-bg-styles_".$popup['id']." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; background-color: ".$popup['ays_pb_bgcolor']."; color: ".$popup['ays_pb_textcolor']." !important; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px;font-family:{$ays_pb_font_family};{$box_shadow}'>
                          <div class='ays_topBar'>
@@ -763,6 +813,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -779,6 +831,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -813,6 +867,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         $ays_social_links = '';
@@ -875,13 +939,25 @@ class Ays_Pb_Public_Templates {
         //Show scrollbar
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
+        
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
 
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $cmd_view = "<div class='ays_cmd_window ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ".$ays_pb_disable_scroll_on_popup_class." ".$ays_pb_show_scrollbar_class." ays-pb-bg-styles_".$popup['id']." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; background-color: ".$popup['ays_pb_bgcolor']."; color: ".$popup['ays_pb_textcolor']." !important; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px;font-family:{$ays_pb_font_family};{$box_shadow}'>
                         <header class='ays_cmd_window-header'>
@@ -1092,6 +1168,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -1108,6 +1186,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -1139,7 +1219,16 @@ class Ays_Pb_Public_Templates {
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
         }
-        
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
+        }
 
         $ays_social_links = '';
 
@@ -1201,13 +1290,25 @@ class Ays_Pb_Public_Templates {
         //Show scrollbar
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
+        
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
 
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $ubuntu_view = "<div class='ays_ubuntu_window ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ".$ays_pb_disable_scroll_on_popup_class." ".$ays_pb_show_scrollbar_class." ays-pb-bg-styles_".$popup['id']." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; background-color: ".$popup['ays_pb_bgcolor']."; color: ".$popup['ays_pb_textcolor']." !important; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px;font-family:{$ays_pb_font_family};{$box_shadow}'>
                       <div class='ays_ubuntu_topbar'>
@@ -1417,6 +1518,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -1447,6 +1550,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+        
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         $ays_social_links = '';
@@ -1512,12 +1625,24 @@ class Ays_Pb_Public_Templates {
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
 
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
+
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $ubuntu_view = "<div class='ays_winxp_window ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ".$ays_pb_disable_scroll_on_popup_class." ".$ays_pb_show_scrollbar_class." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; color: ".$popup['ays_pb_textcolor']." !important; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px;font-family:{$ays_pb_font_family};{$box_shadow};'>
                             <div class='ays_winxp_title-bar'>
@@ -1704,6 +1829,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -1720,6 +1847,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -1749,6 +1878,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         $ays_social_links = '';
@@ -1811,13 +1950,25 @@ class Ays_Pb_Public_Templates {
         //Show scrollbar
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
+        
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
 
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $ubuntu_view = "<div class='ays_win98_window ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ".$ays_pb_disable_scroll_on_popup_class." ".$ays_pb_show_scrollbar_class." ays-pb-bg-styles_".$popup['id']." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; padding: {$pb_padding}; background-color: ".$popup['ays_pb_bgcolor']."; color: ".$popup['ays_pb_textcolor']." !important; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px;font-family:{$ays_pb_font_family};{$box_shadow};'>
                             <header class='ays_win98_head' style='background-color: ".$popup['ays_pb_bgcolor'].";'>
@@ -1982,6 +2133,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -1998,6 +2151,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -2027,6 +2182,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         $ays_social_links = '';
@@ -2092,13 +2257,25 @@ class Ays_Pb_Public_Templates {
         //Show scrollbar
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
+        
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
 
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $ubuntu_view = "    <div class='ays_lil_window ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ".$ays_pb_disable_scroll_on_popup_class." ".$ays_pb_show_scrollbar_class." ays-pb-bg-styles_".$popup['id']." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; background-color: ".$popup['ays_pb_bgcolor']."; color: ".$popup['ays_pb_textcolor']." !important; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px;font-family:{$ays_pb_font_family}; {$box_shadow};'>
                                  <header class='ays_lil_head' style='background-color: ".(($popup['show_title'] !== "On") ?  "" :  $popup['ays_pb_header_bgcolor']).";'>
@@ -2278,6 +2455,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -2294,6 +2473,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -2325,6 +2506,17 @@ class Ays_Pb_Public_Templates {
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
         }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+        
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
+        }
+
         $ays_social_links = '';
 
         // Heading for social buttons
@@ -2385,13 +2577,25 @@ class Ays_Pb_Public_Templates {
         //Show scrollbar
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
+        
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
 
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $ubuntu_view .= "   <div class='ays_image_window ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ays-pb-bg-styles_".$popup['id']." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; background-color: ".$popup['ays_pb_bgcolor']."; color: ".$popup['ays_pb_textcolor']." !important;font-family:{$ays_pb_font_family}; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px; {$box_shadow}; animation-fill-mode: forwards;' data-name='modern_minimal'>
                                 <header class='ays_image_head' style='{$image_header_height}'>
@@ -2562,6 +2766,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -2578,6 +2784,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -2608,6 +2816,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+        
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         $ays_social_links = '';
@@ -2681,13 +2899,25 @@ class Ays_Pb_Public_Templates {
         //Show scrollbar
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
+       
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
 
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $ubuntu_view = "   <div class='ays_template_window ".$ays_pb_disable_scroll_on_popup_class." ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ".$ays_pb_show_scrollbar_class." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width};  height: {$pb_height}; color: ".$popup['ays_pb_textcolor']." !important; font-family:{$ays_pb_font_family}; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px; {$box_shadow};'>
                                  <header class='ays_template_head' style='{$header_height};background-color: {$ays_template_header_bgcolor}'>
@@ -2865,6 +3095,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -2881,6 +3113,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -2910,6 +3144,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         $ays_social_links = '';
@@ -2973,12 +3217,24 @@ class Ays_Pb_Public_Templates {
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
 
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
+
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         $ubuntu_view .= "   <div class='ays_minimal_window ays-pb-modal_".$popup['id']." ".$popup['custom_class']." ays-pb-bg-styles_".$popup['id']." ays-pb-border-mobile_".$popup['id']."' {$ays_pb_flag} style='width: {$pb_width}; height: {$pb_height}; background-color: ".$popup['ays_pb_bgcolor']."; color: ".$popup['ays_pb_textcolor']." !important;font-family:{$ays_pb_font_family}; border: ".$popup['ays_pb_bordersize']."px $border_style ".$popup['ays_pb_bordercolor']."; border-radius: ".$popup['ays_pb_border_radius']."px; {$box_shadow};' data-name='modern_minimal'>
                                 <header class='ays_minimal_head' style='{$image_header_height}'>
@@ -3145,6 +3401,8 @@ class Ays_Pb_Public_Templates {
             'youtube_link' => '',
             'instagram_link' => '',
             'behance_link' => '',
+            'telegram_link' => '',
+            'tiktok_link' => '',
         );
         $ays_social_links_array = array();
         
@@ -3161,6 +3419,8 @@ class Ays_Pb_Public_Templates {
         $youtube_link = isset($social_link_arr['youtube_link']) && $social_link_arr['youtube_link'] != '' ? esc_url($social_link_arr['youtube_link']) : '';
         $instagram_link = isset($social_link_arr['instagram_link']) && $social_link_arr['instagram_link'] != '' ? esc_url($social_link_arr['instagram_link']) : '';
         $behance_link = isset($social_link_arr['behance_link']) && $social_link_arr['behance_link'] != '' ? esc_url($social_link_arr['behance_link']) : '';
+        $telegram_link = isset($social_link_arr['telegram_link']) && $social_link_arr['telegram_link'] != '' ? esc_url($social_link_arr['telegram_link']) : '';
+        $tiktok_link = isset($social_link_arr['tiktok_link']) && $social_link_arr['tiktok_link'] != '' ? esc_url($social_link_arr['tiktok_link']) : '';
         
         if($linkedin_link != ''){
             $ays_social_links_array['Linkedin']['link'] = $linkedin_link;
@@ -3191,6 +3451,16 @@ class Ays_Pb_Public_Templates {
         if($behance_link != ''){
             $ays_social_links_array['Behance']['link'] = $behance_link;
             $ays_social_links_array['Behance']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/behance.svg">';
+        }
+
+        if($telegram_link != ''){
+            $ays_social_links_array['Telegram']['link'] = $telegram_link;
+            $ays_social_links_array['Telegram']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/telegram.svg">';
+        }
+
+        if($tiktok_link != ''){
+            $ays_social_links_array['TikTok']['link'] = $tiktok_link;
+            $ays_social_links_array['TikTok']['img'] = '<img src="'.AYS_PB_PUBLIC_URL.'/images/icons/tiktok.svg">';
         }
 
         $ays_social_links = '';
@@ -3389,13 +3659,25 @@ class Ays_Pb_Public_Templates {
         //Show scrollbar
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
+        
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
 
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         // Main image src
         $image_type_img_src = (isset($options->image_type_img_src) && $options->image_type_img_src != '') ? stripslashes( esc_url($options->image_type_img_src) ) : "";
@@ -3601,13 +3883,25 @@ class Ays_Pb_Public_Templates {
         //Show scrollbar
         $options->show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar != '' ) ? stripslashes( esc_attr($options->show_scrollbar) ) : 'off';
         $ays_pb_show_scrollbar = ( isset( $options->show_scrollbar ) && $options->show_scrollbar == 'on' ) ? true : false;
+        
+        // Show scrollbar mobile
+        if (isset($options->show_scrollbar_mobile)) {
+            $ays_pb_show_scrollbar_mobile = $options->show_scrollbar_mobile == 'on' ? true : false;
+        } else {
+            $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+        }
 
         $ays_pb_disable_scroll_on_popup_class = $this->ays_pb_generate_disable_popup_class($options);
 
         $ays_pb_show_scrollbar_class = '';
-        if($ays_pb_show_scrollbar){
+        $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+        $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+        
+        if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
             $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
         }
+
+        $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
         // Facebook page url
         $facebook_page_url = (isset($options->facebook_page_url) && $options->facebook_page_url != '') ? stripslashes( esc_url($options->facebook_page_url) ) : "";
@@ -3923,6 +4217,9 @@ class Ays_Pb_Public_Templates {
 
         // Current date
         $current_date = date_i18n( 'M d, Y', current_time('timestamp') );
+        $current_time = date_i18n( get_option( 'time_format' ), current_time('timestamp') );
+        $current_day = date_i18n( 'l', current_time('timestamp') );
+        $current_month = date_i18n( 'F', current_time('timestamp') );
 
         $message_variables_data = array(
             'popup_title' => $popup_title,
@@ -3937,6 +4234,9 @@ class Ays_Pb_Public_Templates {
             'creation_date' => $creation_date,
             'current_date' => $current_date,
             'user_nickname' => $user_nickname,
+            'current_time' => $current_time,
+            'current_day' => $current_day,
+            'current_month' => $current_month,
         );
 
         return $message_variables_data;

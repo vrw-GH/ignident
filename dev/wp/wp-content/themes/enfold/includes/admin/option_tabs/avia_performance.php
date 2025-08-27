@@ -31,11 +31,11 @@ $avia_elements[] = array(
 			'nodescription'	=> true
 		);
 
-$desc  = __( 'In order to increase the speed of your website you can use minified files or activate file merging and compression for your CSS and Javascript files. This will reduce and optimize the amount of code loaded.', 'avia_framework' ) . '<br><br>';
-$desc .= '<strong>' . __( 'Please note changes with HTTP/2:', 'avia_framework' ) . ' </strong><br><br>';
-$desc .= __( 'HTTP/2 is optimized for using minified files and compression of files is no longer recommended:', 'avia_framework' ) . ' <a href="https://docs.wp-rocket.me/article/1009-configuration-for-http-2" target="_blank" rel="noopener noreferrer">' . __( 'read more', 'avia_framework' ) . '</a>. ';
-$desc .= __( 'Therefore since 5.7 by default minified files are selected.', 'avia_framework' ) . '<br><br>';
-$desc .= __( 'Prior 5.7 merge and compression was enabled by default, which sometimes caused troubles in some server environments and also while you are actively developing your website adding new CSS rules or Javascript functions - please do not use this setting in these cases.', 'avia_framework' );
+$desc  = __( 'In order to increase the speed of your website you can use minified files or activate file merging and compression for your CSS and Javascript files. This will reduce and optimize the amount of code loaded.', 'avia_framework' );
+$att1  = '<strong>' . __( 'Please note changes with HTTP/2:', 'avia_framework' ) . ' </strong><br><br>';
+$att1 .= __( 'HTTP/2 is optimized for using minified files and compression of files is no longer recommended:', 'avia_framework' ) . ' <a href="https://docs.wp-rocket.me/article/1009-configuration-for-http-2" target="_blank" rel="noopener noreferrer">' . __( 'read more', 'avia_framework' ) . '</a>. ';
+$att1 .= __( 'Therefore since 5.7 by default minified files are selected.', 'avia_framework' ) . '<br><br>';
+$att1 .= __( 'Prior 5.7 merge and compression was enabled by default, which sometimes caused troubles in some server environments and also while you are actively developing your website adding new CSS rules or Javascript functions - please do not use this setting in these cases.', 'avia_framework' );
 
 // $desc .= '<strong>' . __( 'Starting with Enfold 5.2:', 'avia_framework' ) . ' </strong>';
 // $desc .= __( 'Minified versions of all theme css and js files have been added which are also used when you choose file merging. If you make changes to a core theme files and cannot provide a correct minimized file and use merging please delete the .min file and we will minify the original file for you on the fly.', 'avia_framework' );
@@ -44,6 +44,7 @@ $avia_elements[] = array(
 			'slug'			=> 'performance',
 			'name'			=> __( 'File Compression', 'avia_framework' ),
 			'desc'			=> $desc,
+			'attention'		=> $att1,
 			'id'			=> 'performance_header_file_compression',
 			'type'			=> 'heading',
 			'std'			=> '',
@@ -130,14 +131,15 @@ $avia_elements[] = array(
 								)
 		);
 
-$desc  = __( 'As long as you do not change the theme version number all changes to content of js or css files will result in the same hash extension - this means browsers will not recognize these changes until the browser cache expires. To fix this Enfold adds an additional unique timestamp (since 4.7).', 'avia_framework' ) . '<br /><br />';
-$desc .= __( 'Some server configurations cache internal WP data and caused by a known but not yet fixed WP bug return wrong information about the existence of a compressed file - resulting in generating a new file again on every pageload and a rapidly growing folder ../wp-content/uploads/dynamic_avia.', 'avia_framework' ) . '<br /><br />';
-$desc .= __( 'To avoid this you can select here to fix this WP bug. You can also supress adding the timestamp - if you wish. Depending on your hoster it may still take some time till this setting will work correctly. Disable file merging, select &quot;Delete old CSS and JS files&quot; - wait for some time, clear server cache and then reactivate your settings.', 'avia_framework' );
+$desc  = __( 'As long as you do not change the theme version number all changes to content of js or css files will result in the same hash extension - this means browsers will not recognize these changes until the browser cache expires. To fix this Enfold adds an additional unique timestamp (since 4.7).', 'avia_framework' );
+$att1  = __( 'Some server configurations cache internal WP data and caused by a known but not yet fixed WP bug return wrong information about the existence of a compressed file - resulting in generating a new file again on every pageload and a rapidly growing folder ../wp-content/uploads/dynamic_avia.', 'avia_framework' ) . '<br /><br />';
+$att1 .= __( 'To avoid this you can select here to fix this WP bug. You can also supress adding the timestamp - if you wish. Depending on your hoster it may still take some time till this setting will work correctly. Disable file merging, select &quot;Delete old CSS and JS files&quot; - wait for some time, clear server cache and then reactivate your settings.', 'avia_framework' );
 
 $avia_elements[] = array(
 			'slug'		=> 'performance',
 			'name'		=> __( 'Unique Timestamp Of Merged Files And WP Object Cache Bug', 'avia_framework' ),
 			'desc'		=> $desc,
+			'attention'	=> $att1,
 			'id'		=> 'merge_disable_unique_timestamp',
 			'type'		=> 'select',
 			'std'		=> '',
@@ -154,15 +156,20 @@ $avia_elements[] = array(
 		);
 
 $desc  = __( 'On some server configurations you might be receiving error messages like &quot;Remove query strings from static resources&quot;.', 'avia_framework' ) . ' ';
-$desc .= '<a href="https://kinsta.com/knowledgebase/remove-query-strings-static-resources/" target="_blank" rel="noopener noreferrer">' . __( 'Background information', 'avia_framework' ) . '</a><br /><br />';
-$desc .= __( 'Select here to remove the query string from static resources - but be aware the query strings allow browsers to detect changes to files and invalidate the browser cached files. Not doing this might break the layout or function of your site after an update until these files expire in browser cache.', 'avia_framework' ) . '<br /><br />';
-$desc .= __( 'Query strings will NOT BE REMOVED from our post specific CSS files as this will break the layout.', 'avia_framework' ) . '<br /><br />';
-$desc .= __( 'THIS OPTION IS IGNORED WHEN WP_DEBUG = true.', 'avia_framework' );
+$info  = __( 'Select here to remove the query string from static resources - but be aware the query strings allow browsers to detect changes to files and invalidate the browser cached files. Not doing this might break the layout or function of your site after an update until these files expire in browser cache.', 'avia_framework' ) . '<br /><br />';
+$att1  = __( 'Query strings will NOT BE REMOVED from our post specific CSS files as this will break the layout.', 'avia_framework' ) . '<br /><br />';
+$att1 .= __( 'THIS OPTION IS IGNORED WHEN WP_DEBUG = true.', 'avia_framework' );
 
 $avia_elements[] = array(
 			'slug'		=> 'performance',
 			'name'		=> __( 'Remove Query String From Static Resources', 'avia_framework' ),
 			'desc'		=> $desc,
+			'info'		=> $info,
+			'attention'	=> $att1,
+			'docu'		=> [
+								'url'	=> 'https://kinsta.com/knowledgebase/remove-query-strings-static-resources/',
+								'title'	=> __( 'Get background information about this', 'avia_framework' )
+							],
 			'id'		=> 'remove_query_string_from_resources',
 			'type'		=> 'select',
 			'std'		=> '',
@@ -194,14 +201,17 @@ $avia_elements[] = array(
 							)
 		);
 
-$desc  = __( 'Select font display behaviour for your uploaded custom fonts and icon fonts. Please read carefully backend documentation before changing. You can also use filter avf_font_display.', 'avia_framework' ) . '<br />';
-$desc .= '<a href="https://developers.google.com/web/updates/2016/02/font-display" target="_blank" rel="noopener noreferrer">' . __( 'Controlling Font Performance with font-display', 'avia_framework' ) . '</a>' . '<br />';
-$desc .= '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display" target="_blank" rel="noopener noreferrer">' . __( 'MDN font-display', 'avia_framework' ) . '</a>' . '<br />';
+
+$att1  = __( 'Please read carefully backend documentation before changing.', 'avia_framework' ). '<br /><br />';
+$att1 .= '<a href="https://developers.google.com/web/updates/2016/02/font-display" target="_blank" rel="noopener noreferrer">' . __( 'Controlling Font Performance with font-display', 'avia_framework' ) . '</a><br />';
+$att1 .= '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display" target="_blank" rel="noopener noreferrer">' . __( 'MDN font-display', 'avia_framework' ) . '</a><br /><br />';
+$att1 .= __( 'You can also use filter avf_font_display.', 'avia_framework' );
 
 $avia_elements[] = array(
 			'slug'		=> 'performance',
 			'name'		=> __( 'Custom Font Display Behaviour', 'avia_framework' ),
-			'desc'		=> $desc,
+			'desc'		=> __( 'Select font display behaviour for your uploaded custom fonts and icon fonts', 'avia_framework' ),
+			'attention'	=> $att1,
 			'id'		=> 'custom_font_display',
 			'type'		=> 'select',
 			'std'		=> '',
@@ -455,13 +465,16 @@ $avia_elements[] = array(
 			'nodescription' => true
 		);
 
-$desc  = __( 'Select to enable lazy loading using native HTML. Currently WP only supports images, but this might be extended for iframes in future. Please keep in mind that lazy loading might break animations when scrolling to images.', 'avia_framework' ) . ' ';
-$desc .= __( 'If you disable lazy loading here this will override any specific element settings of ALB elements. It might not work for 3rd party plugins not using the WP API correctly.', 'avia_framework' );
+$desc  = __( 'Select to enable lazy loading using native HTML. Currently WP only supports images, but this might be extended for iframes in future.', 'avia_framework' );
+
+$info  = __( 'Please keep in mind that lazy loading might break animations when scrolling to images.', 'avia_framework' ) . ' ';
+$info .= __( 'If you disable lazy loading here this will override any specific element settings of ALB elements. It might not work for 3rd party plugins not using the WP API correctly.', 'avia_framework' );
 
 $avia_elements[] = array(
 			'slug'		=> 'performance',
 			'name'		=> __( 'Lazy Loading', 'avia_framework' ),
 			'desc'		=> $desc,
+			'info'		=> $info,
 			'id'		=> 'lazy_loading',
 			'type'		=> 'select',
 			'std'		=> '',
@@ -474,13 +487,14 @@ $avia_elements[] = array(
 		);
 
 $desc  = __( 'Check to enable theme support for responsive images using the standard WP implementation for this feature.', 'avia_framework' ) . '<br />';
-$desc .= __( 'Developers: To disable on ALB element level use:', 'avia_framework' ) . ' ';
-$desc .= '<code>add_theme_support( "avia_show_alb_responsive_image_option" );</code>';
+$att1  = __( 'Developers: To disable on ALB element level use:', 'avia_framework' ) . ' ';
+$att1 .= '<code>add_theme_support( "avia_show_alb_responsive_image_option" );</code>';
 
 $avia_elements[] = array(
 			'slug'		=> 'performance',
 			'name'		=> __( 'Responsive Images', 'avia_framework' ),
 			'desc'		=> $desc,
+			'attention'	=> $att1,
 			'id'		=> 'responsive_images',
 			'type'		=> 'checkbox',
 			'std'		=> 'responsive_images',
@@ -488,13 +502,16 @@ $avia_elements[] = array(
 		);
 
 
-$desc  = __( 'Check to enable theme support for responsive images for theme lightbox. This feature starts with version 4.8.2.', 'avia_framework' ) . ' ';
-$desc .= __( 'Most of the ALB elements and posts should be supporting this feature since 4.8.3. Please report in our support forum if you encounter problems.', 'avia_framework' );
+$desc  = __( 'Check to enable theme support for responsive images for theme lightbox.', 'avia_framework' );
+
+$info  = __( 'This feature started with version 4.8.2.', 'avia_framework' ) . ' ';
+$info .= __( 'Most of the ALB elements and posts should be supporting this feature since 4.8.3. Please report in our support forum if you encounter problems.', 'avia_framework' );
 
 $avia_elements[] = array(
 			'slug'		=> 'performance',
-			'name'		=> __( 'Responsive Images For Lightbox (currently in beta only)', 'avia_framework' ),
+			'name'		=> __( 'Responsive Images For Lightbox', 'avia_framework' ),
 			'desc'		=> $desc,
+			'info'		=> $info,
 			'id'		=> 'responsive_images_lightbox',
 			'type'		=> 'checkbox',
 			'std'		=> '',
@@ -523,13 +540,14 @@ $avia_elements[] = array(
 
 $desc  = __( 'In case you need additional image sizes you can use a plugin like', 'avia_framework' ) . ' ';
 $desc .= '<a href="https://wordpress.org/plugins/simple-image-sizes/" target="_blank" rel="noopener noreferrer">Simple Image Sizes</a>. ';
-$desc .= __( 'For advanced users:', 'avia_framework' ) . ' ';
-$desc .= '<a href="https://github.com/KriesiMedia/enfold-library/blob/master/actions%20and%20filters/Layout/avf_modify_thumb_size.php" target="_blank" rel="noopener noreferrer">Enfold Code Snippets Library</a>.';
+$info  = __( 'For advanced users:', 'avia_framework' ) . ' ';
+$info .= '<a href="https://github.com/KriesiMedia/enfold-library/blob/master/actions%20and%20filters/Layout/avf_modify_thumb_size.php" target="_blank" rel="noopener noreferrer">Enfold Code Snippets Library</a>.';
 
 $avia_elements[] = array(
 			'slug'			=> 'performance',
 			'name'			=> __( 'Responsive Images Thumbnails Overview:', 'avia_framework' ),
 			'desc'			=> $desc,
+			'info'			=> $info,
 			'id'			=> 'performance_header_responsive_img',
 			'type'			=> 'heading',
 			'nodescription'	=> true,

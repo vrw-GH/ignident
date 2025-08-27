@@ -135,9 +135,18 @@ if( get_option('layerslider-google-fonts-enabled', true ) ) {
 	}
 }
 
-
-
-
+$sliderCreatedWith = ! empty( $slides['properties']['attrs']['createdWith'] ) ? $slides['properties']['attrs']['createdWith'] : null;
+$sliderImportedWith = ! empty( $slides['properties']['props']['importVersion'] ) ? $slides['properties']['props']['importVersion'] : null;
+$lsWPML = [
+	'useStringPackages' => ls_should_use_wpml_string_packages( $sliderCreatedWith, $sliderImportedWith ),
+	'useStringTranslation' => ls_should_use_string_translation(),
+	'useMediaTranslation' => ls_should_use_media_translation(),
+	'package' => [
+		'kind'  	=> LS_WPML_SP_TITLE,
+		'kind_slug' => LS_WPML_SP_SLUG,
+		'name'  	=> "project-{$id}"
+	]
+];
 
 
 // STICKY + SCROLL SCENE
@@ -296,7 +305,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 			if( ! empty($slide['props']['backgroundId'])) {
 
-				if( has_filter('wpml_object_id') && get_option('ls_wpml_media_translation', true ) ) {
+				if( $lsWPML['useMediaTranslation'] ) {
 					$slide['props']['backgroundId'] = apply_filters('wpml_object_id', $slide['props']['backgroundId'], 'attachment', true );
 				}
 
@@ -340,7 +349,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				$lsTN = '';
 				if( ! empty($slide['props']['thumbnailId']) ) {
 
-					if( has_filter('wpml_object_id') && get_option('ls_wpml_media_translation', true ) ) {
+					if( $lsWPML['useMediaTranslation'] ) {
 						$slide['props']['thumbnailId'] = apply_filters('wpml_object_id', $slide['props']['thumbnailId'], 'attachment', true );
 					}
 
@@ -412,12 +421,16 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				}
 
 				// WPML support
-				if( has_filter( 'wpml_translate_single_string' ) && get_option('ls_wpml_string_translation', true ) ) {
+				if( $lsWPML['useStringTranslation'] ) {
+
+					// v7.14.2: Use WPML's string packages translation method
+					if( $lsWPML['useStringPackages'] ) {
+						$layer['props']['html'] = apply_filters( 'wpml_translate_string', $layer['props']['html'], $layer['props']['uuid'].'-html', $lsWPML['package'] );
 
 					// Check 'createdWith' property to decide which WPML implementation
 					// should we use. This property was added in v6.5.5 along with the
 					// new WPML implementation, so no version comparison required.
-					if( ! empty( $slides['properties']['attrs']['createdWith'] ) ) {
+					} elseif( $sliderCreatedWith ) {
 						$string_name = "slider-{$id}-layer-{$layer['props']['uuid']}-html";
 						$layer['props']['html'] = apply_filters( 'wpml_translate_single_string', $layer['props']['html'], 'LayerSlider Sliders', $string_name );
 
@@ -503,7 +516,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 						foreach( $layer['props']['mediaAttachments'] as $item ) {
 
-							if( has_filter('wpml_object_id') && get_option('ls_wpml_media_translation', true ) ) {
+							if( $lsWPML['useMediaTranslation'] ) {
 								$item['id'] = apply_filters('wpml_object_id', $item['id'], 'attachment', true );
 							}
 
@@ -619,7 +632,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 						if( ! empty($layer['props']['imageId'])) {
 
-							if( has_filter('wpml_object_id') && get_option('ls_wpml_media_translation', true ) ) {
+							if( $lsWPML['useMediaTranslation'] ) {
 								$layer['props']['imageId'] = apply_filters('wpml_object_id', $layer['props']['imageId'], 'attachment', true );
 							}
 
@@ -750,7 +763,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 				if( ! empty( $layer['props']['posterId'] ) ) {
 
-					if( has_filter('wpml_object_id') && get_option('ls_wpml_media_translation', true ) ) {
+					if( $lsWPML['useMediaTranslation'] ) {
 						$layer['props']['posterId'] = apply_filters('wpml_object_id', $layer['props']['posterId'], 'attachment', true );
 					}
 
@@ -777,7 +790,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 					if( ! empty( $layer['props']['layerBackgroundId'] ) ) {
 
-						if( has_filter('wpml_object_id') && get_option('ls_wpml_media_translation', true ) ) {
+						if( $lsWPML['useMediaTranslation'] ) {
 							$layer['props']['layerBackgroundId'] = apply_filters('wpml_object_id', $layer['props']['layerBackgroundId'], 'attachment', true );
 						}
 
@@ -848,7 +861,10 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 						'leadingZeros' => $useLeadingZeroes
 					]));
 
-					ls_apply_affix_properties( $layer['props'], $innerAttributes );
+					ls_apply_affix_properties( $layer['props'], $innerAttributes, [
+						'sliderID' => $id,
+						'wpml' => $lsWPML
+					]);
 				}
 
 
@@ -901,7 +917,10 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					}
 
 					$innerAttributes['data-counter'] = json_encode($counterData);
-					ls_apply_affix_properties( $layer['props'], $innerAttributes );
+					ls_apply_affix_properties( $layer['props'], $innerAttributes, [
+						'sliderID' => $id,
+						'wpml' => $lsWPML
+					]);
 
 					$formattedNumber = number_format( $counterEnd, (int) $counterDecimals, $counterDecimalSeparator, $counterThousandsSeparator );
 
@@ -1029,7 +1048,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 			$slide['props']['linkUrl'] = do_shortcode( $slide['props']['linkUrl'] );
 
 			// Fallback WPML support for older sliders
-			if( has_filter( 'wpml_translate_single_string' ) && get_option('ls_wpml_string_translation', true ) ) {
+			if( $lsWPML['useStringTranslation'] ) {
 
 				// Don't try to modify the URL if it's auto-generated
 				if( empty( $slide['props']['linkId'] ) && $slide['props']['linkUrl'] !== '[post-url]' ) {

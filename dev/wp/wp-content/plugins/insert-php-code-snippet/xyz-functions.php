@@ -12,6 +12,24 @@ if(!function_exists('xyz_ips_plugin_get_version'))
 		return $plugin_folder['insert-php-code-snippet.php']['Version'];
 	}
 }
+if(!function_exists('xyz_ips_run_upgrade_routines'))
+{
+function xyz_ips_run_upgrade_routines() {
+	global $wpdb;
+	if (is_multisite()) {
+		$blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+		foreach ($blog_ids as $blog_id) {
+			switch_to_blog($blog_id);
+			xyz_ips_install();
+			//wp_cache_flush();
+			restore_current_blog();
+		}
+	} else {
+		xyz_ips_install();
+		//wp_cache_flush();
+	}
+}
+}
 if(!function_exists('xyz_ips_prepare_content_to_eval'))
 {
 
@@ -80,11 +98,11 @@ function xyz_ips_links($links, $file) {
 	$base = plugin_basename(XYZ_INSERT_PHP_PLUGIN_FILE);
 	if ($file == $base) {
 
-		$links[] = '<a href="https://xyzscripts.com/support/" class="xyz_support" title="Support"></a>';
-		$links[] = '<a href="https://twitter.com/xyzscripts" class="xyz_twitt" title="Follow us on Twitter"></a>';
-		$links[] = '<a href="https://www.facebook.com/xyzscripts" class="xyz_fbook" title="Like us on Facebook"></a>';
-		$links[] = '<a href="https://www.instagram.com/xyz_scripts/" class="xyz_insta" title="Follow us on Instagram+"></a>';
-		$links[] = '<a href="https://www.linkedin.com/company/xyzscripts" class="xyz_linkedin" title="Follow us on LinkedIn"></a>';
+		$links[] = '<a href="https://xyzscripts.com/support/" class="xyz_ips_support" title="Support"></a>';
+		$links[] = '<a href="https://twitter.com/xyzscripts" class="xyz_ips_twitt" title="Follow us on Twitter"></a>';
+		$links[] = '<a href="https://www.facebook.com/xyzscripts" class="xyz_ips_fbook" title="Like us on Facebook"></a>';
+		$links[] = '<a href="https://www.instagram.com/xyz_scripts/" class="xyz_ips_insta" title="Follow us on Instagram"></a>';
+		$links[] = '<a href="https://www.linkedin.com/company/xyzscripts" class="xyz_ips_linkedin" title="Follow us on LinkedIn"></a>';
 	}
 	return $links;
 }

@@ -383,6 +383,8 @@ class UpdraftPlus_Admin {
 				foreach ($settings['settings'] as $storage_options) {
 					if ('objects-us-west-1.dream.io' == $storage_options['endpoint']) {
 						add_action('all_admin_notices', array($this, 'show_admin_warning_dreamobjects'));
+					} elseif (!UpdraftPlus_BackupModule_dreamobjects::is_valid_endpoint($storage_options['endpoint'])) {
+						add_action('all_admin_notices', array($this, 'show_admin_error_dreamobjects_invalid_custom_endpoint'));
 					}
 				}
 			}
@@ -900,9 +902,7 @@ class UpdraftPlus_Admin {
 
 		$jqueryui_dialog_extended_version = $updraftplus->use_unminified_scripts() ? '1.0.4'.'.'.time() : '1.0.4';
 		wp_enqueue_script('jquery-ui.dialog.extended', UPDRAFTPLUS_URL.'/includes/jquery-ui.dialog.extended/jquery-ui.dialog.extended'.$updraft_min_or_not.'.js', array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-dialog'), $jqueryui_dialog_extended_version);
-		
-		do_action('updraftplus_admin_enqueue_scripts');
-		
+
 		$day_selector = '';
 		for ($day_index = 0; $day_index <= 6; $day_index++) {
 			// $selected = ($opt == $day_index) ? 'selected="selected"' : '';
@@ -918,6 +918,7 @@ class UpdraftPlus_Admin {
 		}
 		$backup_methods = $updraftplus->backup_methods;
 		$remote_storage_options_and_templates = UpdraftPlus_Storage_Methods_Interface::get_remote_storage_options_and_templates();
+		do_action('updraftplus_admin_enqueue_scripts');
 		$main_tabs = $this->get_main_tabs_array();
 
 		$checkout_embed_5gb_trial_attribute = '';
@@ -1184,6 +1185,8 @@ class UpdraftPlus_Admin {
 			'reload_page'  => __('Therefore, please reload the page.', 'updraftplus'),
 			'save_changes'  => __('Save Changes', 'updraftplus'),
 			'close' => __('Close', 'updraftplus'),
+			'dreamobject_endpoints' => array_keys(UpdraftPlus_BackupModule_dreamobjects::get_endpoints()),
+			'dreamobject_endpoint_regex' => UpdraftPlus_BackupModule_dreamobjects::ENDPOINT_REGEX,
 		));
 	}
 	
@@ -1404,7 +1407,7 @@ class UpdraftPlus_Admin {
 
 	public function show_admin_warning_disabledcron() {
 		$ret = '<div class="updraftmessage updated"><p>';
-		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.__('The scheduler is disabled in your WordPress install, via the DISABLE_WP_CRON setting.', 'updraftplus').' '.__('No backups can run (even &quot;Backup Now&quot;) unless either you have set up a facility to call the scheduler manually, or until it is enabled.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/my-scheduled-backups-and-pressing-backup-now-does-nothing-however-pressing-debug-backup-does-produce-a-backup/#disablewpcron/").'" target="_blank">'.__('Go here for more information.', 'updraftplus').'</a>';
+		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.__('The scheduler is disabled in your WordPress install, via the DISABLE_WP_CRON setting.', 'updraftplus').' '.__('No backups can run (even &quot;Backup Now&quot;) unless either you have set up a facility to call the scheduler manually, or until it is enabled.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://teamupdraft.com/documentation/updraftplus/topics/backing-up/troubleshooting/scheduled-or-manual-backup-stops-mid-way/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=unknown&utm_creative_format=unknown").'" target="_blank">'.__('Go here for more information.', 'updraftplus').'</a>';
 		$ret .= '</p></div>';
 		return $ret;
 	}
@@ -1453,7 +1456,7 @@ class UpdraftPlus_Admin {
 	 */
 	public function show_admin_warning_overdue_crons($howmany) {
 		$ret = '<div class="updraftmessage updated"><p>';
-		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('WordPress has a number (%d) of scheduled tasks which are overdue.', 'updraftplus'), $howmany).' '.__('Unless this is a development site, this means that the scheduler in your WordPress install is not working properly.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/scheduler-wordpress-installation-working/").'" target="_blank">'.__('Read this page for a guide to possible causes and how to fix it.', 'updraftplus').'</a>';
+		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('WordPress has a number (%d) of scheduled tasks which are overdue.', 'updraftplus'), $howmany).' '.__('Unless this is a development site, this means that the scheduler in your WordPress install is not working properly.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://teamupdraft.com/documentation/updraftplus/topics/general/troubleshooting/how-to-fix-the-wordpress-missed-schedule-error/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=unknown&utm_creative_format=unknown").'" target="_blank">'.__('Read this page for a guide to possible causes and how to fix it.', 'updraftplus').'</a>';
 		$ret .= '</p></div>';
 		return $ret;
 	}
@@ -1502,6 +1505,22 @@ class UpdraftPlus_Admin {
 	 */
 	public function show_admin_warning_dreamobjects() {
 		$this->show_admin_warning('<strong>'.__('UpdraftPlus notice:', 'updraftplus').'</strong> '.sprintf(__('The %s endpoint is scheduled to shut down on the 1st October 2018.', 'updraftplus'), 'objects-us-west-1.dream.io').' '.__('You will need to switch to a different end-point and migrate your data before that date.', 'updraftplus').' '.sprintf(__('%sPlease see this article for more information%s'), '<a href="https://help.dreamhost.com/hc/en-us/articles/360002135871-Cluster-migration-procedure" target="_blank">', '</a>'), 'updated');
+	}
+
+	/**
+	 * Show DreamObjects invalid custom endpoint error.
+	 *
+	 * @return void
+	 */
+	public function show_admin_error_dreamobjects_invalid_custom_endpoint() {
+		$this->show_admin_warning(
+			'<strong>'.__('Error:', 'updraftplus').'</strong> '.
+				/* translators: %s: Non-translated string 'DreamObjects'. */
+				sprintf(__('Invalid custom %s endpoint.', 'updraftplus'), '<em>DreamObjects</em>').' '.
+				/* translators: %s: Desired endpoint format. */
+				sprintf(__('Please enter the endpoint in the format "%s".', 'updraftplus'), '<em>s3.&lt;region&gt;.dream.io</em>'),
+			'error'
+		);
 	}
 	
 	/**
@@ -3344,7 +3363,7 @@ class UpdraftPlus_Admin {
 	
 		global $updraftplus;
 
-		if (!in_array($option_page, array('updraftplus-addons'))) {
+		if (!in_array($option_page, array('updraftplus-addons', 'temporary_clone'))) {
 			$further_options = wp_parse_args($further_options, array(
 				'under_username' => __("Not yet got an account (it's free)? Go get one!", 'updraftplus'),
 				'under_username_link' => $updraftplus->get_url('my-account')
@@ -6164,7 +6183,7 @@ class UpdraftPlus_Admin {
 			return false;
 		} else {
 			$corrupted_files_count = count($corrupted_files);
-			return '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(_n('The file %s has a "byte order mark" (BOM) at its beginning.', 'The files %s have a "byte order mark" (BOM) at their beginning.', $corrupted_files_count, 'updraftplus'), '<strong>'.implode('</strong>, <strong>', $corrupted_files).'</strong>').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/problems-with-extra-white-space/").'" target="_blank">'.__('Follow this link for more information', 'updraftplus').'</a>';
+			return '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(_n('The file %s has a "byte order mark" (BOM) at its beginning.', 'The files %s have a "byte order mark" (BOM) at their beginning.', $corrupted_files_count, 'updraftplus'), '<strong>'.implode('</strong>, <strong>', $corrupted_files).'</strong>').' <a href="'.apply_filters('updraftplus_com_link', "https://teamupdraft.com/documentation/updraftplus/topics/general/troubleshooting/problems-with-extra-white-space/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=unknown&utm_creative_format=unknown").'" target="_blank">'.__('Follow this link for more information', 'updraftplus').'</a>';
 		}
 	}
 
@@ -6562,6 +6581,7 @@ class UpdraftPlus_Admin {
 	public function kses_allow_tags() {
 		return array(
 			'div' => array(
+				'id' => true,
 				'class' => true,
 				'style' => true,
 			),
@@ -6569,8 +6589,9 @@ class UpdraftPlus_Admin {
 				'style' => true,
 			),
 			'input' => array(
-				'type' => true,
 				'id' => true,
+				'class' => true,
+				'type' => true,
 				'name' => true,
 				'value' => true,
 				'checked' => true,
@@ -6580,6 +6601,7 @@ class UpdraftPlus_Admin {
 			),
 			'select' => array(
 				'id' => true,
+				'class' => true,
 				'name' => true,
 				'value' => true,
 				'style' => true,
@@ -6589,11 +6611,17 @@ class UpdraftPlus_Admin {
 				'selected' => true,
 			),
 			'label' => array(
+				'id' => true,
+				'class' => true,
+				'style' => true,
 				'for' => true,
 			),
 			'br' => array(),
 			'em' => array(),
 			'a' => array(
+				'id' => true,
+				'class' => true,
+				'style' => true,
 				'href' => true,
 				'target' => true,
 				'onclick' => true,
@@ -6601,13 +6629,23 @@ class UpdraftPlus_Admin {
 			),
 			'span' => array(
 				'id' => true,
+				'class' => true,
+				'style' => true,
 			),
 			'img' => array(
+				'id' => true,
+				'class' => true,
+				'style' => true,
 				'src' => true,
 				'width' => true,
 				'height' => true,
 				'alt' => true,
-			)
+			),
+			'p' => array(
+				'id' => true,
+				'class' => true,
+				'style' => true,
+			),
 		);
 	}
 

@@ -107,6 +107,7 @@ class UpdraftCentral_Backups_Commands extends UpdraftCentral_Commands {
 					$response['last_backup']['backup_nonce'] = $updraft_last_backup['backup_nonce'];
 					if (isset($updraft_last_backup['backup_time'])) {
 						$response['last_backup']['backup_date'] = gmdate('n/j/Y', $updraft_last_backup['backup_time']);
+						$response['last_backup']['backup_time'] = $updraft_last_backup['backup_time'];
 					}
 				
 					$errors = 0;
@@ -294,8 +295,6 @@ class UpdraftCentral_Backups_Commands extends UpdraftCentral_Commands {
 
 				// Check the job is not still running.
 				$jobdata = $updraftplus->jobdata_getarray($nonce);
-			
-				$response['status'] = 'idle'; // It's very rare to receive this in the UI as status. If it happens then that would mean that no backup has been done for the given nonce even if we initially received it from the "backupnow" request. Possible cause would be, is that the server is too busy or something happened in between calls.
 
 				if (!empty($jobdata)) {
 					$response['status'] = 'in-progress';
@@ -341,13 +340,16 @@ class UpdraftCentral_Backups_Commands extends UpdraftCentral_Commands {
 						'nonce' => $nonce,
 					);
 
-					UpdraftPlus_Options::update_updraft_option('updraft_last_backup_progress', $response['progress'], false);
+					UpdraftPlus_Options::update_updraft_option('updraft_central_last_backup_progress', $response['progress'], false);
 				} else {
 					$last_backup = UpdraftPlus_Options::get_updraft_option('updraft_last_backup');
 					if ($nonce == $last_backup['backup_nonce']) {
 						$response['status'] = 'finished';
 						$response['progress'] = array('percentage' => 100);
 						$response['progress']['errors'] = $last_backup['errors'];
+						$response['progress']['backup_time'] = $last_backup['backup_time'];
+						$response['progress']['completed_time'] = gmdate('g:ia', $last_backup['backup_time']);
+						$response['progress']['completed_date'] = gmdate('M d, Y', $last_backup['backup_time']);
 
 						$errors = 0;
 						$warnings = 0;
@@ -368,11 +370,16 @@ class UpdraftCentral_Backups_Commands extends UpdraftCentral_Commands {
 					} else {
 						// We might be too early to check the `updraft_last_backup` thus, we'll
 						// give it a few rounds to check by setting the status to "in-progress"
-						// and returning the last backup progress.
-						$last_progress = UpdraftPlus_Options::get_updraft_option('updraft_last_backup_progress');
-						if ($nonce == $last_progress['nonce']) {
-							$response['status'] = 'in-progress';
+						// and returning the last backup progress (if applicable).
+						$last_progress = UpdraftPlus_Options::get_updraft_option('updraft_central_last_backup_progress');
+
+						$response['status'] = 'in-progress';
+						if (!empty($last_progress) && isset($last_progress['nonce'])) {
 							$response['progress'] = $last_progress;
+
+							if ($nonce == $last_progress['nonce']) {
+								UpdraftPlus_Options::delete_updraft_option('updraft_central_last_backup_progress');
+							}
 						}
 					}
 				}

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: LayerSlider WP 7.14.0\n"
-"POT-Creation-Date: 2024-11-12 14:53+0100\n"
-"PO-Revision-Date: 2024-11-12 14:54+0100\n"
+"Project-Id-Version: LayerSlider WP 7.14.2\n"
+"POT-Creation-Date: 2025-01-15 16:13+0100\n"
+"PO-Revision-Date: 2025-01-15 16:14+0100\n"
 "Last-Translator: Patrick PERRONO <patrick.perrono@instinct-photo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -849,7 +849,7 @@ msgstr ""
 msgid "Performance Mode"
 msgstr "Mode Performance"
 
-#: assets/config/defaults.php:280 assets/templates/tmpl-plugin-settings.php:267
+#: assets/config/defaults.php:280 assets/templates/tmpl-plugin-settings.php:272
 msgid ""
 "Performance mode suspends every background activity when your sliders are "
 "out of the viewport and not visible. This can dramatically increase "
@@ -2545,7 +2545,7 @@ msgid "Use srcset Attribute"
 msgstr "Utiliser l'attribut srcset"
 
 #: assets/config/defaults.php:1620
-#: assets/templates/tmpl-plugin-settings.php:376
+#: assets/templates/tmpl-plugin-settings.php:387
 msgid ""
 "The srcset attribute allows loading dynamically scaled images based on "
 "screen resolution. It can save bandwidth and allow using retina-ready images "
@@ -2563,7 +2563,7 @@ msgid "Enhanced Lazy Load"
 msgstr "Lazy load amélioré"
 
 #: assets/config/defaults.php:1635
-#: assets/templates/tmpl-plugin-settings.php:382
+#: assets/templates/tmpl-plugin-settings.php:393
 msgid ""
 "The default lazy loading behavior ensures maximum compatibility and works "
 "ideally for general purposes. However, there is a chance that the browser "
@@ -3973,7 +3973,7 @@ msgstr "Pas de clip"
 
 #: assets/config/defaults.php:5020 assets/config/defaults.php:5226
 #: assets/templates/tmpl-add-layer.php:14 assets/views/project-editor.php:2246
-#: assets/views/project-editor.php:10387 assets/wp/scripts_l10n.php:374
+#: assets/views/project-editor.php:10429 assets/wp/scripts_l10n.php:374
 msgid "Text"
 msgstr "Texte"
 
@@ -4886,51 +4886,51 @@ msgid "Add New Layer"
 msgstr "Ajouter un nouveau calque"
 
 #: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:2245
-#: assets/views/project-editor.php:2335 assets/views/project-editor.php:10383
+#: assets/views/project-editor.php:2335 assets/views/project-editor.php:10425
 #: assets/wp/scripts_l10n.php:372
 msgid "Image"
 msgstr "Image"
 
 #: assets/templates/tmpl-add-layer.php:18
 #: assets/templates/tmpl-project-settings.php:59
-#: assets/views/project-editor.php:2247 assets/views/project-editor.php:10391
+#: assets/views/project-editor.php:2247 assets/views/project-editor.php:10433
 #: assets/wp/scripts_l10n.php:376
 msgid "Video / Audio"
 msgstr "Vidéo / Audio"
 
 #: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:2248
-#: assets/views/project-editor.php:10395 assets/wp/scripts_l10n.php:322
+#: assets/views/project-editor.php:10437 assets/wp/scripts_l10n.php:322
 #: assets/wp/scripts_l10n.php:375
 msgid "Button"
 msgstr "Bouton"
 
-#: assets/templates/tmpl-add-layer.php:27 assets/views/project-editor.php:10399
+#: assets/templates/tmpl-add-layer.php:27 assets/views/project-editor.php:10441
 msgid "Asset"
 msgstr "Ressource"
 
 #: assets/templates/tmpl-add-layer.php:31 assets/views/project-editor.php:2249
-#: assets/views/project-editor.php:10403 assets/wp/scripts_l10n.php:379
+#: assets/views/project-editor.php:10445 assets/wp/scripts_l10n.php:379
 msgid "Shape"
 msgstr "Forme"
 
 #: assets/templates/tmpl-add-layer.php:35 assets/views/project-editor.php:2250
 #: assets/views/project-editor.php:2480 assets/views/project-editor.php:2992
-#: assets/views/project-editor.php:10407 assets/wp/scripts_l10n.php:373
+#: assets/views/project-editor.php:10449 assets/wp/scripts_l10n.php:373
 msgid "Icon"
 msgstr "Icône"
 
 #: assets/templates/tmpl-add-layer.php:39 assets/views/project-editor.php:2251
-#: assets/views/project-editor.php:10411 assets/wp/scripts_l10n.php:380
+#: assets/views/project-editor.php:10453 assets/wp/scripts_l10n.php:380
 msgid "SVG"
 msgstr "SVG"
 
 #: assets/templates/tmpl-add-layer.php:44 assets/views/project-editor.php:2252
-#: assets/views/project-editor.php:10415 assets/wp/scripts_l10n.php:377
+#: assets/views/project-editor.php:10457 assets/wp/scripts_l10n.php:377
 msgid "HTML"
 msgstr "HTML"
 
 #: assets/templates/tmpl-add-layer.php:48 assets/views/project-editor.php:2253
-#: assets/views/project-editor.php:10419
+#: assets/views/project-editor.php:10461
 msgid "Dynamic Layer"
 msgstr "Calque dynamique"
 
@@ -5895,7 +5895,7 @@ msgstr "Thème"
 
 #: assets/templates/tmpl-countdown-presets.php:108
 #: assets/templates/tmpl-counter-presets.php:25
-#: assets/views/project-editor.php:10693
+#: assets/views/project-editor.php:10735
 msgid "Light"
 msgstr "Clair"
 
@@ -5987,7 +5987,7 @@ msgid "Widget"
 msgstr "Widget"
 
 #: assets/templates/tmpl-embed-slider.php:26
-#: assets/templates/tmpl-plugin-settings.php:237
+#: assets/templates/tmpl-plugin-settings.php:242
 msgid "Page Builders"
 msgstr "Constructeurs de pages"
 
@@ -6181,7 +6181,7 @@ msgid "Try a different search term."
 msgstr "Essayez un autre terme de recherche."
 
 #: assets/templates/tmpl-import-layer.php:6 assets/views/project-editor.php:968
-#: assets/views/project-editor.php:10507
+#: assets/views/project-editor.php:10549
 msgid "Import Layer"
 msgstr "Importer un calque"
 
@@ -6890,11 +6890,25 @@ msgstr ""
 "Média sur votre site mais que vous ne souhaitez pas que les images de vos "
 "projets soient modifiées."
 
-#: assets/templates/tmpl-plugin-settings.php:240
+#: assets/templates/tmpl-plugin-settings.php:236
+#, fuzzy
+#| msgid "Custom Transition Duration"
+msgid "Auto Translation Cleanup"
+msgstr "Durée de transition personnalisée"
+
+#: assets/templates/tmpl-plugin-settings.php:238
+msgid ""
+"Automatically removes unused translation strings when deleting projects or "
+"layers to keep your translation database organized. Consider disabling this "
+"option if you wish to retain previously translated content for potential "
+"restoration, such as when using the Revisions feature."
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:245
 msgid "Enable TinyMCE helper"
 msgstr "Activer l'aide TinyMCE"
 
-#: assets/templates/tmpl-plugin-settings.php:242
+#: assets/templates/tmpl-plugin-settings.php:247
 msgid ""
 "Allows the LayerSlider helper utility for the classic WordPress page editor, "
 "which makes it easy to insert projects into your pages. Disable only if "
@@ -6904,11 +6918,11 @@ msgstr ""
 "classique, ce qui permet d'insérer facilement des projets dans vos pages. Ne "
 "le désactivez que si vous rencontrez des problèmes avec l'éditeur."
 
-#: assets/templates/tmpl-plugin-settings.php:246
+#: assets/templates/tmpl-plugin-settings.php:251
 msgid "Enable Gutenberg block"
 msgstr "Activer le bloc Gutenberg"
 
-#: assets/templates/tmpl-plugin-settings.php:248
+#: assets/templates/tmpl-plugin-settings.php:253
 msgid ""
 "Allows the LayerSlider block for  WordPress’s new Gutenberg page editor, "
 "which makes it easy to insert projects into your pages. Disable only if "
@@ -6918,11 +6932,11 @@ msgstr ""
 "WordPress, ce qui permet d'insérer facilement des projets dans vos pages. Ne "
 "le désactivez que si vous rencontrez des problèmes avec l'éditeur."
 
-#: assets/templates/tmpl-plugin-settings.php:252
+#: assets/templates/tmpl-plugin-settings.php:257
 msgid "Enable Elementor widget"
 msgstr "Activer le widget Elementor"
 
-#: assets/templates/tmpl-plugin-settings.php:254
+#: assets/templates/tmpl-plugin-settings.php:259
 msgid ""
 "Allows the LayerSlider widget for Elementor, which makes it easy to insert "
 "projects into your pages. Disable only if you’re experiencing issues with "
@@ -6932,16 +6946,16 @@ msgstr ""
 "facilement des projets dans vos pages. Ne le désactivez que si vous "
 "rencontrez des problèmes avec l'éditeur."
 
-#: assets/templates/tmpl-plugin-settings.php:265
+#: assets/templates/tmpl-plugin-settings.php:270
 msgid "Performance mode"
 msgstr "Mode Performance"
 
-#: assets/templates/tmpl-plugin-settings.php:271
+#: assets/templates/tmpl-plugin-settings.php:276
 #: assets/views/system-status.php:273
 msgid "Use markup caching"
 msgstr "Utiliser la mise en cache des balises"
 
-#: assets/templates/tmpl-plugin-settings.php:274
+#: assets/templates/tmpl-plugin-settings.php:279
 msgid ""
 "Enabling caching can drastically increase the plugin performance and spare "
 "your server from unnecessary load. However, this might be unnecessary if you "
@@ -6953,15 +6967,15 @@ msgstr ""
 "peut être inutile si vous disposez déjà d'une extension de mise en cache, et "
 "cela peut poser des problèmes pour les extensions de localisation."
 
-#: assets/templates/tmpl-plugin-settings.php:275
+#: assets/templates/tmpl-plugin-settings.php:280
 msgid "Empty caches"
 msgstr "Vider les caches"
 
-#: assets/templates/tmpl-plugin-settings.php:280
+#: assets/templates/tmpl-plugin-settings.php:285
 msgid "Include scripts in the footer"
 msgstr "Inclure les scripts dans le pied de page"
 
-#: assets/templates/tmpl-plugin-settings.php:282
+#: assets/templates/tmpl-plugin-settings.php:287
 msgid ""
 "Including resources in the footer can improve load times and solve other "
 "type of issues. Outdated themes might not support this method."
@@ -6970,11 +6984,11 @@ msgstr ""
 "chargement et résoudre d'autres types de problèmes. Les thèmes obsolètes "
 "pourraient ne pas supporter cette méthode."
 
-#: assets/templates/tmpl-plugin-settings.php:286
+#: assets/templates/tmpl-plugin-settings.php:291
 msgid "Conditional script loading"
 msgstr "Chargement du script conditionnel"
 
-#: assets/templates/tmpl-plugin-settings.php:288
+#: assets/templates/tmpl-plugin-settings.php:293
 msgid ""
 "Increase your site’s performance by loading resources only when necessary. "
 "Outdated themes might not support this method."
@@ -6983,11 +6997,11 @@ msgstr ""
 "seulement quand c'est nécessaire. Les thèmes obsolètes pourraient ne pas "
 "supporter cette méthode."
 
-#: assets/templates/tmpl-plugin-settings.php:292
+#: assets/templates/tmpl-plugin-settings.php:297
 msgid "Concatenate output"
 msgstr "Concaténer la production"
 
-#: assets/templates/tmpl-plugin-settings.php:294
+#: assets/templates/tmpl-plugin-settings.php:299
 msgid ""
 "Concatenating the plugin’s output could solve issues caused by custom "
 "filters your theme might use."
@@ -6995,11 +7009,11 @@ msgstr ""
 "Concaténer la production du plugin pourrait résoudre les problèmes causés "
 "par des filtres personnalisés que votre thème pourrait utiliser."
 
-#: assets/templates/tmpl-plugin-settings.php:298
+#: assets/templates/tmpl-plugin-settings.php:303
 msgid "Defer JavaScript loading"
 msgstr "Différer le chargement JavaScript"
 
-#: assets/templates/tmpl-plugin-settings.php:300
+#: assets/templates/tmpl-plugin-settings.php:305
 msgid ""
 "Eliminates render-blocking JavaScript files, but might also delay a bit "
 "displaying projects above the fold."
@@ -7007,11 +7021,11 @@ msgstr ""
 "Élimine les fichiers JavaScript bloquant le rendu, mais peut aussi retarder "
 "un peu l'affichage des projets avant le défilement."
 
-#: assets/templates/tmpl-plugin-settings.php:304
+#: assets/templates/tmpl-plugin-settings.php:309
 msgid "Use “loading” attribute"
 msgstr "Utiliser l'attribut \"loading\""
 
-#: assets/templates/tmpl-plugin-settings.php:306
+#: assets/templates/tmpl-plugin-settings.php:311
 msgid ""
 "Enables the use of the HTML native lazy loading feature. LayerSlider has its "
 "own lazy loading mechanism more suitable for general use and we recommend "
@@ -7021,7 +7035,7 @@ msgstr ""
 "a son propre mécanisme de Lazy loading plus adapté à une utilisation "
 "générale et nous vous recommandons de ne pas activer cette option."
 
-#: assets/templates/tmpl-plugin-settings.php:316
+#: assets/templates/tmpl-plugin-settings.php:321
 #, php-format
 msgid ""
 "Visiting %sSystem Status%s is recommended if you’re experiencing issues on "
@@ -7030,12 +7044,12 @@ msgstr ""
 "Consulter %sStatut système%s est recommandé si vous rencontrez des problèmes "
 "sur votre site ou avec LayerSlider."
 
-#: assets/templates/tmpl-plugin-settings.php:321
+#: assets/templates/tmpl-plugin-settings.php:326
 #: assets/views/system-status.php:279
 msgid "Clear 3rd party caches"
 msgstr "Effacer les caches des tiers"
 
-#: assets/templates/tmpl-plugin-settings.php:323
+#: assets/templates/tmpl-plugin-settings.php:328
 msgid ""
 "Attempts to automatically clear the caches of the most popular caching "
 "plugins. It can help to avoid certain issues like changes not showing up on "
@@ -7045,12 +7059,24 @@ msgstr ""
 "les plus populaires. Cela peut aider à éviter certains problèmes comme les "
 "modifications qui n'apparaissent pas sur vos pages front-end."
 
-#: assets/templates/tmpl-plugin-settings.php:327
+#: assets/templates/tmpl-plugin-settings.php:332
+msgid "Fix 3rd party optimizer issues"
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:334
+msgid ""
+"This setting resolves conflicts caused by third-party optimizer plugins that "
+"may apply incorrect optimizations to scripts, such as adding the defer "
+"attribute to critical scripts. Enabling this option helps ensure proper "
+"script loading and improves site stability."
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:338
 #: assets/views/system-status.php:286
 msgid "No-conflict mode"
 msgstr "Mode sans conflit"
 
-#: assets/templates/tmpl-plugin-settings.php:328
+#: assets/templates/tmpl-plugin-settings.php:339
 msgid ""
 "Do not enable this option unless you’re experiencing issues on LayerSlider’s "
 "admin screens. This option can be helpful in some cases but can easily cause "
@@ -7061,7 +7087,7 @@ msgstr ""
 "dans certains cas mais peut facilement causer d'autres problèmes et effets "
 "secondaires. Voulez-vous poursuivre ?"
 
-#: assets/templates/tmpl-plugin-settings.php:329
+#: assets/templates/tmpl-plugin-settings.php:340
 msgid ""
 "Removes extraneous scripts and styles on LayerSlider admin pages to reduce "
 "conflicts with 3rd party plugins and themes. Disable this option if you "
@@ -7071,11 +7097,11 @@ msgstr ""
 "LayerSlider afin de réduire les conflits avec les plugins et thèmes tiers. "
 "Désactivez cette option si vous rencontrez des problèmes."
 
-#: assets/templates/tmpl-plugin-settings.php:333
+#: assets/templates/tmpl-plugin-settings.php:344
 msgid "RocketScript compatibility"
 msgstr "Compatibilité RocketScript"
 
-#: assets/templates/tmpl-plugin-settings.php:335
+#: assets/templates/tmpl-plugin-settings.php:346
 msgid ""
 "Enable this option to ignore LayerSlider files by CloudFlare’s Rocket "
 "Loader, which can help overcoming potential issues."
@@ -7083,11 +7109,11 @@ msgstr ""
 "Activez cette option pour ignorer les fichiers LayerSlider par Rocket Loader "
 "de CloudFlare, ce qui peut aider à surmonter les problèmes potentiels."
 
-#: assets/templates/tmpl-plugin-settings.php:339
+#: assets/templates/tmpl-plugin-settings.php:350
 msgid "Always load all JavaScript files"
 msgstr "Toujours charger tous les fichiers JavaScript"
 
-#: assets/templates/tmpl-plugin-settings.php:341
+#: assets/templates/tmpl-plugin-settings.php:352
 msgid ""
 "Enabling this option will likely help if you’re experiencing issues with CDN "
 "services or JavaScript minify/combine features in a 3rd party plugin. "
@@ -7100,12 +7126,12 @@ msgstr ""
 "performances puisque les ressources ne seront pas chargées "
 "conditionnellement."
 
-#: assets/templates/tmpl-plugin-settings.php:345
+#: assets/templates/tmpl-plugin-settings.php:356
 #: assets/views/system-status.php:292
 msgid "Use GreenSock (GSAP) sandboxing"
 msgstr "Utiliser le sandbox GreenSock (GSAP)"
 
-#: assets/templates/tmpl-plugin-settings.php:347
+#: assets/templates/tmpl-plugin-settings.php:358
 msgid ""
 "Leaving this option enabled is strongly recommended to maximize "
 "compatibility with other plugins and themes. Disabling it might cause "
@@ -7115,7 +7141,7 @@ msgstr ""
 "la compatibilité avec les autres plugins et thèmes. La désactiver pourrait "
 "causer des problèmes inattendus. Voulez-vous continuer ?"
 
-#: assets/templates/tmpl-plugin-settings.php:349
+#: assets/templates/tmpl-plugin-settings.php:360
 msgid ""
 "Enabling GreenSock sandboxing can solve issues when other plugins are using "
 "multiple/outdated versions of this library."
@@ -7124,12 +7150,12 @@ msgstr ""
 "d'autres extensions utilisent des versions multiples/obsolètes de cette "
 "bibliothèque."
 
-#: assets/templates/tmpl-plugin-settings.php:353
+#: assets/templates/tmpl-plugin-settings.php:364
 #: assets/views/system-status.php:298
 msgid "Use Google CDN version of jQuery"
 msgstr "Utiliser la version Google CDN de jQuery"
 
-#: assets/templates/tmpl-plugin-settings.php:354
+#: assets/templates/tmpl-plugin-settings.php:365
 msgid ""
 "Do not enable this option unless you’re experiencing issues with jQuery on "
 "your site. This option can easily cause unexpected issues when used "
@@ -7139,7 +7165,7 @@ msgstr ""
 "jQuery sur votre site. Cette option peut facilement causer des problèmes "
 "inattendus si elle est mal utilisée. Voulez-vous poursuivre?"
 
-#: assets/templates/tmpl-plugin-settings.php:355
+#: assets/templates/tmpl-plugin-settings.php:366
 msgid ""
 "This option will likely solve “Old jQuery” issues, but can easily have other "
 "side effects. Use it only when it is necessary."
@@ -7148,11 +7174,11 @@ msgstr ""
 "facilement avoir d'autres effets secondaires. Utilisez-la uniquement lorsque "
 "cela est nécessaire."
 
-#: assets/templates/tmpl-plugin-settings.php:359
+#: assets/templates/tmpl-plugin-settings.php:370
 msgid "Scripts priority"
 msgstr "Priorité des scripts"
 
-#: assets/templates/tmpl-plugin-settings.php:361
+#: assets/templates/tmpl-plugin-settings.php:372
 msgid ""
 "Used to specify the order in which scripts are loaded. Lower numbers "
 "correspond with earlier execution."
@@ -7160,19 +7186,19 @@ msgstr ""
 "Utilisé pour spécifier l'ordre dans lequel les scripts sont chargés. Les "
 "chiffres les plus bas correspondent à une exécution plus précoce."
 
-#: assets/templates/tmpl-plugin-settings.php:374
+#: assets/templates/tmpl-plugin-settings.php:385
 msgid "Use srcset attribute"
 msgstr "Utiliser l'attribut srcset"
 
-#: assets/templates/tmpl-plugin-settings.php:380
+#: assets/templates/tmpl-plugin-settings.php:391
 msgid "Enhanced lazy load"
 msgstr "Lazy load amélioré"
 
-#: assets/templates/tmpl-plugin-settings.php:392
+#: assets/templates/tmpl-plugin-settings.php:403
 msgid "Enable “Play By Scroll”"
 msgstr "Activer \"Play By Scroll\" (lecture par défilement)"
 
-#: assets/templates/tmpl-plugin-settings.php:394
+#: assets/templates/tmpl-plugin-settings.php:405
 msgid ""
 "“Play By Scroll” is a discontinued feature replaced by Scroll Scene. Sliders "
 "using “Play By Scroll” remain working as expected, but we’re hiding this "
@@ -7184,11 +7210,11 @@ msgstr ""
 "fonctionner comme attendu mais par défaut nous masquons cette fonctionnalité "
 "en raison de sa désuétude et de son retrait éventuel de LayerSlider."
 
-#: assets/templates/tmpl-plugin-settings.php:398
+#: assets/templates/tmpl-plugin-settings.php:409
 msgid "Suppress debug info"
 msgstr "Supprimer les infos de débogage"
 
-#: assets/templates/tmpl-plugin-settings.php:400
+#: assets/templates/tmpl-plugin-settings.php:411
 msgid ""
 "Hides useful information such as the version number in the browser’s debug "
 "console and in the site HTML markup. We recommend leaving this option "
@@ -7375,7 +7401,7 @@ msgstr "Réglages Projet"
 
 #: assets/templates/tmpl-project-settings.php:22
 #: assets/templates/tmpl-project-settings.php:111
-#: assets/views/project-editor.php:10238 assets/wp/scripts_l10n.php:15
+#: assets/views/project-editor.php:10280 assets/wp/scripts_l10n.php:15
 msgid "Publish"
 msgstr "Publier"
 
@@ -8281,7 +8307,7 @@ msgid "Unhide"
 msgstr "Rendre visible"
 
 #: assets/templates/tmpl-sliders-list-context-menu.php:38
-#: assets/views/dashboard.php:572 assets/views/project-editor.php:10365
+#: assets/views/dashboard.php:572 assets/views/project-editor.php:10407
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -8358,7 +8384,7 @@ msgid "Circle"
 msgstr "Cercle"
 
 #: assets/templates/tmpl-smart-help.php:107
-#: assets/views/project-editor.php:10467
+#: assets/views/project-editor.php:10509
 msgid "Center Center"
 msgstr "Centré au centre"
 
@@ -9995,7 +10021,7 @@ msgid "Drop Shadow"
 msgstr "Ombre portée"
 
 #: assets/templates/tmpl-smart-help.php:1491
-#: assets/views/project-editor.php:10694
+#: assets/views/project-editor.php:10736
 msgid "Grayscale"
 msgstr "Niveau de gris"
 
@@ -10796,7 +10822,7 @@ msgstr "Créer un groupe à partir de la sélection"
 msgid "Merge selected as new"
 msgstr "Fusionner la sélection comme nouvelle"
 
-#: assets/views/dashboard.php:737 assets/views/project-editor.php:10359
+#: assets/views/dashboard.php:737 assets/views/project-editor.php:10401
 msgid "Apply"
 msgstr "Appliquer"
 
@@ -11318,7 +11344,7 @@ msgstr "Réglages de calque"
 msgid "Layers List"
 msgstr "Liste des calques"
 
-#: assets/views/project-editor.php:963 assets/views/project-editor.php:10377
+#: assets/views/project-editor.php:963 assets/views/project-editor.php:10419
 msgid "Add Layer"
 msgstr "Ajouter Calque"
 
@@ -13014,20 +13040,30 @@ msgstr "OK"
 msgid "Show more embed options"
 msgstr "Afficher plus d'options d'intégration"
 
-#: assets/views/project-editor.php:10232 assets/views/project-editor.php:10362
+#: assets/views/project-editor.php:10229
+msgid "Dont’t forget to update your project’s translations."
+msgstr ""
+
+#: assets/views/project-editor.php:10257
+#, fuzzy
+#| msgid "String Translation"
+msgid "Go to String Translation"
+msgstr "Traduction de chaîne"
+
+#: assets/views/project-editor.php:10274 assets/views/project-editor.php:10404
 #: assets/wp/scripts_l10n.php:11
 msgid "Save"
 msgstr "Enregistrer"
 
-#: assets/views/project-editor.php:10233
+#: assets/views/project-editor.php:10275
 msgid "Saving"
 msgstr "Enregistrement"
 
-#: assets/views/project-editor.php:10239
+#: assets/views/project-editor.php:10281
 msgid "Publishing"
 msgstr "Publication"
 
-#: assets/views/project-editor.php:10266
+#: assets/views/project-editor.php:10308
 msgid ""
 "The transition property will be normalized regarding to the current "
 "responsive ratio of the slider."
@@ -13035,33 +13071,33 @@ msgstr ""
 "La propriété de transition sera normalisée en fonction du ratio adaptatif "
 "actuel du diaporama."
 
-#: assets/views/project-editor.php:10269
+#: assets/views/project-editor.php:10311
 msgid ""
 "The transition will play backward after the layer leaves its center point."
 msgstr ""
 "La transition sera jouée en arrière après que le calque ait quitté son point "
 "central."
 
-#: assets/views/project-editor.php:10272
+#: assets/views/project-editor.php:10314
 msgid "The transition will start from the opposite value of this property."
 msgstr ""
 "La transition commencera à partir de la valeur opposée de cette propriété."
 
-#: assets/views/project-editor.php:10276
+#: assets/views/project-editor.php:10318
 msgid "Restore to defaults"
 msgstr "Restaurer les valeurs par défaut"
 
-#: assets/views/project-editor.php:10281
+#: assets/views/project-editor.php:10323
 msgid "Advanced Option"
 msgstr "Options avancées"
 
-#: assets/views/project-editor.php:10284
+#: assets/views/project-editor.php:10326
 msgid "This feature requires license registration. Click to learn more."
 msgstr ""
 "Cette fonctionnalité nécessite l'enregistrement d'une licence. Cliquez pour "
 "en savoir plus."
 
-#: assets/views/project-editor.php:10287
+#: assets/views/project-editor.php:10329
 msgid ""
 "Triggers all hover transitions at once when moving the mouse cursor over or "
 "tapping on the slide."
@@ -13069,7 +13105,7 @@ msgstr ""
 "Déclenche toutes les transitions au survol en une fois quand le curseur de "
 "la souris passe sur la diapo ou que l'on tape dessus."
 
-#: assets/views/project-editor.php:10290
+#: assets/views/project-editor.php:10332
 msgid ""
 "In some cases your layers may be wrapped by another element. For example, an "
 "＜A＞ tag when you use layer linking. By default, new attributes will be "
@@ -13087,307 +13123,307 @@ msgstr ""
 "lorsque vous devez appliquer cet attribut sur l'élément calque dans tous les "
 "cas."
 
-#: assets/views/project-editor.php:10293
+#: assets/views/project-editor.php:10335
 msgid "Set layers list position"
 msgstr "Définir la position de la liste des calques"
 
-#: assets/views/project-editor.php:10296
+#: assets/views/project-editor.php:10338
 msgid "Dock layers list"
 msgstr "Ancrer la liste des calques"
 
-#: assets/views/project-editor.php:10299
+#: assets/views/project-editor.php:10341
 msgid "Pin layers list"
 msgstr "Épingler la liste des calques"
 
-#: assets/views/project-editor.php:10302
+#: assets/views/project-editor.php:10344
 msgid "Close layers list"
 msgstr "Fermer la liste des calques"
 
-#: assets/views/project-editor.php:10305
+#: assets/views/project-editor.php:10347
 msgid "Pin slides list"
 msgstr "Epingler la liste des diapos"
 
-#: assets/views/project-editor.php:10308
+#: assets/views/project-editor.php:10350
 msgid "Unpin slides list"
 msgstr "Désépingler la liste des diapos"
 
-#: assets/views/project-editor.php:10311
+#: assets/views/project-editor.php:10353
 #, fuzzy
 #| msgid "Copy style properties"
 msgid "Copy all style properties"
 msgstr "Copier les propriétés de style"
 
-#: assets/views/project-editor.php:10314
+#: assets/views/project-editor.php:10356
 #, fuzzy
 #| msgid "Paste style properties"
 msgid "Paste all style properties"
 msgstr "Coller les propriétés de style"
 
-#: assets/views/project-editor.php:10317
+#: assets/views/project-editor.php:10359
 #, fuzzy
 #| msgid "Copy transition properties"
 msgid "Copy all transition properties"
 msgstr "Copier les propriétés de transition"
 
-#: assets/views/project-editor.php:10320
+#: assets/views/project-editor.php:10362
 #, fuzzy
 #| msgid "Paste transition properties"
 msgid "Paste all transition properties"
 msgstr "Coller les propriétés de transition"
 
-#: assets/views/project-editor.php:10323
+#: assets/views/project-editor.php:10365
 #, fuzzy
 #| msgid "Countdown settings"
 msgid "Copy section settings"
 msgstr "Paramètres du décompte"
 
-#: assets/views/project-editor.php:10326
+#: assets/views/project-editor.php:10368
 #, fuzzy
 #| msgid "Paste layer settings"
 msgid "Paste section settings"
 msgstr "Coller les réglages de calque"
 
-#: assets/views/project-editor.php:10329
+#: assets/views/project-editor.php:10371
 msgid "Expand / shrink sidebar"
 msgstr "Agrandir / réduire la barre latérale"
 
-#: assets/views/project-editor.php:10332
+#: assets/views/project-editor.php:10374
 msgid "Align item to top left"
 msgstr "Aligner l'élément en haut à gauche"
 
-#: assets/views/project-editor.php:10335
+#: assets/views/project-editor.php:10377
 msgid "Align item to top center"
 msgstr "Aligner l'élément en haut au centre"
 
-#: assets/views/project-editor.php:10338
+#: assets/views/project-editor.php:10380
 msgid "Align item to top right"
 msgstr "Aligner l'élément en haut à droite"
 
-#: assets/views/project-editor.php:10341
+#: assets/views/project-editor.php:10383
 msgid "Align item to center left"
 msgstr "Aligner l'élément au centre gauche"
 
-#: assets/views/project-editor.php:10344
+#: assets/views/project-editor.php:10386
 msgid "Align item to center center"
 msgstr "Aligner l'élément au centre"
 
-#: assets/views/project-editor.php:10347
+#: assets/views/project-editor.php:10389
 msgid "Align item to center right"
 msgstr "Aligner l'élément au centre droit"
 
-#: assets/views/project-editor.php:10350
+#: assets/views/project-editor.php:10392
 msgid "Align item to bottom left"
 msgstr "Aligner l'élément en bas à gauche"
 
-#: assets/views/project-editor.php:10353
+#: assets/views/project-editor.php:10395
 msgid "Align item to bottom center"
 msgstr "Aligner l'élément en bas au centre"
 
-#: assets/views/project-editor.php:10356
+#: assets/views/project-editor.php:10398
 msgid "Align item to bottom right"
 msgstr "Aligner l'élément en bas à droite"
 
-#: assets/views/project-editor.php:10426
+#: assets/views/project-editor.php:10468
 msgid "Overlapping Layers"
 msgstr "Calques superposés"
 
-#: assets/views/project-editor.php:10434
+#: assets/views/project-editor.php:10476
 msgid "Align Layer"
 msgstr "Aligner le calque"
 
-#: assets/views/project-editor.php:10435
+#: assets/views/project-editor.php:10477
 msgid "Align Layers"
 msgstr "Aligner les calques"
 
-#: assets/views/project-editor.php:10441 assets/views/project-editor.php:10480
+#: assets/views/project-editor.php:10483 assets/views/project-editor.php:10522
 msgid "Left Edge"
 msgstr "Bord gauche"
 
-#: assets/views/project-editor.php:10445 assets/views/project-editor.php:10484
+#: assets/views/project-editor.php:10487 assets/views/project-editor.php:10526
 msgid "Horizontal Center"
 msgstr "Centre horizontal"
 
-#: assets/views/project-editor.php:10449 assets/views/project-editor.php:10488
+#: assets/views/project-editor.php:10491 assets/views/project-editor.php:10530
 msgid "Right Edge"
 msgstr "Bord droit"
 
-#: assets/views/project-editor.php:10454 assets/views/project-editor.php:10493
+#: assets/views/project-editor.php:10496 assets/views/project-editor.php:10535
 msgid "Top Edge"
 msgstr "Bord haut"
 
-#: assets/views/project-editor.php:10458 assets/views/project-editor.php:10497
+#: assets/views/project-editor.php:10500 assets/views/project-editor.php:10539
 msgid "Vertical Center"
 msgstr "Vertical centre"
 
-#: assets/views/project-editor.php:10462 assets/views/project-editor.php:10501
+#: assets/views/project-editor.php:10504 assets/views/project-editor.php:10543
 msgid "Bottom Edge"
 msgstr "Bord bas"
 
-#: assets/views/project-editor.php:10474
+#: assets/views/project-editor.php:10516
 msgid "Align Layers in Selection"
 msgstr "Aligner les calques dans la sélection"
 
-#: assets/views/project-editor.php:10511
+#: assets/views/project-editor.php:10553
 msgid "Duplicate Layer"
 msgstr "Dupliquer le Calque"
 
-#: assets/views/project-editor.php:10512
+#: assets/views/project-editor.php:10554
 msgid "Duplicate Layers"
 msgstr "Dupliquer les calques"
 
-#: assets/views/project-editor.php:10521 assets/wp/scripts_l10n.php:340
+#: assets/views/project-editor.php:10563 assets/wp/scripts_l10n.php:340
 msgid "Remove Layer"
 msgstr "Supprimer le calque"
 
-#: assets/views/project-editor.php:10522 assets/wp/scripts_l10n.php:344
+#: assets/views/project-editor.php:10564 assets/wp/scripts_l10n.php:344
 msgid "Remove Layers"
 msgstr "Supprimer les calques"
 
-#: assets/views/project-editor.php:10527
+#: assets/views/project-editor.php:10569
 msgid "Copy Layer"
 msgstr "Copier le calque"
 
-#: assets/views/project-editor.php:10528
+#: assets/views/project-editor.php:10570
 msgid "Copy Layers"
 msgstr "Copier les calques"
 
-#: assets/views/project-editor.php:10537
+#: assets/views/project-editor.php:10579
 msgid "Paste Layer"
 msgstr "Coller le calque"
 
-#: assets/views/project-editor.php:10538
+#: assets/views/project-editor.php:10580
 msgid "Paste Layers"
 msgstr "Coller les calques"
 
-#: assets/views/project-editor.php:10548
+#: assets/views/project-editor.php:10590
 msgid "Toggle Layer Visibility"
 msgstr "Modifier la visibilité des calques"
 
-#: assets/views/project-editor.php:10549
+#: assets/views/project-editor.php:10591
 msgid "Toggle Layers Visibility"
 msgstr "Modifier la visibilité des calques"
 
-#: assets/views/project-editor.php:10553
+#: assets/views/project-editor.php:10595
 msgid "Toggle Layer Locking"
 msgstr "Modifier le verrouillage des calques"
 
-#: assets/views/project-editor.php:10554
+#: assets/views/project-editor.php:10596
 msgid "Toggle Layers Locking"
 msgstr "Modifier le verrouillage des calques"
 
-#: assets/views/project-editor.php:10559
+#: assets/views/project-editor.php:10601
 msgid "Copy Layer Styles"
 msgstr "Copier les styles de calque"
 
-#: assets/views/project-editor.php:10563
+#: assets/views/project-editor.php:10605
 msgid "Paste Layer Styles"
 msgstr "Coller les styles de calque"
 
-#: assets/views/project-editor.php:10570
+#: assets/views/project-editor.php:10612
 msgid "Pick image"
 msgstr "Choisir l'image"
 
-#: assets/views/project-editor.php:10571
+#: assets/views/project-editor.php:10613
 msgid "Use post image"
 msgstr "Utiliser l'image de l'article"
 
-#: assets/views/project-editor.php:10572
+#: assets/views/project-editor.php:10614
 msgid "Enter from URL"
 msgstr "Entrer depuis l'URL"
 
-#: assets/views/project-editor.php:10574
+#: assets/views/project-editor.php:10616
 msgid "Image editor"
 msgstr "Éditeur d'images"
 
-#: assets/views/project-editor.php:10576
+#: assets/views/project-editor.php:10618
 msgid "Remove image"
 msgstr "Supprimer image"
 
-#: assets/views/project-editor.php:10584
+#: assets/views/project-editor.php:10626
 msgid "Duplicate Slide"
 msgstr "Dupliquer la diapo"
 
-#: assets/views/project-editor.php:10588
+#: assets/views/project-editor.php:10630
 msgid "Unpublish Slide"
 msgstr "Masquer la diapo"
 
-#: assets/views/project-editor.php:10592
+#: assets/views/project-editor.php:10634
 msgid "Publish Slide"
 msgstr "Publier la diapo"
 
-#: assets/views/project-editor.php:10596 assets/wp/scripts_l10n.php:335
+#: assets/views/project-editor.php:10638 assets/wp/scripts_l10n.php:335
 msgid "Remove Slide"
 msgstr "Retirer la diapo"
 
-#: assets/views/project-editor.php:10601
+#: assets/views/project-editor.php:10643
 msgid "Generate Thumbnail"
 msgstr "Générer une miniature"
 
-#: assets/views/project-editor.php:10608
+#: assets/views/project-editor.php:10650
 msgid "Sidebar Settings"
 msgstr "Réglages de la barre latérale"
 
-#: assets/views/project-editor.php:10615
+#: assets/views/project-editor.php:10657
 msgid "Section tabs"
 msgstr "Onglets de section"
 
-#: assets/views/project-editor.php:10619
+#: assets/views/project-editor.php:10661
 msgid "Expand all"
 msgstr "Étendre tout"
 
-#: assets/views/project-editor.php:10628
+#: assets/views/project-editor.php:10670
 msgid "Collapse all"
 msgstr "Tout réduire"
 
-#: assets/views/project-editor.php:10634
+#: assets/views/project-editor.php:10676
 msgid "Auto close"
 msgstr "Fermeture automatique"
 
-#: assets/views/project-editor.php:10643
+#: assets/views/project-editor.php:10685
 msgid "Layers List Pos."
 msgstr "Liste des calques Pos."
 
-#: assets/views/project-editor.php:10648
+#: assets/views/project-editor.php:10690
 msgid "Left side"
 msgstr "Côté gauche"
 
-#: assets/views/project-editor.php:10649
+#: assets/views/project-editor.php:10691
 msgid "Right side"
 msgstr "Côté droit"
 
-#: assets/views/project-editor.php:10656
+#: assets/views/project-editor.php:10698
 msgid "Pin Layers List"
 msgstr "Épingler la liste des calques"
 
-#: assets/views/project-editor.php:10665
+#: assets/views/project-editor.php:10707
 msgid "Show Quick Tip when publishing"
 msgstr "Afficher le conseil rapide lors de la publication"
 
-#: assets/views/project-editor.php:10678
+#: assets/views/project-editor.php:10720
 msgid "Workspace Settings"
 msgstr "Réglages de l’espace de travail"
 
-#: assets/views/project-editor.php:10686
+#: assets/views/project-editor.php:10728
 msgid "Editor Theme"
 msgstr "Thème de l&#39;éditeur"
 
-#: assets/views/project-editor.php:10692
+#: assets/views/project-editor.php:10734
 msgid "Default (Dark)"
 msgstr "Par défaut (Sombre)"
 
-#: assets/views/project-editor.php:10701
+#: assets/views/project-editor.php:10743
 msgid "Show rulers"
 msgstr "Afficher les règles"
 
-#: assets/views/project-editor.php:10707
+#: assets/views/project-editor.php:10749
 msgid "Show guides"
 msgstr "Afficher les guides"
 
-#: assets/views/project-editor.php:10713
+#: assets/views/project-editor.php:10755
 msgid "Show info panel"
 msgstr "Afficher le panneau d'information"
 
-#: assets/views/project-editor.php:10722
+#: assets/views/project-editor.php:10764
 msgid "Workspace Padding"
 msgstr "Marge intérieure de l'espace de travail"
 
@@ -14080,11 +14116,11 @@ msgstr " %s depuis"
 msgid "Unnamed Project"
 msgstr "Projet non nommé"
 
-#: assets/wp/actions.php:1233 assets/wp/scripts_l10n.php:125
+#: assets/wp/actions.php:1238 assets/wp/scripts_l10n.php:125
 msgid "Import Error"
 msgstr "Erreur d'importation"
 
-#: assets/wp/actions.php:1234
+#: assets/wp/actions.php:1239
 #, php-format
 msgid ""
 "It seems there is a server issue that prevented LayerSlider from importing "
@@ -14100,7 +14136,7 @@ msgstr ""
 "résoudre les problèmes de configuration du serveur. Réessayer l'import peut "
 "également aider."
 
-#: assets/wp/actions.php:1280
+#: assets/wp/actions.php:1285
 #, php-format
 msgid ""
 "LayerSlider couldn’t save the downloaded template on your server. Please "
@@ -14113,11 +14149,11 @@ msgstr ""
 "raison la plus courante de ce problème est le manque de droits d'écriture "
 "sur le répertoire /wp-content/uploads/."
 
-#: assets/wp/actions.php:1327
+#: assets/wp/actions.php:1332
 msgid "Imported Group"
 msgstr "Groupe importé"
 
-#: assets/wp/actions.php:1469 assets/wp/actions.php:1497
+#: assets/wp/actions.php:1474 assets/wp/actions.php:1502
 msgid ""
 "It looks like your files isn’t writable, so PHP couldn’t make any changes "
 "(CHMOD)."
@@ -14125,23 +14161,23 @@ msgstr ""
 "Il semble que vos fichiers ne soient pas accessibles en écriture, si bien "
 "que PHP ne peut pas apporter de modifications (CHMOD)."
 
-#: assets/wp/actions.php:1469 assets/wp/actions.php:1497
+#: assets/wp/actions.php:1474 assets/wp/actions.php:1502
 msgid "Cannot write to file"
 msgstr "Impossible d'écrire dans le fichier"
 
-#: assets/wp/actions.php:1483
+#: assets/wp/actions.php:1488
 msgid "It looks like you haven’t selected any skin to edit."
 msgstr "Il semble que vous n'ayez sélectionné aucun thème à éditer."
 
-#: assets/wp/actions.php:1483
+#: assets/wp/actions.php:1488
 msgid "No skin selected."
 msgstr "Pas de thème sélectionné."
 
-#: assets/wp/actions.php:1875 assets/wp/actions.php:2053
+#: assets/wp/actions.php:1933 assets/wp/actions.php:2111
 msgid "Assets library requires license registration"
 msgstr "La bibliothèque de ressources nécessite l'enregistrement d'une licence"
 
-#: assets/wp/actions.php:1876 assets/wp/actions.php:2054
+#: assets/wp/actions.php:1934 assets/wp/actions.php:2112
 msgid ""
 "An error occurred while we tried to validate your LayerSlider license. "
 "Please verify that you’re using a genuine copy of LayerSlider and that "
@@ -14151,12 +14187,12 @@ msgstr ""
 "LayerSlider. Veuillez vérifier que vous utilisez une copie authentique de "
 "LayerSlider et que vous avez enregistré une clé de licence valide."
 
-#: assets/wp/actions.php:1952 assets/wp/scripts_l10n.php:62
+#: assets/wp/actions.php:2010 assets/wp/scripts_l10n.php:62
 #: assets/wp/scripts_l10n.php:67
 msgid "Download Error"
 msgstr "Erreur de téléchargement"
 
-#: assets/wp/actions.php:1953 assets/wp/actions.php:2133
+#: assets/wp/actions.php:2011 assets/wp/actions.php:2191
 #: assets/wp/scripts_l10n.php:86
 #, php-format
 msgid ""
@@ -14171,7 +14207,7 @@ msgstr ""
 "plugins pour éliminer les problèmes d'incompatibilité, ou contactez votre "
 "hébergeur pour résoudre les problèmes de configuration du serveur."
 
-#: assets/wp/actions.php:2006 assets/wp/actions.php:2142
+#: assets/wp/actions.php:2064 assets/wp/actions.php:2200
 #, php-format
 msgid ""
 "LayerSlider couldn’t save the downloaded asset on your server. Please check "
@@ -14183,12 +14219,12 @@ msgstr ""
 "potentiels. La raison la plus courante de ce problème est l'absence de "
 "droits d'écriture sur le répertoire /wp-content/uploads/."
 
-#: assets/wp/actions.php:2086 assets/wp/actions.php:2189
+#: assets/wp/actions.php:2144 assets/wp/actions.php:2247
 #: assets/wp/scripts_l10n.php:355
 msgid "Server Error"
 msgstr "Erreur Serveur"
 
-#: assets/wp/actions.php:2087 assets/wp/actions.php:2190
+#: assets/wp/actions.php:2145 assets/wp/actions.php:2248
 #: assets/wp/scripts_l10n.php:84
 #, php-format
 msgid ""
@@ -14204,7 +14240,7 @@ msgstr ""
 "plugins pour éliminer les problèmes d'incompatibilité ou contactez votre "
 "hébergeur pour résoudre les problèmes de configuration du serveur."
 
-#: assets/wp/actions.php:2108 assets/wp/scripts_l10n.php:82
+#: assets/wp/actions.php:2166 assets/wp/scripts_l10n.php:82
 msgid ""
 "It seems the remote API is experiencing a temporary outage, and we couldn’t "
 "load the assets you’re looking for. Please try again in a few minutes."
@@ -14319,15 +14355,15 @@ msgstr ""
 "direct et des avantages Premium. %sAchetez une licence%s ou %slisez la "
 "documentation%s pour en savoir plus."
 
-#: assets/wp/scripts.php:465
+#: assets/wp/scripts.php:478
 msgid "Settings saved."
 msgstr "Réglages enregistrés."
 
-#: assets/wp/scripts.php:466
+#: assets/wp/scripts.php:479
 msgid "An error occurred while saving settings."
 msgstr "Une erreur s'est produite lors de l'enregistrement des réglages."
 
-#: assets/wp/scripts.php:467
+#: assets/wp/scripts.php:480
 msgid "Add-on disabled."
 msgstr "Extension désactivée."
 

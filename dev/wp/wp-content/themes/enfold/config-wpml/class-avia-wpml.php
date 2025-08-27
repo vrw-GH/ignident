@@ -808,7 +808,7 @@ if( ! class_exists( 'avia_WPML', false ) )
 			}
 
 			$translate = avia_font_manager::get_frontend_icon( 'book', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
-			$$translate_class = avia_font_manager::get_frontend_icon_classes( $translate['font'], 'string' );
+			$translate_class = avia_font_manager::get_frontend_icon_classes( $translate['font'], 'string' );
 
 			$link = 'data-external_link="' . $match[1] . '"';
 

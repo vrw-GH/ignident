@@ -1559,7 +1559,12 @@ $key .widget_display_stats dd{
 				.html_av-overlay-side #top #wrap_all .av-burger-overlay-scroll #av-burger-menu-ul a{color:$color}
 
 				.html_av-overlay-side.av-burger-overlay-active #top #wrap_all #header .menu-item-search-dropdown a{
-					color:$color
+					color:$color;
+				}
+
+				.html_av-overlay-side.av-burger-overlay-active #top #wrap_all #header .menu-item-search-dropdown a.avia-svg-icon svg:first-child{
+					fill: $color;
+					stroke: $color;
 				}
 
 				.html_av-overlay-side-classic #top .av-burger-overlay li li .avia-bullet,

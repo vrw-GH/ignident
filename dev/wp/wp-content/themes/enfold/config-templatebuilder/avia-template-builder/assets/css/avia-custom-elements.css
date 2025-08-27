@@ -358,6 +358,15 @@ body.post-type-alb_elements.post-php.avia-no-terms #avia_builder.element-added #
 	display: none;
 }
 
+.avia-modal .avia-form-element-container.avia-locked-input-element.avia-element-checkbox .av-toggle-switch.avia-locked-data-value{
+	border-style: none;
+	margin-top: 14px;
+}
+
+.avia-modal .avia-form-element-container.avia-locked-input-element.avia-element-checkbox .av-toggle-switch.avia-locked-data-value .toggle-track{
+	border: 2px solid #D54E21;
+}
+
 .avia-modal .avia-form-element-container.av-select-element-template .avia-modal-group-wrapper .avia-clone{
 	display: block;
 }
