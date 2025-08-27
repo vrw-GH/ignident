@@ -186,7 +186,7 @@ class UpdraftPlus_Tour {
 					.' <a href="'.apply_filters('updraftplus_com_link', 'https://updraftplus.com/updraftvault/').'" target="_blank">'.__('Find out more here.', 'updraftplus').'</a>'
 					.'<br>'
 					.__("If you have a valid Premium license, you get 1GB of storage included.", 'updraftplus')
-					.' <a href="'.apply_filters('updraftplus_com_link', 'https://updraftplus.com/shop/updraftplus-vault-storage-5-gb/').'" target="_blank" '.$checkout_embed_5gb_attribute.'>'.__('Otherwise, you can try UpdraftVault for 1 month for only $1!', 'updraftplus').'</a>'
+					.' <a href="'.apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_5')).'" target="_blank" '.$checkout_embed_5gb_attribute.'>'.__('Otherwise, you can try UpdraftVault for 1 month for only $1!', 'updraftplus').'</a>'
 					.'</div>'
 			);
 

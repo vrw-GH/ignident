@@ -66,6 +66,10 @@ var aviaJS = aviaJS || {};
 				{
 					window['wp'] = { hooks: {} };
 				}
+				else
+				{
+					window['wp'].hooks = {};
+				}
 
 				let obj = window['wp'].hooks;
 

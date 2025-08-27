@@ -2,9 +2,9 @@
 Contributors: emrevona
 Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
-Requires at least: 3.3
-Tested up to: 6.7
-Stable tag: 1.3.5
+Requires at least: 5.3
+Tested up to: 6.8
+Stable tag: 1.3.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,11 +81,11 @@ WP Fastest Cache is compatible with most popular plugins such as Contact Form 7,
 
 <h4>Supported Languages</h4>
 
-Although there are over 7000 languages spoken in the world today, we feel very lucky to support 28 languages for now.
+Although there are over 7000 languages spoken in the world today, we feel very lucky to support 30 languages for now.
 
 However, localizing or adapting a plugin to another language or culture is time consuming and a demanding task. That's where the amazing Translation Contributors team of WordPress comes into play. These selfless people spent their precious time without expecting anything in return so that other people can use the add-ons more easily. We sincerely thank all of them.
 
-Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium), Dutch (Netherlands), English (South Africa), English (UK), Finnish, French (France), Galician, German (Germany), Hungarian, Indonesian, Italian, Japanese, Korean (Korea), Persian, Russian, Slovak (Slovakia), Slovenian, Spanish (Argentina), Spanish (Colombia), Spanish (Ecuador), Spanish (Mexico), Spanish (Spain), Spanish (Venezuela), Swedish, Turkish
+Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium), Dutch (Netherlands), English (South Africa), English (UK), Finnish, French (France), Galician, German (Germany), Hungarian, Indonesian, Italian, Japanese, Korean (Korea), Persian, Russian, Slovak (Slovakia), Slovenian, Spanish (Argentina), Spanish (Chile), Spanish (Colombia), Spanish (Ecuador), Spanish (Mexico), Spanish (Spain), Spanish (Venezuela), Swedish, Turkish, Ukrainian
 
 == Installation ==
 
@@ -116,6 +116,23 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.3.8 =
+* Added a condition to exclude <script type="module"> tags from js combining 
+* Fixed: Issue where the cache was not being cleared when a page was deleted
+* Fixed: PHP fatal error caused by an undefined function current_datetime() in cache.php on line 1130
+* Added support for fetching and processing multiple pages of Cloudflare zones to ensure all potential matches are considered
+
+= 1.3.7 =
+* <strong>[Improvement]</strong> Serve cached content via .htaccess rules instead of PHP when URLs include the fbclid query string
+* <strong>[FEATURE]</strong> Added support for Spanish (Chile) and Ukrainian languages
+* to update translation files
+* to fix PHP Fatal error: Uncaught TypeError: method_exists(): Argument #1 ($object_or_class) must be of type object|string, array given in cdn.php:383
+* <strong>[Improvement]</strong> Added specific handling for BunnyCDN 403 errors
+
+= 1.3.6 =
+* Prevented unnecessary cache deletion for pending comments marked as spam or moved to trash
+* Updated caching behavior to serve URLs with Google Merchant Center query strings (e.g., /?srsltid) from the cache, improving performance
 
 = 1.3.5 =
 * Updated cache creation time display to follow WordPress date and time format settings

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: LayerSlider WP 7.14.0\n"
-"POT-Creation-Date: 2024-11-12 14:53+0100\n"
-"PO-Revision-Date: 2024-11-12 14:54+0100\n"
+"Project-Id-Version: LayerSlider WP 7.14.2\n"
+"POT-Creation-Date: 2025-01-15 16:13+0100\n"
+"PO-Revision-Date: 2025-01-15 16:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hu_HU\n"
@@ -863,7 +863,7 @@ msgstr ""
 msgid "Performance Mode"
 msgstr "Teljesítmény"
 
-#: assets/config/defaults.php:280 assets/templates/tmpl-plugin-settings.php:267
+#: assets/config/defaults.php:280 assets/templates/tmpl-plugin-settings.php:272
 msgid ""
 "Performance mode suspends every background activity when your sliders are "
 "out of the viewport and not visible. This can dramatically increase "
@@ -2549,7 +2549,7 @@ msgid "Use srcset Attribute"
 msgstr "Srcset attribútum használata"
 
 #: assets/config/defaults.php:1620
-#: assets/templates/tmpl-plugin-settings.php:376
+#: assets/templates/tmpl-plugin-settings.php:387
 msgid ""
 "The srcset attribute allows loading dynamically scaled images based on "
 "screen resolution. It can save bandwidth and allow using retina-ready images "
@@ -2562,7 +2562,7 @@ msgid "Enhanced Lazy Load"
 msgstr ""
 
 #: assets/config/defaults.php:1635
-#: assets/templates/tmpl-plugin-settings.php:382
+#: assets/templates/tmpl-plugin-settings.php:393
 msgid ""
 "The default lazy loading behavior ensures maximum compatibility and works "
 "ideally for general purposes. However, there is a chance that the browser "
@@ -4128,7 +4128,7 @@ msgstr ""
 
 #: assets/config/defaults.php:5020 assets/config/defaults.php:5226
 #: assets/templates/tmpl-add-layer.php:14 assets/views/project-editor.php:2246
-#: assets/views/project-editor.php:10387 assets/wp/scripts_l10n.php:374
+#: assets/views/project-editor.php:10429 assets/wp/scripts_l10n.php:374
 msgid "Text"
 msgstr "Szöveg"
 
@@ -5049,51 +5049,51 @@ msgid "Add New Layer"
 msgstr "Réteg hozzáadása"
 
 #: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:2245
-#: assets/views/project-editor.php:2335 assets/views/project-editor.php:10383
+#: assets/views/project-editor.php:2335 assets/views/project-editor.php:10425
 #: assets/wp/scripts_l10n.php:372
 msgid "Image"
 msgstr "Kép"
 
 #: assets/templates/tmpl-add-layer.php:18
 #: assets/templates/tmpl-project-settings.php:59
-#: assets/views/project-editor.php:2247 assets/views/project-editor.php:10391
+#: assets/views/project-editor.php:2247 assets/views/project-editor.php:10433
 #: assets/wp/scripts_l10n.php:376
 msgid "Video / Audio"
 msgstr "Videó / Audió"
 
 #: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:2248
-#: assets/views/project-editor.php:10395 assets/wp/scripts_l10n.php:322
+#: assets/views/project-editor.php:10437 assets/wp/scripts_l10n.php:322
 #: assets/wp/scripts_l10n.php:375
 msgid "Button"
 msgstr "Gomb"
 
-#: assets/templates/tmpl-add-layer.php:27 assets/views/project-editor.php:10399
+#: assets/templates/tmpl-add-layer.php:27 assets/views/project-editor.php:10441
 msgid "Asset"
 msgstr ""
 
 #: assets/templates/tmpl-add-layer.php:31 assets/views/project-editor.php:2249
-#: assets/views/project-editor.php:10403 assets/wp/scripts_l10n.php:379
+#: assets/views/project-editor.php:10445 assets/wp/scripts_l10n.php:379
 msgid "Shape"
 msgstr "Alakzat"
 
 #: assets/templates/tmpl-add-layer.php:35 assets/views/project-editor.php:2250
 #: assets/views/project-editor.php:2480 assets/views/project-editor.php:2992
-#: assets/views/project-editor.php:10407 assets/wp/scripts_l10n.php:373
+#: assets/views/project-editor.php:10449 assets/wp/scripts_l10n.php:373
 msgid "Icon"
 msgstr "Ikon"
 
 #: assets/templates/tmpl-add-layer.php:39 assets/views/project-editor.php:2251
-#: assets/views/project-editor.php:10411 assets/wp/scripts_l10n.php:380
+#: assets/views/project-editor.php:10453 assets/wp/scripts_l10n.php:380
 msgid "SVG"
 msgstr ""
 
 #: assets/templates/tmpl-add-layer.php:44 assets/views/project-editor.php:2252
-#: assets/views/project-editor.php:10415 assets/wp/scripts_l10n.php:377
+#: assets/views/project-editor.php:10457 assets/wp/scripts_l10n.php:377
 msgid "HTML"
 msgstr "HTML"
 
 #: assets/templates/tmpl-add-layer.php:48 assets/views/project-editor.php:2253
-#: assets/views/project-editor.php:10419
+#: assets/views/project-editor.php:10461
 msgid "Dynamic Layer"
 msgstr "Dinamikus Réteg"
 
@@ -6035,7 +6035,7 @@ msgstr ""
 
 #: assets/templates/tmpl-countdown-presets.php:108
 #: assets/templates/tmpl-counter-presets.php:25
-#: assets/views/project-editor.php:10693
+#: assets/views/project-editor.php:10735
 #, fuzzy
 #| msgid "Right"
 msgid "Light"
@@ -6124,7 +6124,7 @@ msgid "Widget"
 msgstr ""
 
 #: assets/templates/tmpl-embed-slider.php:26
-#: assets/templates/tmpl-plugin-settings.php:237
+#: assets/templates/tmpl-plugin-settings.php:242
 msgid "Page Builders"
 msgstr ""
 
@@ -6296,7 +6296,7 @@ msgid "Try a different search term."
 msgstr ""
 
 #: assets/templates/tmpl-import-layer.php:6 assets/views/project-editor.php:968
-#: assets/views/project-editor.php:10507
+#: assets/views/project-editor.php:10549
 msgid "Import Layer"
 msgstr "Réteg importálása"
 
@@ -7028,53 +7028,67 @@ msgid ""
 "your projects to be changed."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:240
+#: assets/templates/tmpl-plugin-settings.php:236
+#, fuzzy
+#| msgid "custom duration"
+msgid "Auto Translation Cleanup"
+msgstr "egyéni időtartam"
+
+#: assets/templates/tmpl-plugin-settings.php:238
+msgid ""
+"Automatically removes unused translation strings when deleting projects or "
+"layers to keep your translation database organized. Consider disabling this "
+"option if you wish to retain previously translated content for potential "
+"restoration, such as when using the Revisions feature."
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:245
 msgid "Enable TinyMCE helper"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:242
+#: assets/templates/tmpl-plugin-settings.php:247
 msgid ""
 "Allows the LayerSlider helper utility for the classic WordPress page editor, "
 "which makes it easy to insert projects into your pages. Disable only if "
 "you’re experiencing issues with the editor."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:246
+#: assets/templates/tmpl-plugin-settings.php:251
 msgid "Enable Gutenberg block"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:248
+#: assets/templates/tmpl-plugin-settings.php:253
 msgid ""
 "Allows the LayerSlider block for  WordPress’s new Gutenberg page editor, "
 "which makes it easy to insert projects into your pages. Disable only if "
 "you’re experiencing issues with the editor."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:252
+#: assets/templates/tmpl-plugin-settings.php:257
 msgid "Enable Elementor widget"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:254
+#: assets/templates/tmpl-plugin-settings.php:259
 msgid ""
 "Allows the LayerSlider widget for Elementor, which makes it easy to insert "
 "projects into your pages. Disable only if you’re experiencing issues with "
 "the editor."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:265
+#: assets/templates/tmpl-plugin-settings.php:270
 #, fuzzy
 #| msgid "Performance"
 msgid "Performance mode"
 msgstr "Teljesítmény"
 
-#: assets/templates/tmpl-plugin-settings.php:271
+#: assets/templates/tmpl-plugin-settings.php:276
 #: assets/views/system-status.php:273
 #, fuzzy
 #| msgid "Use slider markup caching"
 msgid "Use markup caching"
 msgstr "Sliderek gyorsítótárazása"
 
-#: assets/templates/tmpl-plugin-settings.php:274
+#: assets/templates/tmpl-plugin-settings.php:279
 #, fuzzy
 #| msgid ""
 #| "Enabled caching can drastically increase the plugin performance and spare "
@@ -7088,15 +7102,15 @@ msgstr ""
 "A gyorsítótár drasztikusan növelheti a LayerSlider teljesítményét és "
 "csökkenti az oldalra rótt terhelést."
 
-#: assets/templates/tmpl-plugin-settings.php:275
+#: assets/templates/tmpl-plugin-settings.php:280
 msgid "Empty caches"
 msgstr "Gyorsítótár ürítése"
 
-#: assets/templates/tmpl-plugin-settings.php:280
+#: assets/templates/tmpl-plugin-settings.php:285
 msgid "Include scripts in the footer"
 msgstr "Scriptek betöltése a láblécben"
 
-#: assets/templates/tmpl-plugin-settings.php:282
+#: assets/templates/tmpl-plugin-settings.php:287
 msgid ""
 "Including resources in the footer can improve load times and solve other "
 "type of issues. Outdated themes might not support this method."
@@ -7104,11 +7118,11 @@ msgstr ""
 "A scriptek láblécben való használata felgyorsíthatja oldalad betöltését. "
 "Elavult témák esetén nem garantált ezen funkció elérhetősége."
 
-#: assets/templates/tmpl-plugin-settings.php:286
+#: assets/templates/tmpl-plugin-settings.php:291
 msgid "Conditional script loading"
 msgstr "Feltételes script betöltés"
 
-#: assets/templates/tmpl-plugin-settings.php:288
+#: assets/templates/tmpl-plugin-settings.php:293
 msgid ""
 "Increase your site’s performance by loading resources only when necessary. "
 "Outdated themes might not support this method."
@@ -7116,11 +7130,11 @@ msgstr ""
 "Növeld oldalad teljesítményét a forrásfájlok kizárólag szükség esetén való "
 "betöltésével. Elavult témák esetén nem garantált ezen funkció elérhetősége."
 
-#: assets/templates/tmpl-plugin-settings.php:292
+#: assets/templates/tmpl-plugin-settings.php:297
 msgid "Concatenate output"
 msgstr "Kimenet tömörítése"
 
-#: assets/templates/tmpl-plugin-settings.php:294
+#: assets/templates/tmpl-plugin-settings.php:299
 msgid ""
 "Concatenating the plugin’s output could solve issues caused by custom "
 "filters your theme might use."
@@ -7128,82 +7142,94 @@ msgstr ""
 "A kimenet tömörítése megoldhat pár témával kapcsolatos problémát bizonyos "
 "esetekben."
 
-#: assets/templates/tmpl-plugin-settings.php:298
+#: assets/templates/tmpl-plugin-settings.php:303
 msgid "Defer JavaScript loading"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:300
+#: assets/templates/tmpl-plugin-settings.php:305
 msgid ""
 "Eliminates render-blocking JavaScript files, but might also delay a bit "
 "displaying projects above the fold."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:304
+#: assets/templates/tmpl-plugin-settings.php:309
 #, fuzzy
 #| msgid "Use srcset attribute"
 msgid "Use “loading” attribute"
 msgstr "Srcset attribútum használata"
 
-#: assets/templates/tmpl-plugin-settings.php:306
+#: assets/templates/tmpl-plugin-settings.php:311
 msgid ""
 "Enables the use of the HTML native lazy loading feature. LayerSlider has its "
 "own lazy loading mechanism more suitable for general use and we recommend "
 "leaving this option off."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:316
+#: assets/templates/tmpl-plugin-settings.php:321
 #, php-format
 msgid ""
 "Visiting %sSystem Status%s is recommended if you’re experiencing issues on "
 "your site or with LayerSlider."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:321
+#: assets/templates/tmpl-plugin-settings.php:326
 #: assets/views/system-status.php:279
 msgid "Clear 3rd party caches"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:323
+#: assets/templates/tmpl-plugin-settings.php:328
 msgid ""
 "Attempts to automatically clear the caches of the most popular caching "
 "plugins. It can help to avoid certain issues like changes not showing up on "
 "your front-end pages."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:327
+#: assets/templates/tmpl-plugin-settings.php:332
+msgid "Fix 3rd party optimizer issues"
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:334
+msgid ""
+"This setting resolves conflicts caused by third-party optimizer plugins that "
+"may apply incorrect optimizations to scripts, such as adding the defer "
+"attribute to critical scripts. Enabling this option helps ensure proper "
+"script loading and improves site stability."
+msgstr ""
+
+#: assets/templates/tmpl-plugin-settings.php:338
 #: assets/views/system-status.php:286
 msgid "No-conflict mode"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:328
+#: assets/templates/tmpl-plugin-settings.php:339
 msgid ""
 "Do not enable this option unless you’re experiencing issues on LayerSlider’s "
 "admin screens. This option can be helpful in some cases but can easily cause "
 "other issues and side effects. Do you want to proceed?"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:329
+#: assets/templates/tmpl-plugin-settings.php:340
 msgid ""
 "Removes extraneous scripts and styles on LayerSlider admin pages to reduce "
 "conflicts with 3rd party plugins and themes. Disable this option if you "
 "experience any issue."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:333
+#: assets/templates/tmpl-plugin-settings.php:344
 msgid "RocketScript compatibility"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:335
+#: assets/templates/tmpl-plugin-settings.php:346
 msgid ""
 "Enable this option to ignore LayerSlider files by CloudFlare’s Rocket "
 "Loader, which can help overcoming potential issues."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:339
+#: assets/templates/tmpl-plugin-settings.php:350
 msgid "Always load all JavaScript files"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:341
+#: assets/templates/tmpl-plugin-settings.php:352
 msgid ""
 "Enabling this option will likely help if you’re experiencing issues with CDN "
 "services or JavaScript minify/combine features in a 3rd party plugin. "
@@ -7211,19 +7237,19 @@ msgid ""
 "be loaded conditionally."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:345
+#: assets/templates/tmpl-plugin-settings.php:356
 #: assets/views/system-status.php:292
 msgid "Use GreenSock (GSAP) sandboxing"
 msgstr "GreenSock (GSAP) sandboxing használata"
 
-#: assets/templates/tmpl-plugin-settings.php:347
+#: assets/templates/tmpl-plugin-settings.php:358
 msgid ""
 "Leaving this option enabled is strongly recommended to maximize "
 "compatibility with other plugins and themes. Disabling it might cause "
 "unexpected issues. Do you wish to proceed?"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:349
+#: assets/templates/tmpl-plugin-settings.php:360
 msgid ""
 "Enabling GreenSock sandboxing can solve issues when other plugins are using "
 "multiple/outdated versions of this library."
@@ -7231,19 +7257,19 @@ msgstr ""
 "Ezen opció engedélyezésével megoldhatóak a régi/elavult GreenSock verziót "
 "használó bővítmények/témák által okozott problémák."
 
-#: assets/templates/tmpl-plugin-settings.php:353
+#: assets/templates/tmpl-plugin-settings.php:364
 #: assets/views/system-status.php:298
 msgid "Use Google CDN version of jQuery"
 msgstr "A jQuery Google CDN veriójának használata"
 
-#: assets/templates/tmpl-plugin-settings.php:354
+#: assets/templates/tmpl-plugin-settings.php:365
 msgid ""
 "Do not enable this option unless you’re experiencing issues with jQuery on "
 "your site. This option can easily cause unexpected issues when used "
 "incorrectly. Do you want to proceed?"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:355
+#: assets/templates/tmpl-plugin-settings.php:366
 msgid ""
 "This option will likely solve “Old jQuery” issues, but can easily have other "
 "side effects. Use it only when it is necessary."
@@ -7252,11 +7278,11 @@ msgstr ""
 "de könnyedén lehet más mellékhatása is. Csak akkor használd ha mindenáron "
 "szükséges."
 
-#: assets/templates/tmpl-plugin-settings.php:359
+#: assets/templates/tmpl-plugin-settings.php:370
 msgid "Scripts priority"
 msgstr "Script prioirtás"
 
-#: assets/templates/tmpl-plugin-settings.php:361
+#: assets/templates/tmpl-plugin-settings.php:372
 msgid ""
 "Used to specify the order in which scripts are loaded. Lower numbers "
 "correspond with earlier execution."
@@ -7264,19 +7290,19 @@ msgstr ""
 "A scriptek betöltési sorrendjét határozza meg. Az alacsonyabb értékek "
 "korábbi feldolgozást eredményeznek."
 
-#: assets/templates/tmpl-plugin-settings.php:374
+#: assets/templates/tmpl-plugin-settings.php:385
 msgid "Use srcset attribute"
 msgstr "Srcset attribútum használata"
 
-#: assets/templates/tmpl-plugin-settings.php:380
+#: assets/templates/tmpl-plugin-settings.php:391
 msgid "Enhanced lazy load"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:392
+#: assets/templates/tmpl-plugin-settings.php:403
 msgid "Enable “Play By Scroll”"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:394
+#: assets/templates/tmpl-plugin-settings.php:405
 msgid ""
 "“Play By Scroll” is a discontinued feature replaced by Scroll Scene. Sliders "
 "using “Play By Scroll” remain working as expected, but we’re hiding this "
@@ -7284,11 +7310,11 @@ msgid ""
 "LayerSlider."
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:398
+#: assets/templates/tmpl-plugin-settings.php:409
 msgid "Suppress debug info"
 msgstr ""
 
-#: assets/templates/tmpl-plugin-settings.php:400
+#: assets/templates/tmpl-plugin-settings.php:411
 msgid ""
 "Hides useful information such as the version number in the browser’s debug "
 "console and in the site HTML markup. We recommend leaving this option "
@@ -7457,7 +7483,7 @@ msgstr "Projekt beállítások"
 
 #: assets/templates/tmpl-project-settings.php:22
 #: assets/templates/tmpl-project-settings.php:111
-#: assets/views/project-editor.php:10238 assets/wp/scripts_l10n.php:15
+#: assets/views/project-editor.php:10280 assets/wp/scripts_l10n.php:15
 msgid "Publish"
 msgstr "Közzététel"
 
@@ -8415,7 +8441,7 @@ msgid "Unhide"
 msgstr "Mutatás"
 
 #: assets/templates/tmpl-sliders-list-context-menu.php:38
-#: assets/views/dashboard.php:572 assets/views/project-editor.php:10365
+#: assets/views/dashboard.php:572 assets/views/project-editor.php:10407
 msgid "Delete"
 msgstr ""
 
@@ -8501,7 +8527,7 @@ msgid "Circle"
 msgstr ""
 
 #: assets/templates/tmpl-smart-help.php:107
-#: assets/views/project-editor.php:10467
+#: assets/views/project-editor.php:10509
 msgid "Center Center"
 msgstr "Középpont"
 
@@ -9806,7 +9832,7 @@ msgid "Drop Shadow"
 msgstr ""
 
 #: assets/templates/tmpl-smart-help.php:1491
-#: assets/views/project-editor.php:10694
+#: assets/views/project-editor.php:10736
 msgid "Grayscale"
 msgstr ""
 
@@ -10644,7 +10670,7 @@ msgstr "Csoport készítése a kijelöltekből"
 msgid "Merge selected as new"
 msgstr "Kijelöltek összeolvasztása újként"
 
-#: assets/views/dashboard.php:737 assets/views/project-editor.php:10359
+#: assets/views/dashboard.php:737 assets/views/project-editor.php:10401
 msgid "Apply"
 msgstr "Alkalmaz"
 
@@ -11207,7 +11233,7 @@ msgstr "Réteg beállítások"
 msgid "Layers List"
 msgstr "Rétegek"
 
-#: assets/views/project-editor.php:963 assets/views/project-editor.php:10377
+#: assets/views/project-editor.php:963 assets/views/project-editor.php:10419
 msgid "Add Layer"
 msgstr "Réteg hozzáadása"
 
@@ -13102,61 +13128,71 @@ msgstr "Rendben"
 msgid "Show more embed options"
 msgstr "Több opció mutatása"
 
-#: assets/views/project-editor.php:10232 assets/views/project-editor.php:10362
+#: assets/views/project-editor.php:10229
+msgid "Dont’t forget to update your project’s translations."
+msgstr ""
+
+#: assets/views/project-editor.php:10257
+#, fuzzy
+#| msgid "Ending<br>Transition"
+msgid "Go to String Translation"
+msgstr "Befejező animáció"
+
+#: assets/views/project-editor.php:10274 assets/views/project-editor.php:10404
 #: assets/wp/scripts_l10n.php:11
 msgid "Save"
 msgstr "Mentés"
 
-#: assets/views/project-editor.php:10233
+#: assets/views/project-editor.php:10275
 msgid "Saving"
 msgstr ""
 
-#: assets/views/project-editor.php:10239
+#: assets/views/project-editor.php:10281
 #, fuzzy
 #| msgid "Publish"
 msgid "Publishing"
 msgstr "Közzététel"
 
-#: assets/views/project-editor.php:10266
+#: assets/views/project-editor.php:10308
 msgid ""
 "The transition property will be normalized regarding to the current "
 "responsive ratio of the slider."
 msgstr ""
 
-#: assets/views/project-editor.php:10269
+#: assets/views/project-editor.php:10311
 msgid ""
 "The transition will play backward after the layer leaves its center point."
 msgstr ""
 
-#: assets/views/project-editor.php:10272
+#: assets/views/project-editor.php:10314
 msgid "The transition will start from the opposite value of this property."
 msgstr ""
 
-#: assets/views/project-editor.php:10276
+#: assets/views/project-editor.php:10318
 #, fuzzy
 #| msgid "leave it empty to use default"
 msgid "Restore to defaults"
 msgstr "hagyd üresen az a alapérték használatához"
 
-#: assets/views/project-editor.php:10281
+#: assets/views/project-editor.php:10323
 #, fuzzy
 #| msgid "Advanced option"
 msgid "Advanced Option"
 msgstr "Haladó beállítás"
 
-#: assets/views/project-editor.php:10284
+#: assets/views/project-editor.php:10326
 #, fuzzy
 #| msgid "Activate LayerSlider to receive the following benefits:"
 msgid "This feature requires license registration. Click to learn more."
 msgstr "Aktiváld a LayerSlidert hogy hozzáférj ezekhez:"
 
-#: assets/views/project-editor.php:10287
+#: assets/views/project-editor.php:10329
 msgid ""
 "Triggers all hover transitions at once when moving the mouse cursor over or "
 "tapping on the slide."
 msgstr ""
 
-#: assets/views/project-editor.php:10290
+#: assets/views/project-editor.php:10332
 msgid ""
 "In some cases your layers may be wrapped by another element. For example, an "
 "＜A＞ tag when you use layer linking. By default, new attributes will be "
@@ -13166,395 +13202,395 @@ msgid ""
 "to apply this attribute on the layer element in all cases."
 msgstr ""
 
-#: assets/views/project-editor.php:10293
+#: assets/views/project-editor.php:10335
 msgid "Set layers list position"
 msgstr ""
 
-#: assets/views/project-editor.php:10296
+#: assets/views/project-editor.php:10338
 #, fuzzy
 #| msgid "Lock layer"
 msgid "Dock layers list"
 msgstr "Réteg zárolása"
 
-#: assets/views/project-editor.php:10299
+#: assets/views/project-editor.php:10341
 #, fuzzy
 #| msgid "Position"
 msgid "Pin layers list"
 msgstr "Pozíció"
 
-#: assets/views/project-editor.php:10302
+#: assets/views/project-editor.php:10344
 #, fuzzy
 #| msgid "Choose a role"
 msgid "Close layers list"
 msgstr "Válassz szerepkört"
 
-#: assets/views/project-editor.php:10305
+#: assets/views/project-editor.php:10347
 #, fuzzy
 #| msgid "Position"
 msgid "Pin slides list"
 msgstr "Pozíció"
 
-#: assets/views/project-editor.php:10308
+#: assets/views/project-editor.php:10350
 #, fuzzy
 #| msgid "Position"
 msgid "Unpin slides list"
 msgstr "Pozíció"
 
-#: assets/views/project-editor.php:10311
+#: assets/views/project-editor.php:10353
 #, fuzzy
 #| msgid "Style properties"
 msgid "Copy all style properties"
 msgstr "Stílusbeállítások"
 
-#: assets/views/project-editor.php:10314
+#: assets/views/project-editor.php:10356
 #, fuzzy
 #| msgid "Style properties"
 msgid "Paste all style properties"
 msgstr "Stílusbeállítások"
 
-#: assets/views/project-editor.php:10317
+#: assets/views/project-editor.php:10359
 #, fuzzy
 #| msgid "Copy transition properties"
 msgid "Copy all transition properties"
 msgstr "Animáció beállítások másolása"
 
-#: assets/views/project-editor.php:10320
+#: assets/views/project-editor.php:10362
 #, fuzzy
 #| msgid "Paste transition properties"
 msgid "Paste all transition properties"
 msgstr "Animáció beállítások beillesztése"
 
-#: assets/views/project-editor.php:10323
+#: assets/views/project-editor.php:10365
 #, fuzzy
 #| msgid "Additional Slide Settings"
 msgid "Copy section settings"
 msgstr "További dia beállítások"
 
-#: assets/views/project-editor.php:10326
+#: assets/views/project-editor.php:10368
 #, fuzzy
 #| msgid "Paste layer settings"
 msgid "Paste section settings"
 msgstr "Rétegbeállítások beillesztése"
 
-#: assets/views/project-editor.php:10329
+#: assets/views/project-editor.php:10371
 msgid "Expand / shrink sidebar"
 msgstr ""
 
-#: assets/views/project-editor.php:10332
+#: assets/views/project-editor.php:10374
 #, fuzzy
 #| msgid "Slider type"
 msgid "Align item to top left"
 msgstr "Slider típus"
 
-#: assets/views/project-editor.php:10335
+#: assets/views/project-editor.php:10377
 msgid "Align item to top center"
 msgstr ""
 
-#: assets/views/project-editor.php:10338
+#: assets/views/project-editor.php:10380
 #, fuzzy
 #| msgid "Slide settings"
 msgid "Align item to top right"
 msgstr "Dia beállítások"
 
-#: assets/views/project-editor.php:10341
+#: assets/views/project-editor.php:10383
 #, fuzzy
 #| msgid "leave it empty to use default"
 msgid "Align item to center left"
 msgstr "hagyd üresen az a alapérték használatához"
 
-#: assets/views/project-editor.php:10344
+#: assets/views/project-editor.php:10386
 #, fuzzy
 #| msgid "center center"
 msgid "Align item to center center"
 msgstr "középpont"
 
-#: assets/views/project-editor.php:10347
+#: assets/views/project-editor.php:10389
 #, fuzzy
 #| msgid "center right"
 msgid "Align item to center right"
 msgstr "jobb közép"
 
-#: assets/views/project-editor.php:10350
+#: assets/views/project-editor.php:10392
 #, fuzzy
 #| msgid "left bottom"
 msgid "Align item to bottom left"
 msgstr "bal alsó"
 
-#: assets/views/project-editor.php:10353
+#: assets/views/project-editor.php:10395
 #, fuzzy
 #| msgid "bottom center"
 msgid "Align item to bottom center"
 msgstr "alsó közép"
 
-#: assets/views/project-editor.php:10356
+#: assets/views/project-editor.php:10398
 #, fuzzy
 #| msgid "left bottom"
 msgid "Align item to bottom right"
 msgstr "bal alsó"
 
-#: assets/views/project-editor.php:10426
+#: assets/views/project-editor.php:10468
 #, fuzzy
 #| msgid "Overline"
 msgid "Overlapping Layers"
 msgstr "Föléhúzás"
 
-#: assets/views/project-editor.php:10434
+#: assets/views/project-editor.php:10476
 msgid "Align Layer"
 msgstr "Réteg igazítása"
 
-#: assets/views/project-editor.php:10435
+#: assets/views/project-editor.php:10477
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Align Layers"
 msgstr "Réteg igazítása"
 
-#: assets/views/project-editor.php:10441 assets/views/project-editor.php:10480
+#: assets/views/project-editor.php:10483 assets/views/project-editor.php:10522
 msgid "Left Edge"
 msgstr "Bal szegély"
 
-#: assets/views/project-editor.php:10445 assets/views/project-editor.php:10484
+#: assets/views/project-editor.php:10487 assets/views/project-editor.php:10526
 msgid "Horizontal Center"
 msgstr "Vízszintes középpont"
 
-#: assets/views/project-editor.php:10449 assets/views/project-editor.php:10488
+#: assets/views/project-editor.php:10491 assets/views/project-editor.php:10530
 msgid "Right Edge"
 msgstr "Jobb szegély"
 
-#: assets/views/project-editor.php:10454 assets/views/project-editor.php:10493
+#: assets/views/project-editor.php:10496 assets/views/project-editor.php:10535
 msgid "Top Edge"
 msgstr "Felső szegély"
 
-#: assets/views/project-editor.php:10458 assets/views/project-editor.php:10497
+#: assets/views/project-editor.php:10500 assets/views/project-editor.php:10539
 msgid "Vertical Center"
 msgstr "Függőleges középpont"
 
-#: assets/views/project-editor.php:10462 assets/views/project-editor.php:10501
+#: assets/views/project-editor.php:10504 assets/views/project-editor.php:10543
 msgid "Bottom Edge"
 msgstr "Alsó szegély"
 
-#: assets/views/project-editor.php:10474
+#: assets/views/project-editor.php:10516
 #, fuzzy
 #| msgid "View Selection"
 msgid "Align Layers in Selection"
 msgstr "Kijelölés megtekintése"
 
-#: assets/views/project-editor.php:10511
+#: assets/views/project-editor.php:10553
 msgid "Duplicate Layer"
 msgstr "Réteg duplikálása"
 
-#: assets/views/project-editor.php:10512
+#: assets/views/project-editor.php:10554
 #, fuzzy
 #| msgid "Duplicate Layer"
 msgid "Duplicate Layers"
 msgstr "Réteg duplikálása"
 
-#: assets/views/project-editor.php:10521 assets/wp/scripts_l10n.php:340
+#: assets/views/project-editor.php:10563 assets/wp/scripts_l10n.php:340
 msgid "Remove Layer"
 msgstr "Réteg törlése"
 
-#: assets/views/project-editor.php:10522 assets/wp/scripts_l10n.php:344
+#: assets/views/project-editor.php:10564 assets/wp/scripts_l10n.php:344
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove Layers"
 msgstr "Réteg törlése"
 
-#: assets/views/project-editor.php:10527
+#: assets/views/project-editor.php:10569
 msgid "Copy Layer"
 msgstr "Réteg másolása"
 
-#: assets/views/project-editor.php:10528
+#: assets/views/project-editor.php:10570
 #, fuzzy
 #| msgid "Copy Layer"
 msgid "Copy Layers"
 msgstr "Réteg másolása"
 
-#: assets/views/project-editor.php:10537
+#: assets/views/project-editor.php:10579
 msgid "Paste Layer"
 msgstr "Réteg beillesztése"
 
-#: assets/views/project-editor.php:10538
+#: assets/views/project-editor.php:10580
 #, fuzzy
 #| msgid "Paste Layer"
 msgid "Paste Layers"
 msgstr "Réteg beillesztése"
 
-#: assets/views/project-editor.php:10548
+#: assets/views/project-editor.php:10590
 msgid "Toggle Layer Visibility"
 msgstr "Réteg láthatóságának váltása"
 
-#: assets/views/project-editor.php:10549
+#: assets/views/project-editor.php:10591
 #, fuzzy
 #| msgid "Toggle Layer Visibility"
 msgid "Toggle Layers Visibility"
 msgstr "Réteg láthatóságának váltása"
 
-#: assets/views/project-editor.php:10553
+#: assets/views/project-editor.php:10595
 msgid "Toggle Layer Locking"
 msgstr "Réteg zárolásának váltása"
 
-#: assets/views/project-editor.php:10554
+#: assets/views/project-editor.php:10596
 #, fuzzy
 #| msgid "Toggle Layer Locking"
 msgid "Toggle Layers Locking"
 msgstr "Réteg zárolásának váltása"
 
-#: assets/views/project-editor.php:10559
+#: assets/views/project-editor.php:10601
 msgid "Copy Layer Styles"
 msgstr "Rétegstílusok másolása"
 
-#: assets/views/project-editor.php:10563
+#: assets/views/project-editor.php:10605
 msgid "Paste Layer Styles"
 msgstr "Rétegstílusok beillesztése"
 
-#: assets/views/project-editor.php:10570
+#: assets/views/project-editor.php:10612
 #, fuzzy
 #| msgid "Background image"
 msgid "Pick image"
 msgstr "Háttérkép"
 
-#: assets/views/project-editor.php:10571
+#: assets/views/project-editor.php:10613
 #, fuzzy
 #| msgid "use post image"
 msgid "Use post image"
 msgstr "bejegyzés képének használata"
 
-#: assets/views/project-editor.php:10572
+#: assets/views/project-editor.php:10614
 #, fuzzy
 #| msgid "insert from URL"
 msgid "Enter from URL"
 msgstr "URL megadása"
 
-#: assets/views/project-editor.php:10574
+#: assets/views/project-editor.php:10616
 #, fuzzy
 #| msgid "Image Editor"
 msgid "Image editor"
 msgstr "Képszerkesztő"
 
-#: assets/views/project-editor.php:10576
+#: assets/views/project-editor.php:10618
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove image"
 msgstr "Réteg törlése"
 
-#: assets/views/project-editor.php:10584
+#: assets/views/project-editor.php:10626
 #, fuzzy
 #| msgid "Duplicate"
 msgid "Duplicate Slide"
 msgstr "Duplikálás"
 
-#: assets/views/project-editor.php:10588
+#: assets/views/project-editor.php:10630
 #, fuzzy
 #| msgid "published"
 msgid "Unpublish Slide"
 msgstr "közzétett"
 
-#: assets/views/project-editor.php:10592
+#: assets/views/project-editor.php:10634
 #, fuzzy
 #| msgid "Publish"
 msgid "Publish Slide"
 msgstr "Közzététel"
 
-#: assets/views/project-editor.php:10596 assets/wp/scripts_l10n.php:335
+#: assets/views/project-editor.php:10638 assets/wp/scripts_l10n.php:335
 #, fuzzy
 #| msgid "Removed slider"
 msgid "Remove Slide"
 msgstr "Eltávolított slider"
 
-#: assets/views/project-editor.php:10601
+#: assets/views/project-editor.php:10643
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Generate Thumbnail"
 msgstr "Dia előnézete"
 
-#: assets/views/project-editor.php:10608
+#: assets/views/project-editor.php:10650
 #, fuzzy
 #| msgid "Slider Settings"
 msgid "Sidebar Settings"
 msgstr "Slider beállítások"
 
-#: assets/views/project-editor.php:10615
+#: assets/views/project-editor.php:10657
 #, fuzzy
 #| msgid "Actions"
 msgid "Section tabs"
 msgstr "Műveletek"
 
-#: assets/views/project-editor.php:10619
+#: assets/views/project-editor.php:10661
 msgid "Expand all"
 msgstr ""
 
-#: assets/views/project-editor.php:10628
+#: assets/views/project-editor.php:10670
 msgid "Collapse all"
 msgstr ""
 
-#: assets/views/project-editor.php:10634
+#: assets/views/project-editor.php:10676
 msgid "Auto close"
 msgstr ""
 
-#: assets/views/project-editor.php:10643
+#: assets/views/project-editor.php:10685
 #, fuzzy
 #| msgid "Layer editor"
 msgid "Layers List Pos."
 msgstr "Réteg szerkesztő"
 
-#: assets/views/project-editor.php:10648
+#: assets/views/project-editor.php:10690
 #, fuzzy
 #| msgid "Left Edge"
 msgid "Left side"
 msgstr "Bal szegély"
 
-#: assets/views/project-editor.php:10649
+#: assets/views/project-editor.php:10691
 #, fuzzy
 #| msgid "Right Edge"
 msgid "Right side"
 msgstr "Jobb szegély"
 
-#: assets/views/project-editor.php:10656
+#: assets/views/project-editor.php:10698
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Pin Layers List"
 msgstr "Réteg igazítása"
 
-#: assets/views/project-editor.php:10665
+#: assets/views/project-editor.php:10707
 msgid "Show Quick Tip when publishing"
 msgstr ""
 
-#: assets/views/project-editor.php:10678
+#: assets/views/project-editor.php:10720
 #, fuzzy
 #| msgid "Interface Settings"
 msgid "Workspace Settings"
 msgstr "Interfész beállítások"
 
-#: assets/views/project-editor.php:10686
+#: assets/views/project-editor.php:10728
 #, fuzzy
 #| msgid "Editor, Admin"
 msgid "Editor Theme"
 msgstr "Szerkesztő, Adminisztrátor"
 
-#: assets/views/project-editor.php:10692
+#: assets/views/project-editor.php:10734
 #, fuzzy
 #| msgid "Default Options"
 msgid "Default (Dark)"
 msgstr "Alapértelmezett beállítások"
 
-#: assets/views/project-editor.php:10701
+#: assets/views/project-editor.php:10743
 #, fuzzy
 #| msgid "Show More"
 msgid "Show rulers"
 msgstr "Mutass többet"
 
-#: assets/views/project-editor.php:10707
+#: assets/views/project-editor.php:10749
 #, fuzzy
 #| msgid "Show me"
 msgid "Show guides"
 msgstr "Mutasd"
 
-#: assets/views/project-editor.php:10713
+#: assets/views/project-editor.php:10755
 #, fuzzy
 #| msgid "Show me"
 msgid "Show info panel"
 msgstr "Mutasd"
 
-#: assets/views/project-editor.php:10722
+#: assets/views/project-editor.php:10764
 msgid "Workspace Padding"
 msgstr ""
 
@@ -14122,13 +14158,13 @@ msgstr "%s ezelőtt"
 msgid "Unnamed Project"
 msgstr "Projektek beágyazása"
 
-#: assets/wp/actions.php:1233 assets/wp/scripts_l10n.php:125
+#: assets/wp/actions.php:1238 assets/wp/scripts_l10n.php:125
 #, fuzzy
 #| msgid "Imported Group"
 msgid "Import Error"
 msgstr "Importált csoport"
 
-#: assets/wp/actions.php:1234
+#: assets/wp/actions.php:1239
 #, php-format
 msgid ""
 "It seems there is a server issue that prevented LayerSlider from importing "
@@ -14138,7 +14174,7 @@ msgid ""
 "Retrying the import might also help."
 msgstr ""
 
-#: assets/wp/actions.php:1280
+#: assets/wp/actions.php:1285
 #, php-format
 msgid ""
 "LayerSlider couldn’t save the downloaded template on your server. Please "
@@ -14147,49 +14183,49 @@ msgid ""
 "directory."
 msgstr ""
 
-#: assets/wp/actions.php:1327
+#: assets/wp/actions.php:1332
 msgid "Imported Group"
 msgstr "Importált csoport"
 
-#: assets/wp/actions.php:1469 assets/wp/actions.php:1497
+#: assets/wp/actions.php:1474 assets/wp/actions.php:1502
 msgid ""
 "It looks like your files isn’t writable, so PHP couldn’t make any changes "
 "(CHMOD)."
 msgstr ""
 
-#: assets/wp/actions.php:1469 assets/wp/actions.php:1497
+#: assets/wp/actions.php:1474 assets/wp/actions.php:1502
 msgid "Cannot write to file"
 msgstr ""
 
-#: assets/wp/actions.php:1483
+#: assets/wp/actions.php:1488
 msgid "It looks like you haven’t selected any skin to edit."
 msgstr ""
 
-#: assets/wp/actions.php:1483
+#: assets/wp/actions.php:1488
 msgid "No skin selected."
 msgstr ""
 
-#: assets/wp/actions.php:1875 assets/wp/actions.php:2053
+#: assets/wp/actions.php:1933 assets/wp/actions.php:2111
 #, fuzzy
 #| msgid "Activate LayerSlider to receive the following benefits:"
 msgid "Assets library requires license registration"
 msgstr "Aktiváld a LayerSlidert hogy hozzáférj ezekhez:"
 
-#: assets/wp/actions.php:1876 assets/wp/actions.php:2054
+#: assets/wp/actions.php:1934 assets/wp/actions.php:2112
 msgid ""
 "An error occurred while we tried to validate your LayerSlider license. "
 "Please verify that you’re using a genuine copy of LayerSlider and that "
 "you’ve registered a valid license key."
 msgstr ""
 
-#: assets/wp/actions.php:1952 assets/wp/scripts_l10n.php:62
+#: assets/wp/actions.php:2010 assets/wp/scripts_l10n.php:62
 #: assets/wp/scripts_l10n.php:67
 #, fuzzy
 #| msgid "Upload error"
 msgid "Download Error"
 msgstr "Hiba a feltöltés során"
 
-#: assets/wp/actions.php:1953 assets/wp/actions.php:2133
+#: assets/wp/actions.php:2011 assets/wp/actions.php:2191
 #: assets/wp/scripts_l10n.php:86
 #, php-format
 msgid ""
@@ -14199,7 +14235,7 @@ msgid ""
 "contact your hosting provider to resolve server configuration problems."
 msgstr ""
 
-#: assets/wp/actions.php:2006 assets/wp/actions.php:2142
+#: assets/wp/actions.php:2064 assets/wp/actions.php:2200
 #, php-format
 msgid ""
 "LayerSlider couldn’t save the downloaded asset on your server. Please check "
@@ -14207,12 +14243,12 @@ msgid ""
 "issue is the lack of write permission on the /wp-content/uploads/ directory."
 msgstr ""
 
-#: assets/wp/actions.php:2086 assets/wp/actions.php:2189
+#: assets/wp/actions.php:2144 assets/wp/actions.php:2247
 #: assets/wp/scripts_l10n.php:355
 msgid "Server Error"
 msgstr ""
 
-#: assets/wp/actions.php:2087 assets/wp/actions.php:2190
+#: assets/wp/actions.php:2145 assets/wp/actions.php:2248
 #: assets/wp/scripts_l10n.php:84
 #, php-format
 msgid ""
@@ -14223,7 +14259,7 @@ msgid ""
 "configuration problems."
 msgstr ""
 
-#: assets/wp/actions.php:2108 assets/wp/scripts_l10n.php:82
+#: assets/wp/actions.php:2166 assets/wp/scripts_l10n.php:82
 msgid ""
 "It seems the remote API is experiencing a temporary outage, and we couldn’t "
 "load the assets you’re looking for. Please try again in a few minutes."
@@ -14345,17 +14381,17 @@ msgid ""
 "benefits. %sPurchase a license%s or %sread the documentation%s to learn more."
 msgstr ""
 
-#: assets/wp/scripts.php:465
+#: assets/wp/scripts.php:478
 #, fuzzy
 #| msgid "Getting Started"
 msgid "Settings saved."
 msgstr "Kezdő lépések"
 
-#: assets/wp/scripts.php:466
+#: assets/wp/scripts.php:479
 msgid "An error occurred while saving settings."
 msgstr ""
 
-#: assets/wp/scripts.php:467
+#: assets/wp/scripts.php:480
 msgid "Add-on disabled."
 msgstr ""
 

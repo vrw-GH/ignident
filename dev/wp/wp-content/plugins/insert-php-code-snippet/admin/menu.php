@@ -78,8 +78,8 @@ function xyz_ips_add_style_script(){
 
 	wp_enqueue_script('jquery');
 	
-	wp_register_script( 'xyz_notice_script', plugins_url ('js/notice.js' , XYZ_INSERT_PHP_PLUGIN_FILE ));
-	wp_enqueue_script( 'xyz_notice_script' );
+	wp_register_script( 'xyz_ips_notice_script', plugins_url ('js/notice.js' , XYZ_INSERT_PHP_PLUGIN_FILE ));
+	wp_enqueue_script( 'xyz_ips_notice_script' );
 	
 	// Register stylesheets
 	wp_register_style('xyz_ips_style', plugins_url('css/xyz_ips_styles.css', XYZ_INSERT_PHP_PLUGIN_FILE));

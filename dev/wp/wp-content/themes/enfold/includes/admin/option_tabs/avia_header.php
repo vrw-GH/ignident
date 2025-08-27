@@ -38,7 +38,8 @@ $avia_elements[] =	array(
 					#avia_header_preview{color:#999; border:1px solid #e1e1e1; padding:0px 45px; overflow:hidden; background-color:#fff; position: relative;}
 
 					#avia_options_page #pr-main-area{line-height:69px; overflow:hidden;}
-					#pr-menu{float:right; font-size:12px; line-height: inherit;}
+					#pr-menu{float:right; font-size:12px; line-height: inherit; }
+					.large :not(.bottom_nav_header) #pr-menu { position: relative; top: 46px; }
 
 					#pr-menu .pr-menu-single{display:inline-block; padding:0px 7px; position:relative; }
 					#pr-menu .main_nav_header .pr-menu-single{padding:20px 7px;}
@@ -88,7 +89,6 @@ $avia_elements[] =	array(
 					.icon_active_main #pr-main-icon .pr-icons{display:block; top: 3px; margin: 0 0 0 17px; line-height:inherit; width:70px;}
 					.icon_active_main .logo_right #pr-main-icon {left: 211px; float: left; width: 0px;}
 					.icon_active_main .logo_right #pr-main-icon {left: 211px; float: left; width: 0px;}
-					.icon_active_main .large .logo_right #pr-main-icon {left:-55px;}
 
 					.icon_active_main .bottom_nav_header #pr-main-icon{top:23px;}
 					.icon_active_main .large #pr-main-icon{top:46px;}
@@ -110,7 +110,7 @@ $avia_elements[] =	array(
 
 					#pr-breadcrumb{line-height:23px; color:#aaa; border:1px solid #e1e1e1; padding:5px 45px; overflow:hidden; background-color:#f8f8f8; border-top:none; font-size:16px;}
 					#pr-breadcrumb .some-breadcrumb{float:right; font-size:11px; line-height:23px;}
-					#pr-breadcrumb.title_bar .some-breadcrumb, #pr-breadcrumb.hidden_title_bar{ display:none; }
+					#pr-breadcrumb.title_bar .some-breadcrumb, #pr-breadcrumb.hidden_title_bar, .breadcrumbs_only .some-title { display:none; }
 
 					.pr-menu-single.pr-menu-single-first:after {
 					content: '';
@@ -193,7 +193,7 @@ $avia_elements[] =	array(
 									</div>
 								</div>
 							</div>
-							<div id='pr-breadcrumb'>Some Title <span class='some-breadcrumb'>Home  &#187; Admin  &#187; Header </span></div>
+							<div id='pr-breadcrumb'><span class='some-title'>Some Title </span><span class='some-breadcrumb'>Home  &#187; Admin  &#187; Header </span></div>
 							<div id='pr-content-area'> Content / Slideshows / etc
 								<div class='inner-content'>
 									Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium sem.

@@ -15,7 +15,7 @@ $icon_info = '<br /><strong class="av-text-notice">' . __( 'We recommend that yo
 
 $avia_elements[] = array(
 			'slug'			=> 'social',
-			'name'			=> __( 'Your social profiles', 'avia_framework' ),
+			'name'			=> __( 'Your Social Profiles', 'avia_framework' ),
 			'desc'			=> $desc . $icon_info,
 			'id'			=> 'socialdescription',
 			'type'			=> 'heading',

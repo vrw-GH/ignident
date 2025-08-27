@@ -230,7 +230,7 @@ class LS_Sliders {
 		global $wpdb;
 
 		// Slider data
-		$data = !empty($data) ? $data : [
+		$data = ! empty( $data ) ? $data : [
 			'properties' => [
 
 				'createdWith' => LS_PLUGIN_VERSION,
@@ -247,6 +247,10 @@ class LS_Sliders {
 			],
 			'layers' => [ [] ],
 		];
+
+		// Ensure the project has the current importVersion even if it's
+		// imported or duplicated from an older version.
+		$data['properties']['importVersion'] = LS_PLUGIN_VERSION;
 
 		// Fix WP 4.2 issue with longer varchars than the column length
 		if(strlen($title) > 99) {
@@ -461,6 +465,11 @@ class LS_Sliders {
 
 		// Delete any slider drafts (if any)
 		self::deleteDraft( $id );
+
+		// WPML package cleanup
+		if( ls_should_auto_cleanup_translation_strings() ) {
+			do_action( 'wpml_delete_package', "project-{$id}", LS_WPML_SP_SLUG );
+		}
 
 		return true;
 	}

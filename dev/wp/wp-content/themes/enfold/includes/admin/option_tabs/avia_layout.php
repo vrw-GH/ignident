@@ -306,8 +306,8 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'layout',
 			'name'		=> __( 'Content | Sidebar Ratio', 'avia_framework' ),
-			'desc'		=> __( 'Here you can choose the width of your content and sidebar. First Number indicates the content width, second number indicates sidebar width.', 'avia_framework' ) .'<br/><strong>'.__( 'Note:', 'avia_framework' ) .'</strong> '.
-								__( 'If you want to disable sidebars you can do so in the', 'avia_framework' ) .
+			'desc'		=> __( 'Here you can choose the width of your content and sidebar. First Number indicates the content width, second number indicates sidebar width.', 'avia_framework' ),
+			'info'		=> '<strong>' . __( 'Note:', 'avia_framework' ) . '</strong> ' . __( 'If you want to disable sidebars you can do so in the', 'avia_framework' ) .
 								" <a href='#goto_sidebars'>" .
 									__( 'Sidebar Settings', 'avia_framework' ) .
 								'</a>',

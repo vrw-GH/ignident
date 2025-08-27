@@ -4,9 +4,9 @@ Contributors: seopress, rainbowgeek, gmulti, juliobox, maigret, mgris, vincentdu
 Donate link: https://www.seopress.org/
 Tags: SEO, google search console, xml sitemap, schema, ai
 Requires at least: 5.0+
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 8.6.1
+Stable tag: 8.9.0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,7 +24,7 @@ SEOPress is a powerful WordPress SEO plugin to optimize your SEO, boost your tra
 ✔ <strong>Content analysis to help you write content optimized for search engines with unlimited target keywords</strong>
 ✔ <strong><a href="https://www.seopress.org/solutions/migrate-from/" target="_blank">Import your post and term metadatas</a> from other SEO plugins or CSV file in 1 click</strong>
 ✔ <strong><a href="https://translate.wordpress.org/projects/wp-plugins/wp-seopress" target="_blank">Translated into 26 languages (and counting)</strong>
-✔ <strong>Trusted by over 300,000 WordPress websites since 2017</strong>
+✔ <strong>Trusted by over 350,000 WordPress websites since 2017</strong>
 
 <a href="https://www.seopress.org/pricing/" target="_blank"><strong>Buy SEOPress PRO: only $49 / year / 5 sites</strong></a>
 
@@ -271,35 +271,28 @@ You're theme is probably using a deprecated function to handle the title. <a hre
 12. Schema metabox
 
 == Changelog ==
-= 8.6.1 =
-* FIX Complianz compatibility issue
-* FIX OpenAI language issue
-* FIX Yoast SEO migration issue with old focus keywords
-* FIX Post type archive metadata if no posts exist
+= 8.9.0.2 =
+* FIX An issue with the universal SEO metabox
 
-= 8.6 <a href="https://www.seopress.org/newsroom/product-news/seopress-8-6/">Read the blog post update</a> =
-* NEW Update AI models (now available: GPT-4o Mini, GPT-4o, GPT-4, GPT-3.5-Turbo)
-* NEW Enhancements for Table of Contents block
-* NEW Wizard enhancements for a better user experience
-* NEW “seopress_titles_paged_rel” hook to filter the paged rel links in the head section (https://www.seopress.org/support/hooks/filter-rel-nextprev-link-in-head-of-paginated-archive-pages/)
-* INFO Remove noarchive meta robots tag as it’s not longer supported by Google
-* INFO Ask AI to respect the grammar and typing of the language
-* INFO Add error handling for Google Analytics stats in dashboard widget (SEO, Analytics, Google Analytics tab, Stats in dashboard section)
-* INFO Increase timeout for Page Speed Insights API (from 30 to 120 seconds)
-* FIX i18n POT file
-* FIX Default OG:IMAGE for Shop page
-* FIX Default settings for term taxonomies meta title / description
-* FIX No /product-category/ in URL when using WooCommerce and WPML Multilingual CMS + WooCommerce Multilingual & Multicurrency
-* FIX User meta tags for author
-* FIX AI: Alt text for images uploaded from Gravity Forms
-* FIX undefined $language with AI in specific cases
-* FIX JS error attachment when using AI
-* FIX Incorrect meta title/desc counters between classic SEO metabox and Universal one
-* FIX Bricks builder compatibility issue with SEOPress PRO
-* FIX PHP Warning: Attempt to read property “display_name” Author on null in Breadcrumbs
-* FIX Internal linking suggestions JS error
-* FIX Google Analytics / Matomo widgets if no data
-* FIX Fatal error on plugin deactivation
+= 8.9.0.1 =
+* FIX Undefined variables in XML sitemaps
+* FIX Incorrect last mod date with specific timezone for XML Index Sitemap
+* FIX CSS Z-index for chatbot
+
+= 8.9 <a href="https://www.seopress.org/newsroom/product-news/seopress-8-9/">Read the blog post update</a> =
+* NEW Add our AI chatbot to our settings page to get help faster (PRO)
+* NEW Microsoft Clarity User Consent mode
+* NEW Replace the Referer column by Full Origin in our Redirect Manager: more useful, especially with multidomain/multilingual websites
+* NEW UI for automatic schemas
+* INFO Update Admin Columns PRO integration (minimum version 6.0 is now required). From version 7, the integration will be directly provided by ACP.
+* INFO Add caching to last modified date for XML Index sitemap
+* INFO UI - Add schema keys to automatic schemas (SEO, PRO, Schemas)
+* INFO NEW notice when using Google Indexing API
+* INFO WPML integration improved for automatic translations
+* INFO Image for the hiringOrganization sub-schema in the Job automatic schema is no longer required
+* FIX XML Index sitemap last modified date
+* FIX An issue with Admin Columns PRO
+* FIX A compatibility issue with WP 6.8 and our blocks causing performance issue when scrolling the post content from the Block Editor
 
 <a href="https://www.seopress.org/changelog/" target="_blank">View our complete changelog</a>
 <a href="https://www.seopress.org/support/guides/how-to-downgrade-seopress-pro-to-a-previous-version/" target="_blank">Need to downgrade/rollback?</a>

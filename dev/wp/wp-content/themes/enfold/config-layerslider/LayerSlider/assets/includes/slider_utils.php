@@ -49,7 +49,6 @@ function ls_assets_cond( $data = [], $key = 0 ) {
 	}
 
 	return true;
-
 }
 
 function ls_normalize_hide_layer_value( $value = false ) {
@@ -62,16 +61,35 @@ function ls_normalize_hide_layer_value( $value = false ) {
 	return $value ? 'all' : false;
 }
 
-function ls_apply_affix_properties( $layerProps, &$innerAttributes ) {
+function ls_apply_affix_properties( $layerProps, &$innerAttributes, $properties ) {
 
 	$styles = [];
+	$wpml_string_base = "slider-{$properties['sliderID']}-layer-{$layerProps['uuid']}";
 
 	if( ! empty( $layerProps['affixBefore'] ) ) {
-		$innerAttributes['data-prefix'] = $layerProps['affixBefore'];
+
+		if( $properties['wpml']['useStringTranslation'] ) {
+			if( $properties['wpml']['useStringPackages'] ) {
+				$layerProps['affixBefore'] = apply_filters( 'wpml_translate_string', $layerProps['affixBefore'], $layerProps['uuid'].'-affix-before', $properties['wpml']['package'] );
+			} else {
+				$layerProps['affixBefore'] = apply_filters( 'wpml_translate_single_string', $layerProps['affixBefore'], 'LayerSlider Sliders', $wpml_string_base.'-affix-before' );
+			}
+		}
+
+		$innerAttributes['data-prefix'] = do_shortcode( __( stripslashes( $layerProps['affixBefore'] ) ) );
 	}
 
 	if( ! empty( $layerProps['affixAfter'] ) ) {
-		$innerAttributes['data-suffix'] = $layerProps['affixAfter'];
+
+		if( $properties['wpml']['useStringTranslation'] ) {
+			if( $properties['wpml']['useStringPackages'] ) {
+				$layerProps['affixAfter'] = apply_filters( 'wpml_translate_string', $layerProps['affixAfter'], $layerProps['uuid'].'-affix-after', $properties['wpml']['package'] );
+			} else {
+				$layerProps['affixAfter'] = apply_filters( 'wpml_translate_single_string', $layerProps['affixAfter'], 'LayerSlider Sliders', $wpml_string_base.'-affix-after' );
+			}
+		}
+
+		$innerAttributes['data-suffix'] = do_shortcode( __( stripslashes( $layerProps['affixAfter'] ) ) );
 	}
 
 	if( ! empty( $layerProps['affixFloat'] ) ) {

@@ -971,7 +971,24 @@ class Ays_Pb_Public {
                 $disable_scroll_mobile = $disable_scroll;
             }
 
-            $ays_pb_show_scrollbar_class = (isset($options['show_scrollbar']) && $options['show_scrollbar'] == 'on') ? 'ays-pb-show-scrollbar' : '';
+            $ays_pb_show_scrollbar = (isset($options['show_scrollbar']) && $options['show_scrollbar'] == 'on') ? true : false;
+            
+            // Show scrollbar mobile
+            if (isset($options['show_scrollbar_mobile'])) {
+                $ays_pb_show_scrollbar_mobile = $options['show_scrollbar_mobile'] == 'on' ? true : false;
+            } else {
+                $ays_pb_show_scrollbar_mobile = $ays_pb_show_scrollbar;
+            }
+
+            $ays_pb_show_scrollbar_class = '';
+            $ays_pb_show_scrollbar_class_desktop = $ays_pb_show_scrollbar ? 'ays-pb-show-scrollbar-desktop' : '';
+            $ays_pb_show_scrollbar_class_mobile = $ays_pb_show_scrollbar_mobile ? 'ays-pb-show-scrollbar-mobile' : '';
+            
+            if($ays_pb_show_scrollbar || $ays_pb_show_scrollbar_mobile){
+                $ays_pb_show_scrollbar_class = 'ays-pb-show-scrollbar';
+            }
+
+            $ays_pb_show_scrollbar_class .= ' ' . $ays_pb_show_scrollbar_class_desktop . ' ' . $ays_pb_show_scrollbar_class_mobile;
 
             $enable_pb_fullscreen = (isset($options['enable_pb_fullscreen']) && $options['enable_pb_fullscreen'] == 'on') ? true : false;
 
@@ -1245,43 +1262,43 @@ class Ays_Pb_Public {
             }
             $ays_pb_disable_scroll_on_popup_mobile = ( isset( $options['disable_scroll_on_popup_mobile'] ) && $options['disable_scroll_on_popup_mobile'] == 'on' ) ? true : false;
 
-            $disable_scroll_on_popup = '';
-            $disable_scroll_overflow_y = '';
-            $disable_scroll_display_none = '';
+            $disable_scroll_on_popup        = '';
+            $disable_scroll_overflow_y      = '';
+            $disable_scroll_display_none    = '';
             $position_absolute_popup_scroll = '';
-            $padding_top_popup_scroll = '';
-            $width_popup_scroll = '';
-            $bottom_popup_scroll = '';
-            $margin_top = '';
+            $padding_top_popup_scroll       = '';
+            $width_popup_scroll             = '';
+            $bottom_popup_scroll            = '';
+            $margin_top                     = '';
             if($ays_pb_disable_scroll_on_popup){
-                $disable_scroll_on_popup = 'overflow:hidden !important;';
-                $disable_scroll_overflow_y = 'overflow-y: hidden !important';
-                $disable_scroll_display_none = 'display:none;';
-                $position_absolute_popup_scroll = 'position:absolute;';
-                $padding_top_popup_scroll = 'padding:65px 10px;';
-                $width_popup_scroll = 'width:100%';
-                $bottom_popup_scroll = 'bottom:unset';
-                $margin_top = 'margin-top: 65px;';
+                $disable_scroll_on_popup         = 'overflow:hidden !important;';
+                $disable_scroll_overflow_y       = 'overflow-y: hidden !important';
+                $disable_scroll_display_none     = 'display:none;';
+                $position_absolute_popup_scroll  = 'position:absolute;';
+                $padding_top_popup_scroll        = 'padding:65px 10px;';
+                $width_popup_scroll              = 'width:100%';
+                $bottom_popup_scroll             = 'bottom:unset';
+                $margin_top                      = 'margin-top: 65px;';
             }
-
+            
             if($ays_pb_disable_scroll_on_popup_mobile){
-                $disable_scroll_on_popup_mobile = 'overflow:hidden !important;';
-                $disable_scroll_overflow_y_mobile = 'overflow-y: hidden !important';
-                $disable_scroll_display_none_mobile = 'display:none;';
-                $position_absolute_popup_scroll_mobile = 'position:absolute;';
-                $padding_top_popup_scroll_mobile = 'padding:65px 10px;';
-                $width_popup_scroll_mobile = 'width:100%';
-                $bottom_popup_scroll_mobile = 'bottom:unset';
-                $margin_top_mobile = 'margin-top: 65px;';
+                $disable_scroll_on_popup_mobile          = 'overflow:hidden !important;';
+                $disable_scroll_overflow_y_mobile        = 'overflow-y: hidden !important';
+                $disable_scroll_display_none_mobile      = 'display:none;';
+                $position_absolute_popup_scroll_mobile   = 'position:absolute;';
+                $padding_top_popup_scroll_mobile         = 'padding:65px 10px;';
+                $width_popup_scroll_mobile               = 'width:100%';
+                $bottom_popup_scroll_mobile              = 'bottom:unset';
+                $margin_top_mobile                       = 'margin-top: 65px;';
             } else {
-                $disable_scroll_on_popup_mobile = 'overflow:auto !important;';
-                $disable_scroll_overflow_y_mobile = 'overflow-y: auto !important';
-                $disable_scroll_display_none_mobile = 'display:block;';
-                $position_absolute_popup_scroll_mobile = 'position:sticky;';
-                $padding_top_popup_scroll_mobile = 'padding:0;';
-                $width_popup_scroll_mobile = 'width:auto';
-                $bottom_popup_scroll_mobile = 'bottom:6px';
-                $margin_top_mobile = 'margin-top: 0;';
+                $disable_scroll_on_popup_mobile          = 'overflow:auto !important;';
+                $disable_scroll_overflow_y_mobile        = 'overflow-y: auto !important';
+                $disable_scroll_display_none_mobile      = 'display:block;';
+                $position_absolute_popup_scroll_mobile   = 'position:sticky;';
+                $padding_top_popup_scroll_mobile         = 'padding:0;';
+                $width_popup_scroll_mobile               = 'width:auto';
+                $bottom_popup_scroll_mobile              = 'bottom:6px';
+                $margin_top_mobile                       = 'margin-top: 0;';
             }
 
             //Background image position for mobile
@@ -3176,10 +3193,10 @@ class Ays_Pb_Public {
                             }
                         }else{
                             $post = get_post($post_id);
-                            $this_post_title = strval($post->post_title);
+                            $this_post_title = isset($post->post_title) ? strval($post->post_title) : '';
                             $except_posts = array();
                             $except_post_types = array();
-                            $postType = $post->post_type;
+                            $postType = isset($post->post_type) ? $post->post_type : '';
                             
                             
                             

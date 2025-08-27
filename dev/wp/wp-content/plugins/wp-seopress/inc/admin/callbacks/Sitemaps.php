@@ -124,7 +124,7 @@ function seopress_xml_sitemap_post_types_list_callback()
         ?>
 <h3>
     <?php echo esc_html($seopress_cpt_value->labels->name); ?>
-    <em><small>[<?php echo esc_html($seopress_cpt_value->name); ?>]</small></em>
+    <code>[<?php echo esc_html($seopress_cpt_value->name); ?>]</code>
 </h3>
 
 <!--List all post types-->
@@ -180,7 +180,7 @@ function seopress_xml_sitemap_taxonomies_list_callback()
     foreach ($taxonomies as $seopress_tax_key => $seopress_tax_value) { ?>
 <h3>
     <?php echo esc_html($seopress_tax_value->labels->name); ?>
-    <em><small>[<?php echo esc_html($seopress_tax_value->name); ?>]</small></em>
+    <code>[<?php echo esc_html($seopress_tax_value->name); ?>]</code>
 </h3>
 
 <!--List all taxonomies-->
@@ -336,5 +336,32 @@ function seopress_xml_sitemap_html_no_hierarchy_callback()
 
 <?php if (isset($options['seopress_xml_sitemap_html_no_hierarchy'])) {
         esc_attr($options['seopress_xml_sitemap_html_no_hierarchy']);
+    }
+}
+
+function seopress_xml_sitemap_html_post_type_archive_callback()
+{
+    $options = get_option('seopress_xml_sitemap_option_name');
+
+    $check = isset($options['seopress_xml_sitemap_html_post_type_archive']); ?>
+
+
+<label for="seopress_xml_sitemap_html_post_type_archive">
+    <input id="seopress_xml_sitemap_html_post_type_archive" name="seopress_xml_sitemap_option_name[seopress_xml_sitemap_html_post_type_archive]"
+        type="checkbox" <?php if ('1' == $check) { ?>
+    checked="yes"
+    <?php } ?>
+    value="1"/>
+    <?php esc_attr_e('Do not display post type archive links', 'wp-seopress'); ?>
+</label>
+
+<p class="description">
+    <?php 
+    // translator: %1$s is_archive, %2$s true
+    echo wp_kses_post(sprintf(esc_attr__('Only post types registered with the %1$s argument set to %2$s will be displayed.', 'wp-seopress'), '<code>is_archive</code>', '<code>true</code>')); ?>
+</p>
+
+<?php if (isset($options['seopress_xml_sitemap_html_post_type_archive'])) {
+        esc_attr($options['seopress_xml_sitemap_html_post_type_archive']);
     }
 }

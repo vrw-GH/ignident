@@ -299,9 +299,11 @@ if ('1' === seopress_get_toggle_option('google-analytics') && !isset($_GET['bric
 
     function seopress_cookies_user_consent_close() {
         require_once plugin_dir_path(__FILE__) . '/options-google-analytics.php'; //Google Analytics
+        require_once plugin_dir_path(__FILE__) . '/options-clarity.php'; //Clarity
 
         $data = [];
         $data['gtag_consent_js'] = seopress_google_analytics_js(false);
+        $data['clarity_consent_js'] = seopress_clarity_js(false);
 
         wp_send_json_success($data);
     }
@@ -323,7 +325,10 @@ function seopress_load_redirections_options()
 if ('1' == seopress_get_toggle_option('xml-sitemap')) {
     add_action('init', 'seopress_load_sitemap', 999);
     function seopress_load_sitemap() {
-        require_once plugin_dir_path(__FILE__) . '/options-sitemap.php'; //XML / HTML Sitemap
+        if ('1' === seopress_get_service('SitemapOption')->getHtmlEnable()) {
+            $htmlSitemapService = new \SEOPress\Services\HTMLSitemap\HTMLSitemapService(seopress_get_service('SitemapOption'));
+            $htmlSitemapService->init();
+        }
     }
 }
 

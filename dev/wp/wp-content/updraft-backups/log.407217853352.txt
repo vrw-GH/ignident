@@ -1,0 +1,873 @@
+0000.000 (0) Opened log file at time: Wed, 27 Aug 2025 14:31:24 +0000 on http://ignident.dev.localhost:8800
+0000.003 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.25.6 WP: 6.8.1 PHP: 8.3.10 (apache2handler, Windows NT THOR-M2-DEV 10.0 build 26200 (Windows 11) AMD64) MySQL: 8.0.39 (max packet size=67108864) WPLANG: en_US Server: Apache/2.4.62 (Win64) PHP/8.3.10 safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 89.4M | 92M) multisite: N openssl: OpenSSL 3.0.13 30 Jan 2024 mcrypt: N LANG:  WP Proxy: disabled ZipArchive::addFile: Y
+0000.004 (0) Free space on disk containing Updraft's temporary directory: 41752.3 MB
+0000.007 (0) Tasks: Backup files: 1 (schedule: fortnightly) Backup DB:  (schedule: weekly)
+0000.009 (0) Processed schedules. Tasks now: Backup files: 1 Backup DB: 
+0000.015 (0) Requesting semaphore lock (f) (apparently via scheduler: last_scheduled_action_called_at=1752070670, seconds_ago=4234414)
+0000.021 (0) Set semaphore last lock (f) time to 2025-08-27 14:31:24
+0000.023 (0) Semaphore lock (f) complete
+0000.031 (0) Backup run: resumption=0, nonce=407217853352, file_nonce=407217853352 begun at=1756305084 (0s ago), job type=backup
+0000.032 (0) Scheduling a resumption (1) after 300 seconds (1756305384) in case this run gets aborted
+0000.037 (0) Checking if we have a zip executable available
+0000.042 (0) Creation of backups of directories: beginning
+0000.050 (0) Beginning creation of dump of plugins (split every: 400 MB)
+0000.474 (0) Total entities for the zip file: 703 directories, 4350 files (0 skipped as non-modified), 53.7 MB
+0000.492 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 100 files added (on-disk size: 0 KB)
+0000.509 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 200 files added (on-disk size: 0 KB)
+0000.526 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 300 files added (on-disk size: 0 KB)
+0000.543 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 400 files added (on-disk size: 0 KB)
+0000.559 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 500 files added (on-disk size: 0 KB)
+0000.576 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 600 files added (on-disk size: 0 KB)
+0000.593 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 700 files added (on-disk size: 0 KB)
+0000.610 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 800 files added (on-disk size: 0 KB)
+0000.627 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 900 files added (on-disk size: 0 KB)
+0000.643 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1000 files added (on-disk size: 0 KB)
+0000.646 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 1000 files added on this batch (16.6 MB, 4350 files batched, 1001 (1001) added so far); re-opening (prior size: 0 KB)
+0012.957 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1100 files added (on-disk size: 7581.5 KB)
+0012.974 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1200 files added (on-disk size: 7581.5 KB)
+0012.991 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1300 files added (on-disk size: 7581.5 KB)
+0013.007 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1400 files added (on-disk size: 7581.5 KB)
+0013.024 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1500 files added (on-disk size: 7581.5 KB)
+0013.041 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1600 files added (on-disk size: 7581.5 KB)
+0013.058 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1700 files added (on-disk size: 7581.5 KB)
+0013.073 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1800 files added (on-disk size: 7581.5 KB)
+0013.089 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 1900 files added (on-disk size: 7581.5 KB)
+0013.105 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2000 files added (on-disk size: 7581.5 KB)
+0013.108 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 1000 files added on this batch (19.1 MB, 4350 files batched, 1001 (2002) added so far); re-opening (prior size: 7581.5 KB)
+0019.243 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2100 files added (on-disk size: 13547.4 KB)
+0019.260 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2200 files added (on-disk size: 13547.4 KB)
+0019.277 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2300 files added (on-disk size: 13547.4 KB)
+0019.294 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2400 files added (on-disk size: 13547.4 KB)
+0019.310 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2500 files added (on-disk size: 13547.4 KB)
+0019.327 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2600 files added (on-disk size: 13547.4 KB)
+0019.344 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2700 files added (on-disk size: 13547.4 KB)
+0019.368 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2800 files added (on-disk size: 13547.4 KB)
+0019.385 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 2900 files added (on-disk size: 13547.4 KB)
+0019.402 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3000 files added (on-disk size: 13547.4 KB)
+0019.404 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 1000 files added on this batch (9.7 MB, 4350 files batched, 1001 (3003) added so far); re-opening (prior size: 13547.4 KB)
+0034.888 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3100 files added (on-disk size: 16896.6 KB)
+0034.905 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3200 files added (on-disk size: 16896.6 KB)
+0034.922 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3300 files added (on-disk size: 16896.6 KB)
+0034.939 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3400 files added (on-disk size: 16896.6 KB)
+0034.956 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3500 files added (on-disk size: 16896.6 KB)
+0034.973 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3600 files added (on-disk size: 16896.6 KB)
+0034.989 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3700 files added (on-disk size: 16896.6 KB)
+0035.006 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3800 files added (on-disk size: 16896.6 KB)
+0035.022 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 3900 files added (on-disk size: 16896.6 KB)
+0035.039 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 4000 files added (on-disk size: 16896.6 KB)
+0035.042 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 1000 files added on this batch (6.7 MB, 4350 files batched, 1001 (4004) added so far); re-opening (prior size: 16896.6 KB)
+0049.985 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 4100 files added (on-disk size: 19000.7 KB)
+0050.002 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 4200 files added (on-disk size: 19000.7 KB)
+0050.019 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.tmp: 4300 files added (on-disk size: 19000.7 KB)
+0054.716 (0) Creating zip file manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.list-temp.tmp)
+0054.726 (0) Successfully created zip file manifest (size: 344008)
+0054.842 (0) Created plugins zip (0) - 19502.1 KB in 54.8 s (356 KB/s) (sha1: c3ff591d41f2f9bd4f1b5767029397bbe18a4017, sha256: 411ea98589b72aa9631e8b97e4888548c892638400ea06c150a5276e2d64069e)
+0054.850 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0054.852 (0) No remote despatch: user chose no remote backup service
+0054.854 (0) Recording as successfully uploaded: backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip
+0054.858 (0) Deleting zip manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip.list.tmp)
+0054.863 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=3
+0054.865 (0) Number of backup sets in history: 7; groups (db): 1
+0054.867 (0) Examining (for databases) backup set with group_id=0, nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0054.869 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0054.871 (0) Examining (for databases) backup set with group_id=0, nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0054.871 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0054.871 (0) Examining (for databases) backup set with group_id=0, nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0054.871 (0) Examining (for databases) backup set with group_id=0, nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0054.871 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0054.871 (0) Examining (for databases) backup set with group_id=0, nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0054.871 (0) Examining (for databases) backup set with group_id=0, nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0054.871 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.871 (0) Examining (for databases) backup set with group_id=0, nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0054.871 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.871 (0) Number of backup sets in history: 7; groups (files): 1
+0054.873 (0) Examining (for files) backup set with nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0054.873 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0054.875 (0) Examining (for files) backup set with nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0054.875 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0054.875 (0) Examining (for files) backup set with nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0054.875 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0054.877 (0) Examining (for files) backup set with nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0054.877 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0054.878 (0) Examining (for files) backup set with nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0054.878 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0054.880 (0) Examining (for files) backup set with nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0054.880 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.880 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.880 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.880 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.880 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.880 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0054.881 (0) Examining (for files) backup set with nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0054.881 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.881 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.881 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.881 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0054.881 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0054.881 (0) Retain: saving new backup history (sets now: 7) and finishing retain operation
+0054.889 (0) Beginning creation of dump of themes (split every: 400 MB)
+0055.125 (0) Total entities for the zip file: 298 directories, 2457 files (0 skipped as non-modified), 74.6 MB
+0055.164 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 100 files added (on-disk size: 0 KB)
+0055.228 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 200 files added (on-disk size: 0 KB)
+0055.265 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 300 files added (on-disk size: 0 KB)
+0055.304 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 400 files added (on-disk size: 0 KB)
+0055.341 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 500 files added (on-disk size: 0 KB)
+0055.378 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 600 files added (on-disk size: 0 KB)
+0055.416 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 700 files added (on-disk size: 0 KB)
+0055.454 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 800 files added (on-disk size: 0 KB)
+0055.492 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 900 files added (on-disk size: 0 KB)
+0055.530 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1000 files added (on-disk size: 0 KB)
+0055.546 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 1000 files added on this batch (15.6 MB, 2457 files batched, 1001 (1001) added so far); re-opening (prior size: 0 KB)
+0063.857 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1100 files added (on-disk size: 5007.9 KB)
+0063.874 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1200 files added (on-disk size: 5007.9 KB)
+0063.891 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1300 files added (on-disk size: 5007.9 KB)
+0063.907 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1400 files added (on-disk size: 5007.9 KB)
+0063.924 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1500 files added (on-disk size: 5007.9 KB)
+0063.940 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1600 files added (on-disk size: 5007.9 KB)
+0063.957 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1700 files added (on-disk size: 5007.9 KB)
+0063.974 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1800 files added (on-disk size: 5007.9 KB)
+0063.990 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 1900 files added (on-disk size: 5007.9 KB)
+0064.007 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 2000 files added (on-disk size: 5007.9 KB)
+0064.009 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 1000 files added on this batch (7.9 MB, 2457 files batched, 1001 (2002) added so far); re-opening (prior size: 5007.9 KB)
+0067.881 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 2100 files added (on-disk size: 7386.8 KB)
+0067.897 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 2200 files added (on-disk size: 7386.8 KB)
+0067.913 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 2300 files added (on-disk size: 7386.8 KB)
+0067.926 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 25 MB added on this batch (25.5 MB, 2457 files batched, 373 (2375) added so far); re-opening (prior size: 7386.8 KB)
+0070.836 (0) A useful amount of data was added after this amount of zip processing: 3.3 s (normalised: 3.2 s, rate: 8044.8 KB/s)
+0070.840 (0) Performance is good - will increase the amount of data we attempt to batch (time=3.2501308917999, normalised_time=3.1821644220641, max_time=70.837891101837, data points known=1, old_max_bytes=26214400, new_max_bytes=209715200)
+0070.854 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.tmp: 2400 files added (on-disk size: 15715.9 KB)
+0072.336 (0) Creating zip file manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.list-temp.tmp)
+0072.344 (0) Successfully created zip file manifest (size: 235444)
+0072.465 (0) Created themes zip (0) - 20677.3 KB in 17.6 s (1176.8 KB/s) (sha1: 8632c4fe29c2f426e98439bd9a8324be198400c0, sha256: 7bf4cd647e9e061009a40d16179fc8eef0658be38cec105dc5f369b5f5d4d1bb)
+0072.472 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0072.474 (0) No remote despatch: user chose no remote backup service
+0072.476 (0) Recording as successfully uploaded: backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip
+0072.480 (0) Deleting zip manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip.list.tmp)
+0072.484 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=3
+0072.486 (0) Number of backup sets in history: 7; groups (db): 1
+0072.488 (0) Examining (for databases) backup set with group_id=0, nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0072.490 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0072.491 (0) Examining (for databases) backup set with group_id=0, nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0072.491 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0072.491 (0) Examining (for databases) backup set with group_id=0, nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0072.491 (0) Examining (for databases) backup set with group_id=0, nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0072.491 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0072.491 (0) Examining (for databases) backup set with group_id=0, nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0072.491 (0) Examining (for databases) backup set with group_id=0, nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0072.491 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.491 (0) Examining (for databases) backup set with group_id=0, nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0072.491 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.491 (0) Number of backup sets in history: 7; groups (files): 1
+0072.493 (0) Examining (for files) backup set with nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0072.493 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0072.495 (0) Examining (for files) backup set with nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0072.495 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0072.495 (0) Examining (for files) backup set with nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0072.495 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0072.496 (0) Examining (for files) backup set with nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0072.496 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0072.498 (0) Examining (for files) backup set with nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0072.498 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0072.500 (0) Examining (for files) backup set with nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0072.500 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.500 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.500 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.500 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.500 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.500 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0072.501 (0) Examining (for files) backup set with nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0072.501 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.501 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.501 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.501 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0072.501 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0072.501 (0) Retain: saving new backup history (sets now: 7) and finishing retain operation
+0072.509 (0) Exclusion option setting (uploads): backup*,*backups,backwpup*,wp-clone,snapshots,ext:zip
+0072.510 (0) Looking for candidates to backup in: X:\TLCDev\WordPress\ignident\dev\wp/wp-content/uploads
+0072.512 (0) finding files: .htaccess: adding to list (1)
+0072.514 (0) finding files: 15.05.2019-poster-final.pdf: adding to list (2)
+0072.516 (0) finding files: 250617_anmeldung-symposium-2.-anwendertreffen.pdf: adding to list (3)
+0072.517 (0) finding files: article1-1-180x180.png: adding to list (4)
+0072.519 (0) finding files: article1-1-260x185.png: adding to list (5)
+0072.520 (0) finding files: article1-1-300x224.png: adding to list (6)
+0072.522 (0) finding files: article1-1-36x36.png: adding to list (7)
+0072.523 (0) finding files: article1-1-495x400.png: adding to list (8)
+0072.525 (0) finding files: article1-1-705x526.png: adding to list (9)
+0072.526 (0) finding files: article1-1-710x375.png: adding to list (10)
+0072.528 (0) finding files: article1-1-767x321.png: adding to list (11)
+0072.529 (0) finding files: article1-1-767x423.png: adding to list (12)
+0072.531 (0) finding files: article1-1-767x430.png: adding to list (13)
+0072.532 (0) finding files: article1-1-80x80.png: adding to list (14)
+0072.534 (0) finding files: article1-1.png: adding to list (15)
+0072.535 (0) finding files: avia_fonts: adding to list (16)
+0072.536 (0) finding files: avia_posts_css: adding to list (17)
+0072.538 (0) finding files: beitrag-editorial-180x180.jpg: adding to list (18)
+0072.539 (0) finding files: beitrag-editorial-260x185.jpg: adding to list (19)
+0072.541 (0) finding files: beitrag-editorial-300x186.jpg: adding to list (20)
+0072.542 (0) finding files: beitrag-editorial-36x36.jpg: adding to list (21)
+0072.544 (0) finding files: beitrag-editorial-495x327.jpg: adding to list (22)
+0072.545 (0) finding files: beitrag-editorial-527x321.jpg: adding to list (23)
+0072.547 (0) finding files: beitrag-editorial-80x80.jpg: adding to list (24)
+0072.548 (0) finding files: beitrag-editorial.jpg: adding to list (25)
+0072.550 (0) finding files: beitrag-teamwork-1-180x180.jpg: adding to list (26)
+0072.551 (0) finding files: beitrag-teamwork-1-260x185.jpg: adding to list (27)
+0072.553 (0) finding files: beitrag-teamwork-1-300x186.jpg: adding to list (28)
+0072.554 (0) finding files: beitrag-teamwork-1-36x36.jpg: adding to list (29)
+0072.556 (0) finding files: beitrag-teamwork-1-495x327.jpg: adding to list (30)
+0072.557 (0) finding files: beitrag-teamwork-1-527x321.jpg: adding to list (31)
+0072.559 (0) finding files: beitrag-teamwork-1-80x80.jpg: adding to list (32)
+0072.560 (0) finding files: beitrag-teamwork-1.jpg: adding to list (33)
+0072.562 (0) finding files: beitrag-tw-wissenschaft-img-180x180.jpg: adding to list (34)
+0072.564 (0) finding files: beitrag-tw-wissenschaft-img-260x185.jpg: adding to list (35)
+0072.565 (0) finding files: beitrag-tw-wissenschaft-img-300x186.jpg: adding to list (36)
+0072.567 (0) finding files: beitrag-tw-wissenschaft-img-36x36.jpg: adding to list (37)
+0072.568 (0) finding files: beitrag-tw-wissenschaft-img-495x327.jpg: adding to list (38)
+0072.570 (0) finding files: beitrag-tw-wissenschaft-img-527x321.jpg: adding to list (39)
+0072.572 (0) finding files: beitrag-tw-wissenschaft-img-80x80.jpg: adding to list (40)
+0072.573 (0) finding files: beitrag-tw-wissenschaft-img.jpg: adding to list (41)
+0072.575 (0) finding files: burst: adding to list (42)
+0072.576 (0) finding files: cmd-kopfschmerzen-feat-img-180x180.jpg: adding to list (43)
+0072.578 (0) finding files: cmd-kopfschmerzen-feat-img-260x185.jpg: adding to list (44)
+0072.580 (0) finding files: cmd-kopfschmerzen-feat-img-300x186.jpg: adding to list (45)
+0072.581 (0) finding files: cmd-kopfschmerzen-feat-img-36x36.jpg: adding to list (46)
+0072.583 (0) finding files: cmd-kopfschmerzen-feat-img-495x327.jpg: adding to list (47)
+0072.584 (0) finding files: cmd-kopfschmerzen-feat-img-527x321.jpg: adding to list (48)
+0072.586 (0) finding files: cmd-kopfschmerzen-feat-img-80x80.jpg: adding to list (49)
+0072.587 (0) finding files: cmd-kopfschmerzen-feat-img.jpg: adding to list (50)
+0072.589 (0) finding files: digitaler-workflow-einer-therapeutischen-positionierungsschiene.pdf: adding to list (51)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-180x180.jpg: adding to list (52)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-260x185.jpg: adding to list (53)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-300x285.jpg: adding to list (54)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-36x36.jpg: adding to list (55)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-495x400.jpg: adding to list (56)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-705x669.jpg: adding to list (57)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-710x375.jpg: adding to list (58)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-768x729.jpg: adding to list (59)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-772x321.jpg: adding to list (60)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-772x423.jpg: adding to list (61)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-772x430.jpg: adding to list (62)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-772x630.jpg: adding to list (63)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-772x684.jpg: adding to list (64)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene-80x80.jpg: adding to list (65)
+0072.589 (0) finding files: digitaler-worklfow-einer-therapeutischen-positionierungsschiene.jpg: adding to list (66)
+0072.589 (0) finding files: dmd-cart-1-180x180.jpg: adding to list (67)
+0072.589 (0) finding files: dmd-cart-1-260x185.jpg: adding to list (68)
+0072.589 (0) finding files: dmd-cart-1-300x225.jpg: adding to list (69)
+0072.589 (0) finding files: dmd-cart-1-36x36.jpg: adding to list (70)
+0072.589 (0) finding files: dmd-cart-1-495x400.jpg: adding to list (71)
+0072.589 (0) finding files: dmd-cart-1-705x529.jpg: adding to list (72)
+0072.589 (0) finding files: dmd-cart-1-710x375.jpg: adding to list (73)
+0072.589 (0) finding files: dmd-cart-1-768x576.jpg: adding to list (74)
+0072.589 (0) finding files: dmd-cart-1-80x80.jpg: adding to list (75)
+0072.589 (0) finding files: dmd-cart-1-845x321.jpg: adding to list (76)
+0072.589 (0) finding files: dmd-cart-1-845x675.jpg: adding to list (77)
+0072.589 (0) finding files: dmd-cart-1-900x423.jpg: adding to list (78)
+0072.589 (0) finding files: dmd-cart-1-900x430.jpg: adding to list (79)
+0072.589 (0) finding files: dmd-cart-1-900x630.jpg: adding to list (80)
+0072.589 (0) finding files: dmd-cart-1.jpg: adding to list (81)
+0072.589 (0) finding files: dmd-cart-2-180x180.jpg: adding to list (82)
+0072.589 (0) finding files: dmd-cart-2-260x185.jpg: adding to list (83)
+0072.589 (0) finding files: dmd-cart-2-300x225.jpg: adding to list (84)
+0072.589 (0) finding files: dmd-cart-2-36x36.jpg: adding to list (85)
+0072.589 (0) finding files: dmd-cart-2-495x400.jpg: adding to list (86)
+0072.589 (0) finding files: dmd-cart-2-705x529.jpg: adding to list (87)
+0072.589 (0) finding files: dmd-cart-2-710x375.jpg: adding to list (88)
+0072.589 (0) finding files: dmd-cart-2-768x576.jpg: adding to list (89)
+0072.589 (0) finding files: dmd-cart-2-80x80.jpg: adding to list (90)
+0072.589 (0) finding files: dmd-cart-2-845x321.jpg: adding to list (91)
+0072.589 (0) finding files: dmd-cart-2-845x675.jpg: adding to list (92)
+0072.589 (0) finding files: dmd-cart-2-900x423.jpg: adding to list (93)
+0072.589 (0) finding files: dmd-cart-2-900x430.jpg: adding to list (94)
+0072.589 (0) finding files: dmd-cart-2-900x630.jpg: adding to list (95)
+0072.589 (0) finding files: dmd-cart-2.jpg: adding to list (96)
+0072.589 (0) finding files: dmd-cart-3-180x180.jpg: adding to list (97)
+0072.589 (0) finding files: dmd-cart-3-260x185.jpg: adding to list (98)
+0072.589 (0) finding files: dmd-cart-3-300x225.jpg: adding to list (99)
+0072.589 (0) finding files: dmd-cart-3-36x36.jpg: adding to list (100)
+0072.591 (0) finding files: dmd-cart-3-495x400.jpg: adding to list (101)
+0072.591 (0) finding files: dmd-cart-3-705x529.jpg: adding to list (102)
+0072.591 (0) finding files: dmd-cart-3-710x375.jpg: adding to list (103)
+0072.591 (0) finding files: dmd-cart-3-768x576.jpg: adding to list (104)
+0072.591 (0) finding files: dmd-cart-3-80x80.jpg: adding to list (105)
+0072.591 (0) finding files: dmd-cart-3-845x321.jpg: adding to list (106)
+0072.591 (0) finding files: dmd-cart-3-845x675.jpg: adding to list (107)
+0072.591 (0) finding files: dmd-cart-3-900x423.jpg: adding to list (108)
+0072.591 (0) finding files: dmd-cart-3-900x430.jpg: adding to list (109)
+0072.591 (0) finding files: dmd-cart-3-900x630.jpg: adding to list (110)
+0072.591 (0) finding files: dmd-cart-3.jpg: adding to list (111)
+0072.591 (0) finding files: dmd-ignident._001-1030x696.webp: adding to list (112)
+0072.591 (0) finding files: dmd-ignident._001-1100x423.webp: adding to list (113)
+0072.591 (0) finding files: dmd-ignident._001-1100x430.webp: adding to list (114)
+0072.591 (0) finding files: dmd-ignident._001-1100x630.webp: adding to list (115)
+0072.591 (0) finding files: dmd-ignident._001-180x180.webp: adding to list (116)
+0072.591 (0) finding files: dmd-ignident._001-260x185.webp: adding to list (117)
+0072.591 (0) finding files: dmd-ignident._001-300x203.webp: adding to list (118)
+0072.591 (0) finding files: dmd-ignident._001-36x36.webp: adding to list (119)
+0072.591 (0) finding files: dmd-ignident._001-495x400.webp: adding to list (120)
+0072.591 (0) finding files: dmd-ignident._001-705x476.webp: adding to list (121)
+0072.591 (0) finding files: dmd-ignident._001-710x375.webp: adding to list (122)
+0072.591 (0) finding files: dmd-ignident._001-768x519.webp: adding to list (123)
+0072.591 (0) finding files: dmd-ignident._001-80x80.webp: adding to list (124)
+0072.591 (0) finding files: dmd-ignident._001-845x321.webp: adding to list (125)
+0072.591 (0) finding files: dmd-ignident._001-845x684.webp: adding to list (126)
+0072.591 (0) finding files: dmd-ignident._001.webp: adding to list (127)
+0072.591 (0) finding files: dmd-logo-180x99.png: adding to list (128)
+0072.591 (0) finding files: dmd-logo-260x99.png: adding to list (129)
+0072.591 (0) finding files: dmd-logo-36x36.png: adding to list (130)
+0072.591 (0) finding files: dmd-logo-80x80.png: adding to list (131)
+0072.591 (0) finding files: dmd-logo.png: adding to list (132)
+0072.591 (0) finding files: dmd-software-2-180x180.jpg: adding to list (133)
+0072.591 (0) finding files: dmd-software-2-260x185.jpg: adding to list (134)
+0072.591 (0) finding files: dmd-software-2-300x225.jpg: adding to list (135)
+0072.591 (0) finding files: dmd-software-2-36x36.jpg: adding to list (136)
+0072.591 (0) finding files: dmd-software-2-495x400.jpg: adding to list (137)
+0072.591 (0) finding files: dmd-software-2-705x529.jpg: adding to list (138)
+0072.591 (0) finding files: dmd-software-2-710x375.jpg: adding to list (139)
+0072.591 (0) finding files: dmd-software-2-768x576.jpg: adding to list (140)
+0072.591 (0) finding files: dmd-software-2-80x80.jpg: adding to list (141)
+0072.591 (0) finding files: dmd-software-2-845x321.jpg: adding to list (142)
+0072.591 (0) finding files: dmd-software-2-845x675.jpg: adding to list (143)
+0072.591 (0) finding files: dmd-software-2-900x423.jpg: adding to list (144)
+0072.591 (0) finding files: dmd-software-2-900x430.jpg: adding to list (145)
+0072.591 (0) finding files: dmd-software-2-900x630.jpg: adding to list (146)
+0072.591 (0) finding files: dmd-software-2.jpg: adding to list (147)
+0072.591 (0) finding files: dmd-system-1-1-180x180.jpg: adding to list (148)
+0072.591 (0) finding files: dmd-system-1-1-260x185.jpg: adding to list (149)
+0072.591 (0) finding files: dmd-system-1-1-300x225.jpg: adding to list (150)
+0072.592 (0) finding files: dmd-system-1-1-36x36.jpg: adding to list (151)
+0072.592 (0) finding files: dmd-system-1-1-495x400.jpg: adding to list (152)
+0072.592 (0) finding files: dmd-system-1-1-705x529.jpg: adding to list (153)
+0072.592 (0) finding files: dmd-system-1-1-710x375.jpg: adding to list (154)
+0072.592 (0) finding files: dmd-system-1-1-768x576.jpg: adding to list (155)
+0072.592 (0) finding files: dmd-system-1-1-80x80.jpg: adding to list (156)
+0072.592 (0) finding files: dmd-system-1-1-845x321.jpg: adding to list (157)
+0072.592 (0) finding files: dmd-system-1-1-845x675.jpg: adding to list (158)
+0072.592 (0) finding files: dmd-system-1-1-900x423.jpg: adding to list (159)
+0072.592 (0) finding files: dmd-system-1-1-900x430.jpg: adding to list (160)
+0072.592 (0) finding files: dmd-system-1-1-900x630.jpg: adding to list (161)
+0072.592 (0) finding files: dmd-system-1-1.jpg: adding to list (162)
+0072.592 (0) finding files: dmd-system-1a-180x180.jpg: adding to list (163)
+0072.592 (0) finding files: dmd-system-1a-260x185.jpg: adding to list (164)
+0072.592 (0) finding files: dmd-system-1a-300x225.jpg: adding to list (165)
+0072.592 (0) finding files: dmd-system-1a-36x36.jpg: adding to list (166)
+0072.592 (0) finding files: dmd-system-1a-495x400.jpg: adding to list (167)
+0072.592 (0) finding files: dmd-system-1a-705x529.jpg: adding to list (168)
+0072.592 (0) finding files: dmd-system-1a-710x375.jpg: adding to list (169)
+0072.592 (0) finding files: dmd-system-1a-768x576.jpg: adding to list (170)
+0072.592 (0) finding files: dmd-system-1a-80x80.jpg: adding to list (171)
+0072.592 (0) finding files: dmd-system-1a-845x321.jpg: adding to list (172)
+0072.592 (0) finding files: dmd-system-1a-845x675.jpg: adding to list (173)
+0072.592 (0) finding files: dmd-system-1a-900x423.jpg: adding to list (174)
+0072.592 (0) finding files: dmd-system-1a-900x430.jpg: adding to list (175)
+0072.592 (0) finding files: dmd-system-1a-900x630.jpg: adding to list (176)
+0072.592 (0) finding files: dmd-system-1a.jpg: adding to list (177)
+0072.592 (0) finding files: dmd-system-1b-180x180.jpg: adding to list (178)
+0072.592 (0) finding files: dmd-system-1b-260x185.jpg: adding to list (179)
+0072.592 (0) finding files: dmd-system-1b-300x225.jpg: adding to list (180)
+0072.592 (0) finding files: dmd-system-1b-36x36.jpg: adding to list (181)
+0072.592 (0) finding files: dmd-system-1b-495x400.jpg: adding to list (182)
+0072.592 (0) finding files: dmd-system-1b-705x529.jpg: adding to list (183)
+0072.592 (0) finding files: dmd-system-1b-710x375.jpg: adding to list (184)
+0072.592 (0) finding files: dmd-system-1b-768x576.jpg: adding to list (185)
+0072.592 (0) finding files: dmd-system-1b-80x80.jpg: adding to list (186)
+0072.592 (0) finding files: dmd-system-1b-845x321.jpg: adding to list (187)
+0072.592 (0) finding files: dmd-system-1b-845x675.jpg: adding to list (188)
+0072.592 (0) finding files: dmd-system-1b-900x423.jpg: adding to list (189)
+0072.592 (0) finding files: dmd-system-1b-900x430.jpg: adding to list (190)
+0072.592 (0) finding files: dmd-system-1b-900x630.jpg: adding to list (191)
+0072.592 (0) finding files: dmd-system-1b.jpg: adding to list (192)
+0072.592 (0) finding files: dmd-system-2-180x180.jpg: adding to list (193)
+0072.592 (0) finding files: dmd-system-2-260x185.jpg: adding to list (194)
+0072.592 (0) finding files: dmd-system-2-300x225.jpg: adding to list (195)
+0072.592 (0) finding files: dmd-system-2-36x36.jpg: adding to list (196)
+0072.592 (0) finding files: dmd-system-2-495x400.jpg: adding to list (197)
+0072.592 (0) finding files: dmd-system-2-705x529.jpg: adding to list (198)
+0072.592 (0) finding files: dmd-system-2-710x375.jpg: adding to list (199)
+0072.592 (0) finding files: dmd-system-2-768x576.jpg: adding to list (200)
+0072.593 (0) finding files: dmd-system-2-80x80.jpg: adding to list (201)
+0072.593 (0) finding files: dmd-system-2-845x321.jpg: adding to list (202)
+0072.593 (0) finding files: dmd-system-2-845x675.jpg: adding to list (203)
+0072.593 (0) finding files: dmd-system-2-900x423.jpg: adding to list (204)
+0072.593 (0) finding files: dmd-system-2-900x430.jpg: adding to list (205)
+0072.593 (0) finding files: dmd-system-2-900x630.jpg: adding to list (206)
+0072.593 (0) finding files: dmd-system-2.jpg: adding to list (207)
+0072.593 (0) finding files: dmd-system-3-1030x687.jpg: adding to list (208)
+0072.593 (0) finding files: dmd-system-3-1210x423.jpg: adding to list (209)
+0072.594 (0) finding files: dmd-system-3-1500x430.jpg: adding to list (210)
+0072.594 (0) finding files: dmd-system-3-1500x630.jpg: adding to list (211)
+0072.594 (0) finding files: dmd-system-3-180x180.jpg: adding to list (212)
+0072.594 (0) finding files: dmd-system-3-260x185.jpg: adding to list (213)
+0072.594 (0) finding files: dmd-system-3-300x200.jpg: adding to list (214)
+0072.594 (0) finding files: dmd-system-3-36x36.jpg: adding to list (215)
+0072.594 (0) finding files: dmd-system-3-495x400.jpg: adding to list (216)
+0072.594 (0) finding files: dmd-system-3-705x470.jpg: adding to list (217)
+0072.594 (0) finding files: dmd-system-3-710x375.jpg: adding to list (218)
+0072.594 (0) finding files: dmd-system-3-768x512.jpg: adding to list (219)
+0072.594 (0) finding files: dmd-system-3-80x80.jpg: adding to list (220)
+0072.594 (0) finding files: dmd-system-3-845x321.jpg: adding to list (221)
+0072.594 (0) finding files: dmd-system-3-845x684.jpg: adding to list (222)
+0072.594 (0) finding files: dmd-system-3.jpg: adding to list (223)
+0072.594 (0) finding files: dmd-system-anwendung.zip: adding to list (224)
+0072.594 (0) finding files: dmd-system-bg-ignident-1030x542.jpg: adding to list (225)
+0072.594 (0) finding files: dmd-system-bg-ignident-1210x423.jpg: adding to list (226)
+0072.594 (0) finding files: dmd-system-bg-ignident-1500x430.jpg: adding to list (227)
+0072.594 (0) finding files: dmd-system-bg-ignident-1500x630.jpg: adding to list (228)
+0072.594 (0) finding files: dmd-system-bg-ignident-1500x789.jpg: adding to list (229)
+0072.594 (0) finding files: dmd-system-bg-ignident-1536x808.jpg: adding to list (230)
+0072.594 (0) finding files: dmd-system-bg-ignident-180x180.jpg: adding to list (231)
+0072.594 (0) finding files: dmd-system-bg-ignident-260x185.jpg: adding to list (232)
+0072.594 (0) finding files: dmd-system-bg-ignident-300x158.jpg: adding to list (233)
+0072.594 (0) finding files: dmd-system-bg-ignident-36x36.jpg: adding to list (234)
+0072.594 (0) finding files: dmd-system-bg-ignident-495x400.jpg: adding to list (235)
+0072.594 (0) finding files: dmd-system-bg-ignident-705x371.jpg: adding to list (236)
+0072.594 (0) finding files: dmd-system-bg-ignident-710x375.jpg: adding to list (237)
+0072.594 (0) finding files: dmd-system-bg-ignident-768x404.jpg: adding to list (238)
+0072.594 (0) finding files: dmd-system-bg-ignident-80x80.jpg: adding to list (239)
+0072.594 (0) finding files: dmd-system-bg-ignident-845x321.jpg: adding to list (240)
+0072.594 (0) finding files: dmd-system-bg-ignident-845x684.jpg: adding to list (241)
+0072.594 (0) finding files: dmd-system-bg-ignident.jpg: adding to list (242)
+0072.594 (0) finding files: dmd-system-cart.zip: adding to list (243)
+0072.594 (0) finding files: dmd-system-logo.zip: adding to list (244)
+0072.594 (0) finding files: dynamic_avia: adding to list (245)
+0072.594 (0) finding files: editorial-quintessenz-petra-clauss.pdf: adding to list (246)
+0072.594 (0) finding files: elektronische-aufzeichnung-der-unterkieferbewegung-und-deren-integration-in-die-restaurative-zahnmedizin.pdf: adding to list (247)
+0072.594 (0) finding files: fachartikel-1030x643.jpg: adding to list (248)
+0072.594 (0) finding files: fachartikel-1210x423.jpg: adding to list (249)
+0072.594 (0) finding files: fachartikel-1289x430.jpg: adding to list (250)
+0072.594 (0) finding files: fachartikel-1289x630.jpg: adding to list (251)
+0072.594 (0) finding files: fachartikel-180x180.jpg: adding to list (252)
+0072.594 (0) finding files: fachartikel-260x185.jpg: adding to list (253)
+0072.594 (0) finding files: fachartikel-300x187.jpg: adding to list (254)
+0072.594 (0) finding files: fachartikel-36x36.jpg: adding to list (255)
+0072.594 (0) finding files: fachartikel-495x400.jpg: adding to list (256)
+0072.594 (0) finding files: fachartikel-705x440.jpg: adding to list (257)
+0072.594 (0) finding files: fachartikel-710x375.jpg: adding to list (258)
+0072.594 (0) finding files: fachartikel-768x480.jpg: adding to list (259)
+0072.594 (0) finding files: fachartikel-80x80.jpg: adding to list (260)
+0072.594 (0) finding files: fachartikel-845x321.jpg: adding to list (261)
+0072.594 (0) finding files: fachartikel-845x684.jpg: adding to list (262)
+0072.594 (0) finding files: fachartikel.jpg: adding to list (263)
+0072.594 (0) finding files: goob_janosch.pdf: adding to list (264)
+0072.594 (0) finding files: igde-logo-claim-1030x192.png: adding to list (265)
+0072.594 (0) finding files: igde-logo-claim-1210x236.png: adding to list (266)
+0072.594 (0) finding files: igde-logo-claim-180x180.png: adding to list (267)
+0072.594 (0) finding files: igde-logo-claim-260x185.png: adding to list (268)
+0072.594 (0) finding files: igde-logo-claim-300x56.png: adding to list (269)
+0072.594 (0) finding files: igde-logo-claim-36x36.png: adding to list (270)
+0072.594 (0) finding files: igde-logo-claim-495x236.png: adding to list (271)
+0072.594 (0) finding files: igde-logo-claim-705x131.png: adding to list (272)
+0072.594 (0) finding files: igde-logo-claim-710x236.png: adding to list (273)
+0072.594 (0) finding files: igde-logo-claim-768x143.png: adding to list (274)
+0072.594 (0) finding files: igde-logo-claim-80x80.png: adding to list (275)
+0072.594 (0) finding files: igde-logo-claim-845x236.png: adding to list (276)
+0072.594 (0) finding files: igde-logo-claim.png: adding to list (277)
+0072.594 (0) finding files: igde_favicon-36x36.png: adding to list (278)
+0072.594 (0) finding files: igde_favicon.png: adding to list (279)
+0072.594 (0) finding files: igni-webinar240617-1030x578.png: adding to list (280)
+0072.594 (0) finding files: igni-webinar240617-1210x423.png: adding to list (281)
+0072.594 (0) finding files: igni-webinar240617-1500x430.png: adding to list (282)
+0072.594 (0) finding files: igni-webinar240617-1500x630.png: adding to list (283)
+0072.594 (0) finding files: igni-webinar240617-1500x842.png: adding to list (284)
+0072.594 (0) finding files: igni-webinar240617-1536x862.png: adding to list (285)
+0072.594 (0) finding files: igni-webinar240617-180x180.png: adding to list (286)
+0072.594 (0) finding files: igni-webinar240617-260x185.png: adding to list (287)
+0072.594 (0) finding files: igni-webinar240617-300x168.png: adding to list (288)
+0072.594 (0) finding files: igni-webinar240617-36x36.png: adding to list (289)
+0072.594 (0) finding files: igni-webinar240617-3min.mp4: adding to list (290)
+0072.594 (0) finding files: igni-webinar240617-495x400.png: adding to list (291)
+0072.594 (0) finding files: igni-webinar240617-705x396.png: adding to list (292)
+0072.594 (0) finding files: igni-webinar240617-710x375.png: adding to list (293)
+0072.594 (0) finding files: igni-webinar240617-768x431.png: adding to list (294)
+0072.594 (0) finding files: igni-webinar240617-80x80.png: adding to list (295)
+0072.594 (0) finding files: igni-webinar240617-845x321.png: adding to list (296)
+0072.594 (0) finding files: igni-webinar240617-845x684.png: adding to list (297)
+0072.594 (0) finding files: igni-webinar240617.png: adding to list (298)
+0072.594 (0) finding files: ignident-dmd-system-1179x1500.png: adding to list (299)
+0072.594 (0) finding files: ignident-dmd-system-1181x423.png: adding to list (300)
+0072.596 (0) finding files: ignident-dmd-system-1181x430.png: adding to list (301)
+0072.596 (0) finding files: ignident-dmd-system-1181x630.png: adding to list (302)
+0072.596 (0) finding files: ignident-dmd-system-144x144-1-36x36.png: adding to list (303)
+0072.596 (0) finding files: ignident-dmd-system-144x144-1-80x80.png: adding to list (304)
+0072.596 (0) finding files: ignident-dmd-system-144x144-1.png: adding to list (305)
+0072.596 (0) finding files: ignident-dmd-system-180x180.png: adding to list (306)
+0072.596 (0) finding files: ignident-dmd-system-236x300.png: adding to list (307)
+0072.596 (0) finding files: ignident-dmd-system-260x185.png: adding to list (308)
+0072.596 (0) finding files: ignident-dmd-system-36x36.png: adding to list (309)
+0072.596 (0) finding files: ignident-dmd-system-495x400.png: adding to list (310)
+0072.596 (0) finding files: ignident-dmd-system-554x705.png: adding to list (311)
+0072.596 (0) finding files: ignident-dmd-system-710x375.png: adding to list (312)
+0072.596 (0) finding files: ignident-dmd-system-768x977.png: adding to list (313)
+0072.596 (0) finding files: ignident-dmd-system-809x1030.png: adding to list (314)
+0072.596 (0) finding files: ignident-dmd-system-80x80.png: adding to list (315)
+0072.596 (0) finding files: ignident-dmd-system-845x321.png: adding to list (316)
+0072.596 (0) finding files: ignident-dmd-system-845x684.png: adding to list (317)
+0072.596 (0) finding files: ignident-dmd-system.png: adding to list (318)
+0072.596 (0) finding files: ignident-logo.zip: adding to list (319)
+0072.596 (0) finding files: ignident-team-1030x580.jpg: adding to list (320)
+0072.596 (0) finding files: ignident-team-1210x423.jpg: adding to list (321)
+0072.596 (0) finding files: ignident-team-1500x430.jpg: adding to list (322)
+0072.596 (0) finding files: ignident-team-1500x630.jpg: adding to list (323)
+0072.596 (0) finding files: ignident-team-1500x844.jpg: adding to list (324)
+0072.596 (0) finding files: ignident-team-1536x864.jpg: adding to list (325)
+0072.596 (0) finding files: ignident-team-180x180.jpg: adding to list (326)
+0072.596 (0) finding files: ignident-team-260x185.jpg: adding to list (327)
+0072.596 (0) finding files: ignident-team-300x169.jpg: adding to list (328)
+0072.596 (0) finding files: ignident-team-36x36.jpg: adding to list (329)
+0072.596 (0) finding files: ignident-team-495x400.jpg: adding to list (330)
+0072.596 (0) finding files: ignident-team-705x397.jpg: adding to list (331)
+0072.596 (0) finding files: ignident-team-710x375.jpg: adding to list (332)
+0072.596 (0) finding files: ignident-team-768x432.jpg: adding to list (333)
+0072.596 (0) finding files: ignident-team-80x80.jpg: adding to list (334)
+0072.596 (0) finding files: ignident-team-845x321.jpg: adding to list (335)
+0072.596 (0) finding files: ignident-team-845x684.jpg: adding to list (336)
+0072.596 (0) finding files: ignident-team.jpg: adding to list (337)
+0072.596 (0) finding files: img-hotspot-1030x687.jpg: adding to list (338)
+0072.596 (0) finding files: img-hotspot-1210x423.jpg: adding to list (339)
+0072.596 (0) finding files: img-hotspot-1500x430.jpg: adding to list (340)
+0072.596 (0) finding files: img-hotspot-1500x630.jpg: adding to list (341)
+0072.596 (0) finding files: img-hotspot-180x180.jpg: adding to list (342)
+0072.596 (0) finding files: img-hotspot-260x185.jpg: adding to list (343)
+0072.596 (0) finding files: img-hotspot-300x200.jpg: adding to list (344)
+0072.596 (0) finding files: img-hotspot-36x36.jpg: adding to list (345)
+0072.596 (0) finding files: img-hotspot-495x400.jpg: adding to list (346)
+0072.596 (0) finding files: img-hotspot-705x470.jpg: adding to list (347)
+0072.596 (0) finding files: img-hotspot-710x375.jpg: adding to list (348)
+0072.596 (0) finding files: img-hotspot-768x512.jpg: adding to list (349)
+0072.596 (0) finding files: img-hotspot-80x80.jpg: adding to list (350)
+0072.596 (0) finding files: img-hotspot-845x321.jpg: adding to list (351)
+0072.596 (0) finding files: img-hotspot-845x684.jpg: adding to list (352)
+0072.596 (0) finding files: img-hotspot.jpg: adding to list (353)
+0072.596 (0) finding files: img_0105-1030x834.jpg: adding to list (354)
+0072.596 (0) finding files: img_0105-1210x423.jpg: adding to list (355)
+0072.596 (0) finding files: img_0105-1500x1214.jpg: adding to list (356)
+0072.596 (0) finding files: img_0105-1500x430.jpg: adding to list (357)
+0072.596 (0) finding files: img_0105-1500x630.jpg: adding to list (358)
+0072.596 (0) finding files: img_0105-1536x1243.jpg: adding to list (359)
+0072.596 (0) finding files: img_0105-180x180.jpg: adding to list (360)
+0072.596 (0) finding files: img_0105-2048x1658.jpg: adding to list (361)
+0072.596 (0) finding files: img_0105-260x185.jpg: adding to list (362)
+0072.596 (0) finding files: img_0105-300x243.jpg: adding to list (363)
+0072.596 (0) finding files: img_0105-36x36.jpg: adding to list (364)
+0072.596 (0) finding files: img_0105-495x400.jpg: adding to list (365)
+0072.596 (0) finding files: img_0105-705x571.jpg: adding to list (366)
+0072.596 (0) finding files: img_0105-710x375.jpg: adding to list (367)
+0072.596 (0) finding files: img_0105-768x622.jpg: adding to list (368)
+0072.596 (0) finding files: img_0105-80x80.jpg: adding to list (369)
+0072.596 (0) finding files: img_0105-845x321.jpg: adding to list (370)
+0072.596 (0) finding files: img_0105-845x684.jpg: adding to list (371)
+0072.596 (0) finding files: img_0105.jpg: adding to list (372)
+0072.596 (0) finding files: industriereport-radmacher.pdf: adding to list (373)
+0072.596 (0) finding files: ithemes-security: adding to list (374)
+0072.596 (0) finding files: iw-backup: adding to list (375)
+0072.596 (0) finding files: jacklinfotos_01129-3a-1030x687.jpg: adding to list (376)
+0072.596 (0) finding files: jacklinfotos_01129-3a-1210x423.jpg: adding to list (377)
+0072.596 (0) finding files: jacklinfotos_01129-3a-1500x1000.jpg: adding to list (378)
+0072.596 (0) finding files: jacklinfotos_01129-3a-1500x430.jpg: adding to list (379)
+0072.596 (0) finding files: jacklinfotos_01129-3a-1500x630.jpg: adding to list (380)
+0072.596 (0) finding files: jacklinfotos_01129-3a-1536x1024.jpg: adding to list (381)
+0072.596 (0) finding files: jacklinfotos_01129-3a-180x180.jpg: adding to list (382)
+0072.596 (0) finding files: jacklinfotos_01129-3a-260x185.jpg: adding to list (383)
+0072.596 (0) finding files: jacklinfotos_01129-3a-300x200.jpg: adding to list (384)
+0072.596 (0) finding files: jacklinfotos_01129-3a-36x36.jpg: adding to list (385)
+0072.596 (0) finding files: jacklinfotos_01129-3a-495x400.jpg: adding to list (386)
+0072.596 (0) finding files: jacklinfotos_01129-3a-705x470.jpg: adding to list (387)
+0072.596 (0) finding files: jacklinfotos_01129-3a-710x375.jpg: adding to list (388)
+0072.596 (0) finding files: jacklinfotos_01129-3a-768x512.jpg: adding to list (389)
+0072.596 (0) finding files: jacklinfotos_01129-3a-80x80.jpg: adding to list (390)
+0072.596 (0) finding files: jacklinfotos_01129-3a-845x321.jpg: adding to list (391)
+0072.596 (0) finding files: jacklinfotos_01129-3a-845x684.jpg: adding to list (392)
+0072.596 (0) finding files: jacklinfotos_01129-3a.jpg: adding to list (393)
+0072.596 (0) finding files: jacklinfotos_02284-1500x1000-1-1030x687.jpg: adding to list (394)
+0072.596 (0) finding files: jacklinfotos_02284-1500x1000-1-1210x423.jpg: adding to list (395)
+0072.596 (0) finding files: jacklinfotos_02284-1500x1000-1-1500x430.jpg: adding to list (396)
+0072.596 (0) finding files: jacklinfotos_02284-1500x1000-1-1500x630.jpg: adding to list (397)
+0072.596 (0) finding files: jacklinfotos_02284-1500x1000-1-180x180.jpg: adding to list (398)
+0072.596 (0) finding files: jacklinfotos_02284-1500x1000-1-260x185.jpg: adding to list (399)
+0072.596 (0) finding files: jacklinfotos_02284-1500x1000-1-300x200.jpg: adding to list (400)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1-36x36.jpg: adding to list (401)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1-495x400.jpg: adding to list (402)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1-705x470.jpg: adding to list (403)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1-710x375.jpg: adding to list (404)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1-768x512.jpg: adding to list (405)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1-80x80.jpg: adding to list (406)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1-845x321.jpg: adding to list (407)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1-845x684.jpg: adding to list (408)
+0072.598 (0) finding files: jacklinfotos_02284-1500x1000-1.jpg: adding to list (409)
+0072.598 (0) finding files: julius-boisseree-180x180.jpg: adding to list (410)
+0072.598 (0) finding files: julius-boisseree-260x185.jpg: adding to list (411)
+0072.598 (0) finding files: julius-boisseree-300x300.jpg: adding to list (412)
+0072.598 (0) finding files: julius-boisseree-36x36.jpg: adding to list (413)
+0072.598 (0) finding files: julius-boisseree-495x400.jpg: adding to list (414)
+0072.598 (0) finding files: julius-boisseree-705x705.jpg: adding to list (415)
+0072.598 (0) finding files: julius-boisseree-710x375.jpg: adding to list (416)
+0072.598 (0) finding files: julius-boisseree-735x321.jpg: adding to list (417)
+0072.598 (0) finding files: julius-boisseree-735x423.jpg: adding to list (418)
+0072.598 (0) finding files: julius-boisseree-735x430.jpg: adding to list (419)
+0072.598 (0) finding files: julius-boisseree-735x630.jpg: adding to list (420)
+0072.598 (0) finding files: julius-boisseree-735x684.jpg: adding to list (421)
+0072.598 (0) finding files: julius-boisseree-80x80.jpg: adding to list (422)
+0072.598 (0) finding files: julius-boisseree.jpg: adding to list (423)
+0072.598 (0) finding files: kontakt2-1030x687.jpg: adding to list (424)
+0072.598 (0) finding files: kontakt2-1210x423.jpg: adding to list (425)
+0072.598 (0) finding files: kontakt2-1313x430.jpg: adding to list (426)
+0072.598 (0) finding files: kontakt2-1313x630.jpg: adding to list (427)
+0072.598 (0) finding files: kontakt2-180x180.jpg: adding to list (428)
+0072.598 (0) finding files: kontakt2-260x185.jpg: adding to list (429)
+0072.598 (0) finding files: kontakt2-300x200.jpg: adding to list (430)
+0072.598 (0) finding files: kontakt2-36x36.jpg: adding to list (431)
+0072.598 (0) finding files: kontakt2-495x400.jpg: adding to list (432)
+0072.598 (0) finding files: kontakt2-705x470.jpg: adding to list (433)
+0072.598 (0) finding files: kontakt2-710x375.jpg: adding to list (434)
+0072.598 (0) finding files: kontakt2-768x512.jpg: adding to list (435)
+0072.598 (0) finding files: kontakt2-80x80.jpg: adding to list (436)
+0072.598 (0) finding files: kontakt2-845x321.jpg: adding to list (437)
+0072.598 (0) finding files: kontakt2-845x684.jpg: adding to list (438)
+0072.598 (0) finding files: kontakt2.jpg: adding to list (439)
+0072.598 (0) finding files: kopfschmerzen-cmd.pdf: adding to list (440)
+0072.598 (0) finding files: kreis-weiss-36x36.png: adding to list (441)
+0072.598 (0) finding files: kreis-weiss.png: adding to list (442)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-1030x1030.jpg: adding to list (443)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-1080x423.jpg: adding to list (444)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-1080x430.jpg: adding to list (445)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-1080x630.jpg: adding to list (446)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-180x180.jpg: adding to list (447)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-260x185.jpg: adding to list (448)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-300x300.jpg: adding to list (449)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-36x36.jpg: adding to list (450)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-495x400.jpg: adding to list (451)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-705x705.jpg: adding to list (452)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-710x375.jpg: adding to list (453)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-768x768.jpg: adding to list (454)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-80x80.jpg: adding to list (455)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-845x321.jpg: adding to list (456)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29-845x684.jpg: adding to list (457)
+0072.598 (0) finding files: kursinfo_zaet-2024-05-29.jpg: adding to list (458)
+0072.598 (0) finding files: laekamp-180x180.png: adding to list (459)
+0072.598 (0) finding files: laekamp-260x185.png: adding to list (460)
+0072.598 (0) finding files: laekamp-300x150.png: adding to list (461)
+0072.598 (0) finding files: laekamp-36x36.png: adding to list (462)
+0072.598 (0) finding files: laekamp-495x400.png: adding to list (463)
+0072.598 (0) finding files: laekamp-705x353.png: adding to list (464)
+0072.598 (0) finding files: laekamp-710x375.png: adding to list (465)
+0072.598 (0) finding files: laekamp-768x385.png: adding to list (466)
+0072.598 (0) finding files: laekamp-80x80.png: adding to list (467)
+0072.598 (0) finding files: laekamp-845x321.png: adding to list (468)
+0072.598 (0) finding files: laekamp-845x489.png: adding to list (469)
+0072.598 (0) finding files: laekamp-976x423.png: adding to list (470)
+0072.598 (0) finding files: laekamp-976x430.png: adding to list (471)
+0072.598 (0) finding files: laekamp.png: adding to list (472)
+0072.598 (0) finding files: pageviews.php: adding to list (473)
+0072.598 (0) finding files: poster-dg-pro-1-180x180.jpg: adding to list (474)
+0072.598 (0) finding files: poster-dg-pro-1-260x185.jpg: adding to list (475)
+0072.598 (0) finding files: poster-dg-pro-1-300x198.jpg: adding to list (476)
+0072.598 (0) finding files: poster-dg-pro-1-36x36.jpg: adding to list (477)
+0072.598 (0) finding files: poster-dg-pro-1-495x400.jpg: adding to list (478)
+0072.598 (0) finding files: poster-dg-pro-1-705x465.jpg: adding to list (479)
+0072.598 (0) finding files: poster-dg-pro-1-710x375.jpg: adding to list (480)
+0072.598 (0) finding files: poster-dg-pro-1-747x321.jpg: adding to list (481)
+0072.598 (0) finding files: poster-dg-pro-1-747x423.jpg: adding to list (482)
+0072.598 (0) finding files: poster-dg-pro-1-747x430.jpg: adding to list (483)
+0072.598 (0) finding files: poster-dg-pro-1-80x80.jpg: adding to list (484)
+0072.598 (0) finding files: poster-dg-pro-1.jpg: adding to list (485)
+0072.598 (0) finding files: praxisbegleittag-1-180x180.jpg: adding to list (486)
+0072.598 (0) finding files: praxisbegleittag-1-260x185.jpg: adding to list (487)
+0072.598 (0) finding files: praxisbegleittag-1-300x225.jpg: adding to list (488)
+0072.598 (0) finding files: praxisbegleittag-1-36x36.jpg: adding to list (489)
+0072.598 (0) finding files: praxisbegleittag-1-495x400.jpg: adding to list (490)
+0072.598 (0) finding files: praxisbegleittag-1-705x529.jpg: adding to list (491)
+0072.598 (0) finding files: praxisbegleittag-1-710x375.jpg: adding to list (492)
+0072.598 (0) finding files: praxisbegleittag-1-768x576.jpg: adding to list (493)
+0072.598 (0) finding files: praxisbegleittag-1-80x80.jpg: adding to list (494)
+0072.598 (0) finding files: praxisbegleittag-1-845x321.jpg: adding to list (495)
+0072.598 (0) finding files: praxisbegleittag-1-845x675.jpg: adding to list (496)
+0072.598 (0) finding files: praxisbegleittag-1-900x423.jpg: adding to list (497)
+0072.598 (0) finding files: praxisbegleittag-1-900x430.jpg: adding to list (498)
+0072.598 (0) finding files: praxisbegleittag-1-900x630.jpg: adding to list (499)
+0072.598 (0) finding files: praxisbegleittag-1.jpg: adding to list (500)
+0072.600 (0) finding files: www.jacklinfotos.com_0661.jpg: adding to list (647, last; 147 log lines skipped)
+0072.602 (0) Beginning creation of dump of uploads (split every: 400 MB)
+0072.638 (0) Entity excluded by configuration option (extension): dmd-system-anwendung.zip
+0072.643 (0) Entity excluded by configuration option (extension): dmd-system-cart.zip
+0072.646 (0) Entity excluded by configuration option (extension): dmd-system-logo.zip
+0072.671 (0) Entity excluded by configuration option (extension): ignident-logo.zip
+0072.711 (0) Total entities for the zip file: 25 directories, 863 files (0 skipped as non-modified), 187.3 MB
+0072.727 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.tmp: 100 files added (on-disk size: 0 KB)
+0072.742 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.tmp: 200 files added (on-disk size: 0 KB)
+0072.757 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.tmp: 300 files added (on-disk size: 0 KB)
+0072.773 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.tmp: 400 files added (on-disk size: 0 KB)
+0072.789 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.tmp: 500 files added (on-disk size: 0 KB)
+0072.803 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.tmp: 600 files added (on-disk size: 0 KB)
+0072.818 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.tmp: 700 files added (on-disk size: 0 KB)
+0072.832 (0) Zip: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.tmp: 800 files added (on-disk size: 0 KB)
+0087.792 (0) Creating zip file manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.list-temp.tmp)
+0087.797 (0) Successfully created zip file manifest (size: 49834)
+0088.657 (0) Created uploads zip (0) - 159186 KB in 16 s (9918.5 KB/s) (sha1: b9626f99d9203b9aa38e2a22ddfe8d84dc27339c, sha256: 13e8642cb4a5135626c3f7c7f018564bd0cc1895fac07b3322e3746e285de6ca)
+0088.664 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0088.666 (0) No remote despatch: user chose no remote backup service
+0088.668 (0) Recording as successfully uploaded: backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip
+0088.671 (0) Deleting zip manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip.list.tmp)
+0088.674 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=3
+0088.676 (0) Number of backup sets in history: 7; groups (db): 1
+0088.678 (0) Examining (for databases) backup set with group_id=0, nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0088.681 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.682 (0) Examining (for databases) backup set with group_id=0, nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0088.682 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.682 (0) Examining (for databases) backup set with group_id=0, nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0088.682 (0) Examining (for databases) backup set with group_id=0, nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0088.682 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.682 (0) Examining (for databases) backup set with group_id=0, nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0088.683 (0) Examining (for databases) backup set with group_id=0, nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0088.683 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.683 (0) Examining (for databases) backup set with group_id=0, nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0088.683 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.683 (0) Number of backup sets in history: 7; groups (files): 1
+0088.684 (0) Examining (for files) backup set with nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0088.684 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.686 (0) Examining (for files) backup set with nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0088.686 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.686 (0) Examining (for files) backup set with nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0088.686 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0088.687 (0) Examining (for files) backup set with nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0088.687 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.688 (0) Examining (for files) backup set with nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0088.688 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0088.690 (0) Examining (for files) backup set with nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0088.690 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.690 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.690 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.690 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.690 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.690 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0088.692 (0) Examining (for files) backup set with nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0088.692 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.692 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.692 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.692 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.692 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0088.692 (0) Retain: saving new backup history (sets now: 7) and finishing retain operation
+0088.700 (0) Beginning creation of dump of mu-plugins (split every: 400 MB)
+0088.706 (0) Total entities for the zip file: 1 directories, 1 files (0 skipped as non-modified), 0 MB
+0088.718 (0) Creating zip file manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-mu-plugins.zip.list-temp.tmp)
+0088.720 (0) Successfully created zip file manifest (size: 76)
+0088.730 (0) Created mu-plugins zip (0) - 0.8 KB in 0 s (33.8 KB/s) (sha1: fb55e415f333486e620aeabde16f5dfbb1046e4f, sha256: 0716c290a570f28ed2262bea148fc2fd52a185c2bf2a99b22cc7e4088efd6566)
+0088.736 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0088.738 (0) No remote despatch: user chose no remote backup service
+0088.740 (0) Recording as successfully uploaded: backup_2025-08-27-1631_IGNIDENT_407217853352-mu-plugins.zip
+0088.743 (0) Deleting zip manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-mu-plugins.zip.list.tmp)
+0088.747 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=3
+0088.749 (0) Number of backup sets in history: 7; groups (db): 1
+0088.751 (0) Examining (for databases) backup set with group_id=0, nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0088.751 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.752 (0) Examining (for databases) backup set with group_id=0, nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0088.752 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.752 (0) Examining (for databases) backup set with group_id=0, nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0088.752 (0) Examining (for databases) backup set with group_id=0, nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0088.752 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.752 (0) Examining (for databases) backup set with group_id=0, nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0088.752 (0) Examining (for databases) backup set with group_id=0, nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0088.752 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.752 (0) Examining (for databases) backup set with group_id=0, nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0088.752 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.752 (0) Number of backup sets in history: 7; groups (files): 1
+0088.754 (0) Examining (for files) backup set with nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0088.754 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.755 (0) Examining (for files) backup set with nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0088.755 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.755 (0) Examining (for files) backup set with nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0088.755 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0088.757 (0) Examining (for files) backup set with nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0088.757 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.759 (0) Examining (for files) backup set with nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0088.759 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0088.760 (0) Examining (for files) backup set with nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0088.760 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.760 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.760 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.760 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.760 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.760 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0088.762 (0) Examining (for files) backup set with nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0088.762 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.762 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.762 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.762 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.762 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0088.762 (0) Retain: saving new backup history (sets now: 7) and finishing retain operation
+0088.770 (0) Beginning backup of other directories found in the content directory (index: 0)
+0088.771 (0) Exclusion option setting (others): upgrade,cache,updraft,backup*,*backups,mysql.sql,debug.log,ext:zip
+0088.773 (0) Looking for candidates to backup in: X:\TLCDev\WordPress\ignident\dev\wp/wp-content
+0088.775 (0) finding files: debug.log: skipping: excluded by options
+0088.776 (0) finding files: index.php: adding to list (1)
+0088.778 (0) finding files: languages: adding to list (2)
+0088.780 (0) finding files: mu-plugins: skipping: this is the mu-plugins directory
+0088.782 (0) finding files: php.ini: adding to list (3)
+0088.783 (0) finding files: plugins: skipping: this is the plugins directory
+0088.786 (0) finding files: themes: skipping: this is the themes directory
+0088.787 (0) finding files: updraft: skipping: excluded by options
+0088.789 (0) finding files: updraft-backups: skipping: this is the updraft directory
+0088.791 (0) finding files: upgrade: skipping: excluded by options
+0088.793 (0) finding files: upgrade-temp-backup: adding to list (4)
+0088.795 (0) finding files: uploads: skipping: this is the uploads directory
+0088.796 (0) finding files: wp-defender-secrets.php: adding to list (5)
+0088.802 (0) Total entities for the zip file: 4 directories, 3 files (0 skipped as non-modified), 0 MB
+0088.818 (0) Creating zip file manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-others.zip.list-temp.tmp)
+0088.821 (0) Successfully created zip file manifest (size: 91)
+0088.831 (0) Created others zip (0) - 1.1 KB in 0 s (38.9 KB/s) (sha1: ab746e7198a31df48e15f04e6aab63296b333896, sha256: a1aa152a50a50650f366deb135dea84d550a0dd54c003ccb329a30364d0d9f08)
+0088.838 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0088.839 (0) No remote despatch: user chose no remote backup service
+0088.841 (0) Recording as successfully uploaded: backup_2025-08-27-1631_IGNIDENT_407217853352-others.zip
+0088.846 (0) Deleting zip manifest (backup_2025-08-27-1631_IGNIDENT_407217853352-others.zip.list.tmp)
+0088.850 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=3
+0088.852 (0) Number of backup sets in history: 7; groups (db): 1
+0088.854 (0) Examining (for databases) backup set with group_id=0, nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0088.854 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.855 (0) Examining (for databases) backup set with group_id=0, nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0088.855 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.855 (0) Examining (for databases) backup set with group_id=0, nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0088.855 (0) Examining (for databases) backup set with group_id=0, nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0088.855 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.855 (0) Examining (for databases) backup set with group_id=0, nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0088.855 (0) Examining (for databases) backup set with group_id=0, nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0088.855 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.855 (0) Examining (for databases) backup set with group_id=0, nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0088.855 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.855 (0) Number of backup sets in history: 7; groups (files): 1
+0088.857 (0) Examining (for files) backup set with nonce=7d125e01b912, datestamp=1756305074 (Aug 27 2025 14:31:14)
+0088.857 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.858 (0) Examining (for files) backup set with nonce=fd42afbbe30d, datestamp=1752070753 (Jul 09 2025 14:19:13)
+0088.858 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.858 (0) Examining (for files) backup set with nonce=8decc4325c6f, datestamp=1752070670 (Jul 09 2025 14:17:50)
+0088.858 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0088.861 (0) Examining (for files) backup set with nonce=6fec5b0cfbaa, datestamp=1749867858 (Jun 14 2025 02:24:18)
+0088.861 (0) This backup set remains non-empty (f=0/d=1); will retain in history
+0088.863 (0) Examining (for files) backup set with nonce=8c56fdea9247, datestamp=1747052841 (May 12 2025 12:27:21)
+0088.863 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0088.864 (0) Examining (for files) backup set with nonce=4bbc847fce2a, datestamp=1743167997 (Mar 28 2025 13:19:57)
+0088.864 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.864 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.864 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.864 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.864 (0) This backup set (1743167997) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.864 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0088.865 (0) Examining (for files) backup set with nonce=444d865e4f12, datestamp=1743084949 (Mar 27 2025 14:15:49)
+0088.865 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.865 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.865 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.865 (0) This backup set (1743084949) was an 'Always Keep' backup, so it will not be pruned. Skipping.
+0088.866 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0088.866 (0) Retain: saving new backup history (sets now: 7) and finishing retain operation
+0088.877 (0) Saving backup status to database (elements: 10)
+0088.881 (0) No database backup (wp) - not part of this run
+0088.885 (0) backup_2025-08-27-1631_IGNIDENT_407217853352-plugins.zip: plugins: This file has already been successfully processed
+0088.887 (0) backup_2025-08-27-1631_IGNIDENT_407217853352-themes.zip: themes: This file has already been successfully processed
+0088.888 (0) backup_2025-08-27-1631_IGNIDENT_407217853352-uploads.zip: uploads: This file has already been successfully processed
+0088.890 (0) backup_2025-08-27-1631_IGNIDENT_407217853352-mu-plugins.zip: mu-plugins: This file has already been successfully processed
+0088.892 (0) backup_2025-08-27-1631_IGNIDENT_407217853352-others.zip: others: This file has already been successfully processed
+0088.894 (0) Saving backup history. Total backup size: 194.7 MB
+0088.898 (0) Resume backup (407217853352, 0): finish run
+0088.902 (0) There were no more files that needed uploading
+0088.906 (0) Decremented the semaphore (f) by 1
+0088.909 (0) Semaphore (f) unlocked
+0088.911 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0088.917 (0) No email will be sent - this backup set was empty.
+0088.919 (0) The backup succeeded and is now complete

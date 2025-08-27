@@ -16,7 +16,7 @@
 	font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #777;
 	margin: 0;
-	width: 95%;
+	width: calc(100% - 25px);
 	max-width: 100%;
 	margin-bottom: 5px;
 	background: #fff;
@@ -656,6 +656,129 @@ div.avia-modal .avia-modal-inner-footer .button-large {
 	float:right;
 }
 
+.avia-modal .avia-name-description .av-container-icons,
+.avia-modal .avia-name-description .av-popup-wrap{
+	float: left;
+	width: 100%;
+	font-weight: normal;
+}
+
+.avia-modal .avia-name-description .av-popup-wrap{
+	pointer-events: none;
+}
+
+.avia-modal .avia-name-description .av-popup-wrap:has(.av-container-popup){
+	margin-bottom: 5px;
+}
+
+.avia-modal .av-container-icons .av-description-icon-wrap{
+	width: auto;
+	position: relative;
+	float: left;
+}
+
+.avia-modal .av-description-icon-wrap .av-read-more{
+	padding-right: 4px;
+}
+
+.avia-modal .av-description-icon-wrap:focus .av-read-more{
+	text-decoration: underline;
+}
+
+.avia-modal .av-container-icons .av-description-icon-wrap .avia-svg-icon{
+	width: 14px;
+	display: inline-block;
+	margin-right: 8px;
+}
+
+.avia-modal .av-container-icons .av-show-hide-icon.av-popup-open svg:first-child{
+	transform: rotate(180deg);
+/*	opacity: 0.5;
+	transition: opacity 0.8s ease-in;*/
+}
+
+.avia-modal .avia-name-description.av-icons.av-animation .av-description-wrap .av-container-popup{
+	max-height: 0;
+	visibility: hidden;
+	overflow: hidden;
+	transition: max-height 0.8s ease-in, visibility 0.8s ease-in, padding 0.8s ease-in;
+}
+
+.avia-modal .avia-name-description.av-icons.av-animation .av-description-wrap .av-container-popup.av-show-popup{
+	max-height: 1500px;
+	visibility: visible;
+	padding: 10px;
+	transition: max-height 0.8s ease-in, visibility 0.8s ease-in, padding 0.8s ease-in;
+}
+
+
+.avia-modal .avia-name-description.av-icons.av-no-animation .av-container-popup{
+	width: auto;
+	display: none;
+}
+
+.avia-modal .avia-name-description.av-icons.av-no-animation .av-container-popup.av-show-popup{
+	display: block;
+	margin-top: 5px;
+}
+
+.avia-modal .avia-element-iconfont .av-popup-info.av-show-popup{
+	background-color: #00adee;
+	color: #fff;
+	padding: 15px;
+}
+
+.avia-modal .av-container-icons .avia-svg-icon svg:first-child{
+	max-width: 100%;
+	max-height: 100%;
+	margin-bottom: -2px;
+	stroke: unset;
+	fill: #999;
+}
+
+.avia-modal .av-container-icons .av-icon-info{
+	color: #00adee;
+}
+
+.avia-modal .av-container-icons .avia-svg-info svg:first-child{
+	fill: #00adee;
+}
+
+.avia-modal .av-container-icons .av-icon-attention{
+	color: #dc2626;
+}
+
+.avia-modal .av-container-icons .avia-svg-attention svg:first-child{
+	fill: #dc2626;
+}
+
+.avia-modal .avia-name-description.av-icons.av-animation .av-container-popup{
+	width: auto;
+	max-width: calc( 100% - 40px );
+	background-color: #f7f7f7;
+	border: 3px solid #999;
+	border-radius: 8px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.avia-modal .avia-name-description.av-icons.av-animation .av-popup-info,
+.avia-modal .avia-name-description.av-icons.av-animation .av-popup-info strong{
+	border-color: #00adee;
+	color: #00adee;
+}
+
+.avia-modal .avia-name-description.av-icons.av-animation .av-popup-attention,
+.avia-modal .avia-name-description.av-icons.av-animation .av-popup-attention strong{
+	border-color: #dc2626;
+	color: #dc2626;
+}
+
+.avia-modal .avia-name-description.av-icons .av-show-hide-icon:hover{
+	cursor: help;
+}
+
+
+
 /*checkbox needs another width*/
 .avia-modal .avia-element-checkbox .avia-form-element{
 	width:30px;
@@ -675,10 +798,13 @@ div.avia-modal .avia-modal-inner-footer .button-large {
 .avia-element-heading .avia-form-element,
 .avia-element-heading .avia-name-description,
 .avia-element-fullwidth .avia-form-element,
-.avia-element-fullwidth .avia-name-description
-{
+.avia-element-fullwidth .avia-name-description{
 	float:none;
 	width:100%;
+}
+
+.avia-element-iconfont .avia-name-description.av-icons{
+	float: left;				/*  added x.x.x  - avoid to break popup logic  */
 }
 
 .avia-modal .avia-form-element-container.av_group_prev{
@@ -831,6 +957,96 @@ div.avia-modal .avia-modal-inner-footer .button-large {
 	padding-left:30px;
 	color: #454545;
 }
+
+/* ======================================================================================================================================================
+Checkbox Toggles
+====================================================================================================================================================== */
+.avia-name-description.av-checkbox-toggles > label{
+	margin-left: 45px;
+	margin-top: 5px;
+}
+
+.avia-modal .av-toggle-switch{
+	position: relative;
+	top: -10px;
+	display: block;
+	margin-bottom: 10px;
+	margin-top:10px;
+	opacity: 0;
+	text-align: left;
+}
+
+.avia-modal .av-toggle-switch.active{
+	opacity: 1;
+}
+
+.avia-modal .av-toggle-switch input[type="checkbox"] {
+	display:none;
+}
+
+.avia-modal .av-toggle-switch label {
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.avia-modal .av-toggle-switch label .toggle-track {
+	display: block;
+	height: 27px;
+	width: 54px;
+	background: rgba(0, 0, 0, 0.08);
+	border-radius: 100px;
+	position: relative;
+	margin-right: 15px;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	clear: both;
+	vertical-align: bottom;
+	float: left;
+	transition: all .4s ease-in;
+}
+
+.avia-modal .av-toggle-switch .toggle-track:before{
+	content: '';
+	display: inline;
+	height: 25px;
+	width: 25px;
+	background: #fff;
+	border-radius: 100px;
+	position: absolute;
+	top: 0;
+	right: 27px;
+	transition: right .4s ease-in;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 1px;
+}
+
+.avia-modal .av-toggle-switch.av-cookie-sc-disabled .toggle-track{
+	opacity: 0.2;
+}
+
+.avia-modal .av-toggle-switch input[type="checkbox"]:checked + .toggle-track:before{
+	right: 0;
+	content: '\2713';
+	text-align: center;
+	font-weight: 900;
+	color: #0285ba;
+	line-height: 1.7em;
+}
+
+.avia-modal .av-toggle-switch input[type="checkbox"]:checked +  .toggle-track{
+	background: #0285ba;
+}
+
+/* ======================================================================================================================================================
+Checkbox Toggles - END
+====================================================================================================================================================== */
+
+
+
+
 
 .av-builder-note.av-neutral{
 	border: 1px solid #e1e1e1;

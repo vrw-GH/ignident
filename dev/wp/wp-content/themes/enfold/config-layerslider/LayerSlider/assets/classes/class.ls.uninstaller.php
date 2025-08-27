@@ -54,6 +54,7 @@ class LS_Uninstaller {
 			'ls_use_custom_jquery',
 			'ls_clear_3rd_party_caches',
 			'ls_admin_no_conflict_mode',
+			'ls_fix_optimizer_issues',
 			'ls_rocketscript_ignore',
 			'ls_suppress_debug_info',
 			'ls_tinymce_helper',
@@ -66,6 +67,7 @@ class LS_Uninstaller {
 			'ls_enable_play_by_scroll',
 			'ls_wpml_string_translation',
 			'ls_wpml_media_translation',
+			'ls_wpml_auto_cleanup',
 
 			// Updates & Services
 			'ls-share-displayed',

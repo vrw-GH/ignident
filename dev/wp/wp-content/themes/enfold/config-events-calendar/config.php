@@ -321,6 +321,7 @@ if( ! function_exists( 'avia_events_custom_post_nav' ) )
 					$event = tribe( 'tec.adjacent-events' )->get_closest_event( $mode );
 
 					$entry[ $key ] = new stdClass();
+					$entry[ $key ]->ID = $event->ID;
 					$entry[ $key ]->av_custom_link  = $final[ $key ]['link_url'];
 					$entry[ $key ]->av_custom_title = $final[ $key ]['link_text'];
 					$entry[ $key ]->av_custom_image = get_the_post_thumbnail( $event->ID, 'thumbnail' );

@@ -1,10 +1,10 @@
 ﻿=== Popup Box - Create Countdown, Coupon, Video, Contact Form Popups ===
 Contributors: ays-pro
-Donate link: https://ays-pro.com/wordpress/popup-box
+Donate link: https://popup-plugin.com
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
-Tested up to: 6.7
-Stable tag: 5.2.2
+Tested up to: 6.8
+Stable tag: 5.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,7 +16,7 @@ Popup everything you want! Create informative and promotional popups all in one 
 
 ### WordPress Popup Plugin
 
-* [WordPress Popup plugin pricing](https://ays-pro.com/wordpress/popup-box)
+* [WordPress Popup plugin pricing](https://popup-plugin.com/pricing)
 * [Popup Box FREE demo](https://ays-demo.com/popup-box-plugin-free-demo/)
 * [Popup Box PRO demo](https://ays-demo.com/popup-box-plugin-pro-demo/)
 * [Popup Box PRO documentation](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)
@@ -27,7 +27,7 @@ https://www.youtube.com/watch?v=Ofk1mxUF-9g
 
 == Best free WordPress popup plugin ==
 
-[WordPress Popup plugin](https://ays-pro.com/wordpress/popup-box) is an easy way to **popup anything**. Add **eye-catching** and **high converting** popups to your website. The Popup plugin is here to break the stereotypes against annoying popups. You don't have to be a tech-savvy person to use the huge variety of features included in this plugin. This plugin offers the best popup designs for creating responsive, promotional, and conversational popups. There are 15 types of popups that you can use for your website:
+[WordPress Popup plugin](https://popup-plugin.com) is an easy way to **popup anything**. Add **eye-catching** and **high converting** popups to your website. The Popup plugin is here to break the stereotypes against annoying popups. You don't have to be a tech-savvy person to use the huge variety of features included in this plugin. This plugin offers the best popup designs for creating responsive, promotional, and conversational popups. There are 15 types of popups that you can use for your website:
 
 * **Shortcode** - Copy and paste the shortcode from other plugins and display it on your popup. 
 * **Custom Content** - You can add HTML and create your preferred popup from the scratch.
@@ -67,11 +67,11 @@ https://www.youtube.com/watch?v=Ofk1mxUF-9g
 == Popup Triggers ==
 * On page load
 * On click 
-* On hover (available in [Pro version](https://ays-pro.com/wordpress/popup-box))
-* Exit intent (available in [Pro version](https://ays-pro.com/wordpress/popup-box))
-* Inactivity (available in [Pro version](https://ays-pro.com/wordpress/popup-box))
-* After visiting x pages (available in [Pro version](https://ays-pro.com/wordpress/popup-box))
-* Scrolling to elements (available in [Pro version](https://ays-pro.com/wordpress/popup-box))
+* On hover (available in [Pro version](https://popup-plugin.com/))
+* Exit intent (available in [Pro version](https://popup-plugin.com/))
+* Inactivity (available in [Pro version](https://popup-plugin.com/))
+* After visiting x pages (available in [Pro version](https://popup-plugin.com/))
+* Scrolling to elements (available in [Pro version](https://popup-plugin.com/))
 
 **What  WordPress Popup Plugin Offers**
 
@@ -107,7 +107,7 @@ The privacy policy for Facebook can be found at this URL: https://www.facebook.c
 * Live preview
 
 
-**[Popup Box PRO](https://ays-pro.com/wordpress/popup-box) Features**
+**[Popup Box PRO](https://popup-plugin.com/pricing) Features**
 
 * Includes ALL Free version Features and
 * Subscription popup
@@ -170,7 +170,7 @@ So according to selected sizes, you can have a full-screen popup.
 
 You will be able to preview the changes before saving them.
 
-**[PRO](https://ays-pro.com/wordpress/popup-box) | [DEMO](https://ays-demo.com/popup-box-plugin-pro-demo/) | [DOCUMENTATION](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)**
+**[PRO](https://popup-plugin.com/pricing) | [DEMO](https://ays-demo.com/popup-box-plugin-pro-demo/) | [DOCUMENTATION](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)**
 
 == Why us? What advantages does popup box offer? ==
 
@@ -215,6 +215,7 @@ Don't forget, in case of any problems or upcoming questions feel free to contact
 * [Quiz Maker](https://wordpress.org/plugins/quiz-maker/) for creating advanced quizzes and exams easily and quickly.
 * [Survey Maker](https://wordpress.org/plugins/survey-maker/) for collecting data and analyze it.  
 * [Poll Maker](https://wordpress.org/plugins/poll-maker/) for creating powerful and interactive polls. 
+* [Fox LMS](https://wordpress.org/plugins/fox-lms/) to empower educators and trainers to build structured, interactive online learning systems easily for their WordPress website.
 * [Secure Copy Content Protection](https://wordpress.org/plugins/secure-copy-content-protection/) to protect web content from being plagiarized.
 * [Chartify](https://wordpress.org/plugins/chart-builder/) to build both static and dynamic charts, graphs and diagrams. 
 * [Easy Form](https://wordpress.org/plugins/easy-form/) to create various forms for your website. 
@@ -313,7 +314,7 @@ Simply and effortlessly! Either you are switching from the free to pro, or the l
 
 = 12. Something does not work or I have a suggestion/pre-sale question. What should I do? =
 
-**Contact us**!  Either write on our [FREE support forum](https://wordpress.org/support/plugin/ays-popup-box/) or reach out to use with our [contact form](https://ays-pro.com/contact). Either way, our helpful customer care specialists will contact back you quickly and will do their best to satisfy all your needs.
+**Contact us**!  Either write on our [FREE support forum](https://wordpress.org/support/plugin/ays-popup-box/) or reach out to use with our [contact form](https://popup-plugin.com/contact-us/). Either way, our helpful customer care specialists will contact back you quickly and will do their best to satisfy all your needs.
 
 = 13. Can I customize the popup the way I want? =
 This is not even a question! Surely, you can customize the best popups the way you wish. Choose one of our premade themes, change the background color, image, text, and everything that you can think of. Can't find anything of your taste? You are free to add your **custom CSS code** to get your preferred design.
@@ -334,6 +335,80 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 5.4.3 ( July 7, 2025 ) =
+* Improved: Some changes on the admin dashboard
+* Improved: Notice functionality behavior
+
+= 5.4.2 ( July 1, 2025 ) =
+* Added: TikTok social media link
+* Improved: Some changes on the admin dashboard
+
+= 5.4.1 ( June 27, 2025 ) =
+* Updated: POT file
+* Improved: Code correction on the admin dashboard
+
+= 5.4.0 ( June 25, 2025 ) =
+* Improved: Some changes in the admin dashboard
+
+= 5.3.9 ( June 24, 2025 ) =
+* Changed: Some styles on the admin dashboard
+
+= 5.3.8 ( June 18, 2025 ) =
+* Improved: Some changes in the admin dashboard
+
+= 5.3.7 ( June 17, 2025 ) =
+* Added: Current time, day and month message variables
+
+= 5.3.6 ( June 12, 2025 ) =
+* Fixed: Language translation problem
+* Updated: POT file
+
+= 5.3.5 ( June 9, 2025 ) =
+* Improved: Some changes in the admin dashboard
+
+= 5.3.4 ( June 6, 2025 ) =
+* Fixed: Show scrollbar option issue
+
+= 5.3.3 ( June 3, 2025 ) =
+* Added: Multiple close button icons for selection
+
+= 5.3.2 ( May 27, 2025 ) =
+* Added: Scrollbar visibility control for mobile device
+* Fixed: Conflict with Pixel Ebook Store theme
+* Fixed: Conflict with Interactive Education theme
+
+= 5.3.1 ( May 20, 2025 ) =
+* Improved: Some changes in the admin dashboard
+* Updated: POT file
+
+= 5.3.0 ( May 14, 2025 ) =
+* Improved: Some changes in the admin dashboard
+
+= 5.2.9 =
+* Added: Some sanitization functions in the admin dashboard
+* Updated: POT file
+
+= 5.2.8 =
+* Added: Fox LMS Plugin to the Our Products page
+
+= 5.2.7 =
+* Fixed: CSS conflict with the HTML5 Video Player plugin
+* Fixed: CSS conflict with the Panorama Viewer plugin
+
+= 5.2.6 =
+* Added: Telegram social media link
+* Tested: Compatible up to 6.8
+
+= 5.2.5 =
+* Improved: Some Changes in the admin dashboard
+* Updated: POT file
+
+= 5.2.4 =
+* Improved: Some Styles in the admin dashboard
+
+= 5.2.3 =
+* Added: Text color live preview in admin page
 
 = 5.2.2 =
 * Added: Description text align option for pc and mobile

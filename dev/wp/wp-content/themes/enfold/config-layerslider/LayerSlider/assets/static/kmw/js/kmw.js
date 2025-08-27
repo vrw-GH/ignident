@@ -2,7 +2,7 @@
 /*
 	* Kreatura Modal Window
 	*
-	* (c) 2019-2024 George Krupa, John Gera & Kreatura Media
+	* (c) 2019-2025 George Krupa, John Gera & Kreatura Media
 	*
 */
 

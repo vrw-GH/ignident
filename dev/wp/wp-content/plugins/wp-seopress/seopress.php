@@ -4,7 +4,7 @@ Plugin Name: SEOPress
 Plugin URI: https://www.seopress.org/
 Description: One of the best SEO plugins for WordPress.
 Author: The SEO Guys at SEOPress
-Version: 8.6.1
+Version: 8.9.0.2
 Author URI: https://www.seopress.org/
 License: GPLv3 or later
 Text Domain: wp-seopress
@@ -35,7 +35,7 @@ defined('ABSPATH') or exit('Please don’t call the plugin directly. Thanks :)')
 /**
  * Define constants
  */
-define('SEOPRESS_VERSION', '8.6.1');
+define('SEOPRESS_VERSION', '8.9.0.2');
 define('SEOPRESS_AUTHOR', 'Benjamin Denis');
 define('SEOPRESS_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
 define('SEOPRESS_PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
@@ -273,14 +273,14 @@ function seopress_add_admin_options_scripts($hook) {
 		];
 		wp_localize_script('seopress-dashboard', 'seopressAjaxToggleFeatures', $seopress_toggle_features);
 
-        if ($page === 'seopress-option') {
-            //Notices
-            $seopress_hide_notices = [
-                'seopress_nonce'        => wp_create_nonce('seopress_hide_notices_nonce'),
-                'seopress_hide_notices' => admin_url('admin-ajax.php'),
-            ];
-            wp_localize_script('seopress-dashboard', 'seopressAjaxHideNotices', $seopress_hide_notices);
+        //Notices
+        $seopress_hide_notices = [
+            'seopress_nonce'        => wp_create_nonce('seopress_hide_notices_nonce'),
+            'seopress_hide_notices' => admin_url('admin-ajax.php'),
+        ];
+        wp_localize_script('seopress-dashboard', 'seopressAjaxHideNotices', $seopress_hide_notices);
 
+        if ($page === 'seopress-option') {
             //Simple View
             $seopress_switch_view = [
                 'seopress_nonce'        => wp_create_nonce('seopress_switch_view_nonce'),
@@ -473,6 +473,10 @@ add_action('init', 'seopress_admin_bar_css', 12);
 function seopress_add_admin_options_scripts_quick_edit() {
 	$screen = get_current_screen();
     if ('edit' !== $screen->base) {
+        return;
+    }
+
+    if (is_plugin_active('admin-columns-pro/admin-columns-pro.php')) {
         return;
     }
 

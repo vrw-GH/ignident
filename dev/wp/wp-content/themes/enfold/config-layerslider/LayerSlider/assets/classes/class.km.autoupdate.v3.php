@@ -12,7 +12,7 @@ defined( 'LS_ROOT_FILE' ) || exit;
  * @package KM_Updates
  * @since 4.6.3
  * @author John Gera
- * @copyright Copyright (c) 2024  John Gera, George Krupa, and Kreatura Media Kft.
+ * @copyright Copyright (c) 2025  John Gera, George Krupa, and Kreatura Media Kft.
  */
 
 

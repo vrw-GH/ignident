@@ -2,11 +2,11 @@
 Contributors: hesseldejong, RogierLankhorst, aahulsebos, leonwimmenhoeve
 Donate link: paypal.me/Burststatistics
 Tags: statistics, analytics, stats, analytics alternative
-Requires at least: 6.0
+Requires at least: 6.2
 License: GPL2
-Requires PHP: 7.2
-Tested up to: 6.7
-Stable tag: 1.8.0
+Requires PHP: 7.4
+Tested up to: 6.8
+Stable tag: 2.2.0
 
 Self-hosted, privacy-friendly stats for WordPress. Simple interface, no setup. Get detailed analytics with Burst Statistics.
 
@@ -90,10 +90,50 @@ Burst Statistics can be used without setting cookies or storing data in browsers
 = Does Burst Statistics affect performance? =
 Performance is almost not affected. We have built Burst to be very performant for your users because we know how important it is for your website. Read more about [Turbo Mode](https://burst-statistics.com/definition/turbo-mode/)
 
+= Is it possible to install Burst Statistics with composer? =
+Absolutely! Both free and premium plugin can be managed with composer. Read the [documentation](https://burst-statistics.com/installing-burst-statistics-with-composer/) for more information.
+
 = Can I give feedback about the plugin? =
 We value your feedback. You can [submit a support request on the WordPress forums](https://wordpress.org/support/plugin/burst-statistics/), and we will respond promptly.
 
 == Change log ==
+= 2.2.0 =
+* New: extended range of shortcodes.
+* New: goal element preview to check if the selected element exists on the page.
+* Improvement: moved all hooks from constructor to init method.
+* Improvement: remove bounce=0 conditions on goal filtering
+* Fix: Integrations not loading due to path change in 2.0.
+* Fix: First time visits counting duplicates for visitors on cookieless tracking when they came back after a month.
+* Fix: multisite redirect to network, but should redirect to main site, props @muttleydosomething
+
+= 2.1.0 =
+* Fix: type mismatch when browser key is not in the user agent data.
+* New: Onboarding wizard for new users.
+
+= 2.0.9 =
+* Fix: incorrect "best device" conversion rate on the goals block.
+* Fix: when running tasks validation, summary warning call caused an error, due to wrong call.
+* Improvement: allow null value in admin_enqueue_scripts to prevent Visual Composer causing fatal error.
+* Improvement: changed plugin_url value to use site_url instead of get_plugin_url() to prevent mixed content.
+
+= 2.0.8 =
+* Fix: filtering by referrer not working.
+* Fix: Dashboard submenu link only working when the Burst settings page was already loaded.
+
+= 2.0.7 =
+* Fix: in some cases a php warning could be shown on the endpoint.
+* Improvement: drop option for administrators to send an email report by adding a query variable.
+* Improvement: improved efficiency of burst_find_wordpress_base_path() function.
+
+= 2.0.6 =
+* Improvement: optimized database upgrade.
+* New: rewritten plugin for even better performance
+* New: extended range of automated tests to increase reliability
+
+= 1.8.0.1 =
+* Fix: Goals block details not showing correct data.
+* Fix: Click goals not always tracking correctly.
+
 = 1.8.0 =
 * Improvement: add a fallback to allow for servers with a very small bytes limit on indexes.
 * Improvement: restructured the way tasks are stored.

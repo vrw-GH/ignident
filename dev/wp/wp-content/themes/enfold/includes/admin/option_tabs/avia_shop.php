@@ -19,9 +19,9 @@ $avia_elements[] = array(
 			'std'		=> '',
 			'no_first'	=> true,
 			'subtype'	=> array(
-								__( 'Display Floating on the side, but only once product was added to the cart', 'avia_framework' ) => '',
-								__( 'Always Display floating on the side', 'avia_framework' )			=> 'always_display',
-								__( 'Always Display attached to the main menu', 'avia_framework' )		=> 'always_display_menu',
+								__( 'Display floating on the side, but only once product was added to the cart', 'avia_framework' ) => '',
+								__( 'Always display floating on the side', 'avia_framework' )			=> 'always_display',
+								__( 'Always display attached to the main menu', 'avia_framework' )		=> 'always_display_menu',
 								__( 'Do not show at all', 'avia_framework' )							=> 'no_cart'
 							)
 		);
@@ -58,7 +58,7 @@ $avia_elements[] = array(
 
 $avia_elements[] = array(
 			'slug'		=> 'shop',
-			'name'		=> __( 'Product layout on overview pages', 'avia_framework' ),
+			'name'		=> __( 'Product Layout On Overview Pages', 'avia_framework' ),
 			'desc'		=> __( 'You can choose the appearance of your products here', 'avia_framework' ),
 			'id'		=> 'product_layout',
 			'type'		=> 'select',
@@ -74,7 +74,7 @@ $avia_elements[] = array(
 
 $avia_elements[] = array(
 			'slug'		=> 'shop',
-			'name'		=> __( 'Product gallery', 'avia_framework' ),
+			'name'		=> __( 'Product Gallery', 'avia_framework' ),
 			'desc'		=> __( 'You can choose the appearance of your product gallery here', 'avia_framework' ),
 			'id'		=> 'product_gallery',
 			'type'		=> 'select',
@@ -197,7 +197,7 @@ $avia_elements[] =	array(
 
 $avia_elements[] =	array(
 			'slug'		=> 'shop',
-			'name'		=> __( 'Enable Banner for product category pages', 'avia_framework' ),
+			'name'		=> __( 'Enable Banner For Product Category Pages', 'avia_framework' ),
 			'desc'		=> __( 'You can enable the shop banner for all categories as well. You can also set individual banners by editing the category', 'avia_framework' ),
 			'id'		=> 'shop_banner_global',
 			'type'		=> 'checkbox',

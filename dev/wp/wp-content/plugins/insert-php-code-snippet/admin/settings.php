@@ -16,10 +16,10 @@ if(!$_POST && isset($_GET['ips_notice'])&& $_GET['ips_notice'] == 'hide'){
         display:none !important;
     }
 </style>
-<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
     Thanks again for using the plugin. We will never show the message again.
     &nbsp;&nbsp;&nbsp;
-    <span id="xyz_system_notice_area_dismiss">Dismiss</span>
+    <span id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 </div>
 <?php
 }
@@ -65,9 +65,9 @@ if($_POST){
 
         update_option('xyz_ips_limit',$xyz_ips_limit);
 ?>
-<div class="xyz_system_notice_area_style1" id="xyz_system_notice_area">
+<div class="xyz_ips_system_notice_area_style1" id="xyz_ips_system_notice_area">
     Settings updated successfully. &nbsp;&nbsp;&nbsp;
-    <span id="xyz_system_notice_area_dismiss">Dismiss</span>
+    <span id="xyz_ips_system_notice_area_dismiss">Dismiss</span>
 </div>
 <?php
     }

@@ -340,7 +340,7 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 
 			$avia_elements[] = array(
 						'slug'			=> 'update',
-						'name'			=> __( 'Update your Theme from the WordPress Dashboard', 'avia_framework' ),
+						'name'			=> __( 'Update Your Theme From The WordPress Dashboard', 'avia_framework' ),
 						'desc'			=> $desc,
 						'type'			=> 'heading',
 						'std'			=> '',
@@ -350,7 +350,7 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 
 			$avia_elements[] =	array(
 						'slug'				=> 'update',
-						'name'				=> __( 'Enter a valid Envato private token', 'avia_framework' ),
+						'name'				=> __( 'Enter A Valid Envato Private Token', 'avia_framework' ),
 						'desc'				=> '',
 						'id'				=> 'updates_envato_token',
 						'type'				=> 'verification_field',

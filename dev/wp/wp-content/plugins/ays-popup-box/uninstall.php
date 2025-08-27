@@ -45,4 +45,17 @@ if (get_option('ays_pb_upgrade_plugin','false') === 'false') {
     delete_option("ays_pb_sale_date");
     delete_option("ays_pb_sale_btn");
     delete_option("ays_pb_banner_time");
+
+    delete_option('ays_pb_first_time_activation_page');
+    delete_option('ays_pb_agree_terms');
+    delete_option('ays_pb_show_agree_terms');
 }
+
+$api_url = "https://poll-plugin.com/popup-box/uninstall/";
+
+wp_remote_post( $api_url, array(
+    'timeout' => 30,
+    'body' => wp_json_encode(array(
+        'type'  => 'popup-box',
+    )),
+) );

@@ -154,7 +154,7 @@ class Ays_PopupBox_Settings_Actions {
             return;
 
         ?>
-        <div class="notice notice-success is-dismissible">
+        <div class="ays-pb-admin-notice notice notice-success is-dismissible">
             <p> <?php echo $updated_message; ?> </p>
         </div>
         <?php

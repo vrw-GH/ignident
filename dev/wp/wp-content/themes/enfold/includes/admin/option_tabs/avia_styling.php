@@ -604,25 +604,28 @@ $avia_elements[] = array(
 $desc  = __( 'Override theme default settings. Only recommended for advanced users. Added with 4.8.8 and is in active BETA.', 'avia_framework' ) . ' ';
 $desc .= __( 'More detailed information for typography settings you find here:', 'avia_framework' ) . '  ';
 $desc .= '<a href="https://spencermortensen.com/articles/typographic-scale/" target="_blank" rel="noopener noreferrer">The typographic scale</a>,  ';
-$desc .= '<a href="https://type-scale.com/" target="_blank" rel="noopener noreferrer">A type testing tool</a><br /><br />';
-$desc .= '<strong>' . __( 'Need more flexibility for CSS units:', 'avia_framework' ) . '</strong>';
-$desc .= '<ul>';
-$desc .=	'<li>' . __( 'To functions.php add: add_theme_support( &quot;avia_options_extended_typography&quot; );', 'avia_framework' ) . '</li>';
-$desc .=	'<li>' . __( 'Leave input fields empty to use theme defaults. Make sure you add valid CSS units. There is no check for that.', 'avia_framework' ) . '</li>';
-$desc .=	'<li>' . sprintf( __( 'To skip responsive font settings in ALB elements you can use %s this filter %s', 'avia_framework' ), '<a href="https://github.com/KriesiMedia/enfold-library/blob/master/actions%20and%20filters/Layout/avf_el_styling_responsive_font_size_skip.php" target="_blank" rel="noopener noreferrer">', '</a>' ) . '</li>';
-$desc .= '</ul>';
-$desc .= '<strong>' . __( 'Screen Sizes:', 'avia_framework' ) . '</strong>';
-$desc .= '<ul>';
-$desc .=	'<li>' . __( 'Default: all screensizes (no media query)', 'avia_framework' ) . '</li>';
-$desc .=	'<li>' . __( 'Medium: between 768px and 989px - eg: Tablet Landscape', 'avia_framework' ) . '</li>';
-$desc .=	'<li>' . __( 'Small: between 480px and 767px - eg: Tablet Portrait', 'avia_framework' ) . '</li>';
-$desc .=	'<li>' . __( 'Very Small: smaller than 479px - eg: Smartphone Portrait', 'avia_framework' ) . '</li>';
-$desc .= '</ul>';
+$desc .= '<a href="https://type-scale.com/" target="_blank" rel="noopener noreferrer">A type testing tool</a>';
+
+$info  = '';
+$info .= '<strong>' . __( 'Need more flexibility for CSS units:', 'avia_framework' ) . '</strong>';
+$info .= '<ul>';
+$info .=	'<li>' . __( 'To functions.php add: add_theme_support( &quot;avia_options_extended_typography&quot; );', 'avia_framework' ) . '</li>';
+$info .=	'<li>' . __( 'Leave input fields empty to use theme defaults. Make sure you add valid CSS units. There is no check for that.', 'avia_framework' ) . '</li>';
+$info .=	'<li>' . sprintf( __( 'To skip responsive font settings in ALB elements you can use %s this filter %s', 'avia_framework' ), '<a href="https://github.com/KriesiMedia/enfold-library/blob/master/actions%20and%20filters/Layout/avf_el_styling_responsive_font_size_skip.php" target="_blank" rel="noopener noreferrer">', '</a>' ) . '</li>';
+$info .= '</ul>';
+$info .= '<strong>' . __( 'Screen Sizes:', 'avia_framework' ) . '</strong>';
+$info .= '<ul>';
+$info .=	'<li>' . __( 'Default: all screensizes (no media query)', 'avia_framework' ) . '</li>';
+$info .=	'<li>' . __( 'Medium: between 768px and 989px - eg: Tablet Landscape', 'avia_framework' ) . '</li>';
+$info .=	'<li>' . __( 'Small: between 480px and 767px - eg: Tablet Portrait', 'avia_framework' ) . '</li>';
+$info .=	'<li>' . __( 'Very Small: smaller than 479px - eg: Smartphone Portrait', 'avia_framework' ) . '</li>';
+$info .= '</ul>';
 
 $avia_elements[] = array(
 			'slug'			=> 'styling',
 			'name'			=> __( 'Advanced Options: Customize Typography Settings', 'avia_framework' ),
 			'desc'			=> $desc,
+			'info'			=> $info,
 			'id'			=> 'styling_header_typo',
 			'type'			=> 'heading',
 			'nodescription' => true

@@ -226,11 +226,17 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalBase', false ) )
 
 				if( ! empty( $element['name'] ) || ! empty( $element['desc'] ) )
 				{
-					$output .= "<div class='avia-name-description {$description_class}'>";
+					$check_toggles = current_theme_supports( 'avia_alb_checkbox_toggles' ) && ! isset( $element['lockable_check'] ) ? 'av-checkbox-toggles' : '';
+
+					/**
+					 * use class av-animation for animated loading of info box
+					 * use class av-no-animation for simple popup of info box
+					 */
+					$output .= "<div class='avia-name-description av-icons av-no-animation {$check_toggles} {$description_class}'>";
 
 					if( ! empty( $element['name'] ) )
 					{
-						$output .= '<strong>' . $locked_info . $element['name'] . '</strong>';
+						$output .= '<strong class="av-desc-title">' . $locked_info . $element['name'] . '</strong>';
 						$locked_info = '';
 					}
 
@@ -238,7 +244,10 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalBase', false ) )
 					{
 						if( ! empty( $element['type'] ) && $element['type'] != 'checkbox' )
 						{
-							$output .= '<div>' . $locked_info . $element['desc'] . '</div>';
+							$output .= '<div class="av-description-wrap">';
+							$output .=		$locked_info . $element['desc'];
+							$output .=		aviaModalBase::html_desc_popup( $element );
+							$output .= '</div>';
 						}
 						else
 						{
@@ -248,7 +257,9 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalBase', false ) )
 								$desc = $element['std'] != '' ? $element['desc']['checked'] : $element['desc']['unchecked'];
 							}
 
-							$output .= "<label for='{$element['id']}'>{$locked_info}{$desc}</label>";
+							$desc_popup = aviaModalBase::html_desc_popup( $element );
+
+							$output .= "<label for='{$element['id']}'>{$locked_info}{$desc}{$desc_popup}</label>";
 						}
 					}
 
@@ -295,6 +306,139 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalBase', false ) )
 			}
 
 			return $output;
+		}
+
+		/**
+		 * Returns HTML that can be added to description text to show icons and popup info box
+		 *
+		 * @since x.x.x
+		 * @param array $element
+		 * @return string
+		 */
+		static protected function html_desc_popup( array $element )
+		{
+			static $desc_chars = null;
+			static $desc_char_classes = null;
+			static $icon = null;
+			static $read = null;
+
+			if( is_null( $desc_chars ) )
+			{
+				$desc_chars = [];
+				$desc_char_classes = [];
+				$icon = [];
+				$read = [];
+
+				$desc_chars['info'] = \avia_font_manager::get_frontend_icon( 'down-circled', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+				$desc_chars['attention'] = $desc_chars['info'];
+				$desc_chars['docu'] = \avia_font_manager::get_frontend_icon( 'docs', 'svg_entypo-fontello', [ 'aria-hidden' => 'true', 'title' => '', 'desc' => '' ] );
+
+				$read['more']['info'] = __( 'More', 'avia_framework' );
+				$read['less']['info'] = __( 'Less', 'avia_framework' );
+				$read['more']['attention'] = __( 'Important', 'avia_framework' );
+				$read['less']['attention'] = __( 'Less', 'avia_framework' );
+
+				/**
+				 *
+				 * @since x.x.x
+				 * @param array $desc_chars
+				 * @return array
+				 */
+				$desc_chars = apply_filters( 'avf_alb_modal_desc_chars', $desc_chars );
+
+				/**
+				 *
+				 * @since x.x.x
+				 * @param array $read
+				 * @return array
+				 */
+				$read = apply_filters( 'avf_alb_modal_desc_read', $read );
+
+				foreach( $desc_chars as $key => $value )
+				{
+					$desc_char_classes[ $key ] = \avia_font_manager::get_frontend_icon_classes( $desc_chars[ $key ]['font'], 'string' );
+
+					$class = '';
+					$tooltip = '';
+					$aria = '';
+					$text = '';
+
+					if( $key != 'docu' )
+					{
+						$class = 'av-show-hide-icon';
+						$tooltip = __( 'Click to show/hide infobox', 'avia_framework' );
+						$aria = "role='button' tabindex='0'";
+
+						$text .=	"<span class='av-read-more' data-more='{$read['more'][ $key ]}' data-less='{$read['less'][ $key ]}'>";
+						$text .=		$read['more'][ $key ];
+						$text .=	'</span>';
+					}
+
+					$icon[ $key ]  = '';
+					$icon[ $key ] .= "<div class='av-description-icon-wrap av-icon-{$key} {$class}' {$aria} title='{$tooltip}' data-popup='av-popup-{$key}'>";
+					$icon[ $key ] .=	$text;
+					$icon[ $key ] .=	"<span class='avia-svg-{$key} avia-font-entypo-fontello {$desc_char_classes[ $key ]}' {$desc_chars[ $key ]['attr']}>";
+					$icon[ $key ] .=		$desc_chars[ $key ]['svg'];
+					$icon[ $key ] .=	'</span>';
+
+					$icon[ $key ] .= '</div>';
+				}
+			}
+
+			/**
+			 * Filter description elements of rendered option
+			 *
+			 * @since x.x.x
+			 * @param array $element
+			 * @return array
+			 */
+			$element = apply_filters( 'avf_alb_modal_element_descriptions', $element );
+
+
+			$output  = '';
+			$output .=		'<div class="av-container-icons">';
+			$output .=			! empty( $element['info'] ) ? $icon['info'] : '';
+			$output .=			! empty( $element['attention'] ) ? $icon['attention'] : '';
+
+			if( ! empty( $element['docu'] ) && ! empty( $element['docu']['url'] ) )
+			{
+				if( empty( $element['docu']['title'] ) )
+				{
+					$title = __( 'Check our documentation for more info.', 'avia_framework' );
+				}
+				else
+				{
+					$title = esc_attr( $element['docu']['title'] );
+				}
+
+				$html = $icon['docu'];
+				$html = str_replace( '<span', '<a href="' . esc_url( $element['docu']['url'] ) . '" target="_blank" rel="noopener noreferrer" title="' . $title . '" ', $html );
+				$html = str_replace( '</span>', '</a>', $html );
+
+				$output .= $html;
+			}
+
+			$output .=		'</div>';
+
+			$output .=		'<div class="av-popup-wrap">';
+
+			if( ! empty( $element['info'] ) )
+			{
+				$output .=			'<div class="av-container-popup av-popup-info">';
+				$output .=				$element['info'];
+				$output .=			'</div>';
+			}
+
+			if( ! empty( $element['attention'] ) )
+			{
+				$output .=			'<div class="av-container-popup av-popup-attention">';
+				$output .=				$element['attention'];
+				$output .=			'</div>';
+			}
+
+			$output .=		'</div>';
+
+			return ' ' . $output;
 		}
 
 		/*

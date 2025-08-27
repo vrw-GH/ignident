@@ -193,8 +193,9 @@ class Ays_Pb_Data {
             $ays_popup_box_flag = intval(get_option('ays_pb_sale_btn'));
             if ($ays_popup_box_flag == 0 ) {
                 if (isset($_GET['page']) && strpos($_GET['page'], AYS_PB_NAME) !== false) {
-                    $this->ays_pb_new_banner_message($ays_popup_box_flag);
-                    // $this->ays_pb_christmas_top_message_2024($ays_popup_box_flag);
+                    if($this->get_max_id() > 1){
+                        $this->ays_pb_new_banner_message($ays_popup_box_flag);
+                    }
                 }
             }
         }
@@ -585,18 +586,18 @@ class Ays_Pb_Data {
 
             $content[] = '<div id="ays-pb-engagement-dicount-month-main" class="notice notice-success is-dismissible ays_pb-engagement_dicount_info">';
                 $content[] = '<div id="ays-pb-engagement-dicount-month" class="ays_pb-engagement_dicount_month">';
-                    $content[] = '<a href="https://ays-pro.com/wordpress/popup-box" target="_blank" class="ays-pb-engagement-sale-banner-link"><img src="' . AYS_PB_ADMIN_URL . '/images/icons/icon-popup-128x128.png"></a>';
+                    $content[] = '<a href="https://popup-plugin.com" target="_blank" class="ays-pb-engagement-sale-banner-link"><img src="' . AYS_PB_ADMIN_URL . '/images/icons/icon-popup-128x128.png"></a>';
 
                     $content[] = '<div class="ays-pb-engagement-dicount-wrap-box">';
 
                         $content[] = '<strong style="font-weight: bold;">';
-                            $content[] = esc_html__( "Limited Time <span style='color:#E85011;'>20%</span> SALE on <span><a href='https://ays-pro.com/wordpress/popup-box' target='_blank' style='color:#E85011; text-decoration: underline;'>Popup Box</a></span>", "ays-popup-box" );
+                            $content[] = esc_html__( "Limited Time <span style='color:#E85011;'>20%</span> SALE on <span><a href='https://popup-plugin.com' target='_blank' style='color:#E85011; text-decoration: underline;'>Popup Box</a></span>", "ays-popup-box" );
                         $content[] = '</strong>';
 
                         $content[] = '<br>';
 
                         $content[] = '<strong>';
-                                $content[] = esc_html__( "Hurry up! <a href='https://ays-pro.com/wordpress/popup-box' target='_blank'>Check it out!</a>", "ays-popup-box" );
+                                $content[] = esc_html__( "Hurry up! <a href='https://popup-plugin.com' target='_blank'>Check it out!</a>", "ays-popup-box" );
                         $content[] = '</strong>';
 
                         $content[] = '<div style="position: absolute;right: 10px;bottom: 1px;" class="ays-pb-engagement-dismiss-buttons-container-for-form">';
@@ -637,7 +638,7 @@ class Ays_Pb_Data {
                             
                     $content[] = '</div>';
 
-                    $content[] = '<a href="https://ays-pro.com/wordpress/popup-box" class="button button-primary ays-button" id="ays-button-top-buy-now" target="_blank" style="height: 32px; display: flex; align-items: center; font-weight: 500; " >' . esc_html__( 'Buy Now !', "ays-popup-box" ) . '</a>';
+                    $content[] = '<a href="https://popup-plugin.com" class="button button-primary ays-button" id="ays-button-top-buy-now" target="_blank" style="height: 32px; display: flex; align-items: center; font-weight: 500; " >' . esc_html__( 'Buy Now !', "ays-popup-box" ) . '</a>';
                 $content[] = '</div>';
             $content[] = '</div>';
 
@@ -649,30 +650,42 @@ class Ays_Pb_Data {
     // Main banner
     public function ays_pb_new_banner_message($ishmar){
         if($ishmar == 0 ){
-            $content = array();
 
-            $content[] = '<div id="ays-pb-new-mega-bundle-dicount-month-main" class="notice notice-success is-dismissible ays_pb_dicount_info">';
+            $ays_pb_sale_date = get_option('ays_pb_sale_date');
+
+            $val = 60*60*24*5;
+
+            $current_date = current_time( 'mysql' );
+            $date_diff = strtotime($current_date) - intval(strtotime($ays_pb_sale_date));
+            $days_diff = $date_diff / $val;
+
+            $style_attr = '';
+            if( $days_diff < 0 ){
+                $style_attr = 'style="display:none;"';
+            }
+
+            $content = array();
+            $pb_cta_button_link = sprintf('https://popup-plugin.com?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner-%s', AYS_PB_NAME_VERSION);
+
+            $content[] = '<div id="ays-pb-new-mega-bundle-dicount-month-main" class="ays-pb-admin-notice notice notice-success is-dismissible ays_pb_dicount_info">';
                 $content[] = '<div id="ays-pb-dicount-month" class="ays_pb_dicount_month">';
                     // $content[] = '<a href="https://ays-pro.com/mega-bundle" target="_blank" class="ays-pb-sale-banner-link"><img src="' . AYS_pb_ADMIN_URL . '/images/mega_bundle_logo_box.png"></a>';
                     $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-text-box">';
                         $content[] = '<div>';
                             $content[] = '<span class="ays-pb-new-mega-bundle-title">';
-                                $content[] = esc_html__( "Limited Time 30% SALE on ", "ays-popup-box" );
-                                $content[] = "<span>";
-                                    $content[] = sprintf("<a href='https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner%s' target='_blank' style='color:#ffffff; text-decoration: underline;'>Popup Box</a></span>", AYS_PB_NAME_VERSION);
-                                $content[] = '</span>';
+                                $content[] = sprintf('Get the Pro Version of <a href="%s" target="_blank" style="color:#ffffff; text-decoration: underline;">%s</a>', esc_url($pb_cta_button_link),esc_html__( "Popup Box", "ays-popup-box" ));
                             $content[] = '</span>';
                             $content[] = '</br>';
                             $content[] = '<div class="ays-pb-new-mega-bundle-mobile-image-display-block display_none">';
                                 $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-30-guaranteeicon.svg" style="width: 70px;">';
                             $content[] = '</div>';
                             $content[] = '<span class="ays-pb-new-mega-bundle-desc">';
-                                $content[] = '<img class="ays-pb-new-mega-bundle-guaranteeicon" src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-maker-guaranteeicon.svg" style="width: 30px;">';
+                                $content[] = '<img class="ays-pb-new-mega-bundle-guaranteeicon" src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-guaranteeicon.svg" style="width: 30px;">';
                                 $content[] = esc_html__( "30 Day Money Back Guarantee", "ays-popup-box" );
                             $content[] = '</span>';
                         $content[] = '</div>';
                         $content[] = '<div>';
-                            $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/icons/pb-30-guaranteeicon.svg" class="ays-pb-new-mega-bundle-mobile-image-display-none" style="width: 70px;">';
+                            $content[] = '<img src="' . AYS_PB_ADMIN_URL . '/images/ays-pb-banner-sale-20.svg" class="ays-pb-new-mega-bundle-mobile-image-display-none" style="width: 70px;">';
                         $content[] = '</div>';
                         $content[] = '<div style="position: absolute;right: 10px;bottom: 1px;" class="ays-pb-dismiss-buttons-container-for-form">';
                             $content[] = '<form action="" method="POST">';
@@ -690,10 +703,10 @@ class Ays_Pb_Data {
 
                     $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-countdown-box">';
 
-                        $content[] = '<div id="ays-pb-maker-countdown-main-container">';
-                            $content[] = '<div class="ays-pb-maker-countdown-container">';
+                        $content[] = '<div id="ays-pb-countdown-main-container">';
+                            $content[] = '<div class="ays-pb-countdown-container">';
 
-                                $content[] = '<div id="ays-pb-countdown">';
+                                $content[] = '<div ' . $style_attr . ' id="ays-pb-countdown">';
 
                                     $content[] = '<div>';
                                         $content[] = esc_html__( "Offer ends in:", "ays-popup-box" );
@@ -719,8 +732,19 @@ class Ays_Pb_Data {
                             
                     $content[] = '</div>';
 
+                    $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-coupon-wrap-button-box">';
+                        $content[] = '<div class="ays-pb-coupon-container">';
+                            $content[] = '<div class="ays-pb-coupon-row ays-pb-shortcode-box" onClick="selectAndCopyElementContents(this)" class="ays-pb-copy-element-box" data-toggle="tooltip" title="'. esc_html__('Click for copy.','ays-pb') .'">';
+                                $content[] = 'summer2025';
+                            $content[] = '</div>';
+                            $content[] = '<div class="ays-pb-coupon-text-row">';
+                                $content[] = __( "20% Extra Discount", 'ays-pb' );
+                            $content[] = '</div>';
+                        $content[] = '</div>';
+                    $content[] = '</div>';
+
                     $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-button-box">';
-                        $content[] = sprintf('<a href="https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner%s" class="button button-primary ays-button" id="ays-button-top-buy-now" target="_blank">%s</a>', AYS_PB_NAME_VERSION, esc_html__( 'Buy Now', "ays-popup-box" ));
+                        $content[] = sprintf('<a href="%s" class="button button-primary ays-button" id="ays-button-top-buy-now" target="_blank">%s</a>', esc_url("https://popup-plugin.com/pricing?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner-".AYS_PB_NAME_VERSION), esc_html__( 'Buy Now', "ays-popup-box" ));
                         $content[] = '<span class="ays-pb-dicount-one-time-text">';
                             $content[] = esc_html__( "One-time payment", "ays-popup-box" );
                         $content[] = '</span>';
@@ -728,10 +752,100 @@ class Ays_Pb_Data {
                 $content[] = '</div>';
             $content[] = '</div>';
 
+            $banner_bg_image =  AYS_PB_ADMIN_URL . '/images/ays-pb-banner-background-20.svg';
+
+            $content[] = '<style>';
+                $content[] = 'div#ays-pb-new-mega-bundle-dicount-month-main{border:0;background:#fff;border-radius:20px;box-shadow:unset;position:relative;z-index:1;min-height:80px}div#ays-pb-new-mega-bundle-dicount-month-main.ays_pb_dicount_info button{display:flex;align-items:center}div#ays-pb-new-mega-bundle-dicount-month-main div#ays-pb-dicount-month a.ays-pb-sale-banner-link:focus{outline:0;box-shadow:0}div#ays-pb-new-mega-bundle-dicount-month-main .btn-link{color:#007bff;background-color:transparent;display:inline-block;font-weight:400;text-align:center;white-space:nowrap;vertical-align:middle;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid transparent;padding:.375rem .75rem;font-size:1rem;line-height:1.5;border-radius:.25rem}div#ays-pb-new-mega-bundle-dicount-month-main.ays_pb_dicount_info{background-image:url("'.$banner_bg_image.'");background-position:center right;background-repeat:no-repeat;background-size:cover;background-color:#5551ff}#ays-pb-new-mega-bundle-dicount-month-main .ays_pb_dicount_month{display:flex;align-items:center;justify-content:space-between;color:#fff}#ays-pb-new-mega-bundle-dicount-month-main .ays_pb_dicount_month img{width:80px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-sale-banner-link{display:flex;justify-content:center;align-items:center;width:200px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box{font-size:14px;padding:12px;text-align:center}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box{text-align:left;width:23%;display:flex;justify-content:space-around;align-items:flex-start}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box{width:30%;display:flex;justify-content:center;align-items:center}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-button-box{width:20%;display:flex;justify-content:center;align-items:center;flex-direction:column}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box .ays-pb-new-mega-bundle-title{color:#fdfdfd;font-size:16.8px;font-style:normal;font-weight:600;line-height:normal}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box .ays-pb-new-mega-bundle-title-icon-row{display:inline-block}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box .ays-pb-new-mega-bundle-desc{display:inline-block;color:#fff;font-size:15px;font-style:normal;font-weight:400;line-height:normal;margin-top:10px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box strong{font-size:17px;font-weight:700;letter-spacing:.8px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-color{color:#971821}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-text-decoration{text-decoration:underline}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-buy-now-button-box{display:flex;justify-content:flex-end;align-items:center;width:30%}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box .ays-button,#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box .ays-buy-now-button{align-items:center;font-weight:500}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box .ays-buy-now-button{background:#971821;border-color:#fff;display:flex;justify-content:center;align-items:center;padding:5px 15px;font-size:16px;border-radius:5px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box .ays-buy-now-button:hover{background:#7d161d;border-color:#971821}#ays-pb-new-mega-bundle-dicount-month-main #ays-pb-dismiss-buttons-content{display:flex;justify-content:center}#ays-pb-new-mega-bundle-dicount-month-main #ays-pb-dismiss-buttons-content .ays-button{margin:0!important;font-size:13px;color:#fff}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-opacity-box{width:19%}#ays-pb-new-mega-bundle-dicount-month-main .ays-buy-now-opacity-button{padding:40px 15px;display:flex;justify-content:center;align-items:center;opacity:0}#ays-pb-countdown-main-container .ays-pb-countdown-container{margin:0 auto;text-align:center}#ays-pb-countdown-main-container #ays-pb-countdown-headline{letter-spacing:.125rem;text-transform:uppercase;font-size:18px;font-weight:400;margin:0;padding:9px 0 4px;line-height:1.3}#ays-pb-countdown-main-container li,#ays-pb-countdown-main-container ul{margin:0}#ays-pb-countdown-main-container li{display:inline-block;font-size:14px;list-style-type:none;padding:14px;text-transform:lowercase}#ays-pb-countdown-main-container li span{display:flex;justify-content:center;align-items:center;font-size:40px;min-height:62px;min-width:62px;border-radius:4.273px;border:.534px solid #f4f4f4;background:#9896ed}#ays-pb-countdown-main-container .emoji{display:none;padding:1rem}#ays-pb-countdown-main-container .emoji span{font-size:30px;padding:0 .5rem}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box li{position:relative}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box li span:after{content:":";color:#fff;position:absolute;top:10px;right:-5px;font-size:40px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box li span#ays-pb-countdown-seconds:after{content:unset}#ays-pb-new-mega-bundle-dicount-month-main #ays-button-top-buy-now{display:flex;align-items:center;border-radius:6.409px;background:#f66123;padding:12px 32px;color:#fff;font-size:15px;font-style:normal;line-height:normal;margin:0!important}div#ays-pb-new-mega-bundle-dicount-month-main button.notice-dismiss:before{color:#fff;content:"X";font-family:cursive;font-size:22px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-new-mega-bundle-guaranteeicon{width:30px;margin-right:5px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-one-time-text{color:#fff;font-size:12px;font-style:normal;font-weight:600;line-height:normal}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-coupon-row{display:flex;flex-direction:row;justify-content:center;align-items:center;padding:6px;width:200px;background-color:#776dd9;border:2px dashed orange;border-radius:18px;font-size:22px;cursor:pointer}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-coupon-text-row{font-weight:700;font-size:14px;text-align:center}@media all and (max-width:1024px){#ays-pb-new-mega-bundle-dicount-month-main{display:none!important}}@media all and (max-width:768px){div#ays-pb-new-mega-bundle-dicount-month-main.ays_pb_dicount_info.notice{display:none!important;background-position:bottom right;background-repeat:no-repeat;background-size:cover;border-radius:32px}div#ays-pb-new-mega-bundle-dicount-month-main{padding-right:0}div#ays-pb-new-mega-bundle-dicount-month-main .ays_pb_dicount_month{display:flex;align-items:center;justify-content:space-between;align-content:center;flex-wrap:wrap;flex-direction:column;padding:10px 0}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box{width:100%!important;text-align:center}#ays-pb-countdown-main-container #ays-pb-countdown-headline{font-size:15px;font-weight:600}#ays-pb-countdown-main-container ul{font-weight:500}#ays-pb-countdown-main-container li span{font-size:35px;min-height:57px;min-width:55px}div#ays-pb-countdown-main-container li{padding:10px}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-new-mega-bundle-mobile-image-display-none{display:none!important}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-new-mega-bundle-mobile-image-display-block{display:block!important;margin-top:5px}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box{width:100%!important;text-align:center;flex-direction:column;margin-top:20px;justify-content:center;align-items:center}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box li span:after{top:unset}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box{width:100%;display:flex;justify-content:center;align-items:center}#ays-pb-new-mega-bundle-dicount-month-main .ays-button{margin:0 auto!important}#ays-pb-new-mega-bundle-dicount-month-main #ays-pb-dismiss-buttons-content .ays-button{padding-left:unset!important}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-buy-now-button-box{justify-content:center}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box .ays-buy-now-button{font-size:14px;padding:5px 10px}div#ays-pb-new-mega-bundle-dicount-month-main .ays-buy-now-opacity-button{display:none}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dismiss-buttons-container-for-form{position:static!important}.comparison .product img{width:70px}.ays-pb-features-wrap .comparison a.price-buy{padding:8px 5px;font-size:11px}}@media screen and (max-width:1350px) and (min-width:768px){div#ays-pb-new-mega-bundle-dicount-month-main.ays_pb_dicount_info.notice{background-position:bottom right;background-repeat:no-repeat;background-size:cover}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box strong{font-size:15px}#ays-pb-countdown-main-container li{font-size:11px}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-opacity-box{display:none}}@media screen and (max-width:1680px){#ays-pb-countdown-main-container li span{font-size:30px;min-height:50px;min-width:50px}}@media screen and (max-width:1680px) and (min-width:1551px){div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box{width:29%}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box{width:30%}}@media screen and (max-width:1410px){#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-coupon-row{width:150px}}@media screen and (max-width:1550px) and (min-width:1400px){div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box{width:31%}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box{width:35%}}@media screen and (max-width:1400px) and (min-width:1250px){div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box{width:35%}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box{width:40%}div#ays-pb-countdown-main-container li span{font-size:30px;min-height:50px;min-width:50px}}@media screen and (max-width:1274px){div#ays-pb-countdown-main-container li span{font-size:25px;min-height:40px;min-width:40px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box .ays-pb-new-mega-bundle-title{font-size:15px}}@media screen and (max-width:1200px){#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-button-box{margin-bottom:16px}#ays-pb-countdown-main-container ul{padding-left:0}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-coupon-row{width:120px;font-size:18px}#ays-pb-new-mega-bundle-dicount-month-main #ays-button-top-buy-now{padding:12px 20px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box{font-size:12px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box .ays-pb-new-mega-bundle-desc{font-size:13px}}@media screen and (max-width:1076px) and (min-width:769px){#ays-pb-countdown-main-container li{padding:10px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-coupon-row{width:100px;font-size:16px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-button-box{margin-bottom:16px}#ays-pb-new-mega-bundle-dicount-month-main #ays-button-top-buy-now{padding:12px 15px}#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box{font-size:11px;padding:12px 0}}@media screen and (max-width:1250px) and (min-width:769px){div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box{width:45%}div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box{width:35%}div#ays-pb-countdown-main-container li span{font-size:30px;min-height:50px;min-width:50px}}';
+            $content[] = '</style>';
+
             $content = implode( '', $content );
             echo $content;
         }
     }
+
+
+    // New Mega Bundle
+    public function ays_pb_new_mega_bundle_message_2025($ishmar){
+        if($ishmar == 0 ){
+            $content = array();
+
+            $pb_cta_button_link = sprintf('https://ays-pro.com/essential-bundle?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner-%s', AYS_PB_NAME_VERSION);
+
+            $content[] = '<div id="ays-pb-new-mega-bundle-2025-dicount-month-main" class="notice notice-success is-dismissible ays_pb_dicount_info">';
+                $content[] = '<div id="ays-pb-dicount-month" class="ays_pb_dicount_month">';
+                    $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-text-box">';
+                        $content[] = '<div>';
+
+                            $content[] = '<span class="ays-pb-new-mega-bundle-2025-title">';
+                                /* translators: %s: link to Essential Bundle and %s: (Quiz + Form + Popup) */
+                                $content[] = sprintf(' <a href="%s" target="_blank" style="color:#ffffff; text-decoration: underline;">Essential Bundle</a> ( %s )', esc_url($pb_cta_button_link), esc_html__( "Quiz + Form + Popup", "ays-popup-box" ));
+                            $content[] = '</span>';
+                            $content[] = '</br>';
+
+                            $content[] = '<span class="ays-pb-new-mega-bundle-2025-desc">';
+                                $content[] = __( "30 Day Money Back Guarantee", 'ays-popup-box' );
+                            $content[] = '</span>';
+                        $content[] = '</div>';
+                        $content[] = '<div>';
+                                $content[] = '<img class="ays-pb-new-mega-bundle-guaranteeicon" src="' . AYS_PB_ADMIN_URL . '/images/ays-pb-essential-bundle-2025-discount.svg" style="width: 80px;">';
+                        $content[] = '</div>';
+
+                        $content[] = '<div style="position: absolute;right: 10px;bottom: 1px;" class="ays-pb-dismiss-buttons-container-for-form">';
+
+                            $content[] = '<form action="" method="POST">';
+                                $content[] = '<div id="ays-pb-dismiss-buttons-content">';
+                                if( current_user_can( 'manage_options' ) ){
+                                    $content[] = '<button class="btn btn-link ays-button" name="ays_pb_sale_btn" style="height: 32px; margin-left: 0;padding-left: 0">'. __( "Dismiss ad", 'ays-popup-box' ) .'</button>';
+                                    $content[] = wp_nonce_field( AYS_PB_NAME . '-sale-banner' ,  AYS_PB_NAME . '-sale-banner' );
+                                }
+                                $content[] = '</div>';
+                            $content[] = '</form>';
+                            
+                        $content[] = '</div>';
+
+                    $content[] = '</div>';
+
+                    $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-countdown-box">';
+
+                        $content[] = '<div id="ays-pb-countdown-main-container">';
+                            $content[] = '<div class="ays-pb-countdown-container">';
+
+                                $content[] = '<div id="ays-pb-countdown">';
+
+                                    $content[] = '<ul>';
+                                        $content[] = '<li><span id="ays-pb-countdown-days"></span>'. __( "Days", 'ays-popup-box' ) .'</li>';
+                                        $content[] = '<li><span id="ays-pb-countdown-hours"></span>'. __( "Hours", 'ays-popup-box' ) .'</li>';
+                                        $content[] = '<li><span id="ays-pb-countdown-minutes"></span>'. __( "Minutes", 'ays-popup-box' ) .'</li>';
+                                        $content[] = '<li><span id="ays-pb-countdown-seconds"></span>'. __( "Seconds", 'ays-popup-box' ) .'</li>';
+                                    $content[] = '</ul>';
+                                $content[] = '</div>';
+
+                                $content[] = '<div id="ays-pb-countdown-content" class="emoji">';
+                                    $content[] = '<span></span>';
+                                    $content[] = '<span></span>';
+                                    $content[] = '<span></span>';
+                                    $content[] = '<span></span>';
+                                $content[] = '</div>';
+
+                            $content[] = '</div>';
+                        $content[] = '</div>';
+                            
+                    $content[] = '</div>';
+
+                    $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-button-box">';
+                        $content[] = '<a href="'. $pb_cta_button_link .'" class="button button-primary ays-button" id="ays-button-top-buy-now" target="_blank">' . __( 'Buy Now', 'ays-popup-box' ) . '</a>';
+                        $content[] = '<span class="ays-pb-dicount-one-time-text">';
+                            $content[] = __( "One-time payment", 'ays-popup-box' );
+                        $content[] = '</span>';
+                    $content[] = '</div>';
+                $content[] = '</div>';
+            $content[] = '</div>';
+
+            $content = implode( '', $content );
+            echo wp_kses_post($content);
+        }
+    }
+
 
     // Christmas Top Banner 2024
     public function ays_pb_christmas_top_message_2024($ishmar){
@@ -743,8 +857,8 @@ class Ays_Pb_Data {
 
                     $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-countdown-box">';
 
-                        $content[] = '<div id="ays-pb-maker-countdown-main-container">';
-                            $content[] = '<div class="ays-pb-maker-countdown-container">';
+                        $content[] = '<div id="ays-pb-countdown-main-container">';
+                            $content[] = '<div class="ays-pb-countdown-container">';
 
                                 $content[] = '<div id="ays-pb-countdown">';
 

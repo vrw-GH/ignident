@@ -37,7 +37,7 @@ class Popup_Categories_List_Table extends WP_List_Table {
         if (empty($updated_message)) return;
 
         ?>
-        <div class="notice notice-success is-dismissible">
+        <div class="ays-pb-admin-notice notice notice-success is-dismissible">
             <p> <?php echo $updated_message; ?> </p>
         </div>
         <?php

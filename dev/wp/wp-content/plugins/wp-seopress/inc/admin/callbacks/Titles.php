@@ -31,18 +31,6 @@ function seopress_titles_home_site_title_callback()
 	aria-label="<?php esc_attr_e('Site title', 'wp-seopress'); ?>"
 	value="<?php echo esc_html($check); ?>" />
 
-<div class="wrap-sp-progress">
-	<div class="sp-progress" style="margin:0">
-		<div id="seopress_titles_title_counters_progress" class="sp-progress-bar"
-			role="progressbar" style="width: 1%;" aria-valuenow="1" aria-valuemin="0"
-			aria-valuemax="100">1%</div>
-	</div>
-	<div class="wrap-seopress-counters">
-		<div id="seopress_titles_title_counters"></div>
-		<?php esc_attr_e(' (maximum recommended limit)', 'wp-seopress'); ?>
-	</div>
-</div>
-
 <div class="wrap-tags">
 	<button type="button" class="btn btnSecondary tag-title" id="seopress-tag-site-title" data-tag="%%sitetitle%%">
 		<span class="dashicons dashicons-plus-alt2"></span>
@@ -125,9 +113,7 @@ function seopress_titles_single_titles_callback()
 		?>
 		<h3>
 			<?php echo esc_attr($seopress_cpt_value->labels->name); ?>
-			<em>
-				<small>[<?php echo esc_attr($seopress_cpt_value->name); ?>]</small>
-			</em>
+			<code>[<?php echo esc_attr($seopress_cpt_value->name); ?>]</code>
 			<!--Single on/off CPT-->
 			<div class="seopress_wrap_single_cpt">
 
@@ -521,10 +507,7 @@ function seopress_titles_tax_titles_callback()
 	foreach ($taxonomies as $seopress_tax_key => $seopress_tax_value) { ?>
 				<h3>
 					<?php echo esc_html($seopress_tax_value->labels->name); ?>
-					<em>
-						<small>[<?php echo esc_html($seopress_tax_value->name); ?>]</small>
-					</em>
-
+					<code>[<?php echo esc_html($seopress_tax_value->name); ?>]</code>
 
 				<!--Single on/off Tax-->
 				<div class="seopress_wrap_tax">
@@ -828,7 +811,7 @@ function seopress_titles_archives_titles_callback()
 		if (! in_array($seopress_cpt_key, ['post', 'page'])) {
 			$check = isset($options['seopress_titles_archive_titles'][$seopress_cpt_key]['title']) ? $options['seopress_titles_archive_titles'][$seopress_cpt_key]['title'] : null; ?>
 			<h3><?php echo esc_html($seopress_cpt_value->labels->name); ?>
-				<em><small>[<?php echo esc_html($seopress_cpt_value->name); ?>]</small></em>
+				<code>[<?php echo esc_html($seopress_cpt_value->name); ?>]</code>
 
 				<?php if (get_post_type_archive_link($seopress_cpt_value->name)) { ?>
 				<span class="link-archive">

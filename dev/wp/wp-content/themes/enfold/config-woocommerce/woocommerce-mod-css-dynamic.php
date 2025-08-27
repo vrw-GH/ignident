@@ -79,9 +79,16 @@ $key .cart_dropdown_first .cart_dropdown_link,
 }
 
 #top #wrap_all $key .cart_dropdown_first .cart_dropdown_link.avia-svg-icon svg:first-child,
+:not(.html_cart_at_menu) #top #wrap_all $key.av_header_transparency .menu-item.cart_dropdown .cart_dropdown_first .cart_dropdown_link.avia-svg-icon .av-cart-container svg:first-child,
 #top $key  .avia_cart_buttons .avia-svg-icon svg:first-child{
 	stroke: $color;
 	fill: $color;
+}
+
+#top #wrap_all $key.av_header_transparency .menu-item.cart_dropdown .cart_dropdown_first .cart_dropdown_link.avia-svg-icon svg:first-child,
+.html_cart_at_menu #top #wrap_all $key.av_header_transparency .menu-item.cart_dropdown .cart_dropdown_first .cart_dropdown_link.avia-svg-icon svg:first-child{
+	stroke: {$avia_config['backend_colors']['menu_transparent']};
+	fill: {$avia_config['backend_colors']['menu_transparent']};
 }
 
 $key .woocommerce-tabs .tabs a,

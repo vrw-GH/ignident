@@ -22,6 +22,8 @@ add_action('wp_head', 'ls_meta_generator', 9);
 
 // Fix for CloudFlare's Rocket Loader
 add_filter('script_loader_tag', 'layerslider_script_attributes', 10, 3);
+add_filter('script_loader_tag', 'layerslider_fix_jquery_defer', 999, 3);
+
 function layerslider_script_attributes( $tag, $handle, $src ) {
 
 
@@ -44,6 +46,17 @@ function layerslider_script_attributes( $tag, $handle, $src ) {
 		}
 	}
 
+	return $tag;
+}
+
+function layerslider_fix_jquery_defer( $tag, $handle, $src ) {
+
+	if( get_option('ls_fix_optimizer_issues', true ) ) {
+
+		if( $handle === 'jquery-core' || $handle === 'jquery-migrate' ) {
+			$tag = str_replace( 'defer', '', $tag );
+		}
+	}
 
 	return $tag;
 }

@@ -76,13 +76,13 @@
                 </div>
             </div>
             <div class="ays-pb-community-item">
-                <a href="https://ays-pro.com/contact" target="_blank" class="ays-pb-community-item-cover" style="display:flex;align-items:center;justify-content:center;">
+                <a href="https://popup-plugin.com/contact-us/" target="_blank" class="ays-pb-community-item-cover" style="display:flex;align-items:center;justify-content:center;">
                     <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/users.svg"?>">
                 </a>
                 <h3 class="ays-pb-community-item-title"><?php echo esc_html__("Premium support", "ays-popup-box"); ?></h3>
                 <p class="ays-pb-community-item-desc"><?php echo esc_html__("Get 12 months updates and support for the Business package and lifetime updates and support for the Developer package.", "ays-popup-box"); ?></p>
                 <div class="ays-pb-community-item-footer">
-                    <a href="https://ays-pro.com/contact" target="_blank" class="button"><?php echo esc_html__("Contact", "ays-popup-box"); ?></a>
+                    <a href="https://popup-plugin.com/contact-us/" target="_blank" class="button"><?php echo esc_html__("Contact", "ays-popup-box"); ?></a>
                 </div>
             </div>
         </div>

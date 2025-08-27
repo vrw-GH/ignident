@@ -278,6 +278,7 @@ $advanced['main_menu'] = array(
 		'#top #header .av-main-nav > li[active][hover] ' => array(  'font_family' => 'font-family: %font_family%;' ),
 		'#top #header .av-main-nav > li[active][hover] > a' => '',
 		'.av_seperator_small_border .av-main-nav > li[active][hover] > a > .avia-menu-text, #top #wrap_all #header #menu-item-search[active][hover]>a' => array(  'border_color' => 'border-color: %border_color%;' ),
+		'#top #header .av-main-nav > li[active][hover] > a > svg:first-child, #top #wrap_all .header_color .cart_dropdown_first .cart_dropdown_link.avia-svg-icon[active][hover] svg:first-child' => array(  'color' => 'fill: %color%; stroke: %color%;' ),
 		'#top #header .av-main-nav > li[active][hover] > a .avia-menu-text, #top #header .av-main-nav > li[active][hover] > a .avia-menu-subtext' => array(  'color' => 'color: %color%;' )
 	),
 	'sections'		=> false,

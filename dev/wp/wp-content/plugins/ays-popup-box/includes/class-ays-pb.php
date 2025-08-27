@@ -125,6 +125,16 @@ class Ays_Pb {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ays-pb-i18n.php';
 
 		/**
+         * The class responsible for showing Popup Box Welcome page.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ays-pb-ays-welcome.php';
+
+        /**
+         * The class responsible for showing Popup Box Feedback popup.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ays-pb-feedback.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-ays-pb-admin.php';
@@ -270,7 +280,20 @@ class Ays_Pb {
 		// Our Products | Activate plugin
         $this->loader->add_action( 'wp_ajax_ays_pb_activate_plugin', $plugin_admin, 'ays_pb_activate_plugin' );
         $this->loader->add_action( 'wp_ajax_nopriv_ays_pb_activate_plugin', $plugin_admin, 'ays_pb_activate_plugin' );
-    }
+
+		// AJAX handler for changing popupbox status in list table
+		$this->loader->add_action( 'wp_ajax_ays_pb_change_status', $plugin_admin, 'ays_pb_change_status' );
+		$this->loader->add_action( 'wp_ajax_nopriv_ays_pb_change_status', $plugin_admin, 'ays_pb_change_status' );
+		
+		// Dencque third-party scripts and styles
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'maybe_dequeue_third_party_assets');
+		$this->loader->add_action('wp_footer', $plugin_admin, 'end_buffer', 999);
+		$this->loader->add_action('admin_footer', $plugin_admin, 'end_buffer', 999);
+
+		$this->loader->add_action('current_screen', $plugin_admin, 'ays_pb_disable_all_notice_from_plugin', 200, 1);
+
+
+	}
 
 	/**
 	 * Register all of the hooks related to the integrations functionality

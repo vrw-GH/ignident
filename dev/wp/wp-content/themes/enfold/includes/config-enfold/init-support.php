@@ -26,6 +26,13 @@ add_theme_support( 'avia_improved_backend_style' );
  */
 add_theme_support( 'avia_option_pages_toggles' );
 
+/**
+ * add support for toggles in ALB modal popup instead of checkboxes
+ *
+ * @since x.x.x
+ */
+add_theme_support( 'avia_alb_checkbox_toggles' );
+
 /*
  * adds support for the new avia sidebar manager
  */

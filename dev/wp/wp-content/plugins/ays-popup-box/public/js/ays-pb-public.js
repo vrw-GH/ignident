@@ -414,4 +414,36 @@ window.onload = function(){
     		}
     	}
 	}
+
+	// Handle scrollbar visibility on window resize and initial load
+	function updateScrollbarVisibility() {
+		var popups = document.querySelectorAll('.ays-pb-modal, .ays_cmd_window, .ays-pb-modal-macos, .ays_ubuntu_window, .ays_winxp_window, .ays_lil_window, .ays_image_window .ays_image_main, .ays_minimal_window .ays_minimal_main, .ays_template_window, .ays_win98_window');
+		var isMobile = window.innerWidth < 768;
+		
+		popups.forEach(function(popup) {
+			if (isMobile) {
+				if (popup.classList.contains('ays-pb-show-scrollbar-mobile')) {
+					popup.classList.add('ays-pb-show-scrollbar');
+				} else {
+					popup.classList.remove('ays-pb-show-scrollbar');
+				}
+			} else {
+				if (popup.classList.contains('ays-pb-show-scrollbar-desktop')) {
+					popup.classList.add('ays-pb-show-scrollbar');
+				} else {
+					popup.classList.remove('ays-pb-show-scrollbar');
+				}
+			}
+		});
+	}
+
+	// Update on page load
+	updateScrollbarVisibility();
+
+	// Update on window resize with debounce
+	var resizeTimer;
+	window.addEventListener('resize', function() {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(updateScrollbarVisibility, 250);
+	});
 }

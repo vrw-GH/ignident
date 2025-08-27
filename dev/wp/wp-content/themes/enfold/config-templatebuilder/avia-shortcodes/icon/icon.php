@@ -270,7 +270,7 @@ if( ! class_exists( 'av_font_icon', false ) )
 											__( 'Align Center', 'avia_framework' )	=> 'center',
 											__( 'Align Right', 'avia_framework' )	=> 'right',
 										)
-						),
+						)
 				);
 
 			$template = array(
@@ -279,7 +279,7 @@ if( ! class_exists( 'av_font_icon', false ) )
 								'template_id'	=> 'toggle',
 								'title'			=> __( 'General Styling', 'avia_framework' ),
 								'content'		=> $c
-							),
+							)
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_nettings' ), $template );

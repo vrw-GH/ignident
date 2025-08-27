@@ -9,7 +9,7 @@ include_once  'admin/constants.php';
 /* customization starts: Execute on demand and run now */
 
 $table_name = $wpdb->prefix . 'xyz_ips_short_code';
-$snippets = $wpdb->get_results("SELECT * FROM $table_name WHERE insertionMethod = 1 AND status = 1");
+$snippets = $wpdb->get_results($wpdb->prepare( "SELECT * FROM {$table_name} WHERE insertionMethod = %d AND status = %d",1, 1 ));
 foreach ($snippets as $snippet) {
 	
 	switch ($snippet->insertionLocation) {

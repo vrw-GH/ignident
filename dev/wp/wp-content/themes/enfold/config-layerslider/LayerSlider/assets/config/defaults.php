@@ -20,6 +20,14 @@ $lsDefaults = [
 			]
 		],
 
+		'importVersion' => [
+			'value' => '',
+			'keys' => 'importVersion',
+			'props' => [
+				'meta' => true
+			]
+		],
+
 		'status' => [
 			'value' => true,
 			'name' => __('Status', 'LayerSlider'),

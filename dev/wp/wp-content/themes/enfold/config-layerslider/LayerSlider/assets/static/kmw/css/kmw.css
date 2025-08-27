@@ -2,7 +2,7 @@
 /*
 	* Style settings of Kreatura Modal Window
 	*
-	* (c) 2019-2024 Kreatura Media, AgeraWeb, George K., John G.
+	* (c) 2019-2025 Kreatura Media, AgeraWeb, George K., John G.
 	*
 */
 
@@ -39,6 +39,7 @@
 		pointer-events: none;
 		transform-style: preserve-3d !important;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		will-change: transform, opacity;
 	}
 
 	.kmw-modal {
@@ -257,6 +258,7 @@
 		height: 100%;
 		left: 0;
 		top: 0;
+		will-change: transform, opacity;
 	}
 
 	/* custom styles */

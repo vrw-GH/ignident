@@ -4,6 +4,7 @@
     padding: 3px 0 0;
     transition: .3s ease-in-out;
     height: 30px;
+    display: inline-block !important;
 }
 /* Plugin menu icon styles end */
 
@@ -59,3 +60,212 @@
     color: #3B8D3F;
 }
 /* Plugins page upgrade button styles end */
+
+/*! Popup Box Deactivate Feedback Popup | Start */
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 8px 16px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    background-color: #515962;
+    color: #ffffff;
+    transition: all 0.3s;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:hover,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit:hover {
+    border: none;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:hover,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit:hover,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:focus,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit:focus {
+    background-color: rgb(57.9217877095, 63.6424581006, 70.0782122905);
+    color: #ffffff;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:active,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit:active {
+    background-color: rgb(34.843575419, 38.2849162011, 42.156424581);
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:not([disabled]),
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit:not([disabled]) {
+    cursor: pointer;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:disabled,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit:disabled {
+    background-color: #d5d8dc;
+    color: #babfc5;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip {
+    background: transparent;
+    color: #515962;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:hover,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:focus {
+    background: #f1f2f3;
+    color: #3f444b;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-skip:disabled {
+    background: transparent;
+    color: #babfc5;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit {
+    background-color: #430FB2;
+    color: #fff;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit:hover,
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-submit:focus {
+    background-color: #35059b;
+    color: #fff;
+}
+body.ays-pb-editor-active :is(.is-desktop-preview, .is-tablet-preview, .is-mobile-preview) :is(.editor-styles-wrapper, iframe[name="editor-canvas"]) {
+    height: auto !important;
+    padding: 0 !important;
+    flex: 0 !important;
+}
+
+.ays-pb-dialog-widget-content {
+    background-color: #ffffff;
+    position: absolute;
+    border-radius: 3px;
+    box-shadow: 2px 8px 23px 3px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.ays-pb-dialog-message {
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.ays-pb-dialog-type-lightbox {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.e-button:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.e-button:not(:disabled):not(.disabled):active:focus,
+.e-button:not(:disabled):not(.disabled).active:focus {
+    box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.4);
+}
+
+#ays-pb-deactivate-feedback-modal {
+    color: #515962;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-widget-content {
+    width: 500px;
+    position: unset;
+    max-width: 95%;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-header {
+    padding: 18px 15px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    text-align: start;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-message {
+    padding: 30px;
+    padding-block-end: 0;
+    text-align: start;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-deactivate-feedback-dialog-input {
+    margin-block: 0;
+    margin-inline: 0 15px;
+    box-shadow: none;
+    margin-top: 6px;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-deactivate-feedback-dialog-input:not(:checked) ~ label .ays-pb-deactivate-feedback-sub-dialog-input-wrapper,
+#ays-pb-deactivate-feedback-modal .ays-pb-deactivate-feedback-dialog-input:not(:checked) ~ label .ays-pb-feedback-text {
+    display: none;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-deactivate-feedback-dialog-label {
+    display: block;
+    font-size: 13px;
+    min-width: 220px;
+    cursor: pointer;
+}
+#ays-pb-deactivate-feedback-modal .ays-pb-feedback-text {
+    background-color: transparent;
+    color: #515962;
+    /*padding: 5px;*/
+    box-shadow: none;
+    width: 100%;
+    margin: 0; 
+    padding: 3px 15px;
+    font-size: 13px;
+}
+
+#ays-pb-deactivate-feedback-modal .ays-pb-feedback-text.ays-pb-feedback-text-color {
+  color: #F59E0B;
+  padding: 0;
+  cursor: default;
+}
+
+#ays-pb-deactivate-feedback-modal .ays-pb-dialog-buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px 30px;
+}
+
+#ays-pb-deactivate-feedback-modal .ays-pb-deactivate-feedback-sub-dialog-input-wrapper {
+    margin-bottom: 5px;
+}
+
+#ays-pb-deactivate-feedback-dialog-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#ays-pb-deactivate-feedback-dialog-header img {
+    width: 20px;
+    height: 20px;
+}
+
+#ays-pb-deactivate-feedback-dialog-header i {
+    font-size: 19px;
+}
+#ays-pb-deactivate-feedback-dialog-header-title {
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-inline-start: 5px;
+}
+#ays-pb-deactivate-feedback-dialog-form-caption {
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.4;
+}
+#ays-pb-deactivate-feedback-dialog-form-body {
+    padding-block-start: 30px;
+    padding-block-end: 15px;
+}
+
+.ays-pb-deactivate-feedback-dialog-input-wrapper {
+    display: flex;
+    align-items: flex-start;
+    line-height: 2;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 782px) {
+    div#ays-pb-deactivate-feedback-modal .ays-pb-deactivate-feedback-dialog-input {
+        min-width: 25px;
+        min-height: 25px;
+    }
+}
+/*! Popup Box Deactivate Feedback Popup | End */

@@ -1017,6 +1017,87 @@ var aviaJS = aviaJS || {};
 			});
 	};
 
+	$.AviaModal.register_callback.modal_description_info_boxes = function()
+	{
+		let scope = this.modal,
+			descriptionToggle = scope.find( '.avia-name-description.av-icons .av-show-hide-icon' );
+
+		if( ! descriptionToggle.length )
+		{
+			return;
+		}
+
+		let ShowHideDescInfo = function( event )
+		{
+			event.preventDefault();
+			event.stopImmediatePropagation();
+
+			let moreButton = $(this),
+				popup_key = moreButton.data('popup'),
+				container = moreButton.closest('.av-icons'),
+				hasAnimation = container.hasClass('av-animation'),
+				popup = container.find( '.av-popup-wrap .' + popup_key ),
+				readMore = moreButton.find('.av-read-more'),
+				moreText = readMore.data('more'),
+				lessText = readMore.data('less'),
+				isPopupOpen = moreButton.hasClass( 'av-popup-open' );
+
+			if( isPopupOpen )
+			{
+				readMore.html( moreText );
+			}
+			else
+			{
+				readMore.html( lessText );
+			}
+
+			if( hasAnimation )
+			{
+				if( popup.hasClass( 'av-show-popup' ) )
+				{
+					popup.css("max-height", "0px");
+					popup.removeClass( 'av-show-popup' ).css("visibility", "hidden");;
+					moreButton.removeClass( 'av-popup-open' );
+				}
+				else
+				{
+					popup.addClass( 'av-show-popup' ).css("visibility", "visible");
+					let scrollHeight = popup.prop("scrollHeight");
+					popup.css("max-height", ( scrollHeight + 50 ) + "px");
+					moreButton.addClass( 'av-popup-open' );
+				}
+			}
+			else
+			{
+				if( isPopupOpen )
+				{
+					popup.removeClass( 'av-show-popup' );
+					moreButton.removeClass( 'av-popup-open' );
+				}
+				else
+				{
+					popup.addClass( 'av-show-popup' );
+					moreButton.addClass( 'av-popup-open' );
+				}
+			}
+		};
+
+		let ShowHideDescInfoByKey = function( event )
+		{
+			let icon = $(this);
+
+			if( event.key === "Enter" || event.key === " " )
+			{
+				event.preventDefault(); // Verhindert Scrollen bei Space
+				event.stopImmediatePropagation();
+				ShowHideDescInfo.call( icon, event );	// in context of icon
+			}
+		};
+
+		descriptionToggle.on('click', ShowHideDescInfo );
+		descriptionToggle.on('keydown', ShowHideDescInfoByKey);
+
+	};
 
 	$.AviaModal.register_callback.modal_load_toggles = function()
 	{

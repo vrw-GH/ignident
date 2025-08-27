@@ -496,8 +496,7 @@ if( ! class_exists( 'avia_sc_columns', false ) )
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'row_settings_row_margins' ), $template );
 
-			$desc  = __( 'Select order of columns when switched to fullwidth. Individual position must be set in &quot;Advanced Tab -&gt; Responsive Toggle&quot;.', 'avia_framework' ) . '<br /><br />';
-			$desc .= '<strong>' . __( ' This is currently a beta feature (added 4.8.7)', 'avia_framework' ) . '</strong>';
+			$desc  = __( 'Select order of columns when switched to fullwidth. Individual position must be set in &quot;Advanced Tab -&gt; Responsive Toggle&quot;.', 'avia_framework' );
 
 			$c = array(
 						array(

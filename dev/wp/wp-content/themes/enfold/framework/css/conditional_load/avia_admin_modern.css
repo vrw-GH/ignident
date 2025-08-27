@@ -17,6 +17,7 @@
 .avia_options_container{
 	top:0;
 	margin-bottom: 0;
+	overflow: visible;
 }
 
 #avia_options_page *{
@@ -184,6 +185,134 @@
     width: 100%;
 }
 
+#avia_options_page .avia_sidebar_active .avia_description{
+	position: relative;
+}
+
+#avia_options_page .avia_sidebar_active .avia_heading .avia_description.av-icons{
+	width: calc( 100% - 60px);
+	padding-left: 0;
+	float: left;
+	padding-bottom: 25px;
+}
+
+#avia_options_page .avia_description .avia-svg-icon{
+	width: 14px;
+	display: inline-block;
+	margin-right: 4px;
+}
+
+#avia_options_page .avia_description.av-icons .av-container-icons,
+#avia_options_page .avia_description.av-icons .av-popup-wrap{
+	float: left;
+	width: 100%;
+}
+
+#avia_options_page .avia_description.av-icons .av-container-icons .av-description-icon-wrap{
+	width: auto;
+	position: relative;
+	float: left;
+	display: block;
+	margin-right: 5px;
+}
+
+#avia_options_page .avia_description.av-icons .av-container-icons .av-description-icon-wrap:focus .av-read-more{
+	text-decoration: underline;
+}
+
+#avia_options_page .avia_description.av-icons .av-description-icon-wrap .av-read-more{
+	padding-top: 5px;
+	float: left;
+	margin-right: 5px;
+}
+
+#avia_options_page .avia_description.av-icons .av-show-hide-icon.av-popup-open .avia-svg-icon{
+	margin-top: 0;
+}
+
+#avia_options_page .avia_description.av-icons .av-show-hide-icon.av-popup-open svg:first-child{
+	transform: rotate(180deg);
+}
+
+#avia_options_page .avia_description.av-icons.av-animation .av-container-popup{
+	max-height: 0;
+	visibility: hidden;
+	overflow: hidden;
+	transition: max-height 0.8s ease-in, visibility 0.8s ease-in, padding 0.8s ease-in;
+}
+
+#avia_options_page .avia_description.av-icons.av-animation .av-container-popup.av-show-popup{
+	max-height: 1500px;
+	visibility: visible;
+	padding: 10px;
+	transition: max-height 0.8s ease-in, visibility 0.8s ease-in, padding 0.8s ease-in;
+}
+
+#avia_options_page .avia_description.av-icons.av-no-animation .av-container-popup{
+	display: none;
+}
+
+#avia_options_page .avia_description.av-icons.av-no-animation .av-container-popup.av-show-popup{
+	display: block;
+	margin-top: 5px;
+}
+
+#avia_options_page.av-use-toggles .avia_sidebar_active .avia_checkbox .avia_description.av-icons{
+	top: 0;
+}
+
+#avia_options_page .avia_description .avia-svg-icon svg:first-child{
+	max-width: 100%;
+	max-height: 100%;
+	stroke: unset;
+	fill: #999;
+}
+
+#avia_options_page .avia_description .av-icon-info{
+	color: #00adee;
+}
+
+#avia_options_page .avia_description .avia-svg-info svg:first-child{
+	fill: #00adee;
+}
+
+#avia_options_page .avia_description .av-icon-attention{
+	color: #dc2626;
+}
+
+#avia_options_page .avia_description .avia-svg-attention svg:first-child{
+	fill: #dc2626;
+}
+
+#avia_options_page .avia_description.av-icons.av-animation .av-container-popup{
+	width: auto;
+	max-width: calc( 100% - 40px );
+	background-color: #f7f7f7;
+	border: 3px solid #999;
+	border-radius: 8px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+#avia_options_page .avia_description.av-icons.av-animation .av-popup-info,
+#avia_options_page .avia_description.av-icons.av-animation .av-popup-info strong{
+	border-color: #00adee;
+	color: #00adee;
+}
+
+#avia_options_page .avia_description.av-icons.av-animation .av-popup-attention,
+#avia_options_page .avia_description.av-icons.av-animation .av-popup-attention strong{
+	border-color: #dc2626;
+	color: #dc2626;
+}
+
+#avia_options_page .avia_description.av-icons.av-no-animation .av-container-popup{
+	width: auto;
+}
+
+#avia_options_page .avia_description .av-description-icon-wrap:hover{
+	cursor: help;
+}
+
 .avia_section .avia_style_wrap{
 	left:0;
 }
@@ -340,7 +469,8 @@ ul.avia_footer_links {
 #avia_options_page input[type="button"],
 #avia_options_page input[type="submit"],
 #avia_options_page input[type="reset"],
-#avia_options_page select, .avia_select_unify{
+#avia_options_page select,
+.avia_select_unify{
 	border-color:#e5e5e5;
 }
 
@@ -406,6 +536,18 @@ ul.avia_footer_links {
 #wpwrap .avia_section.av_2columns .avia_description{
 	padding-left:0;
 	margin-bottom: 8px;
+}
+
+#avia_options_page .avia_section.av_2columns .av-container-icons{
+	float: right;
+	width: auto;
+}
+
+#avia_options_page .avia_section.av_2columns .avia_description.av-icons .av-container-popup{
+	right: 0px;
+	top: 0;
+	position: relative;
+	margin-bottom: 5px;
 }
 
 #avia_options_page div .avia_link_controller .avia_description{

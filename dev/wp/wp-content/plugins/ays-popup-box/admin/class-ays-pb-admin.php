@@ -110,7 +110,17 @@ class Ays_Pb_Admin {
         if ( false !== strpos($hook_suffix, "plugins.php") ) {
             wp_enqueue_script( $this->plugin_name . '-sweetalert', plugin_dir_url(__FILE__) . '/js/ays-pb-sweetalert2.all.min.js', array('jquery'), $this->version, true );
             wp_enqueue_script( $this->plugin_name . '-admin', plugin_dir_url(__FILE__) . 'js/admin.js', array('jquery'), $this->version, true );
-            wp_localize_script( $this->plugin_name . '-admin', 'popup_box_ajax', array('ajax_url' => admin_url('admin-ajax.php')) );
+            wp_localize_script( $this->plugin_name . '-admin', 'popup_box_ajax', array(
+                'ajax_url'              => admin_url('admin-ajax.php'),
+                'errorMsg'              => __( "Error", 'ays-popup-box' ),
+                'loadResource'          => __( "Can't load resource.", 'ays-popup-box' ),
+                'somethingWentWrong'    => __( "Maybe something went wrong.", 'ays-popup-box' ),
+            ));
+        }
+
+        $check_terms_agreement = get_option('ays_pb_agree_terms');
+        if($check_terms_agreement === 'true' && strpos($hook_suffix, $this->plugin_name) !== false){
+            wp_enqueue_script( $this->plugin_name . '-hotjar', plugin_dir_url(__FILE__) . 'js/extras/ays-pb-hotjar.js', array(), $this->version, false);
         }
 
         if(false === strpos($hook_suffix, $this->plugin_name))
@@ -221,6 +231,58 @@ class Ays_Pb_Admin {
                 wp_dequeue_script('mwai');
                 wp_dequeue_script('mwai-vendor');
             }
+            if (is_plugin_active('html5-video-player/html5-video-player.php')) {
+                wp_dequeue_style('h5vp-admin');
+                wp_dequeue_style('fs_common');
+            }
+            if (is_plugin_active('panorama/panorama.php')) {
+                wp_dequeue_style('bppiv_admin_custom_css');
+                wp_dequeue_style('bppiv-custom-style');
+            }
+            if (is_plugin_active('wp-social/wp-social.php')) {
+                wp_dequeue_style('wp_social_select2_css');
+                wp_deregister_script('wp_social_select2_js');
+                wp_dequeue_script('wp_social_select2_js');
+            }
+
+            if (is_plugin_active('wp-social/wp-social.php')) {
+                wp_dequeue_style('wp_social_select2_css');
+                wp_deregister_script('wp_social_select2_js');
+                wp_dequeue_script('wp_social_select2_js');
+            }
+
+            if (is_plugin_active('happyforms/happyforms.php')) {
+                wp_dequeue_style('happyforms-admin');
+            }
+
+            if (is_plugin_active('ultimate-viral-quiz/index.php')) {
+                wp_dequeue_style('select2');
+                wp_dequeue_style('dataTables');
+                
+                wp_dequeue_script('sweetalert');
+                wp_dequeue_script('select2');
+                wp_dequeue_script('dataTables');
+            }
+
+            if (is_plugin_active('forms-by-made-it/madeit-form.php')) {
+                wp_dequeue_style('madeit-form-admin-style');
+            }
+
+            if (is_plugin_active('real-media-library-lite/index.php')) {
+                wp_dequeue_style('real-media-library-lite-rml');
+            }
+
+            // Theme | Pixel Ebook Store
+            wp_dequeue_style('pixel-ebook-store-free-demo-content-style');
+            // Theme | Interactive Education
+            wp_dequeue_style('interactive-education-free-demo-content-style');
+            // Theme | Phlox 2.17.6
+            wp_dequeue_style('auxin-admin-style');
+            // Theme | Mavix Education 1.0
+            wp_dequeue_style('mavix-education-admin-style');
+            // Theme | RT Education School 1.1.9
+            wp_dequeue_style('rt-education-school-custom-admin-style');
+            wp_dequeue_style('rt-education-school-custom-admin-notice-style');
         }
 	}
 
@@ -491,7 +553,7 @@ class Ays_Pb_Admin {
                 <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">' . esc_html__('Documentation: ', "ays-popup-box") . '</a>
             </p>' .
 			'<p>
-                <a href="https://ays-pro.com/wordpress/popup-box" target="_blank">' . esc_html__('Popup Box plugin Premium version:', "ays-popup-box") . '</a>
+                <a href="https://popup-plugin.com/" target="_blank">' . esc_html__('Popup Box plugin Premium version:', "ays-popup-box") . '</a>
             </p>'
 		);
 	}
@@ -593,9 +655,9 @@ class Ays_Pb_Admin {
         $popup_ajax_deactivate_plugin_nonce = wp_create_nonce( 'popup-box-ajax-deactivate-plugin-nonce' );
 
         $settings_link = array(
-            '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . esc_html__('Settings', "ays-popup-box") . '</a>',
+            '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_name ) . '">' . esc_html__('Settings', "ays-popup-box") . '</a>',
             '<a href="https://ays-demo.com/popup-box-plugin-free-demo/" target="_blank">' . esc_html__('Demo', "ays-popup-box") . '</a>',
-            '<a id="ays-pb-plugins-buy-now-button" href="https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=plugins-buy-now-button" target="_blank">' . esc_html__('Upgrade 30% Sale', "ays-popup-box") . '</a>
+            '<a id="ays-pb-plugins-buy-now-button" href="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=plugins-buy-now-button" target="_blank">' . esc_html__('Upgrade 30% Sale', "ays-popup-box") . '</a>
             <input type="hidden" id="popup_box_ajax_deactivate_plugin_nonce" name="popup_box_ajax_deactivate_plugin_nonce" value="' . $popup_ajax_deactivate_plugin_nonce .'">',
             
         );
@@ -980,6 +1042,7 @@ class Ays_Pb_Admin {
         $plugin_url_arr = array();
 
         $plugin_slug = array(
+            'fox-lms',
             'quiz-maker',
             'poll-maker',
             'survey-maker',
@@ -1005,6 +1068,15 @@ class Ays_Pb_Admin {
         }
 
         $plugins_array = array(
+            'fox-lms/fox-lms.php'        => array(
+                'icon'        => $images_url . 'icon-fox-lms-128x128.png',
+                'name'        => __( 'Fox LMS', 'ays-popup-box' ),
+                'desc'        => __( 'Build and manage online courses directly on your WordPress site.', 'ays-popup-box' ),
+                'desc_hidden' => __( 'With the FoxLMS plugin, you can create, sell, and organize courses, lessons, and quizzes, transforming your website into a dynamic e-learning platform.', 'ays-popup-box' ),
+                'wporg'       => 'https://wordpress.org/plugins/fox-lms/',
+                'buy_now'     => 'https://foxlms.com/pricing/?utm_source=dashboard&utm_medium=pb-free&utm_campaign=fox-lms-our-products-page',
+                'url'         => $plugin_url_arr['fox-lms'],
+            ),
            'quiz-maker/quiz-maker.php' => array(
                 'icon' => $images_url . 'icon-quiz-128x128.png',
                 'name' => esc_html__('Quiz Maker', "ays-popup-box"),
@@ -1376,4 +1448,500 @@ class Ays_Pb_Admin {
         // Fallback error just in case.
         wp_send_json_error($result);
     }
+
+    /**
+     * AJAX handler for changing popupbox status in list table
+     */
+    public function ays_pb_change_status() {
+
+        check_ajax_referer( $this->plugin_name . '-change-status-nonce', sanitize_key($_REQUEST['_ajax_nonce']) );
+
+        global $wpdb;
+        $pb_table = $wpdb->prefix . "ays_pb";
+        $id = absint($_REQUEST['popupbox_id']);
+        $current_status = $_REQUEST['status'] == 'true' ? 'On' : 'Off';
+        $wpdb->update(
+            $pb_table,
+            array(
+                "onoffswitch" => $current_status
+            ),
+            array("id" => $id),
+            array("%s"),
+            array("%d")
+        );
+
+        $_GET["fstatus"] = $current_status == 'On' ? 'published' : 'unpublished';
+        wp_send_json_success(array(
+            'status' => $current_status,
+        ));
+    }
+
+    /**
+     * Check if we are on our plugin's admin page
+     *
+     * @return bool
+     */
+    public function is_plugin_admin_page() {
+        if (!is_admin()) {
+            return false;
+        }
+        
+        $plugin_pages = array(
+            $this->plugin_name,
+            $this->plugin_name . '-categories',
+            $this->plugin_name . '-attributes',
+            $this->plugin_name . '-reports',
+            $this->plugin_name . '-subscribes',
+            $this->plugin_name . '-export-import',
+            $this->plugin_name . '-settings',
+            $this->plugin_name . '-how-to-use',
+            $this->plugin_name . '-featured-plugins',
+            $this->plugin_name . '-pb-features'
+        );
+        
+        $current_screen = get_current_screen();
+        if ($current_screen && in_array($current_screen->id, $plugin_pages)) {
+            return true;
+        }
+        
+        if (isset($_GET['page']) && in_array($_GET['page'], $plugin_pages)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Disable third-party scripts and styles if we are on plugin page
+     */
+    public function maybe_dequeue_third_party_assets() {
+        if ($this->is_plugin_admin_page()) {
+            add_action('wp_enqueue_scripts', array($this, 'dequeue_third_party_scripts'), 999);
+            add_action('wp_enqueue_scripts', array($this, 'dequeue_third_party_styles'), 999);
+            add_action('admin_enqueue_scripts', array($this, 'dequeue_third_party_scripts'), 999);
+            add_action('admin_enqueue_scripts', array($this, 'dequeue_third_party_styles'), 999);
+            add_action('wp_print_scripts', array($this, 'dequeue_third_party_scripts'), 999);
+            add_action('wp_print_styles', array($this, 'dequeue_third_party_styles'), 999);
+            add_action('wp_head', array($this, 'remove_unwanted_styles'), 1);
+            add_action('admin_head', array($this, 'remove_unwanted_styles'), 1);
+            $this->dequeue_specific_plugins();
+        }
+    }
+    
+    /**
+     * List of essential WordPress scripts that cannot be disabled
+     *
+     * @return array
+     */
+    public function get_essential_wp_scripts() {
+        return array(
+            'jquery', 'jquery-core', 'jquery-migrate', 'utils', 'common', 'wp-a11y', 'sack',
+            'quicktags', 'colorpicker', 'editor', 'wp-fullscreen-stub', 'wp-ajax-response',
+            'wp-api-request', 'wp-pointer', 'autosave', 'heartbeat', 'wp-auth-check', 'wp-lists',
+            'prototype', 'scriptaculous-root', 'scriptaculous-builder', 'scriptaculous-dragdrop',
+            'scriptaculous-effects', 'scriptaculous-slider', 'scriptaculous-sound',
+            'scriptaculous-controls', 'scriptaculous', 'cropper', 'jquery-ui-core',
+            'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-resizable', 'jquery-ui-draggable',
+            'jquery-ui-button', 'jquery-ui-position', 'jquery-ui-dialog', 'jquery-ui-menu',
+            'jquery-ui-autocomplete', 'jquery-ui-tabs', 'jquery-ui-sortable',
+            'jquery-ui-accordion', 'jquery-ui-slider', 'jquery-ui-datepicker',
+            'jquery-ui-tooltip', 'jquery-ui-selectmenu', 'jquery-touch-punch', 'admin-bar',
+            'wplink', 'wpdialogs', 'word-count', 'media-upload', 'hoverIntent', 'wp-embed',
+            'wp-emoji-release', 'wp-hooks', 'wp-i18n', 'wp-polyfill', 'regenerator-runtime',
+            'wp-polyfill-formdata', 'wp-polyfill-node-contains', 'wp-polyfill-url',
+            'wp-polyfill-dom-rect', 'wp-polyfill-element-closest', 'wp-polyfill-object-fit',
+            'wp-polyfill-fetch','jquery-blockui','select2','serializejson'
+        );
+    }
+    
+    /**
+     * List of essential WordPress styles that cannot be disabled
+     *
+     * @return array
+     */
+    public function get_essential_wp_styles() {
+        return array(
+            'wp-admin', 'login', 'install', 'wp-color-picker', 'customize-controls',
+            'customize-widgets', 'customize-nav-menus', 'press-this', 'ie', 'buttons',
+            'dashicons', 'admin-menu', 'admin-bar', 'wp-auth-check', 'editor-buttons',
+            'media-views', 'wp-pointer', 'wp-jquery-ui-dialog', 'wp-block-library',
+            'wp-block-library-theme', 'wp-editor', 'wp-block-editor', 'wp-edit-blocks',
+            'wp-components','colors','open-sans','wp-editor-font','jquery-ui-style'
+        );
+    }
+    
+    /**
+     * Disable third-party scripts
+     */
+    public function dequeue_third_party_scripts() {
+        global $wp_scripts;
+        
+        if (!$wp_scripts) {
+            return;
+        }
+        
+        $essential_scripts = $this->get_essential_wp_scripts();
+        $ays_pb_plugin_scripts = $this->get_pb_plugin_scripts();
+        $all_scripts = array_merge($wp_scripts->queue, array_keys($wp_scripts->registered));
+
+        foreach(array_unique($all_scripts) as $script) {
+            if (in_array($script, $essential_scripts)) {
+                continue;
+            }
+            
+            if (in_array($script, $ays_pb_plugin_scripts)) {
+                continue;
+            }
+            
+            if (isset($wp_scripts->registered[$script])) {
+                $src = $wp_scripts->registered[$script]->src;
+                
+                if ($this->is_wp_core_asset($src)) {
+                    continue;
+                }
+                
+                if ($this->is_excluded_plugin_asset($script, $src)) {
+                    continue;
+                }
+                
+                wp_dequeue_script($script);
+                wp_deregister_script($script);
+            }
+        }
+    }
+    
+    /**
+     * Disable third-party styles
+     */
+    public function dequeue_third_party_styles() {
+        global $wp_styles;
+        
+        if (!$wp_styles) {
+            return;
+        }
+        
+        $essential_styles = $this->get_essential_wp_styles();
+        $ays_pb_plugin_styles = $this->get_pb_plugin_styles();
+        $all_styles = array_merge($wp_styles->queue, array_keys($wp_styles->registered));
+
+        foreach(array_unique($all_styles) as $style) {
+            if (in_array($style, $essential_styles)) {
+                continue;
+            }
+            
+            if (in_array($style, $ays_pb_plugin_styles)) {
+                continue;
+            }
+            
+            if (isset($wp_styles->registered[$style])) {
+                $src = $wp_styles->registered[$style]->src;
+                
+                if ($this->is_wp_core_asset($src)) {
+                    continue;
+                }
+                
+                if ($this->is_excluded_plugin_asset($style, $src)) {
+                    continue;
+                }
+                
+                wp_dequeue_style($style);
+                wp_deregister_style($style);
+            }
+        }
+    }
+    
+    /**
+     * Remove unwanted styles from head
+     */
+    public function remove_unwanted_styles() {
+        if (!$this->is_plugin_admin_page()) {
+            return;
+        }
+        
+        ob_start(array($this, 'filter_head_output'));
+    }
+    
+    /**
+     * Filter head output to remove unwanted styles
+     */
+    public function filter_head_output($buffer) {
+        $buffer = preg_replace('/<link[^>]*elementor[^>]*>/i', '', $buffer);
+        
+        $problematic_plugins = array('contact-form-7', 'woocommerce', 'yoast-seo', 'jetpack');
+        
+        foreach ($problematic_plugins as $plugin) {
+            $buffer = preg_replace('/<link[^>]*' . preg_quote($plugin) . '[^>]*>/i', '', $buffer);
+        }
+        
+        return $buffer;
+    }
+    
+    /**
+     * Check if resource is part of WordPress core
+     *
+     * @param string $src
+     * @return bool
+     */
+    private function is_wp_core_asset($src) {
+        if (empty($src)) {
+            return true;
+        }
+        
+        $wp_includes_url = includes_url();
+        $wp_admin_url = admin_url();
+        
+        if (strpos($src, '/wp-includes/') !== false ||
+            strpos($src, '/wp-admin/') !== false ||
+            strpos($src, $wp_includes_url) !== false ||
+            strpos($src, $wp_admin_url) !== false) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * List of your plugin scripts
+     *
+     * @return array
+     */
+    private function get_pb_plugin_scripts() {
+        return array(
+            $this->plugin_name,
+            $this->plugin_name . '-admin',
+            $this->plugin_name . '-sweetalert',
+            $this->plugin_name . '-hotjar',
+            $this->plugin_name . '-popper',
+            $this->plugin_name . '-bootstrap',
+            $this->plugin_name . '-select2',
+            $this->plugin_name . '-jquery.datetimepicker',
+            $this->plugin_name . '-wp-color-picker-alpha',
+            $this->plugin_name . '-dropdown-min',
+            $this->plugin_name . '-transition-min',
+            $this->plugin_name . '-banner',
+            $this->plugin_name . 'custom-dropdown-adapter',
+            $this->plugin_name . '-wp-load-scripts'
+        );
+    }
+    
+    /**
+     * List of your plugin styles
+     *
+     * @return array
+     */
+    private function get_pb_plugin_styles() {
+        return array(
+            $this->plugin_name,
+            $this->plugin_name . '-admin',
+            $this->plugin_name . '-sweetalert',
+            $this->plugin_name . '-animate',
+            $this->plugin_name . '-bootstrap',
+            $this->plugin_name . '-select2',
+            $this->plugin_name . '-jquery-datetimepicker',
+            $this->plugin_name . '-codemirror',
+            $this->plugin_name . '-dropdown',
+            $this->plugin_name . '-transition',
+            $this->plugin_name . '-dashboards',
+            $this->plugin_name . '-pro-features',
+            $this->plugin_name . '-banner'
+        );
+    }
+    
+    /**
+     * Get list of plugins that should be excluded from dequeuing
+     *
+     * @return array
+     */
+    private function get_excluded_plugins_list() {
+        return array(
+            'query-monitor',
+            'autoptimize',
+            'litespeed-cache',
+        );
+    }
+    
+    /**
+     * Check if asset belongs to excluded plugins
+     *
+     * @param string $handle
+     * @param string $src
+     * @return bool
+     */
+    private function is_excluded_plugin_asset($handle, $src) {
+        $excluded_plugins = $this->get_excluded_plugins_list();
+        
+        foreach ($excluded_plugins as $plugin_slug) {
+            if (strpos($handle, $plugin_slug) !== false) {
+                return true;
+            }
+            
+            if (!empty($src) && strpos($src, '/plugins/' . $plugin_slug . '/') !== false) {
+                return true;
+            }
+            
+            if (!empty($src) && strpos($src, $plugin_slug) !== false) {
+                return true;
+            }
+            
+            $alt_patterns = array(
+                str_replace('-', '_', $plugin_slug),
+                str_replace('-', '', $plugin_slug)
+            );
+            
+            foreach ($alt_patterns as $pattern) {
+                if (strpos($handle, $pattern) !== false) {
+                    return true;
+                }
+                if (!empty($src) && strpos($src, '/plugins/' . $pattern . '/') !== false) {
+                    return true;
+                }
+                if (!empty($src) && strpos($src, $pattern) !== false) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Additional method for completely disabling specific plugins
+     */
+    public function dequeue_specific_plugins() {
+        $problematic_plugins = array(
+            'contact-form-7',
+            'woocommerce',
+            'yoast-seo',
+            'elementor',
+            'jetpack'
+        );
+        
+        foreach ($problematic_plugins as $plugin) {
+            $this->dequeue_by_plugin_name($plugin);
+        }
+    }
+    
+    /**
+     * Disable scripts and styles by plugin name
+     *
+     * @param string $plugin_name
+     */
+    private function dequeue_by_plugin_name($plugin_name) {
+        global $wp_scripts, $wp_styles;
+        
+        if ($wp_scripts) {
+            $all_scripts = array_merge($wp_scripts->queue, array_keys($wp_scripts->registered));
+            
+            foreach(array_unique($all_scripts) as $script) {
+                $should_dequeue = false;
+                
+                if (strpos($script, $plugin_name) !== false) {
+                    $should_dequeue = true;
+                }
+                
+                if (isset($wp_scripts->registered[$script]->src)) {
+                    $src = $wp_scripts->registered[$script]->src;
+                    if (strpos($src, '/plugins/' . $plugin_name . '/') !== false) {
+                        $should_dequeue = true;
+                    }
+                }
+                
+                if ($should_dequeue) {
+                    wp_dequeue_script($script);
+                    wp_deregister_script($script);
+                }
+            }
+        }
+        
+        if ($wp_styles) {
+            $all_styles = array_merge($wp_styles->queue, array_keys($wp_styles->registered));
+            
+            foreach(array_unique($all_styles) as $style) {
+                $should_dequeue = false;
+                
+                if (strpos($style, $plugin_name) !== false) {
+                    $should_dequeue = true;
+                }
+                
+                if (isset($wp_styles->registered[$style]->src)) {
+                    $src = $wp_styles->registered[$style]->src;
+                    if (strpos($src, '/plugins/' . $plugin_name . '/') !== false) {
+                        $should_dequeue = true;
+                    }
+                }
+                
+                if ($should_dequeue) {
+                    wp_dequeue_style($style);
+                    wp_deregister_style($style);
+                }
+            }
+        }
+    }
+    
+    /**
+     * End buffer for head output filtering
+     */
+    public function end_buffer() {
+        if ($this->is_plugin_admin_page() && ob_get_level()) {
+            ob_end_flush();
+        }
+    }
+
+    public function ays_pb_disable_all_notice_from_plugin() {
+        if (!function_exists('get_current_screen')) {
+            return;
+        }
+
+        $screen = get_current_screen();
+
+        if (empty($screen) || strpos($screen->id, $this->plugin_name) === false) {
+            return;
+        }
+
+        global $wp_filter;
+
+        // Keep plugin-specific notices
+        $our_plugin_notices = array();
+
+        $exclude_functions = [
+            'general_ays_pb_admin_notice',
+            'ays_pb_sale_baner',
+            'popupbox_notices',
+            'popup_category_notices',
+        ];
+
+        if (!empty($wp_filter['admin_notices'])) {
+            foreach ($wp_filter['admin_notices']->callbacks as $priority => $callbacks) {
+                foreach ($callbacks as $key => $callback) {
+                    // For class-based methods
+                    if (
+                        is_array($callback['function']) &&
+                        is_object($callback['function'][0]) &&
+                        in_array( get_class($callback['function'][0]), array( __CLASS__, 'Ays_Pb_Data' ), true )
+                    ) {
+                        $our_plugin_notices[$priority][$key] = $callback;
+                    }
+                    // For standalone functions
+                    elseif (
+                        is_string($callback['function']) &&
+                        in_array($callback['function'], $exclude_functions)
+                    ) {
+                        $our_plugin_notices[$priority][$key] = $callback;
+                    }
+                }
+            }
+        }
+
+        // Remove all notices
+        remove_all_actions('admin_notices');
+        remove_all_actions('all_admin_notices');
+
+        // Re-add only your plugin's notices
+        foreach ($our_plugin_notices as $priority => $callbacks) {
+            foreach ($callbacks as $callback) {
+                add_action('admin_notices', $callback['function'], $priority);
+            }
+        }
+    }
+
 }
