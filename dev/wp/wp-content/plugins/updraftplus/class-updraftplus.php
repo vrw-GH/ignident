@@ -3206,7 +3206,7 @@ class UpdraftPlus {
 	 */
 	public function get_backup_job_semaphore_lock($job_nonce, $resumption_no) {
 
-		$semaphore = $job_nonce;
+		$semaphore = 'udp_backupjob_'.$job_nonce;
 		
 		if (!class_exists('Updraft_Semaphore_3_0')) updraft_try_include_file('includes/class-updraft-semaphore.php', 'include_once');
 
@@ -3615,7 +3615,7 @@ class UpdraftPlus {
 	public function backup_finish($do_cleanup, $allow_email, $force_abort = false) {
 
 		if (!empty($this->semaphore)) $this->semaphore->unlock();
-		if (!empty($this->backup_semaphore)) $this->backup_semaphore->release();
+		if (!empty($this->backup_semaphore)) $this->backup_semaphore->delete();
 
 		$this->restore_composer_autoloaders();
 		
@@ -3863,13 +3863,23 @@ class UpdraftPlus {
 			$rss = $this->get_updraftplus_rssfeed();
 			$this->log('Fetched RSS news feed; result is a: '.get_class($rss));
 			if (is_a($rss, 'SimplePie')) {
-				$feed .= __('Email reports created by UpdraftPlus (free edition) bring you the latest UpdraftPlus.com news', 'updraftplus')." - ".sprintf(__('read more at %s', 'updraftplus'), 'https://updraftplus.com/news/')."\r\n\r\n";
-				foreach ($rss->get_items(0, 6) as $item) {
+				$feed .= __('Email reports created by UpdraftPlus (free edition) bring you the latest TeamUpdraft.com news', 'updraftplus')." - ";
+				/* translators: %s: The TeamUpdraft news URL */
+				$feed .= sprintf(__('read more at %s', 'updraftplus'), 'https://teamupdraft.com/blog/')."\r\n\r\n";
+				$i = 0;
+				foreach ($rss->get_items(0, 20) as $item) {
+					$item_title = $item->get_title();
+					$item_date = $item->get_date('j F Y');
+
+					if ($i >= 6) break;
+					if (empty($item_title)) continue;
+					
 					$feed .= '* ';
-					$feed .= $item->get_title();
-					$feed .= " (".$item->get_date('j F Y').")";
+					$feed .= $item_title;
+					if (!empty($item_date)) $feed .= " (".$item_date.")";
 					// $feed .= ' - '.$item->get_permalink();
 					$feed .= "\r\n";
+					$i++;
 				}
 			}
 			$feed .= "\r\n\r\n";

@@ -4,7 +4,7 @@ Donate link: https://popup-plugin.com
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
 Tested up to: 6.8
-Stable tag: 5.4.3
+Stable tag: 5.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,8 +17,8 @@ Popup everything you want! Create informative and promotional popups all in one 
 ### WordPress Popup Plugin
 
 * [WordPress Popup plugin pricing](https://popup-plugin.com/pricing)
-* [Popup Box FREE demo](https://ays-demo.com/popup-box-plugin-free-demo/)
-* [Popup Box PRO demo](https://ays-demo.com/popup-box-plugin-pro-demo/)
+* [Popup Box FREE demo](https://demo.popup-plugin.com/wordpress-popup-plugin-free-demo/)
+* [Popup Box PRO demo](https://demo.popup-plugin.com)
 * [Popup Box PRO documentation](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)
 
 *In this short video, you can find a quick overview of how to create a popup in WordPress.*
@@ -48,20 +48,24 @@ https://www.youtube.com/watch?v=Ofk1mxUF-9g
 
 **Popup Demos**
 
-* [Custom Content Popup](https://ays-demo.com/custom-content-red-popup/)
-* [Shortcode Popup](https://ays-demo.com/popup-shortcode-default-type/)
-* [Subscription Popup](https://ays-demo.com/subscription-sale-type/)
-* [Contact Form Popup](https://ays-demo.com/contact-form-forest/)
-* [IFrame Popup](https://ays-demo.com/iframe-coral-type/)
-* [Video Popup](https://ays-demo.com/video-coral-type/)
-* [Subscribe and Get a File Popup](https://ays-demo.com/subscribe-and-get-a-file-food/)
-* [Countdown Popup](https://ays-demo.com/countdown-popup-type/)
-* [Login Popup](https://ays-demo.com/login-type-popup/)
-* [Coupon Popup](https://ays-demo.com/coupon-peachy-type-popup/)
-* [Accept Cookie Popup](https://ays-demo.com/accept-cookie-type-popup/)
-* [Google Map Popup](https://ays-demo.com/google-map-popup/)
-* [Download Popup](https://ays-demo.com/download-type-popup/)
-* [Yes or No](https://ays-demo.com/yes-or-no-peachy-type/)
+* [Countdown Popup](https://demo.popup-plugin.com/countdown-popup/)
+* [Subscriptions Popup](https://demo.popup-plugin.com/subscription-popup/)
+* [Custom Content Popup](https://demo.popup-plugin.com/custom-content-popup/)
+* [Shortcode Popup](https://demo.popup-plugin.com/shortcode-popup/)
+* [Cookies Popup](https://demo.popup-plugin.com/cookies-popup/)
+* [Coupon Popup](https://demo.popup-plugin.com/coupon-popup/)
+* [Yes or No Popup](https://demo.popup-plugin.com/yes-no-popup/)
+* [iFrame Popup](https://demo.popup-plugin.com/iframe-popup/)
+* [Video Popup](https://demo.popup-plugin.com/video-popup/)
+* [Contact Form Popup](https://demo.popup-plugin.com/contact-form-popup/)
+* [Image Popup](https://demo.popup-plugin.com/image-popup/)
+* [Facebook Popup](https://demo.popup-plugin.com/facebook-popup/)
+* [Notification Popup](https://demo.popup-plugin.com/notification-popup/)
+* [Subscribe and Get a File Popup](https://demo.popup-plugin.com/subscribe-and-get-file-popup/)
+* [Download Popup](https://demo.popup-plugin.com/download-popup/)
+* [Login Form Popup](https://demo.popup-plugin.com/login-form-popup/)
+* [Google Map Popup](https://demo.popup-plugin.com/google-map-popup/)
+* [WooCommerce Product Popup](https://demo.popup-plugin.com/woocommerce-product-popup/)
 
 
 == Popup Triggers ==
@@ -170,7 +174,7 @@ So according to selected sizes, you can have a full-screen popup.
 
 You will be able to preview the changes before saving them.
 
-**[PRO](https://popup-plugin.com/pricing) | [DEMO](https://ays-demo.com/popup-box-plugin-pro-demo/) | [DOCUMENTATION](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)**
+**[PRO](https://popup-plugin.com/pricing) | [DEMO](https://demo.popup-plugin.com) | [DOCUMENTATION](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)**
 
 == Why us? What advantages does popup box offer? ==
 
@@ -335,6 +339,32 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 5.5.1 ( September 2, 2025 ) =
+* Added: Close button padding option
+
+= 5.5.0 ( August 25, 2025 ) =
+* Fixed: Vulnerability issue on the admin dashboard
+
+= 5.4.9 ( August 19, 2025 ) =
+* Improved: Some changes on the admin dashboard
+
+= 5.4.8 ( August 12, 2025 ) =
+* Updated: POT file
+* Improved: Some changes on the admin dashboard
+
+= 5.4.7 ( August 5, 2025 ) =
+* Improved: Some changes on the admin dashboard
+
+= 5.4.6 ( July 29, 2025 ) =
+* Added: User ID and User Registered date message variables
+
+= 5.4.5 ( July 23, 2025 ) =
+* Improved: Some changes on the admin dashboard
+
+= 5.4.4 ( July 15, 2025 ) =
+* Fixed: Some changes on the admin dashboard
+* Fixed: Some language translation issues
 
 = 5.4.3 ( July 7, 2025 ) =
 * Improved: Some changes on the admin dashboard

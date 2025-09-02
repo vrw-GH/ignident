@@ -608,6 +608,24 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                                         <?php echo esc_html__( "It will show the current month upon opening a popup.", "ays-popup-box"); ?>
                                     </span>
                                 </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%user_id%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The user's ID when logged-in. In case the user is not logged-in, the field will be empty.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%user_registered%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The user's registration date when logged-in. In case the user is not logged-in, the field will be empty.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -118,10 +118,10 @@ class Ays_Pb_Admin {
             ));
         }
 
-        $check_terms_agreement = get_option('ays_pb_agree_terms');
-        if($check_terms_agreement === 'true' && strpos($hook_suffix, $this->plugin_name) !== false){
-            wp_enqueue_script( $this->plugin_name . '-hotjar', plugin_dir_url(__FILE__) . 'js/extras/ays-pb-hotjar.js', array(), $this->version, false);
-        }
+        // $check_terms_agreement = get_option('ays_pb_agree_terms');
+        // if($check_terms_agreement === 'true' && strpos($hook_suffix, $this->plugin_name) !== false){
+        //     wp_enqueue_script( $this->plugin_name . '-hotjar', plugin_dir_url(__FILE__) . 'js/extras/ays-pb-hotjar.js', array(), $this->version, false);
+        // }
 
         if(false === strpos($hook_suffix, $this->plugin_name))
             return;
@@ -157,12 +157,12 @@ class Ays_Pb_Admin {
         );
 
         $color_picker_strings = array(
-            'clear' => esc_html__( 'Clear', "ays-popup-box" ),
-            'clearAriaLabel' => esc_html__( 'Clear color', "ays-popup-box" ),
-            'defaultString' => esc_html__( 'Default', "ays-popup-box" ),
-            'defaultAriaLabel' => esc_html__( 'Select default color', "ays-popup-box" ),
-            'pick' => esc_html__( 'Select Color', "ays-popup-box" ),
-            'defaultLabel' => esc_html__( 'Color value', "ays-popup-box" ),
+            'clear'             => esc_html__( 'Clear', "ays-popup-box" ),
+            'clearAriaLabel'    => esc_html__( 'Clear color', "ays-popup-box" ),
+            'defaultString'     => esc_html__( 'Default', "ays-popup-box" ),
+            'defaultAriaLabel'  => esc_html__( 'Select default color', "ays-popup-box" ),
+            'pick'              => esc_html__( 'Select Color', "ays-popup-box" ),
+            'defaultLabel'      => esc_html__( 'Color value', "ays-popup-box" ),
         );
 
         // Extended scripts
@@ -498,9 +498,9 @@ class Ays_Pb_Admin {
     public function screen_option_popupbox() {
 		$option = 'per_page';
 		$args = array(
-			'label' => esc_html__('PopupBox', "ays-popup-box"),
+			'label'   => esc_html__('PopupBox', "ays-popup-box"),
 			'default' => 20,
-			'option' => 'popupboxes_per_page'
+			'option'  => 'popupboxes_per_page'
 		);
 
 		add_screen_option($option, $args);
@@ -511,9 +511,9 @@ class Ays_Pb_Admin {
     public function screen_option_categories() {
         $option = 'per_page';
         $args = array(
-            'label' => esc_html__('Categories', "ays-popup-box"),
+            'label'   => esc_html__('Categories', "ays-popup-box"),
             'default' => 20,
-            'option' => 'popup_categories_per_page'
+            'option'  => 'popup_categories_per_page'
         );
 
         add_screen_option($option, $args);
@@ -534,8 +534,8 @@ class Ays_Pb_Admin {
 
 		$screen->add_help_tab(
 			array(
-				'id' => 'popupbox_help_tab',
-				'title' => esc_html__('General Information:', "ays-popup-box"),
+				'id'      => 'popupbox_help_tab',
+				'title'   => esc_html__('General Information:', "ays-popup-box"),
 				'content' =>
 					'<h2>' . esc_html__('Popup Information', "ays-popup-box") . '</h2>' .
 					'<p>'
@@ -628,10 +628,10 @@ class Ays_Pb_Admin {
 
         if(function_exists('wp_enqueue_code_editor')) {
             $cm_settings['codeEditor'] = wp_enqueue_code_editor(array(
-                'type' => 'text/css',
+                'type'       => 'text/css',
                 'codemirror' => array(
                     'inputStyle' => 'contenteditable',
-                    'theme' => 'cobalt',
+                    'theme'      => 'cobalt',
                 )
             ));
 
@@ -656,7 +656,7 @@ class Ays_Pb_Admin {
 
         $settings_link = array(
             '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_name ) . '">' . esc_html__('Settings', "ays-popup-box") . '</a>',
-            '<a href="https://ays-demo.com/popup-box-plugin-free-demo/" target="_blank">' . esc_html__('Demo', "ays-popup-box") . '</a>',
+            '<a href="https://demo.popup-plugin.com/wordpress-popup-plugin-free-demo/" target="_blank">' . esc_html__('Demo', "ays-popup-box") . '</a>',
             '<a id="ays-pb-plugins-buy-now-button" href="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=plugins-buy-now-button" target="_blank">' . esc_html__('Upgrade 30% Sale', "ays-popup-box") . '</a>
             <input type="hidden" id="popup_box_ajax_deactivate_plugin_nonce" name="popup_box_ajax_deactivate_plugin_nonce" value="' . $popup_ajax_deactivate_plugin_nonce .'">',
             

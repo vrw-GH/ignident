@@ -10,6 +10,7 @@ use Burst\Admin\Burst_Wp_Cli\Burst_Wp_Cli;
 use Burst\Admin\Cron\Cron;
 use Burst\Admin\Dashboard_Widget\Dashboard_Widget;
 use Burst\Admin\DB_Upgrade\DB_Upgrade;
+use Burst\Admin\Debug\Debug;
 use Burst\Admin\Mailer\Mail_Reports;
 use Burst\Admin\Statistics\Goal_Statistics;
 use Burst\Admin\Statistics\Statistics;
@@ -70,6 +71,9 @@ class Admin {
 		add_action( 'burst_daily', [ $this, 'validate_tasks' ] );
 		add_action( 'burst_validate_tasks', [ $this, 'validate_tasks' ] );
 		add_action( 'plugins_loaded', [ $this, 'init_wpcli' ] );
+		add_action( 'burst_daily', [ $this, 'clean_malicious_data' ] );
+		add_action( 'burst_weekly', [ $this, 'long_term_user_deal' ] );
+		add_action( 'burst_daily', [ $this, 'cleanup_php_error_notices' ] );
 
 		$upgrade = new Upgrade();
 		$upgrade->init();
@@ -95,9 +99,32 @@ class Admin {
 		$widget      = new Dashboard_Widget();
 		$widget->init();
 
+		$debug = new Debug();
+		$debug->init();
+
 		if ( defined( 'BURST_BLUEPRINT' ) && ! get_option( 'burst_demo_data_installed' ) ) {
 			add_action( 'init', [ $this, 'install_demo_data' ] );
 			update_option( 'burst_demo_data_installed', true, false );
+		}
+	}
+
+	/**
+	 * Users who are using the plugin for at least a year get a one time trial offer.
+	 */
+	public function long_term_user_deal(): void {
+		if ( ! defined( 'BURST_FREE' ) ) {
+			return;
+		}
+
+		$activated = get_option( 'burst_activation_time', 0 );
+		if ( $activated === 0 ) {
+			return;
+		}
+
+		$one_year_ago = time() - YEAR_IN_SECONDS;
+		if ( $activated > $one_year_ago && ! get_option( 'burst_trial_offered' ) ) {
+			\Burst\burst_loader()->admin->tasks->add_task( 'trial_offer_loyal_users' );
+			update_option( 'burst_trial_offered', true, false );
 		}
 	}
 
@@ -114,6 +141,77 @@ class Admin {
 		// Register the command.
 		\WP_CLI::add_command( 'burst', Burst_Wp_Cli::class );
 	}
+
+	/**
+	 * On a daily basis, cleanup suspiciously high amounts of data.
+	 *
+	 * @hooked burst_daily
+	 * @return void
+	 */
+	public function clean_malicious_data(): void {
+		if ( ! $this->user_can_manage() ) {
+			return;
+		}
+
+		$interval_days = (int) apply_filters( 'burst_data_cleanup_interval_days', 1 );
+		$data_treshold = (int) apply_filters( 'burst_data_cleanup_treshold', 1000 );
+
+		global $wpdb;
+
+		$sql = "
+        DELETE FROM {$wpdb->prefix}burst_goal_statistics
+        WHERE statistic_id IN (
+            SELECT s.ID
+            FROM {$wpdb->prefix}burst_statistics s
+            JOIN (
+                SELECT uid
+                FROM {$wpdb->prefix}burst_statistics
+                WHERE time > UNIX_TIMESTAMP(NOW() - INTERVAL {$interval_days} DAY)
+                GROUP BY uid
+                HAVING COUNT(*) > {$data_treshold}
+            ) AS filtered_uids ON s.uid = filtered_uids.uid
+        )
+    ";
+		$wpdb->query( $sql );
+
+		$sql = "
+        DELETE FROM {$wpdb->prefix}burst_sessions
+        WHERE ID IN (
+            SELECT DISTINCT s.session_id
+            FROM {$wpdb->prefix}burst_statistics s
+            JOIN (
+                SELECT uid
+                FROM {$wpdb->prefix}burst_statistics
+                WHERE time > UNIX_TIMESTAMP(NOW() - INTERVAL {$interval_days} DAY)
+                GROUP BY uid
+                HAVING COUNT(*) > {$data_treshold}
+            ) AS filtered_uids ON s.uid = filtered_uids.uid
+            WHERE s.session_id IS NOT NULL
+        )
+    ";
+		$wpdb->query( $sql );
+
+		$sql           = "
+        DELETE FROM {$wpdb->prefix}burst_statistics
+        WHERE uid IN (
+            SELECT uid FROM (
+                SELECT uid
+                FROM {$wpdb->prefix}burst_statistics
+                WHERE time > UNIX_TIMESTAMP(NOW() - INTERVAL {$interval_days} DAY)
+                GROUP BY uid
+                HAVING COUNT(*) > {$data_treshold}
+            ) AS filtered_uids
+        )
+    ";
+		$removed_count = $wpdb->query( $sql );
+
+		if ( $removed_count > 0 ) {
+			update_option( 'burst_removed_malicious_data_count', $removed_count );
+		} else {
+			delete_option( 'burst_removed_malicious_data_count' );
+		}
+	}
+
 
 	/**
 	 * Once a day, check if any tasks need to be added again
@@ -136,6 +234,23 @@ class Admin {
 				$table,
 				$row
 			);
+		}
+	}
+
+	/**
+	 * Clean up errors after some time, to prevent them hanging around indefinitely.
+	 */
+	public function cleanup_php_error_notices(): void {
+		$last_detected = get_option( 'burst_php_error_time', time() );
+		if ( ! $last_detected ) {
+			return;
+		}
+
+		$x_days_ago = time() - 7 * DAY_IN_SECONDS;
+		if ( $last_detected < $x_days_ago ) {
+			delete_option( 'burst_php_error_time' );
+			delete_option( 'burst_php_error_detected' );
+			delete_option( 'burst_php_error_count' );
 		}
 	}
 
@@ -306,7 +421,7 @@ class Admin {
 			Capability::add_capability( 'view', [ 'administrator', 'editor' ] );
 			Capability::add_capability( 'manage' );
 			do_action( 'burst_activation' );
-			delete_option( 'burst_run_activation' );
+			update_option( 'burst_run_activation', false );
 		}
 	}
 
@@ -467,7 +582,7 @@ class Admin {
 		// Add "Upgrade to Pro" link at the start if not Pro version.
 		if ( ! defined( 'BURST_PRO' ) ) {
 			$upgrade_link
-				= '<a style="color:#2e8a37;font-weight:bold" target="_blank" href="' . $this->get_website_url( 'pricing', [ 'burst_source' => 'plugin-overview' ] ) . '">'
+				= '<a style="color:#2e8a37;font-weight:bold" target="_blank" href="' . $this->get_website_url( 'pricing', [ 'utm_source' => 'plugin-overview' ] ) . '">'
 				. __( 'Upgrade to Pro', 'burst-statistics' ) . '</a>';
 			array_unshift( $links, $upgrade_link );
 		}
@@ -484,8 +599,8 @@ class Admin {
 			: $this->get_website_url(
 				'support',
 				[
-					'burst_source'  => 'plugin-overview',
-					'burst_content' => 'support-link',
+					'utm_source'  => 'plugin-overview',
+					'utm_content' => 'support-link',
 				]
 			);
 		$faq_link     = '<a target="_blank" href="' . $support_link . '">'
@@ -982,7 +1097,7 @@ class Admin {
 				'burst_browser_versions',
 				'burst_platforms',
 				'burst_devices',
-				'burst_summary',
+				'burst_referrers',
 			],
 		);
 
@@ -1055,11 +1170,13 @@ class Admin {
 			'burst_last_update_geo_ip',
 			'burst_license_attempts',
 			'burst_ajax_fallback_active',
+			'burst_ajax_fallback_active_timestamp',
 			'burst_tour_shown_once',
 			'burst_options_settings',
 			'burst-current-version',
 			'burst_tasks',
 			'burst_demo_data_installed',
+			'burst_trial_offered',
 		];
 		// delete options.
 		foreach ( $options as $option_name ) {

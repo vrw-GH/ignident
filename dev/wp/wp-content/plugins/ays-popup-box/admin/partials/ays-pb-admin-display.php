@@ -78,7 +78,9 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
                 <h4><?php echo esc_html__( "Create Your First Popup in Under One Minute", "ays-popup-box" ); ?></h4>
             </div>
             <div class="ays-pb-create-pb-youtube-video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/_VEAGGzKe_g" loading="lazy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="ays-pb-youtube-placeholder" data-video-id="_VEAGGzKe_g">
+                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL .'/images/youtube/create-popup-video-screenshot.webp'); ?>" width="560" height="315">
+                </div>
             </div>
             <div class="ays_pb_small_hint_text_video">
                 <?php echo esc_html__( 'Please note that this video will disappear once you created 4 popups.', "ays-popup-box" ); ?>

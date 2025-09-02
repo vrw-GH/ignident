@@ -5,7 +5,9 @@
         ?>
     </h1>
     <div style="display:flex;justify-content:center;align-items:center;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/F8d8_5jDzY4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <div class="ays-pb-youtube-placeholder" data-video-id="F8d8_5jDzY4">
+            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL .'/images/youtube/popup-reports-video-screenshot.webp'); ?>" width="560" height="315">
+        </div>
     </div>
     <div class="nav-tab-wrapper">
         <a href="#tab1" class="nav-tab nav-tab-active"><?php echo esc_html__('Reports', "ays-popup-box")?></a>

@@ -4,6 +4,7 @@ namespace Burst\Admin\App;
 use Burst\Admin\App\Fields\Fields;
 use Burst\Admin\App\Menu\Menu;
 use Burst\Admin\Burst_Onboarding\Burst_Onboarding;
+use Burst\Pro\Pro_Statistics;
 use Burst\TeamUpdraft\Installer\Installer;
 use Burst\Admin\Statistics\Goal_Statistics;
 use Burst\Admin\Statistics\Statistics;
@@ -34,6 +35,7 @@ class App {
 	public Menu $menu;
 	public Fields $fields;
 	public Tasks $tasks;
+	public string $nonce_expired_feedback = 'The provided nonce has expired. Please refresh the page.';
 
 	/**
 	 * Initialize the App class
@@ -45,6 +47,7 @@ class App {
 		add_action( 'burst_after_save_field', [ $this, 'update_for_multisite' ], 10, 4 );
 		add_action( 'rest_api_init', [ $this, 'settings_rest_route' ], 8 );
 		add_filter( 'burst_localize_script', [ $this, 'extend_localized_settings_for_dashboard' ], 10, 1 );
+		add_action( 'burst_weekly', [ $this, 'weekly_clear_referrers_table' ] );
 		$this->menu   = new Menu();
 		$this->fields = new Fields();
 		$onboarding   = new Burst_Onboarding();
@@ -72,6 +75,7 @@ class App {
 	public function remove_fallback_notice(): void {
 		if ( get_option( 'burst_ajax_fallback_active' ) !== false ) {
 			delete_option( 'burst_ajax_fallback_active' );
+			delete_option( 'burst_ajax_fallback_active_timestamp' );
 			\Burst\burst_loader()->admin->tasks->schedule_task_validation();
 		}
 	}
@@ -256,7 +260,7 @@ class App {
 		$submenu['burst'][] = [
 			__( 'Upgrade to Pro', 'burst-statistics' ),
 			'manage_burst_statistics',
-			$this->get_website_url( 'pricing/', [ 'burst_source' => 'plugin-submenu-upgrade' ] ),
+			$this->get_website_url( 'pricing/', [ 'utm_source' => 'plugin-submenu-upgrade' ] ),
 		];
 
 		if ( isset( $submenu['burst'][ $highest_index ] ) ) {
@@ -389,36 +393,53 @@ class App {
 		$error     = false;
 		$action    = false;
 		$do_action = false;
-		$data      = false;
+		$data      = [];
 		$data_type = false;
+
 		if ( ! $this->user_can_view() ) {
 			$error = true;
 		}
-		// if the site is using this fallback, we want to show a notice.
-		update_option( 'burst_ajax_fallback_active', time(), false );
-		// nonce is verified further down.
+
+		// --- Parse GET ---
         // phpcs:ignore
-		if ( isset( $_GET['rest_action'] ) ) {
-			// nonce is verified further down.
+        if ( isset( $_GET['rest_action'] ) ) {
             // phpcs:ignore
-			$action = sanitize_text_field( $_GET['rest_action'] );
+            $action = sanitize_text_field( $_GET['rest_action'] );
 			if ( strpos( $action, 'burst/v1/data/' ) !== false ) {
 				$data_type = strtolower( str_replace( 'burst/v1/data/', '', $action ) );
 			}
 		}
 
-		// get all of the rest of the $_GET parameters so we can forward them in the REST request.
-		// we will verify nonce a few lines down.
+		// --- Collect GET params ---
         // phpcs:ignore
-		$get_params = $_GET;
-		// remove the rest_action parameter.
+        $get_params = $_GET;
 		unset( $get_params['rest_action'] );
-		$nonce = $get_params['nonce'];
+
+		// --- Parse POST body, if present ---
+		$request_data = json_decode( file_get_contents( 'php://input' ), true );
+		if ( is_array( $request_data ) ) {
+			$req_path = isset( $request_data['path'] ) ? sanitize_text_field( $request_data['path'] ) : false;
+			if ( $req_path ) {
+				// override if provided by POST.
+				$action = $req_path;
+				if ( ! $data_type && strpos( $action, 'burst/v1/data/' ) !== false ) {
+					// Extract data type for /data/* when using POST.
+					$data_type = strtolower( str_replace( 'burst/v1/data/', '', $action ) );
+				}
+			}
+			$data = isset( $request_data['data'] ) && is_array( $request_data['data'] ) ? $request_data['data'] : [];
+
+			if ( strpos( $action, 'burst/v1/do_action/' ) !== false ) {
+				$do_action = strtolower( str_replace( 'burst/v1/do_action/', '', $action ) );
+			}
+		}
+
+		$nonce = $get_params['nonce'] ?? ( $request_data['data']['nonce'] ?? null );
 		if ( ! $this->verify_nonce( $nonce, 'burst_nonce' ) ) {
 			$response = new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 			ob_get_clean();
@@ -427,36 +448,44 @@ class App {
 			exit;
 		}
 
-		// convert get metrics to array if it is a string.
-		if ( isset( $get_params['metrics'] ) && is_string( $get_params['metrics'] ) ) {
-			$get_params['metrics'] = explode( ',', $get_params['metrics'] );
+		// Fallback notice.
+		$fallback_already_active = (int) get_option( 'burst_ajax_fallback_active_timestamp', 0 );
+		if ( $fallback_already_active === 0 ) {
+			update_option( 'burst_ajax_fallback_active_timestamp', time(), false );
+		}
+		if ( $fallback_already_active > 0 && ( time() - $fallback_already_active ) > 48 * HOUR_IN_SECONDS ) {
+			update_option( 'burst_ajax_fallback_active', true, false );
 		}
 
-		// Handle filters - check if it's a string and needs slashes removed.
-		if ( isset( $get_params['filters'] ) ) {
-			if ( is_string( $get_params['filters'] ) ) {
-				// Remove slashes but keep as JSON string for later decoding.
-				$get_params['filters'] = stripslashes( $get_params['filters'] );
+		// Normalize/merge params from GET and POST data.
+		$merged = $get_params;
+		foreach ( [ 'goal_id', 'type', 'date_start', 'date_end', 'args', 'search', 'filters', 'metrics', 'group_by' ] as $k ) {
+			if ( array_key_exists( $k, $data ) ) {
+				$merged[ $k ] = $data[ $k ];
 			}
 		}
 
-		$request_data = json_decode( file_get_contents( 'php://input' ), true );
-		if ( $request_data ) {
-			$action = $request_data['path'] ?? false;
-
-			$action = sanitize_text_field( $action );
-			$data   = $request_data['data'] ?? false;
-			if ( strpos( $action, 'burst/v1/do_action/' ) !== false ) {
-				$do_action = strtolower( str_replace( 'burst/v1/do_action/', '', $action ) );
-			}
+		// Convert metrics string -> array.
+		if ( isset( $merged['metrics'] ) && is_string( $merged['metrics'] ) ) {
+			$merged['metrics'] = explode( ',', $merged['metrics'] );
 		}
 
+		// Handle filters slashes (string JSON coming from GET); keep arrays as-is.
+		if ( isset( $merged['filters'] ) && is_string( $merged['filters'] ) ) {
+			$merged['filters'] = stripslashes( $merged['filters'] );
+		}
+
+		// Build WP_REST_Request with merged params.
 		$request = new \WP_REST_Request();
-		$args    = [ 'goal_id', 'type', 'nonce', 'date_start', 'date_end', 'args', 'search', 'filters', 'metrics', 'group_by' ];
-		foreach ( $args as $arg ) {
-			if ( isset( $get_params[ $arg ] ) ) {
-				$request->set_param( $arg, $get_params[ $arg ] );
+		foreach ( [ 'goal_id', 'type', 'nonce', 'date_start', 'date_end', 'args', 'search', 'filters', 'metrics', 'group_by' ] as $arg ) {
+			if ( isset( $merged[ $arg ] ) ) {
+				$request->set_param( $arg, $merged[ $arg ] );
 			}
+		}
+
+		// If we detected /data/, make sure 'type' is set from the path.
+		if ( $data_type ) {
+			$request->set_param( 'type', $data_type );
 		}
 
 		if ( ! $error ) {
@@ -478,13 +507,12 @@ class App {
 				$response = $this->rest_api_goals_set( $request, $data );
 			} elseif ( strpos( $action, '/posts/' ) !== false ) {
 				$response = $this->get_posts( $request, $data );
-			} elseif ( strpos( $action, '/data/' ) ) {
-				$request->set_param( 'type', $data_type );
+			} elseif ( strpos( $action, '/data/' ) !== false ) {
 				$response = $this->get_data( $request );
 			} elseif ( $do_action ) {
-				$request = new \WP_REST_Request();
-				$request->set_param( 'action', $do_action );
-				$response = $this->do_action( $request, $data );
+				$req = new \WP_REST_Request();
+				$req->set_param( 'action', $do_action );
+				$response = $this->do_action( $req, $data );
 			}
 		}
 
@@ -667,7 +695,7 @@ class App {
 				--tw-blur: blur(4px);
 				filter: var(--tw-blur);
 			}
-			
+
 			/* Borders */
 			#burst-statistics .border-b-4 {
 				border-bottom-width: 4px;
@@ -739,6 +767,10 @@ class App {
 	 * Register REST API routes for the plugin.
 	 */
 	public function settings_rest_route(): void {
+		// for our ajax fallback test, we don't want to register the REST API routes.
+		if ( defined( 'BURST_FALLBACK_TEST' ) ) {
+			return;
+		}
 		register_rest_route(
 			'burst/v1',
 			'menu',
@@ -914,7 +946,7 @@ class App {
 			return new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 		}
@@ -942,6 +974,13 @@ class App {
 			case 'tracking':
 				$data = Endpoint::get_tracking_status_and_time();
 				break;
+			case 'get_article_data':
+				$data = $this->get_articles();
+				break;
+			case 'get_filter_options':
+				$data_type = isset( $data['data_type'] ) ? sanitize_title( $data['data_type'] ) : '';
+				$data      = $this->get_filter_options( $data_type );
+				break;
 			default:
 				$data = apply_filters( 'burst_do_action', [], $action, $data );
 		}
@@ -957,6 +996,162 @@ class App {
 			],
 			200
 		);
+	}
+
+	/**
+	 * Get advanced filter options.
+	 *
+	 * @param string $data_type The specific data type to return (devices, browsers, platforms, countries, pages, referrers, campaigns).
+	 * @return array
+	 */
+	private function get_filter_options( string $data_type ): array {
+		if ( ! $this->user_can_view() ) {
+			return [];
+		}
+
+		global $wpdb;
+		$valid_types = [ 'devices', 'browsers', 'platforms', 'countries', 'states', 'cities', 'pages', 'referrers', 'campaigns', 'sources', 'mediums', 'contents', 'terms' ];
+
+		// Return invalid data type error.
+		if ( empty( $data_type ) || ! in_array( $data_type, $valid_types, true ) ) {
+			return [
+				'success' => false,
+				'message' => 'Invalid data type. Valid types are: ' . implode( ', ', $valid_types ),
+			];
+		}
+
+		// Define data type queries.
+		$queries = [
+			'devices'   => "SELECT MIN(ID) as ID, name FROM {$wpdb->prefix}burst_devices GROUP BY name",
+			'browsers'  => "SELECT MIN(ID) as ID, name FROM {$wpdb->prefix}burst_browsers GROUP BY name",
+			'platforms' => "SELECT MIN(ID) as ID, name FROM {$wpdb->prefix}burst_platforms GROUP BY name",
+			'states'    => "SELECT DISTINCT state AS name FROM {$wpdb->prefix}burst_locations",
+			'cities'    => "SELECT DISTINCT city AS name FROM {$wpdb->prefix}burst_locations",
+			'pages'     => "SELECT page_url as name FROM {$wpdb->prefix}burst_statistics GROUP BY page_url ORDER BY COUNT(*) DESC",
+			'campaigns' => "SELECT DISTINCT campaign AS name FROM {$wpdb->prefix}burst_campaigns",
+			'sources'   => "SELECT DISTINCT source AS name FROM {$wpdb->prefix}burst_campaigns",
+			'mediums'   => "SELECT DISTINCT medium AS name FROM {$wpdb->prefix}burst_campaigns",
+			'contents'  => "SELECT DISTINCT content AS name FROM {$wpdb->prefix}burst_campaigns",
+			'terms'     => "SELECT DISTINCT term AS name FROM {$wpdb->prefix}burst_campaigns",
+		];
+
+		// Get raw data based on data type.
+		if ( $data_type === 'countries' ) {
+			$raw_data = apply_filters( 'burst_countries', [] );
+			// filter out localhost.
+			unset( $raw_data['LO'] );
+			$raw_data = array_map(
+				fn( $key, $value ) => [
+					'ID'   => $key,
+					'name' => $value,
+				],
+				array_keys( $raw_data ),
+				$raw_data
+			);
+		} elseif ( $data_type === 'referrers' ) {
+			$raw_data = $this->get_referrer_options();
+			$raw_data = array_map(
+				fn( $value ) => [
+					'ID'   => $value['name'],
+					'name' => $value['name'],
+				],
+				array_values( $raw_data )
+			);
+		} else {
+			$raw_data = $wpdb->get_results( $queries[ $data_type ], ARRAY_A );
+			$raw_data = array_filter(
+				$raw_data,
+				function ( $item ) {
+					foreach ( [ 'name', 'id', 'key' ] as $field ) {
+						if ( isset( $item[ $field ] ) ) {
+							$value = trim( (string) $item[ $field ] );
+							if ( $value === '' || $value === '-1' || $value === 'null' ) {
+								return false;
+							}
+						}
+					}
+
+					return true;
+				}
+			);
+
+			if ( $data_type === 'devices' ) {
+				$raw_data = array_map(
+					function ( $item ) {
+						$item['key'] = $item['name'];
+						// get nicename for device.
+						switch ( $item['name'] ) {
+							case 'desktop':
+								$item['name'] = __( 'Desktop', 'burst-statistics' );
+								break;
+							case 'mobile':
+								$item['name'] = __( 'Mobile', 'burst-statistics' );
+								break;
+							case 'tablet':
+								$item['name'] = __( 'Tablet', 'burst-statistics' );
+								break;
+							default:
+								$item['name'] = __( 'Other', 'burst-statistics' );
+								break;
+						}
+
+						return $item;
+					},
+					$raw_data
+				);
+			}
+		}
+
+		return [
+			'success' => true,
+			'data'    => [
+				$data_type => $raw_data,
+			],
+		];
+	}
+
+	/**
+	 * On a weekly basis, clear the referrers table.
+	 *
+	 * @hooked burst_weekly
+	 */
+	public function weekly_clear_referrers_table(): void {
+		if ( ! $this->user_can_manage() ) {
+			return;
+		}
+		global $wpdb;
+		$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}burst_referrers" );
+	}
+
+	/**
+	 * Get referrer options for the advanced filter. The table is cleared weekly, to ensure up to date data.
+	 *
+	 * @return array
+	 */
+	private function get_referrer_options(): array {
+		global $wpdb;
+		$referrers = $wpdb->get_results( "SELECT name FROM {$wpdb->prefix}burst_referrers ORDER BY ID ASC", ARRAY_A );
+		if ( empty( $referrers ) ) {
+			$sql = "INSERT IGNORE INTO {$wpdb->prefix}burst_referrers (name)
+                    SELECT domain
+                    FROM (
+                      SELECT 
+                        LOWER(SUBSTRING_INDEX(SUBSTRING_INDEX(referrer, '/', 3), '/', -1)) AS domain
+                      FROM {$wpdb->prefix}burst_statistics
+                      WHERE referrer IS NOT NULL 
+                        AND referrer != ''
+                        AND referrer LIKE 'http%'
+                        AND referrer NOT LIKE '/%'
+                    ) AS derived
+                    WHERE domain != ''
+                      AND SUBSTRING_INDEX(domain, ':', 1) NOT REGEXP '^[0-9]{1,3}(\\.[0-9]{1,3}){3}$'
+                    GROUP BY domain
+                    ORDER BY COUNT(*) DESC
+                    LIMIT 2000;";
+			$wpdb->query( $sql );
+			$referrers = $wpdb->get_results( "select name from {$wpdb->prefix}burst_referrers ORDER BY ID ASC", ARRAY_A );
+		}
+		return $referrers;
 	}
 
 	/**
@@ -1007,7 +1202,7 @@ class App {
 	 * @param string           $permission_level 'view' or 'manage'.
 	 * @return array<string, mixed> Processed request data or error.
 	 */
-	private function process_rest_request( \WP_REST_Request $request, string $permission_level = 'view' ) {
+	private function process_rest_request( \WP_REST_Request $request, string $permission_level = 'view' ): array {
 		$can_access = $permission_level === 'manage' ? $this->user_can_manage() : $this->user_can_view();
 		if ( ! $can_access ) {
 			return [
@@ -1317,7 +1512,7 @@ class App {
 			return new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 		}
@@ -1365,7 +1560,7 @@ class App {
 			return new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 		}
@@ -1409,7 +1604,7 @@ class App {
 			return new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 		}
@@ -1451,7 +1646,7 @@ class App {
 			return new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 		}
@@ -1503,7 +1698,7 @@ class App {
 			return new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 		}
@@ -1555,7 +1750,7 @@ class App {
 			return new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 		}
@@ -1605,7 +1800,7 @@ class App {
 			return new \WP_REST_Response(
 				[
 					'success' => false,
-					'message' => 'The provided nonce is not valid.',
+					'message' => $this->nonce_expired_feedback,
 				]
 			);
 		}
@@ -1674,6 +1869,63 @@ class App {
 		return $new_menu_items;
 	}
 
+
+	/**
+	 * Get raw posts array
+	 *
+	 * @return array<int, array<string, mixed>>
+	 *         Returns a list of plugin arrays.
+	 */
+	private function get_articles(): array {
+		$json_path = __DIR__ . '/posts.json';
+		// if the file is over one month old, delete it, so we can download a new one.
+		if ( file_exists( $json_path ) && ( time() - filemtime( $json_path ) > MONTH_IN_SECONDS ) ) {
+			wp_delete_file( $json_path );
+		}
+
+		if ( ! file_exists( $json_path ) ) {
+			$this->download_articles_json_file();
+		}
+		if ( ! file_exists( $json_path ) ) {
+			$json_path = __DIR__ . '/posts-fallback.json';
+		}
+
+        // phpcs:disable WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$json = file_get_contents( $json_path );
+		// decode the json file.
+		$decoded = json_decode( $json, true );
+		if ( ! is_array( $decoded ) ) {
+			return [];
+		}
+
+		// Shuffle array and take 6 random entries.
+		shuffle( $decoded );
+		return array_slice( $decoded, 0, 6 );
+	}
+
+	/**
+	 * Get the posts.json file from the remote server.
+	 */
+	private function download_articles_json_file(): void {
+		$remote_json = 'https://burst.ams3.cdn.digitaloceanspaces.com/posts/posts.json';
+		$response    = wp_remote_get( $remote_json );
+		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+			return;
+		}
+		$json = wp_remote_retrieve_body( $response );
+		if ( ! empty( $json ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			global $wp_filesystem;
+			if ( ! WP_Filesystem() ) {
+				return;
+			}
+
+			if ( $wp_filesystem->is_writable( __DIR__ ) ) {
+				$wp_filesystem->put_contents( __DIR__ . '/posts.json', $json, FS_CHMOD_FILE );
+			}
+		}
+	}
+
 	/**
 	 * Sanitize an ip number
 	 */
@@ -1712,7 +1964,7 @@ class App {
 		$search         = isset( $data['search'] ) ? $data['search'] : '';
 
 		if ( ! $this->verify_nonce( $nonce, 'burst_nonce' ) ) {
-			return new \WP_Error( 'rest_invalid_nonce', 'The provided nonce is not valid.', [ 'status' => 400 ] );
+			return new \WP_Error( 'rest_invalid_nonce', $this->nonce_expired_feedback, [ 'status' => 400 ] );
 		}
 
 		// do full search for string length above 3, but set a cap at 1000.

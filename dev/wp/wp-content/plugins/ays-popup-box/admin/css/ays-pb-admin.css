@@ -859,6 +859,10 @@ div.ays_ask_question_content .ays-ask-question-content-inner-question-mark-text 
     color: gray;
 }
 
+.ays-pb-youtube-placeholder{
+    cursor: pointer;
+}
+
 .ays-pb-create-pb-youtube-video-button-box {
     margin-top: 80px;
 }
@@ -4810,9 +4814,13 @@ a.ays-rated-link, a.ays-rated-link:hover, a.ays-rated-link:focus {
     display: none !important;
 }
 
+div.masteriyo-notice {
+    display: none !important;
+}
+
 /* third-party plugins styles */
 
-#wpadminbar .yoast-issue-counter {
+/* #wpadminbar .yoast-issue-counter {
     background-color: #d63638;
     border-radius: 9px;
     color: #fff;
@@ -4893,6 +4901,6 @@ a.ays-rated-link, a.ays-rated-link:hover, a.ays-rated-link:focus {
     width: 25px;
     padding: 5px 0 0;
     transition: .3s ease-in-out;
-}
+} */
 
 /* third-party plugins styles end */

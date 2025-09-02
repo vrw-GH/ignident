@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, apor
 Tags: backup, database backup, wordpress backup, cloud backup, migration
 Requires at least: 3.2
 Tested up to: 6.8
-Stable tag: 1.25.6
+Stable tag: 1.25.7
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -178,6 +178,22 @@ This problem is probably caused by your account being starved of resources by yo
 The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
+
+= 1.25.7 - 07/Aug/2025 =
+
+* FIX: A regression for verifying the presence of old folders in the backup directory; old folders created during the restoration of the "Others" entity were not detected correctly.
+* FIX: The per-backup lock entries were not removed, resulting in an accumulation of these entries in the database over time. (Includes clean-up of old entries).
+* TWEAK: Add IDrive e2 and MEGA to the S3-Compatible storage list
+* TWEAK: Internal function call to prevent a PHP 8.1 deprecation notice on fresh WP installs
+* TWEAK: Add wp-staging to the default uploads exclusion list
+* TWEAK: Add UpdraftCentral handler for site icon upload request.
+* TWEAK: Added support for the database view dashicon in WordPress versions prior to 5.5.
+* TWEAK: Include site icon information in the 'get_site_icon' response of the UpdraftCentral core module.
+* TWEAK: Resolve the empty list issue on the backup email reports created by the UpdraftPlus free version
+* TWEAK: The "Get every feature of UpdraftPlus Premium" box shouldn't be displayed after purchases got claimed/activated
+* TWEAK: Remove seasonal (new year, summer, spring and plugin collection) sale notices
+* TWEAK: Handle unsupported character set defined for table fields during database pre-restoration.
+* TWEAK: Updated links in the Premium Extensions tab of the plugin’s admin menu page.
 
 = 1.25.6 - 27/May/2025 =
 
@@ -2062,4 +2078,4 @@ Non-English translators are provided by volunteers, and wordpress.org does not g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.25.6: New DreamObjects endpoint namely "s3.us-east-005.dream.io" has been introduced and the ability to add custom endpoints in the format "s3.<region>.dream.io". Various fixes and small tweaks - see the changelog for details. A recommended update for all.
+* 1.25.7: Various fixes and small tweaks - see the changelog for details. A recommended update for all.

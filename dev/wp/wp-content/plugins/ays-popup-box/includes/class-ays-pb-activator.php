@@ -183,6 +183,16 @@ class Ays_Pb_Activator {
                 );
             }
         }
+
+        $terms_activation = get_option('ays_pb_show_agree_terms');
+        $first_activation = get_option('ays_pb_first_time_activation_page', false);
+
+        if ( !$terms_activation && $first_activation ) {
+            self::ays_pb_activator_request( 'activator' );
+            update_option('ays_pb_agree_terms', 'true');
+            update_option('ays_pb_show_agree_terms', 'hide');
+        }
+
     }
 
     public static function ays_pb_db_check() {
@@ -548,6 +558,7 @@ class Ays_Pb_Activator {
             'close_button_color' => '#000000',
             'close_button_hover_color' => '#000000',
             'close_button_size' => 1,
+            'close_button_padding' => 0,
             'enable_box_shadow' => 'off',
             'box_shadow_color' => '#000',
             'pb_box_shadow_x_offset' => 0,
@@ -567,5 +578,24 @@ class Ays_Pb_Activator {
         );
 
         return $default_options;
+    }
+
+    public static function ays_pb_activator_request($cta){
+        $curl = curl_init();
+
+        $api_url = "https://poll-plugin.com/popup-box/";
+
+        // $data = array(
+        //     'type'  => 'popup-box',
+        //     'cta'   => $cta,
+        // );
+
+        wp_remote_post( $api_url, array(
+            'timeout' => 30,
+            'body' => wp_json_encode(array(
+                'type'  => 'popup-box',
+                'cta'   => $cta,
+            )),
+        ) );
     }
 }

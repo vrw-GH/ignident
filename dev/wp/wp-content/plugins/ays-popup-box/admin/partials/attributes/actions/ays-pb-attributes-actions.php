@@ -10,7 +10,9 @@
             <h4><?php echo esc_html__("Learn How to Use Custom Fields in Popup Box", "ays-popup-box"); ?></h4>
         </div>
         <div class="ays-pb-attr-youtube-video">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/SdvfpFL4Qco" loading="lazy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="ays-pb-youtube-placeholder" data-video-id="SdvfpFL4Qco">
+                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL .'/images/youtube/popup-custom-fields-video-screenshot.webp'); ?>" width="560" height="315">
+            </div>
         </div>
         <div class="col-sm-12 ays-pro-features-v2-main-box">
             <div class="ays-pro-features-v2-big-buttons-box">

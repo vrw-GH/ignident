@@ -105,7 +105,13 @@ class UpdraftPlus_Tour {
 			),
 			'backup_now' => array(
 				'title' => __('Your first backup', 'updraftplus'),
-				'text' => sprintf(_x('To make a simple backup to your server, press this button. Or to setup regular backups and remote storage, go to %s settings %s', 'updraftplus'), '<strong><a href="#settings" class="js--go-to-settings">', '</a></strong>')
+				'text' => sprintf(
+					__('To make a simple backup to your server, press this button.', 'updraftplus').' '.
+					/* translators: 1: HTML <a> and <strong> opening tag 2: HTML </a> and </strong> closing tag*/
+					__('Or to setup regular backups and remote storage, go to %1$s settings %2$s', 'updraftplus'),
+					'<strong><a href="#settings" class="js--go-to-settings">',
+					'</a></strong>'
+				)
 			),
 			'backup_options' => array(
 				'title' => __("Manual backup options", 'updraftplus'),

@@ -738,10 +738,10 @@
 
 			if(preg_match("/^https:\/\//", home_url())){
 				if(preg_match("/^https:\/\/www\./", home_url())){
-					$forceTo = "\nRewriteCond %{HTTPS} =on"."\n".
+					$forceTo = "\nRewriteCond %{HTTPS} on"."\n".
 					           "RewriteCond %{HTTP_HOST} ^www.".str_replace("www.", "", $_SERVER["HTTP_HOST"])."\n";
 				}else{
-					$forceTo = "\nRewriteCond %{HTTPS} =on"."\n".
+					$forceTo = "\nRewriteCond %{HTTPS} on"."\n".
 							   "RewriteCond %{HTTP_HOST} ^".str_replace("www.", "", $_SERVER["HTTP_HOST"])."\n";
 				}
 			}else{

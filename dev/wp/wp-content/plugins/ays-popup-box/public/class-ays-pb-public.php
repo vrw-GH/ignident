@@ -839,6 +839,9 @@ class Ays_Pb_Public {
             //Close Button Size
             $close_button_size = (isset($options['close_button_size']) && $options['close_button_size'] != '') ? abs($options['close_button_size']) : '1';
 
+            //Close Button Padding
+            $close_button_padding = (isset($options['close_button_padding']) && $options['close_button_padding'] != '') ? abs($options['close_button_padding']) : '0';
+
             //Close button color
             $close_button_color = (isset($options['close_button_color']) && $options['close_button_color'] != "") ? esc_attr( stripslashes($options['close_button_color'])) : $ays_pb_textcolor;
 
@@ -1766,6 +1769,7 @@ class Ays_Pb_Public {
 
                         .ays-pb-modal_".$id." .ays-pb-modal-close_".$id.":hover .close-lil-btn {
                             transform: rotate(180deg) scale(".$close_button_size.") !important;
+                            padding: ".$close_button_padding." !important;
                         }
 
                         .ays_pb_hide_timer_on_pc {

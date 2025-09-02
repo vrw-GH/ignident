@@ -60,26 +60,10 @@ return [
 		'plusone'     => true,
 	],
 	[
-		'id'          => 'new_parameters',
+		'id'          => 'leave-feedback',
 		'condition'   => [
 			'type' => 'activation',
 		],
-		'msg'         => __( "New! Track your UTM Campaigns and URL Parameters! Click on the 'Pages' dropdown in the Statistics tab.", 'burst-statistics' ),
-		'icon'        => 'new',
-		'url'         => '#/statistics',
-		'dismissible' => true,
-		'plusone'     => false,
-	],
-	[
-		'id'          => 'new_email_reporting',
-		'msg'         => __( 'New! Send weekly or monthly email reports to multiple recipients.', 'burst-statistics' ),
-		'icon'        => 'new',
-		'url'         => '#/settings/general',
-		'dismissible' => false,
-		'plusone'     => false,
-	],
-	[
-		'id'          => 'leave-feedback',
 		// @phpstan-ignore-next-line
 		'msg'         => $this->sprintf(
 		// translators: 1: opening anchor tag to support thread, 2: closing anchor tag.
@@ -108,5 +92,37 @@ return [
 		'icon'        => 'warning',
 		'url'         => 'instructions/cron-error/',
 		'dismissible' => true,
+	],
+	[
+		'id'          => 'malicous_data_removal',
+		'condition'   => [
+			'type'     => 'serverside',
+			'function' => 'wp_option_burst_removed_malicious_data_count',
+		],
+		// translators: %d is the number of visits detected from a single user in 24 hours.
+		'msg'         => sprintf( __( 'Burst has detected an anomalous number of visits (%d in 24 hours) from one user. As these visits distort your statistics, these have been removed.', 'burst-statistics' ), (int) get_option( 'burst_removed_malicious_data_count', 0 ) ),
+		'icon'        => 'warning',
+		'url'         => 'why-burst-removes-anomalous-visits-and-how-you-can-customize-it/',
+		'dismissible' => true,
+	],
+	[
+		'id'          => 'trial_offer_loyal_users',
+		'msg'         => __( 'Thanks for using Burst for over a year! To show our appreciation, enjoy 3 months of Burst Pro for free.', 'burst-statistics' ),
+		'icon'        => 'offer',
+		'url'         => 'checkout/?edd_action=add_to_cart&download_id=889&edd_options[price_id]=102',
+		'dismissible' => true,
+		'plusone'     => true,
+	],
+	[
+		'id'          => 'php_error_detected',
+		'condition'   => [
+			'type'     => 'serverside',
+			'function' => 'wp_option_burst_php_error_detected',
+		],
+		// translators: %d: error count, %s time of error.
+		'msg'         => sprintf( __( 'Burst has detected %d PHP errors, the last one on %s. Detected errors:', 'burst-statistics' ) . ' ' . substr( get_option( 'burst_php_error_detected', '' ), 0, 500 ), (int) get_option( 'burst_php_error_count', 0 ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), get_option( 'burst_php_error_time' ) ) ),
+		'icon'        => 'warning',
+		'dismissible' => true,
+		'url'         => 'how-to-enable-debugging-in-wordpress',
 	],
 ];

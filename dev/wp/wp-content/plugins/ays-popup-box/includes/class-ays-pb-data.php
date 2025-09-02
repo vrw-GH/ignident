@@ -732,16 +732,16 @@ class Ays_Pb_Data {
                             
                     $content[] = '</div>';
 
-                    $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-coupon-wrap-button-box">';
-                        $content[] = '<div class="ays-pb-coupon-container">';
-                            $content[] = '<div class="ays-pb-coupon-row ays-pb-shortcode-box" onClick="selectAndCopyElementContents(this)" class="ays-pb-copy-element-box" data-toggle="tooltip" title="'. esc_html__('Click for copy.','ays-pb') .'">';
-                                $content[] = 'summer2025';
-                            $content[] = '</div>';
-                            $content[] = '<div class="ays-pb-coupon-text-row">';
-                                $content[] = __( "20% Extra Discount", 'ays-pb' );
-                            $content[] = '</div>';
-                        $content[] = '</div>';
-                    $content[] = '</div>';
+                    // $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-coupon-wrap-button-box">';
+                    //     $content[] = '<div class="ays-pb-coupon-container">';
+                    //         $content[] = '<div class="ays-pb-coupon-row ays-pb-shortcode-box" onClick="selectAndCopyElementContents(this)" class="ays-pb-copy-element-box" data-toggle="tooltip" title="'. esc_html__('Click for copy.','ays-pb') .'">';
+                    //             $content[] = 'summer2025';
+                    //         $content[] = '</div>';
+                    //         $content[] = '<div class="ays-pb-coupon-text-row">';
+                    //             $content[] = __( "20% Extra Discount", 'ays-pb' );
+                    //         $content[] = '</div>';
+                    //     $content[] = '</div>';
+                    // $content[] = '</div>';
 
                     $content[] = '<div class="ays-pb-dicount-wrap-box ays-pb-dicount-wrap-button-box">';
                         $content[] = sprintf('<a href="%s" class="button button-primary ays-button" id="ays-button-top-buy-now" target="_blank">%s</a>', esc_url("https://popup-plugin.com/pricing?utm_source=dashboard&utm_medium=popup-free&utm_campaign=sale-banner-".AYS_PB_NAME_VERSION), esc_html__( 'Buy Now', "ays-popup-box" ));

@@ -23,7 +23,7 @@ class Ays_Pb_Ays_Welcome {
 		add_action( 'admin_head', [ $this, 'hide_menu' ] );
 		add_action( 'admin_init', [ $this, 'redirect' ], 9999 );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
-        // add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );s
+        // add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
     }
 
 	/**
@@ -192,4 +192,4 @@ class Ays_Pb_Ays_Welcome {
         ) );
     }
 }
-new Ays_Pb_Ays_Welcome();
+//new Ays_Pb_Ays_Welcome();
