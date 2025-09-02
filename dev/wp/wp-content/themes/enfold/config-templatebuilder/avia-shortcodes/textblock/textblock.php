@@ -100,7 +100,8 @@ if( ! class_exists( 'avia_sc_text', false ) )
 							'templates_include'	=> array(
 													$this->popup_key( 'styling_column_toggle' ),
 													$this->popup_key( 'styling_font_sizes' ),
-													$this->popup_key( 'styling_font_colors' ),
+													$this->popup_key( 'styling_colors' ),
+													$this->popup_key( 'styling_padding' ),
 													'fold_styling_toggle'
 												),
 							'nodescription' => true
@@ -273,6 +274,39 @@ if( ! class_exists( 'avia_sc_text', false ) )
 							'std'		=> '',
 							'lockable'	=> true,
 							'required'	=> array( 'font_color', 'equals', 'custom' )
+						),
+
+						array(
+							'name'		=> __( 'Textblock Background Color', 'avia_framework' ),
+							'desc'		=> __( 'Select the type of background color for the textblock.', 'avia_framework' ),
+							'id'		=> 'background',
+							'type'		=> 'select',
+							'std'		=> 'bg_color',
+							'lockable'	=> true,
+							'subtype'	=> array(
+											__( 'Background Color', 'avia_framework' )		=> 'bg_color',
+											__( 'Background Gradient', 'avia_framework' )	=> 'bg_gradient',
+										)
+						),
+
+						array(
+							'name'		=> __( 'Custom Background Color', 'avia_framework' ),
+							'desc'		=> __( 'Select a custom background color for this cell here. Leave empty for default color', 'avia_framework' ),
+							'id'		=> 'background_color',
+							'type'		=> 'colorpicker',
+							'rgba'		=> true,
+							'std'		=> '',
+							'lockable'	=> true,
+							'required'	=> array( 'background', 'equals', 'bg_color' )
+						),
+
+						array(
+							'type'			=> 'template',
+							'template_id'	=> 'gradient_colors',
+							'id'			=> array( 'background_gradient_direction', 'background_gradient_color1', 'background_gradient_color2', 'background_gradient_color3' ),
+							'lockable'		=> true,
+							'required'		=> array( 'background', 'equals', 'bg_gradient' ),
+							'container_class'	=> array( '', 'av_third av_third_first', 'av_third', 'av_third' ),
 						)
 
 					);
@@ -286,8 +320,33 @@ if( ! class_exists( 'avia_sc_text', false ) )
 							)
 					);
 
-			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_font_colors' ), $template );
+			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_colors' ), $template );
 
+
+			$c = array(
+
+						array(
+								'type'			=> 'template',
+								'template_id'	=> 'margin_padding',
+//								'toggle'		=> true,
+								'content'		=> array( 'padding' ),
+								'name'			=> __( 'Inner Padding', 'avia_framework' ),
+								'desc'			=> __( 'Set the distance from the text content to the border of the textblock here.', 'avia_framework' ),
+								'lockable'		=> true
+							)
+
+				);
+
+			$template = array(
+							array(
+								'type'			=> 'template',
+								'template_id'	=> 'toggle',
+								'title'			=> __( 'Padding', 'avia_framework' ),
+								'content'		=> $c
+							)
+					);
+
+			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_padding' ), $template );
 		}
 
 		/**
@@ -302,14 +361,98 @@ if( ! class_exists( 'avia_sc_text', false ) )
 		{
 			$default = array();
 			$locked = array();
+
 			$attr = $params['args'];
 			$content = $params['content'];
 			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked, $content );
 
+
+			$styles = [];
+
+//			if( ! empty( $attr['font_color'] ) && ! empty( $attr['color'] ) )
+//			{
+//				$styles[] = "color: {$attr['color']}";
+//			}
+//
+//			if( $attr['background'] != 'bg_gradient' )
+//			{
+//				if( ! empty( $attr['background_color'] ) )
+//				{
+//					$styles[] = "background-color: {$attr['background_color']}";
+//				}
+//			}
+//			else
+//			{
+//				if( ! empty( $attr['background_gradient_color1'] ) && ! empty( $attr['background_gradient_color2'] ) )
+//				{
+//
+//					$colors = [ $attr['background_gradient_color1'], $attr['background_gradient_color2'] ];
+//
+//					if( ! empty( $attr['background_gradient_color3'] ) )
+//					{
+//						$colors[] = $attr['background_gradient_color3'];
+//					}
+//
+//					$colors_reverse = array_reverse( $colors );
+//
+//					$colors = implode( ', ', $colors );
+//					$colors_reverse = implode( ', ', $colors_reverse );
+//					$rule_prefix = 'linear-gradient';
+//
+//					switch( $attr['background_gradient_direction'] )
+//					{
+//						case 'vertical':
+//							$rule_colors = "to bottom, {$colors}";
+//							break;
+//						case 'vertical_rev':
+//							$rule_colors = "to top, {$colors}";
+//							break;
+//						case 'horizontal':
+//							$rule_colors = "to right, {$colors}";
+//							break;
+//						case 'horizontal_rev':
+//							$rule_colors = "to left, {$colors}";
+//							break;
+//						case 'diagonal_tb':
+//							$rule_colors = "to bottom right, {$colors}";
+//							break;
+//						case 'diagonal_tb_rev':
+//							$rule_colors = "to top left, {$colors}";
+//							break;
+//						case 'diagonal_bt':
+//							$rule_colors = "to top right, {$colors}";
+//							break;
+//						case 'diagonal_bt_rev':
+//							$rule_colors = "to bottom left, {$colors}";
+//							break;
+//						case 'radial':
+//							$rule_prefix = 'radial-gradient';
+//							$rule_colors = "{$colors}";
+//							break;
+//						case 'radial_rev':
+//							$rule_prefix = 'radial-gradient';
+//							$rule_colors = "{$colors_reverse}";
+//							break;
+//					}
+//
+//					$styles[] = "background: $rule_prefix( {$rule_colors} );";
+//				}
+//			}
+
+			if( ! empty( $styles ) )
+			{
+				$styles = implode( '; ', $styles );
+				$styles = "style='{$styles};'";
+			}
+			else
+			{
+				$styles = '';
+			}
+
 			$template = $this->update_option_lockable( 'content', $locked );
 
 			$params['class'] = '';
-			$params['innerHtml'] = "<div class='avia_textblock avia_textblock_style' {$template} data-update_element_template='yes'>" . stripslashes( wpautop( trim( html_entity_decode( $content ) ) ) ) . '</div>';
+			$params['innerHtml'] = "<div class='avia_textblock avia_textblock_style' {$styles} {$template} data-update_element_template='yes'>" . stripslashes( wpautop( trim( html_entity_decode( $content ) ) ) ) . '</div>';
 
 			return $params;
 		}
@@ -328,9 +471,15 @@ if( ! class_exists( 'avia_sc_text', false ) )
 			extract( $result );
 
 			$default = array(
-						'font_color'	=> '',
-						'color'			=> '',
-						'size'			=> '',
+						'font_color'					=> '',
+						'color'							=> '',
+						'background'					=> 'bg_color',
+						'background_color'				=> '',
+						'background_gradient_color1'	=> '',
+						'background_gradient_color2'	=> '',
+						'background_gradient_direction'	=> '',
+						'size'							=> '',
+						'padding'						=> ''
 					);
 
 			$default = $this->sync_sc_defaults_array( $default, 'no_modal_item', 'no_content' );
@@ -373,6 +522,7 @@ if( ! class_exists( 'avia_sc_text', false ) )
 			$element_styling->add_responsive_classes( 'container', 'hide_element', $atts );
 			$element_styling->add_responsive_classes( 'fold_button', 'hide_element', $atts );
 			$element_styling->add_responsive_font_sizes( 'container', 'size', $atts, $this );
+			$element_styling->add_responsive_styles( 'container', 'padding', $atts, $this );
 
 			$classes = array(
 						'avia_textblock'
@@ -392,6 +542,22 @@ if( ! class_exists( 'avia_sc_text', false ) )
 				$element_styling->add_classes( 'container', 'av_inherit_color' );
 				$element_styling->add_styles( 'container', array( 'color' => $atts['color'] ) );
 			}
+
+			if( $atts['background'] != 'bg_gradient' )
+			{
+				if( ! empty( $atts['background_color'] ) )
+				{
+					$element_styling->add_styles( 'section', array( 'background-color' => $atts['background_color'] ) );
+				}
+			}
+			else
+			{
+				if( ! empty( $atts['background_gradient_color1'] ) )
+				{
+					$element_styling->add_callback_styles( 'section', array( 'background_gradient_direction' ) );
+				}
+			}
+
 
 			if( ! empty( $atts['fold_type'] ) )
 			{
@@ -522,7 +688,7 @@ if( ! class_exists( 'avia_sc_text', false ) )
 			if( $fold_type != '' )
 			{
 				$hide = $element_styling->get_class_string( 'fold_button' );
-				
+
 				$args = [
 						'atts'			=> $atts,
 						'wrapper_class'	=> "av-textblock-btn-wrap {$hide}",

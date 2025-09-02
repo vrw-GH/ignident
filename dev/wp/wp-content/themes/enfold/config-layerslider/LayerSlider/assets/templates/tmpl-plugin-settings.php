@@ -361,12 +361,6 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 						</tr>
 
 						<tr>
-							<td><?= __('Use Google CDN version of jQuery', 'LayerSlider') ?></td>
-							<td><?= lsGetSwitchOptionField('use_custom_jquery', false, [ 'data-warning-enable' => __('Do not enable this option unless you’re experiencing issues with jQuery on your site. This option can easily cause unexpected issues when used incorrectly. Do you want to proceed?', 'LayerSlider') ]) ?></td>
-							<td><?= __('This option will likely solve “Old jQuery” issues, but can easily have other side effects. Use it only when it is necessary.', 'LayerSlider') ?></td>
-						</tr>
-
-						<tr>
 							<td><?= __('Scripts priority', 'LayerSlider') ?></td>
 							<td><?= lsGetOptionField('text', 'scripts_priority', 3, [ 'class' => 'ls--mini', 'placeholder' => 3 ] ) ?></td>
 							<td><?= __('Used to specify the order in which scripts are loaded. Lower numbers correspond with earlier execution.', 'LayerSlider') ?></td>

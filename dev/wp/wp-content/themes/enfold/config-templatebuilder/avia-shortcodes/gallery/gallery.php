@@ -815,11 +815,6 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 
 					$big_thumb .=		'</span>';
 					$big_thumb .= '</a>';
-
-					if( $control_layout != 'av-control-hidden' )
-					{
-						$big_thumb .= $this->slide_navigation_arrows( $atts );
-					}
 				}
 
 				$img_tag = "<img {$tooltip} src='{$img[0]}' width='{$img[1]}' height='{$img[2]}'  title='{$title}' alt='{$alt}' />";
@@ -852,10 +847,22 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 			$output  = '';
 			$output .= $style_tag;
 			$output .= "<div {$meta['custom_el_id']} class='{$container_class} avia-gallery-" . self::$gallery . "' {$markup_gallery}>";
-			$output .=		$markup_meta;
-			$output .=		$big_thumb;
-			$output .=		"<div class='avia-gallery-thumb'>{$thumbs}</div>";
+			$output .=     $markup_meta;
+			if ( 'thumbnails' !== $style ) {
+			    $output .= "<div class='avia-gallery-big-wrapper'>";
+			    $output .=     $big_thumb;
+			    if ( $control_layout !== 'av-control-hidden' ) {
+			        $output .= $this->slide_navigation_arrows( $atts );
+			    }
+
+			    $output .= "</div>";
+			} else {
+			    $output .= $big_thumb;
+			}
+
+			$output .= "<div class='avia-gallery-thumb'>{$thumbs}</div>";
 			$output .= '</div>';
+
 
 			$html = Av_Responsive_Images()->make_content_images_responsive( $output );
 

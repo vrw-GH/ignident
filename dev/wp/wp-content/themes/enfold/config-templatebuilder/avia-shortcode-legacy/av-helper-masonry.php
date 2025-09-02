@@ -1270,7 +1270,7 @@ if ( ! class_exists( 'avia_masonry_old', false ) )
 
 			$this->prepare_loop_from_entries( $ajax );
 
-			if( function_exists( 'WC' ) )
+			if( function_exists( 'WC' ) && ! class_exists( 'BigCommerce', false ) )
 			{
 				avia_wc_clear_catalog_ordering_args_filters();
 				$avia_config['woocommerce']['disable_sorting_options'] = false;

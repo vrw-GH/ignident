@@ -588,6 +588,8 @@ function ls_normalize_slider_data( $slider ) {
 		} else {
 			$slider['layers'][$slideKey]['sublayers'] = [];
 		}
+
+		$slider['layers'][$slideKey]['meta'] = (object) $slideVal['meta'];
 	}
 
 	if( ! empty( $slider['callbacks'] ) ) {

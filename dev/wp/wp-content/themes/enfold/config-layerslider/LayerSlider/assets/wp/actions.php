@@ -321,8 +321,7 @@ function ls_use_recommended_settings() {
 		'use_cache',
 		'clear_3rd_party_caches',
 		'admin_no_conflict_mode',
-		'gsap_sandboxing',
-		'use_custom_jquery'
+		'gsap_sandboxing'
 	];
 
 	foreach( $options as $option ) {
@@ -671,7 +670,6 @@ function ls_save_plugin_settings() {
 		'rocketscript_ignore',
 		'load_all_js_files',
 		'gsap_sandboxing',
-		'use_custom_jquery',
 
 		// Miscellaneous
 		'tinymce_helper',
@@ -843,11 +841,35 @@ function ls_rename_project() {
 	LS_Sliders::rename( $id, $name );
 }
 
+function ls_extract_slider_data_from_request() {
+
+	if( empty( $_FILES['sliderData']['tmp_name'] ) || $_FILES['sliderData']['error'] !== UPLOAD_ERR_OK ) {
+		wp_send_json_error([
+			'errCode' => 'ERR_UPLOAD_ERROR',
+			'title' => __('Save Error', 'LayerSlider'),
+			'message' => __('There was an error uploading the slider data file.', 'LayerSlider'),
+		]);
+	}
+
+	$data = file_get_contents( $_FILES['sliderData']['tmp_name'] );
+	$json = json_decode( $data, true );
+
+	if( json_last_error() !== JSON_ERROR_NONE ) {
+		wp_send_json_error( [
+			'errCode' => 'ERR_INVALID_JSON',
+			'title' => __('Save Error', 'LayerSlider'),
+			'message' => __('Couldn’t parse slider data file as JSON. It threw the following error: ' . json_last_error_msg(), 'LayerSlider'),
+		]);
+	}
+
+	return $json;
+}
+
 
 function ls_prepare_save_data( $data ) {
 
 	// Parse slider settings
-	$data['properties'] = json_decode( stripslashes( html_entity_decode( $data['properties'] ) ), true );
+	$data['properties'] = json_decode( html_entity_decode( $data['properties'] ), true );
 
 	$schedule_start = $data['properties']['schedule_start'];
 	$schedule_end = $data['properties']['schedule_end'];
@@ -859,12 +881,11 @@ function ls_prepare_save_data( $data ) {
 	if( ! empty( $schedule_end ) && is_string( $schedule_end  ) ) {
 		$data['properties']['schedule_end'] = ls_date_create_for_timezone( $schedule_end  );
 	}
-
 	// Parse slide data
 	if(!empty($data['layers']) && is_array($data['layers'])) {
 		foreach($data['layers'] as $slideKey => $slideData) {
 
-			$slideData = json_decode(stripslashes($slideData), true);
+			$slideData = json_decode( $slideData, true );
 
 			$schedule_start = ! empty( $slideData['properties']['schedule_start'] ) ? $slideData['properties']['schedule_start'] : '';
 			$schedule_end = ! empty( $slideData['properties']['schedule_end'] ) ? $slideData['properties']['schedule_end'] : '';
@@ -913,15 +934,14 @@ function ls_prepare_save_data( $data ) {
 
 function ls_save_slider() {
 
-	// Vars
-	$id 		= (int) $_POST['id'];
-	$data 		= $_POST['sliderData'];
-	$isDirty 	= $_POST['dirty'];
+	$id = (int) $_POST['id'];
 
 	// Security check
 	check_admin_referer( 'ls-save-slider-' . $id );
 
 	// Set $title, $slug, $data
+	$data = ls_extract_slider_data_from_request();
+	$isDirty = $_POST['dirty'];
 	extract( ls_prepare_save_data( $data ) );
 
 	// WPML
@@ -949,20 +969,19 @@ function ls_save_slider() {
 		}
 	}
 
-	die( json_encode( [ 'status' => 'ok' ] ) );
+	wp_send_json_success();
 }
 
 
 function ls_publish_slider() {
 
-	// Vars
-	$id 	= (int) $_POST['id'];
-	$data 	= $_POST['sliderData'];
+	$id = (int) $_POST['id'];
 
 	// Security check
 	check_admin_referer( 'ls-save-slider-' . $id );
 
 	// Set $title, $slug, $data
+	$data = ls_extract_slider_data_from_request();
 	extract( ls_prepare_save_data( $data ) );
 
 	// WPML
@@ -1038,7 +1057,7 @@ function ls_publish_slider() {
 	}
 
 
-	die( json_encode( [ 'status' => 'ok' ] ) );
+	wp_send_json_success();
 }
 
 

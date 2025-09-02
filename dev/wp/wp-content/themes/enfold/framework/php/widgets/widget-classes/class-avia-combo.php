@@ -13,6 +13,7 @@ use aviaFramework\widgets\base\Avia_Widget;
  * @since 4.4.2			extended and modified by günter
  * @since 4.9			Code was moved from class-framework-widgets.php
  * @since 5.6			extended with options to show/hide blog meta data
+ * @since 7.1.2			added Product Review Tab (WooCommerce moved away from comments)
  */
 if( ! defined( 'AVIA_FW' ) ) {  exit( 'No direct script access allowed' );  }
 
@@ -50,7 +51,7 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 								'popular'		=> __( 'Popular posts', 'avia_framework' ),
 								'recent'		=> __( 'Recent posts', 'avia_framework' ),
 								'comments'		=> __( 'Newest comments', 'avia_framework' ),
-								'tagcloud'		=> __( 'Tag cloud', 'avia_framework' )
+								'tagcloud'		=> __( 'Tag cloud', 'avia_framework' ),
 							);
 
 			$this->defaults = array(
@@ -67,6 +68,13 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 								'show_cat'			=> 0,
 								'use_options'		=> 0
 							);
+
+			if( class_exists( 'WooCommerce' ) )
+			{
+				$this->form_tabs['reviews'] = __( 'Product Reviews', 'avia_framework' );
+				$this->defaults['show_reviews'] = 4;
+				$this->defaults['tab_5'] = 'reviews';
+			}
 
 			/**
 			 * Hook to enable
@@ -100,6 +108,20 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 			 */
 			$fallback = isset( $instance['count'] ) ? $instance['count'] : false;
 
+			if( class_exists( 'WooCommerce' ) )
+			{
+				/**
+				 * Backwards comp. for existing sites
+				 * WooCommerce removed product reviews from comments
+				 *
+				 * @since 7.1.2
+				 */
+				if( ! isset( $instance['tab_5'] ) )
+				{
+					$instance['tab_5'] = 0;
+				}
+			}
+
 			$new_instance = parent::parse_args_instance( $instance );
 
 			if( false !== $fallback )
@@ -107,6 +129,12 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 				$new_instance['show_popular'] = $instance['count'];
 				$new_instance['show_recent'] = $instance['count'];
 				$new_instance['show_comments'] = $instance['count'];
+
+				if( class_exists( 'WooCommerce' ) )
+				{
+					$new_instance['show_reviews'] = $instance['count'];
+				}
+
 				unset( $new_instance['count'] );
 			}
 
@@ -145,8 +173,16 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 			echo $before_widget;
 
 			$used_tabs = 0;
+			$tabs_index = 5;
+			$selection = array( 'popular', 'recent', 'comments', 'tagcloud' );
 
-			for( $tab_nr = 1; $tab_nr < 5; $tab_nr++ )
+			if( class_exists( 'WooCommerce' ) )
+			{
+				$selection[] = 'reviews';
+				$tabs_index++;
+			}
+
+			for( $tab_nr = 1; $tab_nr < $tabs_index; $tab_nr++ )
 			{
 				$key = 'tab_' . $tab_nr;
 
@@ -155,7 +191,7 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 					continue;
 				}
 
-				if( ! in_array( $instance[ $key ], array( 'popular', 'recent', 'comments', 'tagcloud' ) ) )
+				if( ! in_array( $instance[ $key ], $selection ) )
 				{
 					continue;
 				}
@@ -175,10 +211,10 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 				{
 					case 'popular':
 							$args = array(
-												'posts_per_page'	=> $instance['show_popular'],
-												'orderby'			=> 'comment_count',
-												'order'				=> 'desc'
-											);
+								'posts_per_page'	=> $instance['show_popular'],
+								'orderby'			=> 'comment_count',
+								'order'				=> 'desc'
+							);
 
 							echo '<div class="tab widget_tab_popular' . $add_class . '"><span>' . __( 'Popular', 'avia_framework' ) . '</span></div>';
 							echo "<div class='tab_content {$add_class2}'>";
@@ -187,24 +223,39 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 							break;
 					case 'recent':
 							$args = array(
-												'posts_per_page'	=> $instance['show_recent'],
-												'orderby'			=> 'post_date',
-												'order'				=> 'desc'
-											);
+								'posts_per_page'	=> $instance['show_recent'],
+								'orderby'			=> 'post_date',
+								'order'				=> 'desc'
+							);
 							echo '<div class="tab widget_tab_recent' . $add_class . '"><span>' . __( 'Recent', 'avia_framework' ) . '</span></div>';
 							echo "<div class='tab_content {$add_class2}'>";
 									avia_combo_widget::get_post_list( $args, false, $instance, $widget_args );
 							echo '</div>';
 							break;
+					case 'reviews':
+							$args = array(
+								'number'     => $instance['show_reviews'],
+								'status'     => 'approve',
+								'type'       => 'review',
+								'post_type'  => 'product',
+								'orderby'    => 'comment_date',
+								'order'      => 'DESC',
+							);
+
+							echo '<div class="tab widget_tab_reviews' . $add_class . '"><span>' . __( 'Product Reviews', 'avia_framework' ) . '</span></div>';
+							echo "<div class='tab_content {$add_class2}'>";
+								avia_combo_widget::get_comment_list( $args, $widget_args );
+							echo '</div>';
+							break;
 					case 'comments':
 							$args = array(
-												'number'	=> $instance['show_comments'],
-												'status'	=> 'approve',
-												'order'		=> 'DESC'
-											);
+								'number'	=> $instance['show_comments'],
+								'status'	=> 'approve',
+								'order'		=> 'DESC'
+							);
 							echo '<div class="tab widget_tab_comments' . $add_class . '"><span>' . __( 'Comments', 'avia_framework' ) . '</span></div>';
 							echo "<div class='tab_content {$add_class2}'>";
-									avia_combo_widget::get_comment_list( $args, $widget_args );
+								avia_combo_widget::get_comment_list( $args, $widget_args );
 							echo '</div>';
 							break;
 					case 'tagcloud':
@@ -312,7 +363,6 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 			$show_cat = isset( $instance['show_cat'] ) ? (bool) $instance['show_cat'] : true;
 			$use_options = isset( $instance['use_options'] ) ? (bool) $instance['use_options'] : true;
 
-
 			extract( $instance );
 
 			$tab_content = $this->form_tabs;
@@ -338,6 +388,15 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 	?>
 				</select>
 			</p>
+	<?php	if( class_exists( 'WooCommerce' ) ) : ?>
+				<p><label for="<?php echo $this->get_field_id( 'show_reviews' ); ?>"><?php _e( 'Number of newest reviews', 'avia_framework' ); ?>:</label>
+					<select id="<?php echo $this->get_field_id( 'show_reviews' ); ?>" name="<?php echo $this->get_field_name( 'show_reviews' ); ?>" class="widefat">
+	<?php
+					echo Avia_Widget::number_options( 1, 30, $show_reviews );
+	?>
+					</select>
+				</p>
+	<?php	endif; ?>
 			<p><label for="<?php echo $this->get_field_id( 'show_tags' ); ?>"><?php _e( 'Number of tags for tag cloud', 'avia_framework' ); ?>:</label>
 				<select id="<?php echo $this->get_field_id( 'show_tags' ); ?>" name="<?php echo $this->get_field_name( 'show_tags' ); ?>" class="widefat">
 	<?php
@@ -375,6 +434,16 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 	?>
 				</select>
 			</p>
+			<?php if( class_exists( 'WooCommerce' ) ) : ?>
+				<p>
+					<label for="<?php echo $this->get_field_id( 'tab_5' ); ?>">
+						<?php _e( 'Content of next tab', 'avia_framework' ); ?>:
+					</label>
+					<select id="<?php echo $this->get_field_id( 'tab_5' ); ?>" name="<?php echo $this->get_field_name( 'tab_5' ); ?>" class="widefat">
+						<?php echo Avia_Widget::options_from_array( $tab_content, $tab_5 ); ?>
+					</select>
+				</p>
+			<?php endif; ?>
 			<p>
 				<input class="checkbox" id="<?php echo $this->get_field_id( 'show_time' ); ?>" name="<?php echo $this->get_field_name( 'show_time' ); ?>" type="checkbox" <?php checked( $show_time ); ?> />
 				<label for="<?php echo $this->get_field_id( 'show_time' ); ?>"><?php _e( 'Show date and time', 'avia_framework' ); ?></label>
@@ -541,7 +610,7 @@ if( ! class_exists( __NAMESPACE__ . '\avia_combo_widget', false ) )
 						{
 							$term_link = get_term_link( $term );
 
-							if ( is_wp_error( $term_link ) )
+							if( is_wp_error( $term_link ) )
 							{
 								$names[] = $term->name;
 							}

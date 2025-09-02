@@ -113,7 +113,15 @@ if( ! function_exists( 'avia_get_option' ) )
 			{
 				//	force avia to be the main array to search for option
 				$pages[] = 'avia';
-				$pages = array_unique( array_merge( $pages, array_keys( $avia->options ) ) );
+
+				/**
+				 * @since 7.1.2 to fix  https://kriesi.at/support/topic/php-warning-trying-to-access-array-offset-on-value-of-type-null-in-function-set/
+				 */
+				if( isset( $avia->options ) && is_array( $avia->options ) )
+				{
+					$pages = array_unique( array_merge( $pages, array_keys( $avia->options ) ) );
+				}
+
 				$opt_key = $key;
 			}
 

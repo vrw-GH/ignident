@@ -78,7 +78,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaSubItemQueryBase', false ) )
 		 * @param \aviaShortcodeTemplate $sc_context
 		 * @param array $outer_defaults
 		 */
-		protected function __construct( array $atts = array(), \aviaShortcodeTemplate $sc_context = null, array $outer_defaults = array() )
+		protected function __construct( array $atts = array(), ?\aviaShortcodeTemplate $sc_context = null, array $outer_defaults = array() )
 		{
 			$this->atts = $atts;
 			$this->default_atts = $sc_context != null && method_exists( $sc_context, 'get_default_sc_args' ) ? $sc_context->get_default_sc_args() : array();

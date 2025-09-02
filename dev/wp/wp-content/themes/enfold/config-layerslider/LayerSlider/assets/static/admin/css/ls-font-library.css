@@ -21,8 +21,8 @@
 
 .ls-gfonts-toolbar-cnt select,
 .ls-gfonts-sort-cnt select {
-	-webkit-appearance: auto !important;
-	appearance: auto !important;
+	-webkit-appearance: none !important;
+	appearance: none !important;
 	vertical-align: unset !important;
 	border-radius: unset !important;
 	min-height: unset !important;
@@ -38,6 +38,27 @@
 	font-size: inherit !important;
 	margin: 0 !important;
 	line-height: inherit !important
+}
+
+.ls-gfonts-select-wrapper {
+	position: relative;
+}
+
+.ls-gfonts-select-wrapper::before {
+	transition-timing-function: ease-out;
+	transition-duration: .1s;
+	transition-property: right;
+	content: "";
+	display: inline-block;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+	border: 0.4em solid transparent;
+	border-top-color: currentColor;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-0.15em);
+	right: 0.5em;
 }
 
 .ls-gfonts-toolbar-cnt input:hover,

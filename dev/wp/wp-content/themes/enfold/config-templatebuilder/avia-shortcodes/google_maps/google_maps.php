@@ -809,8 +809,8 @@ if( ! class_exists( 'avia_sc_gmaps', false ) )
 				$filter_args = array(
 							$html_overlay,
 							$this,
-							$atts,
-							$meta
+							&$atts,
+							&$meta
 					);
 				$html_overlay = apply_filters_ref_array( 'avf_google_maps_confirm_overlay', $filter_args );
 			}

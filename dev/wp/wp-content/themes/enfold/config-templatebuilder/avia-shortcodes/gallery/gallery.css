@@ -111,14 +111,20 @@ Gallery
 	display: none;
 }
 
+/* @since 7.1.2 to fix https://kriesi.at/support/topic/gallery-are-far-out/ */
+.avia-gallery-big-wrapper {
+	position: relative;
+}
+
 /* @since 5.5 support for slideshow arrows  */
 .avia-gallery.av-slideshow-ui .avia-slideshow-arrows{
 	position: absolute;
 	z-index: 310;			/*	above lightbox image overlay 300	*/
 	width: 100%;
 	margin: 0;
-	top: 7px;
+	top: 50%;
 	left: 0;
+	transform: translateY(-50%);
 }
 
 #top .avia-gallery.av-slideshow-ui .avia-slideshow-arrows a{

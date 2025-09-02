@@ -462,7 +462,7 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 		 * @param array $source
 		 * @return array|false
 		 */
-		public function get_popup_element_by_id( $element_id, array &$source = null )
+		public function get_popup_element_by_id( $element_id, ?array &$source = null )
 		{
 			if( empty( $source ) )
 			{
@@ -930,9 +930,15 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 			 *
 			 * @used_by				aviaElementManager					10
 			 * @since 4.5.1
+			 * @param boolean $out
+			 * @param aviaShortcodeTemplate $this
+			 * @param array $atts
+			 * @param string $content
+			 * @param string $shortcodename
+			 * @param boolean $fake
 			 * @return array
 			 */
-			$args = array( true, $this, $atts, $content, $shortcodename, $fake );
+			$args = array( true, $this, &$atts, &$content, $shortcodename, $fake );
 			apply_filters_ref_array( 'avf_in_shortcode_handler_prepare_start', array( &$args ) );
 			if( true !== $args[0] )
 			{
@@ -1357,7 +1363,7 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 			 * @param boolean $fake
 			 * @param array $meta
 			 */
-			$args = array( $out, $this, $atts, $content, $shortcodename, $fake, $meta );
+			$args = array( $out, $this, &$atts, &$content, $shortcodename, $fake, &$meta );
 			apply_filters_ref_array( 'avf_in_shortcode_handler_prepare_content', array( &$args ) );
 
 			return $args[0];

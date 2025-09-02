@@ -441,7 +441,7 @@ $lsDefaults = [
 			'value' => 10,
 			'name' => __('Parallax Sensitivity', 'LayerSlider'),
 			'keys' => 'parallaxSensitivity',
-			'desc' => __('Increase or decrease the sensitivity of parallax content when moving your mouse cursor or tilting your mobile device.', 'LayerSlider')
+			'desc' => __('Increase or decrease the sensitivity of parallax content when moving your mouse cursor.', 'LayerSlider')
 		],
 
 
@@ -2008,7 +2008,6 @@ $lsDefaults = [
 			]
 		],
 
-
 		'parallaxType' => [
 			'value' => '2d',
 			'name' => __('Type', 'LayerSlider'),
@@ -2021,11 +2020,35 @@ $lsDefaults = [
 
 		'parallaxEvent' => [
 			'value' => 'cursor',
-			'name' => __('Event', 'LayerSlider'),
-			'keys' => 'parallaxevent',
+			'name' => __('Mode', 'LayerSlider'),
+			'keys' => 'parallaxevent'
+		],
+
+		'parallaxPath' => [
+			'value' => 'circle',
+			'name' => __('Path', 'LayerSlider'),
+			'keys' => 'parallaxpath',
 			'options' => [
-				'cursor' => __('Cursor or Tilt', 'LayerSlider'),
-				'scroll' => __('Scroll', 'LayerSlider')
+				'circle' => __('Circle', 'LayerSlider'),
+				'oval-h' => __('Oval (Horizontal)', 'LayerSlider'),
+				'oval-v' => __('Oval (Vertical)', 'LayerSlider'),
+				'infinity' => __('Infinity Loop (∞)', 'LayerSlider'),
+				'horizontal' => __('Horizontal', 'LayerSlider'),
+				'vertical' => __('Vertical', 'LayerSlider'),
+				'square' => __('Square', 'LayerSlider'),
+				'diamond' => __('Diamond', 'LayerSlider'),
+				'triangle' => __('Triangle', 'LayerSlider'),
+				'pentagon' => __('Pentagon', 'LayerSlider')
+ 			]
+		],
+
+		'parallaxDirection' => [
+			'value' => 'forward',
+			'name' => __('Direction', 'LayerSlider'),
+			'keys' => 'parallaxdirection',
+			'options' => [
+				'forward' => __('Forward', 'LayerSlider'),
+				'backward' => __('Backward', 'LayerSlider')
  			]
 		],
 
@@ -2038,6 +2061,15 @@ $lsDefaults = [
 				'both' => __('Both axes', 'LayerSlider'),
 				'x' => __('Horizontal only', 'LayerSlider'),
 				'y' => __('Vertical only', 'LayerSlider')
+			]
+		],
+
+		'parallaxRandomWait' => [
+			'value' => '',
+			'name' => __('Wait', 'LayerSlider'),
+			'keys' => 'parallaxrandomwait',
+			'attrs' => [
+				'placeholder' => '0'
 			]
 		],
 
@@ -2057,6 +2089,59 @@ $lsDefaults = [
 				'step' => 100,
 				'min' => 0
 			]
+		],
+
+		'parallaxPathDuration' => [
+			'value' => '',
+			'name' => __('Duration', 'LayerSlider'),
+			'keys' => 'parallaxpathduration',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 100,
+				'min' => 0,
+				'placeholder' => 3000
+			]
+		],
+
+		'parallaxCount' => [
+			'value' => '',
+			'name' => __('Repeat', 'LayerSlider'),
+			'keys' => 'parallaxcount',
+			'options' => [
+				'' => __('Infinite', 'LayerSlider'),
+				'1' => __('No repeat', 'LayerSlider'),
+				'2' => __('1x', 'LayerSlider'),
+				'3' => __('2x', 'LayerSlider'),
+				'4' => __('3x', 'LayerSlider'),
+				'5' => __('4x', 'LayerSlider'),
+				'6' => __('5x', 'LayerSlider'),
+				'7' => __('6x', 'LayerSlider'),
+				'8' => __('7x', 'LayerSlider'),
+				'9' => __('8x', 'LayerSlider'),
+				'10' => __('9x', 'LayerSlider'),
+				'11' => __('10x', 'LayerSlider'),
+				'12' => __('11x', 'LayerSlider'),
+				'13' => __('12x', 'LayerSlider'),
+				'14' => __('13x', 'LayerSlider'),
+				'15' => __('14x', 'LayerSlider'),
+				'16' => __('15x', 'LayerSlider'),
+				'17' => __('16x', 'LayerSlider'),
+				'18' => __('17x', 'LayerSlider'),
+				'19' => __('18x', 'LayerSlider'),
+				'20' => __('19x', 'LayerSlider'),
+				'21' => __('20x', 'LayerSlider')
+			]
+		],
+
+		'parallaxStartAt' => [
+			'value' => 'slidestart',
+			'name' => __('Start At', 'LayerSlider'),
+			'keys' => 'parallaxstartat',
+			'options' => [
+				'slidestart' => __('Slide starts', 'LayerSlider'),
+				'transitioninstart' => __('Opening Transition starts', 'LayerSlider'),
+				'transitioninend' => __('Opening Transition completes', 'LayerSlider')
+ 			]
 		],
 
 		'parallaxDurationLeave' => [
@@ -2098,6 +2183,30 @@ $lsDefaults = [
 				'type' => 'number',
 				'step' => 100
 			]
+		],
+
+		'parallaxRandomDuration' => [
+			'value' => 3000,
+			'name' => __('Duration', 'LayerSlider'),
+			'keys' => 'parallaxrandomduration'
+		],
+
+		'parallaxRangeX' => [
+			'value' => '[-35sw..35sw]',
+			'name' => __('Range X', 'LayerSlider'),
+			'keys' => 'parallaxoffsetx'
+		],
+
+		'parallaxRangeY' => [
+			'value' => '[-35sh..35sh]',
+			'name' => __('Range Y', 'LayerSlider'),
+			'keys' => 'parallaxoffsety'
+		],
+
+		'parallaxEasing' => [
+			'value' => 'easeInOutSine',
+			'name' => __('Easing', 'LayerSlider'),
+			'keys' => 'parallaxeasing'
 		],
 
 		'scheduleStart' => [
@@ -3856,6 +3965,12 @@ $lsDefaults = [
 			'attrs' => [ 'placeholder' => __('same', 'LayerSlider') ]
 		],
 
+		'hoverSkipGlobal' => [
+			'value' => false,
+			'name' => __('Exclude from Global Hover', 'LayerSlider'),
+			'keys' => 'hoverskipglobal',
+		],
+
 		'hoverOpacity' => [
 			'value' => '',
 			'name' => __('Opacity', 'LayerSlider'),
@@ -3966,10 +4081,7 @@ $lsDefaults = [
 		'parallaxLevel' => [
 			'value' => 10,
 			'name' => __('Parallax Level', 'LayerSlider'),
-			'keys' => 'parallaxlevel',
-			'props' => [
-				'output' => true
-			]
+			'keys' => 'parallaxlevel'
 		],
 
 		'parallaxType' => [
@@ -3985,13 +4097,70 @@ $lsDefaults = [
 
 		'parallaxEvent' => [
 			'value' => 'inherit',
-			'name' => __('Event', 'LayerSlider'),
-			'keys' => 'parallaxevent',
+			'name' => __('Mode', 'LayerSlider'),
+			'keys' => 'parallaxevent'
+		],
+
+		'parallaxPath' => [
+			'value' => 'inherit',
+			'name' => __('Path', 'LayerSlider'),
+			'keys' => 'parallaxpath',
 			'options' => [
 				'inherit' => __('Inherit', 'LayerSlider'),
-				'cursor' => __('Cursor or Tilt', 'LayerSlider'),
-				'scroll' => __('Scroll', 'LayerSlider')
+				'circle' => __('Circle', 'LayerSlider'),
+				'oval-h' => __('Oval (Horizontal)', 'LayerSlider'),
+				'oval-v' => __('Oval (Vertical)', 'LayerSlider'),
+				'infinity' => __('Infinity', 'LayerSlider'),
+				'horizontal' => __('Horizontal', 'LayerSlider'),
+				'vertical' => __('Vertical', 'LayerSlider'),
+				'square' => __('Square', 'LayerSlider'),
+				'diamond' => __('Diamond', 'LayerSlider'),
+				'triangle' => __('Triangle', 'LayerSlider'),
+				'pentagon' => __('Pentagon', 'LayerSlider')
  			]
+		],
+
+		'parallaxDirection' => [
+			'value' => 'inherit',
+			'name' => __('Direction', 'LayerSlider'),
+			'keys' => 'parallaxdirection',
+			'options' => [
+				'inherit' => __('Inherit', 'LayerSlider'),
+				'forward' => __('Forward', 'LayerSlider'),
+				'backward' => __('Backward', 'LayerSlider')
+ 			]
+		],
+
+		'parallaxStartAt' => [
+			'value' => '',
+			'name' => __('Start At', 'LayerSlider'),
+			'keys' => 'parallaxstartat',
+			'options' => [
+				'' => __('Inherit', 'LayerSlider'),
+				'slidestart' => __('Slide starts', 'LayerSlider'),
+				'transitioninstart' => __('Opening Transition starts', 'LayerSlider'),
+				'transitioninend' => __('Opening Transition completes', 'LayerSlider')
+ 			]
+		],
+
+		'parallaxRandomStartAt' => [
+			'value' => 'slidestart',
+			'name' => __('Start At', 'LayerSlider'),
+			'keys' => 'parallaxrandomstartat',
+			'options' => [
+				'slidestart' => __('Slide starts', 'LayerSlider'),
+				'transitioninstart' => __('Opening Transition starts', 'LayerSlider'),
+				'transitioninend' => __('Opening Transition completes', 'LayerSlider')
+ 			]
+		],
+
+		'parallaxRandomWait' => [
+			'value' => '',
+			'name' => __('Wait', 'LayerSlider'),
+			'keys' => 'parallaxrandomwait',
+			'attrs' => [
+				'placeholder' => __('Inherit', 'LayerSlider')
+			]
 		],
 
 		'parallaxAxis' => [
@@ -4026,6 +4195,49 @@ $lsDefaults = [
 				'step' => 100,
 				'min' => 0,
 				'placeholder' => __('Inherit', 'LayerSlider')
+			]
+		],
+
+		'parallaxPathDuration' => [
+			'value' => '',
+			'name' => __('Duration', 'LayerSlider'),
+			'keys' => 'parallaxpathduration',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 100,
+				'min' => 0,
+				'placeholder' => __('Inherit', 'LayerSlider')
+			]
+		],
+
+		'parallaxCount' => [
+			'value' => '',
+			'name' => __('Repeat', 'LayerSlider'),
+			'keys' => 'parallaxcount',
+			'options' => [
+				'' => __('Inherit', 'LayerSlider'),
+				'-1' => __('Infinite', 'LayerSlider'),
+				'1' => __('No repeat', 'LayerSlider'),
+				'2' => __('1x', 'LayerSlider'),
+				'3' => __('2x', 'LayerSlider'),
+				'4' => __('3x', 'LayerSlider'),
+				'5' => __('4x', 'LayerSlider'),
+				'6' => __('5x', 'LayerSlider'),
+				'7' => __('6x', 'LayerSlider'),
+				'8' => __('7x', 'LayerSlider'),
+				'9' => __('8x', 'LayerSlider'),
+				'10' => __('9x', 'LayerSlider'),
+				'11' => __('10x', 'LayerSlider'),
+				'12' => __('11x', 'LayerSlider'),
+				'13' => __('12x', 'LayerSlider'),
+				'14' => __('13x', 'LayerSlider'),
+				'15' => __('14x', 'LayerSlider'),
+				'16' => __('15x', 'LayerSlider'),
+				'17' => __('16x', 'LayerSlider'),
+				'18' => __('17x', 'LayerSlider'),
+				'19' => __('18x', 'LayerSlider'),
+				'20' => __('19x', 'LayerSlider'),
+				'21' => __('20x', 'LayerSlider')
 			]
 		],
 
@@ -4080,6 +4292,39 @@ $lsDefaults = [
 			]
 		],
 
+		'parallaxRandomDuration' => [
+			'value' => '',
+			'name' => __('Duration', 'LayerSlider'),
+			'keys' => 'parallaxrandomduration',
+			'attrs' => [
+				'placeholder' => __('Inherit', 'LayerSlider')
+			]
+		],
+
+		'parallaxRangeX' => [
+			'value' => '',
+			'name' => __('Range X', 'LayerSlider'),
+			'keys' => 'parallaxoffsetx',
+			'attrs' => [
+				'placeholder' => __('Inherit', 'LayerSlider')
+			]
+		],
+
+		'parallaxRangeY' => [
+			'value' => '',
+			'name' => __('Range Y', 'LayerSlider'),
+			'keys' => 'parallaxoffsety',
+			'attrs' => [
+				'placeholder' => __('Inherit', 'LayerSlider')
+			]
+		],
+
+		'parallaxEasing' => [
+			'value' => '',
+			'name' => __('Easing', 'LayerSlider'),
+			'keys' => 'parallaxeasing'
+		],
+
 
 
 		// Scroll Transition
@@ -4122,9 +4367,13 @@ $lsDefaults = [
 			'keys' => 'scrollcenter',
 			'options' => [
 				'' => __('Inherit', 'LayerSlider'),
-				'top' => __('Top', 'LayerSlider'),
-				'center' => __('Center', 'LayerSlider'),
-				'bottom' => __('Bottom', 'LayerSlider')
+				'top' => __('Slider top meets viewport top', 'LayerSlider'),
+				'top-meets-viewport-middle' => __('Slider top meets viewport middle', 'LayerSlider'),
+				'top-meets-viewport-bottom' => __('Slider top meets viewport bottom', 'LayerSlider'),
+				'center' => __('Slider center meets viewport center', 'LayerSlider'),
+				'bottom-meets-viewport-top' => __('Slider bottom meets viewport top', 'LayerSlider'),
+				'bottom-meets-viewport-middle' => __('Slider bottom meets viewport middle', 'LayerSlider'),
+				'bottom' => __('Slider bottom meets viewport bottom', 'LayerSlider')
 			]
 		],
 
@@ -5000,7 +5249,8 @@ $lsDefaults = [
 				'enabled' => __('Continuous Background', 'LayerSlider'),
 				'inout' => __('Dynamic for Opening/Ending Transitions', 'LayerSlider'),
 				'loop' => __('Dynamic for Loop Transition', 'LayerSlider'),
-				'inoutloop' => __('Dynamic for Opening/Ending/Loop Transitions', 'LayerSlider')
+				'inoutloop' => __('Dynamic for Opening/Ending/Loop Transitions', 'LayerSlider'),
+				'inoutloopparallax' => __('Dynamic for Opening/Ending/Loop/Parallax Transitions', 'LayerSlider')
 			]
 		],
 

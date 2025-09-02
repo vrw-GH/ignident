@@ -56,6 +56,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaPopupTemplatesBase', false ) )
 		 * Recursive function. Also supports nested templates.
 		 *
 		 * @since 4.5.6.1
+		 * @since 7.1.2				performance improvement $nr_elements https://kriesi.at/support/?post_type=topic&p=1487283
 		 * @param array $elements
 		 * @return array
 		 */
@@ -71,6 +72,8 @@ if( ! class_exists( __NAMESPACE__ . '\aviaPopupTemplatesBase', false ) )
 			while( $start_check )
 			{
 				$offset = 0;
+				$nr_elements = count( $elements );
+
 				foreach( $elements as $key => $element )
 				{
 					if( isset( $element['subelements'] ) )
@@ -81,7 +84,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaPopupTemplatesBase', false ) )
 					if( ! isset( $element['type'] ) || $element['type'] != 'template' )
 					{
 						$offset++;
-						if( $offset >= count( $elements ) )
+						if( $offset >= $nr_elements )
 						{
 							$start_check = false;
 							break;
@@ -93,7 +96,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaPopupTemplatesBase', false ) )
 					if( false === $replace )
 					{
 						$offset++;
-						if( $offset >= count( $elements ) )
+						if( $offset >= $nr_elements )
 						{
 							$start_check = false;
 							break;

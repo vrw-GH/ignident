@@ -1017,6 +1017,23 @@
 		<?= __('Delays the transition of each text fragment relative to each other. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="parallaxmode">
+		<?= __('Determines what triggers the parallax effect. <br><br>
+<b>Cursor</b>: Reacts to mouse movement. <br><br>
+<b>Scroll</b>: The parallax effect is triggered by scrolling on your site. <br><br>
+<b>Automated</b>: Simulates a continuous mouse movement along a predefined path, such as a circle or triangle. <br><br>
+<b>Random</b>: Simulates random mouse movements within a specified area.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="parallaxtype">
+		<?= __('Defines layer movement. <br><br>
+<b>2D</b>: Layers shift horizontally and/or vertically.<br><br>
+<b>3D</b>: Layers shift horizontally and/or vertically, and also tilt/rotate in 3D space.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="parallaxaxes">
+		<?= __('Specifies which axes influence layer movement (and rotation when using 3D), restricting motion to horizontal, vertical, both, or none.', 'LayerSlider') ?>
+	</div>
 
 	<div data-smart-help="parallaxlevel">
 		<?= __('Sets the intensity of the parallax effect. Use negative values to shift layers in the opposite direction.', 'LayerSlider') ?>
@@ -1024,24 +1041,38 @@
 
 
 	<div data-smart-help="parallaxmoveduration">
-		<?= __('Controls the speed of animating layers when you move your mouse cursor or tilt your mobile device. This value is in milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
+		<?= __('Controls the speed of layer movement. This value is in milliseconds (1 second = 1000 milliseconds).', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="parallaxrandomduration">
+		<?= __('Controls the speed of layer movement. This value is in milliseconds (1 second = 1000 milliseconds). Supports randomized values.', 'LayerSlider') ?>
+	</div>
 
 	<div data-smart-help="parallaxleaveduration">
-		<?= __('Controls how quickly parallax layers revert to their original position when you move your mouse cursor outside of the slider. This value is in milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
+		<?= __('Controls how quickly layers return to their original position when the mouse cursor leaves the slider area and the Reset option is enabled. This value is in milliseconds (1 second = 1000 milliseconds).', 'LayerSlider') ?>
 	</div>
 
 
 	<div data-smart-help="parallaxdistance">
-		<?= __('Increase or decrease the amount of layer movement when moving your mouse cursor or tilting on a mobile device.', 'LayerSlider') ?>
+		<?= __('Controls the intensity of layer movement (and rotation when using 3D). Increase this value for more dramatic motion, or decrease it for a subtler effect. Negative values are allowed.', 'LayerSlider') ?>
 	</div>
 
 
 	<div data-smart-help="parallaxrotation">
-		<?= __('Increase or decrease the amount of layer rotation in the 3D space when moving your mouse cursor or tilting on a mobile device.', 'LayerSlider') ?>
+		<?= __('Controls the intensity of layer tilt/rotation in 3D space. Increase this value for more dramatic effect, or decrease it for a subtler one. Negative values are allowed.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="parallaxpath">
+		<?= __('Sets the path for the automated parallax effect to follow, moving the layer along the selected shape.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="parallaxdirection">
+		<?= __('Sets the movement direction along the selected path.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="parallaxrange">
+		<?= __('Defines a horizontal and vertical range that forms an area around the slider’s center. The effect simulates random mouse cursor movements within this area, with the layer’s parallax motion responding accordingly. <br><br> This field must use LayerSlider’s random syntax to generate randomized values. See the examples below for reference.', 'LayerSlider') ?>
+	</div>
 
 	<div data-smart-help="startat">
 		<?= __('Sets the start time of the selected transition with the given amount of milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
@@ -1082,9 +1113,12 @@
 		<?= __('Applies filters on the layer while it’s animating out. Layers animate from their current state toward the value you set here. Filters provide effects like blurring, color shifting, or changing the brightness, contrast, saturation of your layers, among many others. Use the below options to easily apply multiple filters on your layers.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="parallaxrandomwait">
+		<?= __('Wait time between movements in milliseconds. A second is 1000 milliseconds. Supports randomized values.', 'LayerSlider') ?>
+	</div>
 
 	<div data-smart-help="loopwait">
-		<?= __('Waiting time between repeats in milliseconds. A second is 1000 milliseconds.', 'LayerSlider') ?>
+		<?= __('Wait time between repeats in milliseconds. A second is 1000 milliseconds. Supports randomized values. Random values are chosen once at every slide start and remain the same for all repeats.', 'LayerSlider') ?>
 	</div>
 
 
@@ -1569,6 +1603,43 @@
 			<lse-li data-smart-inject="[900..1800]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="[1000|2000|3000]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
 		</lse-ul>
+	</div>
+
+	<div data-smart-options="random-parallax-x">
+
+		<lse-ul class="lse-smart-inject">
+		<lse-li data-smart-inject="[-50sw..50sw]"><?= __('Full Width', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-35sw..35sw]"><?= __('Centered 70%', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-25sw..25sw]"><?= __('Centered 50%', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-15sw..15sw]"><?= __('Centered 30%', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-50sw..0]"><?= __('Left Half', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[0..50sw]"><?= __('Right Half', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-50sw|-25sw|0|25sw|50sw]"><?= __('Fixed Points Wide', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-20sw|0|20sw]"><?= __('Fixed Points Centered', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+	<div data-smart-options="random-parallax-y">
+
+		<lse-ul class="lse-smart-inject">
+		<lse-li data-smart-inject="[-50sh..50sh]"><?= __('Full Height', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-35sh..35sh]"><?= __('Centered 70%', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-25sh..25sh]"><?= __('Centered 50%', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-15sh..15sh]"><?= __('Centered 30%', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-50sh..0]"><?= __('Top Half', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[0..50sh]"><?= __('Bottom Half', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-50sh|-25sh|0|25sh|50sh]"><?= __('Fixed Points Tall', 'LayerSlider') ?></lse-li>
+		<lse-li data-smart-inject="[-20sh|0|20sh]"><?= __('Fixed Points Centered', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="parallaxrandomduration">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="5000"><?= __('5s', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[1500..4500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[50|500|900]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+
 	</div>
 
 	<div data-smart-options="loopwait">

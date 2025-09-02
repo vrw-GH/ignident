@@ -39,7 +39,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylinResponsive', false ) )
 		 * @param \aviaShortcodeTemplate $shortcode
 		 * @param string $element_id
 		 */
-		protected function __construct( \aviaShortcodeTemplate $shortcode = null, $element_id = '' )
+		protected function __construct( ?\aviaShortcodeTemplate $shortcode = null, $element_id = '' )
 		{
 			parent::__construct( $shortcode, $element_id );
 
@@ -164,7 +164,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylinResponsive', false ) )
 		 * @param string $important
 		 * @param string $svg_icon				'' | 'svg_icon'
 		 */
-		public function add_responsive_font_sizes( $container, $font_id, array $atts = array(), \aviaShortcodeTemplate $sc_context = null, $important = '', $svg_icon = '' )
+		public function add_responsive_font_sizes( $container, $font_id, array $atts = array(), ?\aviaShortcodeTemplate $sc_context = null, $important = '', $svg_icon = '' )
 		{
 			/**
 			 * Allow to skip responsive font handling on element basis
@@ -319,7 +319,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylinResponsive', false ) )
 		 * @param null|string $important					null | '!important'
 		 * @return int
 		 */
-		public function add_responsive_styles( $container, $id, array $atts = array(), \aviaShortcodeTemplate $sc_context = null, $important = null )
+		public function add_responsive_styles( $container, $id, array $atts = array(), ?\aviaShortcodeTemplate $sc_context = null, $important = null )
 		{
 			$added = 0;
 
