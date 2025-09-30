@@ -1629,7 +1629,7 @@ $ays_users_roles = $wp_roles->roles;
             <input type="hidden" name="ays_pb_author" value="<?php echo esc_attr(json_encode($pb_author, JSON_UNESCAPED_SLASHES)); ?>">
             <div class="ays-pb-heading-box">
                 <div class="ays-pb-wordpress-user-manual-box">
-                    <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">
+                    <a href="https://popup-plugin.com/docs" target="_blank">
                         <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
                         <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
                     </a>
@@ -1661,7 +1661,39 @@ $ays_users_roles = $wp_roles->roles;
                     <?php endif; ?>
                 </div>
                 <p>
-                    <span class="ays-pb-type-name ays-pb-small-hint-text"><?php echo esc_html( $modal_content_name ); ?></span>
+                    <span class="ays-pb-type-name ays-pb-small-hint-text" style="display: flex; justify-content: space-between;">
+                        <?php echo esc_html( $modal_content_name ); ?>
+                        <?php
+                        $tab_docs = [
+                            'tab1' => [
+                                'link' => 'https://popup-plugin.com/docs/configuring-general-tab',
+                                'text' => __('How to Configure General Settings?', 'ays-popup-box'),
+                            ],
+                            'tab2' => [
+                                'link' => 'https://popup-plugin.com/docs/configuring-settings-tab',
+                                'text' => __('How to Configure Settings Tab?', 'ays-popup-box'),
+                            ],
+                            'tab3' => [
+                                'link' => 'https://popup-plugin.com/docs/configuring-styles-tab',
+                                'text' => __('How to Configure Styles Tab?', 'ays-popup-box'),
+                            ],
+                            'tab4' => [
+                                'link' => 'https://popup-plugin.com/docs/configuring-limitation-users-tab',
+                                'text' => __('How to Configure Limitation Users Tab?', 'ays-popup-box'),
+                            ],
+                            'tab5' => [
+                                'link' => '#',
+                                'text' => __('', 'ays-popup-box'),
+                            ],
+                        ];
+
+                        ?>
+                            <span id="ays-pb-tab-doc-link">
+                                <a class="ays-pb-doc-link" href="<?php echo isset($tab_docs[$ays_pb_tab]['link']) ? esc_url($tab_docs[$ays_pb_tab]['link']) : 'https://popup-plugin.com/docs/configuring-general-tab'; ?>" target="_blank" style="font-size: 14px;">
+                                    <?php echo isset($tab_docs[$ays_pb_tab]['text']) ? esc_html($tab_docs[$ays_pb_tab]['text']) : __('How to Configure General Settings?', 'ays-popup-box'); ?>
+                                </a>
+                            </span>
+                    </span>
                     <?php if(isset($id)): ?> 
                         <span class="ays-pb-small-hint-text"><?php echo "ID: " . esc_html( $id ); ?></span>
                     <?php endif; ?>
@@ -1787,13 +1819,13 @@ $ays_users_roles = $wp_roles->roles;
                                 </a>
                             </span>
                         </label>
-                        <div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div style = "text-align: end; margin-bottom: 20px;">
                             <a href="https://ays-pro.com/blog/how-to-create-a-custom-content-popup" target="_blank" style="font-size: 14px;">
                                 <?php echo esc_html__("What is a Custom Content Popup?", "ays-popup-box"); ?>
                             </a>
                         </div>
-                    </div>
-                    <div class="col-sm-9">
                         <?php
                             $content = ($custom_html);
                             $editor_id = 'custom-html';
@@ -2940,26 +2972,34 @@ $ays_users_roles = $wp_roles->roles;
                         </label>
                     </div>
                     <div class="col-sm-9">
-                        <label class="ays-pb-label-style" for="<?php echo esc_attr($this->plugin_name); ?>-show_all_yes"><?php echo esc_html__("All pages", "ays-popup-box"); ?>
-                            <input type="radio" id="<?php echo esc_attr($this->plugin_name); ?>-show_all_yes" name="<?php echo esc_attr($this->plugin_name); ?>[show_all]" value="all" <?php echo $show_all == 'yes' || $show_all == 'all' ? 'checked' : ''; ?> />
-                        </label>
-                        <label class="ays-pb-label-style" for="<?php echo esc_attr($this->plugin_name); ?>-show_all_except"><?php echo esc_html__("Except", "ays-popup-box"); ?>
-                            <input type="radio" id="<?php echo esc_attr($this->plugin_name); ?>-show_all_except" name="<?php echo esc_attr($this->plugin_name); ?>[show_all]" value="except" <?php echo $show_all == 'except' ? 'checked' : ''; ?>/>
-                        </label>
-                        <label class="ays-pb-label-style" for="<?php echo esc_attr($this->plugin_name); ?>-show_all_selected"><?php echo esc_html__("Include", "ays-popup-box"); ?>
-                            <input type="radio" id="<?php echo esc_attr($this->plugin_name); ?>-show_all_selected" name="<?php echo esc_attr($this->plugin_name); ?>[show_all]" value="selected" <?php echo $show_all == 'selected' || $show_all == 'no' ? 'checked' : ''; ?>/>
-                        </label>
-                        <a class="ays_help" style="font-size:15px;" data-toggle="tooltip" data-html="true"
-                            title="<?php
-                                echo esc_html__('Choose the method of calculation.',"ays-popup-box") .
-                                "<ul style='list-style-type: circle;padding-left: 20px;'>".
-                                    "<li>". esc_html__('All pages - The popup will display on all pages.',"ays-popup-box") ."</li>".
-                                    "<li>". esc_html__('Except - Choose the post/page and post/page types excluding the popup.',"ays-popup-box") ."</li>".
-                                    "<li>". esc_html__('Include - Choose the post/page and post/page types including the popup.',"ays-popup-box") ."</li>".
-                                "</ul>";
-                            ?>">
-                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                        </a>
+                        <div style="margin-bottom: 10px; text-align: end;">
+                            <a href="https://popup-plugin.com/docs/popup-display-options" target="_blank" style="font-size: 14px;">
+                                <?php echo esc_html__("How to Configure Popup Display Options?", "ays-popup-box"); ?>
+                            </a>
+                        </div>
+                        <div>
+                            <label class="ays-pb-label-style" for="<?php echo esc_attr($this->plugin_name); ?>-show_all_yes"><?php echo esc_html__("All pages", "ays-popup-box"); ?>
+                                <input type="radio" id="<?php echo esc_attr($this->plugin_name); ?>-show_all_yes" name="<?php echo esc_attr($this->plugin_name); ?>[show_all]" value="all" <?php echo $show_all == 'yes' || $show_all == 'all' ? 'checked' : ''; ?> />
+                            </label>
+                            <label class="ays-pb-label-style" for="<?php echo esc_attr($this->plugin_name); ?>-show_all_except"><?php echo esc_html__("Except", "ays-popup-box"); ?>
+                                <input type="radio" id="<?php echo esc_attr($this->plugin_name); ?>-show_all_except" name="<?php echo esc_attr($this->plugin_name); ?>[show_all]" value="except" <?php echo $show_all == 'except' ? 'checked' : ''; ?>/>
+                            </label>
+                            <label class="ays-pb-label-style" for="<?php echo esc_attr($this->plugin_name); ?>-show_all_selected"><?php echo esc_html__("Include", "ays-popup-box"); ?>
+                                <input type="radio" id="<?php echo esc_attr($this->plugin_name); ?>-show_all_selected" name="<?php echo esc_attr($this->plugin_name); ?>[show_all]" value="selected" <?php echo $show_all == 'selected' || $show_all == 'no' ? 'checked' : ''; ?>/>
+                            </label>
+                            <a class="ays_help" style="font-size:15px;" data-toggle="tooltip" data-html="true"
+                                title="<?php
+                                    echo esc_html__('Choose the method of calculation.',"ays-popup-box") .
+                                    "<ul style='list-style-type: circle;padding-left: 20px;'>".
+                                        "<li>". esc_html__('All pages - The popup will display on all pages.',"ays-popup-box") ."</li>".
+                                        "<li>". esc_html__('Except - Choose the post/page and post/page types excluding the popup.',"ays-popup-box") ."</li>".
+                                        "<li>". esc_html__('Include - Choose the post/page and post/page types including the popup.',"ays-popup-box") ."</li>".
+                                    "</ul>";
+                                ?>">
+                                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </div>
+
                     </div>
                 </div>
                 <div class="ays_pb_view_place_tr ays-field <?php echo $show_all == 'yes' || $show_all == 'all' ? 'display_none' : ''; ?>">

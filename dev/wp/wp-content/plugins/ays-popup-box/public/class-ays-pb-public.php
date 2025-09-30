@@ -604,21 +604,21 @@ class Ays_Pb_Public {
                 }
             }
 
-			$ays_pb_header_bgcolor = stripslashes( esc_attr($popupbox["header_bgcolor"]) );
-			$ays_pb_animate_in = stripslashes( esc_attr($popupbox["animate_in"]) );
-			$ays_pb_animate_out = stripslashes( esc_attr($popupbox["animate_out"]) );
-			$ays_pb_custom_css = wp_unslash( stripslashes( htmlspecialchars_decode( $popupbox["custom_css"] ) ) );
-			$ays_pb_custom_html = $popupbox["custom_html"];
-			$ays_pb_delay = ($popupbox["delay"] == false) ? 0 : intval($popupbox["delay"]);
-            $enable_open_delay_mobile = ( isset($options['enable_open_delay_mobile']) && $options['enable_open_delay_mobile'] == 'on' ) ? 1 : 0;
-            $ays_pb_open_delay_mobile = isset($options['open_delay_mobile']) && $options['open_delay_mobile'] != '' ? intval($options['open_delay_mobile']) : 0;
-			$ays_pb_scroll_top = ($popupbox["scroll_top"] == false) ? 0 : intval($popupbox["scroll_top"]);
-            $enable_scroll_top_mobile = ( isset($options['enable_scroll_top_mobile']) && $options['enable_scroll_top_mobile'] == 'on' ) ? 1 : 0;
-            $ays_pb_scroll_top_mobile = isset($options['scroll_top_mobile']) && $options['scroll_top_mobile'] != '' ? intval($options['scroll_top_mobile']) : 0;
-			$ays_pb_show_all = stripslashes( esc_attr($popupbox["show_all"]) );
-			$ays_pb_action_buttons = ($popupbox["action_button"] == false || $popupbox["action_button"] == '') ? "" : $popupbox["action_button"];
-			$ays_pb_action_buttons_type = ($popupbox["action_button_type"] == false) ? "both" : stripslashes( esc_attr($popupbox["action_button_type"]) );
-			$ays_pb_modal_content = ($popupbox["modal_content"] == false) ? "shortcode" : stripslashes( esc_attr($popupbox["modal_content"]) );
+			$ays_pb_header_bgcolor          = stripslashes( esc_attr($popupbox["header_bgcolor"]) );
+			$ays_pb_animate_in              = stripslashes( esc_attr($popupbox["animate_in"]) );
+			$ays_pb_animate_out             = stripslashes( esc_attr($popupbox["animate_out"]) );
+			$ays_pb_custom_css              = wp_unslash( stripslashes( htmlspecialchars_decode( $popupbox["custom_css"] ) ) );
+			$ays_pb_custom_html             = $popupbox["custom_html"];
+			$ays_pb_delay                   = ($popupbox["delay"] == false) ? 0 : intval($popupbox["delay"]);
+            $enable_open_delay_mobile       = ( isset($options['enable_open_delay_mobile']) && $options['enable_open_delay_mobile'] == 'on' ) ? 1 : 0;
+            $ays_pb_open_delay_mobile       = isset($options['open_delay_mobile']) && $options['open_delay_mobile'] != '' ? intval($options['open_delay_mobile']) : 0;
+			$ays_pb_scroll_top              = ($popupbox["scroll_top"] == false) ? 0 : intval($popupbox["scroll_top"]);
+            $enable_scroll_top_mobile       = ( isset($options['enable_scroll_top_mobile']) && $options['enable_scroll_top_mobile'] == 'on' ) ? 1 : 0;
+            $ays_pb_scroll_top_mobile       = isset($options['scroll_top_mobile']) && $options['scroll_top_mobile'] != '' ? intval($options['scroll_top_mobile']) : 0;
+			$ays_pb_show_all                = stripslashes( esc_attr($popupbox["show_all"]) );
+			$ays_pb_action_buttons          = ($popupbox["action_button"] == false || $popupbox["action_button"] == '') ? "" : $popupbox["action_button"];
+			$ays_pb_action_buttons_type     = ($popupbox["action_button_type"] == false) ? "both" : stripslashes( esc_attr($popupbox["action_button_type"]) );
+			$ays_pb_modal_content           = ($popupbox["modal_content"] == false) ? "shortcode" : stripslashes( esc_attr($popupbox["modal_content"]) );
 
             //Enable Opening Animation Mobile
             $enable_animate_in_mobile = ( isset($options["enable_animate_in_mobile"]) && $options["enable_animate_in_mobile"] == 'on' ) ? true : false;
@@ -954,12 +954,12 @@ class Ays_Pb_Public {
             }
 
             if(!isset($options["close_animation_speed"])){
-                $ays_pb_close_animation_speed = $ays_pb_animation_speed;
+                $ays_pb_close_animation_speed        = $ays_pb_animation_speed;
 
                 $ays_pb_animation_close_milleseconds = $ays_pb_close_animation_speed * 1000;
 
                 if(!$enable_close_animation_speed_mobile) {
-                    $ays_pb_close_animation_speed_mobile = $ays_pb_close_animation_speed;
+                    $ays_pb_close_animation_speed_mobile        = $ays_pb_close_animation_speed;
                     $ays_pb_animation_close_milleseconds_mobile = $ays_pb_close_animation_speed_mobile * 1000;
                 }
             }
@@ -1152,16 +1152,16 @@ class Ays_Pb_Public {
         
             //Popup box close sound
 
-            $animation_pb = false;
-            $ays_pb_close_sound_status = false;
-            $ays_pb_close_sound = "";
-            $ays_pb_close_sound_html = "";
-            $ays_pb_check_anim_speed  = (isset($options['animation_speed']) && $options['animation_speed'] != '') ? $options['animation_speed'] : '1';
+            $animation_pb                    = false;
+            $ays_pb_close_sound_status       = false;
+            $ays_pb_close_sound              = "";
+            $ays_pb_close_sound_html         = "";
+            $ays_pb_check_anim_speed         = (isset($options['animation_speed']) && $options['animation_speed'] != '') ? $options['animation_speed'] : '1';
             $ays_pb_check_anim_speed_mobile  = $ays_pb_animation_speed_mobile;
 
             if(isset($settings_options['ays_pb_close_sound']) && $settings_options['ays_pb_close_sound'] != ""){
                 $ays_pb_close_sound_status  = true;
-                $ays_pb_close_sound = $settings_options['ays_pb_close_sound'];
+                $ays_pb_close_sound         = $settings_options['ays_pb_close_sound'];
             }
 
             if( isset($options['animation_speed']) || isset($options['animation_speed_mobile']) ){

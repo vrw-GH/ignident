@@ -1,0 +1,150 @@
+.wpie-list {
+  padding: 12px 0;
+}
+
+@media screen and (max-width: 782px) {
+  .wpie-list td.column-mode span:first-child {
+    margin-left: 0;
+  }
+}
+
+.wpie-list {
+  .row-actions .duplicate a{
+    color: var(--wpie-color-success);
+  }
+  .row-actions .export a {
+    color: var(--wpie-color-orange);
+  }
+}
+
+.wpie-status-on,
+.wpie-status-off {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.wpie-status-on {
+  background-color: var(--wpie-color-success);
+}
+.wpie-status-off {
+  background-color: var(--wpie-color-danger);
+}
+
+@media screen and (max-width: 1024px) {
+  .wpie-list .column-tag {
+    display: none;
+  }
+}
+
+.wpie-list .column-tag{
+  width: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.wpie-list .column-mode,
+.wpie-list .column-status {
+  width: 120px;
+}
+
+.wpie-toogle {
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  width: 40px;
+  height: 28px;
+  border-radius: 50px;
+  padding: 0 4px;
+
+  &:focus,
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.wpie-toogle span {
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 8px;
+}
+
+.wpie-toogle.is-on {
+  background-color: #BFFFC0;
+}
+
+.wpie-toogle.is-on {
+  span {
+    background-color: var(--wpie-color-success);
+  }
+
+  &:focus,
+  &:hover {
+    span {
+      background-color: var(--wpie-color-success);
+    }
+  }
+}
+
+.wpie-toogle.is-off {
+  flex-direction: row-reverse;
+  background-color: #FFC0BF;
+}
+
+.wpie-toogle.is-off {
+  span {
+    background-color: var(--wpie-color-danger);
+  }
+
+  &:focus,
+  &:hover {
+    span {
+      background-color: var(--wpie-color-danger);
+    }
+  }
+}
+//.wpie-list .column-code {
+//  width: 230px;
+//}
+
+.wpie-list .wpie-statistics  {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  span:nth-child(1) {
+    font-weight: 700;
+    color: var(--wpie-color-success);
+  }
+  span:nth-child(2) {
+    font-weight: 700;
+    color: rgb(var(--wpie-rgb-blurple));
+
+  }
+  span:nth-child(3) {
+    font-weight: 700;
+    color: var(--wpie-color-orange);
+  }
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+    span:nth-child(4) {
+      grid-area: 1 / 2 / 1 / 2;
+    }
+    span:nth-child(5) {
+      grid-area: 2 / 2 / 2 / 2;
+    }
+    span:nth-child(6) {
+      grid-area: 3 / 2 / 3 / 2;
+    }
+  }
+
+}
+

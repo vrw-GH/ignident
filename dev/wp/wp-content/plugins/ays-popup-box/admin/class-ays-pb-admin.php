@@ -154,6 +154,12 @@ class Ays_Pb_Admin {
             'somethingWentWrong' => esc_html__( "Maybe something went wrong.", "ays-popup-box" ),
             'activated' => esc_html__( "Activated", "ays-popup-box" ),
             'pbBannerDate' => $pb_banner_date,
+            'generalTabDoc' => esc_html__( "How to Configure General Settings?", "ays-popup-box" ),
+            'settingsTabDoc' => esc_html__( "How to Configure Settings Tab?", "ays-popup-box" ),
+            'limitationUsersTabDoc' => esc_html__( "How to Configure Limitation Users Tab?", "ays-popup-box" ),
+            'stylesTabDoc' => esc_html__( "How to Configure Styles Tab?", "ays-popup-box" ),
+            "successCopyCoupon"                 => __( "Coupon code copied!", 'ays-popup-box' ),
+            "failedCopyCoupon"                  => __( "Failed to copy coupon code", 'ays-popup-box' ),
         );
 
         $color_picker_strings = array(
@@ -550,7 +556,7 @@ class Ays_Pb_Admin {
                 <a href="https://www.youtube.com/watch?v=YSf6-icT2Ro&list=PL18_gEiPDg8Ocrbwn1SUjs2XaSZlgHpWj" target="_blank">' . esc_html__('Youtube video tutorials', "ays-popup-box") . '</a>
             </p>' .
 			'<p>
-                <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">' . esc_html__('Documentation: ', "ays-popup-box") . '</a>
+                <a href="https://popup-plugin.com/docs" target="_blank">' . esc_html__('Documentation: ', "ays-popup-box") . '</a>
             </p>' .
 			'<p>
                 <a href="https://popup-plugin.com/" target="_blank">' . esc_html__('Popup Box plugin Premium version:', "ays-popup-box") . '</a>
@@ -844,7 +850,7 @@ class Ays_Pb_Admin {
                 <div class="ays-pb-footer-support-box">
                     <span class="ays-pb-footer-link-row"><a href="https://wordpress.org/support/plugin/ays-popup-box/" target="_blank"><?php echo esc_html__( "Support", "ays-popup-box"); ?></a></span>
                     <span class="ays-pb-footer-slash-row">/</span>
-                    <span class="ays-pb-footer-link-row"><a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank"><?php echo esc_html__( "Docs", "ays-popup-box"); ?></a></span>
+                    <span class="ays-pb-footer-link-row"><a href="https://popup-plugin.com/docs" target="_blank"><?php echo esc_html__( "Docs", "ays-popup-box"); ?></a></span>
                     <span class="ays-pb-footer-slash-row">/</span>
                     <span class="ays-pb-footer-link-row"><a href="https://ays-demo.com/popup-box-plugin-survey/" target="_blank"><?php echo esc_html__( "Suggest a Feature", "ays-popup-box"); ?></a></span>
                 </div>

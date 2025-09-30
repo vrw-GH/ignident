@@ -16,11 +16,11 @@ const WorldMapBlock = () => {
     <Block className="row-span-2 xl:col-span-6">
         <ErrorBoundary>
       <BlockHeading
-        className='border-b border-gray-300'
+        className='border-b border-gray-200'
         title={__( 'World View', 'burst-statistics' )}
         controls={<WorldMapHeader />}
       />
-      <BlockContent className={'px-0 py-0'}>
+      <BlockContent className="px-0 py-0">
        <WorldMap/>
       </BlockContent>
       </ErrorBoundary>

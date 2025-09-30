@@ -1,85 +1,93 @@
 <?php
+
 /**
- * AdminActions class for Floating Button plugin.
+ * Class AdminActions
  *
- * @package FloatingButton\Admin
+ * This class handles administrative actions in the plugin.
  *
- * Methods:
- * - init()            Initialize admin actions hook
- * - actions()         Handle admin requests based on request name
- * - verify( $name )   Verify nonce and user capability
- * - check_name()      Detect action name from $_REQUEST
+ * @package    WowPlugin
+ * @subpackage Admin
+ * @author     Dmytro Lobov <dev@wow-company.com>, Wow-Company
+ * @copyright  2024 Dmytro Lobov
+ * @license    GPL-2.0+
+ *
  */
 
 namespace FloatingButton\Admin;
 
-defined( 'ABSPATH' ) || exit;
+use FloatingButton\WOWP_Plugin;
 
-use FloatingButton\Dashboard\DBManager;
-use FloatingButton\Dashboard\ImporterExporter;
-use FloatingButton\Dashboard\Settings;
-use FloatingButton\WOW_Plugin;
+defined( 'ABSPATH' ) || exit;
 
 class AdminActions {
 
-	public function __construct() {
-		add_action( 'admin_init', [ $this, 'actions' ] );
+	public static function init(): void {
+		add_action( 'admin_init', [ __CLASS__, 'actions' ] );
 	}
 
-	public function actions(): void {
-		$name = $this->check_name();
-		if ( ! $name || ! $this->verify( $name ) ) {
-			return;
+	public static function actions(): bool {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$name = self::check_name( $_REQUEST );
+		if ( ! $name ) {
+			return false;
+		}
+		$verify = self::verify( $name );
+
+		if ( ! $verify ) {
+			return false;
 		}
 
-		$map = [
-			'_export_data'     => [ ImporterExporter::class, 'export_data' ],
-			'_export_item'     => [ ImporterExporter::class, 'export_item' ],
-			'_import_data'     => [ ImporterExporter::class, 'import_data' ],
-			'_remove_item'     => [ DBManager::class,        'remove_item' ],
-			'_settings'        => [ Settings::class,         'save_item' ],
-			'_activate_item'   => [ Settings::class,         'activate_item' ],
-			'_deactivate_item' => [ Settings::class,         'deactivate_item' ],
-			'_activate_mode'   => [ Settings::class,         'activate_mode' ],
-			'_deactivate_mode' => [ Settings::class,         'deactivate_mode' ],
+		if ( strpos( $name, '_export_data' ) !== false ) {
+			ImporterExporter::export_data();
+		} elseif ( strpos( $name, '_export_item' ) !== false ) {
+			ImporterExporter::export_item();
+		} elseif ( strpos( $name, '_import_data' ) !== false ) {
+			ImporterExporter::import_data();
+		} elseif ( strpos( $name, '_remove_item' ) !== false ) {
+			DBManager::remove_item();
+		}
+		elseif ( strpos( $name, '_activate_item' ) !== false ) {
+			Settings::activate_item();
+		} elseif ( strpos( $name, '_deactivate_item' ) !== false ) {
+			Settings::deactivate_item();
+		} elseif ( strpos( $name, '_activate_mode' ) !== false ) {
+			Settings::activate_mode();
+		} elseif ( strpos( $name, '_deactivate_mode' ) !== false ) {
+			Settings::deactivate_mode();
+		}
+
+		return true;
+	}
+
+	public static function verify( $name ): bool {
+		$nonce_action = WOWP_Plugin::PREFIX . '_nonce';
+		$nonce        = isset( $_REQUEST[ $name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $name ] ) ) : '';
+
+		return ( ! empty( $nonce ) &&  wp_verify_nonce( $nonce, $nonce_action ) && current_user_can( 'manage_options' ) );
+	}
+
+	private static function check_name( $request ) {
+		$names = [
+			WOWP_Plugin::PREFIX . '_import_data',
+			WOWP_Plugin::PREFIX . '_export_data',
+			WOWP_Plugin::PREFIX . '_export_item',
+			WOWP_Plugin::PREFIX . '_remove_item',
+			WOWP_Plugin::PREFIX . '_settings',
+			WOWP_Plugin::PREFIX . '_activate_item',
+			WOWP_Plugin::PREFIX . '_deactivate_item',
+			WOWP_Plugin::PREFIX . '_activate_mode',
+			WOWP_Plugin::PREFIX . '_deactivate_mode',
 		];
 
-		foreach ( $map as $key => $callback ) {
-			if ( is_callable( $callback ) && strpos( $name, $key ) !== false ) {
-				$callback(); // call static method
-				break;
-			}
-		}
-	}
+		foreach ( $request as $key => $value ) {
 
-	private function verify( string $name ): bool {
-		$nonce_action = WOW_Plugin::PREFIX . '_nonce';
-		$nonce        = sanitize_text_field( wp_unslash( $_REQUEST[ $name ] ?? '' ) );
-
-		return $nonce && wp_verify_nonce( $nonce, $nonce_action ) && current_user_can( 'manage_options' );
-	}
-
-	private function check_name(): string {
-		$actions = [
-			'_import_data',
-			'_export_data',
-			'_export_item',
-			'_remove_item',
-			'_settings',
-			'_activate_item',
-			'_deactivate_item',
-			'_activate_mode',
-			'_deactivate_mode',
-		];
-
-		foreach ( $actions as $action ) {
-			$name = WOW_Plugin::PREFIX . $action;
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( isset( $_REQUEST[ $name ] ) ) {
-				return $name;
+			if ( in_array( $key, $names, true ) ) {
+				return $key;
 			}
 		}
 
-		return '';
+		return false;
+
 	}
+
 }

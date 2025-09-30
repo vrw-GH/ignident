@@ -1,15 +1,15 @@
-=== Floating Button ===
+=== Floating Button – Easily Create Sticky, Fixed & Floating Buttons ===
 Contributors: Wpcalc, lobov
 Donate link: https://wow-estore.com/item/floating-button-pro/
-Tags: floating button, floating menu, sticky button, sticky, nav menu
+Tags: buttons, floating button, nav menu, contact button, call button
 Requires at least: 5.5
-Tested up to: 6.6
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 6.0.13
+Stable tag: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily create custom sticky floating buttons.
+Floating Buttons let you easily create sticky, fixed, and floating action buttons
 
 ## Description
 
@@ -96,6 +96,15 @@ Search for answers and ask your questions at [support center](https://wordpress.
 
 
 == Changelog ==
+= 7.0 =
+* Added: New button shapes – ellipse, square, and rounded square
+* Added: New button types – email and phone
+* Changed: Updated admin interface style for better usability
+* Changed: Improved plugin structure for performance and maintainability
+
+= 6.1 =
+* Updated: Font Awesome library upgraded to version **7.0.0**.
+
 = 6.0.13 =
 * Improved: Refactored AdminActions class for better performance and readability
 * Improved: Reordered condition checks for better execution performance

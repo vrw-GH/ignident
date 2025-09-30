@@ -4,7 +4,7 @@ Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
 Requires at least: 5.3
 Tested up to: 6.8
-Stable tag: 1.3.9
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,9 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.4.0 =
+* Fixed: support both old (elementor_experiment-e_element_cache) and new (elementor_element_cache_ttl) Elementor cache options for compatibility
 
 = 1.3.9 =
 * <strong>[Improvement]</strong> Replaced manual <script> output in print_my_inline_script() with wp_print_inline_script_tag() for better compatibility and cleaner code

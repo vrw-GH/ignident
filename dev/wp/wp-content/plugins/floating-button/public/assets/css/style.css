@@ -1,0 +1,666 @@
+@charset "UTF-8";
+/*! ========= INFORMATION ============================
+	- document:  Floating Button
+	- author:    Wow-Company
+	- url:       https://wow-estore.com/item/floating-button-pro/
+==================================================== */
+.flBtn *,
+.flBtn {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  text-decoration: none;
+}
+
+.flBtn {
+  --flbtn-color: #ffffff;
+  --flbtn-h-color: var(--flbtn-color);
+  --flbtn-bg: #009688;
+  --flbtn-h-bg: #21759b;
+  --flbtn-tooltip-color: #ffffff;
+  --flbtn-tooltip-bg: rgba(0, 0, 0, 0.8);
+  --flbtn-size: 16px;
+  --flbtn-box: calc(var(--flbtn-size) * 2.5);
+  --flbtn-gap: 5px;
+  --flbtn-h-position: 20px;
+  --flbtn-v-position: 20px;
+  --flbtn-v-offset: 0px;
+  --flbtn-h-offset: 0px;
+  --flbtn-menu-height: 360px;
+  --flbtn-menu-width: 400px;
+  z-index: 1000;
+}
+.flBtn > .checkbox {
+  display: none;
+}
+.flBtn > .checkbox:checked + .flBtn-label {
+  color: var(--flbtn-h-color);
+  background: var(--flbtn-h-bg);
+}
+.flBtn > .checkbox:checked + .flBtn-label [data-action=open] {
+  display: none;
+}
+.flBtn > .checkbox:checked + .flBtn-label [data-action=close] {
+  display: inline-block;
+}
+.flBtn > .checkbox:checked ~ .flBtn-first,
+.flBtn > .checkbox:checked ~ .flBtn-second {
+  visibility: visible;
+}
+.flBtn > .checkbox:checked ~ .flBtn-first li,
+.flBtn > .checkbox:checked ~ .flBtn-second li {
+  visibility: visible;
+  opacity: 1;
+}
+.flBtn > .checkbox:checked ~ .flBtn-first [data-tooltip][data-btn-tooltip=show]:before,
+.flBtn > .checkbox:checked ~ .flBtn-second [data-tooltip][data-btn-tooltip=show]:before {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0.5s;
+}
+.flBtn .flBtn-label,
+.flBtn a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--flbtn-color);
+  background: var(--flbtn-bg);
+  transition: all 0.5s;
+}
+.flBtn .flBtn-label:hover,
+.flBtn a:hover {
+  color: var(--flbtn-h-color);
+  background: var(--flbtn-h-bg);
+}
+.flBtn .flBtn-label._active,
+.flBtn a._active {
+  color: var(--flbtn-h-color);
+  background: var(--flbtn-h-bg);
+}
+.flBtn img {
+  max-width: 100%;
+  height: auto;
+}
+.flBtn ul li {
+  display: inline-block;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.flBtn.-shadow .flBtn-label,
+.flBtn.-shadow a {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+.flBtn.is-hidden {
+  display: none;
+}
+@media print {
+  .flBtn {
+    display: none !important;
+  }
+}
+
+.flBtn > .flBtn-label {
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+}
+.flBtn > .flBtn-label [data-action=open] {
+  display: inline-block;
+}
+.flBtn > .flBtn-label [data-action=close] {
+  display: none;
+}
+
+.flBtn-first,
+.flBtn-second {
+  position: absolute;
+  display: flex;
+  gap: var(--flbtn-gap);
+  visibility: hidden;
+}
+
+.flBtn_menu-wrapper {
+  --flbtn-first: #0057B7;
+  --flbtn-second: #FFDD00;
+  --flbtn-bg: rgba(255, 221, 0, 0.25);
+  --flbtn-close-color: #222222;
+  --flbtn-close-bg: transparent;
+  position: fixed;
+  display: flex;
+  z-index: 9999;
+  flex-direction: column;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 420px;
+  min-width: 200px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 4px;
+  gap: 15px;
+}
+.flBtn_menu-wrapper.is-hidden {
+  display: none;
+}
+
+.flBtn_header-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid #f1f1f1;
+}
+.flBtn_header-menu > .flBtn_title {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.flBtn_header-menu > .flBtn_close {
+  padding: 0;
+  box-shadow: none;
+  background: var(--flbtn-close-bg) !important;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.4;
+  color: var(--flbtn-close-color) !important;
+  text-decoration: none;
+  font-size: 24px;
+}
+.flBtn_header-menu > .flBtn_close:hover {
+  opacity: 1;
+}
+
+.flBtn_menu-list {
+  position: relative;
+  z-index: 1;
+  max-width: var(--flbtn-menu-width);
+  max-height: var(--flbtn-menu-height);
+  padding: 8px 16px;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-size: 100% 9px;
+  overflow-y: auto;
+}
+.flBtn_menu-list li {
+  margin-left: 16px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.flBtn_menu-list li::marker {
+  color: var(--flbtn-first);
+}
+.flBtn_menu-list li:hover::marker {
+  color: var(--flbtn-second);
+}
+.flBtn_menu-list li a {
+  display: block;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #222222;
+  text-decoration: none;
+  font-weight: 400;
+  transition-duration: 0.3s;
+  transition-property: background-color, color;
+  -webkit-transition-property: background-color, color;
+  -webkit-transition-duration: 0.3s;
+}
+.flBtn_menu-list li a:hover {
+  background: var(--flbtn-bg);
+  color: var(--flbtn-first);
+}
+.flBtn_menu-list li ul {
+  margin-top: 5px;
+  padding: 0;
+}
+.flBtn_menu-list details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.flBtn_menu-list details > summary:hover {
+  background: var(--flbtn-bg);
+  color: var(--flbtn-first);
+}
+.flBtn_menu-list details > summary:after {
+  content: "↴";
+  font-size: 0.5em;
+}
+.flBtn_menu-list details[open] > summary:after {
+  rotate: 180deg;
+}
+.flBtn_menu-list details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.flBtn [data-tooltip] {
+  position: relative;
+}
+.flBtn [data-tooltip]:before {
+  position: absolute;
+  content: attr(data-tooltip) " " attr(data-counter);
+  visibility: hidden;
+  padding: 0.25em 0.5em;
+  opacity: 0;
+  white-space: nowrap;
+  background: var(--flbtn-tooltip-bg);
+  color: var(--flbtn-tooltip-color);
+  transition: all 0.5s;
+  z-index: 3;
+}
+.flBtn [data-tooltip]:hover:before {
+  visibility: visible;
+  opacity: 1;
+  z-index: 4;
+}
+.flBtn [data-tooltip][data-btn-tooltip=show]:before {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.flBtn [data-role][data-tooltip][data-btn-tooltip=show]:before {
+  visibility: visible;
+  opacity: 1;
+}
+
+.flBtn {
+  --flbtn-label-size: calc(var(--flbtn-size) * 1.5);
+  --flbtn-label-box: calc(var(--flbtn-box) * 1.5);
+  --flbtn-tooltip-size: initial;
+  --flbtn-tooltip-ul-size: initial;
+}
+.flBtn > ul a {
+  width: calc(var(--flbtn-box));
+  height: calc(var(--flbtn-box));
+  font-size: calc(var(--flbtn-size));
+}
+.flBtn > ul a[data-tooltip]:before {
+  font-size: var(--flbtn-tooltip-ul-size);
+}
+.flBtn > .flBtn-label {
+  width: var(--flbtn-label-box);
+  height: var(--flbtn-label-box);
+  font-size: var(--flbtn-label-size);
+}
+.flBtn > .flBtn-label[data-tooltip]:before {
+  font-size: var(--flbtn-tooltip-size);
+}
+.flBtn.flBtn-size-small {
+  --flbtn-size: 12px;
+}
+.flBtn.flBtn-size-medium {
+  --flbtn-size: 16px;
+}
+.flBtn.flBtn-size-large {
+  --flbtn-size: 20px;
+}
+
+.flBtn.flBtn-shape-circle > .flBtn-label,
+.flBtn.flBtn-shape-circle a,
+.flBtn.flBtn-shape-circle img {
+  border-radius: 50%;
+}
+.flBtn.flBtn-shape-ellipse > .flBtn-label,
+.flBtn.flBtn-shape-ellipse a, .flBtn.flBtn-shape-ellipse img {
+  border-radius: 25% 75%;
+}
+.flBtn.flBtn-shape-square > .flBtn-label,
+.flBtn.flBtn-shape-square a, .flBtn.flBtn-shape-square img {
+  border-radius: 0;
+}
+.flBtn.flBtn-shape-rsquare > .flBtn-label,
+.flBtn.flBtn-shape-rsquare a, .flBtn.flBtn-shape-rsquare img {
+  border-radius: 25%;
+}
+
+.flBtn {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flBtn.flBtn-position-l {
+  left: var(--flbtn-h-position);
+}
+.flBtn.flBtn-position-l [data-tooltip]:before {
+  left: 100%;
+  margin-left: 5px;
+}
+.flBtn.flBtn-position-r {
+  right: var(--flbtn-h-position);
+}
+.flBtn.flBtn-position-r [data-tooltip]:before {
+  right: 100%;
+  margin-right: 5px;
+}
+.flBtn.flBtn-position-l, .flBtn.flBtn-position-r {
+  top: 50%;
+  transform: translateY(-50%);
+  margin-inline: var(--flbtn-h-offset);
+  margin-block: var(--flbtn-v-offset);
+}
+.flBtn.flBtn-position-l .flBtn-first,
+.flBtn.flBtn-position-l .flBtn-second, .flBtn.flBtn-position-r .flBtn-first,
+.flBtn.flBtn-position-r .flBtn-second {
+  flex-direction: column;
+}
+.flBtn.flBtn-position-l .flBtn-first, .flBtn.flBtn-position-r .flBtn-first {
+  bottom: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-l .flBtn-second, .flBtn.flBtn-position-r .flBtn-second {
+  top: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-t {
+  top: var(--flbtn-v-position);
+}
+.flBtn.flBtn-position-t [data-tooltip]:before {
+  top: calc(100% + 5px);
+}
+.flBtn.flBtn-position-b {
+  bottom: var(--flbtn-v-position);
+}
+.flBtn.flBtn-position-b [data-tooltip]:before {
+  bottom: calc(100% + 5px);
+}
+.flBtn.flBtn-position-t, .flBtn.flBtn-position-b {
+  left: 50%;
+  transform: translateX(-50%);
+  margin-inline: var(--flbtn-h-offset);
+  margin-block: var(--flbtn-v-offset);
+}
+.flBtn.flBtn-position-t .flBtn-first, .flBtn.flBtn-position-b .flBtn-first {
+  right: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-t .flBtn-first [data-tooltip]:before, .flBtn.flBtn-position-b .flBtn-first [data-tooltip]:before {
+  right: 0;
+}
+.flBtn.flBtn-position-t .flBtn-second, .flBtn.flBtn-position-b .flBtn-second {
+  left: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-t .flBtn-second [data-tooltip]:before, .flBtn.flBtn-position-b .flBtn-second [data-tooltip]:before {
+  left: 0;
+}
+.flBtn.flBtn-position-tl {
+  top: var(--flbtn-v-position);
+  left: var(--flbtn-h-position);
+  margin-inline: var(--flbtn-h-offset);
+  margin-block: var(--flbtn-v-offset);
+}
+.flBtn.flBtn-position-tl [data-tooltip]:before {
+  left: 100%;
+  top: calc(100% + 5px);
+}
+.flBtn.flBtn-position-tl .flBtn-first {
+  flex-direction: column;
+  top: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-tl .flBtn-first [data-tooltip]:before {
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(100% + 5px);
+}
+.flBtn.flBtn-position-tl .flBtn-second {
+  left: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-tr {
+  top: var(--flbtn-v-position);
+  right: var(--flbtn-h-position);
+  margin-inline: var(--flbtn-h-offset);
+  margin-block: var(--flbtn-v-offset);
+}
+.flBtn.flBtn-position-tr [data-tooltip]:before {
+  right: 100%;
+  top: calc(100% + 5px);
+}
+.flBtn.flBtn-position-tr .flBtn-first {
+  flex-direction: column;
+  top: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-tr .flBtn-first [data-tooltip]:before {
+  top: 50%;
+  transform: translateY(-50%);
+  right: calc(100% + 5px);
+}
+.flBtn.flBtn-position-tr .flBtn-second {
+  right: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-bl {
+  bottom: var(--flbtn-v-position);
+  left: var(--flbtn-h-position);
+  margin-inline: var(--flbtn-h-offset);
+  margin-block: var(--flbtn-v-offset);
+}
+.flBtn.flBtn-position-bl [data-tooltip]:before {
+  left: 100%;
+  bottom: calc(100% + 5px);
+}
+.flBtn.flBtn-position-bl .flBtn-first {
+  flex-direction: column;
+  bottom: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-bl .flBtn-first [data-tooltip]:before {
+  bottom: 50%;
+  transform: translateY(50%);
+  left: calc(100% + 5px);
+}
+.flBtn.flBtn-position-bl .flBtn-second {
+  left: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-br {
+  bottom: var(--flbtn-v-position);
+  right: var(--flbtn-h-position);
+  margin-inline: var(--flbtn-h-offset);
+  margin-block: var(--flbtn-v-offset);
+}
+.flBtn.flBtn-position-br [data-tooltip]:before {
+  right: 100%;
+  bottom: calc(100% + 5px);
+}
+.flBtn.flBtn-position-br .flBtn-first {
+  flex-direction: column;
+  bottom: calc(100% + var(--flbtn-gap));
+}
+.flBtn.flBtn-position-br .flBtn-first [data-tooltip]:before {
+  bottom: 50%;
+  transform: translateY(50%);
+  right: calc(100% + 5px);
+}
+.flBtn.flBtn-position-br .flBtn-second {
+  right: calc(100% + var(--flbtn-gap));
+}
+
+.flBtn {
+  /* Rotate Effect*/
+  /* Scale Effect*/
+  /* Translate Effect*/
+}
+.flBtn.flBtn-effect-rotate .checkbox:checked ~ ul li, .flBtn.flBtn-effect-rotate-translate-scale .checkbox:checked ~ ul li, .flBtn.flBtn-effect-rotate-translate .checkbox:checked ~ ul li, .flBtn.flBtn-effect-rotate-scale .checkbox:checked ~ ul li {
+  rotate: 360deg;
+}
+.flBtn.flBtn-effect-scale li, .flBtn.flBtn-effect-rotate-translate-scale li, .flBtn.flBtn-effect-translate-scale li, .flBtn.flBtn-effect-rotate-scale li {
+  scale: 0.1 0.1;
+}
+.flBtn.flBtn-effect-scale .checkbox:checked ~ ul li, .flBtn.flBtn-effect-rotate-translate-scale .checkbox:checked ~ ul li, .flBtn.flBtn-effect-translate-scale .checkbox:checked ~ ul li, .flBtn.flBtn-effect-rotate-scale .checkbox:checked ~ ul li {
+  scale: 1 1;
+}
+.flBtn.flBtn-effect-translate .flBtn-first li, .flBtn.flBtn-effect-rotate-translate-scale .flBtn-first li, .flBtn.flBtn-effect-translate-scale .flBtn-first li, .flBtn.flBtn-effect-rotate-translate .flBtn-first li {
+  translate: 0 100%;
+}
+.flBtn.flBtn-effect-translate .flBtn-second li, .flBtn.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-effect-rotate-translate .flBtn-second li {
+  translate: 0 -100%;
+}
+.flBtn.flBtn-effect-translate .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-first li,
+.flBtn.flBtn-effect-translate .checkbox:checked ~ .flBtn-second li,
+.flBtn.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-second li,
+.flBtn.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-second li,
+.flBtn.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-second li {
+  translate: 0 0;
+}
+.flBtn.flBtn-effect-translate.flBtn-position-tl .flBtn-first li, .flBtn.flBtn-position-tl.flBtn-effect-rotate-translate-scale .flBtn-first li, .flBtn.flBtn-position-tl.flBtn-effect-translate-scale .flBtn-first li, .flBtn.flBtn-position-tl.flBtn-effect-rotate-translate .flBtn-first li, .flBtn.flBtn-effect-translate.flBtn-position-tr .flBtn-first li, .flBtn.flBtn-position-tr.flBtn-effect-rotate-translate-scale .flBtn-first li, .flBtn.flBtn-position-tr.flBtn-effect-translate-scale .flBtn-first li, .flBtn.flBtn-position-tr.flBtn-effect-rotate-translate .flBtn-first li {
+  translate: 0 -100%;
+}
+.flBtn.flBtn-effect-translate.flBtn-position-b .flBtn-first li, .flBtn.flBtn-position-b.flBtn-effect-rotate-translate-scale .flBtn-first li, .flBtn.flBtn-position-b.flBtn-effect-translate-scale .flBtn-first li, .flBtn.flBtn-position-b.flBtn-effect-rotate-translate .flBtn-first li, .flBtn.flBtn-effect-translate.flBtn-position-t .flBtn-first li, .flBtn.flBtn-position-t.flBtn-effect-rotate-translate-scale .flBtn-first li, .flBtn.flBtn-position-t.flBtn-effect-translate-scale .flBtn-first li, .flBtn.flBtn-position-t.flBtn-effect-rotate-translate .flBtn-first li {
+  translate: 100% 0;
+}
+.flBtn.flBtn-effect-translate.flBtn-position-b .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-position-b.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-position-b.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-position-b.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-effect-translate.flBtn-position-t .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-position-t.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-position-t.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-first li, .flBtn.flBtn-position-t.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-first li {
+  translate: 0 0;
+}
+.flBtn.flBtn-effect-translate.flBtn-position-b .flBtn-second li, .flBtn.flBtn-position-b.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-position-b.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-position-b.flBtn-effect-rotate-translate .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-t .flBtn-second li, .flBtn.flBtn-position-t.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-position-t.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-position-t.flBtn-effect-rotate-translate .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-tl .flBtn-second li, .flBtn.flBtn-position-tl.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-position-tl.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-position-tl.flBtn-effect-rotate-translate .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-bl .flBtn-second li, .flBtn.flBtn-position-bl.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-position-bl.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-position-bl.flBtn-effect-rotate-translate .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-tr .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-rotate-translate .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-br .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-rotate-translate .flBtn-second li {
+  translate: -100% 0;
+}
+.flBtn.flBtn-effect-translate.flBtn-position-b .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-b.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-b.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-b.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-t .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-t.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-t.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-t.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-tl .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-tl.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-tl.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-tl.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-bl .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-bl.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-bl.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-bl.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-tr .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-br .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-rotate-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-translate-scale .checkbox:checked ~ .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-rotate-translate .checkbox:checked ~ .flBtn-second li {
+  translate: 0 0;
+}
+.flBtn.flBtn-effect-translate.flBtn-position-tr .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-position-tr.flBtn-effect-rotate-translate .flBtn-second li, .flBtn.flBtn-effect-translate.flBtn-position-br .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-rotate-translate-scale .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-translate-scale .flBtn-second li, .flBtn.flBtn-position-br.flBtn-effect-rotate-translate .flBtn-second li {
+  translate: 100% 0;
+}
+.flBtn .flBtn-icon {
+  --_flip: 1;
+  --_rotate: 0;
+  --fm-icon-text-weight: normal;
+  rotate: calc(var(--_rotate) * 1deg);
+  scale: var(--_flip);
+}
+.flBtn .flBtn-icon.-flip-horizontal {
+  --_flip: -1 1;
+}
+.flBtn .flBtn-icon.-flip-vertical {
+  --_flip: 1 -1;
+}
+.flBtn .flBtn-icon.-flip-both {
+  --_flip: -1 -1;
+}
+.flBtn .flBtn-icon.-beat, .flBtn .flBtn-icon.-bounce, .flBtn .flBtn-icon.-fade, .flBtn .flBtn-icon.-beat-fade, .flBtn .flBtn-icon.-flip, .flBtn .flBtn-icon.-shake, .flBtn .flBtn-icon.-spin {
+  --icon-delay: 0s;
+  --icon-duration: 1s;
+  --icon-count: infinite;
+  animation-delay: var(--icon-delay);
+  animation-direction: normal;
+  animation-duration: var(--icon-duration);
+  animation-iteration-count: var(--icon-count);
+}
+.flBtn .flBtn-icon.-beat {
+  animation-name: wowp-icon-beat;
+  animation-timing-function: ease-in-out;
+}
+.flBtn .flBtn-icon.-bounce {
+  animation-name: wowp-icon-bounce;
+  animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+.flBtn .flBtn-icon.-fade {
+  animation-name: wowp-icon-fade;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+.flBtn .flBtn-icon.-beat-fade {
+  animation-name: wowp-icon-beat-fade;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+.flBtn .flBtn-icon.-flip {
+  animation-name: wowp-icon-flip;
+  animation-timing-function: ease-in-out;
+}
+.flBtn .flBtn-icon.-shake {
+  animation-name: wowp-icon-shake;
+  animation-timing-function: linear;
+}
+.flBtn .flBtn-icon.-spin {
+  animation-name: wowp-icon-spin;
+  animation-timing-function: linear;
+}
+
+@keyframes wowp-icon-beat {
+  0%, 90% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.25);
+  }
+}
+@keyframes wowp-icon-bounce {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    transform: scale(1.1, 0.9) translateY(0);
+  }
+  30% {
+    transform: scale(0.9, 1.1) translateY(-0.25em);
+  }
+  50% {
+    transform: scale(1.05, 0.95) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(-0.125em);
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+@keyframes wowp-icon-fade {
+  50% {
+    opacity: 0.4;
+  }
+}
+@keyframes wowp-icon-beat-fade {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.125);
+  }
+}
+@keyframes wowp-icon-flip {
+  50% {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+}
+@keyframes wowp-icon-shake {
+  0% {
+    transform: rotate(-15deg);
+  }
+  4% {
+    transform: rotate(15deg);
+  }
+  8%, 24% {
+    transform: rotate(-18deg);
+  }
+  12%, 28% {
+    transform: rotate(18deg);
+  }
+  16% {
+    transform: rotate(-22deg);
+  }
+  20% {
+    transform: rotate(22deg);
+  }
+  32% {
+    transform: rotate(-12deg);
+  }
+  36% {
+    transform: rotate(12deg);
+  }
+  40%, 100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes wowp-icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -31,7 +31,7 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
 <div class="wrap ays-pb-list-table">
     <div class="ays-pb-heading-box">
         <div class="ays-pb-wordpress-user-manual-box">
-            <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">
+            <a href="https://popup-plugin.com/docs" target="_blank">
                 <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
                 <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
             </a>

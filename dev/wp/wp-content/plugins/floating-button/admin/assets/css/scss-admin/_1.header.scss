@@ -1,0 +1,93 @@
+.wpie-header-border {
+  height: 5px;
+  background: linear-gradient(to right, var(--wpie-color-blue),  var(--wpie-color-yellow));
+  margin-left: -20px;
+}
+
+.wpie-header {
+  position: relative;
+  padding: 32px 20px;
+  margin-left: -20px;
+  background: #ffffff;
+
+}
+
+.wpie-header__container {
+  max-width: 1440px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+
+.wpie-logo {
+  display: flex;
+  align-items: center;
+}
+
+.wpie-logo img {
+  width: 40px;
+}
+
+.wpie-header h1 {
+  position: relative;
+  margin: 0 35px 0 0 ;
+}
+
+.wpie-version {
+  position: absolute;
+  transform: translateY(-50%) translateX(50%);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+
+.wpie-links {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  margin-inline-start: calc(40px + 1rem);
+  padding-bottom: 2px;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wpie-links a {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  align-items: center;
+  padding: 5px 0;
+  transition: all 0.15s linear;
+  color: var(--wpie-color-blue);
+  font-weight: 600;
+  text-underline-offset: 2px;
+}
+
+.wpie-links-divider {
+  color: var(--wpie-color-border);
+}
+
+.wpie-links a:hover {
+  color: #14102C;
+  text-decoration: none;
+}
+
+.wpie-links .codericon,
+.wpie-links .dashicons {
+  width: 15px;
+  height: 15px;
+  font-size: 15px;
+  color: #596FF9;
+  display: none;
+}
+
+a.wowp-link-rating {
+  color: var(--wpie-color-orange);
+}
+
+a.wowp-link-pro {
+  color: var(--wpie-color-danger);
+}

@@ -65,7 +65,7 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
             <input type="hidden" name="ays_pb_tab" value="<?php echo esc_attr($ays_pb_tab); ?>">
             <div class="ays-pb-heading-box">
                 <div class="ays-pb-wordpress-user-manual-box">
-                    <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">
+                    <a href="https://popup-plugin.com/docs" target="_blank">
                         <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
                         <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
                     </a>
@@ -103,7 +103,14 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                 </div>
                 <div class="ays-pb-tabs-wrapper">
                     <div id="tab1" class="ays-pb-tab-content <?php echo ($ays_pb_tab == 'tab1') ? 'ays-pb-tab-content-active' : ''; ?>">
-                        <p class="ays-pb-subtitle"><?php echo esc_html__('General Settings', "ays-popup-box") ?></p>
+                        <div style="display: flex; justify-content: space-between;">
+                            <p class="ays-pb-subtitle"><?php echo esc_html__('General Settings', "ays-popup-box") ?></p>
+                            <span style="margin-top: 20px;">
+                                <a class="ays-pb-doc-link" href="https://popup-plugin.com/docs/general-tab/" target="_blank" style="font-size: 14px;">
+                                    <?php echo esc_html__('How to Use General Tab?', "ays-popup-box"); ?>
+                                </a>
+                            </span>
+                        </div>
                         <hr/>
                         <div class="" style="padding:15px;">
                             <fieldset>
@@ -292,7 +299,14 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                         ?>
                     </div>
                     <div id="tab3" class="ays-pb-tab-content <?php echo ($ays_pb_tab == 'tab3') ? 'ays-pb-tab-content-active' : ''; ?>">
-                        <p class="ays-pb-subtitle"><?php echo esc_html__('Shortcodes', "ays-popup-box") ?></p>
+                        <div style="display: flex; justify-content: space-between;">
+                            <p class="ays-pb-subtitle"><?php echo esc_html__('Shortcodes', "ays-popup-box") ?></p>
+                            <span style="margin-top: 20px;">
+                                <a class="ays-pb-doc-link" href="https://popup-plugin.com/docs/shortcodes-tab" target="_blank" style="font-size: 14px;">
+                                    <?php echo esc_html__('How to Personalize Popups with Shortcodes?', "ays-popup-box"); ?>
+                                </a>
+                            </span>
+                        </div>
                         <hr/>
                         <div class="" style="padding:15px;">
                             <fieldset>
@@ -459,13 +473,20 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                         </div>
                     </div>
                     <div id="tab4" class="ays-pb-tab-content <?php echo ($ays_pb_tab == 'tab4') ? 'ays-pb-tab-content-active' : ''; ?>">
-                        <p class="ays-subtitle">
-                            <?php echo esc_html__('Message variables',"ays-popup-box")?>
-                            <a class="ays_help" data-toggle="tooltip" data-html="true" title="<p style='margin-bottom:3px;'><?php echo esc_html__( 'You can copy these variables and paste them in the following options from the popup settings', "ays-popup-box" ); ?>:</p>
-                                <p style='padding-left:10px;margin:0;'>- <?php echo esc_html__( 'Custom Content', "ays-popup-box" ); ?></p> ">
-                                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                            </a>
-                        </p>
+                        <div style="display: flex; justify-content: space-between;">
+                            <p class="ays-subtitle">
+                                <?php echo esc_html__('Message variables',"ays-popup-box")?>
+                                <a class="ays_help" data-toggle="tooltip" data-html="true" title="<p style='margin-bottom:3px;'><?php echo esc_html__( 'You can copy these variables and paste them in the following options from the popup settings', "ays-popup-box" ); ?>:</p>
+                                    <p style='padding-left:10px;margin:0;'>- <?php echo esc_html__( 'Custom Content', "ays-popup-box" ); ?></p> ">
+                                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                </a>
+                            </p>
+                            <span>
+                                <a class="ays-pb-doc-link" href="https://popup-plugin.com/docs/message-variables-tab" target="_blank" style="font-size: 14px;">
+                                    <?php echo esc_html__('How to Personalize Popups with Message Variables?', "ays-popup-box"); ?>
+                                </a>
+                            </span>
+                        </div>
                         <blockquote>
                             <p><?php echo esc_html__( "You can copy these variables and paste them in the following options from the popup settings", "ays-popup-box" ); ?>:</p>
                             <p style="text-indent:10px;margin:0;">- <?php echo esc_html__( "Custom Content", "ays-popup-box" ); ?></p>

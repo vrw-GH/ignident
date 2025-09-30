@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Floating Button\n"
-"POT-Creation-Date: 2025-03-18 10:26+0200\n"
-"PO-Revision-Date: 2024-10-30 13:24+0200\n"
+"POT-Creation-Date: 2025-09-24 14:38+0300\n"
+"PO-Revision-Date: 2025-09-24 14:38+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,1859 +21,973 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: classes/Admin/AdminInitializer.php:26
-msgid "Settings"
+#: admin/class-wowp-admin.php:37
+msgid "Check for Updates"
 msgstr ""
 
-#. translators: 1: Rating link (URL), 2: Plugin name
-#: classes/Admin/AdminInitializer.php:39
-#, php-format
-msgid ""
-"Thank you for using <b>%2$s</b>! Please <a href=\"%1$s\" "
-"target=\"_blank\">rate us</a>"
+#: admin/class-wowp-admin.php:38
+msgid "Rate Us"
 msgstr ""
 
-#: classes/Admin/AdminNotices.php:35
-msgid "Item saved."
+#: admin/class-wowp-admin.php:39
+msgid "Pro Plugin"
 msgstr ""
 
-#: classes/Admin/AdminNotices.php:40
-msgid "Item delete."
+#: admin/class-wowp-admin.php:40
+msgid "Documentation"
 msgstr ""
 
-#: classes/Dashboard/DashboardInitializer.php:40
-msgid "Add New"
+#: admin/class-wowp-admin.php:41
+msgid "Pro Demo"
 msgstr ""
 
-#: classes/Dashboard/DashboardInitializer.php:73
-msgid "Update"
-msgstr ""
-
-#: classes/Dashboard/Field.php:122
-msgid "Field must have name"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:20
-msgid "Menus not created yet"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:28 classes/Dashboard/FieldHelper.php:2411
-msgid "None"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:29
-msgid "Beat"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:30 classes/Dashboard/FieldHelper.php:2428
-msgid "Fade"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:31
-msgid "Beat-Fade"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:32 classes/Dashboard/FieldHelper.php:2412
-msgid "Bounce"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:33
-msgid "Flip"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:34
-msgid "Shake"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:35
-msgid "Spin"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:41
-#: includes/settings/options/main-button.php:59
-#: includes/settings/options/sub-buttons.php:44
-msgid "Link"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:42
-msgid "Login"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:43
-msgid "Logout"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:44
-msgid "Register"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:45
-msgid "Lostpassword"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:174
-msgid "Afrikaans"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:175
-msgid "Albanian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:176
-msgid "Amharic"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:177
-msgid "Arabic"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:178
-msgid "Armenian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:179
-msgid "Azerbaijani"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:180
-msgid "Basque"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:181
-msgid "Belarusian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:182
-msgid "Bengali"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:183
-msgid "Bosnian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:184
-msgid "Bulgarian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:185
-msgid "Catalan"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:186
-msgid "Cebuano"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:187
-msgid "Chichewa"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:188
-msgid "Corsican"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:189
-msgid "Croatian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:190
-msgid "Czech"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:191
-msgid "Danish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:192
-msgid "Dutch"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:193
-msgid "English"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:194
-msgid "Esperanto"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:195
-msgid "Estonian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:196
-msgid "Filipino"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:197
-msgid "Finnish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:198
-msgid "French"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:199
-msgid "Frisian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:200
-msgid "Galician"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:201
-msgid "Georgian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:202
-msgid "German"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:203
-msgid "Greek"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:204
-msgid "Gujarati"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:205
-msgid "Haitian Creole"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:206
-msgid "Hausa"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:207
-msgid "Hawaiian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:208
-msgid "Hebrew"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:209
-msgid "Hindi"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:210
-msgid "Hmong"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:211
-msgid "Hungarian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:212
-msgid "Icelandic"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:213
-msgid "Igbo"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:214
-msgid "Indonesian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:215
-msgid "Irish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:216
-msgid "Italian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:217
-msgid "Japanese"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:218
-msgid "Javanese"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:219
-msgid "Kannada"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:220
-msgid "Kazakh"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:221
-msgid "Khmer"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:222
-msgid "Korean"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:223
-msgid "Kurdish (Kurmanji)"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:224
-msgid "Kyrgyz"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:225
-msgid "Lao"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:226
-msgid "Latin"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:227
-msgid "Latvian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:228
-msgid "Luxembourgish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:229
-msgid "Macedonian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:230
-msgid "Malagasy"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:231
-msgid "Malay"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:232
-msgid "Malayalam"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:233
-msgid "Maltese"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:234
-msgid "Maori"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:235
-msgid "Marathi"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:236
-msgid "Mongolian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:237
-msgid "Myanmar (Burmese)"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:238
-msgid "Nepali"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:239
-msgid "Norwegian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:240
-msgid "Pashto"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:241
-msgid "Persian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:242
-msgid "Polish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:243
-msgid "Portuguese"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:244
-msgid "Punjabi"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:245
-msgid "Romanian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:246
-msgid "Russian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:247
-msgid "Samoan"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:248
-msgid "Scottish Gaelic"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:249
-msgid "Serbian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:250
-msgid "Sesotho"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:251
-msgid "Shona"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:252
-msgid "Sindhi"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:253
-msgid "Sinhala"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:254
-msgid "Slovak"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:255
-msgid "Slovenian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:256
-msgid "Somali"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:257
-msgid "Spanish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:258
-msgid "Sudanese"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:259
-msgid "Swahili"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:260
-msgid "Swedish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:261
-msgid "Tajik"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:262
-msgid "Tamil"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:263
-msgid "Telugu"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:264
-msgid "Thai"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:265
-msgid "Turkish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:266
-msgid "Ukrainian"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:267
-msgid "Urdu"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:268
-msgid "Uzbek"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:269
-msgid "Vietnamese"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:270
-msgid "Welsh"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:271
-msgid "Xhosa"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:272
-msgid "Yiddish"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:273
-msgid "Yoruba"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:274
-msgid "Zulu"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:280
-msgid "Facebook"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:281
-msgid "VK"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:282
-msgid "Twitter"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:283
-msgid "Linkedin"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:284
-msgid "Odnoklassniki"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:285
-msgid "Google"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:286
-msgid "Pinterest"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:287
-msgid "XING"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:288
-msgid "Myspace"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:289
-msgid "Weibo"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:290
-msgid "Buffer"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:291
-msgid "StumbleUpon"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:292
-msgid "Reddit"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:293
-msgid "Tumblr"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:294
-msgid "Blogger"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:295
-msgid "LiveJournal"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:296
-msgid "Pocket"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:297
-msgid "Telegram"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:298
-msgid "Skype"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:299
-msgid "Email"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:300
-msgid "Draugiem"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:301
-msgid "Whatsapp"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:302
-msgid "Diaspora"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:303
-msgid "Digg"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:304
-msgid "Douban"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:305
-msgid "Evernote"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:306
-msgid "Flipboard"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:307
-msgid "Google Bookmarks"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:308
-msgid "Hacker News"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:309
-msgid "Instapaper"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:310
-msgid "Line"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:311
-msgid "Qzone"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:312
-msgid "Renren"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2378
-#: includes/settings/options/style.php:107
-msgid "Default"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2384
-msgid "bottom-right"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2385
-msgid "bottom-left"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2386
-msgid "bottom-center"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2387
-msgid "top-right"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2388
-msgid "top-left"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2389
-msgid "top-center"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2390
-msgid "left"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2391
-msgid "right"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2397
-msgid "Circle"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2403
-msgid "Small"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2404
-msgid "Medium"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2405
-msgid "Large"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2413
-msgid "Flash"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2414
-msgid "pulse"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2415
-msgid "rubberBand"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2416
-msgid "shake"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2417
-msgid "headShake"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2418
-msgid "swing"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2419
-msgid "tada"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2420
-msgid "wobble"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2421
-msgid "jello"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2422
-msgid "heartBeat"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2434
-msgid "Yes"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2435
-msgid "No"
-msgstr ""
-
-#: classes/Dashboard/FieldHelper.php:2440
-msgid "All Users"
-msgstr ""
-
-#: classes/Dashboard/ImporterExporter.php:18
-msgid "Export All Data"
-msgstr ""
-
-#: classes/Dashboard/ImporterExporter.php:38
-msgid "Update item if item already exists."
-msgstr ""
-
-#: classes/Dashboard/ImporterExporter.php:45
-msgid "Import"
-msgstr ""
-
-#: classes/Dashboard/ImporterExporter.php:55
-#: classes/Dashboard/ImporterExporter.php:67
-msgid "Please select a file to import"
-msgstr ""
-
-#: classes/Dashboard/ImporterExporter.php:56
-#: classes/Dashboard/ImporterExporter.php:62
-#: classes/Dashboard/ImporterExporter.php:68
-msgid "Error"
-msgstr ""
-
-#: classes/Dashboard/ImporterExporter.php:61
-msgid "Please upload a valid .json file"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:53
-msgid "Untitled"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:57
-msgid "Edit"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:59
-msgid "Duplicate"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:61 includes/pages/sidebar.php:91
-msgid "Delete"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:63
-msgid "Export"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:67
-msgid "View"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:99
-msgid "Title"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:100 includes/settings/options/display.php:13
-msgid "Shortcode"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:101
-msgid "Tag"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:102 includes/pages/sidebar.php:46
-msgid "Test mode"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:103 classes/Dashboard/ListTable.php:106
-msgid "The item will only be displayed for administrators."
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:105 includes/pages/sidebar.php:37
-msgid "Status"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:141
-msgid "UnTitle"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:142
-msgid "Click for Deactivate."
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:143
-msgid "Click for Activate."
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:144 classes/Dashboard/ListTable.php:153
-msgid "OFF"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:146 classes/Dashboard/ListTable.php:155
-msgid "ON"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:150
-msgid "Click for OFF."
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:151
-msgid "Click for ON."
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:261
-msgid "Delate"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:262 includes/pages/sidebar.php:48
-msgid "Activate"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:263 includes/pages/sidebar.php:39
-msgid "Deactivate"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:264
-msgid "Test mode ON"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:265
-msgid "Test mode OFF"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:313
-msgid "Filter by tag"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:316
-msgid "All"
-msgstr ""
-
-#: classes/Dashboard/ListTable.php:329
-msgid "Filter"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:24
-msgid "Support Form"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:29
-msgid "Your Name"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:38
-msgid "Contact email"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:48
-msgid "Link to the issue"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:58
-msgid "Message type"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:61
-msgid "Issue"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:63
-msgid "Idea"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:72
-msgid "Plugin"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:82
-msgid "License Key"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:92
-msgid "Enter Your Message"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:102
-msgid "Send to Support"
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:167
-msgid "Your message has been sent to the support team."
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:170
-msgid "Sorry, but message did not send. Please, contact us "
-msgstr ""
-
-#: classes/Dashboard/SupportForm.php:184
-msgid "Please fill in all the form fields below."
-msgstr ""
-
-#: floating-button.php:141 floating-button.php:152
-msgid "Cheatin&#8217; huh?"
-msgstr ""
-
-#: includes/class-wow-company.php:65
-msgid ""
-"Thank you for using <b>Our plugins</b>! Our website <a href=\"https://wow-"
-"estore.com/\" target=\"_blank\">Wow-Estore.com</a>"
-msgstr ""
-
-#: includes/pages/1.list.php:59
+#: admin/pages/1.list.php:57
 msgid "Search"
 msgstr ""
 
-#: includes/pages/2.settings.php:26
+#: admin/pages/2.settings.php:25
 msgid "Enter title here"
 msgstr ""
 
-#: includes/pages/3.tools.php:17
+#: admin/pages/2.settings.php:27
+msgid "Add title"
+msgstr ""
+
+#: admin/pages/2.settings.php:46
+msgid "Item Savied"
+msgstr ""
+
+#: admin/pages/3.tools.php:18
 msgid "Export Settings"
 msgstr ""
 
 #. translators: %s: plugin name
-#: includes/pages/3.tools.php:21
+#: admin/pages/3.tools.php:22
 #, php-format
 msgid ""
 "Export the  settings for %s as a .json file. This allows you to easily "
 "import the configuration into another site."
 msgstr ""
 
-#: includes/pages/3.tools.php:28
+#: admin/pages/3.tools.php:30
 msgid "Import Settings"
 msgstr ""
 
 #. translators: %s: plugin name
-#: includes/pages/3.tools.php:32
+#: admin/pages/3.tools.php:34
 #, php-format
 msgid ""
 "Import the %s settings from a .json file. This file can be obtained by "
 "exporting the settings on another site using the form above."
 msgstr ""
 
-#: includes/pages/4.support.php:18
+#: admin/pages/4.support.php:17
 msgid ""
 "To get your support related question answered in the fastest timing, please "
 "send a message via the form below or write to us via"
 msgstr ""
 
-#: includes/pages/4.support.php:19
+#: admin/pages/4.support.php:18
 msgid "support page"
 msgstr ""
 
-#: includes/pages/4.support.php:24
+#: admin/pages/4.support.php:23
 msgid ""
 "Also, you can send us your ideas and suggestions for improving the plugin."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:11
-msgid "33 Social Share"
+#: admin/pages/6.pro.php:12
+msgid "Attract Animation"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:12
+#: admin/pages/6.pro.php:13
 msgid ""
-"Use up to 33 different social sharing services to spread your page content "
-"across the internet."
+"Customize the main button with attention-grabbing animations to engage "
+"visitors"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:15
+#: admin/pages/6.pro.php:17
+msgid "Open Animations"
+msgstr ""
+
+#: admin/pages/6.pro.php:18
+msgid ""
+"Choose from 8 stunning animations to reveal sub-buttons, adding a dynamic "
+"touch to your floating buttons "
+msgstr ""
+
+#: admin/pages/6.pro.php:23
+msgid "Deeper Analytics"
+msgstr ""
+
+#: admin/pages/6.pro.php:24
+msgid ""
+" Empower with a deeper understanding of how users interact with your menu! "
+"This powerful feature allows you to track user clicks on specific menu items "
+"within Google Analytics. "
+msgstr ""
+
+#: admin/pages/6.pro.php:32 classes/Admin/Demo.php:51
 msgid "Translate"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:16
+#: admin/pages/6.pro.php:33
 msgid ""
-"Employ Google Translate to translate your page into a selected language, "
-"broadening your audience reach."
+"Empower your visitors to translate your website content in real-time. "
+"Integrate this link type to break down language barriers and cater to a "
+"global audience."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:19
-msgid "Next, Previous Post"
+#: admin/pages/6.pro.php:38
+msgid "Social Sharing"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:20
+#: admin/pages/6.pro.php:39
 msgid ""
-"This feature generates intuitive links to subsequent or previous blog posts, "
-"providing optimized navigation and a seamless reading experience for your "
-"website visitors."
+"Boost your website's reach by incorporating a \"Share\" link. Choose from a "
+"staggering 29 different social media services, allowing users to "
+"effortlessly share your content across their preferred platforms."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:23
+#: admin/pages/6.pro.php:44
+msgid "Next/Previous Post"
+msgstr ""
+
+#: admin/pages/6.pro.php:45
+msgid ""
+"Simplify post navigation for readers. These link types automatically direct "
+"users to the next or previous post within the current category, keeping them "
+"engaged and exploring related content. "
+msgstr ""
+
+#: admin/pages/6.pro.php:49
+msgid "Menu"
+msgstr ""
+
+#: admin/pages/6.pro.php:50
+msgid ""
+"Display a specific menu upon clicking a button, selectable from the menus "
+"created on the Menu page."
+msgstr ""
+
+#: admin/pages/6.pro.php:55
+msgid "Forced Download"
+msgstr ""
+
+#: admin/pages/6.pro.php:56
+msgid ""
+"Offer downloadable resources like brochures, ebooks, or software directly "
+"through your floating menus. This eliminates the need for users to navigate "
+"to separate download pages. "
+msgstr ""
+
+#: admin/pages/6.pro.php:60
+msgid "Scroll To Top/Bottom"
+msgstr ""
+
+#: admin/pages/6.pro.php:61
+msgid ""
+"Provide users with convenient links to instantly scroll to the top or bottom "
+"of your webpage. This is particularly helpful for long pages or content-"
+"heavy sections."
+msgstr ""
+
+#: admin/pages/6.pro.php:66
+msgid "Smooth Scroll"
+msgstr ""
+
+#: admin/pages/6.pro.php:67
+msgid ""
+"Enhance user experience with smooth scrolling animations. This link type "
+"ensures a visually pleasing and seamless transition when users navigate to "
+"different sections of your webpage."
+msgstr ""
+
+#: admin/pages/6.pro.php:72
 msgid "Print"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:24
-msgid "Enable users to print the page directly from the website."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:27
-msgid "Vertical Navigation"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:28
+#: admin/pages/6.pro.php:73
 msgid ""
-"This feature enables users to swiftly navigate to either the top or bottom "
-"of a webpage, enhancing the overall site usability and providing a more "
-"pleasant browsing experience."
+"With a single click on the Print link, users can initiate the built-in "
+"printing function of their web browser. No more cumbersome text selection or "
+"manual copying."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:31
-msgid "Browser History Navigation"
+#: admin/pages/6.pro.php:78 admin/settings/options/1.main-button.php:35
+#: admin/settings/options/2.vertical.php:35
+#: admin/settings/options/3.horizontal.php:35
+msgid "Email"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:32
+#: admin/pages/6.pro.php:79
 msgid ""
-"This feature allows users to conveniently navigate to the subsequent or "
-"preceding URL in their browsing history, provided it's available, making for "
-"a more seamless and intuitive browsing experience."
+"Integrate an Email link into your floating menu, allowing users to "
+"effortlessly initiate email communication. This streamlines the process for "
+"users who may have questions, require additional information, or want to "
+"express feedback."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:35
-msgid "Smooth Scrolling"
+#: admin/pages/6.pro.php:83
+msgid "One-Click Calling"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:36
+#: admin/pages/6.pro.php:84
 msgid ""
-"Enables a seamless and efficient journey to any chosen element on your "
-"webpage"
+"Provide a Telephone link within your floating menu, enabling users to "
+"directly initiate a phone call to your business with a single click. This is "
+"particularly valuable for websites with a strong focus on customer service "
+"or those offering phone consultations."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:39
-msgid "User Navigation Links"
+#: admin/pages/6.pro.php:88
+msgid "User Links"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:40
+#: admin/pages/6.pro.php:89
 msgid ""
-"Features tailored integrations for essential user navigation paths, such as "
-"LogIn, LogOut, Register, and Lostpassword."
+"This includes Login links for effortless account access, Logout links for "
+"secure sign-outs, Registration links for simplified account creation, and "
+"Password Recovery links for stress-free password retrieval, all readily "
+"available within the menu, empowering users to manage their accounts and "
+"interact with your website seamlessly. "
 msgstr ""
 
-#: includes/pages/6.pro-features.php:43
-msgid "Like Button"
+#: admin/pages/6.pro.php:96
+msgid "Custom Icons"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:44
+#: admin/pages/6.pro.php:97
 msgid ""
-"Empowers users by providing them with the option to express their admiration "
-"for your posts via \"Like\" button."
+"Break free from the limitations of pre-defined icon libraries. Custom icons "
+"allow you to utilize any image or icon that complements your website's "
+"design."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:47
-msgid "Scroll-Controlled Display"
+#: admin/pages/6.pro.php:101
+msgid "Icon Settings"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:48
+#: admin/pages/6.pro.php:102
+msgid "Rotate and flip icons to enhance visual appeal."
+msgstr ""
+
+#: admin/pages/6.pro.php:105
+msgid "Emoji and Letter"
+msgstr ""
+
+#: admin/pages/6.pro.php:106
 msgid ""
-"Utilize the power of user scroll behavior to manage the visibility of your "
-"buttons. This attribute empowers you to designate specific scroll positions "
-"where your buttons will unveil or vanish."
+" Sometimes, a simple emoji or letter can be the most effective way to "
+"represent a menu item. Float Menu Pro allows you to utilize emojis or "
+"individual letters as icons, offering a playful and informal touch to your "
+"menus."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:51
-msgid "Timout Display"
+#: admin/pages/6.pro.php:112
+msgid "Hiding/Showing"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:52
+#: admin/pages/6.pro.php:113
 msgid ""
-"Set up a countdown in seconds, upon completion of which your buttons will "
-"reveal or disappear."
+"Allows you to control the visibility of your floating buttons based on the "
+"user's scroll position on the webpage."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:55
-msgid "Page-Click Sub-Button Hiding"
+#: admin/pages/6.pro.php:118
+msgid "Activate by URL"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:56
+#: admin/pages/6.pro.php:119
 msgid ""
-"Experience cleaner and more efficient page navigations through our Page-"
-"Click Sub-Button Hiding feature. This component works by ensuring "
-"instantaneous closing of all active sub-buttons when any part of the page is "
-"clicked by users."
+"Target specific pages based on URL parameters (e.g., show a floating menu "
+"only on a page with URL parameter)"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:59
-msgid "Sub-Button Click Hiding"
+#: admin/pages/6.pro.php:123
+msgid "Activate by Referrer URL"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:60
+#: admin/pages/6.pro.php:124
 msgid ""
-"Particularly useful for single-page navigation menus, this feature allows "
-"you to auto-hide sub-buttons upon clicking them. This ensures a seamless "
-"user experience by preventing the screen from getting crowded with open sub-"
-"buttons after they've been selected."
+"To display different floating menus for visitors arriving from specific "
+"websites."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:63
-#: includes/settings/options/settings.php:63
-msgid "Hide Other Buttons"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:64
-msgid ""
-"Once activated, this functionality guarantees that selecting the primary "
-"button will cause all remaining floating buttons to disappear."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:71
-msgid "2000+ FontAwesome Icons"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:72
-msgid ""
-"Plethora of choices to pick the most suitable icon that aligns seamlessly "
-"with the aesthetic requirements of their buttons, enhancing visual appeal "
-"and user experience."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:75
-msgid "Custom Image"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:76
-msgid ""
-"Allows for a greater level of personalization for your buttons by letting "
-"you use a custom image as an icon. You are not limited to pre-set icons; "
-"instead, you can upload and utilize any image of your choice as the icon for "
-"your buttons, enabling you to fully express your brand's unique identity and "
-"style."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:79
-msgid "Emoji and Symbols"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:80
-msgid ""
-"Capability to adorn your buttons with any emoji, HTML symbol, or even "
-"integrate a straightforward letter as your button icon, thereby enabling you "
-"to infuse visual experiences."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:83
-msgid "Customizable Icon Classes"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:84
-msgid ""
-"Should you prefer to leverage custom icon libraries apart from FontAwesome "
-"Free, our plugin introduces the 'Icon Classes' feature. Making effective use "
-"of this functionality, you can identify and establish the class of your "
-"chosen icon, allowing seamless incorporation of highly tailored icons into "
-"your buttons."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:91 includes/settings/options/style.php:43
-msgid "Shape"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:92
-msgid ""
-"Choice of four distinct default shapes - Circle, Ellipse, Square, and "
-"Rounded Square. Each one has a unique aesthetic, allowing you to align your "
-"buttons with the overall design theme and enhancing your website's user "
-"interface."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:95
-msgid "Offsets"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:96
-msgid ""
-"Ability to subtly adjust their button's location using both positive and "
-"negative offset values. The fine-tuned control over horizontal and vertical "
-"shifts helps align your buttons perfectly, ensuring a polished, professional "
-"appearance and an enhanced user interface."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:99
-msgid "Custom Buttons Size"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:100
-msgid ""
-"This tool provides users with the capability to independently adjust the "
-"dimensions of the main button and the sub-buttons on their website. This "
-"feature makes it simple to tailor button sizing to suit unique design "
-"requirements or to match existing stylistic choices."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:103
-msgid "Custom Tooltip Size"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:104
-msgid ""
-"Ability to independently adjust the measurements of your tooltips. No longer "
-"are you confined to the default parameters - where the tooltip size is tied "
-"to the button size. Now you can precisely control the dimensions of tooltip "
-"associate with both main and secondary buttons."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:107
-msgid "Hold Tooltip open"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:108
-msgid ""
-"Allows you to keep tooltips open upon page load. This functionality ensures "
-"that item labels are immediately visible to your website visitors, providing "
-"them with required information without any additional interactions. As a "
-"result, key content or instructions that you want users to see as soon as "
-"they land on the page can be highlighted effectively. This can also reduce "
-"the learning curve for navigating your website and improve the overall user "
-"experience by instantly directing attention to core elements or features of "
-"your page right from the start."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:111
-msgid "Extra Style"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:112
-msgid ""
-"Achieve even greater control over button aesthetics with the ability to add "
-"custom styles to the page."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:119
-msgid "Icon Animation"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:120
-msgid ""
-"Breathe new life into your site's buttons. This capability lets you "
-"transform your plain static icons into lively, interactive symbols. Be "
-"spoilt for choice with seven distinct options for animations."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:123
-msgid "Main Button Animation"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:124
-msgid ""
-"Upgrade your web navigation with engaging visual elements by animating your "
-"main button. Choose from an array of 11 distinct animations to heighten the "
-"main button's visual appeal. This feature could significantly captivate your "
-"visitors' attention and foster a more immersive browsing experience."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:127
-msgid "Sub-Button Display Animation"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:128
-msgid ""
-"With the provision of pre-configured animation options for sub-button "
-"unveiling, you can add a dynamic flair to your webpage. While the standard "
-"setting renders them with a 'Fade' effect, this feature enhances "
-"customization by offering 8 unique animation styles. This versatile "
-"functionality enables you to tailor the sub-button display animation to "
-"match your site's aesthetics."
-msgstr ""
-
-#: includes/pages/6.pro-features.php:133 includes/settings/6.display.php:30
+#: admin/pages/6.pro.php:128 admin/settings/options/5.rules.php:9
 msgid "Display Rules"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:134
+#: admin/pages/6.pro.php:129
 msgid ""
-"Choose to display or hide the element on specific parts of your site, such "
-"as home page, blog page, archive pages, individual posts or pages, custom "
-"post types."
+"Control exactly where your popup appear using page types, post categories/"
+"tags, author pages, taxonomies and date archives."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:137 includes/settings/6.display.php:45
+#: admin/pages/6.pro.php:133
 msgid "Devices Rules"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:138
+#: admin/pages/6.pro.php:134
 msgid ""
-"Adjust visibility based on the device the visitor is using, such as desktop "
-"or mobile."
+"Ensure optimal menu visibility across all devices with options to hide/"
+"remove on specific screen sizes."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:141
-msgid "Users Rules"
+#: admin/pages/6.pro.php:138
+msgid "User Role Permissions"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:142
+#: admin/pages/6.pro.php:139
 msgid ""
-"Control visibility based on the user's status. For example, you might show "
-"or hide elements depending on whether a user is logged in, what user role "
-"they have (like Subscriber, Contributor, Administrator), or even target "
-"specific users."
+"Define which user roles (e.g., Administrator, Editor, Author) have the "
+"ability to see the menu items. This can be helpful for displaying internal "
+"menus relevant only to website administrators or managing menus for specific "
+"user groups."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:145
-msgid "Browsers Rules"
+#: admin/pages/6.pro.php:143
+msgid "Multilingual Support"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:146
+#: admin/pages/6.pro.php:144
 msgid ""
-"This powerful feature allows you to tailor your content to the specific "
-"browser your visitor is using. With Browser Rules, you can create unique "
-"experiences for users depending on their browser type, such as Chrome, "
-"Firefox, Safari, or Edge."
+"For websites catering to a global audience, Float Menu Pro allows you to "
+"restrict menu visibility to specific languages. This ensures users only see "
+"menus relevant to their chosen language setting. "
 msgstr ""
 
-#: includes/pages/6.pro-features.php:149
-msgid "Language Rule"
+#: admin/pages/6.pro.php:148
+msgid "Scheduling"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:150
+#: admin/pages/6.pro.php:149
 msgid ""
-"If your site is multilingual, you can decide which elements appear for each "
-"language."
+"Schedule menu appearances based on specific days, times, and dates. This "
+"allows you to promote temporary events or campaigns without cluttering your "
+"website permanently. "
 msgstr ""
 
-#: includes/pages/6.pro-features.php:153
-msgid "Schedule"
+#: admin/pages/6.pro.php:153
+msgid "Browser Compatibility"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:154
+#: admin/pages/6.pro.php:154
 msgid ""
-"Set the element to appear or disappear during certain timeframes. This can "
-"be useful for time-limited offers or seasonal events."
+"Ensure your menus display correctly across a wide range of browsers. If "
+"necessary, you can choose to hide menus for specific browsers to address "
+"compatibility issues with outdated software versions."
 msgstr ""
 
-#: includes/pages/6.pro-features.php:163
-msgid "what you get"
+#: admin/settings/2.vertical.php:91 admin/settings/3.horizontal.php:91
+msgid "Add Button"
 msgstr ""
 
-#: includes/pages/6.pro-features.php:164
-msgid "PRO Features"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:169
-msgid "Get More with Pro"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:171
-msgid "Demo"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:174
-msgid "Functionality"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:199 includes/settings/1.main-button.php:49
-#: includes/settings/2.vertical.php:56 includes/settings/2.vertical.php:153
-#: includes/settings/3.horizontal.php:56 includes/settings/3.horizontal.php:151
-msgid "Icons"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:224
-msgid "Customize"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:249
-#: includes/settings/options/main-button.php:117
-#: includes/settings/options/sub-buttons.php:102
-msgid "Animation"
-msgstr ""
-
-#: includes/pages/6.pro-features.php:274 includes/settings/6.display.php:25
-msgid "Display Conditions"
-msgstr ""
-
-#: includes/pages/changelog.php:13
-msgid "What’s New"
-msgstr ""
-
-#: includes/pages/changelog.php:15
-msgid "Changelog"
-msgstr ""
-
-#: includes/pages/sidebar.php:24
-msgid "Publish"
-msgstr ""
-
-#: includes/settings/1.main-button.php:22
-#: includes/settings/options/main-button.php:10
-msgid "Main Button"
-msgstr ""
-
-#: includes/settings/1.main-button.php:48 includes/settings/2.vertical.php:55
-#: includes/settings/2.vertical.php:152 includes/settings/3.horizontal.php:55
-#: includes/settings/3.horizontal.php:150
-msgid "Type"
-msgstr ""
-
-#: includes/settings/1.main-button.php:50 includes/settings/2.vertical.php:57
-#: includes/settings/2.vertical.php:154 includes/settings/3.horizontal.php:57
-#: includes/settings/3.horizontal.php:152 includes/settings/4.style.php:15
-msgid "Style"
-msgstr ""
-
-#: includes/settings/1.main-button.php:51 includes/settings/2.vertical.php:58
-#: includes/settings/2.vertical.php:155 includes/settings/3.horizontal.php:58
-#: includes/settings/3.horizontal.php:153
-msgid "Attributes"
-msgstr ""
-
-#: includes/settings/2.vertical.php:21 includes/settings/3.horizontal.php:22
-msgid "Sub Buttons"
-msgstr ""
-
-#: includes/settings/2.vertical.php:122 includes/settings/3.horizontal.php:120
-msgid "Add Item"
-msgstr ""
-
-#: includes/settings/4.style.php:19 includes/settings/options/display.php:11
-#: includes/settings/options/display.php:14
-msgid "General"
-msgstr ""
-
-#: includes/settings/4.style.php:30 includes/settings/options/style.php:11
-msgid "Position"
-msgstr ""
-
-#: includes/settings/4.style.php:42
-msgid "Button Size"
-msgstr ""
-
-#: includes/settings/4.style.php:52
-#: includes/settings/options/main-button.php:26
-#: includes/settings/options/sub-buttons.php:19
-msgid "Tooltip"
-msgstr ""
-
-#: includes/settings/6.display.php:66 includes/settings/options/display.php:170
-msgid "Other"
-msgstr ""
-
-#: includes/settings/options/display.php:12
-msgid "Everywhere"
-msgstr ""
-
-#: includes/settings/options/display.php:20
-msgid "Home Page"
-msgstr ""
-
-#: includes/settings/options/display.php:21
-msgid "Posts Page"
-msgstr ""
-
-#: includes/settings/options/display.php:22
-msgid "Search Pages"
-msgstr ""
-
-#: includes/settings/options/display.php:23
-msgid "404 Pages"
-msgstr ""
-
-#: includes/settings/options/display.php:24
-msgid "Archive Page"
-msgstr ""
-
-#: includes/settings/options/display.php:33
-msgid "Everyday"
-msgstr ""
-
-#: includes/settings/options/display.php:34
-msgid "Monday"
-msgstr ""
-
-#: includes/settings/options/display.php:35
-msgid "Tuesday"
-msgstr ""
-
-#: includes/settings/options/display.php:36
-msgid "Wednesday"
-msgstr ""
-
-#: includes/settings/options/display.php:37
-msgid "Thursday"
-msgstr ""
-
-#: includes/settings/options/display.php:38
-msgid "Friday"
-msgstr ""
-
-#: includes/settings/options/display.php:39
-msgid "Saturday"
-msgstr ""
-
-#: includes/settings/options/display.php:40
-msgid "Sunday"
-msgstr ""
-
-#: includes/settings/options/display.php:47
-msgid "Display"
-msgstr ""
-
-#: includes/settings/options/display.php:56
-msgid "Is or is not"
-msgstr ""
-
-#: includes/settings/options/display.php:65
-msgid "Enter ID's"
-msgstr ""
-
-#: includes/settings/options/display.php:67
-msgid "Enter IDs, separated by comma."
-msgstr ""
-
-#: includes/settings/options/display.php:73
-msgid "Specific page types"
-msgstr ""
-
-#: includes/settings/options/display.php:82
-#: includes/settings/options/display.php:98
-msgid "Don't show on screens more"
-msgstr ""
-
-#: includes/settings/options/display.php:83
-#: includes/settings/options/display.php:99
-#: includes/settings/options/display.php:198
-#: includes/settings/options/display.php:221
-#: includes/settings/options/main-button.php:28
-#: includes/settings/options/main-button.php:36
-#: includes/settings/options/main-button.php:53
-#: includes/settings/options/main-button.php:76
-#: includes/settings/options/main-button.php:155
-#: includes/settings/options/settings.php:50
-#: includes/settings/options/settings.php:57
-#: includes/settings/options/settings.php:64
-#: includes/settings/options/sub-buttons.php:21
-#: includes/settings/options/sub-buttons.php:29
-#: includes/settings/options/sub-buttons.php:61
-#: includes/settings/options/sub-buttons.php:140
-msgid "Enable"
-msgstr ""
-
-#: includes/settings/options/display.php:89
-#: includes/settings/options/display.php:105
-msgid "Screen width"
-msgstr ""
-
-#: includes/settings/options/display.php:116
-msgid "Users"
-msgstr ""
-
-#: includes/settings/options/display.php:118
-msgid "All users"
-msgstr ""
-
-#: includes/settings/options/display.php:119
-msgid "Authorized Users"
-msgstr ""
-
-#: includes/settings/options/display.php:120
-msgid "Unauthorized Users"
-msgstr ""
-
-#: includes/settings/options/display.php:128
-msgid "Opera"
-msgstr ""
-
-#: includes/settings/options/display.php:129
-#: includes/settings/options/display.php:136
-#: includes/settings/options/display.php:143
-#: includes/settings/options/display.php:150
-#: includes/settings/options/display.php:157
-#: includes/settings/options/display.php:164
-#: includes/settings/options/display.php:171
-#: includes/settings/options/display.php:235
-msgid "Disable"
-msgstr ""
-
-#: includes/settings/options/display.php:135
-msgid "Microsoft Edge"
-msgstr ""
-
-#: includes/settings/options/display.php:142
-msgid "Chrome"
-msgstr ""
-
-#: includes/settings/options/display.php:149
-msgid "Safari"
-msgstr ""
-
-#: includes/settings/options/display.php:156
-msgid "Firefox"
-msgstr ""
-
-#: includes/settings/options/display.php:163
-msgid "Internet Explorer"
-msgstr ""
-
-#: includes/settings/options/display.php:178
-msgid "Weekday"
-msgstr ""
-
-#: includes/settings/options/display.php:185
-msgid "Start time"
-msgstr ""
-
-#: includes/settings/options/display.php:191
-msgid "End time"
-msgstr ""
-
-#: includes/settings/options/display.php:197
-msgid "Define Dates"
-msgstr ""
-
-#: includes/settings/options/display.php:205
-msgid "Date From"
-msgstr ""
-
-#: includes/settings/options/display.php:212
-msgid "Date To"
-msgstr ""
-
-#: includes/settings/options/display.php:220
-msgid "Depending on the language"
-msgstr ""
-
-#: includes/settings/options/display.php:227
-msgid "Language"
-msgstr ""
-
-#: includes/settings/options/display.php:234
-msgid "Font Awesome"
-msgstr ""
-
-#: includes/settings/options/main-button.php:19
-#: includes/settings/options/sub-buttons.php:12
+#: admin/settings/options/1.main-button.php:13
+#: admin/settings/options/2.vertical.php:14
+#: admin/settings/options/3.horizontal.php:14
 msgid "Label Text"
 msgstr ""
 
-#: includes/settings/options/main-button.php:34
-#: includes/settings/options/main-button.php:51
-#: includes/settings/options/sub-buttons.php:27
-msgid "Hold open"
+#: admin/settings/options/1.main-button.php:18
+#: admin/settings/options/2.vertical.php:19
+#: admin/settings/options/3.horizontal.php:19
+#: admin/settings/options/4.settings.php:85
+msgid "Tooltip"
 msgstr ""
 
-#: includes/settings/options/main-button.php:43
-#: includes/settings/options/sub-buttons.php:36
+#: admin/settings/options/1.main-button.php:19
+#: admin/settings/options/1.main-button.php:120
+#: admin/settings/options/2.vertical.php:20
+#: admin/settings/options/3.horizontal.php:20
+msgid "Enable"
+msgstr ""
+
+#: admin/settings/options/1.main-button.php:27
+#: admin/settings/options/2.vertical.php:28
+#: admin/settings/options/3.horizontal.php:28
 msgid "Button type"
 msgstr ""
 
-#: includes/settings/options/main-button.php:66
-#: includes/settings/options/sub-buttons.php:51
-msgid "Social Networks"
+#: admin/settings/options/1.main-button.php:29
+msgid "Main Button"
 msgstr ""
 
-#: includes/settings/options/main-button.php:74
-#: includes/settings/options/sub-buttons.php:59
-msgid "Open in a new tab"
+#: admin/settings/options/1.main-button.php:30
+#: admin/settings/options/1.main-button.php:42
+#: admin/settings/options/2.vertical.php:30
+#: admin/settings/options/2.vertical.php:42
+#: admin/settings/options/3.horizontal.php:30
+#: admin/settings/options/3.horizontal.php:42
+msgid "Link"
 msgstr ""
 
-#: includes/settings/options/main-button.php:82
-#: includes/settings/options/sub-buttons.php:67
-msgid "Select Language"
+#: admin/settings/options/1.main-button.php:31
+#: admin/settings/options/2.vertical.php:31
+#: admin/settings/options/3.horizontal.php:31
+msgid "Login"
 msgstr ""
 
-#: includes/settings/options/main-button.php:90
-#: includes/settings/options/sub-buttons.php:75
-msgid "Menus"
+#: admin/settings/options/1.main-button.php:32
+#: admin/settings/options/2.vertical.php:32
+#: admin/settings/options/3.horizontal.php:32
+msgid "Logout"
 msgstr ""
 
-#: includes/settings/options/main-button.php:99
-#: includes/settings/options/sub-buttons.php:84
-msgid "Icon type"
+#: admin/settings/options/1.main-button.php:33
+#: admin/settings/options/2.vertical.php:33
+#: admin/settings/options/3.horizontal.php:33
+msgid "Register"
 msgstr ""
 
-#: includes/settings/options/main-button.php:108
-#: includes/settings/options/main-button.php:161
-#: includes/settings/options/sub-buttons.php:93
-#: includes/settings/options/sub-buttons.php:146
+#: admin/settings/options/1.main-button.php:34
+#: admin/settings/options/2.vertical.php:34
+#: admin/settings/options/3.horizontal.php:34
+msgid "Lostpassword"
+msgstr ""
+
+#: admin/settings/options/1.main-button.php:36
+#: admin/settings/options/2.vertical.php:36
+#: admin/settings/options/3.horizontal.php:36
+msgid "Telephone"
+msgstr ""
+
+#: admin/settings/options/1.main-button.php:58
+#: admin/settings/options/2.vertical.php:58
+#: admin/settings/options/3.horizontal.php:58
+#: admin/settings/options/4.settings.php:105
+msgid "Background"
+msgstr ""
+
+#: admin/settings/options/1.main-button.php:68
+#: admin/settings/options/2.vertical.php:68
+#: admin/settings/options/3.horizontal.php:68
+msgid "Hover Background"
+msgstr ""
+
+#: admin/settings/options/1.main-button.php:78
+#: admin/settings/options/2.vertical.php:78
+#: admin/settings/options/3.horizontal.php:78
+#: admin/settings/options/4.settings.php:115
+msgid "Color"
+msgstr ""
+
+#: admin/settings/options/1.main-button.php:88
+#: admin/settings/options/2.vertical.php:88
+#: admin/settings/options/3.horizontal.php:88
+msgid "Hover Color"
+msgstr ""
+
+#: admin/settings/options/1.main-button.php:99
+#: admin/settings/options/2.vertical.php:99
+#: admin/settings/options/3.horizontal.php:99
+msgid "Icon Type"
+msgstr ""
+
+#: admin/settings/options/1.main-button.php:102
+#: admin/settings/options/1.main-button.php:108
+#: admin/settings/options/1.main-button.php:125
+#: admin/settings/options/2.vertical.php:102
+#: admin/settings/options/2.vertical.php:108
+#: admin/settings/options/3.horizontal.php:102
+#: admin/settings/options/3.horizontal.php:108
 msgid "Icon"
 msgstr ""
 
-#: includes/settings/options/main-button.php:125
-#: includes/settings/options/sub-buttons.php:110
-msgid "Image URL"
+#: admin/settings/options/1.main-button.php:119
+msgid "Close button"
 msgstr ""
 
-#: includes/settings/options/main-button.php:132
-#: includes/settings/options/sub-buttons.php:117
-msgid "Image Alt"
-msgstr ""
-
-#: includes/settings/options/main-button.php:139
-#: includes/settings/options/sub-buttons.php:124
-msgid "Emoji, Symbol"
-msgstr ""
-
-#: includes/settings/options/main-button.php:146
-#: includes/settings/options/sub-buttons.php:131
-msgid "Set Class"
-msgstr ""
-
-#: includes/settings/options/main-button.php:153
-#: includes/settings/options/sub-buttons.php:138
-msgid "Close Icon"
-msgstr ""
-
-#: includes/settings/options/main-button.php:171
-msgid "Button animation"
-msgstr ""
-
-#: includes/settings/options/main-button.php:178
-msgid "Animation count"
-msgstr ""
-
-#: includes/settings/options/main-button.php:187
-msgid "Animation delay"
-msgstr ""
-
-#: includes/settings/options/main-button.php:197
-#: includes/settings/options/sub-buttons.php:156
-msgid "Button color"
-msgstr ""
-
-#: includes/settings/options/main-button.php:205
-#: includes/settings/options/sub-buttons.php:164
-msgid "Button hover color"
-msgstr ""
-
-#: includes/settings/options/main-button.php:212
-#: includes/settings/options/sub-buttons.php:171
-msgid "Icon color"
-msgstr ""
-
-#: includes/settings/options/main-button.php:220
-#: includes/settings/options/sub-buttons.php:179
-msgid "Icon hover color"
-msgstr ""
-
-#: includes/settings/options/main-button.php:228
-#: includes/settings/options/sub-buttons.php:193
+#: admin/settings/options/1.main-button.php:140
+#: admin/settings/options/2.vertical.php:128
+#: admin/settings/options/3.horizontal.php:128
 msgid "Class for element"
 msgstr ""
 
-#: includes/settings/options/main-button.php:234
-#: includes/settings/options/sub-buttons.php:199
+#: admin/settings/options/1.main-button.php:145
+#: admin/settings/options/2.vertical.php:133
+#: admin/settings/options/3.horizontal.php:133
 msgid "Attribute: rel"
 msgstr ""
 
-#: includes/settings/options/main-button.php:240
-msgid "Extra class"
+#: admin/settings/options/1.main-button.php:150
+msgid "Extra classl"
 msgstr ""
 
-#: includes/settings/options/settings.php:11
-msgid "Show after Position"
+#: admin/settings/options/2.vertical.php:123
+#: admin/settings/options/3.horizontal.php:123
+msgid "ID for element"
 msgstr ""
 
-#: includes/settings/options/settings.php:20
-msgid "Hide after Position"
+#: admin/settings/options/4.settings.php:10
+#: admin/settings/options/4.settings.php:15
+msgid "Position"
 msgstr ""
 
-#: includes/settings/options/settings.php:29
-msgid "Timer for display"
+#: admin/settings/options/4.settings.php:18
+msgid "Bottom Right"
 msgstr ""
 
-#: includes/settings/options/settings.php:39
-msgid "Timer for hide"
+#: admin/settings/options/4.settings.php:19
+msgid "Bottom Left"
 msgstr ""
 
-#: includes/settings/options/settings.php:49
-msgid "By click on page"
+#: admin/settings/options/4.settings.php:20
+msgid "Bottom Center"
 msgstr ""
 
-#: includes/settings/options/settings.php:56
-msgid "By click on Sub button"
+#: admin/settings/options/4.settings.php:21
+msgid "Top Right"
 msgstr ""
 
-#: includes/settings/options/settings.php:65
-msgid "Hide other buttons if current button open."
+#: admin/settings/options/4.settings.php:22
+msgid "Top Left"
 msgstr ""
 
-#: includes/settings/options/style.php:18
-msgid "Vertical offset"
+#: admin/settings/options/4.settings.php:23
+msgid "Top Center"
 msgstr ""
 
-#: includes/settings/options/style.php:27
-msgid "Horizontal offset"
+#: admin/settings/options/4.settings.php:24
+msgid "Left"
 msgstr ""
 
-#: includes/settings/options/style.php:36
-msgid "Sub-buttons Animation"
+#: admin/settings/options/4.settings.php:25
+msgid "Right"
 msgstr ""
 
-#: includes/settings/options/style.php:51
-msgid "Size"
+#: admin/settings/options/4.settings.php:32
+msgid "Appearance"
 msgstr ""
 
-#: includes/settings/options/style.php:59
-msgid "Button font size"
+#: admin/settings/options/4.settings.php:37
+msgid "Shape"
 msgstr ""
 
-#: includes/settings/options/style.php:68
-msgid "Button box size"
+#: admin/settings/options/4.settings.php:40
+msgid "Circle"
 msgstr ""
 
-#: includes/settings/options/style.php:78
-msgid "Sub Buttons size"
+#: admin/settings/options/4.settings.php:41
+msgid "Ellipse"
 msgstr ""
 
-#: includes/settings/options/style.php:87
-msgid "Sub Buttons box size"
+#: admin/settings/options/4.settings.php:42
+msgid "Square"
 msgstr ""
 
-#: includes/settings/options/style.php:96
+#: admin/settings/options/4.settings.php:43
+msgid "Rounded square"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:49
 msgid "Shadow"
 msgstr ""
 
-#: includes/settings/options/style.php:105
+#: admin/settings/options/4.settings.php:51
+msgid "Yes"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:52
+msgid "No"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:58
+msgid "Sub-buttons Animation"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:60
+msgid "Fade"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:69
+#: admin/settings/options/4.settings.php:74
+msgid "Size"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:76
+msgid "Small"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:77
+msgid "Medium"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:78
+msgid "Large"
+msgstr ""
+
+#: admin/settings/options/4.settings.php:90
 msgid "Font size"
 msgstr ""
 
-#: includes/settings/options/style.php:114
-msgid "Size for main button"
+#: admin/settings/options/4.settings.php:92
+msgid "Default"
 msgstr ""
 
-#: includes/settings/options/style.php:123
-msgid "Size for main sub buttons"
+#: admin/settings/options/5.rules.php:14
+msgid "Display"
 msgstr ""
 
-#: includes/settings/options/style.php:132
-msgid "Tooltip background"
+#: admin/settings/options/5.rules.php:17 admin/settings/options/5.rules.php:20
+msgid "General"
 msgstr ""
 
-#: includes/settings/options/style.php:138
-msgid "Tooltip color"
+#: admin/settings/options/5.rules.php:18 classes/Admin/ListTable.php:112
+msgid "Shortcode"
 msgstr ""
 
-#: includes/settings/options/sub-buttons.php:187
-msgid "ID for element"
+#: admin/settings/options/5.rules.php:19
+msgid "Everywhere"
+msgstr ""
+
+#: admin/settings/options/5.rules.php:27
+msgid "Responsive Visibility"
+msgstr ""
+
+#: admin/settings/options/5.rules.php:34
+msgid "Hide on smaller screens"
+msgstr ""
+
+#: admin/settings/options/5.rules.php:45
+msgid "Hide on larger screens"
+msgstr ""
+
+#: admin/settings/options/5.rules.php:58
+msgid "Other"
+msgstr ""
+
+#: admin/settings/options/5.rules.php:63
+msgid "Disable Font Awesome Icon"
+msgstr ""
+
+#: admin/settings/options/5.rules.php:65
+msgid "Disable"
+msgstr ""
+
+#: admin/settings/sidebar.php:24
+msgid "Publish"
+msgstr ""
+
+#: admin/settings/sidebar.php:28 classes/Admin/ListTable.php:117
+msgid "Status"
+msgstr ""
+
+#: admin/settings/sidebar.php:31 classes/Admin/ListTable.php:295
+msgid "Deactivate"
+msgstr ""
+
+#: admin/settings/sidebar.php:36 classes/Admin/ListTable.php:114
+msgid "Test mode"
+msgstr ""
+
+#: admin/settings/sidebar.php:39 classes/Admin/ListTable.php:294
+msgid "Activate"
+msgstr ""
+
+#: admin/settings/sidebar.php:86 classes/Admin/ListTable.php:73
+msgid "Delete"
+msgstr ""
+
+#: admin/settings/sidebar.php:106
+msgid "PRO VERSION"
+msgstr ""
+
+#: classes/Admin/AdminNotices.php:57
+msgid "Item Saved"
+msgstr ""
+
+#: classes/Admin/AdminNotices.php:63
+msgid "Item Remove"
+msgstr ""
+
+#: classes/Admin/Dashboard.php:33
+msgid "Settings"
+msgstr ""
+
+#. translators: 1: Rating link (URL), 2: Plugin name
+#: classes/Admin/Dashboard.php:47
+#, php-format
+msgid ""
+"Thank you for using <b>%2$s</b>! Please <a href=\"%1$s\" "
+"target=\"_blank\">rate us</a>"
+msgstr ""
+
+#: classes/Admin/Dashboard.php:139
+msgid "Add New"
+msgstr ""
+
+#: classes/Admin/Dashboard.php:178
+msgid "Update"
+msgstr ""
+
+#: classes/Admin/Demo.php:18
+msgid "Simple Floating Menu"
+msgstr ""
+
+#: classes/Admin/Demo.php:22
+msgid "Social Media Menu"
+msgstr ""
+
+#: classes/Admin/Demo.php:26
+msgid "Navigation Menu"
+msgstr ""
+
+#: classes/Admin/Demo.php:30
+msgid "Quick Actions Menu"
+msgstr ""
+
+#: classes/Admin/Demo.php:36
+msgid "Share Buttons"
+msgstr ""
+
+#: classes/Admin/Demo.php:41
+msgid "Save Content"
+msgstr ""
+
+#: classes/Admin/Demo.php:46
+msgid "Messaging"
+msgstr ""
+
+#: classes/Admin/Demo.php:56
+msgid "Icon with Text"
+msgstr ""
+
+#: classes/Admin/Demo.php:61
+msgid "Scrolling"
+msgstr ""
+
+#: classes/Admin/Demo.php:66
+msgid "Icon animations"
+msgstr ""
+
+#: classes/Admin/Demo.php:71
+msgid "Actions"
+msgstr ""
+
+#: classes/Admin/Demo.php:77
+msgid "Show after Position "
+msgstr ""
+
+#: classes/Admin/Demo.php:82
+msgid " Hide after Position "
+msgstr ""
+
+#: classes/Admin/Demo.php:87
+msgid "Menu with Custom Radius"
+msgstr ""
+
+#: classes/Admin/Demo.php:92
+msgid "Horizontal Menu"
+msgstr ""
+
+#: classes/Admin/Demo.php:98
+msgid "Contact"
+msgstr ""
+
+#: classes/Admin/Demo.php:107
+msgid "Load Example"
+msgstr ""
+
+#: classes/Admin/Demo.php:118
+msgid "Name"
+msgstr ""
+
+#: classes/Admin/Demo.php:121
+msgid "Preview Link"
+msgstr ""
+
+#: classes/Admin/Demo.php:124
+msgid "Action"
+msgstr ""
+
+#: classes/Admin/Demo.php:133
+msgid "Preview"
+msgstr ""
+
+#: classes/Admin/Demo.php:138
+msgid "Download"
+msgstr ""
+
+#: classes/Admin/Demo.php:142
+msgid "Available in Pro"
+msgstr ""
+
+#: classes/Admin/ImporterExporter.php:36
+msgid "Export All Data"
+msgstr ""
+
+#: classes/Admin/ImporterExporter.php:55
+msgid "Update item if item already exists."
+msgstr ""
+
+#: classes/Admin/ImporterExporter.php:62
+msgid "Import"
+msgstr ""
+
+#: classes/Admin/ImporterExporter.php:81 classes/Admin/ImporterExporter.php:94
+msgid "Please select a file to import"
+msgstr ""
+
+#: classes/Admin/ImporterExporter.php:82 classes/Admin/ImporterExporter.php:89
+#: classes/Admin/ImporterExporter.php:95
+msgid "Error"
+msgstr ""
+
+#: classes/Admin/ImporterExporter.php:88
+msgid "Please upload a valid .json file"
+msgstr ""
+
+#: classes/Admin/ListTable.php:65
+msgid "Untitled"
+msgstr ""
+
+#: classes/Admin/ListTable.php:69
+msgid "Edit"
+msgstr ""
+
+#: classes/Admin/ListTable.php:71
+msgid "Duplicate"
+msgstr ""
+
+#: classes/Admin/ListTable.php:75
+msgid "Export"
+msgstr ""
+
+#: classes/Admin/ListTable.php:79
+msgid "View"
+msgstr ""
+
+#: classes/Admin/ListTable.php:111
+msgid "Title"
+msgstr ""
+
+#: classes/Admin/ListTable.php:113
+msgid "Tag"
+msgstr ""
+
+#: classes/Admin/ListTable.php:115 classes/Admin/ListTable.php:118
+msgid "The item will only be displayed for administrators."
+msgstr ""
+
+#: classes/Admin/ListTable.php:153
+msgid "UnTitle"
+msgstr ""
+
+#: classes/Admin/ListTable.php:154
+msgid "Click for Deactivate."
+msgstr ""
+
+#: classes/Admin/ListTable.php:155
+msgid "Click for Activate."
+msgstr ""
+
+#: classes/Admin/ListTable.php:156 classes/Admin/ListTable.php:165
+msgid "OFF"
+msgstr ""
+
+#: classes/Admin/ListTable.php:158 classes/Admin/ListTable.php:167
+msgid "ON"
+msgstr ""
+
+#: classes/Admin/ListTable.php:162
+msgid "Click for OFF."
+msgstr ""
+
+#: classes/Admin/ListTable.php:163
+msgid "Click for ON."
+msgstr ""
+
+#: classes/Admin/ListTable.php:293
+msgid "Delate"
+msgstr ""
+
+#: classes/Admin/ListTable.php:296
+msgid "Test mode ON"
+msgstr ""
+
+#: classes/Admin/ListTable.php:297
+msgid "Test mode OFF"
+msgstr ""
+
+#: classes/Admin/ListTable.php:346
+msgid "Filter by tag"
+msgstr ""
+
+#: classes/Admin/ListTable.php:349
+msgid "All"
+msgstr ""
+
+#: classes/Admin/ListTable.php:362
+msgid "Filter"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:24
+msgid "Support Form"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:29
+msgid "Your Name"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:37
+msgid "Contact email"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:49
+msgid "Link to the issue"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:58
+msgid "Message type"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:61
+msgid "Issue"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:62
+msgid "Idea"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:70
+msgid "Plugin"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:79
+msgid "License Key"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:90
+msgid "Enter Your Message"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:101
+msgid "Send to Support"
+msgstr ""
+
+#: classes/Admin/SupportForm.php:168
+msgid "Your message has been sent to the support team."
+msgstr ""
+
+#: classes/Admin/SupportForm.php:171
+msgid "Sorry, but message did not send. Please, contact us via support page."
+msgstr ""
+
+#: classes/Admin/SupportForm.php:184
+msgid "Please fill in all the form fields below."
+msgstr ""
+
+#: floating-button.php:148 floating-button.php:159
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: includes/class-wow-company.php:27
+msgid "WordPress plugins from Wow-Company"
+msgstr ""
+
+#: includes/class-wow-company.php:28
+msgid "Wow Plugins"
 msgstr ""
 
 #. Plugin Name of the plugin/theme

@@ -23,12 +23,10 @@ const GoalsSettings = () => {
   const { isLicenseValid } = useLicenseStore();
   const [ predefinedGoalsVisible, setPredefinedGoalsVisible ] = useState( false );
   const { getValue } = useSettingsData();
-  const cookieless = getValue( 'enable_cookieless_tracking' );
 
-  const handleAddPredefinedGoal = ( goal ) => {
-    addPredefinedGoal( goal.id, goal.type, cookieless );
-
+  const handleAddPredefinedGoal = async ( goal ) => {
     setPredefinedGoalsVisible( false );
+    await addPredefinedGoal( goal.id );
   };
 
   const getGoalTypeNice = ( type ) => {
@@ -60,7 +58,7 @@ const GoalsSettings = () => {
               'burst-statistics'
             )}
       </p>
-      <div className="burst-settings-goals__list">
+      <div className="flex flex-wrap flex-col gap-4 mt-4">
         {0 < goals.length &&
           goals.map( ( goal, index ) => {
             return (
@@ -77,9 +75,9 @@ const GoalsSettings = () => {
           })}
 
         {( isLicenseValid() || 0 === goals.length ) && (
-          <div className={'flex items-center gap-2'}>
+          <div className="flex items-center gap-2">
             <button
-              className={'burst-button burst-button--secondary'}
+              className="burst-button burst-button--secondary"
               type={'button'}
               onClick={addGoal}
             >
@@ -120,26 +118,11 @@ const GoalsSettings = () => {
                     return (
                       <div
                         key={index}
-                        className={
-                          'hook' === goal.type && cookieless ?
-                            'pointer-events-none relative z-50 flex cursor-not-allowed flex-row gap-1 rounded-lg border border-gray-400 bg-gray-100 p-2 opacity-50' :
-                            'relative z-50 flex cursor-pointer flex-row gap-1 rounded-lg border border-gray-400 bg-gray-100 p-2'
-                        }
+                        className={'relative z-50 flex cursor-pointer flex-row gap-1 rounded-lg border border-gray-400 bg-gray-100 p-2'}
                         onClick={() => handleAddPredefinedGoal( goal )}
                       >
                         <Icon name={'plus'} size={18} color="gray" />
                         {goal.title + ' (' + getGoalTypeNice( goal.type ) + ')'}
-                        {'hook' === goal.type &&
-                          ( cookieless ? (
-                            <Icon
-                              name={'error'}
-                              color={'black'}
-                              tooltip={__(
-                                'Not available in combination with cookieless tracking',
-                                'burst-statistics'
-                              )}
-                            />
-                          ) : null )}
                       </div>
                     );
                   })}
@@ -160,7 +143,7 @@ const GoalsSettings = () => {
             )}
             <div className="ml-auto text-right">
               <p
-                className={'rounded-lg bg-gray-300 p-1 px-3 text-sm text-gray'}
+                className="rounded-lg bg-gray-300 p-1 px-3 text-sm text-gray"
               >
                 {isLicenseValid() ? (
                   <> {goals.length} / &#8734; </>
@@ -172,18 +155,18 @@ const GoalsSettings = () => {
           </div>
         )}
         {! isLicenseValid() && (
-          <div className={'burst-settings-goals__upgrade'}>
+          <div className="flex gap-4 p-4 bg-gray-200 rounded-md mt-4 justify-start items-center border-2 border-gray-300">
             <Icon name={'goals'} size={24} color="gray" />
             <h4>{__( 'Want more goals?', 'burst-statistics' )}</h4>
             <div className="burst-divider" />
-            <p>{__( 'Upgrade to Burst Pro', 'burst-statistics' )}</p>
+            <p className="text-sm text-gray">{__( 'Upgrade to Burst Pro', 'burst-statistics' )}</p>
             <a
               href={burst_get_website_url( '/pricing/', {
                 utm_source: 'goals-setting',
                 utm_content: 'more-goals'
               })}
               target={'_blank'}
-              className={'burst-button burst-button--pro'}
+              className="ml-auto burst-button burst-button--pro"
             >
               {__( 'Upgrade to Pro', 'burst-statistics' )}
             </a>

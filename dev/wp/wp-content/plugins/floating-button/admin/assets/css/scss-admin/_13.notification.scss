@@ -1,0 +1,57 @@
+.wpie-notification {
+  --notification-font-icon: 'WpieIcon';
+  --notification-color: var(--wpie-color-orange);
+  position: relative;
+  //background-color: color-mix(in srgb, var(--notification-color) 7%, white);
+  border-width: 1px;
+  border-style: none;
+  border-color: var(--notification-color);
+  padding-block: 1.25rem;
+  padding-inline: 3rem 1.25rem;
+  border-radius: 4px;
+  margin-block: 10px;
+
+  &:before {
+    position: absolute;
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "\ea05";
+    font-family: var(--notification-font-icon);
+    font-weight: 700;
+    font-size: 1.5em;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wpie-color-orange);
+  }
+
+  &:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2rem;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background-color: var(--wpie-field-border);
+  }
+
+
+  a {
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgba(var(--wpie-rgb-blurple));
+    margin-inline: 2px;
+    font-weight: 500;
+  }
+  .wpie-separator:last-child {
+    display: none;
+  }
+
+}
+

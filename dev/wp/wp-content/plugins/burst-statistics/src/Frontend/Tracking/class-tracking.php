@@ -52,7 +52,6 @@ class Tracking {
 	public function track_hit( array $data ): string {
 		// validate & sanitize all data.
 		$sanitized_data = $this->prepare_tracking_data( $data );
-
 		if ( $sanitized_data['referrer'] === 'spammer' ) {
 			self::error_log( 'Referrer spam prevented.' );
 			return 'referrer is spam';
@@ -90,13 +89,11 @@ class Tracking {
 		}
 		$sanitized_data = apply_filters( 'burst_before_track_hit', $sanitized_data, $hit_type, $filtered_previous_hit );
 		$session_arr    = [
-			'last_visited_url'   => $this->create_path( $sanitized_data ),
-			'goal_id'            => false,
-			'city_code'          => $sanitized_data['city_code'] ?? '',
-			'accuracy_radius_km' => $sanitized_data['accuracy_radius_km'] ?? '',
+			'last_visited_url' => $this->create_path( $sanitized_data ),
+			'goal_id'          => false,
+			'city_code'        => $sanitized_data['city_code'] ?? '',
 		];
 		unset( $sanitized_data['city_code'] );
-		unset( $sanitized_data['accuracy_radius_km'] );
 		// update burst_sessions table.
 		// Get the last record with the same uid within 30 minutes. If it exists, use session_id. If not, create a new session.
 
@@ -120,6 +117,7 @@ class Tracking {
 
 		// if there is a fingerprint use that instead of uid.
 		if ( $sanitized_data['fingerprint'] && ! $sanitized_data['uid'] ) {
+			$this->store_fingerprint_in_session( $sanitized_data['fingerprint'] );
 			$sanitized_data['uid'] = $sanitized_data['fingerprint'];
 		}
 		unset( $sanitized_data['fingerprint'] );
@@ -160,18 +158,6 @@ class Tracking {
 			}
 		}
 
-		// update total pageviews count.
-		// we don't do this on high traffic sites.
-		if ( ! get_option( 'burst_is_high_traffic_site' ) ) {
-			$page_url             = isset( $sanitized_data['page_url'] ) ? esc_url_raw( $sanitized_data['host'] . $sanitized_data['page_url'] ) : '';
-			$page_views_to_update = get_option( 'burst_pageviews_to_update', [] );
-			if ( ! in_array( $page_url, $page_views_to_update, true ) ) {
-				$page_views_to_update[ $page_url ] = 1;
-			} else {
-				++$page_views_to_update[ $page_url ];
-			}
-			update_option( 'burst_pageviews_to_update', $page_views_to_update );
-		}
 		return 'success';
 	}
 
@@ -282,6 +268,8 @@ class Tracking {
 			'user_agent'      => null,
 			'time_on_page'    => null,
 			'completed_goals' => null,
+			'page_id'         => null,
+			'page_type'       => null,
 		];
 		$data     = wp_parse_args( $data, $defaults );
 
@@ -305,8 +293,49 @@ class Tracking {
 		$sanitized_data['device_id']          = self::get_lookup_table_id( 'device', $user_agent_data['device'] );
 		$sanitized_data['time_on_page']       = $this->sanitize_time_on_page( $data['time_on_page'] );
 		$sanitized_data['bounce']             = 1;
+		$sanitized_data['page_id']            = (int) $data['page_id'];
+		$sanitized_data['page_type']          = $this->sanitize_page_identifier( $data['page_type'] );
 
 		return $sanitized_data;
+	}
+
+	/**
+	 * Sanitize the page identifier.
+	 *
+	 * @param string|null $page_identifier the page_identifier.
+	 * @return string the sanitized identifier.
+	 */
+	private function sanitize_page_identifier( ?string $page_identifier ): string {
+		if ( empty( $page_identifier ) ) {
+			return '';
+		}
+
+		if ( ! function_exists( 'get_post_types' ) ) {
+			require_once ABSPATH . 'wp-includes/post.php';
+		}
+
+		$page_identifier = trim( $page_identifier );
+		$fixed_values    = [
+			'front-page',
+			'blog-index',
+			'date-archive',
+			'404',
+			'archive-generic',
+			'wc-shop',
+			'tag',
+			'tax',
+			'author',
+			'search',
+			'category',
+			'page',
+			'post',
+		];
+
+		if ( in_array( $page_identifier, $fixed_values, true ) ) {
+			return $page_identifier;
+		}
+
+		return sanitize_title( $page_identifier );
 	}
 
 	/**
@@ -1023,6 +1052,36 @@ class Tracking {
 		unset( $data['host'] );
 		unset( $data['completed_goals'] );
 		return $data;
+	}
+
+
+	/**
+	 * Store fingerprint in PHP session.
+	 *
+	 * @param string $fingerprint The fingerprint to store.
+	 * @return bool True on success, false on failure.
+	 */
+	public function store_fingerprint_in_session( string $fingerprint ): bool {
+		if ( session_status() === PHP_SESSION_NONE ) {
+			session_start();
+		}
+
+		$_SESSION['burst_fingerprint'] = $this->sanitize_fingerprint( $fingerprint );
+
+		return true;
+	}
+
+	/**
+	 * Retrieve fingerprint from PHP session.
+	 *
+	 * @return string The stored fingerprint or empty string if not found.
+	 */
+	public function get_fingerprint_from_session(): string {
+		if ( session_status() === PHP_SESSION_NONE ) {
+			session_start();
+		}
+		$fingerprint = $_SESSION['burst_fingerprint'] ?? '';
+		return $this->sanitize_fingerprint( $fingerprint );
 	}
 
 	/**

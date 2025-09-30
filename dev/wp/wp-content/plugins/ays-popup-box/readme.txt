@@ -3,8 +3,8 @@ Contributors: ays-pro
 Donate link: https://popup-plugin.com
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
-Tested up to: 6.8
-Stable tag: 5.5.1
+Tested up to: 6.8.2
+Stable tag: 5.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,7 +19,7 @@ Popup everything you want! Create informative and promotional popups all in one 
 * [WordPress Popup plugin pricing](https://popup-plugin.com/pricing)
 * [Popup Box FREE demo](https://demo.popup-plugin.com/wordpress-popup-plugin-free-demo/)
 * [Popup Box PRO demo](https://demo.popup-plugin.com)
-* [Popup Box PRO documentation](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)
+* [Popup Box PRO documentation](https://popup-plugin.com/docs)
 
 *In this short video, you can find a quick overview of how to create a popup in WordPress.*
 
@@ -79,7 +79,7 @@ https://www.youtube.com/watch?v=Ofk1mxUF-9g
 
 **What  WordPress Popup Plugin Offers**
 
-Create newsletter subscription forms and collect your target audience for the next marketing campaign. Impressive, right? Moreover, you can add popup videos, yes no popups, iframe elements and so much more using this modal survey plugin. [Export and import](https://ays-pro.com/blog/how-to-export-import-existing-popups-in-wordpress) your popups in seconds. 
+Create newsletter subscription forms and collect your target audience for the next marketing campaign. Impressive, right? Moreover, you can add popup videos, yes no popups, iframe elements and so much more using this modal survey plugin. [Export and import](https://popup-plugin.com/docs/exporting-and-importing-popups-between-sites) your popups in seconds. 
 
 You can have an unlimited number of popups on your website and there can be different popups on different pages of your website. Use [pop-up custom HTML](https://ays-pro.com/blog/how-to-create-a-cta-on-custom-content-popup-with-basic-html) and add new opportunities to your WordPress modal. Other benefits are animation effects and you can have your favorite popup animation effect. And one more great thing! You control every single feature taking into account what you and your website visitors want! This Popup maker plugin is free for a lifetime and comfortable for usage.
 
@@ -174,14 +174,14 @@ So according to selected sizes, you can have a full-screen popup.
 
 You will be able to preview the changes before saving them.
 
-**[PRO](https://popup-plugin.com/pricing) | [DEMO](https://demo.popup-plugin.com) | [DOCUMENTATION](https://ays-pro.com/wordpress-popup-box-plugin-user-manual)**
+**[PRO](https://popup-plugin.com/pricing) | [DEMO](https://demo.popup-plugin.com) | [DOCUMENTATION](https://popup-plugin.com/docs)**
 
 == Why us? What advantages does popup box offer? ==
 
 1. You can create popups of an **unlimited number**.
 1. You can have **different popup boxes for different pages** on one website.
 1. You can write **your own codes** and have an HTML popup.
-1. You can [write shortcodes](https://ays-pro.com/blog/how-to-use-wordpress-shortcodes-with-popup-box) to **use features** from other WordPress plugins as well.
+1. You can [write shortcodes](https://popup-plugin.com/docs/shortcode-type) to **use features** from other WordPress plugins as well.
 1. You can **control** how often, how, and on which pages the popup box will appear.
 1. You can create a **subscription form** WordPress
 1. You can have the best type of **online advertising** using the best popup plugin for WordPress.
@@ -192,7 +192,7 @@ All these points are available with our popup builder. Display pop up with this 
 
 == Set Limitation | Choose how to Open/Close Popup | Customize the Style ==
 
-WordPress Popup plugin has the flexibility to allow you to add limitations to your popups. If you want to display your popup only for the exact amount times or display once per user, you have a chance to do it. The **Limitation tab** in the popup builder plugin is open to give you the power to filter the audience.  
+WordPress Popup plugin has the flexibility to allow you to add limitations to your popups. If you want to display your popup only for the exact amount times or display once per user, you have a chance to do it. The [Limitation tab](https://popup-plugin.com/docs/configuring-limitation-users-tab) in the popup builder plugin is open to give you the power to filter the audience.  
 
 Besides adding the limitations you can take control of your popups and decide how popups open or close. 
 
@@ -275,7 +275,7 @@ There are two ways to install Popup Box: the easy way, when you install Popup Bo
 = 2. Can I pop up more than one modal on the same webpage? =
 
 Yep! Now, you might be wondering why should I pop up several popups on the same webpage. Purposes are plenty!
-Firstly, you can show your subscription forms **as soon as the page is loaded**, then you can provide your advertising offer after a specified time delay with the help of the **Open Delay** option. Moreover, you can display a modal when the user clicks on the assigned CSS element(s) such as buttons, titles, and so on.
+Firstly, you can show your subscription forms **as soon as the page is loaded**, then you can provide your advertising offer after a specified time delay with the help of the [Open Delay](https://popup-plugin.com/docs/showing-a-popup-after-a-time-delay/) option. Moreover, you can display a modal when the user clicks on the assigned CSS element(s) such as buttons, titles, and so on.
 
 = 3. Is the plugin mobile-friendly? =
 
@@ -314,7 +314,7 @@ As you read each word of this page you have already known that the possibilities
 
 = 11. How to upgrade to the Premium version without losing my data? =
 
-Simply and effortlessly! Either you are switching from the free to pro, or the latest version of the pro to the newest one, all your settings/configurations will remain unchanged. In a word, you just need to click on the **Upgrade button** while deactivating the plugin from the *Plugins* section of your WP website. Please check out this [detailed tutorial of the Popup Box WordPress plugin](https://ays-pro.com/wordpress-popup-box-plugin-user-manual#frag_popup_upgrade).
+Simply and effortlessly! Either you are switching from the free to pro, or the latest version of the pro to the newest one, all your settings/configurations will remain unchanged. In a word, you just need to click on the **Upgrade button** while deactivating the plugin from the *Plugins* section of your WP website. Please check out this [detailed tutorial of the Popup Box WordPress plugin](https://popup-plugin.com/docs#frag_popup_upgrade).
 
 = 12. Something does not work or I have a suggestion/pre-sale question. What should I do? =
 
@@ -339,6 +339,17 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 5.5.4 ( September 23, 2025 ) =
+* Improved: Some Styles in the admin dashboard
+* Tested: Compatible up to 6.8.2
+
+= 5.5.3 ( September 16, 2025 ) =
+* Improved: Some changes on the admin dashboard
+
+= 5.5.2 ( September 9, 2025 ) =
+* Added: New documentation links
+* Changed: Some documentation links
 
 = 5.5.1 ( September 2, 2025 ) =
 * Added: Close button padding option

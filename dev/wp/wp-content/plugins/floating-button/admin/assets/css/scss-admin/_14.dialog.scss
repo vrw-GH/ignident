@@ -1,0 +1,85 @@
+.wpie-dialog {
+  width: 600px;
+  max-width: 90%;
+  border: none;
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: var(--wpie-shadow);
+  font-family: sans-serif;
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  table {
+    margin-top: 1rem;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 10px;
+
+  }
+
+  td {
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  th {
+    background: #f8fafc;
+    font-weight: 600;
+    border-radius: 0.35em;
+  }
+
+  .wpie-download {
+    padding: 6px 12px;
+    border: none;
+    background: rgba(var(--wpie-rgb-blurple), 0.92);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      background: rgba(var(--wpie-rgb-blurple));
+    }
+  }
+
+  .wpie-pro {
+    color: #4a5565;
+    text-decoration: none;
+    &:hover {
+      color: var(--wpie-color-blue);
+      text-decoration: underline;
+    }
+  }
+
+}
+
+
+.wpie-dialog-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #6b7280; /* gray-500 */
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  transition: color 0.2s;
+  &:hover {
+    color: var(--wpie-color-danger);
+  }
+}
