@@ -1346,7 +1346,7 @@
 		z-index: -1;
 		width: var(--sw);
 		height: var(--sh);
-		transform: translate( calc( var( --x, 0px ) + var( --lx, 0px ) ), calc( var( --y, 0px ) + var( --ly, 0px ) ) );
+		transform: translate( calc( var( --x, 0px ) + var( --lx, 0px )  + var( --rx, 0px ) ), calc( var( --y, 0px ) + var( --ly, 0px ) + var( --ry, 0px ) ) );
 		background-image: inherit;
 		background-size: var( --bgs, inherit );
 		background-position: inherit;

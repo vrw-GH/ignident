@@ -10,6 +10,7 @@ import ClickToFilter from '@/components/Common/ClickToFilter';
 import { memo } from 'react';
 import { safeDecodeURI } from '@/utils/lib';
 import { __ } from '@wordpress/i18n';
+import Icon from "@/utils/Icon";
 
 // Column format constants
 const FORMATS = {
@@ -20,6 +21,7 @@ const FORMATS = {
   URL: 'url',
   TEXT: 'text',
   INTEGER: 'integer',
+  REFERRER: 'referrer'
 };
 
 // Create memoized version of ClickToFilter to prevent unnecessary re-renders
@@ -215,6 +217,7 @@ const COLUMN_FORMATTERS = {
   [FORMATS.CONTINENT]: (value) => <ContinentFilter value={value} />,
   [FORMATS.URL]: (value, columnId) => <UrlFilter filter={columnId} value={value} />,
   [FORMATS.TEXT]: (value, columnId) => <TextFilter filter={columnId} value={value} />,
+  [FORMATS.REFERRER]: (value, columnId) => <ReferrerFilter value={value} />,
 };
 
 /**
@@ -250,6 +253,34 @@ const createSortFunction = (columnId, format) => {
     }
   };
 };
+const addABTestIcon = (content, row) => {
+  if (!row.is_ab_test) return content;
+
+  let name;
+  let color;
+  let tooltip;
+  if ( row.significant === 'no_winner' ) {
+    tooltip = __('The test resulted in a tie. More hits might still result in a winner, but the difference will probably be very small.', 'burst-statistics');
+    color = 'gold';
+    name = 'scale';
+  } else if ( row.significant === 'still_running' ) {
+    tooltip = __('Not enough data yet to declare a winner or tie.', 'burst-statistics');
+    color = 'grey';
+    name = 'hourglass';
+  } else {
+    tooltip = row.winner ? __('Winner of the A/B test with a probability of >95%.', 'burst-statistics')
+    : __('Least performant version of the A/B test with a probability of >95%.', 'burst-statistics');
+    color = row.winner ? "gold": "black";
+    name = row.winner ? "trophy" : "frown";
+  }
+
+  return (
+      <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <Icon name={name} color={color} tooltip={tooltip} />
+        {content}
+    </span>
+  );
+};
 
 /**
  * Creates a cell formatter function for a specific column
@@ -268,7 +299,15 @@ const createCellFormatter = (format, columnId) => {
   return (row) => {
     try {
       const value = row[columnId] ?? '';
-      return formatter(value, columnId);
+      const formatted = formatter(value, columnId);
+      //add a-b test icon when conversion_rate or conversions column are present, but not both.
+      if (
+          (columnId === 'conversion_rate') ||
+          (columnId === 'conversions' && !('conversion_rate' in row))
+      ) {
+        return addABTestIcon(formatted, row);
+      }
+      return formatted;
     } catch (error) {
       console.error(`Error formatting cell value for column ${columnId}:`, error);
       return row[columnId] || '';
@@ -284,7 +323,7 @@ const createCellFormatter = (format, columnId) => {
  */
 const transformColumn = (column, columnOptions) => {
   const options = columnOptions[column.id];
-  
+
   // Return original column if no options configured
   if (!options) {
     return column;

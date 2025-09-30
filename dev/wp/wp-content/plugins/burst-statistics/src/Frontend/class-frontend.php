@@ -19,8 +19,6 @@ class Frontend {
 
 	/**
 	 * Frontend statistics instance
-	 *
-	 * @var Frontend_Statistics
 	 */
 	public Frontend_Statistics $statistics;
 
@@ -32,11 +30,12 @@ class Frontend {
 		add_action( 'init', [ $this, 'register_pageviews_block' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_burst_time_tracking_script' ], 0 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_burst_tracking_script' ], 0 );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_burst_shortcodes_styles' ] );
 		add_filter( 'script_loader_tag', [ $this, 'defer_burst_tracking_script' ], 10, 3 );
-		add_action( 'burst_every_hour', [ $this, 'maybe_update_total_pageviews_count' ] );
 		add_action( 'init', [ $this, 'use_logged_out_state_for_tests' ] );
-
+		add_action( 'wp_ajax_burst_tracking_error', [ $this, 'log_tracking_error' ] );
+		add_action( 'wp_ajax_nopriv_burst_tracking_error', [ $this, 'log_tracking_error' ] );
+		add_action( 'template_redirect', [ $this, 'start_buffer' ] );
+		add_action( 'shutdown', [ $this, 'end_buffer' ], 999 );
 		$sessions = new Sessions();
 		$sessions->init();
 		// Lazy load shortcodes only when needed.
@@ -51,6 +50,207 @@ class Frontend {
 			$shortcodes = new Shortcodes();
 			$shortcodes->init();
 		}
+	}
+
+	/**
+	 * Start buffer
+	 */
+	public function start_buffer(): void {
+		ob_start( [ $this, 'insert_page_identifier' ] );
+	}
+
+	/**
+	 * Insert the page identifier into the current page.
+	 *
+	 * @param string $html the page html.
+	 * @return string the adjusted html.
+	 */
+	public function insert_page_identifier( string $html ): string {
+		// skip if file is xml.
+		if ( strpos( $html, '<?xml' ) === 0 ) {
+			return $html;
+		}
+
+		$identifier = $this->get_current_page_identifier();
+		$id         = (int) $identifier['ID'];
+		$type       = (string) $identifier['type'];
+		if ( $id > -1 && strpos( $html, '<body' ) !== false ) {
+			$data_attr = 'data-burst_id="' . esc_attr( (string) $id ) . '" data-burst_type="' . esc_attr( $type ) . '"';
+			$html      = preg_replace( '/(<body[^>]*?)>/i', '$1 ' . $data_attr . '>', $html, 1 );
+		}
+		return $html;
+	}
+
+	/**
+	 * Flush the output buffer
+	 *
+	 * @since  2.0
+	 * @access public
+	 */
+	public function end_buffer(): void {
+		if ( ob_get_length() ) {
+			ob_end_flush();
+		}
+	}
+
+	/**
+	 * Get an identifier for the current page
+	 *
+	 * @return array<string, int|string>
+	 */
+	private function get_current_page_identifier(): array {
+		// All post types with ID (posts, pages, custom post types).
+		if ( is_singular() || ( is_front_page() && is_page() ) ) {
+			return [
+				'ID'   => get_the_ID(),
+				'type' => get_post_type( get_the_ID() ),
+			];
+		}
+
+		// Homepage (posts page, not a static page).
+		if ( is_front_page() ) {
+			return [
+				'ID'   => 0,
+				'type' => 'front-page',
+			];
+		}
+
+		// Blog index page.
+		if ( is_home() ) {
+			return [
+				'ID'   => 0,
+				'type' => 'blog-index',
+			];
+		}
+
+		// Category archives.
+		if ( is_category() ) {
+			return [
+				'ID'   => get_queried_object_id(),
+				'type' => 'category',
+			];
+		}
+
+		// Tag archives.
+		if ( is_tag() ) {
+			return [
+				'ID'   => get_queried_object_id(),
+				'type' => 'tag',
+			];
+		}
+
+		// Custom taxonomy archives.
+		if ( is_tax() ) {
+			return [
+				'ID'   => get_queried_object_id(),
+				'type' => 'tax',
+			];
+		}
+
+		// Author archives.
+		if ( is_author() ) {
+			return [
+				'ID'   => get_queried_object_id(),
+				'type' => 'author',
+			];
+		}
+
+		// Date archives.
+		if ( is_date() ) {
+			return [
+				'ID'   => 0,
+				'type' => 'date-archive',
+			];
+		}
+
+		if ( is_search() ) {
+			return [
+				'ID'   => 0,
+				'type' => 'search',
+			];
+		}
+
+		if ( is_404() ) {
+			return [
+				'ID'   => 0,
+				'type' => '404',
+			];
+		}
+
+		if ( is_post_type_archive() ) {
+			return [
+				'ID'   => get_queried_object_id(),
+				'type' => 'archive',
+			];
+		}
+
+		if ( is_archive() ) {
+			return [
+				'ID'   => 0,
+				'type' => 'archive-generic',
+			];
+		}
+
+		// WooCommerce.
+		if ( function_exists( 'is_woocommerce' ) ) {
+			if ( function_exists( 'is_shop' ) && is_shop() && ! is_page() ) {
+				return [
+					'ID'   => 0,
+					'type' => 'wc-shop',
+				];
+			}
+		}
+
+		return [
+			'ID'   => -1,
+			'type' => '',
+		];
+	}
+
+	/**
+	 * Log payload of 400 response errors on tracking requests if BURST_DEBUG is enabled
+	 */
+	public function log_tracking_error(): void {
+		if ( ! defined( 'BURST_DEBUG' ) || ! BURST_DEBUG ) {
+			// If debug mode is not enabled, do not log errors.
+			return;
+		}
+
+		// No form data processed, only exit if not present.
+        // phpcs:ignore
+		if ( ! isset( $_POST['status'] ) || ! isset( $_POST['data'] ) || ! isset( $_POST['error'] ) ) {
+			$this::error_log( 'Posted log error, but missing required POST parameters.' );
+			return;
+		}
+
+		// no nonce verification, as we are logging public 400 response errors.
+        // phpcs:ignore
+		$status = (int) ( $_POST['status'] );
+        // phpcs:ignore
+        $raw_data = stripslashes( $_POST['data'] );
+		$data     = json_decode( $raw_data, true );
+		if ( ! is_array( $data ) ) {
+			$data = [];
+		}
+
+		$data = [
+			'uid'               => isset( $data['uid'] ) && is_string( $data['uid'] ) ? sanitize_text_field( $data['uid'] ) : false,
+			'fingerprint'       => isset( $data['fingerprint'] ) && is_string( $data['fingerprint'] ) ? sanitize_text_field( $data['fingerprint'] ) : false,
+			'url'               => isset( $data['url'] ) ? esc_url_raw( $data['url'] ) : '',
+			'referrer_url'      => isset( $data['referrer_url'] ) ? esc_url_raw( $data['referrer_url'] ) : '',
+			'user_agent'        => isset( $data['user_agent'] ) ? sanitize_text_field( $data['user_agent'] ) : '',
+			'device_resolution' => isset( $data['device_resolution'] ) ? preg_replace( '/[^0-9x]/', '', $data['device_resolution'] ) : '',
+			'time_on_page'      => isset( $data['time_on_page'] ) ? (int) $data['time_on_page'] : 0,
+			'completed_goals'   => isset( $data['completed_goals'] ) && is_array( $data['completed_goals'] )
+				? array_map( 'intval', $data['completed_goals'] )
+				: [],
+		];
+		// no nonce verification, as we are logging public 400 response errors.
+        // phpcs:ignore
+		$error = sanitize_text_field( $_POST['error'] );
+		// usage of print_r is intentional here, as this is a debug log.
+        // phpcs:ignore
+		$this::error_log( "Burst tracking error: status=$status, error=$error, data=" . print_r( $data, true ) );
 	}
 
 	/**
@@ -81,31 +281,6 @@ class Frontend {
 		if ( isset( $_GET['burst_test_hit'] ) || isset( $_GET['burst_nextpage'] ) || ( isset( $_GET['burst_force_logged_out'] ) && $_GET['burst_force_logged_out'] === '1' ) ) {
 			add_filter( 'determine_current_user', '__return_null', 100 );
 			wp_set_current_user( 0 );
-		}
-	}
-
-	/**
-	 * Conditionally update total pageviews count on cron
-	 */
-	public function maybe_update_total_pageviews_count(): void {
-		// we don't do this on high traffic sites.
-		if ( get_option( 'burst_is_high_traffic_site' ) ) {
-			return;
-		}
-		$page_views_to_update = get_option( 'burst_pageviews_to_update', [] );
-		if ( empty( $page_views_to_update ) ) {
-			return;
-		}
-
-		// clean up first.
-		update_option( 'burst_pageviews_to_update', [] );
-		foreach ( $page_views_to_update as $page_url => $added_count ) {
-			$page_id = url_to_postid( $page_url );
-			unset( $page_views_to_update[ $page_url ] );
-			if ( $page_id > 0 ) {
-				$count = (int) get_post_meta( $page_id, 'burst_total_pageviews_count', true );
-				update_post_meta( $page_id, 'burst_total_pageviews_count', $count + $added_count );
-			}
 		}
 	}
 
@@ -236,101 +411,41 @@ class Frontend {
 		);
 	}
 
+	/**
+	 * Get the pageviews all time for a post.
+	 */
+	public function get_post_pageviews( int $post_id ): int {
+		$cache_key    = 'burst_post_views_' . $post_id;
+		$cached_views = wp_cache_get( $cache_key, 'burst' );
+
+		if ( $cached_views !== false ) {
+			return (int) $cached_views;
+		}
+
+		global $wpdb;
+		$sql = $wpdb->prepare(
+			"SELECT COUNT(*) as total_views
+         FROM {$wpdb->prefix}burst_statistics
+         WHERE page_id = %d",
+			$post_id
+		);
+
+		$views = (int) $wpdb->get_var( $sql );
+		wp_cache_set( $cache_key, $views, 'burst' );
+
+		return $views;
+	}
+
 
 	/**
 	 * Render the pageviews on the front-end
 	 */
 	public function render_burst_pageviews(): string {
 		global $post;
-		$burst_total_pageviews_count = get_post_meta( $post->ID, 'burst_total_pageviews_count', true );
-		$count                       = (int) $burst_total_pageviews_count ?: 0;
+		$count = $this->get_post_pageviews( $post->ID );
 		// translators: %d is the number of times the page has been viewed.
 		$text = sprintf( _n( 'This page has been viewed %d time.', 'This page has been viewed %d times.', $count, 'burst-statistics' ), $count );
 
 		return '<p class="burst-pageviews">' . $text . '</p>';
-	}
-
-	/**
-	 * Register the shortcodes stylesheet and enqueue it when needed
-	 */
-	public function enqueue_burst_shortcodes_styles(): void {
-		// Register the stylesheet but don't enqueue it yet.
-		wp_register_style(
-			'burst-statistics-shortcodes',
-			BURST_URL . 'assets/css/burst-statistics-shortcodes.css',
-			[],
-			filemtime( BURST_PATH . 'assets/css/burst-statistics-shortcodes.css' )
-		);
-
-		// Add filters to detect our shortcodes and enqueue the style when needed.
-		add_filter( 'the_content', [ $this, 'check_for_burst_shortcodes' ], 10, 1 );
-
-		// Also check in widgets, Gutenberg blocks, etc.
-		add_action( 'wp_footer', [ $this, 'maybe_enqueue_shortcode_styles' ], 10 );
-	}
-
-	/**
-	 * Check content for Burst shortcodes
-	 *
-	 * @param string $content The post content.
-	 * @return string The unmodified content
-	 */
-	public function check_for_burst_shortcodes( string $content ): string {
-		if ( ! is_admin() &&
-			(
-				has_shortcode( $content, 'burst-most-visited' ) ||
-				has_shortcode( $content, 'burst_statistics' )
-			)
-		) {
-			$this->enqueue_shortcode_styles();
-		}
-
-		return $content;
-	}
-
-	/**
-	 * Fallback check for shortcodes in widgets or other areas
-	 */
-	public function maybe_enqueue_shortcode_styles(): void {
-		global $wp_query;
-
-		// Check if we're on a singular post or page.
-		if ( is_singular() ) {
-			$post = $wp_query->get_queried_object();
-
-			// Check post content for shortcodes.
-			if ( $post && isset( $post->post_content ) && (
-				has_shortcode( $post->post_content, 'burst-most-visited' ) ||
-				has_shortcode( $post->post_content, 'burst_statistics' )
-			) ) {
-				$this->enqueue_shortcode_styles();
-				return;
-			}
-		}
-
-		// Check active widgets for shortcodes.
-		$active_widgets = wp_get_sidebars_widgets();
-		if ( is_array( $active_widgets ) ) {
-			foreach ( $active_widgets as $sidebar_widgets ) {
-				if ( ! is_array( $sidebar_widgets ) ) {
-					continue;
-				}
-
-				foreach ( $sidebar_widgets as $widget ) {
-					if ( strpos( $widget, 'text' ) !== false ) {
-						// This is a text widget that might contain shortcodes.
-						$this->enqueue_shortcode_styles();
-						return;
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Actually enqueue the shortcode styles
-	 */
-	private function enqueue_shortcode_styles(): void {
-		wp_enqueue_style( 'burst-statistics-shortcodes' );
 	}
 }

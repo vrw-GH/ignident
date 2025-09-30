@@ -1,0 +1,42 @@
+.wpie-block-tool {
+  background-color: var(--wpie-color-bg);
+  padding: 50px 32px;
+  max-width: 1200px;
+  margin: 50px auto;
+  position: relative;
+  border: 2px solid;
+  border-image: linear-gradient(to bottom, var(--wpie-color-blue), var(--wpie-color-yellow)) 1;
+  box-shadow: var(--wpie-shadow);
+  &.is-white {
+    background-color: #ffffff;
+  }
+  .notice {
+    padding: 0.75rem 1.25rem;
+    color: var(--wpie-color-dark);
+    font-weight: 600;
+    &.notice-error {
+      background: color-mix(in srgb, var(--wpie-color-danger) 7%, white);
+      border-left: 6px solid var(--wpie-color-danger);
+    }
+    &.notice-success {
+      background: color-mix(in srgb, var(--wpie-color-success) 7%, white);
+      border-left: 6px solid var(--wpie-color-success);
+    }
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+}
+
+.wpie-file input::file-selector-button {
+  color: var(--wpie-color-dark);
+  padding: 0.5em;
+  border: thin solid var(-wpie-color-yellow);
+  border-radius: 4px;
+}
+
+.wpie-file input[type="file"]:valid {
+  color: var(--wpie-color-orange);
+}

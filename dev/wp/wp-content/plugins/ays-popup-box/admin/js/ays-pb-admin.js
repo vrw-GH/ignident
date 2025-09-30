@@ -627,6 +627,26 @@
 
         menuItemWidth = menuItemWidth / menuItemWidths.length;
 
+        // Tab documentation links data
+        var tabDocsData = {
+            'tab1': {
+                'link': 'https://popup-plugin.com/docs/configuring-general-tab',
+                'text': pb.generalTabDoc
+            },
+            'tab2': {
+                'link': 'https://popup-plugin.com/docs/configuring-settings-tab',
+                'text': pb.settingsTabDoc
+            },
+            'tab3': {
+                'link': 'https://popup-plugin.com/docs/configuring-styles-tab',
+                'text': pb.stylesTabDoc
+            },
+            'tab4': {
+                'link': 'https://popup-plugin.com/docs/configuring-limitation-users-tab',
+                'text': pb.limitationUsersTabDoc
+            }
+        };
+
         $(document).find('.nav-tab-wrapper a.nav-tab').on('click', function(e) {
             let elemenetID = $(this).attr('href');
             let active_tab = $(this).attr('data-tab');
@@ -645,6 +665,20 @@
 
             $(document).find('[name="ays_pb_tab"]').val(active_tab);
             $('.ays-pb-tab-content' + elemenetID).addClass('ays-pb-tab-content-active');
+            
+            // Update documentation link based on active tab
+            var docLinkContainer = $(document).find('#ays-pb-tab-doc-link');
+            if (docLinkContainer.length > 0) {
+                if (tabDocsData[active_tab]) {
+                    var linkHtml = '<a class="ays-pb-doc-link" href="' + tabDocsData[active_tab].link + '" target="_blank" style="font-size: 14px;">' + 
+                                   tabDocsData[active_tab].text + '</a>';
+                    docLinkContainer.html(linkHtml);
+                    docLinkContainer.show();
+                } else {
+                    docLinkContainer.hide();
+                }
+            }
+            
             e.preventDefault();
         });
 
@@ -1838,6 +1872,21 @@
         });
         // Our Products | Plugins activation end
 
+        // Replace image to YouTube embed video
+        $(document).on('click', '.ays-pb-youtube-placeholder', function() {
+            var videoId = $(this).data('video-id');
+            var iframe = $('<iframe>', {
+                src: 'https://www.youtube.com/embed/' + videoId + '?autoplay=1',
+                class: '',
+                width: 560,
+                height: 315,
+                frameborder: 0,
+                allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+                allowfullscreen: true,
+            });
+            $(this).replaceWith(iframe);
+        });
+
         function submitOnce(subButton) {
             var subLoader = subButton.siblings('.display_none');
     
@@ -2347,6 +2396,36 @@
     }
     // Media uploaders start
 
+    	// New Sale Banner | Start
+	document.addEventListener("DOMContentLoaded", function() {
+		var startDate = new Date("2025-09-08");
+		var endDate = new Date("2025-09-30");
+		var totalLicenses = 50;
+		var progressionPattern = new Array(2, 3, 1, 4, 2, 3, 1, 3, 2, 4, 1, 2, 3, 1, 2, 3, 4, 1, 2, 1, 2, 3);
+		function pbGetCurrentProgress() {
+			var today = new Date();
+			// today.setDate(today.getDate() + 1);
+			var daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+			var usedLicenses = 0;
+			for (var i = 0; i < Math.min(daysPassed, progressionPattern.length); i++) {
+				usedLicenses += progressionPattern[i];
+			}
+			return Math.min(usedLicenses, totalLicenses);
+		}
+		function pbUpdateProgress() {
+			var usedLicenses = pbGetCurrentProgress();
+			var remainingLicenses = totalLicenses - usedLicenses;
+			var progressPercentage = (usedLicenses / totalLicenses) * 100;
+			var remainingElement = document.getElementById("pb-remaining-licenses");
+			var progressElement = document.getElementById("pb-progress-fill");
+			if (remainingElement) remainingElement.textContent = remainingLicenses;
+			if (progressElement) progressElement.style.width = progressPercentage + "%";
+		}
+		pbUpdateProgress();
+	});
+
+	// New Sale Banner | End 
+
 })(jQuery);
 
 selectAndCopyElementContents = function(el) {
@@ -2376,3 +2455,51 @@ selectAndCopyElementContents = function(el) {
         textRange.select();
     }
 };
+
+// Copy to clipboard function
+function pbCopyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function() {
+            pbShowCopyNotification(pb.successCopyCoupon);
+        }).catch(function() {
+            fallbackCopyTextToClipboard(text);
+        });
+    } else {
+        fallbackCopyTextToClipboard(text);
+    }
+}
+
+function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.top = "-9999px";
+    textArea.style.left = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        var successful = document.execCommand("copy");
+        if (successful) {
+            pbShowCopyNotification(pb.successCopyCoupon);
+        } else {
+            pbShowCopyNotification(pb.failedCopyCoupon);
+        }
+    } catch (err) {
+        pbShowCopyNotification(pb.failedCopyCoupon);
+    }
+    document.body.removeChild(textArea);
+}
+
+function pbShowCopyNotification(message) {
+    var notification = document.createElement("div");
+    notification.className = "ays-pb-copy-notification show";
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(function() {
+        notification.classList.remove("show");
+        setTimeout(function() {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 2000);
+} 

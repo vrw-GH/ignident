@@ -246,5 +246,44 @@ trait Helper {
 			}
 		}
 	}
+
+    /**
+     * Format number to a short version (e.g., 1.2M, 3.4B)
+     *
+     * @param int $n The number to format.
+     * @return string The formatted number.
+     */
+    private function format_number_short( int $n ): string {
+        if ( $n >= 1_000_000_000 ) {
+            return round( $n / 1_000_000_000, 1 ) . 'B';
+        }
+        if ( $n >= 1_000_000 ) {
+            return round( $n / 1_000_000, 1 ) . 'M';
+        }
+        if ( $n >= 1_000 ) {
+            return round( $n / 1_000, 1 ) . 'k';
+        }
+        return (string) $n;
+    }
+
+	/**
+	 * Get the checkout page ID, with caching
+	 *
+	 * @return int The checkout page ID.
+	 */
+	public function burst_checkout_page_id(): int {
+		$cache_key = 'burst_checkout_page_id';
+		$page_id   = get_transient( $cache_key );
+
+		if ( false === $page_id ) {
+			// Default to -1, allow plugins to filter this
+			$page_id = apply_filters( 'burst_checkout_page_id', -1 );
+
+			// Cache for 24 hours
+			set_transient( $cache_key, $page_id, DAY_IN_SECONDS );
+		}
+
+		return (int) $page_id;
+	}
     // phpcs:enable
 }

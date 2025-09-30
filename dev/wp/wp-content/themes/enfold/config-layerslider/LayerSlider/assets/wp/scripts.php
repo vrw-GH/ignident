@@ -200,12 +200,6 @@ function layerslider_enqueue_content_res() {
 
 	$footer = $condsc ? true : $footer;
 
-	// Use Gogole CDN version of jQuery
-	if(get_option('ls_use_custom_jquery', false)) {
-		wp_deregister_script('jquery');
-		wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', [], '1.8.3');
-	}
-
 	// Enqueue front-end assets
 	if( current_user_can(get_option('layerslider_custom_capability', 'manage_options')) ) {
 		wp_enqueue_style('layerslider-front', LS_ROOT_URL.'/static/public/front.css', false, LS_PLUGIN_VERSION );
@@ -360,13 +354,6 @@ function layerslider_enqueue_admin_res() {
 	include LS_ROOT_PATH.'/wp/tinymce_l10n.php';
 	wp_enqueue_script('ls-global', LS_ROOT_URL.'/static/admin/js/ls-global.js', ['jquery'], LS_PLUGIN_VERSION );
 	wp_localize_script('ls-global', 'LS_MCE_l10n', $l10n_ls_mce);
-
-
-	// Use Google CDN version of jQuery
-	if( get_option( 'ls_use_custom_jquery', false ) ) {
-		wp_deregister_script('jquery');
-		wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', [], '1.8.3');
-	}
 
 	if( $pagenow === 'post.php' || $pagenow === 'post-new.php' ) {
 		wp_enqueue_style('ls-wp-editor', LS_ROOT_URL.'/static/admin/css/wp-editor.css', false, LS_PLUGIN_VERSION );

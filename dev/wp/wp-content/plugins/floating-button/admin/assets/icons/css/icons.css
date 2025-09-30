@@ -1,0 +1,316 @@
+/*--------------------------------
+
+WpieIcon icon font
+Generated using nucleoapp.com
+
+-------------------------------- */
+
+@font-face {
+  font-family: 'WpieIcon';
+  src: url('../fonts/WpieIcon.eot');
+  src: url('../fonts/WpieIcon.eot') format('embedded-opentype'),
+       url('../fonts/WpieIcon.woff2') format('woff2'),
+       url('../fonts/WpieIcon.woff') format('woff'),
+       url('../fonts/WpieIcon.ttf') format('truetype'),
+       url('../fonts/WpieIcon.svg') format('svg');
+}
+
+/* base class */
+.wpie-icon {
+  display: inline-block;
+  font: normal normal normal 1em/1 'WpieIcon';
+  color: inherit;
+  flex-shrink: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* size examples - relative units */
+.wpie-icon-sm {
+  font-size: 0.8em;
+}
+
+.wpie-icon-lg {
+  font-size: 1.2em;
+}
+
+/* size examples - absolute units */
+.wpie-icon-16 {
+  font-size: 16px;
+}
+
+.wpie-icon-32 {
+  font-size: 32px;
+}
+
+/* rotate the icon infinitely */
+.wpie-icon-is-spinning {
+  animation: wpie-icon-spin 1s infinite linear;
+}
+
+@keyframes wpie-icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* transform */
+.wpie-icon-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.wpie-icon-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.wpie-icon-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.wpie-icon-flip-y {
+  transform: scaleY(-1);
+}
+
+.wpie-icon-flip-x {
+  transform: scaleX(-1);
+}
+
+/* icons */
+.wpie_icon-file-download::before {
+  content: "\ea03";
+}
+
+.wpie_icon-plug::before {
+  content: "\ea05";
+}
+
+.wpie_icon-trash::before {
+  content: "\ea06";
+}
+
+.wpie_icon-xmark::before {
+  content: "\ea07";
+}
+
+.wpie_icon-pointer::before {
+  content: "\ea08";
+}
+
+.wpie_icon-ruler-pen::before {
+  content: "\ea09";
+}
+
+.wpie_icon-paintbrush::before {
+  content: "\ea0a";
+}
+
+.wpie_icon-play::before {
+  content: "\ea0b";
+}
+
+.wpie_icon-buttons::before {
+  content: "\ea0c";
+}
+
+.wpie_icon-users::before {
+  content: "\ea0d";
+}
+
+.wpie_icon-text::before {
+  content: "\ea0e";
+}
+
+.wpie_icon-laptop-mobile::before {
+  content: "\ea0f";
+}
+
+.wpie_icon-arrow-bottom::before {
+  content: "\ea10";
+}
+
+.wpie_icon-globe-pointer::before {
+  content: "\ea11";
+}
+
+.wpie_icon-square-plus::before {
+  content: "\ea12";
+}
+
+.wpie_icon-plus::before {
+  content: "\ea13";
+}
+
+.wpie_icon-calendar::before {
+  content: "\ea14";
+}
+
+.wpie_icon-grid-circle-plus::before {
+  content: "\ea15";
+}
+
+.wpie_icon-gear::before {
+  content: "\ea16";
+}
+
+.wpie_icon-check::before {
+  content: "\ea17";
+}
+
+.wpie_icon-chart-line::before {
+  content: "\ea19";
+}
+
+.wpie_icon-chart::before {
+  content: "\ea1a";
+}
+
+.wpie_icon-link::before {
+  content: "\ea1b";
+}
+
+.wpie_icon-target::before {
+  content: "\ea1c";
+}
+
+.wpie_icon-sparkle::before {
+  content: "\ea1d";
+}
+
+.wpie_icon-laptop::before {
+  content: "\ea1e";
+}
+
+.wpie_icon-paperclip::before {
+  content: "\ea1f";
+}
+
+.wpie_icon-at-sign::before {
+  content: "\ea20";
+}
+
+.wpie_icon-crosshairs::before {
+  content: "\ea21";
+}
+
+.wpie_icon-lock::before {
+  content: "\ea22";
+}
+
+.wpie_icon-lock-open::before {
+  content: "\ea23";
+}
+
+.wpie_icon-chevron-up::before {
+  content: "\ea24";
+}
+
+.wpie_icon-chevron-down::before {
+  content: "\ea25";
+}
+
+.wpie_icon-roadmap::before {
+  content: "\ea28";
+}
+
+.wpie_icon-tag::before {
+  content: "\ea29";
+}
+
+.wpie_icon-square-minus::before {
+  content: "\ea2a";
+}
+
+.wpie_icon-bottom::before {
+  content: "\ea2b";
+}
+
+.wpie_icon-envelope::before {
+  content: "\ea2c";
+}
+
+.wpie_icon-user::before {
+  content: "\ea2d";
+}
+
+.wpie_icon-key::before {
+  content: "\ea2e";
+}
+
+.wpie_icon-border-width::before {
+  content: "\ea2f";
+}
+
+.wpie_icon-eye-open::before {
+  content: "\ea30";
+}
+
+.wpie_icon-award::before {
+  content: "\ea31";
+}
+
+.wpie_icon-newsletter::before {
+  content: "\ea32";
+}
+
+.wpie_icon-copy::before {
+  content: "\ea33";
+}
+
+.wpie_icon-file-content::before {
+  content: "\ea34";
+}
+
+.wpie_icon-rocket::before {
+  content: "\ea35";
+}
+
+.wpie_icon-filter::before {
+  content: "\ea36";
+}
+
+.wpie_icon-image::before {
+  content: "\ea37";
+}
+
+.wpie_icon-eye-closed::before {
+  content: "\ea38";
+}
+
+.wpie_icon-chevron-expand-y::before {
+  content: "\ea39";
+}
+
+.wpie_icon-money-time::before {
+  content: "\ea3a";
+}
+
+.wpie_icon-refund::before {
+  content: "\ea3b";
+}
+
+.wpie_icon-cloud-data-sync::before {
+  content: "\ea3c";
+}
+
+.wpie_icon-customer-support::before {
+  content: "\ea3d";
+}
+
+.wpie_icon-msg-smile::before {
+  content: "\ea3e";
+}
+
+.wpie_icon-css3::before {
+  content: "\ea3f";
+}
+
+.wpie_icon-new::before {
+  content: "\ea40";
+}
+
+.wpie_icon-sliders::before {
+  content: "\ea41";
+}

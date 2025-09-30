@@ -1783,7 +1783,10 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //close button_size
         $close_button_size = (isset($_POST['ays_pb_close_button_size']) && $_POST['ays_pb_close_button_size'] != '' ) ? abs(sanitize_text_field($_POST['ays_pb_close_button_size'])) : '';
-       
+        
+        //close button padding
+        $close_button_padding = (isset($_POST['ays_pb_close_button_padding']) && $_POST['ays_pb_close_button_padding'] != '' ) ? abs(sanitize_text_field($_POST['ays_pb_close_button_padding'])) : '';
+        
         //close button image
         $close_button_image = (isset($_POST['ays_pb_close_btn_bg_img']) && $_POST['ays_pb_close_btn_bg_img'] != '' ) ? sanitize_url($_POST['ays_pb_close_btn_bg_img']) : '';
 
@@ -1946,6 +1949,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'social_links' => $social_links,
             'social_buttons_heading' => $social_buttons_heading,
             'close_button_size' => $close_button_size,
+            'close_button_padding' => $close_button_padding,
             'close_button_image' => $close_button_image,
             'border_style' => $border_style,
             'enable_border_style_mobile' => $enable_border_style_mobile,

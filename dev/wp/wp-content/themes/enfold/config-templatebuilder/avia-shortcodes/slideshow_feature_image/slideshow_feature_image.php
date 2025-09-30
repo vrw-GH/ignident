@@ -858,7 +858,7 @@ if ( ! class_exists( 'avia_feature_image_slider', false ) )
 		 * @param array $atts
 		 * @param aviaShortcodeTemplate $sc_context
 		 */
-		public function __construct( $atts = array(), aviaShortcodeTemplate $sc_context = null )
+		public function __construct( $atts = array(), ?aviaShortcodeTemplate $sc_context = null )
 		{
 			parent::__construct( $atts, $sc_context, avia_feature_image_slider::default_args() );
 

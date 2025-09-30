@@ -118,10 +118,10 @@ class Ays_Pb_Admin {
             ));
         }
 
-        $check_terms_agreement = get_option('ays_pb_agree_terms');
-        if($check_terms_agreement === 'true' && strpos($hook_suffix, $this->plugin_name) !== false){
-            wp_enqueue_script( $this->plugin_name . '-hotjar', plugin_dir_url(__FILE__) . 'js/extras/ays-pb-hotjar.js', array(), $this->version, false);
-        }
+        // $check_terms_agreement = get_option('ays_pb_agree_terms');
+        // if($check_terms_agreement === 'true' && strpos($hook_suffix, $this->plugin_name) !== false){
+        //     wp_enqueue_script( $this->plugin_name . '-hotjar', plugin_dir_url(__FILE__) . 'js/extras/ays-pb-hotjar.js', array(), $this->version, false);
+        // }
 
         if(false === strpos($hook_suffix, $this->plugin_name))
             return;
@@ -154,15 +154,21 @@ class Ays_Pb_Admin {
             'somethingWentWrong' => esc_html__( "Maybe something went wrong.", "ays-popup-box" ),
             'activated' => esc_html__( "Activated", "ays-popup-box" ),
             'pbBannerDate' => $pb_banner_date,
+            'generalTabDoc' => esc_html__( "How to Configure General Settings?", "ays-popup-box" ),
+            'settingsTabDoc' => esc_html__( "How to Configure Settings Tab?", "ays-popup-box" ),
+            'limitationUsersTabDoc' => esc_html__( "How to Configure Limitation Users Tab?", "ays-popup-box" ),
+            'stylesTabDoc' => esc_html__( "How to Configure Styles Tab?", "ays-popup-box" ),
+            "successCopyCoupon"                 => __( "Coupon code copied!", 'ays-popup-box' ),
+            "failedCopyCoupon"                  => __( "Failed to copy coupon code", 'ays-popup-box' ),
         );
 
         $color_picker_strings = array(
-            'clear' => esc_html__( 'Clear', "ays-popup-box" ),
-            'clearAriaLabel' => esc_html__( 'Clear color', "ays-popup-box" ),
-            'defaultString' => esc_html__( 'Default', "ays-popup-box" ),
-            'defaultAriaLabel' => esc_html__( 'Select default color', "ays-popup-box" ),
-            'pick' => esc_html__( 'Select Color', "ays-popup-box" ),
-            'defaultLabel' => esc_html__( 'Color value', "ays-popup-box" ),
+            'clear'             => esc_html__( 'Clear', "ays-popup-box" ),
+            'clearAriaLabel'    => esc_html__( 'Clear color', "ays-popup-box" ),
+            'defaultString'     => esc_html__( 'Default', "ays-popup-box" ),
+            'defaultAriaLabel'  => esc_html__( 'Select default color', "ays-popup-box" ),
+            'pick'              => esc_html__( 'Select Color', "ays-popup-box" ),
+            'defaultLabel'      => esc_html__( 'Color value', "ays-popup-box" ),
         );
 
         // Extended scripts
@@ -498,9 +504,9 @@ class Ays_Pb_Admin {
     public function screen_option_popupbox() {
 		$option = 'per_page';
 		$args = array(
-			'label' => esc_html__('PopupBox', "ays-popup-box"),
+			'label'   => esc_html__('PopupBox', "ays-popup-box"),
 			'default' => 20,
-			'option' => 'popupboxes_per_page'
+			'option'  => 'popupboxes_per_page'
 		);
 
 		add_screen_option($option, $args);
@@ -511,9 +517,9 @@ class Ays_Pb_Admin {
     public function screen_option_categories() {
         $option = 'per_page';
         $args = array(
-            'label' => esc_html__('Categories', "ays-popup-box"),
+            'label'   => esc_html__('Categories', "ays-popup-box"),
             'default' => 20,
-            'option' => 'popup_categories_per_page'
+            'option'  => 'popup_categories_per_page'
         );
 
         add_screen_option($option, $args);
@@ -534,8 +540,8 @@ class Ays_Pb_Admin {
 
 		$screen->add_help_tab(
 			array(
-				'id' => 'popupbox_help_tab',
-				'title' => esc_html__('General Information:', "ays-popup-box"),
+				'id'      => 'popupbox_help_tab',
+				'title'   => esc_html__('General Information:', "ays-popup-box"),
 				'content' =>
 					'<h2>' . esc_html__('Popup Information', "ays-popup-box") . '</h2>' .
 					'<p>'
@@ -550,7 +556,7 @@ class Ays_Pb_Admin {
                 <a href="https://www.youtube.com/watch?v=YSf6-icT2Ro&list=PL18_gEiPDg8Ocrbwn1SUjs2XaSZlgHpWj" target="_blank">' . esc_html__('Youtube video tutorials', "ays-popup-box") . '</a>
             </p>' .
 			'<p>
-                <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">' . esc_html__('Documentation: ', "ays-popup-box") . '</a>
+                <a href="https://popup-plugin.com/docs" target="_blank">' . esc_html__('Documentation: ', "ays-popup-box") . '</a>
             </p>' .
 			'<p>
                 <a href="https://popup-plugin.com/" target="_blank">' . esc_html__('Popup Box plugin Premium version:', "ays-popup-box") . '</a>
@@ -628,10 +634,10 @@ class Ays_Pb_Admin {
 
         if(function_exists('wp_enqueue_code_editor')) {
             $cm_settings['codeEditor'] = wp_enqueue_code_editor(array(
-                'type' => 'text/css',
+                'type'       => 'text/css',
                 'codemirror' => array(
                     'inputStyle' => 'contenteditable',
-                    'theme' => 'cobalt',
+                    'theme'      => 'cobalt',
                 )
             ));
 
@@ -656,7 +662,7 @@ class Ays_Pb_Admin {
 
         $settings_link = array(
             '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_name ) . '">' . esc_html__('Settings', "ays-popup-box") . '</a>',
-            '<a href="https://ays-demo.com/popup-box-plugin-free-demo/" target="_blank">' . esc_html__('Demo', "ays-popup-box") . '</a>',
+            '<a href="https://demo.popup-plugin.com/wordpress-popup-plugin-free-demo/" target="_blank">' . esc_html__('Demo', "ays-popup-box") . '</a>',
             '<a id="ays-pb-plugins-buy-now-button" href="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=plugins-buy-now-button" target="_blank">' . esc_html__('Upgrade 30% Sale', "ays-popup-box") . '</a>
             <input type="hidden" id="popup_box_ajax_deactivate_plugin_nonce" name="popup_box_ajax_deactivate_plugin_nonce" value="' . $popup_ajax_deactivate_plugin_nonce .'">',
             
@@ -844,7 +850,7 @@ class Ays_Pb_Admin {
                 <div class="ays-pb-footer-support-box">
                     <span class="ays-pb-footer-link-row"><a href="https://wordpress.org/support/plugin/ays-popup-box/" target="_blank"><?php echo esc_html__( "Support", "ays-popup-box"); ?></a></span>
                     <span class="ays-pb-footer-slash-row">/</span>
-                    <span class="ays-pb-footer-link-row"><a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank"><?php echo esc_html__( "Docs", "ays-popup-box"); ?></a></span>
+                    <span class="ays-pb-footer-link-row"><a href="https://popup-plugin.com/docs" target="_blank"><?php echo esc_html__( "Docs", "ays-popup-box"); ?></a></span>
                     <span class="ays-pb-footer-slash-row">/</span>
                     <span class="ays-pb-footer-link-row"><a href="https://ays-demo.com/popup-box-plugin-survey/" target="_blank"><?php echo esc_html__( "Suggest a Feature", "ays-popup-box"); ?></a></span>
                 </div>

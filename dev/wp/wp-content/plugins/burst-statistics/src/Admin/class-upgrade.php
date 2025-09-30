@@ -196,14 +196,32 @@ class Upgrade {
 		}
 
 		// ensure the onboarding doesn't start again if users already had the plugin activated.
-		if ( $prev_version && version_compare( $prev_version, '2.1.0.', '<' ) ) {
+		if ( $prev_version && version_compare( $prev_version, '2.1.0', '<' ) ) {
 			if ( defined( 'BURST_PRO' ) ) {
 				update_option( 'burst_activation_time_pro', time(), false );
 			}
 		}
 
+		if ( $prev_version && version_compare( $prev_version, '2.2.3', '<' ) ) {
+			$mu_plugin = trailingslashit( WPMU_PLUGIN_DIR ) . 'burst_rest_api_optimizer.php';
+			if ( file_exists( $mu_plugin ) ) {
+				wp_delete_file( $mu_plugin );
+			}
+		}
+
+		if ( $prev_version && version_compare( $prev_version, '2.2.6', '<' ) ) {
+			update_option( 'burst_db_upgrade_add_page_ids', true, false );
+			delete_post_meta_by_key( 'burst_total_pageviews_count' );
+		}
+
 		do_action( 'burst_upgrade_after', $prev_version );
-		update_option( 'burst-current-version', $new_version, false );
+
+		// ensure that we schedule at least one database upgrade.
+		$admin = new Admin();
+		$admin->run_table_init_hook();
+		$admin->create_js_file();
+
+		update_option( 'burst-current-version', $new_version );
 	}
 
 	/**

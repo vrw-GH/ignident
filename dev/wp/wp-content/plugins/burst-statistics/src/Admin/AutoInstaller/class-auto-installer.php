@@ -820,8 +820,9 @@ if ( ! class_exists( 'Auto_Installer' ) ) {
 			if ( ! $error && $this->verify_nonce( $nonce ) ) {
 
 				$download_link = esc_url_raw( $download_link );
-				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-				include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+                require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+                require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
 				if ( ! function_exists( 'request_filesystem_credentials' ) ) {
 					require_once ABSPATH . 'wp-admin/includes/file.php';
 				}
@@ -882,6 +883,9 @@ if ( ! class_exists( 'Auto_Installer' ) ) {
 
 			if ( ! $error && $this->verify_nonce( $nonce ) && ! empty( $plugin ) ) {
 				$networkwide = is_multisite();
+                if ( ! function_exists( 'activate_plugin' ) ) {
+                    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+                }
 				$result      = activate_plugin( $this->slug, '', $networkwide );
 				if ( is_wp_error( $result ) ) {
 					$error = true;

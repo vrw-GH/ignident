@@ -19,7 +19,7 @@
 						<input type="range" min="8" max="100" value="35" class= "ls-gfonts-resize-range" id="ls-gfonts-resize-range">
 					</div>
 				</div>
-				<div class="ls-gfonts-language-settings ls-gfonts-toolbar-item">
+				<div class="ls-gfonts-language-settings ls-gfonts-toolbar-item ls-gfonts-select-wrapper">
 					<?= lsGetSVGIcon('language',false,['class' => 'ls-gfonts-lang-icon']) ?>
 					<select name="ls-gfonts-languages" id="ls-gfonts-languages-select">
 						<option value="latin">Latin</option>
@@ -53,7 +53,7 @@
 					</select>
 				</div>
 				<div class="ls-gfonts-category-settings ls-gfonts-toolbar-item">
-					<div class="ls-gfonts-categories-dropdown">
+					<div class="ls-gfonts-categories-dropdown ls-gfonts-select-wrapper">
 							<select name="ls-gfonts-categories" id="ls-gfonts-categories-select">
 								<option value="all"><?= _x('All Categories', 'Font typeface', 'LayerSlider') ?></option>
 							 	<option value="serif"><?= _x('Serif', 'Font typeface', 'LayerSlider') ?></option>
@@ -71,12 +71,14 @@
 				</div>
 				<div class="ls-gfont-sort-dropdown">
 					<div><?= __('Sort by:', 'LayerSlider') ?></div>
-					<select name="ls-gfonts-sort" id="ls-gfonts-sort-select">
-						<option value="trending"><?= __('Trending', 'LayerSlider') ?></option>
-					 	<option value="popular"><?= __('Most popular', 'LayerSlider') ?></option>
-					 	<option value="name"><?= __('Name (A-Z)', 'LayerSlider') ?></option>
-					 	<option value="newest"><?= __('Newest', 'LayerSlider') ?></option>
-					</select>
+					<div class="ls-gfonts-select-wrapper">
+						<select name="ls-gfonts-sort" id="ls-gfonts-sort-select">
+							<option value="trending"><?= __('Trending', 'LayerSlider') ?></option>
+							<option value="popular"><?= __('Most popular', 'LayerSlider') ?></option>
+							<option value="name"><?= __('Name (A-Z)', 'LayerSlider') ?></option>
+							<option value="newest"><?= __('Newest', 'LayerSlider') ?></option>
+						</select>
+					</div>
 				</div>
 			</div>
 		</div>

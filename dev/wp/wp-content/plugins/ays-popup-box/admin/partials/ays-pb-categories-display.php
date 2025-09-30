@@ -13,7 +13,7 @@
 <div class="wrap ays-pb-categories-list-table">
     <div class="ays-pb-heading-box">
         <div class="ays-pb-wordpress-user-manual-box">
-            <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">
+            <a href="https://popup-plugin.com/docs" target="_blank">
                 <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
                 <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
             </a>
@@ -24,10 +24,11 @@
             echo esc_html(get_admin_page_title());
         ?>
     </h1>
-    <div class="ays-pb-add-new-button-box">
+    <div class="ays-pb-add-new-button-box" style="display: flex; justify-content: space-between;">
         <?php
             echo sprintf('<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s ' . esc_html__('Add New', "ays-popup-box") . '</a>', esc_attr($_REQUEST['page']), 'add', $plus_icon_svg);
         ?>
+        <a href="https://popup-plugin.com/docs/organizing-popups-with-categories" class="ays-pb-doc-link" target="_blank"><?php echo esc_html__("How to Organize Popups With Categories", "ays-popup-box"); ?></a>
     </div>
     <div id="poststuff">
         <div id="post-body" class="metabox-holder">

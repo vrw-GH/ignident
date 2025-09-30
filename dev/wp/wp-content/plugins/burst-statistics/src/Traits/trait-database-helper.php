@@ -24,6 +24,17 @@ trait Database_Helper {
 	}
 
 	/**
+	 * Check if a table has a specific column
+	 * pass the table name without WordPress (wp_) prefix, but with burst prefix.
+	 */
+	public function column_exists( string $table_name, string $column_name ): bool {
+		global $wpdb;
+		$table_name = $wpdb->prefix . $table_name;
+		$columns    = $wpdb->get_col( "DESC $table_name" );
+		return in_array( $column_name, $columns, true );
+	}
+
+	/**
 	 * Adds an index to a database table if it doesn't already exist.
 	 *
 	 * Attempts to create a database index with proper error handling. If an index already exists

@@ -234,14 +234,14 @@ if( ! class_exists( __NAMESPACE__ . '\avia_google_maps', false ) )
 				 * @since 4.4.2
 				 * @param string		output string
 				 * @param object		context
-				 * @param array
-				 * @param array
+				 * @param array			$args
+				 * @param array			$instance
 				*/
 				$filter_args = array(
 						   $html_overlay,
 						   $this,
-						   $args,
-						   $instance
+						   &$args,
+						   &$instance
 				   );
 				$html_overlay = apply_filters_ref_array( 'avf_google_maps_confirm_overlay', $filter_args );
 			}

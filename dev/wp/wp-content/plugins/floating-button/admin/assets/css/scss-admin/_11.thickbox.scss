@@ -1,0 +1,14 @@
+.popup-box-shortcodes {
+  max-width: 750px;
+  max-height: 600px;
+  margin: 0 !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+  #TB_ajaxContent {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-top: 32px;
+    height: 500px !important;
+  }
+}

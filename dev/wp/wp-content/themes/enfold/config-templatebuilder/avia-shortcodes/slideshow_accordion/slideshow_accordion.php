@@ -1085,7 +1085,7 @@ if( ! class_exists( 'avia_accordion_slider', false ) )
 		 * @param array $atts
 		 * @param aviaShortcodeTemplate $sc_context
 		 */
-		public function __construct( array $atts, aviaShortcodeTemplate $sc_context = null )
+		public function __construct( array $atts, ?aviaShortcodeTemplate $sc_context = null )
 		{
 			parent::__construct( $atts, $sc_context, avia_accordion_slider::default_args() );
 

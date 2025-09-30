@@ -42,10 +42,10 @@ const TodayFilterItem = memo( ({ filter, filterValue, label, startDate, icon, co
     label={label}
     startDate={startDate}
   >
-    <div className="burst-goals-select-item">
+    <div className="rounded-md flex flex-col justify-center items-center text-center flex-wrap bg-white py-4 [&.active]:shadow-greenShadow [&.active]:border-2 [&.active]:border-green">
       <Icon name={icon} size="26" />
-      <h2>{count}</h2>
-      <span>
+      <h2 className="mt-1.5 font-extrabold">{count}</h2>
+      <span className="flex gap-[3px] justify-center text-xs">
         <Icon name="sun" color={'yellow'} size="13" />{' '}
         {__( 'Today', 'burst-statistics' )}
       </span>
@@ -61,10 +61,10 @@ const TotalFilterItem = memo( ({ filter, filterValue, label, startDate, icon, co
     startDate={startDate}
     endDate={endDate}
   >
-    <div className="burst-goals-select-item">
+    <div className="rounded-md flex flex-col justify-center items-center text-center flex-wrap bg-white py-4 [&.active]:shadow-greenShadow [&.active]:border-2 [&.active]:border-green">
       <Icon name={icon} size="26" />
-      <h2>{count}</h2>
-      <span>
+      <h2 className="mt-1.5 font-extrabold">{count}</h2>
+      <span className="flex gap-[3px] justify-center text-xs">
         <Icon name="calendar" size="13" />{' '}
         {__( 'Total', 'burst-statistics' )}
       </span>
@@ -84,25 +84,16 @@ const GoalsBlock = () => {
   const endDate = useMemo( () => format( endOfDay( currentDateWithOffset ), 'yyyy-MM-dd' ), [ currentDateWithOffset ]);
   const today = useMemo( () => format( currentDateWithOffset, 'yyyy-MM-dd' ), [ currentDateWithOffset ]);
 
-  // Use useMemo instead of useEffect for initializing goalId
-  // This prevents state updates during render
-  const initializedGoalId = useMemo( () => {
-    if ( ! goalId && 0 < goals.length ) {
-
-      // Schedule the state update for the next tick to avoid
-      // updating state during rendering
-      setTimeout( () => {
-        setGoalId( goals[0].id );
-      }, 0 );
-      return goals[0].id;
+  useEffect(() => {
+    if (!goalId && goals.length > 0) {
+      setGoalId(goals[0].id);
     }
-    return goalId;
-  }, [ goals, goalId ]);
+  }, [goals, goalId]);
 
   // Derive values using memoization instead of recalculating on every render
   const { goalStart, goalEnd } = useMemo( () => {
-    let start = goals[initializedGoalId || goalId]?.date_start;
-    let end = goals[initializedGoalId || goalId]?.date_end;
+    let start = goals[goalId]?.date_start;
+    let end = goals[goalId]?.date_end;
 
     if ( 0 == start || start === undefined ) {
       start = startDate;
@@ -112,14 +103,14 @@ const GoalsBlock = () => {
     }
 
     return { goalStart: start, goalEnd: end };
-  }, [ initializedGoalId, goalId, goals, startDate, endDate ]);
+  }, [ goalId, goals, startDate, endDate ]);
 
   // Prepare query args
   const args = useMemo( () => ({
-    goal_id: initializedGoalId || goalId,
+    goal_id: goalId,
     startDate: startDate,
     endDate: endDate
-  }), [ initializedGoalId, goalId, startDate, endDate ]);
+  }), [ goalId, startDate, endDate ]);
 
   const placeholderData = useMemo( () => ({
     today: {
@@ -159,11 +150,11 @@ const GoalsBlock = () => {
   const queries = useQueries({
     queries: [
       {
-        queryKey: [ 'live-goals', initializedGoalId || goalId ],
+        queryKey: [ 'live-goals', goalId ],
         queryFn: () => {
 
           // Only fetch if we have a valid goalId
-          if ( ! initializedGoalId && ! goalId ) {
+          if ( ! goalId ) {
             return '0';
           }
           return getLiveGoals( args );
@@ -174,14 +165,14 @@ const GoalsBlock = () => {
           console.error( 'Error fetching live goals:', error );
           setInterval( 0 );
         },
-        enabled: !! initializedGoalId || !! goalId
+        enabled: !! goalId
       },
       {
-        queryKey: [ 'goals', initializedGoalId || goalId ],
+        queryKey: [ 'goals', goalId ],
         queryFn: () => {
 
           // Only fetch if we have a valid goalId
-          if ( ! initializedGoalId && ! goalId ) {
+          if ( ! goalId ) {
             return placeholderData;
           }
           return getGoalsData( args );
@@ -192,7 +183,7 @@ const GoalsBlock = () => {
           console.error( 'Error fetching goals data:', error );
           setInterval( 0 );
         },
-        enabled: !! initializedGoalId || !! goalId
+        enabled: !! goalId
       }
     ]
   });
@@ -253,7 +244,7 @@ const GoalsBlock = () => {
                 <a
                   className='text-blue underline'
                   href={burst_get_website_url( 'how-to-set-goals', {
-                    burst_source: 'goals-block-overlay'
+                    utm_source: 'goals-block-overlay'
                   })}
                 >
                   {__( 'Learn how to set your first goal', 'burst-statistics' )}
@@ -271,60 +262,61 @@ const GoalsBlock = () => {
 
       <BlockHeading
         title={__( 'Goals', 'burst-statistics' )}
-        controls={<GoalsHeader goalId={initializedGoalId || goalId} goals={goals} setGoalId={setGoalId} />}
+        controls={<GoalsHeader goalId={goalId} goals={goals} setGoalId={setGoalId} />}
+        className='border-b border-gray-200'
       />
-      <BlockContent className={'px-0 py-0 relative'}>
+      <BlockContent className="px-0 py-0 relative">
         {isError ? (
-          <div className="burst-error-message p-4">
+          <div className="text-red p-4">
             {__( 'Error loading goals data. Please try again later.', 'burst-statistics' )}
           </div>
         ) : (
           <>
-            <div className="burst-goals-select bg-yellow-light">
+            <div className="px-6 py-5 grid w-full grid-cols-2 gap-4 bg-yellow-light">
               <TodayFilterItem {...todayFilterProps} />
               <TotalFilterItem {...totalFilterProps} />
             </div>
-            <div className="burst-goals-list">
+            <div className="w-full">
               <Tooltip content={data.topPerformer?.tooltip}>
-                <div className="burst-goals-list-item burst-tooltip-topPerformer">
+                <div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-4 py-2.5 px-6 even:bg-gray-100">
                   <Icon name="winner" />
-                  <p className="burst-goals-list-item-text">
+                  <p className="w-full mr-auto">
                     {safeDecodeURI( data.topPerformer?.title || '-' )}
                   </p>
-                  <p className="burst-goals-list-item-number">
+                  <p className="font-semibold">
                     {data.topPerformer?.value || '-'}
                   </p>
                 </div>
               </Tooltip>
               <Tooltip arrow title={data.conversionMetric?.tooltip}>
-                <div className="burst-goals-list-item">
+                <div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-4 py-2.5 px-6 even:bg-gray-100">
                   <Icon name={data.conversionMetric?.icon || 'visitors'} />
-                  <p className="burst-goals-list-item-text">
+                  <p className="w-full mr-auto">
                     {data.conversionMetric?.title || '-'}
                   </p>
-                  <p className="burst-goals-list-item-number">
+                  <p className="font-semibold">
                     {data.conversionMetric?.value || '-'}
                   </p>
                 </div>
               </Tooltip>
               <Tooltip content={data.conversionPercentage?.tooltip}>
-                <div className="burst-goals-list-item burst-tooltip-conversionPercentage">
+                <div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-4 py-2.5 px-6 even:bg-gray-100">
                   <Icon name="graph" />
-                  <p className="burst-goals-list-item-text">
+                  <p className="w-full mr-auto">
                     {data.conversionPercentage?.title || '-'}
                   </p>
-                  <p className="burst-goals-list-item-number">
+                  <p className="font-semibold">
                     {data.conversionPercentage?.value || '-'}
                   </p>
                 </div>
               </Tooltip>
               <Tooltip content={data.bestDevice?.tooltip}>
-                <div className="burst-goals-list-item burst-tooltip-bestDevice">
+                <div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-4 py-2.5 px-6 even:bg-gray-100">
                   <Icon name={data.bestDevice?.icon || 'desktop'} />
-                  <p className="burst-goals-list-item-text">
+                  <p className="w-full mr-auto">
                     {data.bestDevice?.title || '-'}
                   </p>
-                  <p className="burst-goals-list-item-number">
+                  <p className="font-semibold">
                     {data.bestDevice?.value || '-'}
                   </p>
                 </div>
@@ -342,7 +334,7 @@ const GoalsBlock = () => {
           >
             {__( 'View setup', 'burst-statistics' )}
           </a>
-          <div className={'burst-flex-push-right'}>
+          <div className="ml-auto">
             {! isLoading && ! isError && <GoalStatus data={data} />}
           </div>
         </BlockFooter>

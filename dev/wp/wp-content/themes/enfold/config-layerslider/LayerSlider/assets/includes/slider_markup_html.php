@@ -315,8 +315,8 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				$src = $postContent->getWithFormat($slide['props']['background']);
 
 				if(is_object($postContent->post)) {
-					$attchID = get_post_thumbnail_id($postContent->post->ID);
-					$lsBG = ls_get_markup_image( $attchID, ['class' => 'ls-bg'] );
+					$attachID = get_post_thumbnail_id($postContent->post->ID);
+					$lsBG = ls_get_markup_image( $attachID, ['class' => 'ls-bg'] );
 				}
 			} else {
 				$src = do_shortcode($slide['props']['background']);
@@ -347,6 +347,8 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 			if( ! empty( $slide['props']['thumbnail'] ) && ls_assets_cond( $slide['props'], 'thumbnail') ) {
 
 				$lsTN = '';
+				$alt = '';
+
 				if( ! empty($slide['props']['thumbnailId']) ) {
 
 					if( $lsWPML['useMediaTranslation'] ) {
@@ -354,19 +356,35 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					}
 
 					$lsTN = ls_get_markup_image( $slide['props']['thumbnailId'], ['class' => 'ls-tn'] );
+
+				} elseif($slide['props']['thumbnail'] == '[image-url]') {
+					$src = $postContent->getWithFormat($slide['props']['thumbnail']);
+
+					if(is_object($postContent->post)) {
+						$attachID = get_post_thumbnail_id($postContent->post->ID);
+						$lsTN = ls_get_markup_image( $attachID, ['class' => 'ls-tn'] );
+					}
+				} else {
+					$src = do_shortcode($slide['props']['thumbnail']);
+					$alt = 'Slide thumbnail';
 				}
 
-				if( ! empty( $lsTN ) && ! $useSrcset ) {
-					$lsTN = preg_replace('/srcset="[^\"]*"/', '', $lsTN);
-					$lsTN = preg_replace('/sizes="[^\"]*"/', '', $lsTN);
-				}
+				if( ! empty( $lsTN ) ) {
 
-				if( ! empty( $lsTN ) && $enhancedLazyLoad ) {
-					$lsTN = str_replace(' src="', ' data-src="', $lsTN);
-					$lsTN = str_replace(' srcset="', ' data-srcset="', $lsTN);
-				}
+					if( ! $useSrcset ) {
+						$lsTN = preg_replace('/srcset="[^\"]*"/', '', $lsTN);
+						$lsTN = preg_replace('/sizes="[^\"]*"/', '', $lsTN);
+					}
 
-				$lsMarkup[] = ! empty( $lsTN ) ? $lsTN : '<img src="'.$slide['props']['thumbnail'].'" class="ls-tn" alt="Slide thumbnail" />';
+					if( $enhancedLazyLoad ) {
+						$lsTN = str_replace(' src="', ' data-src="', $lsTN);
+						$lsTN = str_replace(' srcset="', ' data-srcset="', $lsTN);
+					}
+
+					$lsMarkup[] = $lsTN;
+				} elseif( ! empty( $src ) ) {
+					$lsMarkup[] = '<img src="'.$src.'" class="ls-tn" alt="'.$alt.'" />';
+				}
 			}
 		}
 
@@ -509,7 +527,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 						$mediaType = $layer['props']['mediaAttachments'][0]['type'];
 
 						if( $mediaType === 'video' ) {
-							$mediaHTML .= '<video width="640" height="360" preload="metadata" controls>';
+							$mediaHTML .= '<video width="640" height="360" preload="metadata" controls playsinline muted>';
 						} else {
 							$mediaHTML .= '<audio preload="metadata" controls>';
 						}
@@ -641,8 +659,8 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 						} elseif($layer['props']['image'] == '[image-url]') {
 
 							if(is_object($postContent->post)) {
-								$attchID = get_post_thumbnail_id($postContent->post->ID);
-								$layerIMG = ls_get_markup_image( $attchID, ['class' => 'ls-l'] );
+								$attachID = get_post_thumbnail_id($postContent->post->ID);
+								$layerIMG = ls_get_markup_image( $attachID, ['class' => 'ls-l'] );
 							} else {
 								$layerIMG = '<img src="'.$postContent->getWithFormat($layer['props']['image']).'">';
 							}

@@ -1,0 +1,84 @@
+:root {
+  --wpie-color-blue:  #005BBF;
+  --wpie-color-yellow: #FFD500;
+  --wpie-color-border: #cccccc;
+  --wpie-color-dark: #14102C;
+  --wpie-color-orange: #E86E2C;
+  --wpie-color-bg: #EEF3EB;
+  --wpie-color-success: #55B033;
+  --wpie-color-danger: #B03355;
+  --wpie-rgb-black: 29, 45, 53;
+  --wpie-rgb-dark: 20, 16, 44;
+  --wpie-rgb-yellow: 255, 214, 0;
+  --wpie-rgb-blue: 0, 91, 191;
+  --wpie-rgb-blurple: 85, 34, 250;
+  --wpie-rgb-teal: 95, 221, 197;
+  --wpie-rgb-danger: 176, 51, 85;
+  --wpie-transition: 0.1s cubic-bezier(0.33, 1, 0.68, 1);
+  --wpie-default-bg: rgb(242, 234, 232);
+  --wpie-field-border-default: #8c8f94;
+  --wpie-field-border: rgba(var(--wpie-rgb-blurple), 0.4);
+  //--wpie-field-color: #2c3338;
+  --wpie-field-color: var(--wpie-color-dark);
+  --wpie-field-border-radius: 4px;
+  --wpie-border-color: rgba(var(--wpie-rgb-blurple), 0.1);
+  --wpie-shadow-small: 0 0 0 1px rgba(var(--wpie-rgb-dark), 0.05), 0 1px 0 0 rgba(var(--wpie-rgb-dark), 0.05), 0 0.1em 0.6em -0.5em rgba(var(--wpie-rgb-dark), 0.05), 0 0.2em 1.2em -0.8em rgba(var(--wpie-rgb-dark), 0.1), 0 0.3em 0.7em -0.6em rgba(var(--wpie-rgb-dark), 0.2), 0 0.4em 0.8em -0.7em rgba(var(--wpie-rgb-dark), 0.3);
+  --wpie-shadow: 0 0 0 1px rgba(var(--wpie-rgb-dark), 0.05), 0 1px 0 0 rgba(var(--wpie-rgb-dark), 0.05), 0 0.2em 1.6em -0.8em rgba(var(--wpie-rgb-dark), 0.2), 0 0.4em 2.4em -1em rgba(var(--wpie-rgb-dark), 0.3), 0 0.4em 0.8em -1.2em rgba(var(--wpie-rgb-dark), 0.4), 0 0.8em 1.2em -1.6em rgba(var(--wpie-rgb-dark), 0.5), 0 1.2em 1.6em -2em rgba(var(--wpie-rgb-dark), 0.6);
+  --wpie-shadow-tab:
+          0 0 0 1px rgba(var(--wpie-rgb-blurple), 0.08),
+          0 1px 0 0 rgba(var(--wpie-rgb-blurple), 0.08),
+          0 0.1em 0.6em -0.5em rgba(var(--wpie-rgb-blurple), 0.10),
+          0 0.2em 1.2em -0.8em rgba(var(--wpie-rgb-blurple), 0.15),
+          0 0.3em 0.7em -0.6em rgba(var(--wpie-rgb-blurple), 0.2),
+          0 0.4em 0.8em -0.7em rgba(var(--wpie-rgb-blurple), 0.25);
+}
+
+
+.wpie-wrap {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline-end: 20px;
+  .nav-tab {
+    border-radius: 2px 2px 0 0;
+    //background: #F4F2FC;
+  }
+  .nav-tab-active {
+    //background-color: transparent;
+    //border-bottom: 1px solid rgb(252, 244, 242);
+  }
+}
+
+.wpie-settings__wrapper {
+  display: grid;
+  gap: 2rem;
+  position: relative;
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: 1fr 300px;
+  }
+}
+
+.wpie-settings__main {
+  padding-block-start: 15px;
+  hr {
+    margin-block: 1.5rem;
+  }
+}
+
+
+@import "scss-admin/1.header";
+@import "scss-admin/2.list_table";
+@import "scss-admin/3.tools";
+@import "scss-admin/4.tabs";
+@import "scss-admin/5.form";
+@import "scss-admin/6.notice";
+@import "scss-admin/7.helper";
+@import "scss-admin/8.sidebar";
+@import "scss-admin/9.item";
+@import "scss-admin/10.details";
+@import "scss-admin/11.thickbox";
+@import "scss-admin/12.icons";
+@import "scss-admin/13.notification";
+@import "scss-admin/14.dialog";
+@import "scss-admin/15.pro_features";
+

@@ -18,7 +18,7 @@ if( ! class_exists( 'aviaElementStyling', false ) )
 		 * @param aviaShortcodeTemplate|null $shortcode
 		 * @param string $element_id
 		 */
-		public function __construct( aviaShortcodeTemplate $shortcode = null, $element_id = '' )
+		public function __construct( ?aviaShortcodeTemplate $shortcode = null, $element_id = '' )
 		{
 			parent::__construct( $shortcode, $element_id );
 		}

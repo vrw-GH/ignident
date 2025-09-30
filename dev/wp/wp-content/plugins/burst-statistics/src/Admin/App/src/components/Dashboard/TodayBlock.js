@@ -1,16 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import Tooltip from '@/components/Common/Tooltip';
-import { useQueries, useQuery } from '@tanstack/react-query';
-import getLiveVisitors from '@//api/getLiveVisitors';
+import { useQuery } from '@tanstack/react-query';
 import getTodayData from '@//api/getTodayData';
 import Icon from '@//utils/Icon';
 import { endOfDay, format, startOfDay } from 'date-fns';
-import { useState, useRef, useMemo } from 'react';
+import { useRef, useMemo } from 'react';
 import { getDateWithOffset } from '@//utils/formatting';
 import { safeDecodeURI } from '@//utils/lib';
 import { Block } from '@/components/Blocks/Block';
 import { BlockHeading } from '@/components/Blocks/BlockHeading';
 import { BlockContent } from '@/components/Blocks/BlockContent';
+import { useLiveVisitorsData } from '@/hooks/useLiveVisitorsData'
 
 function selectVisitorIcon( value ) {
   value = parseInt( value );
@@ -61,15 +61,6 @@ const TodayBlock = () => {
     }
   }), []);
 
-  const liveVisitorsQuery = useQuery({
-    queryKey: [ 'live-visitors' ],
-    queryFn: getLiveVisitors,
-    refetchInterval: intervalRef.current,
-    placeholderData: '-',
-    onError: () => setInterval( 0 ),
-    gcTime: 10000
-  });
-
   const todayDataQuery = useQuery({
     queryKey: [ 'today', startDate, endDate ],
     queryFn: () => getTodayData({ startDate, endDate }),
@@ -79,9 +70,10 @@ const TodayBlock = () => {
     gcTime: 20000
   });
 
+  const liveVisitorsQuery = useLiveVisitorsData();
   const live = liveVisitorsQuery.data;
   let data = todayDataQuery.data;
-  if ([ liveVisitorsQuery, todayDataQuery ].some( ( query ) => query.isError ) ) {
+  if ( [ liveVisitorsQuery, todayDataQuery ].some( ( query ) => query.isError ) ) {
     data = placeholderData;
   }
   let liveIcon = selectVisitorIcon( live ? live : 0 );
@@ -95,72 +87,73 @@ const TodayBlock = () => {
       <BlockHeading
         title={__( 'Today', 'burst-statistics' )}
         controls={undefined}
+        className='border-b border-gray-200'
       />
-      <BlockContent className={'px-0 py-0'}>
+      <BlockContent className="px-0 py-0">
         <div className="burst-today">
-          <div className="burst-today-select">
+          <div className="px-5 py-6 grid w-full grid-cols-2 gap-4 bg-green-light">
             <Tooltip content={data.live.tooltip}>
-              <div className="burst-today-select-item burst-tooltip-live">
+              <div className="rounded-md flex flex-col justify-center text-center py-4 items-center flex-wrap bg-white burst-tooltip-live">
                 <Icon name={liveIcon} size="26" />
-                <h2>{live}</h2>
-                <span>
+                <h2 className="mt-1.5 font-extrabold">{live}</h2>
+                <span className="flex gap-[3px] justify-center text-xs">
                   <Icon name="live" size="12" color={'red'} />{' '}
                   {__( 'Live', 'burst-statistics' )}
                 </span>
               </div>
             </Tooltip>
             <Tooltip content={data.today.tooltip}>
-              <div className="burst-today-select-item burst-tooltip-today">
+              <div className="rounded-md flex flex-col justify-center text-center py-4 items-center flex-wrap bg-white burst-tooltip-today">
                 <Icon name={todayIcon} size="26" />
-                <h2>{data.today.value}</h2>
-                <span>
+                <h2 className="mt-1.5 font-extrabold">{data.today.value}</h2>
+                <span className="flex gap-[3px] justify-center text-xs">
                   <Icon name="total" size="13" color={'green'} />{' '}
                   {__( 'Total', 'burst-statistics' )}
                 </span>
               </div>
             </Tooltip>
           </div>
-          <div className="burst-today-list">
+          <div className="w-full">
             <Tooltip content={data.mostViewed.tooltip}>
-              <div className="burst-today-list-item burst-tooltip-mostviewed">
+              <div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-2 py-2.5 px-6 even:bg-gray-100 burst-tooltip-mostviewed">
                 <Icon name="winner" />
-                <p className="burst-today-list-item-text">
+                <p className="burst-today-list-item-text w-full mr-auto">
                   {safeDecodeURI( data.mostViewed.title )}
                 </p>
-                <p className="burst-today-list-item-number">
+                <p className="font-semibold">
                   {data.mostViewed.value}
                 </p>
               </div>
             </Tooltip>
             <Tooltip content={data.referrer.tooltip}>
-              <div className="burst-today-list-item burst-tooltip-referrer">
+              <div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-2 py-2.5 px-6 even:bg-gray-100 burst-tooltip-referrer">
                 <Icon name="referrer" />
-                <p className="burst-today-list-item-text">
+                <p className="burst-today-list-item-text w-full mr-auto">
                   {safeDecodeURI( data.referrer.title )}
                 </p>
-                <p className="burst-today-list-item-number">
+                <p className="font-semibold">
                   {data.referrer.value}
                 </p>
               </div>
             </Tooltip>
             <Tooltip content={data.pageviews.tooltip}>
-              <div className="burst-today-list-item burst-tooltip-pageviews">
+              <div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-2 py-2.5 px-6 even:bg-gray-100 burst-tooltip-pageviews">
                 <Icon name="pageviews" />
-                <p className="burst-today-list-item-text">
+                <p className="burst-today-list-item-text w-full mr-auto">
                   {data.pageviews.title}
                 </p>
-                <p className="burst-today-list-item-number">
+                <p className="font-semibold">
                   {data.pageviews.value}
                 </p>
               </div>
             </Tooltip>
             <Tooltip content={data.timeOnPage.tooltip}>
-              <div className="burst-today-list-item burst-tooltip-timeOnPage">
+              <div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-2 py-2.5 px-6 even:bg-gray-100 burst-tooltip-timeOnPage">
                 <Icon name="time" />
-                <p className="burst-today-list-item-text">
+                <p className="burst-today-list-item-text w-full mr-auto">
                   {data.timeOnPage.title}
                 </p>
-                <p className="burst-today-list-item-number">
+                <p className="font-semibold">
                   {data.timeOnPage.value}
                 </p>
               </div>

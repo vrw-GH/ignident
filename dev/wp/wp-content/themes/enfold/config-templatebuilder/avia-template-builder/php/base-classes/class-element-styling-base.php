@@ -141,7 +141,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylingBase', false ) )
 		 * @param \aviaShortcodeTemplate|null $shortcode
 		 * @param string $element_id
 		 */
-		protected function __construct( \aviaShortcodeTemplate $shortcode = null, $element_id = '' )
+		protected function __construct( ?\aviaShortcodeTemplate $shortcode = null, $element_id = '' )
 		{
 			$this->shortcode = $shortcode;
 			$this->element_id = $element_id;

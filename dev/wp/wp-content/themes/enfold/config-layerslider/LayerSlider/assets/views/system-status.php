@@ -291,12 +291,6 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 									'default' 	=> true,
 									'name' 		=> __('Use GreenSock (GSAP) sandboxing', 'LayerSlider'),
 									'message' 	=> __('GreenSock is a popular animation engine used by many. Enabling sandboxing helps avoid issues when 3rd parties like other plugins and WordPress themes are also using GreenSock.', 'LayerSlider')
-								],
-
-								'use_custom_jquery' => [
-									'default' 	=> false,
-									'name' 		=> __('Use Google CDN version of jQuery', 'LayerSlider'),
-									'message' 	=> __('This setting should be used in very special cases only as it can break otherwise functioning sites.', 'LayerSlider')
 								]
 							];
 

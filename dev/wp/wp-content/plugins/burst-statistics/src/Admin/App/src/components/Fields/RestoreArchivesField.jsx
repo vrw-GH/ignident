@@ -6,7 +6,7 @@ import useSettingsData from '@/hooks/useSettingsData';
 import DataTable from 'react-data-table-component';
 
 const RestoreArchivesField = forwardRef(
-    ({ ...props }) => {
+    ({ ...props }, ref) => {
   const [ searchValue, setSearchValue ] = useState( '' );
   const [ selectedArchives, setSelectedArchives ] = useState([]);
   const [ downloading, setDownloading ] = useState( false );
@@ -285,10 +285,9 @@ const RestoreArchivesField = forwardRef(
 
   return (
     <div className="w-full p-6">
-      <div className="burst-table-header">
-        <div className="burst-table-header-controls">
+      <div className="py-2.5 px-6">
+        <div>
           <input
-            className="burst-datatable-search"
             type="text"
             placeholder={__( 'Search', 'burst-statistics' )}
             value={searchValue}
@@ -298,8 +297,8 @@ const RestoreArchivesField = forwardRef(
       </div>
 
       {0 < selectedArchives.length && (
-          <div className="burst-selected-archive flex space-y-2">
-            <div className="burst-selected-archive-controls flex gap-2.5 mb-4 mt-4 items-center">
+          <div className="mt-[10px] mb-[10px] items-center bg-blue-light py-2.5 px-6 flex space-y-2">
+            <div className="ml-auto flex gap-2.5 mb-4 mt-4 items-center">
               {showDownloadButton && (
                   <>
                     <button
@@ -341,7 +340,7 @@ const RestoreArchivesField = forwardRef(
           </div>
       )}
       {0 < progress && 100 > progress && (
-          <div className="burst-selected-archive">
+          <div className="my-2.5 items-center bg-blue-light py-2.5 px-l flex space-y-2">
             {__('Restore in progress, %s complete', 'burst-statistics').replace(
                 '%s',
                 progress + '%'
@@ -369,7 +368,7 @@ const RestoreArchivesField = forwardRef(
             selectAllRowsItemText: __( 'All', 'burst-statistics' )
           }}
           noDataComponent={
-            <div className="burst-no-archives">
+            <div className="p-8">
               {__( 'No archives', 'burst-statistics' )}
             </div>
           }

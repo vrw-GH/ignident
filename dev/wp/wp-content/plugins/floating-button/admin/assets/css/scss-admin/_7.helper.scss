@@ -1,0 +1,166 @@
+.wpie-settings__wrapper {
+
+  .is-hidden {
+    position: absolute;
+    left: -99999px;
+    top: -99999px;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .is-blur {
+    filter: blur(1px);
+  }
+
+  .is-pointer {
+    cursor: pointer;
+  }
+}
+
+.wpie-max-w_750 {
+  max-width: 750px;
+  margin-inline: auto;
+}
+
+.has-tooltip {
+  position: relative;
+  cursor: help;
+  &.is-pointer {
+    cursor: pointer;
+  }
+
+  &::before,
+  &::after {
+    color: #efefef;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color: rgba(0,0,0, 0.85);
+    border-radius: 2px;
+    color: #ffffff;
+    content: attr(data-tooltip); //This pulls in the text from the element with the tooltip
+    padding: 10px;
+    text-transform: none;
+    transition: all 0.5s ease;
+    max-width: 200px;
+    width: max-content;
+    transform: translateY(calc(-100% - 7px)) translateX(-50%);
+    word-wrap: break-word;
+    white-space: break-spaces;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  //Tooltip arrow
+  &::after {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--wpie-color-dark);
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+    margin-left: -5px;
+    width: 0;
+    transform: translateX(-50%);
+  }
+
+  &:focus-visible::before,
+  &:focus-visible::after,
+  &:focus::before,
+  &:focus::after,
+  &:hover::before,
+  &:hover::after {
+    opacity: 1;
+    transition: all 0.75s ease;
+  }
+
+  &.on-right {
+    &::before{
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%) translateX(4px);
+    }
+    &::after{
+      top: 50%;
+      left: calc(100% + 2px);
+      rotate: 90deg;
+      transform: translateX(calc(-50% + 2.5px));
+    }
+  }
+
+  &.on-left {
+    &::before{
+      top: 50%;
+      left: -2px;
+      transform: translateY(-50%) translateX(-100%);
+    }
+    &::after{
+      top: 50%;
+      left: 0;
+      rotate: -90deg;
+      transform: translateX(calc(-50% + 7px));
+    }
+  }
+
+  &.on-bottom {
+    &::before{
+      top: unset;
+      bottom: 0;
+      transform: translateY(calc(100% + 7px)) translateX(-50%);
+    }
+    &::after{
+      top: unset;
+      bottom: -7px;
+      rotate: 180deg;
+    }
+  }
+
+}
+
+.wpie-color-orange {
+  color: var(--wpie-color-orange) !important;
+}
+.wpie-color-success {
+  color: var(--wpie-color-success) !important;
+}
+.wpie-color-teal {
+  color: rgb(var(--wpie-rgb-teal)) !important;
+}
+
+.wpie-color-danger {
+  color: var(--wpie-color-danger) !important;
+}
+
+.wpie-color-dark {
+  color: var(--wpie-color-dark) !important;
+}
+
+a.wpie-like-tag {
+  background-color: #B3F4F4;
+  color: #5522FA;
+  border-radius: 8px 0 8px 8px;
+  font-weight: 700;
+  padding: .5em .9em;
+  text-decoration: none;
+  &:hover {
+    color: #ffffff;
+    background-color: #5522FA;
+  }
+}
+
+.has-mt {
+  margin-top: 15px;
+}
+
+.has-mb {
+  margin-bottom: 15px;
+}

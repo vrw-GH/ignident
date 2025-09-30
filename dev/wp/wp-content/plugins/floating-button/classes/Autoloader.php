@@ -1,9 +1,20 @@
 <?php
 
+/**
+ * Autoloader class
+ *
+ * The Autoloader class is responsible for loading classes automatically based on their namespace.
+ *
+ * @package    WowPlugin
+ * @subpackage Autoloader
+ * @author     Dmytro Lobov <dev@wow-company.com>, Wow-Company
+ * @copyright  2024 Dmytro Lobov
+ * @license    GPL-2.0+
+ */
+
 namespace FloatingButton;
 
 // Exit if accessed directly.
-
 defined( 'ABSPATH' ) || exit;
 
 class Autoloader {
@@ -11,8 +22,7 @@ class Autoloader {
 	 * @var mixed
 	 */
 	private $namespace;
-	private string $directory;
-
+	private $directory;
 
 	public function __construct( $namespace ) {
 		$this->namespace = $namespace;
@@ -21,7 +31,6 @@ class Autoloader {
 	}
 
 	public function autoload( $class ): void {
-
 		if ( strpos( $class, $this->namespace ) === 0 ) {
 			$file = $this->get_file_path( $class );
 

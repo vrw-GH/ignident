@@ -6,7 +6,7 @@ Requires at least: 6.2
 License: GPL2
 Requires PHP: 7.4
 Tested up to: 6.8
-Stable tag: 2.2.0
+Stable tag: 2.2.7
 
 Self-hosted, privacy-friendly stats for WordPress. Simple interface, no setup. Get detailed analytics with Burst Statistics.
 
@@ -97,6 +97,55 @@ Absolutely! Both free and premium plugin can be managed with composer. Read the 
 We value your feedback. You can [submit a support request on the WordPress forums](https://wordpress.org/support/plugin/burst-statistics/), and we will respond promptly.
 
 == Change log ==
+= 2.2.7 =
+* New: Detailed live visitors tab
+* Improvement: responsiveness on mobile, restored 1280px breakpoint
+* Improvement: suspicious data (over 1000 visits from 1 user) is now only detected and the admin notified, not automatically removed.
+* Fix: on multisite with Burst network activated, the endpoint incorrectly did not detect Burst as active, which prevents tracking from occurring.
+
+= 2.2.6.1 =
+* Fix: remove false positive notice about missing tables.
+
+= 2.2.6 =
+* Improvement: pass post_id to javascript using a data attribute in the body element, to improve accuracy of the page specific pageviews.
+* Improvement: dropped usage of the imprecise post_meta pageviews metric entirely.
+* Improvement: made it possible to track hook goals with cookieless tracking.
+* Improvement: migrated all remaining css to tailwind css.
+* Fix: Group by on parameters overview should group by combination of parameter and value.
+
+= 2.2.5 =
+* Fix: incorrect calculation of bounces and bounce rate.
+* Fix: upgrade link on archiving not working.
+
+= 2.2.4 =
+* New: debug information in Site Health Info.
+* New: wildcard filtering on page URL in advanced filters, by adding an asterisk behind your string.
+* Improvement: check in endpoint if Burst is still active, for situations where javascript is still active, due to caching, but plugin not active.
+* Improvement: catch incorrect data structure on hit, for situations where previous javascript is still active due to caching.
+* Improvement: larger selection of Tips & Tricks retrieved from website, showing a variety of different and more up to date articles.
+* Improvement: performance optimizations.
+* Fix: when statistics table is empty, the summary table upgrade could fail on an empty value for "first visit", props @programmin.
+* Fix: catch edge case where a theme passes a null value to the "the_content" filter (which is incorrect behaviour). props @sllew.
+* Fix: incorrect bounce calculation, resulting in too high bounces and bounce rates.
+
+= 2.2.3 =
+* Improvement: allow ipv6 addresses
+* Improvement: prevent false positives on ajax fallback notice
+* Improvement: rest optimizer improvements
+
+= 2.2.2 =
+* New: Extensive range of filter options to easily track what campaigns are delivering your conversions!
+* Improvement: Added CORS support to tracking endpoint to allow cross-origin requests via fetch/sendBeacon. props Alex
+* Improvement: automatic cleanup of anomalous numbers of visits, when one visitor results in over 1000 page views in 24 hours (customizable with filters).
+* Improvement: remove duplicate non necessary json_encode from endpoint
+* Improvement: Add logging option to check error responses on the endpoint or rest api, when BURST_DEBUG and WP_DEBUG are set to true.
+* Fix: when the weekly statistics report was sent on another day than the default day, date range calculation could retrieve the wrong range. props Pieter
+* Fix: Referrer filter not working. props @lekkerbezig
+* Fix: allow for alternative WordPress location, e.g. in subfolder 'wp'.
+
+= 2.2.1 =
+* Fix: usage of wrong key prevented upgrade from completing
+
 = 2.2.0 =
 * New: extended range of shortcodes.
 * New: goal element preview to check if the selected element exists on the page.
@@ -142,39 +191,6 @@ We value your feedback. You can [submit a support request on the WordPress forum
 * Fix: A dismissible task like the new email reports upgrade notice stayed in the “remaining tasks” section.
 * Fix: predefined goals were not loading due to changes in translation structure within WordPress.
 * Fix: on track_updates, empty values were not cleaned up correctly, possibly leading to rows with empty devices and browsers.
-
-= 1.7.6 =
-* Fix: translations not loading correctly
-* Fix: when using the reset button, a fatal error occurred
-
-= 1.7.5 =
-* Fix: Resolved an issue where plain permalinks were not working correctly.
-* Fix: Goals were not saving the start date properly, this has been corrected.
-* Fix: Fixed the goals ID/class toggle issue for better consistency.
-* Improvement: Added a new filter for customizing datatable output.
-* Improvement: Enhanced `get_website_url()` for improved reliability.
-* Security: Applied `unslash()` to `verify_nonce` to enhance security measures.
-
-= 1.7.4 =
-* Improvement: Limit live update requests to enhance system performance.
-* Improvement: Added an option to exclude bounces, allowing users to adjust settings more easily.
-* Fix: This addresses the issue with sorting by 0 in WordPress.
-* Fix: Prevent duplication of burst post meta when Yoast Duplicate Post is used. props @dariuserdt
-* Fix: Corrects the behavior of the burst_admin_url() function when it receives a path, ensuring it is properly handled.
-* Fix: Prevent burst tracking from causing server spikes when Complianz clears cookies without consent for stats.
-
-= 1.7.3 =
-* November 18, 2024
-* New: Blueprint.js demo data
-* Improvement: option to override the default time between endpoint tests, props @tobaco
-* Improvement: allow parameter length over 250 characters, props @ficusmedia
-* Improvement: option to dismiss all notices, except critical issues, props @3cstudio
-* Fix: clear unused 5 minutes cron job
-* Fix: on deactivation on multisite, not all tables were deleted yet, props @ecce-homo
-* Improvement: Change column parameters to text to allow longer params.
-* Improvement: Added a composite index on uid and time to speed up inserting tracking data. props @johannesdb
-* Fix: Language issue with malformed URL's. props @apollosk
-* Fix: Issue with translatable files with WP 6.7.
 
 == Upgrade notice ==
 * Please backup before upgrading.

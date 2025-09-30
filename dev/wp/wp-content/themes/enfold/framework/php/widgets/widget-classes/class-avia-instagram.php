@@ -201,7 +201,7 @@ if( ! class_exists( __NAMESPACE__ . '\avia_instagram_widget', false ) )
 		 * @since 4.3.1
 		 * @param array|null $cache
 		 */
-		public function update_cache( array $cache = null )
+		public function update_cache( ?array $cache = null )
 		{
 			if( ! is_null( $cache) )
 			{

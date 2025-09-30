@@ -52,7 +52,6 @@ class Tracking {
 	public function track_hit( array $data ): string {
 		// validate & sanitize all data.
 		$sanitized_data = $this->prepare_tracking_data( $data );
-
 		if ( $sanitized_data['referrer'] === 'spammer' ) {
 			self::error_log( 'Referrer spam prevented.' );
 			return 'referrer is spam';
@@ -90,13 +89,11 @@ class Tracking {
 		}
 		$sanitized_data = apply_filters( 'burst_before_track_hit', $sanitized_data, $hit_type, $filtered_previous_hit );
 		$session_arr    = [
-			'last_visited_url'   => $this->create_path( $sanitized_data ),
-			'goal_id'            => false,
-			'city_code'          => $sanitized_data['city_code'] ?? '',
-			'accuracy_radius_km' => $sanitized_data['accuracy_radius_km'] ?? '',
+			'last_visited_url' => $this->create_path( $sanitized_data ),
+			'goal_id'          => false,
+			'city_code'        => $sanitized_data['city_code'] ?? '',
 		];
 		unset( $sanitized_data['city_code'] );
-		unset( $sanitized_data['accuracy_radius_km'] );
 		// update burst_sessions table.
 		// Get the last record with the same uid within 30 minutes. If it exists, use session_id. If not, create a new session.
 
@@ -120,6 +117,7 @@ class Tracking {
 
 		// if there is a fingerprint use that instead of uid.
 		if ( $sanitized_data['fingerprint'] && ! $sanitized_data['uid'] ) {
+			$this->store_fingerprint_in_session( $sanitized_data['fingerprint'] );
 			$sanitized_data['uid'] = $sanitized_data['fingerprint'];
 		}
 		unset( $sanitized_data['fingerprint'] );
@@ -160,18 +158,6 @@ class Tracking {
 			}
 		}
 
-		// update total pageviews count.
-		// we don't do this on high traffic sites.
-		if ( ! get_option( 'burst_is_high_traffic_site' ) ) {
-			$page_url             = isset( $sanitized_data['page_url'] ) ? esc_url_raw( $sanitized_data['host'] . $sanitized_data['page_url'] ) : '';
-			$page_views_to_update = get_option( 'burst_pageviews_to_update', [] );
-			if ( ! in_array( $page_url, $page_views_to_update, true ) ) {
-				$page_views_to_update[ $page_url ] = 1;
-			} else {
-				++$page_views_to_update[ $page_url ];
-			}
-			update_option( 'burst_pageviews_to_update', $page_views_to_update );
-		}
 		return 'success';
 	}
 
@@ -201,9 +187,13 @@ class Tracking {
 			return 'ip blocked';
 		}
 
-		// The data is encoded in JSON and decoded twice to get the array.
-		$data = json_decode( json_decode( $request, true ), true );
-		$this->track_hit( $data );
+		$data = json_decode( $request, true );
+		if ( is_array( $data ) ) {
+			$this->track_hit( $data );
+		} else {
+			self::error_log( 'The posted data has to be an array. Please check if your Javascript code is cached, using the old version.' );
+		}
+
 		http_response_code( 200 );
 
 		return 'success';
@@ -227,7 +217,12 @@ class Tracking {
 		if ( isset( $data['request'] ) && $data['request'] === 'test' ) {
 			return new \WP_REST_Response( [ 'success' => 'test' ], 200 );
 		}
-		$this->track_hit( $data );
+
+		if ( is_array( $data ) ) {
+			$this->track_hit( $data );
+		} else {
+			self::error_log( 'The posted data has to be an array. Please check if your Javascript code is cached, using the old version.' );
+		}
 
 		return new \WP_REST_Response( [ 'success' => 'hit_tracked' ], 200 );
 	}
@@ -273,6 +268,8 @@ class Tracking {
 			'user_agent'      => null,
 			'time_on_page'    => null,
 			'completed_goals' => null,
+			'page_id'         => null,
+			'page_type'       => null,
 		];
 		$data     = wp_parse_args( $data, $defaults );
 
@@ -296,8 +293,49 @@ class Tracking {
 		$sanitized_data['device_id']          = self::get_lookup_table_id( 'device', $user_agent_data['device'] );
 		$sanitized_data['time_on_page']       = $this->sanitize_time_on_page( $data['time_on_page'] );
 		$sanitized_data['bounce']             = 1;
+		$sanitized_data['page_id']            = (int) $data['page_id'];
+		$sanitized_data['page_type']          = $this->sanitize_page_identifier( $data['page_type'] );
 
 		return $sanitized_data;
+	}
+
+	/**
+	 * Sanitize the page identifier.
+	 *
+	 * @param string|null $page_identifier the page_identifier.
+	 * @return string the sanitized identifier.
+	 */
+	private function sanitize_page_identifier( ?string $page_identifier ): string {
+		if ( empty( $page_identifier ) ) {
+			return '';
+		}
+
+		if ( ! function_exists( 'get_post_types' ) ) {
+			require_once ABSPATH . 'wp-includes/post.php';
+		}
+
+		$page_identifier = trim( $page_identifier );
+		$fixed_values    = [
+			'front-page',
+			'blog-index',
+			'date-archive',
+			'404',
+			'archive-generic',
+			'wc-shop',
+			'tag',
+			'tax',
+			'author',
+			'search',
+			'category',
+			'page',
+			'post',
+		];
+
+		if ( in_array( $page_identifier, $fixed_values, true ) ) {
+			return $page_identifier;
+		}
+
+		return sanitize_title( $page_identifier );
 	}
 
 	/**
@@ -372,9 +410,11 @@ class Tracking {
 		if ( ! filter_var( $sanitized_url, FILTER_VALIDATE_URL ) ) {
 			return $url_destructured;
 		}
-		// we don't use wp_parse_url so we don't need to load an additional wp file.
-        // phpcs:ignore
-		$url = parse_url( esc_url_raw( $sanitized_url ) );
+
+		if ( ! function_exists( 'wp_parse_url' ) ) {
+			require_once ABSPATH . '/wp-includes/http.php';
+		}
+		$url = wp_parse_url( esc_url_raw( $sanitized_url ) );
 		if ( isset( $url['host'] ) ) {
 			$url_destructured['host']        = $url['host'];
 			$url_destructured['scheme']      = $url['scheme'];
@@ -553,6 +593,7 @@ class Tracking {
 					'isInitialHit'        => true,
 					'lastUpdateTimestamp' => 0,
 					'beacon_url'          => self::get_beacon_url(),
+					'ajaxUrl'             => admin_url( 'admin-ajax.php' ),
 				],
 				'options'  => [
 					'cookieless'            => $this->get_option_int( 'enable_cookieless_tracking' ),
@@ -562,6 +603,7 @@ class Tracking {
 					'enable_turbo_mode'     => $this->get_option_int( 'enable_turbo_mode' ),
 					'track_url_change'      => $this->get_option_int( 'track_url_change' ),
 					'cookie_retention_days' => apply_filters( 'burst_cookie_retention_days', 30 ),
+					'debug'                 => defined( 'BURST_DEBUG' ) && BURST_DEBUG ? 1 : 0,
 				],
 				'goals'    => [
 					'completed' => [],
@@ -590,31 +632,62 @@ class Tracking {
 	}
 
 	/**
-	 * Get all active goals from the database.
+	 * Get all active goals from the database with single query + cached result.
 	 *
-	 * @param bool $server_side Whether to fetch only server-side goals.
-	 * @return array<array<string, mixed>> List of active goals as associative arrays.
+	 * @param bool $server_side Whether to return server-side goals only.
+	 * @return array<array<string, mixed>> Filtered list of active goals.
 	 */
 	public function get_active_goals( bool $server_side ): array {
+		// Prevent queries during install.
 		if ( defined( 'BURST_INSTALL_TABLES_RUNNING' ) ) {
 			return [];
 		}
 
-		global $wpdb;
-		$server_side_key = $server_side ? 'server_side' : 'client_side';
-		if ( isset( $this->goals[ $server_side_key ] ) ) {
-			return $this->goals[ $server_side_key ];
+		// Reuse per-scope cache if we already computed it this request.
+		$scope = $server_side ? 'server_side' : 'client_side';
+		if ( isset( $this->goals[ $scope ] ) ) {
+			return $this->goals[ $scope ];
 		}
-		$goals = wp_cache_get( "burst_active_goals_$server_side_key", 'burst' );
-		if ( ! $goals ) {
-			$server_side_sql = $server_side ? " AND (type = 'visits' OR type = 'hook') " : "AND type != 'visits' AND type != 'hook' ";
-			$goals           = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}burst_goals WHERE status = 'active' {$server_side_sql}", ARRAY_A );
-			wp_cache_set( "burst_active_goals_$server_side_key", $goals, 'burst', 10 );
-		}
-		$this->goals[ $server_side_key ] = $goals;
 
-		return $goals;
+		// Get full active goals list from in-memory or object cache.
+		if ( isset( $this->goals['all'] ) ) {
+			$all_goals = $this->goals['all'];
+		} else {
+			$all_goals = wp_cache_get( 'burst_active_goals_all', 'burst' );
+			if ( ! $all_goals ) {
+				global $wpdb;
+				// Single query: fetch ALL active goals (no type condition).
+				$all_goals = $wpdb->get_results(
+					"SELECT * FROM {$wpdb->prefix}burst_goals WHERE status = 'active'",
+					ARRAY_A
+				);
+				// Cache full set for reuse across calls.
+				wp_cache_set( 'burst_active_goals_all', $all_goals, 'burst', 60 );
+			}
+			// Memoize for this request.
+			$this->goals['all'] = $all_goals;
+		}
+
+		// Filter in PHP to avoid a second DB roundtrip.
+		$filtered = array_values(
+			array_filter(
+				$all_goals,
+				static function ( array $goal ) use ( $server_side ): bool {
+					$server_side_types = [ 'visits', 'hook' ];
+					$type              = $goal['type'] ?? '';
+					return $server_side
+						? in_array( $type, $server_side_types, true )
+						: ! in_array( $type, $server_side_types, true );
+				}
+			)
+		);
+
+		// Memoize filtered results.
+		$this->goals[ $scope ] = $filtered;
+
+		return $filtered;
 	}
+
 
 	/**
 	 * Checks if a specified goal is completed based on the provided page URL.
@@ -979,6 +1052,36 @@ class Tracking {
 		unset( $data['host'] );
 		unset( $data['completed_goals'] );
 		return $data;
+	}
+
+
+	/**
+	 * Store fingerprint in PHP session.
+	 *
+	 * @param string $fingerprint The fingerprint to store.
+	 * @return bool True on success, false on failure.
+	 */
+	public function store_fingerprint_in_session( string $fingerprint ): bool {
+		if ( session_status() === PHP_SESSION_NONE ) {
+			session_start();
+		}
+
+		$_SESSION['burst_fingerprint'] = $this->sanitize_fingerprint( $fingerprint );
+
+		return true;
+	}
+
+	/**
+	 * Retrieve fingerprint from PHP session.
+	 *
+	 * @return string The stored fingerprint or empty string if not found.
+	 */
+	public function get_fingerprint_from_session(): string {
+		if ( session_status() === PHP_SESSION_NONE ) {
+			session_start();
+		}
+		$fingerprint = $_SESSION['burst_fingerprint'] ?? '';
+		return $this->sanitize_fingerprint( $fingerprint );
 	}
 
 	/**

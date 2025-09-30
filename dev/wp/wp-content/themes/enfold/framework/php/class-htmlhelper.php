@@ -1995,7 +1995,7 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 			$output .= '<input type="hidden" name="avia-nonce-import-parent" value="' . $nonce . '" />';
 			$output .= '<span class="avia_style_wrap"><a href="#" class="avia_button avia_import_parent_button">'  . __( 'Import Parent Theme Settings', 'avia_framework' ) . '</a></span>';
 			$output .= '<span class="avia_loading avia_import_loading_parent"></span>';
-			$output .= '<div class="avia_import_parent_wait"><strong>Import started.</strong><br/>Please wait a few seconds and dont reload the page. You will be notified as soon as the import has finished! :)</div>';
+			$output .= '<div class="avia_import_parent_wait"><strong>'. __( 'Import started.', 'avia_framework' ) . '</strong><br/>' . __( 'Please wait a few seconds and dont reload the page. You will be notified as soon as the import has finished! :)', 'avia_framework' ) . '</div>';
 			$output .= '<div class="avia_import_result_parent"></div>';
 
 			return $output;

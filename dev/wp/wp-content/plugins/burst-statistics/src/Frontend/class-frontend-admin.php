@@ -61,11 +61,19 @@ class Frontend_Admin {
 		}
 
 		global $post;
+		$burst_top_bar_post_types = apply_filters(
+			'burst_top_bar_post_types',
+			[ 'post', 'page' ]
+		);
 		if ( $post && is_object( $post ) ) {
-			$count = (int) get_post_meta( $post->ID, 'burst_total_pageviews_count', true );
-			$count = $this->format_number_short( $count );
+			if ( ! in_array( $post->post_type, $burst_top_bar_post_types, true ) ) {
+				return;
+			}
+			$statistics = new Frontend_Statistics();
+			$count      = $statistics->get_post_views( $post->ID, 0, time() );
+			$count      = $this->format_number_short( $count );
 		} else {
-			$count = 0;
+			return;
 		}
 
 		$wp_admin_bar->add_menu(
@@ -83,24 +91,5 @@ class Frontend_Admin {
 				'href'   => BURST_DASHBOARD_URL,
 			]
 		);
-	}
-
-	/**
-	 * Format number to a short version (e.g., 1.2M, 3.4B)
-	 *
-	 * @param int $n The number to format.
-	 * @return string The formatted number.
-	 */
-	private function format_number_short( int $n ): string {
-		if ( $n >= 1_000_000_000 ) {
-			return round( $n / 1_000_000_000, 1 ) . 'B';
-		}
-		if ( $n >= 1_000_000 ) {
-			return round( $n / 1_000_000, 1 ) . 'M';
-		}
-		if ( $n >= 1_000 ) {
-			return round( $n / 1_000, 1 ) . 'k';
-		}
-		return (string) $n;
 	}
 }

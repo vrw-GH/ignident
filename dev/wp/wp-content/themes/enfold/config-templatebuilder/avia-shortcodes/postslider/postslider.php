@@ -886,7 +886,12 @@ if ( ! class_exists( 'avia_post_slider', false ) )
 				$permalink .=		'</a>';
 				$permalink .= '</div>';
 
-				$prepare_excerpt = ! empty( $entry->post_excerpt ) ? $entry->post_excerpt : avia_backend_truncate( $entry->post_content, apply_filters( 'avf_postgrid_excerpt_length', $excerpt_length ), apply_filters( 'avf_postgrid_excerpt_delimiter', ' ' ), '…', true, '' );
+				/**
+				 * @link https://kriesi.at/support/topic/postslider-date-display-inconsistency/
+				 * @since 7.1.2
+				 */
+				$trimmed_excerpt = trim( $entry->post_excerpt );
+				$prepare_excerpt = ! empty( $trimmed_excerpt ) ? $trimmed_excerpt : avia_backend_truncate( $entry->post_content, apply_filters( 'avf_postgrid_excerpt_length', $excerpt_length ), apply_filters( 'avf_postgrid_excerpt_delimiter', ' ' ), '…', true, '' );
 
 				if( $format == 'link' )
 				{

@@ -16,7 +16,7 @@ ob_start();
  * Plugin Name:       Popup Box
  * Plugin URI:        http://ays-pro.com/wordpress/popup-box
  * Description:       Pop up anything you want! Create informative and promotional popups all in one plugin. Boost your website traffic with eye-catching popups. 
- * Version:           5.4.3
+ * Version:           5.5.4
  * Author:            Popup Box Team
  * Author URI:        http://ays-pro.com/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'AYS_PB_NAME_VERSION', '5.4.3' );
+define( 'AYS_PB_NAME_VERSION', '5.5.4' );
 define( 'AYS_PB_NAME', 'ays-pb' );
 
 if( ! defined( 'AYS_PB_ADMIN_URL' ) ) {
@@ -102,52 +102,52 @@ function general_ays_pb_admin_notice() {
         ?>
         <div class="ays-notice-banner ays-pb-notice">
             <div class="navigation-bar">
-                <div class="logo-container">
-                    <a href="https://popup-plugin.com/" class="popup-box-logo-link" target="_blank">
-                        <img class="popup-box-logo" src="<?php echo esc_attr(AYS_PB_ADMIN_URL) . '/images/icons/icon-popup-128x128.png'; ?>" alt="Popup Box" title="Popup Box"/>
-                    </a>
-                    <div>
-                        <a href="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=popup-top-banner-upgrade-button-<?php echo AYS_PB_NAME_VERSION; ?>" target="_blank" class="popup-box-upgrade-to-pro">
-                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/lightning-white.svg' ?>" class="popup-box-upgrade-white-icon">
-                            <span><?php echo esc_html__( "Upgrade", "ays-popup-box" ); ?></span>
+                <div id="navigation-container">
+                    <div class="logo-container">
+                        <a href="https://popup-plugin.com/" class="popup-box-logo-link" target="_blank">
+                            <img class="popup-box-logo" src="<?php echo esc_attr(AYS_PB_ADMIN_URL) . '/images/icons/icon-popup-128x128.png'; ?>" alt="Popup Box" title="Popup Box"/>
                         </a>
-                        <div class="popup-box-notice-one-time">(<?php echo esc_html__("One-time payment", "ays-popup-box"); ?>)</div>
+                        <div>
+                            <a href="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=popup-top-banner-upgrade-button-<?php echo AYS_PB_NAME_VERSION; ?>" target="_blank" class="popup-box-upgrade-to-pro">
+                                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/lightning-white.svg' ?>" class="popup-box-upgrade-white-icon">
+                                <span><?php echo esc_html__( "Upgrade", "ays-popup-box" ); ?></span>
+                            </a>
+                            <div class="popup-box-notice-one-time"><?php echo esc_html__("One-time payment", "ays-popup-box"); ?></div>
+                        </div>                    
                     </div>
-                    <div class="ays-pb-coupon-container">
-                        <div class="ays-pb-coupon-box ays-pb-copy-element-box-parent">
-                            <span onClick="selectAndCopyElementContents(this)" class="ays-pb-copy-element-box" data-toggle="tooltip" title="<?php echo esc_html__( "Click for copy", 'ays-popup-box' ); ?>"><?php echo esc_html__( "summer2025", 'ays-popup-box' ); ?></span>
-                        </div>
-                        <span class="ays-pb-logo-container-one-time-text"><?php echo esc_html__( "Extra 20% Coupon", 'ays-popup-box' ); ?></span>
-                    </div>
+                    <ul id="menu">
+                        <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://popup-plugin.com/pricing/" target="_blank"><?php echo esc_html__("Pricing", "ays-popup-box"); ?></a></li>
+                        <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://demo.popup-plugin.com/wordpress-popup-plugin-free-demo/" target="_blank"><?php echo esc_html__("Demo", "ays-popup-box"); ?></a></li>
+                        <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://wordpress.org/support/plugin/ays-popup-box" target="_blank"><?php echo esc_html__("Free Support", "ays-popup-box"); ?></a></li>
+                        <li class="modile-ddmenu-xs ays-pb-take-survey"><a class="ays-btn" href="https://popup-plugin.com/popup-coupon-code-as-a-gift" target="_blank"><?php echo esc_html__("Grab your GIFT", "ays-popup-box"); ?></a></li>
+                        <!-- <li class="modile-ddmenu-xs ays-pb-take-survey"><a class="ays-btn" href="https://ays-demo.com/popup-box-plugin-survey/" target="_blank"><?php //echo esc_html__("Make a Suggestion", "ays-popup-box"); ?></a></li> -->
+                        <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://popup-plugin.com/contact-us/" target="_blank"><?php echo esc_html__("Contact us", "ays-popup-box"); ?></a></li>
+                        <li class="modile-ddmenu-md">
+                            <a class="toggle_ddmenu toggle-ddmenu-bttn" href="javascript:void(0);"><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/ellipsis.svg" ?>"></a>
+                            <ul class="ddmenu" data-expanded="false">
+                                <li><a class="ays-btn" href="https://popup-plugin.com/pricing/" target="_blank"><?php echo esc_html__("Pricing", "ays-popup-box"); ?></a></li>
+                                <li><a class="ays-btn" href="https://popup-plugin.com/docs" target="_blank"><?php echo esc_html__("Documentation", "ays-popup-box"); ?></a></li>
+                                <li><a class="ays-btn" href="https://demo.popup-plugin.com/wordpress-popup-plugin-free-demo/" target="_blank"><?php echo esc_html__("Demo", "ays-popup-box"); ?></a></li>
+                                <li><a class="ays-btn" href="https://wordpress.org/support/plugin/ays-popup-box" target="_blank"><?php echo esc_html__("Free Support", "ays-popup-box"); ?></a></li>
+                                <li class="ays-pb-take-survey"><a class="ays-btn" href="https://popup-plugin.com/popup-coupon-code-as-a-gift" target="_blank"><?php echo esc_html__("Grab your GIFT", "ays-popup-box"); ?></a></li>
+                                <!-- <li class="ays-pb-take-survey"><a class="ays-btn" href="https://ays-demo.com/popup-box-plugin-survey/" target="_blank"><?php //echo esc_html__("Make a Suggestion", "ays-popup-box"); ?></a></li> -->
+                                <li><a class="ays-btn" href="https://popup-plugin.com/contact-us/" target="_blank"><?php echo esc_html__("Contact us", "ays-popup-box"); ?></a></li>
+                            </ul>
+                        </li>
+                        <li class="modile-ddmenu-sm">
+                            <a class="toggle_ddmenu toggle-ddmenu-bttn" href="javascript:void(0);"><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/ellipsis.svg" ?>"></a>
+                            <ul class="ddmenu" data-expanded="false">
+                                <li><a class="ays-btn" href="https://popup-plugin.com/pricing/" target="_blank"><?php echo esc_html__("Pricing", "ays-popup-box"); ?></a></li>
+                                <li><a class="ays-btn" href="https://popup-plugin.com/docs" target="_blank"><?php echo esc_html__("Documentation", "ays-popup-box"); ?></a></li>
+                                <li><a class="ays-btn" href="https://demo.popup-plugin.com/wordpress-popup-plugin-free-demo/" target="_blank"><?php echo esc_html__("Demo", "ays-popup-box"); ?></a></li>
+                                <li><a class="ays-btn" href="https://wordpress.org/support/plugin/ays-popup-box" target="_blank"><?php echo esc_html__("Free Support", "ays-popup-box"); ?></a></li>
+                                <li class="ays-pb-take-survey"><a class="ays-btn" href="https://popup-plugin.com/popup-coupon-code-as-a-gift" target="_blank"><?php echo esc_html__("Grab your GIFT", "ays-popup-box"); ?></a></li>
+                                <!-- <li class="ays-pb-take-survey"><a class="ays-btn" href="https://ays-demo.com/popup-box-plugin-survey/" target="_blank"><?php //echo esc_html__("Make a Suggestion", "ays-popup-box"); ?></a></li> -->
+                                <li><a class="ays-btn" href="https://wordpress.org/support/plugin/ays-popup-box" target="_blank"><?php echo esc_html__("Contact us", "ays-popup-box"); ?></a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-                <ul id="menu">
-                    <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://popup-plugin.com/pricing/" target="_blank"><?php echo esc_html__("Pricing", "ays-popup-box"); ?></a></li>
-                    <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://ays-demo.com/popup-box-plugin-free-demo/" target="_blank"><?php echo esc_html__("Demo", "ays-popup-box"); ?></a></li>
-                    <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://wordpress.org/support/plugin/ays-popup-box" target="_blank"><?php echo esc_html__("Free Support", "ays-popup-box"); ?></a></li>
-                    <li class="modile-ddmenu-xs ays-pb-take-survey"><a class="ays-btn" href="https://ays-demo.com/popup-box-plugin-survey/" target="_blank"><?php echo esc_html__("Make a Suggestion", "ays-popup-box"); ?></a></li>
-                    <li class="modile-ddmenu-lg"><a class="ays-btn" href="https://popup-plugin.com/contact-us/" target="_blank"><?php echo esc_html__("Contact us", "ays-popup-box"); ?></a></li>
-                    <li class="modile-ddmenu-md">
-                        <a class="toggle_ddmenu toggle-ddmenu-bttn" href="javascript:void(0);"><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/ellipsis.svg" ?>"></a>
-                        <ul class="ddmenu" data-expanded="false">
-                            <li><a class="ays-btn" href="https://popup-plugin.com/pricing/" target="_blank"><?php echo esc_html__("Pricing", "ays-popup-box"); ?></a></li>
-                            <li><a class="ays-btn" href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank"><?php echo esc_html__("Documentation", "ays-popup-box"); ?></a></li>
-                            <li><a class="ays-btn" href="https://ays-demo.com/popup-box-plugin-free-demo/" target="_blank"><?php echo esc_html__("Demo", "ays-popup-box"); ?></a></li>
-                            <li><a class="ays-btn" href="https://wordpress.org/support/plugin/ays-popup-box" target="_blank"><?php echo esc_html__("Free Support", "ays-popup-box"); ?></a></li>
-                            <li><a class="ays-btn" href="https://popup-plugin.com/contact-us/" target="_blank"><?php echo esc_html__("Contact us", "ays-popup-box"); ?></a></li>
-                        </ul>
-                    </li>
-                    <li class="modile-ddmenu-sm">
-                        <a class="toggle_ddmenu toggle-ddmenu-bttn" href="javascript:void(0);"><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/ellipsis.svg" ?>"></a>
-                        <ul class="ddmenu" data-expanded="false">
-                            <li><a class="ays-btn" href="https://popup-plugin.com/pricing/" target="_blank"><?php echo esc_html__("Pricing", "ays-popup-box"); ?></a></li>
-                            <li><a class="ays-btn" href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank"><?php echo esc_html__("Documentation", "ays-popup-box"); ?></a></li>
-                            <li><a class="ays-btn" href="https://ays-demo.com/popup-box-plugin-free-demo/" target="_blank"><?php echo esc_html__("Demo", "ays-popup-box"); ?></a></li>
-                            <li><a class="ays-btn" href="https://wordpress.org/support/plugin/ays-popup-box" target="_blank"><?php echo esc_html__("Free Support", "ays-popup-box"); ?></a></li>
-                            <li class="ays-pb-take-survey"><a class="ays-btn" href="https://ays-demo.com/popup-box-plugin-survey/" target="_blank"><?php echo esc_html__("Make a Suggestion", "ays-popup-box"); ?></a></li>
-                            <li><a class="ays-btn" href="https://wordpress.org/support/plugin/ays-popup-box" target="_blank"><?php echo esc_html__("Contact us", "ays-popup-box"); ?></a></li>
-                        </ul>
-                    </li>
-                </ul>
             </div>
         </div>
 

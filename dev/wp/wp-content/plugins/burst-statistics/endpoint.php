@@ -16,10 +16,50 @@ if ( ! file_exists( BASE_PATH . 'wp-load.php' ) ) {
 	die( 'WordPress not installed here' );
 }
 require_once BASE_PATH . 'wp-load.php';
+
+if ( defined( 'BURST_ALLOWED_ORIGINS' ) ) {
+	$burst_allowed_origins = explode( ',', BURST_ALLOWED_ORIGINS );
+	$burst_origin          = $_SERVER['HTTP_ORIGIN'] ?? '';
+    // phpcs:ignore
+	$burst_origin_host     = parse_url( $burst_origin, PHP_URL_HOST );
+	if ( in_array( $burst_origin_host, $burst_allowed_origins, true ) ) {
+		header( 'Access-Control-Allow-Origin: ' . $burst_origin );
+		header( 'Access-Control-Allow-Credentials: true' );
+		header( 'Access-Control-Allow-Methods: POST, OPTIONS' );
+		header( 'Access-Control-Allow-Headers: Content-Type' );
+
+		if ( $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
+			header( 'Access-Control-Max-Age: 3600' );
+			http_response_code( 204 );
+			exit;
+		}
+	} else {
+		// Strict mode: constant is defined, but origin not allowed → reject.
+		http_response_code( 403 );
+		exit;
+	}
+}
+
 define( 'BURST_PATH', plugin_dir_path( __FILE__ ) );
 
-require_once __DIR__ . '/src/autoload.php';
+// Check if Burst is active, in case the plugin was deactivated in the meantime but javascript is still loading.
+$burst_plugins = [
+	'burst-pro'        => 'burst-pro/burst-pro.php',
+	'burst-statistics' => 'burst-statistics/burst.php',
+];
 
+$burst_dir            = basename( BURST_PATH );
+$burst_active_plugins = (array) get_option( 'active_plugins', [] );
+if ( is_multisite() ) {
+	$burst_network_active_plugins = array_keys( (array) get_site_option( 'active_sitewide_plugins', [] ) );
+	$burst_active_plugins         = array_merge( $burst_active_plugins, $burst_network_active_plugins );
+}
+
+if ( isset( $burst_plugins[ $burst_dir ] ) && ! in_array( $burst_plugins[ $burst_dir ], $burst_active_plugins, true ) ) {
+	return;
+}
+
+require_once __DIR__ . '/src/autoload.php';
 require_once __DIR__ . '/helpers/php-user-agent/UserAgentParser.php';
 if ( file_exists( __DIR__ . '/src/Pro/Tracking/tracking.php' ) ) {
 	require_once __DIR__ . '/src/Pro/Tracking/tracking.php';
@@ -34,6 +74,14 @@ function burst_find_wordpress_base_path(): string {
 	$path = dirname( __DIR__, 3 );
 	if ( file_exists( $path . '/wp-load.php' ) ) {
 		return rtrim( $path, '/' ) . '/';
+	}
+
+	// check subdirectories for wp-load.php.
+	$subdirs = glob( $path . '/*', GLOB_ONLYDIR );
+	foreach ( $subdirs as $subdir ) {
+		if ( file_exists( $subdir . '/wp-load.php' ) ) {
+			return rtrim( $subdir, '/' ) . '/';
+		}
 	}
 
 	// check for symlinked directory.

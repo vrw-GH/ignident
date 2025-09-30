@@ -32,7 +32,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaElementStylingRules', false ) )
 		 * @param \aviaShortcodeTemplate $shortcode
 		 * @param string $element_id
 		 */
-		protected function __construct( \aviaShortcodeTemplate $shortcode = null, $element_id = '' )
+		protected function __construct( ?\aviaShortcodeTemplate $shortcode = null, $element_id = '' )
 		{
 			parent::__construct( $shortcode, $element_id );
 

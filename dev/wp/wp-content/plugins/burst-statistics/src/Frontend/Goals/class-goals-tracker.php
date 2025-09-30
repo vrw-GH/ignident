@@ -22,12 +22,11 @@ if ( ! class_exists( 'goals_tracker' ) ) {
 		public function add_dynamic_hooks(): void {
 			$goals = \Burst\burst_loader()->frontend->tracking->get_active_goals( true );
 			foreach ( $goals as $goal ) {
-				$goal = new Goal( $goal['ID'] );
-				if ( $goal->type !== 'hook' ) {
+				if ( $goal['type'] !== 'hook' ) {
 					continue;
 				}
-				$hook = $goal->hook;
-				if ( $hook ) {
+				$hook = (string) $goal['hook'];
+				if ( strlen( $hook ) > 0 ) {
 					add_action(
 						$hook,
 						function () use ( $hook ): void {
@@ -63,9 +62,13 @@ if ( ! class_exists( 'goals_tracker' ) ) {
 		 * Process the execution of a hook as goal achieved
 		 */
 		public function handle_hook( string $hook_name ): void {
-
 			// get cookie burst_uid.
 			$burst_uid = isset( $_COOKIE['burst_uid'] ) ? \Burst\burst_loader()->frontend->tracking->sanitize_uid( $_COOKIE['burst_uid'] ) : false;
+			if ( ! $burst_uid ) {
+				// try fingerprint from session.
+				$burst_uid = \Burst\burst_loader()->frontend->tracking->get_fingerprint_from_session();
+			}
+
 			// we assume there has at least been one interaction clientside, so there should be a uid.
 			if ( $burst_uid ) {
 				$statistic    = \Burst\burst_loader()->frontend->tracking->get_last_user_statistic( $burst_uid, '' );

@@ -399,14 +399,32 @@
 			// 	}
 			// }
 
-			if($this->isPluginActive('elementor/elementor.php')){
-				// Elementor Plugin - Element Caching
-				if($elementor_cache = get_option("elementor_experiment-e_element_cache")){
-					if($elementor_cache != "inactive"){
-						return array("You have to set the <u><a target='_blank' href='https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/'>Element Caching</a></u> option of the Elementor plugin to Inactive", "error");
-					}
-				}
+
+			if ($this->isPluginActive('elementor/elementor.php')) {
+			    // Elementor Plugin - Element Caching
+			    $new_option = get_option("elementor_element_cache_ttl");
+			    $old_option = get_option("elementor_experiment-e_element_cache");
+
+			    if ($new_option !== false) {
+			        // New version: if TTL > 0, element caching is active
+			        if ($new_option !== "disable") {
+			            return array(
+			                "You have to set the <u><a target='_blank' href='https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/'>Element Caching</a></u> option of the Elementor plugin to Inactive",
+			                "error"
+			            );
+			        }
+			    } elseif ($old_option !== false) {
+			        // Old version: only check the old option if the new one does not exist
+			        if ($old_option !== "inactive") {
+			            return array(
+			                "You have to set the <u><a target='_blank' href='https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/'>Element Caching</a></u> option of the Elementor plugin to Inactive",
+			                "error"
+			            );
+			        }
+			    }
 			}
+
+
 
 			if(file_exists($path.".htaccess")){
 				$htaccess = @file_get_contents($path.".htaccess");
@@ -738,10 +756,10 @@
 
 			if(preg_match("/^https:\/\//", home_url())){
 				if(preg_match("/^https:\/\/www\./", home_url())){
-					$forceTo = "\nRewriteCond %{HTTPS} =on"."\n".
+					$forceTo = "\nRewriteCond %{HTTPS} on"."\n".
 					           "RewriteCond %{HTTP_HOST} ^www.".str_replace("www.", "", $_SERVER["HTTP_HOST"])."\n";
 				}else{
-					$forceTo = "\nRewriteCond %{HTTPS} =on"."\n".
+					$forceTo = "\nRewriteCond %{HTTPS} on"."\n".
 							   "RewriteCond %{HTTP_HOST} ^".str_replace("www.", "", $_SERVER["HTTP_HOST"])."\n";
 				}
 			}else{

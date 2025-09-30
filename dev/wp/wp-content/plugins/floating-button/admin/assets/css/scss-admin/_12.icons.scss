@@ -1,0 +1,147 @@
+$wpie_icon-font-path: "../icons/fonts" !default;
+
+@font-face {
+  font-family: 'WpieIcon';
+  src: url('#{$wpie_icon-font-path}/WpieIcon.eot');
+  src: url('#{$wpie_icon-font-path}/WpieIcon.eot') format('embedded-opentype'),
+  url('#{$wpie_icon-font-path}/WpieIcon.woff2') format('woff2'),
+  url('#{$wpie_icon-font-path}/WpieIcon.woff') format('woff'),
+  url('#{$wpie_icon-font-path}/WpieIcon.ttf') format('truetype'),
+  url('#{$wpie_icon-font-path}/WpieIcon.svg') format('svg');
+}
+
+/* base class */
+.wpie-icon {
+  display: inline-block;
+  font: normal normal normal 1em/1 'WpieIcon';
+  color: inherit;
+  flex-shrink: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* size examples - relative units */
+.wpie-icon-sm {
+  font-size: 0.8em;
+}
+
+.wpie-icon-lg {
+  font-size: 1.2em;
+}
+
+/* size examples - absolute units */
+.wpie-icon-16 {
+  font-size: 16px;
+}
+
+.wpie-icon-32 {
+  font-size: 32px;
+}
+
+/* rotate the icon infinitely */
+.wpie-icon-is-spinning {
+  animation: wpie-icon-spin 1s infinite linear;
+}
+
+@keyframes wpie-icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* transform */
+.wpie-icon-rotate-90  {
+  transform: rotate(90deg);
+}
+
+.wpie-icon-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.wpie-icon-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.wpie-icon-flip-y {
+  transform: scaleY(-1);
+}
+
+.wpie-icon-flip-x {
+  transform: scaleX(-1);
+}
+
+/* icons */
+$icons: (
+        'file-download': 'ea03',
+        'plug': 'ea05',
+        'trash': 'ea06',
+        'xmark': 'ea07',
+        'pointer': 'ea08',
+        'ruler-pen': 'ea09',
+        'paintbrush': 'ea0a',
+        'play': 'ea0b',
+        'buttons': 'ea0c',
+        'users': 'ea0d',
+        'text': 'ea0e',
+        'laptop-mobile': 'ea0f',
+        'arrow-bottom': 'ea10',
+        'globe-pointer': 'ea11',
+        'square-plus': 'ea12',
+        'plus': 'ea13',
+        'calendar': 'ea14',
+        'grid-circle-plus': 'ea15',
+        'gear': 'ea16',
+        'check': 'ea17',
+        'chart-line': 'ea19',
+        'chart': 'ea1a',
+        'link': 'ea1b',
+        'target': 'ea1c',
+        'sparkle': 'ea1d',
+        'laptop': 'ea1e',
+        'paperclip': 'ea1f',
+        'at-sign': 'ea20',
+        'crosshairs': 'ea21',
+        'lock': 'ea22',
+        'lock-open': 'ea23',
+        'chevron-up': 'ea24',
+        'chevron-down': 'ea25',
+        'roadmap': 'ea28',
+        'tag': 'ea29',
+        'square-minus': 'ea2a',
+        'bottom': 'ea2b',
+        'envelope': 'ea2c',
+        'user': 'ea2d',
+        'key': 'ea2e',
+        'border-width': 'ea2f',
+        'eye-open': 'ea30',
+        'award': 'ea31',
+        'newsletter': 'ea32',
+        'copy': 'ea33',
+        'file-content': 'ea34',
+        'rocket': 'ea35',
+        'filter': 'ea36',
+        'image': 'ea37',
+        'eye-closed': 'ea38',
+        'chevron-expand-y': 'ea39',
+        'money-time': 'ea3a',
+        'refund': 'ea3b',
+        'cloud-data-sync': 'ea3c',
+        'customer-support': 'ea3d',
+        'msg-smile': 'ea3e',
+        'css3': 'ea3f',
+        'new': 'ea40',
+        'sliders': 'ea41',
+);
+
+@function unicode($str) {
+  @return unquote("\"\\#{$str}\"");
+}
+
+@each $name, $code in $icons {
+  .wpie_icon-#{""+$name}::before {
+    content: unicode($code);
+  }
+}

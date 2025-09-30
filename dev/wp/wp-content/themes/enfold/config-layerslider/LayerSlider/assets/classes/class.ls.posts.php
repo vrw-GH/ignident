@@ -82,6 +82,8 @@ class LS_Posts {
 			$ret[$key]['categories'] = $this->getCategoryList($val);
 			$ret[$key]['tags'] = $this->getTagList($val);
 			$ret[$key]['comments'] = $val->comment_count;
+
+			$ret[$key]['meta'] = get_post_meta( $val->ID );
 		}
 
 		return $ret;

@@ -45,7 +45,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 		 * @param array $atts
 		 * @param aviaShortcodeTemplate $sc_context
 		 */
-		public function __construct( $atts = array(), aviaShortcodeTemplate $sc_context = null )
+		public function __construct( $atts = array(), ?aviaShortcodeTemplate $sc_context = null )
 		{
 			parent::__construct( $atts, $sc_context, avia_masonry::default_args( $atts ) );
 

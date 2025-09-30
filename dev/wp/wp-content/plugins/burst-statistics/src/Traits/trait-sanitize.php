@@ -30,7 +30,6 @@ trait Sanitize {
 		$output = [];
 		foreach ( $filters as $key => $value ) {
 			$key = sanitize_text_field( $key );
-
 			// Handle array values.
 			if ( is_array( $value ) ) {
 				$output[ $key ] = $this->sanitize_filters( $value );
@@ -40,7 +39,6 @@ trait Sanitize {
 			// Handle special filter cases with specific sanitization rules.
 			if ( isset( $filter_config[ $key ] ) && isset( $filter_config[ $key ]['sanitize'] ) ) {
 				$sanitize_function = $filter_config[ $key ]['sanitize'];
-
 				// Handle callable sanitization functions (including class methods).
 				if ( is_callable( $sanitize_function ) ) {
 					try {
@@ -192,7 +190,10 @@ trait Sanitize {
 	 * @param string $type The field type.
 	 * @return mixed Sanitized value.
 	 */
+    // phpcs:disable
 	public function sanitize_field( $value, string $type ) {
+    // phpcs:enable
+
 		$type = $this->sanitize_field_type( $type );
 
 		switch ( $type ) {
@@ -523,7 +524,9 @@ trait Sanitize {
 	 * @param mixed  $value The value to sanitize.
 	 * @return mixed Sanitized value.
 	 */
+    // phpcs:disable
 	public function sanitize_arg( string $arg, $value ) {
+    //phpcs:enable
 		// Smart array transformation helper - only transforms when value is clearly meant to be an array.
 		$ensure_array_if_applicable = function ( $input ) {
 			if ( is_array( $input ) ) {
@@ -620,7 +623,7 @@ trait Sanitize {
 				'conversion_rate'      => __( 'Conversion Rate', 'burst-statistics' ),
 				'first_time_visitors'  => __( 'New visitors', 'burst-statistics' ),
 				'conversions'          => __( 'Conversions', 'burst-statistics' ),
-				'bounces'              => __( 'Bounces', 'burst-statistics' ),
+				'bounces'              => __( 'Bounced visitors', 'burst-statistics' ),
 				'bounce_rate'          => __( 'Bounce rate', 'burst-statistics' ),
 				'device'               => __( 'Device', 'burst-statistics' ),
 				'browser'              => __( 'Browser', 'burst-statistics' ),
@@ -815,32 +818,32 @@ trait Sanitize {
 		return apply_filters(
 			'burst_filter_validation_config',
 			[
-				'goal_id'  => [
+				'goal_id'     => [
 					'sanitize' => 'absint',
 					'type'     => 'int',
 				],
-				'page_id'  => [
+				'bounces'     => [
+					'sanitize' => [ $this, 'sanitize_include_exclude' ],
+					'type'     => 'string',
+				],
+				'page_id'     => [
 					'sanitize' => 'absint',
 					'type'     => 'int',
 				],
-				'page_url' => [
+				'page_url'    => [
 					'sanitize' => 'sanitize_text_field',
 					'type'     => 'string',
 				],
-				'referrer' => [
+				'referrer'    => [
 					'sanitize' => 'sanitize_text_field',
 					'type'     => 'string',
 				],
-				'device'   => [
-					'sanitize' => 'sanitize_device_filter',
+				'device'      => [
+					'sanitize' => [ $this, 'sanitize_device_filter' ],
 					'type'     => 'string',
 				],
-				'browser'  => [
-					'sanitize' => 'sanitize_text_field',
-					'type'     => 'string',
-				],
-				'platform' => [
-					'sanitize' => 'sanitize_text_field',
+				'new_visitor' => [
+					'sanitize' => [ $this, 'sanitize_include_exclude' ],
 					'type'     => 'string',
 				],
 			]
@@ -854,7 +857,6 @@ trait Sanitize {
 	 * @return string Sanitized device value
 	 */
 	public function sanitize_device_filter( string $device ): string {
-		$device          = sanitize_text_field( $device );
 		$allowed_devices = [ 'desktop', 'tablet', 'mobile', 'other' ];
 
 		if ( in_array( $device, $allowed_devices, true ) ) {
@@ -862,6 +864,38 @@ trait Sanitize {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Sanitize include or exclude values
+	 *
+	 * @param string $value value to sanitize.
+	 * @return string Sanitized value
+	 */
+	public function sanitize_include_exclude( string $value ): string {
+		$allowed = [ 'include', 'exclude' ];
+
+		if ( in_array( $value, $allowed, true ) ) {
+			return $value;
+		}
+
+		return 'exclude';
+	}
+
+	/**
+	 * Sanitize and convert a boolean value.
+	 *
+	 * @param string $value The value to sanitize.
+	 * @return bool Sanitized boolean value.
+	 */
+	public function sanitize_and_convert_boolean( string $value ): bool {
+		if ( $value === 'include' ) {
+			return true;
+		}
+		if ( $value === 'exclude' ) {
+			return false;
+		}
+		return false;
 	}
 
 	/**

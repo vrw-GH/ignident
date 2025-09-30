@@ -1779,7 +1779,7 @@ if( ! class_exists( 'av_privacy_class', false ) )
 				$reload = apply_filters( 'avf_auto_reload_message', $reload );
 
 				$output .=	'<div class="avia-privacy-reload-tooltip-link-container">';
-				$output .=		'<a class="avia-privacy-reload-tooltip-link" aria-hidden="true" href="#" rel="nofollow" data-avia-privacy-reload-tooltip="' . esc_attr( $reload ) . '"></a>';
+				$output .=		'<span class="avia-privacy-reload-tooltip-link" aria-hidden="true" data-avia-privacy-reload-tooltip="' . esc_attr( $reload ) . '"></span >';
 				$output .=	'</div>';
 			}
 

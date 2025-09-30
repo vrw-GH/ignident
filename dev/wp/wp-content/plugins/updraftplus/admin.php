@@ -2362,7 +2362,6 @@ class UpdraftPlus_Admin {
 		
 			global $updraftplus;
 			$cron = get_option('cron', array());
-			$found_it = false;
 
 			$jobdata = $updraftplus->jobdata_getarray($job_id);
 			
@@ -2381,14 +2380,19 @@ class UpdraftPlus_Admin {
 					if (isset($info['args'][1]) && $info['args'][1] == $job_id) {
 						$args = $cron[$time]['updraft_backup_resume'][$hook]['args'];
 						wp_unschedule_event($time, 'updraft_backup_resume', $args);
-						if (!$found_it) return array('ok' => 'Y', 'c' => 'deleted', 'm' => __('Job deleted', 'updraftplus'));
-						$found_it = true;
+
+						if (!class_exists('Updraft_Semaphore_3_0')) updraft_try_include_file('includes/class-updraft-semaphore.php', 'include_once');
+						
+						$updraftplus_semaphore = new Updraft_Semaphore_3_0('udp_backupjob_'.$job_id);
+						$updraftplus_semaphore->delete();
+						
+						return array('ok' => 'Y', 'c' => 'deleted', 'm' => __('Job deleted', 'updraftplus'));
 					}
 				}
 			}
 		}
 
-		if (!$found_it) return array('ok' => 'N', 'c' => 'not_found', 'm' => __('Could not find that job - perhaps it has already finished?', 'updraftplus'));
+		return array('ok' => 'N', 'c' => 'not_found', 'm' => __('Could not find that job - perhaps it has already finished?', 'updraftplus'));
 
 	}
 
@@ -4109,13 +4113,17 @@ class UpdraftPlus_Admin {
 		global $updraftplus;
 		$dirs = scandir(untrailingslashit(WP_CONTENT_DIR));
 		if (!is_array($dirs)) $dirs = array();
+		foreach ($dirs as $dir) {
+			if (preg_match('/-old$/', $dir)) {
+				if ($print_as_comment) echo '<!--'.esc_html($dir).'-->';
+				return true;
+			}
+		}
 		$backups_dir_location = $updraftplus->backups_dir_location();
-		$dirs_u = @scandir($backups_dir_location);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
-		if (!is_array($dirs_u)) $dirs_u = array();
-		foreach (array_merge($dirs, $dirs_u) as $dir) {
-			// is_dir() should be checked because scandir() occasionally returns a cached directory list.
-			$dir_path = $backups_dir_location.'/'.$dir;
-			if (preg_match('/-old$/', $dir) && is_dir($dir_path)) {
+		$dirs = @scandir($backups_dir_location);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+		if (!is_array($dirs)) $dirs = array();
+		foreach ($dirs as $dir) {
+			if (preg_match('/-old$/', $dir)) {
 				if ($print_as_comment) echo '<!--'.esc_html($dir).'-->';
 				return true;
 			}
@@ -6626,6 +6634,7 @@ class UpdraftPlus_Admin {
 				'target' => true,
 				'onclick' => true,
 				'data-type' => true,
+				'data-incremental' => true,
 			),
 			'span' => array(
 				'id' => true,

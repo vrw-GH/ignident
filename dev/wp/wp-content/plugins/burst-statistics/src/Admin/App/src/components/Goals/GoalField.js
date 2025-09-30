@@ -8,8 +8,6 @@ import SelectorField from '@/components/Fields/SelectorField';
 const GoalField = ({ field = {}, fields, goal, value, setGoalValue }) => {
   const [ validated, setValidated ] = useState( false );
 
-  console.log("goal", goal);
-
   useEffect( () => {
     validateInput( field, value );
   });
@@ -67,7 +65,7 @@ const GoalField = ({ field = {}, fields, goal, value, setGoalValue }) => {
     return (
       <div className={className}>
         {field.parent_label && (
-          <div className="burst-parent-label">
+          <div>
             <label>{field.parent_label}</label>
           </div>
         )}
@@ -106,7 +104,7 @@ const GoalField = ({ field = {}, fields, goal, value, setGoalValue }) => {
 
   if ( 'hook' === field.type ) {
     return (
-      <div className={className}>
+      <div className="flex flex-wrap align-content-stretch gap-8 [&>*]: w-full [&>input[type='text']]:w-full [&>input[type='text']]:box-border">
         <TextField
           disabled={disabled}
           field={field}
