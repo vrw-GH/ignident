@@ -263,18 +263,29 @@ if( ! function_exists( 'avia_ajax_search' ) )
 					);
 
 		/**
+		 * Sanitize and whitelist
+		 *
+		 * @since 7.1.4    Patchstack team bug report
+		 */
+		$allowed_keys = array( 's', 'numberposts', 'post_type', 'results_hide_fields' );
+		$clean_request = array_intersect_key( $_REQUEST, array_flip( $allowed_keys ) );
+
+		/**
 		 * WP Filter for the contents of the search query variable
 		 *
 		 * @param string
 		 * @return string
 		 */
-		$_REQUEST['s'] = apply_filters( 'get_search_query', $_REQUEST['s'] );
+		$clean_request['s'] = apply_filters( 'get_search_query', sanitize_text_field( $clean_request['s'] ) );
 
-		$search_parameters = array_merge( $defaults, $_REQUEST );
+		$search_parameters = array_merge( $defaults, $clean_request );
+
+		// @since 7.1.4  Enforce security
+		$search_parameters['post_status'] = 'publish';
 
 		if( $search_parameters['results_hide_fields'] !== '' )
 		{
-			$search_parameters['results_hide_fields'] = explode( ',', $_REQUEST['results_hide_fields'] );
+			$search_parameters['results_hide_fields'] = explode( ',', $search_parameters['results_hide_fields'] );
 		}
 		else
 		{
@@ -307,8 +318,8 @@ if( ! function_exists( 'avia_ajax_search' ) )
 				'no_criteria_matched' => __( 'Sorry, no posts matched your criteria', 'avia_framework' ),
 				'another_search_term' => __( 'Please try another search term', 'avia_framework' ),
 				'time_format'         => get_option( 'date_format' ),
-				'all_results_query'   => http_build_query( $_REQUEST ),
-				'all_results_link'    => home_url( '?' . http_build_query( $_REQUEST ) ),
+				'all_results_query'   => http_build_query( $clean_request ),
+				'all_results_link'    => home_url( '?' . http_build_query( $clean_request ) ),
 				'view_all_results'    => __( 'View all results', 'avia_framework' )
 			);
 

@@ -487,7 +487,8 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 				$output .=	"<div class='avia_backend_theme_updates'>";
 				$output .=		"<h3>" . __( 'Update Available!', 'avia_framework' ) . "</h3>";
 
-				$output .=		sprintf( __( "A new Version (%s) of your %s is available! You are using Version %s. <br/>See what's new in <a href='https://kriesi.at/documentation/enfold/enfold-changelog/' target='_blank' rel='noopener noreferrer'>change log</a>. Do you want to update?<br/><br/>", 'avia_framework' ), $new, $parent_string, $version );
+				$output .=		sprintf( __( "A new Version (%1\$s) of your %2\$s is available! You are using Version %3\$s. <br/>See what's new in %4\$s. Do you want to update?<br/><br/>", 'avia_framework' ), $new, $parent_string, $version, sprintf( "<a href='https://kriesi.at/documentation/enfold/enfold-changelog/' target='_blank' rel='noopener noreferrer'>%s</a>", __( 'change log', 'avia_framework' ) ) );
+
 
 				$output .=		'<span class="avia_style_wrap">';
 				$output .=			'<a href="#" data-avia-popup="avia-tmpl-theme-update" class="avia_button">' . __( 'Update Now!', 'avia_framework' ) . '</a>';

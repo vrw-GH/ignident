@@ -208,6 +208,7 @@ class UpdraftPlus_Migrator_Lite {
 				unset($active_plugins[$slug]);
 				
 				$updraftplus->log("Disabled this plugin: %s: re-activate it manually when you are ready.", $desc);
+				/* translators: %s: Plugin name or description */
 				$updraftplus->log(sprintf(__("Disabled this plugin: %s: re-activate it manually when you are ready.", 'updraftplus'), $desc), 'notice-restore');
 
 			}
@@ -231,7 +232,11 @@ class UpdraftPlus_Migrator_Lite {
 		global $updraftplus_restorer;
 
 		if (version_compare(PHP_VERSION, '5.3', '<')) {
-			echo esc_html(sprintf(__("The search and replace feature isn't suitable for PHP %s users.", 'updraftplus'), PHP_VERSION).' '.__('To take advantage of this feature, please upgrade your PHP version to at least 5.3.', 'updraftplus'))."<br>";
+			echo esc_html(
+				/* translators: %s: PHP version */
+				sprintf(__("The search and replace feature isn't suitable for PHP %s users.", 'updraftplus'), PHP_VERSION).' '.
+				__('To take advantage of this feature, please upgrade your PHP version to at least 5.3.', 'updraftplus')
+			)."<br>";
 			echo '<a href="'.esc_url(UpdraftPlus_Options::admin_page_url().'?page=updraftplus').'">'.esc_html__('Return to UpdraftPlus configuration', 'updraftplus').'</a>';
 			return;
 		}
@@ -247,8 +252,11 @@ class UpdraftPlus_Migrator_Lite {
 		$this->page_size = (empty($_POST['pagesize']) || !is_numeric($_POST['pagesize'])) ? 5000 : (int) $_POST['pagesize'];
 		$this->which_tables = empty($_POST['whichtables']) ? '' : explode(',', (stripslashes($_POST['whichtables'])));
 		if (empty($_POST['search'])) {
-			// trnaslators: "search term"
-			echo sprintf(esc_html__("Failure: No %s was given.", 'updraftplus'), esc_html__('search term', 'updraftplus'))."<br>";
+			echo sprintf(
+				/* translators: %s: Missing parameter name */
+				esc_html__("Failure: No %s was given.", 'updraftplus'),
+				esc_html__('search term', 'updraftplus')
+			)."<br>";
 			
 			if (!empty($options['show_return_link'])) {
 				echo '<a href="'.esc_url(UpdraftPlus_Options::admin_page_url()).'?page=updraftplus">'.esc_html__('Return to UpdraftPlus configuration', 'updraftplus').'</a>';
@@ -290,7 +298,15 @@ class UpdraftPlus_Migrator_Lite {
 		<div class="advanced_tools search_replace">
 			<h3><?php esc_html_e('Search / replace database', 'updraftplus'); ?></h3>
 			<?php if (version_compare(PHP_VERSION, '5.3', '<')) { ?>
-				<p><em><?php echo esc_html(sprintf(__("This feature isn't suitable for PHP %s users.", 'updraftplus'), PHP_VERSION).' '.__('To take advantage of this feature, please upgrade your PHP version to at least 5.3.', 'updraftplus'));?></em></p>
+				<p><em>
+					<?php
+					echo esc_html(
+						/* translators: %s: PHP version */
+						sprintf(__('This feature isn\'t suitable for PHP %s users.', 'updraftplus'), PHP_VERSION).' '.
+						__('To take advantage of this feature, please upgrade your PHP version to at least 5.3.', 'updraftplus')
+					);
+					?>
+				</em></p>
 			<?php } else { ?>
 				<p><em><?php esc_html_e('This can easily destroy your site; so, use it with care!', 'updraftplus');?></em></p>
 				<form id="search_replace_form" method="post" onsubmit="return(confirm('<?php echo esc_js(__('A search/replace cannot be undone - are you sure you want to do this?', 'updraftplus'));?>'))">
@@ -322,8 +338,10 @@ class UpdraftPlus_Migrator_Lite {
 	 * @return String - filtered
 	 */
 	public function dbscan_urlchange($output, $old_siteurl, $restore_options) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Filter use
+		/* translators: %s: Old site URL */
 		$msg = sprintf(__('This looks like a migration (the backup is from a site with a different address/URL, %s).', 'updraftplus'), htmlspecialchars($old_siteurl));
 		if (version_compare(PHP_VERSION, '5.3', '<')) {
+			/* translators: %s: PHP version */
 			$msg .= ' '.sprintf(__('However, the search and replace feature is not suitable for the PHP version (%s) your server is running on.', 'updraftplus'), PHP_VERSION);
 			$msg .= ' '.__('This restoration can search and replace your database if you upgrade your PHP version to at least 5.3.', 'updraftplus');
 		}
@@ -373,7 +391,9 @@ class UpdraftPlus_Migrator_Lite {
 	 */
 	public function dbscan_urlchange_www_append_warning($output) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Filter use
 		if (version_compare(PHP_VERSION, '5.3', '<')) {
-			return sprintf(__("This restoration can't use the search and replace feature as it's not suitable for the PHP version (%s) your server is running on.", 'updraftplus'), PHP_VERSION).' '.__('To take advantage of the feature, please upgrade your PHP version to at least 5.3.', 'updraftplus');
+			/* translators: %s: PHP version */
+			return sprintf(__("This restoration can't use the search and replace feature as it's not suitable for the PHP version (%s) your server is running on.", 'updraftplus'), PHP_VERSION).' '.
+			__('To take advantage of the feature, please upgrade your PHP version to at least 5.3.', 'updraftplus');
 		} else {
 			return __('you will want to use below search and replace site location in the database (migrate) to search/replace the site address.', 'updraftplus');
 		}
@@ -403,7 +423,10 @@ class UpdraftPlus_Migrator_Lite {
 			if (empty($info['addui'])) $info['addui'] = '';
 			$info['addui'] .= '<div id="updraft_restorer_dboptions" class="udp-notice before-h2 updraft-restore-option updraft-hidden">';
 			$info['addui'] .= '<h4>' . __('Database restoration options:', 'updraftplus') . '</h4>';
-			$info['addui'] .= '<input name="updraft_restorer_replacesiteurl" id="updraft_restorer_replacesiteurl" type="checkbox" value="1" checked><label for="updraft_restorer_replacesiteurl" title="'.sprintf(__('All references to the site location in the database will be replaced with your current site URL, which is: %s', 'updraftplus'), htmlspecialchars(untrailingslashit(site_url()))).'"> '.__('Search and replace site location in the database (migrate)', 'updraftplus').'</label>';
+			$info['addui'] .= '<input name="updraft_restorer_replacesiteurl" id="updraft_restorer_replacesiteurl" type="checkbox" value="1" checked><label for="updraft_restorer_replacesiteurl" title="'.
+			/* translators: %s: Current site URL */
+			sprintf(__('All references to the site location in the database will be replaced with your current site URL, which is: %s', 'updraftplus'), htmlspecialchars(untrailingslashit(site_url()))).'"> '.
+			__('Search and replace site location in the database (migrate)', 'updraftplus').'</label>';
 			$info['addui'] .= '</div>';
 		}
 	}
@@ -658,9 +681,17 @@ class UpdraftPlus_Migrator_Lite {
 		}
 
 		if (false == $report) {
-			$updraftplus->log(sprintf(__('Failed: the %s operation was not able to start.', 'updraftplus'), __('search and replace', 'updraftplus')), 'warning-restore');
+			$updraftplus->log(sprintf(
+				/* translators: %s: Operation name */
+				__('Failed: the %s operation was not able to start.', 'updraftplus'),
+				__('search and replace', 'updraftplus')
+			), 'warning-restore');
 		} elseif (!is_array($report)) {
-			$updraftplus->log(sprintf(__('Failed: we did not understand the result returned by the %s operation.', 'updraftplus'), __('search and replace', 'updraftplus')), 'warning-restore');
+			$updraftplus->log(sprintf(
+				/* translators: %s: Operation name */
+				__('Failed: we did not understand the result returned by the %s operation.', 'updraftplus'),
+				__('search and replace', 'updraftplus')
+			), 'warning-restore');
 		} else {
 
 			$this->tables_replaced[$table] = true;
@@ -697,9 +728,12 @@ class UpdraftPlus_Migrator_Lite {
 			$count_old_site_references = count($htaccess_file_reference_line_num_arr);
 			if ($count_old_site_references > 0) {
 				?>
-				<div class="notice error updraftplus-migration-notice is-dismissible" >					<p>
+				<div class="notice error updraftplus-migration-notice is-dismissible"><p>
 						<?php
-						printf('<strong>'.esc_html__('Warning', 'updraftplus').':</strong> '.esc_html(_n('Your .htaccess has an old site reference on line number %s. You should remove it manually.', 'Your .htaccess has an old site references on line numbers %s. You should remove them manually.', $count_old_site_references, 'updraftplus')), esc_html(implode(', ', $htaccess_file_reference_line_num_arr)));
+						printf('<strong>'.esc_html__('Warning', 'updraftplus').':</strong> '.esc_html(
+							/* translators: %s: Line number(s) in .htaccess file */
+							_n('Your .htaccess has an old site reference on line number %s. You should remove it manually.', 'Your .htaccess has an old site references on line numbers %s. You should remove them manually.', $count_old_site_references, 'updraftplus')
+						), esc_html(implode(', ', $htaccess_file_reference_line_num_arr)));
 						?>
 					</p>
 				</div>
@@ -857,29 +891,35 @@ class UpdraftPlus_Migrator_Lite {
 
 		// Sanity checks
 		if (empty($replace_this_siteurl)) {
-			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%s, %s)', 'updraftplus'), 'backup_siteurl', $this->siteurl), 'warning-restore');
+			/* translators: 1: Parameter name, 2: Value */
+			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%1$s, %2$s)', 'updraftplus'), 'backup_siteurl', $this->siteurl), 'warning-restore');
 			return;
 		}
 		if (empty($replace_this_home)) {
-			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%s, %s)', 'updraftplus'), 'backup_home', $this->home), 'warning-restore');
+			/* translators: 1: Parameter name, 2: Value */
+			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%1$s, %2$s)', 'updraftplus'), 'backup_home', $this->home), 'warning-restore');
 			return;
 		}
 		if (empty($replace_this_content)) {
-			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%s, %s)', 'updraftplus'), 'backup_content_url', $this->content), 'warning-restore');
+			/* translators: 1: Parameter name, 2: Value */
+			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%1$s, %2$s)', 'updraftplus'), 'backup_content_url', $this->content), 'warning-restore');
 			return;
 		}
 
 		if (empty($this->siteurl)) {
-			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%s, %s)', 'updraftplus'), 'new_siteurl', $replace_this_siteurl), 'warning-restore');
+			/* translators: 1: Parameter name, 2: Value */
+			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%1$s, %2$s)', 'updraftplus'), 'new_siteurl', $replace_this_siteurl), 'warning-restore');
 			return;
 		}
 		if (empty($this->home)) {
-			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%s, %s)', 'updraftplus'), 'new_home', $replace_this_home), 'warning-restore');
+			/* translators: 1: Parameter name, 2: Value */
+			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%1$s, %2$s)', 'updraftplus'), 'new_home', $replace_this_home), 'warning-restore');
 			return;
 		}
 		// Only complain about the empty content parameter if it's not the case where we use the uploads parameter instead
 		if (empty($this->content) && empty($this->uploads)) {
-			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%s, %s)', 'updraftplus'), 'new_contenturl', $replace_this_content), 'warning-restore');
+			/* translators: 1: Parameter name, 2: Value */
+			$updraftplus->log(sprintf(__('Error: unexpected empty parameter (%1$s, %2$s)', 'updraftplus'), 'new_contenturl', $replace_this_content), 'warning-restore');
 			return;
 		}
 		
@@ -894,6 +934,7 @@ class UpdraftPlus_Migrator_Lite {
 
 		if ($replace_this_siteurl == $this->siteurl && $replace_this_home == $this->home && $replace_this_content == $this->content) {
 			$this->is_migration = false;
+			/* translators: %s: Site URL */
 			$updraftplus->log(sprintf(__('Nothing to do: the site URL is already: %s', 'updraftplus'), $this->siteurl), 'notice-restore');
 			return;
 		}
@@ -905,7 +946,8 @@ class UpdraftPlus_Migrator_Lite {
 		// Detect situation where the database's siteurl in the header differs from that actual row data in the options table. This can occur if the options table was being over-ridden by a constant. In that case, the search/replace will have failed to set the option table's siteurl; and the result will be that that siteurl is hence wrong, leading to site breakage. The solution is to re-set it.
 		// $info['expected_oldsiteurl'] is from the db.gz file header
 		if (isset($info['expected_oldsiteurl']) && $info['expected_oldsiteurl'] != $db_siteurl_thissite && $db_siteurl_thissite != $this->siteurl) {
-				 $updraftplus->log_e(sprintf(__("Warning: the database's site URL (%s) is different to what we expected (%s)", 'updraftplus'), $db_siteurl_thissite, $info['expected_oldsiteurl']));
+			/* translators: 1: Actual database site URL, 2: Expected site URL */
+			$updraftplus->log_e(sprintf(__('Warning: the database\'s site URL (%1$s) is different to what we expected (%2$s)', 'updraftplus'), $db_siteurl_thissite, $info['expected_oldsiteurl']));
 			// Here, we change only the site URL entry; we don't run a full search/replace based on it. In theory, if someone developed using two different URLs, then this might be needed.
 			if (!empty($this->base_prefix) && !empty($this->siteurl)) {
 				$wpdb->query($wpdb->prepare("UPDATE ".UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.$options_table)." SET option_value='%s' WHERE option_name='siteurl'", array($this->siteurl)));
@@ -913,7 +955,8 @@ class UpdraftPlus_Migrator_Lite {
 		}
 		
 		if (isset($info['expected_oldhome']) && $info['expected_oldhome'] != $db_home_thissite && $db_home_thissite != $this->home) {
-			$updraftplus->log_e(sprintf(__("Warning: the database's home URL (%s) is different to what we expected (%s)", 'updraftplus'), $db_home_thissite, $info['expected_oldhome']));
+			/* translators: 1: Actual database home URL, 2: Expected home URL */
+			$updraftplus->log_e(sprintf(__('Warning: the database\'s home URL (%1$s) is different to what we expected (%2$s)', 'updraftplus'), $db_home_thissite, $info['expected_oldhome']));
 			if (!empty($this->base_prefix) && !empty($this->home)) {
 				$wpdb->query($wpdb->prepare("UPDATE ".UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.$options_table)." SET option_value='%s' WHERE option_name='home'", array($this->home)));
 			}
@@ -1052,8 +1095,10 @@ class UpdraftPlus_Migrator_Lite {
 			}
 
 			if (false == $report) {
+				/* translators: %s: Operation name */
 				$updraftplus->log(sprintf(__('Failed: the %s operation was not able to start.', 'updraftplus'), 'search and replace'), 'warning-notice');
 			} elseif (!is_array($report)) {
+				/* translators: %s: Operation name */
 				$updraftplus->log(sprintf(__('Failed: we did not understand the result returned by the %s operation.', 'updraftplus'), 'search and replace'), 'warning-notice');
 			}
 

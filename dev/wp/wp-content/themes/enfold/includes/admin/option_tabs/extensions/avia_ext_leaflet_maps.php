@@ -12,10 +12,10 @@ global $avia_config, $avia_pages, $avia_elements;
 
 $desc  = __( 'OpenStreetMaps and Leaflet are open source projects that allow to display mobile friendly maps without using a key or account.', 'avia_framework' ) . '<br /><br />';
 $desc .= __( 'To be independent from any external hoster we bundle the necessary basic Leaflet js library with the theme and store it on your server.', 'avia_framework' ) . ' ';
-$desc .= __( 'Check <a href="https://leafletjs.com/index.html" target="_blank" rel="noopener noreferrer">Leaflet Javascript Library Homepage</a> for more information about this library.', 'avia_framework' ) . ' ';
+$desc .= sprintf( __( 'Check %s for more information about this library.', 'avia_framework' ), sprintf( '<a href="https://leafletjs.com/index.html" target="_blank" rel="noopener noreferrer">%s</a>', __( 'Leaflet Javascript Library Homepage', 'avia_framework' ) ) ) . ' ';
 $desc .= __( 'Only requests to the OpenStreetMaps databases are passed to external servers.', 'avia_framework' ) . ' ';
-$desc .= __( 'Here you find information about <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">OpenStreetMap Privacy Policy</a>.', 'avia_framework' ) . ' ';
-$desc .= __( 'It is even possible to <a href="https://openmaptiles.org/" target="_blank" rel="noopener noreferrer">host your own OpenStreetMap Tiles</a>.', 'avia_framework' );
+$desc .= sprintf( __( 'Here you find information about the %s.', 'avia_framework' ), sprintf( '<a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">%s</a>', __( 'OpenStreetMap Privacy Policy', 'avia_framework' ) ) ) . ' ';
+$desc .= sprintf( __( 'It is even possible to %s.', 'avia_framework' ), sprintf( '<a href="https://openmaptiles.org/" target="_blank" rel="noopener noreferrer">%s</a>', __( 'host your own OpenStreetMap Tiles', 'avia_framework' ) ) );
 
 
 

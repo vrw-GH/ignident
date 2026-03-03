@@ -50,6 +50,11 @@
 }
 /* Plugin deactivation popup styles end */
 
+#toplevel_page_ays-pb .wp-first-item,
+#adminmenu .wp-submenu-head {
+    display: none;
+}
+
 /* Plugins page upgrade button styles start */
 #ays-pb-plugins-buy-now-button {
     color: #01A32A;
@@ -125,6 +130,41 @@ body.ays-pb-editor-active :is(.is-desktop-preview, .is-tablet-preview, .is-mobil
     height: auto !important;
     padding: 0 !important;
     flex: 0 !important;
+}
+
+a.ays-rated-link, a.ays-rated-link:hover, a.ays-rated-link:focus {
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: unset;
+}
+
+span.ays-dashicons {
+    font-family: dashicons;
+    display: inline-block;
+    line-height: 1;
+    font-weight: 400;
+    font-style: normal;
+    speak: never;
+    text-decoration: inherit;
+    text-transform: none;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    vertical-align: top;
+    text-align: center;
+    transition: color .1s ease-in;
+    color: #ffb900;
+}
+
+span.ays-dashicons-star-empty:before {
+    content: "\f154";
+}
+
+span.ays-dashicons-star-filled:before {
+    content: "\f155";
 }
 
 .ays-pb-dialog-widget-content {
@@ -260,6 +300,10 @@ body.ays-pb-editor-active :is(.is-desktop-preview, .is-tablet-preview, .is-mobil
     align-items: flex-start;
     line-height: 2;
     overflow: hidden;
+}
+
+body.custom-html {
+    background-color: #fff !important;
 }
 
 @media screen and (max-width: 782px) {

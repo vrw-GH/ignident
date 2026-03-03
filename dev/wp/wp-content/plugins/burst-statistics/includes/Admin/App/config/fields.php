@@ -1,0 +1,421 @@
+<?php
+defined( 'ABSPATH' ) || die();
+/**
+ * Burst Statistics Settings Configuration
+ *
+ * This file defines all available settings for the Burst Statistics plugin.
+ * Each setting is represented as an array with various configuration options.
+ *
+ * Available Field Properties:
+ * ---------------------------
+ *
+ * @property string $id                 Unique identifier for the setting
+ * @property string $menu_id            Menu/tab where the setting appears (e.g., 'general', 'advanced', 'data', 'goals')
+ * @property string $group_id           Group within the menu where the setting belongs
+ * @property string $type               Input type: 'checkbox', 'radio', 'select', 'number', 'text', 'button', 'hidden',
+ *                                      'email_reports', 'logo_editor', 'goals', 'ip_blocklist', 'restore_archives', 'checkbox_group'
+ * @property string $label              Display label for the setting
+ * @property string|array $context      Help text or contextual information
+ *                                      - string: Simple help text
+ *                                      - array: ['text' => '...', 'url' => '...'] for text with documentation link
+ * @property bool|array $disabled       Whether the field is disabled
+ *                                      - bool: true/false
+ *                                      - array: Disabled for specific option values (used with select/radio)
+ * @property mixed $default             Default value for the setting
+ * @property array|null $options        Available options for select/radio/checkbox_group types
+ *                                      - array: key-value pairs or nested arrays with 'label', 'context', 'recommended' properties
+ *                                      - string: Function name to call (e.g., 'get_user_roles()')
+ * @property array|null $pro            Pro feature configuration
+ *                                      - 'url': Link to upgrade/pricing page
+ *                                      - 'disabled': Whether pro features are disabled
+ * @property array|null $notice         Notice/help box displayed with the setting
+ *                                      - 'label': Notice type (e.g., 'default')
+ *                                      - 'title': Notice title
+ *                                      - 'description': Notice description
+ *                                      - 'url': Documentation link
+ * @property array|null $react_conditions Conditional visibility/state rules based on other field values
+ *                                      - Key-value pairs where key is the field ID to watch
+ *                                      - Value can be:
+ *                                        * bool: true/false for checkbox fields
+ *                                        * string: Specific value to match
+ *                                        * array: Multiple acceptable values
+ *                                      - Special 'action' key determines behavior:
+ *                                        * 'action' => 'disable': Field becomes disabled when conditions are NOT met
+ *                                        * No action or other value: Field is hidden when conditions are NOT met (default)
+ * @property bool|null $recommended     Whether this option is recommended (used in radio/select options)
+ * @property string|null $action        Action identifier for button types (e.g., 'send_email_report', 'reset')
+ * @property string|null $button_text   Text displayed on button elements
+ * @property string|null $warnTitle     Warning dialog title (for dangerous actions)
+ * @property string|null $warnContent   Warning dialog content
+ * @property string|null $warnType      Warning type: 'info', 'warning', 'danger'
+ * @property int|null $min              Minimum value for number inputs
+ *
+ * React Conditions Examples:
+ * --------------------------
+ *
+ * 1. Hide field when checkbox is not checked:
+ *    'react_conditions' => [
+ *        'combine_vars_and_script' => true,
+ *    ]
+ *
+ * 2. Disable field when checkbox is not checked (field remains visible but inactive):
+ *    'react_conditions' => [
+ *        'combine_vars_and_script' => true,
+ *        'action' => 'disable',
+ *    ]
+ *
+ * 3. Show field only when select has specific values:
+ *    'react_conditions' => [
+ *        'archive_data' => ['archive', 'delete'],
+ *    ]
+ *
+ * 4. Multiple conditions (all must be met):
+ *    'react_conditions' => [
+ *        'enable_feature' => true,
+ *        'mode' => 'advanced',
+ *        'action' => 'disable',
+ *    ]
+ *
+ * Note: When 'action' => 'disable' is set, the field will be visible but disabled when conditions are NOT met.
+ *       Without the action property, the field will be completely hidden when conditions are NOT met.
+ */
+
+return [
+	[
+		'id'       => 'review_notice_shown',
+		'menu_id'  => 'general',
+		'group_id' => 'general',
+		'type'     => 'hidden',
+		'label'    => '',
+		'disabled' => false,
+		'default'  => false,
+	],
+	[
+		'id'       => 'burst_tour_shown_once',
+		'menu_id'  => 'general',
+		'group_id' => 'general',
+		'type'     => 'hidden',
+		'label'    => '',
+		'disabled' => false,
+		'default'  => false,
+	],
+	[
+		'id'       => 'not_writable',
+		'menu_id'  => 'general',
+		'group_id' => 'general',
+		'type'     => 'hidden',
+		'label'    => '',
+		'default'  => false,
+	],
+	[
+		'id'       => 'enable_turbo_mode',
+		'menu_id'  => 'general',
+		'group_id' => 'general',
+		'type'     => 'checkbox',
+		'label'    => __( 'Enable Turbo mode', 'burst-statistics' ),
+		'context'  => [
+			'text' => __( 'Load the tracking script later for better pagespeed, could cause visitors who leave quickly to be missed.', 'burst-statistics' ),
+			'url'  => 'definition/turbo-mode/',
+		],
+		'disabled' => false,
+		'default'  => false,
+	],
+	[
+		'id'       => 'enable_cookieless_tracking',
+		'menu_id'  => 'general',
+		'group_id' => 'general',
+		'type'     => 'checkbox',
+		'label'    => __( 'Enable Cookieless tracking', 'burst-statistics' ),
+		'context'  => [
+			'text' => __( 'Track visitors without cookies using browser & device info.', 'burst-statistics' ),
+			'url'  => 'definition/what-is-cookieless-tracking/',
+		],
+		'disabled' => false,
+		'default'  => false,
+	],
+	[
+		'id'       => 'enable_do_not_track',
+		'menu_id'  => 'general',
+		'group_id' => 'general',
+		'type'     => 'checkbox',
+		'label'    => __( "Honor 'Do Not Track' requests", 'burst-statistics' ),
+		'context'  => __( "Stop tracking visitors who have 'Do Not Track' enabled in their browser.", 'burst-statistics' ),
+		'disabled' => false,
+		'default'  => false,
+	],
+	[
+		'id'       => 'dismiss_non_error_notices',
+		'menu_id'  => 'general',
+		'group_id' => 'general',
+		'type'     => 'checkbox',
+		'label'    => __( 'Dismiss all notices in your dashboard except critical ones', 'burst-statistics' ),
+		'disabled' => false,
+		'default'  => false,
+	],
+	[
+		'id'       => 'goals',
+		'menu_id'  => 'goals',
+		'group_id' => 'goals',
+		'type'     => 'goals',
+		'label'    => __( 'Goals', 'burst-statistics' ),
+		'notice'   => [
+			'label'       => 'default',
+			'title'       => __( 'How to set goals?', 'burst-statistics' ),
+			'description' => __( 'To set goals for a website, you need to identify the purpose of the site and the key actions you want visitors to take. Set measurable and achievable goals for each action and track your progress.', 'burst-statistics' ),
+			'url'         => 'how-to-set-goals/',
+		],
+		'default'  => [],
+	],
+	[
+		'id'       => 'user_role_blocklist',
+		'menu_id'  => 'advanced',
+		'group_id' => 'tracking',
+		'type'     => 'checkbox_group',
+		'label'    => __( 'Exclude user roles from being tracked', 'burst-statistics' ),
+		'notice'   => [
+			'label'       => 'default',
+			'title'       => __( 'Excluding visitors', 'burst-statistics' ),
+			'description' => __( 'You can exclude visitors by user role and IP address. This will affect new data only.', 'burst-statistics' ),
+			'url'         => 'exclude-ip-addresses-from-burst-statistics/',
+		],
+		'disabled' => false,
+		'default'  => false,
+		'options'  => 'get_user_roles()',
+	],
+	[
+		'id'          => 'ip_blocklist',
+		'menu_id'     => 'advanced',
+		'group_id'    => 'tracking',
+		'type'        => 'ip_blocklist',
+		'label'       => __( 'Exclude IP addresses from being tracked', 'burst-statistics' ),
+		'context'     => __( 'Enter one IP address per line', 'burst-statistics' ),
+		'recommended' => true,
+		'disabled'    => false,
+		'default'     => '',
+	],
+	[
+		'id'       => 'custom_block_rules',
+		'menu_id'  => 'advanced',
+		'group_id' => 'tracking',
+		'type'     => 'textarea',
+		'label'    => __( 'Exclude requests with a specific text in the url or the referrer.', 'burst-statistics' ),
+		'context'  => __( 'Enter one string per line.', 'burst-statistics' ),
+		'disabled' => false,
+		'default'  => '',
+		'notice'   => [
+			'label'       => 'default',
+			'title'       => __( 'Using custom block rules', 'burst-statistics' ),
+			'description' => __( 'The hit will be blocked if this string is found in the referrer, user agent, or URL. You can also use regex patterns, e.g. /facebook(externalhit|bot|crawler|preview)/i', 'burst-statistics' ),
+		],
+	],
+	[
+		'id'       => 'enable_shortcodes',
+		'menu_id'  => 'advanced',
+		'group_id' => 'tracking',
+		'type'     => 'checkbox',
+		'label'    => __( 'Enable shortcodes', 'burst-statistics' ),
+		'context'  => [
+			'text' => __( 'Enable statistics shortcodes for use on your website.', 'burst-statistics' ),
+			'url'  => 'burst-statistics-shortcodes/',
+		],
+		'disabled' => false,
+		'default'  => false,
+	],
+	[
+		'id'       => 'geo_ip_database_type',
+		'menu_id'  => 'advanced',
+		'group_id' => 'data_collection',
+		'type'     => 'radio',
+		'label'    => __( 'Visitor location detail', 'burst-statistics' ),
+		'disabled' => false,
+		'default'  => 'city',
+		'pro'      => [
+			'url' => 'pricing/',
+		],
+		'options'  => [
+			'city'    => [
+				'label'       => __( 'Country, City & Region details', 'burst-statistics' ),
+				'context'     => __( 'Provides detailed location data including city and region. This uses a larger database and may result in slightly slower tracking.', 'burst-statistics' ),
+				'recommended' => true,
+			],
+			'country' => [
+				'label'   => __( 'Country only', 'burst-statistics' ),
+				'context' => __( 'Provides basic location insights. This uses a smaller database for faster tracking and less data storage.', 'burst-statistics' ),
+			],
+		],
+	],
+	[
+		'id'       => 'burst_update_to_city_geo_database_time',
+		'menu_id'  => 'advanced',
+		'group_id' => 'data_collection',
+		'type'     => 'hidden',
+		'label'    => '',
+		'disabled' => false,
+		'default'  => 1751328000,
+	],
+	[
+		'id'       => 'filtering_by_domain',
+		'menu_id'  => 'advanced',
+		'group_id' => 'data_collection',
+		'type'     => (bool) get_option( 'burst_is_multi_domain' ) ? 'checkbox' : 'hidden',
+		'label'    => __( 'Enable filtering by domain', 'burst-statistics' ),
+		'context'  => __( 'If you use multiple domains on your website, you can enable this to start storing the domain, so you can filter your data by domain.', 'burst-statistics' ),
+		'disabled' => true,
+		'default'  => false,
+		'pro'      => [
+			'url'      => 'filtering-by-domain',
+			'disabled' => false,
+		],
+	],
+	[
+		'id'       => 'track_url_change',
+		'menu_id'  => 'advanced',
+		'group_id' => 'data_collection',
+		'type'     => 'checkbox',
+		'label'    => __( 'Track URL changes as separate pageviews', 'burst-statistics' ),
+		'context'  => __( 'URL changes such as parameters or fragments will be tracked as separate pageviews. Useful for single-page applications or dynamic websites.', 'burst-statistics' ),
+		'disabled' => false,
+		'default'  => false,
+	],
+	[
+		'id'       => 'combine_vars_and_script',
+		'menu_id'  => 'advanced',
+		'group_id' => 'scripts',
+		'type'     => 'checkbox',
+		'label'    => __( 'Merge tracking settings and script', 'burst-statistics' ),
+		'context'  => __( 'Boost site speed by merging the Burst settings into the Burst script.', 'burst-statistics' ) .
+			' ' . ( (bool) get_option( 'burst_js_write_error' ) ? __( 'This option is only available when the WordPress can write to the uploads directory. Please ensure that the WordPress installation has write permissions to "wp-content/uploads/burst/".', 'burst-statistics' ) : '' ),
+		'disabled' => get_option( 'burst_js_write_error' ),
+		'default'  => false,
+	],
+	[
+		'id'               => 'ghost_mode',
+		'menu_id'          => 'advanced',
+		'group_id'         => 'scripts',
+		'type'             => 'checkbox',
+		'label'            => __( 'Enable ghost mode', 'burst-statistics' ),
+		'context'          => [
+			'text' => __( 'Available when "Merge tracking settings and script" is activated. If you enable this, the javascript filename does not include "burst", making it less obvious.', 'burst-statistics' ),
+		],
+		'react_conditions' => [
+			'combine_vars_and_script' => true,
+			'action'                  => 'disable',
+		],
+		'disabled'         => false,
+		'default'          => false,
+	],
+
+	[
+		'id'          => 'export_settings',
+		'menu_id'     => 'data',
+		'group_id'    => 'import_export_settings',
+		'type'        => 'export_settings',
+		'button_text' => __( 'Download settings file', 'burst-statistics' ),
+		'label'       => __( 'Export settings', 'burst-statistics' ),
+		'context'     => __( 'Download a file containing your current settings. Use this for migrating or copying settings to another website.', 'burst-statistics' ),
+		'disabled'    => false,
+		'default'     => false,
+	],
+	[
+		'id'       => 'import_settings',
+		'menu_id'  => 'data',
+		'group_id' => 'import_export_settings',
+		'type'     => 'upload',
+		'label'    => __( 'Import settings', 'burst-statistics' ),
+		'context'  => __( 'Upload a previously exported settings file to overwrite your current settings.', 'burst-statistics' ),
+		'disabled' => true,
+		'default'  => false,
+		'pro'      => [
+			'url'      => 'pricing/',
+			'disabled' => false,
+		],
+	],
+	[
+		'id'       => 'archive_data',
+		'menu_id'  => 'data',
+		'group_id' => 'data_archiving',
+		'options'  => [
+
+			'none'    => __( 'Don\'t manage', 'burst-statistics' ),
+			'archive' => __( 'Automatically Archive', 'burst-statistics' ),
+			'delete'  => __( 'Automatically Delete', 'burst-statistics' ),
+		],
+		'pro'      => [
+			'url'      => 'pricing/',
+			'disabled' => false,
+		],
+		'notice'   => [
+			'label'       => 'default',
+			'title'       => __( 'Why should I manage old data?', 'burst-statistics' ),
+			'description' => __( 'Managing old data can optimize storage and improve site performance. Choose to archive or delete based on your needs.', 'burst-statistics' ),
+			'url'         => 'do-I-need-to-archive-my-data/',
+		],
+		'disabled' => [ 'archive' ],
+		'type'     => 'select',
+		'label'    => __( 'Choose how to manage old statistics', 'burst-statistics' ),
+		// translators: %s is the current size of the database used by Burst, e.g. "10 MB".
+		'context'  => strlen( get_option( 'burst_table_size' ) ) > 1 ? sprintf( _x( 'Burst currently uses %s of your database.', 'e.g. Burst currently uses 10 MB of your database.', 'burst-statistics' ), get_option( 'burst_table_size' ) ) : '',
+		'default'  => false,
+	],
+	[
+		'id'               => 'archive_after_months',
+		'menu_id'          => 'data',
+		'group_id'         => 'data_archiving',
+		'min'              => apply_filters( 'burst_minimum_archive_months', 12 ),
+		'type'             => 'number',
+		'label'            => __( 'Retain data for how many months?', 'burst-statistics' ),
+		'disabled'         => false,
+		'default'          => 24,
+		'react_conditions' => [
+			'archive_data' => [ 'archive', 'delete' ],
+		],
+	],
+	[
+		'id'               => 'confirm_delete_data',
+		'menu_id'          => 'data',
+		'group_id'         => 'data_archiving',
+		'type'             => 'checkbox',
+		'label'            => __( 'Please confirm the deletion, without the possibility to restore.', 'burst-statistics' ),
+		'disabled'         => false,
+		'default'          => false,
+		'react_conditions' => [
+			'archive_data' => [ 'delete' ],
+		],
+	],
+	[
+		'id'          => 'reset',
+		'menu_id'     => 'data',
+		'group_id'    => 'data_archiving',
+		'type'        => 'button',
+		'warnTitle'   => __( 'Are you sure?', 'burst-statistics' ),
+		'warnContent' => __( 'This will permanently delete all statistics, goals, and goal statistics.', 'burst-statistics' ) . ' ' . __( 'This action can not be undone.', 'burst-statistics' ),
+		// 'info', 'warning', 'danger.
+		'warnType'    => 'danger',
+		'action'      => 'reset',
+		'button_text' => __( 'Reset statistics', 'burst-statistics' ),
+		'label'       => __( 'Reset statistics', 'burst-statistics' ),
+		'context'     => __( 'This will permanently delete all statistics, goals, and goal statistics.', 'burst-statistics' ),
+		'disabled'    => false,
+		'default'     => false,
+	],
+	[
+		'id'               => 'restore_archives',
+		'menu_id'          => 'data',
+		'group_id'         => 'restore_archives',
+		'type'             => 'restore_archives',
+		'disabled'         => false,
+		'default'          => false,
+		'react_conditions' => [
+			'archive_data' => [ 'archive' ],
+		],
+	],
+	[
+		'id'       => 'anonymous_usage_data',
+		'menu_id'  => 'general',
+		'group_id' => 'anonymous_usage_data',
+		'type'     => 'anonymous_usage_data',
+		'label'    => ' ',
+		'disabled' => false,
+		'default'  => false,
+	],
+];

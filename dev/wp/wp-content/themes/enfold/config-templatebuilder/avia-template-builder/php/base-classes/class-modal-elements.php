@@ -544,7 +544,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 			$output  = '';
 
 			$output .= '<div class="avia-critical-char-msg">';
-			$output .=		sprintf( __( 'Warning: Characters %s might break ALB backend or frontend. <a href="https://kriesi.at/documentation/enfold/intro-to-layout-builder/#using-special-characters" target="_blank" rel="noopener noreferrer">Read more</a> if you want to use them. You can use valid HTML markup.', 'avia_framework' ), implode( ',', Avia_Builder()->critical_modal_charecters() ) );
+			$output .=		sprintf( __( 'Warning: Characters %1$s might break ALB backend or frontend. %2$s if you want to use them. You can use valid HTML markup.', 'avia_framework' ), implode( ',', Avia_Builder()->critical_modal_charecters() ), '<a href="https://kriesi.at/documentation/enfold/intro-to-layout-builder/#using-special-characters" target="_blank" rel="noopener noreferrer">Read more</a>' );
 			$output .= '</div>';
 
 			return $output;

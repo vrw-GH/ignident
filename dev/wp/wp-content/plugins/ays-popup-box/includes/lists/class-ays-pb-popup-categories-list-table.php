@@ -4,6 +4,15 @@ class Popup_Categories_List_Table extends WP_List_Table {
     private $plugin_name;
     private $title_length;
 
+    /**
+     * The wp nonce of this plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string    $ays_quiz_nonce
+     */
+    private $ays_pb_nonce;
+
     /** Class constructor */
     public function __construct($plugin_name) {
         $this->plugin_name = $plugin_name;
@@ -16,34 +25,33 @@ class Popup_Categories_List_Table extends WP_List_Table {
         ) );
 
         add_action( 'admin_notices', array($this, 'popup_category_notices') );
-    }
 
-    public function popup_category_notices() {
-        $status = isset($_REQUEST['status']) ? sanitize_text_field($_REQUEST['status']) : '';
+        $this->ays_pb_nonce = wp_create_nonce('ays_pb_admin_popup_categories_list_table_nonce');
 
-        if (empty($status)) return;
-
-        if ('created' == $status)
-            $updated_message = esc_html( esc_html__('Popup category created.', "ays-popup-box") );
-        elseif ('updated' == $status)
-            $updated_message = esc_html( esc_html__('Popup category saved.', "ays-popup-box") );
-        elseif ('deleted' == $status)
-            $updated_message = esc_html( esc_html__('Popup category deleted.', "ays-popup-box") );
-         elseif ('published' == $status)
-            $updated_message = esc_html( esc_html__('Popup category(s) published.', "ays-popup-box") );
-        elseif ('unpublished' == $status)
-            $updated_message = esc_html( esc_html__('Popup category(s) unpublished.', "ays-popup-box") );
-
-        if (empty($updated_message)) return;
-
-        ?>
-        <div class="ays-pb-admin-notice notice notice-success is-dismissible">
-            <p> <?php echo $updated_message; ?> </p>
-        </div>
-        <?php
+        if( empty($this->ays_pb_nonce) ){
+            add_action('init', function () {
+                $this->ays_pb_nonce = wp_create_nonce('ays_pb_admin_popup_categories_list_table_nonce');
+            }, 1);
+        }
     }
 
     protected function get_views() {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         $published_count = $this->published_popup_categories_count();
         $unpublished_count = $this->unpublished_popup_categories_count();
         $all_count = $this->all_record_count();
@@ -82,7 +90,23 @@ class Popup_Categories_List_Table extends WP_List_Table {
         return $status_links;
     }
 
-    public static function published_popup_categories_count() {
+    public function published_popup_categories_count() {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
         $conditions = array();
 
@@ -100,7 +124,23 @@ class Popup_Categories_List_Table extends WP_List_Table {
         return $wpdb->get_var($sql);
     }
 
-    public static function unpublished_popup_categories_count() {
+    public function unpublished_popup_categories_count() {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
         $conditions = array();
 
@@ -118,7 +158,23 @@ class Popup_Categories_List_Table extends WP_List_Table {
         return $wpdb->get_var($sql);
     }
 
-    public static function all_record_count() {
+    public function all_record_count() {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
         $conditions = array();
 
@@ -140,6 +196,22 @@ class Popup_Categories_List_Table extends WP_List_Table {
      * Handles data query and filter, sorting, and pagination.
      */
     public function prepare_items() {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
 
         $this->_column_headers = $this->get_column_info();
@@ -149,7 +221,7 @@ class Popup_Categories_List_Table extends WP_List_Table {
 
         $per_page = $this->get_items_per_page('popup_categories_per_page', 20);
         $current_page = $this->get_pagenum();
-        $total_items = self::record_count();
+        $total_items = $this->record_count();
 
         $this->set_pagination_args( array(
             "total_items" => $total_items, // WE have to calculate the total number of items
@@ -159,7 +231,7 @@ class Popup_Categories_List_Table extends WP_List_Table {
         $search = isset($_REQUEST['s']) ? esc_sql( sanitize_text_field($_REQUEST['s']) ) : false;
         $do_search = $search ? sprintf( " title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)) ) : '';
 
-        $this->items = self::get_popup_categories($per_page, $current_page, $do_search);
+        $this->items = $this->get_popup_categories($per_page, $current_page, $do_search);
     }
 
     /** Text displayed when no customer data is available */
@@ -246,6 +318,22 @@ class Popup_Categories_List_Table extends WP_List_Table {
      * @return string
      */
     function column_title($item) {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         $delete_nonce = wp_create_nonce($this->plugin_name . '-delete-popup-category');
 
         $categories_title_length = intval($this->title_length);
@@ -298,62 +386,28 @@ class Popup_Categories_List_Table extends WP_List_Table {
         return $status_html;
     }
 
-    public function process_bulk_action() {
-        //Detect when a bulk action is being triggered...
-        if ( "delete" === $this->current_action() ) {
-            // In our file that handles the request, verify the nonce.
-            $nonce = esc_attr($_REQUEST["_wpnonce"]);
-
-            if ( !wp_verify_nonce($nonce, $this->plugin_name . "-delete-popup-category") ) {
-                die('Go get a life script kiddies');
-            } else {
-                self::delete_popup_categories( absint($_GET["popup_category"]) );
-
-                $url = esc_url_raw( remove_query_arg(array("action", "popup_category", "_wpnonce")) ) . "&status=deleted";
-                wp_redirect($url);
-            }
-        }
-
-        // If the delete bulk action is triggered
-        if ( (isset($_POST["action"]) && $_POST["action"] == "bulk-delete") || (isset($_POST["action2"]) && $_POST["action2"] == "bulk-delete") ) {
-            $delete_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
-
-            // loop over the array of record IDs and delete them
-            foreach ($delete_ids as $id) {
-                self::delete_popup_categories($id);
-            }
-
-            $url = esc_url_raw( remove_query_arg(array("action", "popup_category", "_wpnonce")) ) . "&status=deleted";
-            wp_redirect($url);
-        } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-published') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-published') ) {
-            $published_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
-
-            // loop over the array of record IDs and mark as read them
-            foreach ($published_ids as $id) {
-                self::ays_pb_published_unpublished_popup_categories($id, 'published');
-            }
-
-            $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')) ) . '&status=published';
-            wp_redirect($url);
-        } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-unpublished') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-unpublished') ) {
-            $unpublished_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
-
-            // loop over the array of record IDs and mark as read them
-            foreach ($unpublished_ids as $id) {
-                self::ays_pb_published_unpublished_popup_categories($id, 'unpublished');
-            }
-
-            $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')) ) . '&status=unpublished';
-            wp_redirect($url);
-        }
-    }
-
     /**
      * Delete a customer record.
      *
      * @param int $id customer ID
      */
-    public static function delete_popup_categories($id) {
+    public function delete_popup_categories($id) {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
         $wpdb->delete(
             "{$wpdb->prefix}ays_pb_categories",
@@ -362,7 +416,23 @@ class Popup_Categories_List_Table extends WP_List_Table {
         );
     }
 
-    public static function ays_pb_published_unpublished_popup_categories($id, $status = 'published') {
+    public function ays_pb_published_unpublished_popup_categories($id, $status = 'published') {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
         $pbcategories_table = esc_sql($wpdb->prefix . "ays_pb_categories");
 
@@ -389,7 +459,23 @@ class Popup_Categories_List_Table extends WP_List_Table {
      *
      * @return null|string
      */
-    public static function record_count() {
+    public function record_count() {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
 
         $filter = array();
@@ -420,7 +506,23 @@ class Popup_Categories_List_Table extends WP_List_Table {
      *
      * @return mixed
      */
-    public static function get_popup_categories($per_page = 20, $page_number = 1, $search = '') {
+    public function get_popup_categories($per_page = 20, $page_number = 1, $search = '') {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
         $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories";
 
@@ -470,9 +572,9 @@ class Popup_Categories_List_Table extends WP_List_Table {
      */
     public function get_bulk_actions() {
         $actions = array(
-            'bulk-published' => esc_html__('Publish', "ays-popup-box"),
-            'bulk-unpublished' => esc_html__('Unpublish', "ays-popup-box"),
-            'bulk-delete' => esc_html__('Delete', "ays-popup-box"),
+            'bulk-published'    => esc_html__('Publish', "ays-popup-box"),
+            'bulk-unpublished'  => esc_html__('Unpublish', "ays-popup-box"),
+            'bulk-delete'       => esc_html__('Delete', "ays-popup-box"),
         );
 
         return $actions;
@@ -489,6 +591,22 @@ class Popup_Categories_List_Table extends WP_List_Table {
     }
 
     public function add_edit_popup_category(){
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
         global $wpdb;
         $popup_category_table = $wpdb->prefix . 'ays_pb_categories';
         $ays_change_type = (isset($_POST['ays_change_type'])) ? sanitize_text_field( $_POST['ays_change_type'] ) : '';
@@ -545,12 +663,134 @@ class Popup_Categories_List_Table extends WP_List_Table {
                     }else{
                         $url = esc_url_raw( remove_query_arg(false) ) . '&status=' . $message;
                     }
-                    wp_redirect( $url );
+                    wp_safe_redirect( $url );
+                    exit;
                 }else{
                     $url = esc_url_raw( remove_query_arg(array('action', 'popup_category')  ) ) . '&status=' . $message;
-                    wp_redirect( $url );
+                    wp_safe_redirect( $url );
+                    exit;
                 }
             }
         }
+    }
+
+    public function process_bulk_action() {
+
+        // Detect when a bulk action is being triggered.
+        $action = $this->current_action();
+        if ( ! $action ) {
+            return;
+        }
+
+        if( !is_user_logged_in()){
+            return;
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            return;
+        }
+
+        if( current_user_can( 'manage_options' ) && is_user_logged_in() ){
+            //Detect when a bulk action is being triggered...
+            if ( "delete" === $this->current_action() ) {
+                // In our file that handles the request, verify the nonce.
+                $nonce = esc_attr($_REQUEST["_wpnonce"]);
+
+                if ( !wp_verify_nonce($nonce, $this->plugin_name . "-delete-popup-category") ) {
+                    die('Go get a life script kiddies');
+                } else {
+                    $this->delete_popup_categories( absint($_GET["popup_category"]) );
+
+                    $url = esc_url_raw( remove_query_arg(array("action", "popup_category", "_wpnonce")) ) . "&status=deleted";
+                    wp_safe_redirect( $url );
+                    exit;
+                }
+            }
+
+            // If the delete bulk action is triggered
+            if ( (isset($_POST["action"]) && $_POST["action"] == "bulk-delete") || (isset($_POST["action2"]) && $_POST["action2"] == "bulk-delete") ) {
+                $delete_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+
+                // loop over the array of record IDs and delete them
+                foreach ($delete_ids as $id) {
+                    $this->delete_popup_categories($id);
+                }
+
+                $url = esc_url_raw( remove_query_arg(array("action", "popup_category", "_wpnonce")) ) . "&status=deleted";
+                wp_safe_redirect( $url );
+                exit;
+            } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-published') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-published') ) {
+                $published_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+
+                // loop over the array of record IDs and mark as read them
+                foreach ($published_ids as $id) {
+                    $this->ays_pb_published_unpublished_popup_categories($id, 'published');
+                }
+
+                $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')) ) . '&status=published';
+                wp_safe_redirect( $url );
+                exit;
+            } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-unpublished') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-unpublished') ) {
+                $unpublished_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+
+                // loop over the array of record IDs and mark as read them
+                foreach ($unpublished_ids as $id) {
+                    $this->ays_pb_published_unpublished_popup_categories($id, 'unpublished');
+                }
+
+                $url = esc_url_raw( remove_query_arg(array('action', 'popup_category', '_wpnonce')) ) . '&status=unpublished';
+                wp_safe_redirect( $url );
+                exit;
+            }
+        }
+        else {
+            return;
+        }
+    }
+
+    public function popup_category_notices() {
+
+        // Run a security check.
+        if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popup_categories_list_table_nonce' ) ) {
+            // This nonce is not valid.
+            wp_die('Nonce verification failed!');
+        }
+
+        if( !is_user_logged_in()){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        // Verify unauthorized requests
+        if( !current_user_can( 'manage_options' ) ){
+            wp_die(  esc_html__( 'Something went wrong', 'quiz-maker' ) );
+        }
+
+        if( empty($_REQUEST['status']) ){
+            return;
+        }
+
+        $status = isset($_REQUEST['status']) ? sanitize_text_field($_REQUEST['status']) : '';
+
+        if (empty($status)) return;
+
+        if ('created' == $status)
+            $updated_message = esc_html( esc_html__('Popup category created.', "ays-popup-box") );
+        elseif ('updated' == $status)
+            $updated_message = esc_html( esc_html__('Popup category saved.', "ays-popup-box") );
+        elseif ('deleted' == $status)
+            $updated_message = esc_html( esc_html__('Popup category deleted.', "ays-popup-box") );
+         elseif ('published' == $status)
+            $updated_message = esc_html( esc_html__('Popup category(s) published.', "ays-popup-box") );
+        elseif ('unpublished' == $status)
+            $updated_message = esc_html( esc_html__('Popup category(s) unpublished.', "ays-popup-box") );
+
+        if (empty($updated_message)) return;
+
+        ?>
+        <div class="ays-pb-admin-notice notice notice-success is-dismissible">
+            <p> <?php echo $updated_message; ?> </p>
+        </div>
+        <?php
     }
 }

@@ -26,9 +26,31 @@ function xyz_ips_network_install($networkwide) {
 function xyz_ips_install(){
     global $wpdb;
 
-    $pluginName = 'xyz-wp-insert-code-snippet/xyz-wp-insert-code-snippet.php';
-if (is_plugin_active($pluginName)) {
-  wp_die( "The plugin Insert PHP Code Snippet cannot be activated unless the premium version of this plugin is deactivated. Back to <a href='".admin_url()."plugins.php'>Plugin Installation</a>." );
+    $plugin_name = 'xyz-wp-insert-code-snippet/xyz-wp-insert-code-snippet.php';
+    if ( is_plugin_active( $plugin_name ) ) {
+    
+        wp_die(
+            sprintf(
+                /* translators: 1: Plugin name, 2: Deactivate target, 3: Link to plugins page */
+                esc_html__( 'The plugin %1$s cannot be activated unless the %2$s is deactivated. Back to %3$s.', 'insert-php-code-snippet' ),
+                '<strong>Insert PHP Code Snippet</strong>',
+                '<strong>premium version</strong>',
+                sprintf(
+                    '<a href="%s">%s</a>',
+                    esc_url( admin_url( 'plugins.php' ) ),
+                    esc_html__( 'Plugin Installation', 'insert-php-code-snippet' )
+                )
+            )
+        );
+    }
+if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
+    wp_die(
+        sprintf(
+            'This plugin requires PHP version 7.0 or higher. You are using PHP %s. <a href="%s">Go back to Plugins page</a>.',
+            PHP_VERSION,
+            esc_url( admin_url( 'plugins.php' ) )
+        )
+    );
 }
     if(get_option('xyz_ips_sort_order')==''){
         add_option('xyz_ips_sort_order','desc');
@@ -70,6 +92,7 @@ if (is_plugin_active($pluginName)) {
     $queryInsertPhp = "CREATE TABLE IF NOT EXISTS  ".$wpdb->prefix."xyz_ips_short_code (
 `id` int NOT NULL AUTO_INCREMENT,
 `title` varchar(1000) NOT NULL,
+        `description` TEXT NULL ,
 `content` longtext  NOT NULL,
 `short_code` varchar(2000) NOT NULL,
 `status` int NOT NULL,
@@ -85,6 +108,8 @@ PRIMARY KEY (`id`)
 	$wpdb->query("ALTER TABLE ".$wpdb->prefix."xyz_ips_short_code ADD insertionLocation int NOT NULL default 0");
 	if(!(in_array("insertionLocationType", $tblcolums)))
 	$wpdb->query("ALTER TABLE ".$wpdb->prefix."xyz_ips_short_code ADD insertionLocationType int NOT NULL default 0");
+    if(!(in_array("description", $tblcolums)))
+	$wpdb->query("ALTER TABLE ".$wpdb->prefix."xyz_ips_short_code ADD description TEXT NULL ");
     //preview page
     $user_ID = get_current_user_id();
   	$slug = 'xyz-ics-preview-page';

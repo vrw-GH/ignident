@@ -77,12 +77,13 @@ function xyz_ips_suggest_feature(){
 function xyz_ips_add_style_script(){
 
 	wp_enqueue_script('jquery');
-	
-	wp_register_script( 'xyz_ips_notice_script', plugins_url ('js/notice.js' , XYZ_INSERT_PHP_PLUGIN_FILE ));
+	$current_version = xyz_ips_plugin_get_version();
+	// Register and enqueue script with versioning
+	wp_register_script( 'xyz_ips_notice_script', plugins_url ('js/notice.js' , XYZ_INSERT_PHP_PLUGIN_FILE ),array(),$current_version);
 	wp_enqueue_script( 'xyz_ips_notice_script' );
 	
 	// Register stylesheets
-	wp_register_style('xyz_ips_style', plugins_url('css/xyz_ips_styles.css', XYZ_INSERT_PHP_PLUGIN_FILE));
+	wp_register_style('xyz_ips_style', plugins_url('css/xyz_ips_styles.css', XYZ_INSERT_PHP_PLUGIN_FILE),array(),$current_version);
 	wp_enqueue_style('xyz_ips_style');
 }
 add_action('admin_enqueue_scripts', 'xyz_ips_add_style_script');

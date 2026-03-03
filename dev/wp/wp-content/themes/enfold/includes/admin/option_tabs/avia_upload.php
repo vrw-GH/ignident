@@ -220,9 +220,9 @@ $avia_elements[] = array(
 			'file_type'			=> 'application/octet-stream, application/zip', //used for javascript gallery to display file types
 		);
 
-$desc  = __( 'You can upload your custom type font zip files. Intended for <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google Webkit Fonts</a>.', 'avia_framework' ) . '<br/><br/>';
-$desc .= __( 'Variable fonts can be uploaded, but currently only <a href="https://fonts.google.com/knowledge/glossary/instance/" target="_blank" rel="noopener noreferrer">named instances</a> are supported by default.', 'avia_framework' ) . ' ';
-$desc .= __( 'Please read our <a href="https://kriesi.at/documentation/enfold/typography/#using-variable-fonts" target="_blank" rel="noopener noreferrer">documentation</a> how to create the zip files and a fallback scenario.', 'avia_framework' ) . '<br/><br/>';
+$desc = sprintf( __( 'You can upload your custom type font zip files. Intended for %s.', 'avia_framework' ), sprintf( '<a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">%s</a>', __( 'Google Webkit Fonts', 'avia_framework' ) ) ) . '<br/><br/>';
+$desc .= sprintf( __( 'Variable fonts can be uploaded, but currently only %s are supported by default.', 'avia_framework' ), sprintf( '<a href="https://fonts.google.com/knowledge/glossary/instance/" target="_blank" rel="noopener noreferrer">%s</a>', __( 'named instances', 'avia_framework' ) ) ) . ' ';
+$desc .= sprintf( __( 'Please read our %s to learn how to create the zip files and a fallback scenario.', 'avia_framework' ), sprintf( '<a href="https://kriesi.at/documentation/enfold/typography/#using-variable-fonts" target="_blank" rel="noopener noreferrer">%s</a>', __( 'documentation', 'avia_framework' ) ) ) . '<br/><br/>';
 $desc .= __( 'Make sure to delete any fonts that you are not using, to keep the loading time for your visitors low', 'avia_framework' );
 
 $avia_elements[] = array(

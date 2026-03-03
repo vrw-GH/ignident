@@ -388,4 +388,65 @@ class UpdraftCentral_Backups_Commands extends UpdraftCentral_Commands {
 
 		return $this->_response($response);
 	}
+
+	/**
+	 * Retrieves backup report data for a given time range. Used primarily by UpdraftCentral
+	 * for backup reports.
+	 *
+	 * @return array
+	 */
+	public function get_report_data() {
+		global $updraftplus;
+		global $updraftcentral_host_plugin;
+
+		$start_time = strtotime('first day of this month 00:00:00');
+		$end_time = strtotime('last day of this month 23:59:59');
+
+		$backup_history = UpdraftPlus_Backup_History::get_history();
+		$report_data = array();
+
+		foreach ($backup_history as $time => $backup) {
+			if ($time >= $start_time && $time <= $end_time) {
+				$external_storage = __('N/A', 'updraftplus');
+
+				if (!empty($backup['service'])) {
+					$external_storage = array();
+					foreach ($backup['service'] as $service) {
+						$external_storage[] = $updraftplus->backup_methods[$service];
+					}
+					$external_storage = implode(', ', $external_storage);
+				}
+
+				$report_data[$time] = array(
+					'date' => get_date_from_gmt(gmdate('Y-m-d H:i:s', (int) $time), 'M d, Y G:i'),
+					'total_size' => UpdraftPlus_Manipulation_Functions::convert_numeric_size_to_text($updraftplus->get_total_backup_size($backup), 1048577),
+					'external_storage' => $external_storage,
+				);
+			}
+		}
+
+		// Get the latest 10 report data.
+		$truncated = count($report_data) > 10;
+		if (true === $truncated) {
+			$report_data = array_slice($report_data, 0, 10, true);
+		}
+
+		$updraftplus_admin = $updraftcentral_host_plugin->get_admin_instance();
+		$files_backup_intervals = $updraftplus_admin->get_intervals('files');
+		$database_backup_intervals = $updraftplus_admin->get_intervals('db');
+
+		$file_backup_interval = UpdraftPlus_Options::get_updraft_option('updraft_interval', 'manual');
+		$database_backup_interval = UpdraftPlus_Options::get_updraft_option('updraft_interval_database', 'manual');
+
+		return $this->_response(array(
+			'report_data' => array(
+				'backups' => $report_data,
+				'truncated' => $truncated,
+			),
+			'variables' => array(
+				'files_backup_frequency' => $files_backup_intervals[$file_backup_interval],
+				'database_backup_frequency' => $database_backup_intervals[$database_backup_interval],
+			),
+		));
+	}
 }

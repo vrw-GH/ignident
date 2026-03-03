@@ -24,8 +24,7 @@ $desc .= '<br /><strong class="av-text-notice">';
 $desc .=	__( 'Attention when using caching plugins: Whenever you make changes to a custom element template please clear your server cache to show the changes.', 'avia_framework' );
 $desc .= '</strong>';
 
-$info  = __( 'Advanced Users can have <a href="https://kriesi.at/documentation/enfold/custom-element-templates/#custom-elements-advanced-options" target="_blank" rel="noopener noreferrer"> more options.</a>', 'avia_framework' );
-
+$info = sprintf( __( 'Advanced users can have %s.', 'avia_framework' ), sprintf( '<a href="https://kriesi.at/documentation/enfold/custom-element-templates/#custom-elements-advanced-options" target="_blank" rel="noopener noreferrer">%s</a>', __( 'more options', 'avia_framework' ) ) );
 
 /**
  * @used_by				avia_WPML					10

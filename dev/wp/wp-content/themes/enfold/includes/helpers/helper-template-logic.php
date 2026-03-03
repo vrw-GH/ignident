@@ -207,7 +207,7 @@ if( ! function_exists( 'avia_modify_breadcrumb' ) )
 				{
 					$newtrail = Avia_Breadcrumb_Trail()->get_parents( $page, '' );
 					array_unshift( $newtrail, $trail[0] );
-					$newtrail['trail_end'] = $trail['trail_end'];
+					$newtrail['trail_end'] = $trail['trail_end'] ?? '';
 					$trail = $newtrail;
 				}
 			}

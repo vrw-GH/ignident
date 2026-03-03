@@ -2,8 +2,8 @@
 Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, aporter, bcrodua
 Tags: backup, database backup, wordpress backup, cloud backup, migration
 Requires at least: 3.2
-Tested up to: 6.8
-Stable tag: 1.25.7
+Tested up to: 6.9
+Stable tag: 1.26.1
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -178,6 +178,49 @@ This problem is probably caused by your account being starved of resources by yo
 The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
+
+= 1.26.1 - 19/Jan/2026 =
+
+* FIX: Google Drive chunked uploads didn't resume from where it left off but started from the beginning resulting in file duplicates
+* TWEAK: Add a WP-CLI command to register a product key (premium)
+* TWEAK: Add product registration link on the premium version
+* TWEAK: Fix JS error on UpdraftCentral Cloud connect modal.
+* TWEAK: Fix grammatical error in the low disk space admin notice.
+* TWEAK: Update links for better user experience
+* TWEAK: Update the premium links on the settings page
+* TWEAK: Update all links in the includes/notices/central folders to use teamupdraft.com instead of updraftplus.com.
+* TWEAK: Upgrade the common-libs tag version
+
+= 1.25.9 - 12/Nov/2025 =
+
+* FIX: A regression that resulted in the list of tables within the "Database size" tools not being displayed, due to code refactoring implemented in version 1.25.8.
+* TWEAK: Add function for returning Advanced Tools menu data in a structured format.
+* TWEAK: Resolve regression in 1.25.2 which caused the admin notice "Not yet connected to licence" was linking to teamupdraft.com instead of the UpdraftPlus Premium/Extensions tab.
+* TWEAK: Refactoring connection keys data function to deduplicate and read from a single source
+* TWEAK: Restored the missing backup confirmation pop-up icon for older WordPress versions.
+* TWEAK: Stripped unwanted HTML from the plain-text notice and added new lines after each sentences in the sale offer message.
+* TWEAK: Update Black Friday seasonal sale URL/link 
+* TWEAK: Updated "Check our premium" and "Back up non-WP tables and external databases" URL links to avoid HTTP 404 (not found) errors.
+* TWEAK: Update database charset detection to support both CHARSET= and CHARACTER SET syntax in SQL dumps
+* TWEAK: Replaced deprecated (boolean) casting
+
+= 1.25.8 - 07/Oct/2025 =
+
+* FIX: A fatal error in UpdraftCentral when trying to manage posts when no posts exist.
+* FIX: During a failure in the file copy process while restoring, a directory was created with the same name as the file, and the restoration process persisted when it ought to have been stopped
+* FIX: PHP fatal error in WP CLI commands for listing or scanning existing backups on PHP 8.0+ after a rescan
+* TWEAK: Add UpdraftCentral support to import_settings function with return values
+* TWEAK: Add support for new Amazon AWS S3 regions
+* TWEAK: Added Burst Statistics to the family plugin list
+* TWEAK: Adjust the backup logic to recognize invisible columns, and when that occurs, use a query that explicitly specifies the required columns instead of relying on "SELECT *".
+* TWEAK: Ensure the restore process terminates with an error when file copying/moving fails
+* TWEAK: Improve the backup email report to better reflect the backup types and status.
+* TWEAK: New endpoint for getting locked settings data for UpdraftCentral
+* TWEAK: Perform a search and replace on __PHP_Incomplete_Class to make it work with unserialize() when object deserialization is not allowed.
+* TWEAK: Refactoring site info section to deduplicate and read from single source
+* TWEAK: Resolved a PHP warning triggered when uploading the plugin via the WP Plugins page — caused by translation functions (e.g. __()) being called too early.
+* TWEAK: Some text was left out of the translation POT file, which meant that certain translator plugins and libraries could not find the text, making it impossible to translate. 
+* TWEAK: Update the db_size function to allow returning either data or html, depending on the argument that is passed in.
 
 = 1.25.7 - 07/Aug/2025 =
 
@@ -2078,4 +2121,4 @@ Non-English translators are provided by volunteers, and wordpress.org does not g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.25.7: Various fixes and small tweaks - see the changelog for details. A recommended update for all.
+* 1.26.1: Google Drive chunk uploads resumption improvement, various fixes and small tweaks - see the changelog for details. A recommended update for all.

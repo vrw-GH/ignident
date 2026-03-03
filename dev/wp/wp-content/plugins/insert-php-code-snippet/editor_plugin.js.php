@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) )
 	 exit;
 	 
 header( 'Content-Type: text/javascript' );	
-	if ( ! is_user_logged_in() )
+	if ( ! is_user_logged_in() || ! current_user_can( 'edit_posts' ) )
 		die('You must be logged in to access this script.');
 	
 /*if(!isset($shortcodesXYZEP))

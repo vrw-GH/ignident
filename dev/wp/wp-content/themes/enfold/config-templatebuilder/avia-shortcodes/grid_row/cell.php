@@ -736,7 +736,7 @@ if( ! class_exists( 'avia_sc_cell', false ) )
 
 			$avia_config['current_column'] = str_replace( 'av_cell_', 'av_', $shortcodename );
 
-			$link = AviaHelper::get_url( $atts['link'] );
+			$link = esc_url( AviaHelper::get_url( $atts['link'] ) );
 			$link_data = '';
 			$title_attr_markup = '';
 			$reader_html = '';

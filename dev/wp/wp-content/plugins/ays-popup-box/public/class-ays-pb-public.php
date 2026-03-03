@@ -146,24 +146,33 @@ class Ays_Pb_Public {
         }
     }
 
-    public function ays_pb_set_cookie_only_once($attr){
-
-        if(isset($_REQUEST['id']) && $_REQUEST['id'] != ''){
-             $id = $_REQUEST['id'];
-         }else{
-            $id = $attr['id'];
-         }
-
-        if(isset($_REQUEST['title']) && $_REQUEST['title'] != ''){
-              $title = $_REQUEST['title'];
-        }else{
-            $title =  $attr['title'];
-        }
+    public function ays_pb_set_cookie_only_once_on_load($attr){
+        $id = isset($attr['id']) && !empty($attr['id']) ? absint($attr['id']) : 0;
+        $title = isset($attr['title']) && !empty($attr['title']) ? sanitize_text_field($attr['title']) : '';
         
         $cookie_name = 'ays_show_popup_only_once_'.$id;
         $cookie_value =  $title;
         $cookie_expiration = time() + (10 * 365 * 24 * 60 * 60);
         setcookie($cookie_name, $cookie_value, $cookie_expiration, '/');
+    }
+
+
+    public function ays_pb_set_cookie_only_once( $attr ){
+        
+        check_ajax_referer( 'ays-pb-cookie-nonce', sanitize_key( $_REQUEST['_ajax_nonce'] ) );
+        
+        $id = isset( $_REQUEST['id'] ) && $_REQUEST['id'] !== '' ? absint( $_REQUEST['id'] ) : ( isset( $attr['id'] ) ? absint( $attr['id'] ) : 0 );
+
+        $title = isset( $_REQUEST['title'] ) && $_REQUEST['title'] !== '' ? sanitize_text_field( $_REQUEST['title'] ) : ( isset($attr['title'] ) ? sanitize_text_field( $attr['title'] ) : '' );
+        
+        $cookie_name = 'ays_show_popup_only_once_' . $id;
+        $cookie_value = $title;
+        $cookie_expiration = time() + ( 10 * 365 * 24 * 60 * 60 );
+        
+        setcookie( $cookie_name, $cookie_value, $cookie_expiration, '/' );
+
+        wp_send_json_success( 'Cookie installed' );
+        wp_die();
     }
 
     public function ays_increment_pb_views() {
@@ -853,7 +862,7 @@ class Ays_Pb_Public {
             $show_only_once =  isset($options['show_only_once']) && $options['show_only_once'] == 'on' ? 'on' : 'off';
 
             if(!isset($_COOKIE['ays_show_popup_only_once_'.$id]) && isset($options['show_only_once']) && $options['show_only_once'] == 'on' && $ays_pb_action_buttons_type != 'clickSelector'){
-                $this->ays_pb_set_cookie_only_once($popupbox);
+                $this->ays_pb_set_cookie_only_once_on_load($popupbox);
             }elseif(isset($options['show_only_once']) && $options['show_only_once'] == 'off'){
                 $this->ays_pb_remove_cookie_only_once($popupbox);
             }elseif(!isset($options['show_only_once'])){
@@ -2498,6 +2507,7 @@ class Ays_Pb_Public {
                                             dataType: 'json',
                                             data: {
                                                 action: 'ays_pb_set_cookie_only_once',
+                                                _ajax_nonce: '". wp_create_nonce( 'ays-pb-cookie-nonce' ) ."',
                                                 id: ".$popupbox['id'].",
                                                 title: '".htmlentities($popupbox['title'],ENT_QUOTES)."',
                                             },

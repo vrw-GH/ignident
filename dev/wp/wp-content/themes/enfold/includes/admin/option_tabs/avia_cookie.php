@@ -272,7 +272,7 @@ $avia_elements[] = array(
 
 
 $cookie_desc = '';
-$cookie_desc .= __( "Make sure you comply with the <a target='_blank' href='http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm' rel='noopener noreferrer'>EU cookie law</a> by informing users that your site uses cookies. This can be done with a small notification bar or modal popup window", 'avia_framework' );
+$cookie_desc .= sprintf( __( 'Make sure you comply with the %s by informing users that your site uses cookies. This can be done with a small notification bar or modal popup window.', 'avia_framework' ), sprintf( '<a target="_blank" href="http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm" rel="noopener noreferrer">%s</a>', __( 'EU cookie law', 'avia_framework' ) ) );
 $cookie_desc .= '<br><br>';
 $cookie_desc .= __( 'You can also use the message bar to display a one time message not related to cookies if you do not need to inform your customers about the use of cookies.', 'avia_framework' ) . ' ';
 $cookie_desc .= '<br><br>';
@@ -865,7 +865,7 @@ $avia_elements[] = array(
 
 
 $desc  = __( 'Define additional custom cookies set by plugins. There are browser security limitations and it might not be possible to remove them using JavaScript or PHP.', 'avia_framework' ) . ' ';
-$desc .= __( 'Cookies must be in the same domain and you need to specify the name and the path (case sensitive) that is shown in the developer tools of your browser. Please see <a href="https://kriesi.at/documentation/enfold/privacy-cookies/#additional-custom-cookies">Additional Custom Cookies</a> on our documentation.', 'avia_framework' );
+$desc .= sprintf( __( 'Cookies must be in the same domain and you need to specify the name and the path (case sensitive) that is shown in the developer tools of your browser. Please see %s on our documentation.', 'avia_framework' ), sprintf( '<a href="https://kriesi.at/documentation/enfold/privacy-cookies/#additional-custom-cookies" target="_blank" rel="noopener noreferrer">%s</a>', __( 'Additional Custom Cookies', 'avia_framework' ) ) );
 $desc .= '<br /><br />';
 $desc .= __( 'To add a toggle for that cookie use the following shortcodes:', 'avia_framework' );
 $desc .= '<br /><br />';

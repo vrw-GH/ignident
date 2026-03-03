@@ -272,7 +272,7 @@ if($xyz_ips_message == 8)
 		<td style="vertical-align: middle !important;padding-left: 18px;">
 		<input type="checkbox" class="chk" value="<?php echo $snippetId; ?>" name="xyz_ips_snippet_ids[]" id="xyz_ips_snippet_ids" />
 		</td>
-			<td id="xyz_ips_vAlign"><?php
+			<td id="xyz_ips_vAlign" title="<?php echo esc_attr($entry->description); ?>" ><?php
 			echo esc_html($entry->title);
 			?></td>
 			<td>

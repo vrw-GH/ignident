@@ -1,0 +1,465 @@
+<?php
+namespace Burst\Traits;
+
+use function burst_get_option;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Trait admin helper
+ *
+ * @since   3.0
+ */
+trait Helper {
+
+
+	/**
+	 * Check if this is Pro
+	 */
+	protected function is_pro(): bool {
+		return defined( 'BURST_PRO' );
+	}
+
+	// phpcs:disable
+	/**
+	 * Get an option from the burst settings
+	 */
+	protected function get_option( string $option, $default = null ) {
+        if ( !function_exists( 'burst_get_option' ) ) {
+            require_once BURST_PATH . 'includes/functions.php';
+        }
+		return burst_get_option( $option, $default );
+	}
+	// phpcs:enable
+
+	/**
+	 * Get the frontend JS filename, with optional name obfuscation.
+	 */
+	protected function get_frontend_js_filename(): string {
+		$obfuscate = apply_filters( 'burst_obfuscate_filename', $this->get_option_bool( 'ghost_mode' ) );
+		$filename  = 'burst';
+		if ( $obfuscate ) {
+			$filename = substr( hash( 'sha256', 'burst-' . get_site_url() ), 0, 8 );
+		}
+		return $filename . '.min.js';
+	}
+
+	/**
+	 * Get an option from the burst settings and cast it to a boolean
+	 */
+	protected function get_option_bool( string $option, ?bool $default_value = null ): bool {
+		return (bool) $this->get_option( $option, $default_value );
+	}
+
+	/**
+	 * Get an option from the burst settings and cast it to an int
+	 */
+	protected function get_option_int( string $option ): int {
+		return (int) $this->get_option( $option );
+	}
+
+	/**
+	 * Get the upload dir
+	 */
+	protected function upload_dir( string $path = '', bool $root = false ): string {
+		$uploads    = wp_upload_dir();
+		$dir        = $root ? '' : 'burst/';
+		$upload_dir = trailingslashit( apply_filters( 'burst_upload_dir', $uploads['basedir'] ) ) . $dir . $path;
+		if ( ! is_dir( $upload_dir ) ) {
+			wp_mkdir_p( $upload_dir );
+		}
+
+		return trailingslashit( $upload_dir );
+	}
+
+	/**
+	 * Check if open_basedir restriction is enabled
+	 */
+	protected function has_open_basedir_restriction( string $path ): bool {
+		// Default error handler is required.
+		// phpcs:ignore
+		set_error_handler( null );
+		// Clean last error info.
+
+		error_clear_last();
+		// Testing...
+		// phpcs:disable
+		// @phpstan-ignore-next-line.
+		@file_exists( $path );
+		// phpcs:enable
+		// Restore previous error handler.
+		restore_error_handler();
+		// Return `true` if error has occurred.
+		$error = error_get_last();
+
+		if ( is_array( $error ) ) {
+			return str_contains( $error['message'], 'open_basedir restriction in effect' );
+		}
+		return false;
+	}
+
+	/**
+	 * Get the upload url
+	 */
+	protected function upload_url( string $path = '', bool $root = false ): string {
+		$uploads    = wp_upload_dir();
+		$upload_url = $uploads['baseurl'];
+		$upload_url = trailingslashit( apply_filters( 'burst_upload_url', $upload_url ) );
+
+		$scheme     = ( str_starts_with( site_url(), 'https://' ) ) ? 'https' : 'http';
+		$upload_url = set_url_scheme( $upload_url, $scheme );
+
+		$dir = $root ? '' : 'burst/';
+		return trailingslashit( $upload_url . $dir . $path );
+	}
+
+	/**
+	 * Get beacon path
+	 */
+	protected static function get_beacon_url(): string {
+		if ( is_multisite() && (bool) get_site_option( 'burst_track_network_wide' ) && self::is_networkwide_active() ) {
+			if ( is_main_site() ) {
+				return BURST_URL . 'endpoint.php';
+			} else {
+				// replace the subsite url with the main site url in BURST_URL.
+				// get main site_url.
+				$main_site_url = get_site_url( get_main_site_id() );
+				return str_replace( site_url(), $main_site_url, BURST_URL ) . 'endpoint.php';
+			}
+		}
+		return BURST_URL . 'endpoint.php';
+	}
+
+	/**
+	 * Check if Burst is networkwide active
+	 */
+	protected static function is_networkwide_active(): bool {
+		if ( ! is_multisite() ) {
+			return false;
+		}
+		if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
+		}
+
+		if ( is_plugin_active_for_network( BURST_PLUGIN ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if we are currently in preview mode from one of the known page builders
+	 */
+	protected function is_pagebuilder_preview(): bool {
+		$preview = false;
+		global $wp_customize;
+		// these are all only exists checks, no data is processed.
+		// phpcs:disable
+		if ( isset( $wp_customize ) || isset( $_GET['fb-edit'] )
+			|| isset( $_GET['et_pb_preview'] )
+			|| isset( $_GET['et_fb'] )
+			|| isset( $_GET['elementor-preview'] )
+			|| isset( $_GET['vc_action'] )
+			|| isset( $_GET['vcv-action'] )
+			|| isset( $_GET['fl_builder'] )
+			|| isset( $_GET['tve'] )
+			|| isset( $_GET['ct_builder'] )
+		) {
+			$preview = true;
+		}
+		// phpcs:enable
+
+		return apply_filters( 'burst_is_preview', $preview );
+	}
+
+	/**
+	 * Check if we are in preview mode for Burst
+	 */
+	protected function is_plugin_preview(): bool {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only checking if parameter exists, not processing data.
+		return isset( $_GET['burst_preview'] );
+	}
+
+	/**
+	 * Check if the remote file exists
+	 * Used by geo ip in case a user has located the maxmind database outside WordPress.
+	 */
+	protected static function remote_file_exists( string $url ): bool {
+		// used to encode the url for the option name, not for security purposes.
+		// phpcs:ignore
+		// nosemgrep
+		$hash        = md5( $url );
+		$file_exists = get_option( "burst_remote_file_exists_$hash" );
+
+		if ( $file_exists === false ) {
+			$response = wp_remote_get(
+				$url,
+				[
+					'method'      => 'HEAD',
+					'timeout'     => 10,
+					'redirection' => 5,
+					'blocking'    => true,
+				]
+			);
+
+			if ( is_wp_error( $response ) ) {
+				$file_exists = 'false';
+			} else {
+				$status_code = wp_remote_retrieve_response_code( $response );
+				$file_exists = ( $status_code >= 200 && $status_code < 300 ) ? 'true' : 'false';
+			}
+
+			update_option( "burst_remote_file_exists_$hash", $file_exists );
+		}
+
+		return $file_exists === 'true';
+	}
+
+	/**
+	 * Check if we are running in a test environment
+	 */
+	protected static function is_test(): bool {
+		return getenv( 'BURST_CI_ACTIVE' ) !== false || ( defined( 'BURST_CI_ACTIVE' ) );
+	}
+
+	// phpcs:disable
+	/**
+	 * Log a message only when in test mode
+	 *
+	 * @param $message
+	 * @return void
+	 */
+	protected static function error_log_test( $message ): void {
+		if ( self::is_test() ) {
+			self::error_log( $message );
+		}
+	}
+	// phpcs:enable
+
+	// phpcs:disable
+	/**
+	 * Log error to error_log
+	 */
+	protected static function error_log( $message ): void {
+		// @phpstan-ignore-next-line.
+		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
+			return;
+		}
+
+		$logging_enabled = (bool) apply_filters( 'burst_enable_logging', true );
+		if ( $logging_enabled ) {
+			if ( defined( 'BURST_VERSION' ) ) {
+				$version_nr = BURST_VERSION;
+			} else {
+				$version_nr = 'Endpoint request';
+			}
+
+			$burst_pro    = defined( 'BURST_PRO' );
+			$before_text  = $burst_pro ? 'Burst Pro' : 'Burst Statistics';
+			$before_text .= ' ' . $version_nr . ': ';
+			if ( is_array( $message ) || is_object( $message ) ) {
+				error_log( $before_text . print_r( $message, true ) );
+			} else {
+				error_log( $before_text . $message );
+			}
+		}
+	}
+
+	/**
+	 * Format number to a short version (e.g., 1.2M, 3.4B)
+	 *
+	 * @param int $n The number to format.
+	 * @return string The formatted number.
+	 */
+	protected function format_number_short( int $n ): string {
+		if ( $n >= 1_000_000_000 ) {
+			return round( $n / 1_000_000_000, 1 ) . 'B';
+		}
+		if ( $n >= 1_000_000 ) {
+			return round( $n / 1_000_000, 1 ) . 'M';
+		}
+		if ( $n >= 1_000 ) {
+			return round( $n / 1_000, 1 ) . 'k';
+		}
+		return (string) $n;
+	}
+
+	/**
+	 * Get the checkout page ID, with caching
+	 *
+	 * @return int The checkout page ID.
+	 */
+	protected function burst_checkout_page_id(): int {
+		$cache_key = 'burst_checkout_page_id';
+		$page_id   = get_transient( $cache_key );
+
+		if ( false === $page_id ) {
+			// Default to -1, allow plugins to filter this
+			$page_id = apply_filters( 'burst_checkout_page_id', -1 );
+
+			// Cache for 24 hours
+			set_transient( $cache_key, $page_id, DAY_IN_SECONDS );
+		}
+
+		return (int) $page_id;
+	}
+
+	/**
+	 * Get the products page ID, with caching
+	 *
+	 * @return int The checkout page ID.
+	 */
+	protected function burst_products_page_id(): int {
+		$cache_key = 'burst_products_page_id';
+		$page_id   = get_transient( $cache_key );
+
+		if ( false === $page_id ) {
+			// Default to -1, allow plugins to filter this
+			$page_id = apply_filters( 'burst_products_page_id', -1 );
+
+			// Cache for 24 hours
+			set_transient( $cache_key, $page_id, DAY_IN_SECONDS );
+		}
+
+		return (int) $page_id;
+	}
+
+	/**
+	 * Get the burst uid from cookie or session.
+	 *
+	 * @return string The burst uid.
+	 */
+	protected function get_burst_uid(): string {
+		$burst_uid = isset( $_COOKIE['burst_uid'] ) ? \Burst\burst_loader()->frontend->tracking->sanitize_uid( $_COOKIE['burst_uid'] ) : false;
+		if ( ! $burst_uid ) {
+			// try fingerprint from session.
+			$burst_uid = \Burst\burst_loader()->frontend->tracking->get_fingerprint_from_session();
+		}
+
+		return $burst_uid ?: '';
+	}
+
+	/**
+	 * Get base currency.
+	 *
+	 * @return string The base currency.
+	 */
+	protected function get_base_currency(): string {
+		$cache_key     = 'burst_base_currency';
+		$base_currency = get_transient( $cache_key );
+
+		if ( false === $base_currency ) {
+			$base_currency = apply_filters( 'burst_base_currency', 'USD' );
+
+			// Cache for 24 hours
+			set_transient( $cache_key, $base_currency, DAY_IN_SECONDS );
+		}
+
+		return (string) $base_currency;
+	}
+
+	/**
+	 * Get ecommerce cutoff time.
+	 *
+	 * @return int The ecommerce cutoff time in seconds.
+	 */
+	protected function get_ecommerce_activation_time(): int {
+		$cutoff_time = (int) get_option( 'burst_ecommerce_activated_time' );
+
+		if ( empty( $cutoff_time ) ) {
+			return (int) get_option( 'burst_activation_time_pro' );
+		}
+
+		return $cutoff_time;
+	}
+
+	/**
+	 * Calculate percentage change between two values
+	 *
+	 * @param float $previous The previous value.
+	 * @param float $current  The current value.
+	 * @return float|null The percentage change, or null if previous value is zero.
+	 */
+	protected static function calculate_percentage_change( float $previous, float $current ): ?float {
+		if ( $previous === 0.0 ) {
+			return null;
+		}
+		return round( ( ( $current - $previous ) / $previous ) * 100, 2 );
+	}
+    // phpcs:enable
+
+
+	/**
+	 * Get the offset in seconds from the selected timezone in WP.
+	 *
+	 * @throws \Exception //exception.
+	 */
+	protected static function get_wp_timezone_offset(): int {
+		$timezone = wp_timezone();
+		$datetime = new \DateTime( 'now', $timezone );
+		return $timezone->getOffset( $datetime );
+	}
+
+	/**
+	 * Convert date string to unix timestamp (UTC) by correcting it with WordPress timezone offset
+	 *
+	 * @param string $time_string date string in format Y-m-d H:i:s.
+	 * @throws \Exception //exception.
+	 */
+	protected static function convert_date_to_unix(
+		string $time_string
+	): int {
+		$time               = \DateTime::createFromFormat( 'Y-m-d H:i:s', $time_string );
+		$utc_time           = $time ? $time->format( 'U' ) : strtotime( $time_string );
+		$gmt_offset_seconds = self::get_wp_timezone_offset();
+
+		return $utc_time - $gmt_offset_seconds;
+	}
+
+	/**
+	 * Convert unix timestamp to date string by gmt offset.
+	 */
+	protected static function convert_unix_to_date( int $unix_timestamp ): string {
+		$adjusted_timestamp = $unix_timestamp + self::get_wp_timezone_offset();
+
+		// Convert the adjusted timestamp to a DateTime object.
+		$time = new \DateTime();
+		$time->setTimestamp( $adjusted_timestamp );
+
+		// Format the DateTime object to 'Y-m-d' format.
+		return $time->format( 'Y-m-d' );
+	}
+
+	/**
+	 * Ensure input is an array if applicable
+	 *
+	 * @param mixed $input The input value.
+	 * @return mixed The input as an array if applicable, otherwise the original input.
+	 */
+	public function ensure_array_if_applicable( mixed $input ): mixed {
+		if ( is_array( $input ) ) {
+			return $input;
+		}
+
+		if ( is_string( $input ) ) {
+			// Try JSON decode first - if it's valid JSON array, transform it.
+			$decoded = json_decode( $input, true );
+			if ( is_array( $decoded ) ) {
+				return $decoded;
+			}
+			// Only transform to comma-separated if it contains commas (indicating multiple values).
+			if ( strpos( $input, ',' ) !== false ) {
+				return array_map( 'trim', explode( ',', $input ) );
+			}
+
+			// Single string value - return as-is.
+			return $input;
+		}
+
+		// Return other types (int, etc.) as-is.
+		return $input;
+	}
+}

@@ -187,17 +187,55 @@ class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 	 */
 	public function get_template_properties() {
 		global $updraftplus, $updraftplus_admin;
+
+		$simplexmlelement_existence_label = '';
+		if (!apply_filters('updraftplus_s3generic_simplexmlelement_exists', class_exists('SimpleXMLElement'))) {
+			$simplexmlelement_existence_label = wp_kses(
+				$updraftplus_admin->show_double_warning(
+					'<strong>'.__('Warning', 'updraftplus').':</strong> '.
+					/* translators: %s: Required module name */
+					sprintf(__('Your web server\'s PHP installation does not include a required module (%s).', 'updraftplus'), 'SimpleXMLElement').' '.
+					__("Please contact your web hosting provider's support.", 'updraftplus').' '.
+					/* translators: 1: Module name, 2: Required module name */
+					sprintf(__('UpdraftPlus\'s %1$s module <strong>requires</strong> %2$s.', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()], 'SimpleXMLElement').' '.
+					__('Please do not file any support requests; there is no alternative.', 'updraftplus'),
+					$this->get_id(),
+					false
+				),
+				$this->allowed_html_for_content_sanitisation()
+			);
+		}
+
+		$xmlwriter_existence_label = '';
+		if (!apply_filters('updraftplus_s3generic_xmlwriter_exists', 'UpdraftPlus_S3_Compat' != $this->indicate_s3_class() || !class_exists('XMLWriter'))) {
+			$xmlwriter_existence_label = wp_kses(
+				$updraftplus_admin->show_double_warning(
+					'<strong>'.__('Warning', 'updraftplus').':</strong> '.
+					/* translators: %s: Required module name */
+					sprintf(__("Your web server's PHP installation does not include a required module (%s).", 'updraftplus'), 'XMLWriter').' '.
+					__("Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'),
+					$this->get_id(),
+					false
+				),
+				$this->allowed_html_for_content_sanitisation()
+			);
+		}
+
 		$properties = array(
 			'pre_template_opening_html' => wp_kses('<p>'.__('Examples of S3-compatible storage providers:', 'updraftplus').' <a href="https://teamupdraft.com/documentation/updraftplus/topics/general/faqs/how-do-i-use-updraftplus-with-digitalocean-spaces/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=digitalocean-spaces&utm_creative_format=text" target="_blank">DigitalOcean Spaces</a>, <a href="https://www.linode.com/products/object-storage/" target="_blank">Linode Object Storage</a>, <a href="https://www.cloudian.com" target="_blank">Cloudian</a>, <a href="https://www.mh.connectria.com/rp/order/cloud_storage_index" target="_blank">Connectria</a>, <a href="https://www.constant.com/cloud/storage/" target="_blank">Constant</a>, <a href="https://www.eucalyptus.cloud/" target="_blank">Eucalyptus</a>, <a href="http://cloud.nifty.com/storage/" target="_blank">Nifty</a>, <a href="http://www.ntt.com/business/services/cloud/iaas/cloudn.html" target="_blank">Cloudn</a>, <a href="https://mega.io/objectstorage" target="_blank">MEGA S4</a>, <a href="https://app.idrivee2.com/partner/updraftwps" target="_blank">IDrive e2</a>'.__('... and many more!', 'updraftplus').'</p>', $this->allowed_html_for_content_sanitisation()),
-			'xmlwriter_existence_label' => !apply_filters('updraftplus_s3generic_xmlwriter_exists', 'UpdraftPlus_S3_Compat' != $this->indicate_s3_class() || !class_exists('XMLWriter')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a required module (%s).", 'updraftplus'), 'XMLWriter').' '.__("Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
-			'simplexmlelement_existence_label' => !apply_filters('updraftplus_s3generic_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a required module (%s).", 'updraftplus'), 'SimpleXMLElement').' '.__("Please contact your web hosting provider's support.", 'updraftplus').' '.sprintf(__("UpdraftPlus's %s module <strong>requires</strong> %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()], 'SimpleXMLElement').' '.__('Please do not file any support requests; there is no alternative.', 'updraftplus'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
+			'xmlwriter_existence_label' => $xmlwriter_existence_label,
+			'simplexmlelement_existence_label' => $simplexmlelement_existence_label,
 			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($updraftplus->backup_methods[$this->get_id()], true, $this->get_id().' hide-in-udc', false), $this->allowed_html_for_content_sanitisation()),
 			'ssl_certificates_errors_link_text' => wp_kses('<a href="'.apply_filters("updraftplus_com_link", "https://teamupdraft.com/documentation/updraftplus/topics/backing-up/troubleshooting/i-get-ssl-certificate-errors-when-backing-up-and-or-restoring/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=s3-ssl-certificates&utm_creative_format=text").'" target="_blank">'.__('If you see errors about SSL certificates, then please go here for help.', 'updraftplus').'</a>', $this->allowed_html_for_content_sanitisation()),
+			/* translators: %s: Cloud storage provider */
 			'input_access_key_label' => sprintf(__('%s access key', 'updraftplus'), 'S3'),
+			/* translators: %s: Cloud storage provider */
 			'input_secret_key_label' => sprintf(__('%s secret key', 'updraftplus'), 'S3'),
 			'input_secret_key_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
+			/* translators: %s: Cloud storage provider */
 			'input_location_label' => sprintf(__('%s location', 'updraftplus'), 'S3'),
 			'input_location_title' => __('Enter only a bucket name or a bucket and path.', 'updraftplus').' '.__('Examples: mybucket, mybucket/mypath', 'updraftplus'),
+			/* translators: %s: Cloud storage provider */
 			'input_endpoint_label' => sprintf(__('%s end-point', 'updraftplus'), 'S3'),
 			'input_bucket_access_style_label' => __('Bucket access style', 'updraftplus'),
 			'input_bucket_access_style_readmore' => wp_kses('<a aria-label="'.esc_attr__('Read more about bucket access style', 'updraftplus').'" href="https://updraftplus.com/faqs/what-is-the-different-between-path-style-and-bucket-style-access-to-an-s3-compatible-bucket/" target="_blank"><em>'.__('(Read more)', 'updraftplus').'</em></a>', $this->allowed_html_for_content_sanitisation()),
@@ -211,6 +249,7 @@ class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 				'v4' => __('SigV4', 'updraftplus'),
 				'v2' => __('SigV2', 'updraftplus'),
 			),
+			/* translators: %s: Backup method */
 			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 		);
 		return wp_parse_args($properties, $this->get_persistent_variables_and_methods());

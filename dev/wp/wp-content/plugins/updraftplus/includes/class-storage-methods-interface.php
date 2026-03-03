@@ -375,7 +375,9 @@ class UpdraftPlus_Storage_Methods_Interface {
 				// @codingStandardsIgnoreLine
 				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$updraftplus->log($log_message);
-				$updraftplus->log(sprintf(__('A PHP exception (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
+				/* translators: 1: Exception class, 2: Exception message. */
+				$message = sprintf(__('A PHP exception (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage());
+				$updraftplus->log($message, 'error');
 				return false;
 			// @codingStandardsIgnoreLine
 			} catch (Error $e) {
@@ -384,12 +386,18 @@ class UpdraftPlus_Storage_Methods_Interface {
 				// @codingStandardsIgnoreLine
 				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$updraftplus->log($log_message);
-				$updraftplus->log(sprintf(__('A PHP fatal error (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
+				/* translators: 1: Fatal error class, 2: Error message. */
+				$message = sprintf(__('A PHP fatal error (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage());
+				$updraftplus->log($message, 'error');
 				return false;
 			}
 		} else {
 			$updraftplus->log("Automatic backup restoration is not available with the method: $service.");
-			$updraftplus->log("$file: ".__('The backup archive for this file could not be found.', 'updraftplus').' '.sprintf(__('The remote storage method in use (%s) does not allow us to retrieve files.', 'updraftplus'), $service).' '.__("To perform any restoration using UpdraftPlus, you will need to obtain a copy of this file and place it inside UpdraftPlus's working folder", 'updraftplus')." (".UpdraftPlus_Manipulation_Functions::prune_updraft_dir_prefix($updraftplus->backups_dir_location()).")", 'error');
+			$message = "$file: ".__('The backup archive for this file could not be found.', 'updraftplus').' ';
+			/* translators: %s: Remote storage service name. */
+			$message .= sprintf(__('The remote storage method in use (%s) does not allow us to retrieve files.', 'updraftplus'), $service).' ';
+			$message .= __("To perform any restoration using UpdraftPlus, you will need to obtain a copy of this file and place it inside UpdraftPlus's working folder", 'updraftplus')." (".UpdraftPlus_Manipulation_Functions::prune_updraft_dir_prefix($updraftplus->backups_dir_location()).")";
+			$updraftplus->log($message, 'error');
 			return false;
 		}
 

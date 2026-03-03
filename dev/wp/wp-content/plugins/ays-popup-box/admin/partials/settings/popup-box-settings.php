@@ -65,6 +65,10 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
             <input type="hidden" name="ays_pb_tab" value="<?php echo esc_attr($ays_pb_tab); ?>">
             <div class="ays-pb-heading-box">
                 <div class="ays-pb-wordpress-user-manual-box">
+                    <a href="https://www.youtube.com/watch?v=0cZOSdiKqTI" target="_blank">
+                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/youtube-video-icon.svg' ?>">
+                        <span><?php echo esc_html__("How to create Popup", "ays-popup-box"); ?></span>
+                    </a>
                     <a href="https://popup-plugin.com/docs" target="_blank">
                         <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
                         <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
@@ -244,18 +248,35 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                                     <strong style="font-size:30px;"><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/globe.svg"?>"></strong>
                                     <h5><?php echo esc_html__('Who will have permission to Popup menu',"ays-popup-box")?></h5>
                                 </legend>
-                                <div class="col-sm-12 ays-pro-features-v2-main-box">
+                                <div class="col-sm-12 ays-pro-features-v2-main-box pro_features pro_features_popup">
+
+                                    <div class="pro_features pro_features_popup pro_features_background_bolder">
+                                        <div class="pro-features-popup-conteiner">
+                                            <div class="pro-features-popup-title">
+                                                <?php echo __("Who Will Have Permission to Popup Menu", 'ays-popup-box'); ?>
+                                            </div>
+                                            <div class="pro-features-popup-content" data-link="https://youtu.be/Hl5i52g5lNo">
+                                                <p>
+                                                    <?php echo __("With this feature, you can choose which user roles can access and manage the popup menu. By default, only administrators have permission, but you can extend it to editors, authors, or other roles. The video shows step by step how to assign these permissions. Once saved, selected roles can instantly manage popups, making collaboration easier and reducing dependency on administrators. It’s a quick and effective way to manage roles and streamline popup creation.", 'ays-popup-box'); ?>
+                                                </p>                                                
+                                            </div>
+                                            <div class="pro-features-popup-button" data-link="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=pro-popup-box-permission-menu-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>">
+                                                <?php echo __("Pricing", 'ays-popup-box'); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="ays-pro-features-v2-small-buttons-box">
-                                        <div>
-                                            <a href="https://youtu.be/Hl5i52g5lNo" target="_blank" class="ays-pro-features-v2-video-button">
+                                        <div>                                            
+                                            <div class="ays-pb-new-watch-video-button-box ays-pb-new-watch-video-button-box-mobile-style">
                                                 <div>
                                                     <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
-                                                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
+                                                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover ays-pb-new-watch-video-button-hover">
                                                 </div>
-                                                <div class="ays-pro-features-v2-video-text">
+                                                <div class="ays-pb-new-watch-video-button">
                                                     <?php echo esc_html__("Watch video" , "ays-popup-box"); ?>
                                                 </div>
-                                            </a>
+                                            </div>
                                         </div>
                                         <a href="https://popup-plugin.com" target="_blank" class="ays-pro-features-v2-upgrade-button">
                                             <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
@@ -541,6 +562,15 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                                 </p>
                                 <p class="vmessage">
                                     <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%admin_email%%" />
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "Shows the admin's email that was filled in their WordPress profile.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
                                         <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%current_popup_author%%" class='ays-popup-message-variables-inputs'/>
                                     </strong>
                                     <span> - </span>
@@ -647,6 +677,87 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                                         <?php echo esc_html__( "The user's registration date when logged-in. In case the user is not logged-in, the field will be empty.", "ays-popup-box"); ?>
                                     </span>
                                 </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%post_author_nickname%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "Shows the post author's nickname that was filled in their WordPress profile.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%post_author_email%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "Shows the post author's email that was filled in their WordPress profile.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%post_author_first_name%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The First name of the author of the post.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%post_author_last_name%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The Last name of the author of the post.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%post_title%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The Post title of the current post.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%post_id%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The ID of the current post.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%site_title%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The title of the website.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%site_description%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The description of the website.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%home_page_url%%" class='ays-pb-message-variables-inputs'/>
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_html__( "The URL of the home page.", "ays-popup-box"); ?>
+                                    </span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -668,6 +779,49 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
             ?>
             </h1>
         </form>
+
+        <div class="ays-modal" id="pro-features-popup-modal">
+            <div class="ays-modal-content">
+                <!-- Modal Header -->
+                <div class="ays-modal-header">
+                    <span class="ays-close-pro-popup">&times;</span>
+                    <!-- <h2></h2> -->
+                </div>
+
+                <!-- Modal body -->
+                <div class="ays-modal-body">
+                   <div class="row">
+                        <div class="col-sm-6 pro-features-popup-modal-left-section">
+                        </div>
+                        <div class="col-sm-6 pro-features-popup-modal-right-section">
+                           <div class="pro-features-popup-modal-right-box">
+                                <div class="pro-features-popup-modal-right-box-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" overflow="visible" preserveAspectRatio="none" viewBox="0 0 24 24" width="50" height="50"><g><path xmlns:default="http://www.w3.org/2000/svg" id="lock" d="M9.33,11.35v-2c0.01-1.47,1.2-2.66,2.67-2.66c1.47,0,2.67,1.2,2.67,2.67v2H9.33V11.35z M17.99,12.35  c0-0.55-0.45-1-1-1h-0.33v-2c0.03-1.25-0.47-2.46-1.37-3.33c-1.8-1.82-4.73-1.83-6.55-0.03C8.73,6,8.72,6.01,8.71,6.02  c-0.9,0.87-1.4,2.08-1.37,3.33v2H7c-0.55,0-1,0.45-1,1v6c0,0.55,0.45,1,1,1h10c0.55,0,1-0.45,1-1v-6l0,0H17.99z" style="fill: rgb(50 49 48);" vector-effect="non-scaling-stroke"/></g></svg>
+                                    <!-- <i class="ays_fa ays_fa_lock"></i> -->
+                                </div>
+
+                                <div class="pro-features-popup-modal-right-box-title"></div>
+
+                                <div class="pro-features-popup-modal-right-box-content"></div>
+
+                                <div class="pro-features-popup-modal-right-box-button">
+                                    <a href="#" class="pro-features-popup-modal-right-box-link" target="_blank"></a>
+                                </div>
+
+                                <div class="pro-features-popup-modal-right-box-footer-text">
+                                    <span class="ays_quiz_small_hint_text_for_message_variables"><?php echo esc_html__( "One-time payment", 'ays-popup-box' ); ?></span>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="ays-modal-footer" style="display:none">
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <script>

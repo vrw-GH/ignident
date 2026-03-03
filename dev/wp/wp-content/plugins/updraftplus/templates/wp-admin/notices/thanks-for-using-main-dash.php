@@ -8,7 +8,7 @@
 
 	<h3><?php esc_html_e('Thank you for installing UpdraftPlus!', 'updraftplus');?></h3>
 	
-	<a href="<?php echo apply_filters('updraftplus_com_link', 'https://updraftplus.com/');?>"><img style="border: 0px; float: right; height: 150px; width: 150px; margin: 20px 15px 15px 35px;" alt="UpdraftPlus" src="<?php echo UPDRAFTPLUS_URL.'/images/ud-logo-150.png'; ?>"></a>
+	<a href="<?php echo apply_filters('updraftplus_com_link', 'https://teamupdraft.com/updraftplus/');?>"><img style="border: 0px; float: right; height: 150px; width: 150px; margin: 20px 15px 15px 35px;" alt="UpdraftPlus" src="<?php echo UPDRAFTPLUS_URL.'/images/ud-logo-150.png'; ?>"></a>
 
 	<?php
 	if (!file_exists(UPDRAFTPLUS_DIR.'/udaddons')) {

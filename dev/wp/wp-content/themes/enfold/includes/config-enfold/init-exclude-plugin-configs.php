@@ -29,11 +29,6 @@ if( ! class_exists( 'ZenOfWPMenuLogic', false ) && ! class_exists( 'Themify_Cond
 	add_theme_support( 'avia_exclude_menu_exchange' );
 }
 
-if( ! class_exists( 'Pojo_Accessibility', false ) )
-{
-	add_theme_support( 'avia_exclude_pojo_accessibility' );
-}
-
 if( ! function_exists( 'wpacc_enqueue_scripts' ) )
 {
 	add_theme_support( 'avia_exclude_wp_accessibility' );

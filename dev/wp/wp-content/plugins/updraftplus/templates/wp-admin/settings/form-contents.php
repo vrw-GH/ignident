@@ -86,7 +86,7 @@ foreach ($default_options as $k => $v) {
 		<td><div><p>
 		<?php
 			/* translators: $1$s: translatable text ,%2$s: translatable text, %3$s: translatable text,%4$s: UpdraftPlus Premium product name*/
-			echo wp_kses_post(sprintf(__('To %1$s (e.g. if your server is busy in the day and you want to run overnight), to take %2$s, or to %3$s, use %4$s', 'updraftplus'), '<a href="https://teamupdraft.com/updraftplus/features/schedule-wordpress-backup-at-set-times?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=fix-the-time&utm_creative_format=text" target="_blank">'.__('fix the time at which a backup should take place', 'updraftplus').'</a>', '<a href="https://teamupdraft.com/updraftplus/features/wordpress-incremental-backup?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=incremental-backups&utm_creative_format=text" target="_blank">'.__('incremental backups', 'updraftplus').'</a>', '<a href="https://teamupdraft.com/updraftplus/features/backup-retention-rules/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=delete-backups-as-they-age&utm_creative_format=text" target="_blank">'.__('automatically delete backups as they age', 'updraftplus').'</a>', '<a href="https://teamupdraft.com/updraftplus/pricing?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=updraftplus-premium&utm_creative_format=text" target="_blank">UpdraftPlus Premium</a>')).'.';
+			echo wp_kses_post(sprintf(__('To %1$s (e.g. if your server is busy in the day and you want to run overnight), to take %2$s, or to %3$s, use %4$s', 'updraftplus'), '<a href="'.esc_url($updraftplus->get_url('premium_schedule_backup')).'" target="_blank">'.__('fix the time at which a backup should take place', 'updraftplus').'</a>', '<a href="'.esc_url($updraftplus->get_url('premium_incremental_backup_details_1')).'" target="_blank">'.__('incremental backups', 'updraftplus').'</a>', '<a href="'.esc_url($updraftplus->get_url('premium_backup_retention')).'" target="_blank">'.__('automatically delete backups as they age', 'updraftplus').'</a>', '<a href="'.esc_url($updraftplus->get_url('premium')).'" target="_blank">UpdraftPlus Premium</a>')).'.';
 		?>
 		<p></div></td>
 	</tr>
@@ -150,7 +150,7 @@ foreach ($default_options as $k => $v) {
 			<p>
 				<?php
 					/* translators: %1$s: translated link text 'backup more files', %2$s: product link text 'UpdraftPlus Premium'*/
-					echo wp_kses_post(__('The above includes all WordPress file directories, except for WordPress core which you can download afresh from WordPress.org.', 'updraftplus').' '.sprintf(__('You can %1$s e.g. customisations made to WordPress core, wp-config.php or custom directories outside of the normal WordPress structure with %2$s.', 'updraftplus'), ' <a href="'.esc_url(apply_filters('updraftplus_com_link', "https://teamupdraft.com/updraftplus/features/backup-more-files-wordpress/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=back-up-more_files&utm_creative_format=text")).'" target="_blank">'.__('backup more files', 'updraftplus').'</a>', '<a href="'.esc_url(apply_filters('updraftplus_com_link', "https://teamupdraft.com/updraftplus/features/backup-more-files-wordpress/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=back-up-more_files&utm_creative_format=text")).'" target="_blank">UpdraftPlus Premium</a>'));
+					echo wp_kses_post(__('The above includes all WordPress file directories, except for WordPress core which you can download afresh from WordPress.org.', 'updraftplus').' '.sprintf(__('You can %1$s e.g. customisations made to WordPress core, wp-config.php or custom directories outside of the normal WordPress structure with %2$s.', 'updraftplus'), ' <a href="'.esc_url($updraftplus->get_url('premium_more_files')).'" target="_blank">'.__('backup more files', 'updraftplus').'</a>', '<a href="'.esc_url($updraftplus->get_url('premium_more_files')).'" target="_blank">UpdraftPlus Premium</a>'));
 				?>
 			</p>
 		</td>
@@ -166,7 +166,7 @@ foreach ($default_options as $k => $v) {
 
 		<td>
 		<?php
-			echo apply_filters('updraft_database_encryption_config', sprintf(__('%s with UpdraftPlus Premium.', 'updraftplus'), '<a href="https://teamupdraft.com/updraftplus/features/database-encryption/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=encrypt-the-datbase&utm_creative_format=text" target="_blank">'.__('Encrypt the database', 'updraftplus').'</a>').' '.sprintf(__('You can also %s.', 'updraftplus'), '<a href="https://teamupdraft.com/updraftplus/features/more-database-options/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=back-up-non-wp-tables&utm_creative_format=text" target="_blank">'.__('back up non-WP tables and external databases', 'updraftplus').'</a>'));
+			echo apply_filters('updraft_database_encryption_config', sprintf(__('%s with UpdraftPlus Premium.', 'updraftplus'), '<a href="'.esc_url($updraftplus->get_url('premium_database_encryption')).'" target="_blank">'.__('Encrypt the database', 'updraftplus').'</a>').' '.sprintf(__('You can also %s.', 'updraftplus'), '<a href="'.esc_url($updraftplus->get_url('premium_more_database')).'" target="_blank">'.__('back up non-WP tables and external databases', 'updraftplus').'</a>'));
 		?>
 		</td>
 	</tr>
@@ -286,7 +286,7 @@ foreach ($default_options as $k => $v) {
 				</div>
 			</label>
 			<?php
-				if (!class_exists('UpdraftPlus_Addon_Reporting')) echo '<a href="https://teamupdraft.com/updraftplus/features/advanced-wordpress-backup-reports?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=check-this-box-basic-report&utm_creative_format=text" target="_blank">'.esc_html__('For more reporting features, use the Premium version', 'updraftplus').'</a>';
+				if (!class_exists('UpdraftPlus_Addon_Reporting')) echo '<a href="'.esc_url($updraftplus->get_url('premium_advanced_report')).'" target="_blank">'.esc_html__('For more reporting features, use the Premium version', 'updraftplus').'</a>';
 			?>
 		</td>
 	</tr>

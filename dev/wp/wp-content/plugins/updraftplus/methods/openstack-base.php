@@ -41,10 +41,12 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 			$storage = $this->get_openstack_service($opts, UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts'), UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify'));
 		} catch (AuthenticationError $e) {
 			$updraftplus->log($this->desc.' authentication failed ('.$e->getMessage().')');
+			/* translators: %s: Remote storage method */
 			$updraftplus->log(sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.$e->getMessage().')', 'error');
 			return false;
 		} catch (Exception $e) {
 			$updraftplus->log($this->desc.' error - failed to access the container ('.$e->getMessage().') (line: '.$e->getLine().', file: '.$e->getFile().')');
+			/* translators: %s: Remote storage method */
 			$updraftplus->log(sprintf(__('%s error - failed to access the container', 'updraftplus'), $this->desc).' ('.$e->getMessage().')', 'error');
 			return false;
 		}
@@ -53,6 +55,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 			$this->container_object = $storage->getContainer($this->container);
 		} catch (Exception $e) {
 			$updraftplus->log('Could not access '.$this->desc.' container ('.get_class($e).', '.$e->getMessage().') (line: '.$e->getLine().', file: '.$e->getFile().')');
+			/* translators: %s: Remote storage method */
 			$updraftplus->log(sprintf(__('Could not access %s container', 'updraftplus'), $this->desc).' ('.get_class($e).', '.$e->getMessage().')', 'error');
 			return false;
 		}
@@ -83,6 +86,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 				}
 			} catch (Exception $e) {
 				$updraftplus->log($this->desc.' error - failed to upload file'.' ('.$e->getMessage().') (line: '.$e->getLine().', file: '.$e->getFile().')');
+				/* translators: %s: Remote storage method */
 				$updraftplus->log(sprintf(__('%s error - failed to upload file', 'updraftplus'), $this->desc).' ('.$e->getMessage().')', 'error');
 				return false;
 			}
@@ -119,6 +123,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 		try {
 			$storage = $this->get_openstack_service($opts, UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts'), UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify'));
 		} catch (Exception $e) {
+			/* translators: %s: Remote storage method */
 			return new WP_Error('no_access', sprintf(__('%s error - failed to access the container', 'updraftplus'), $this->desc).' ('.$e->getMessage().')');
 		}
 
@@ -126,6 +131,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 		try {
 			$this->container_object = $storage->getContainer($container);
 		} catch (Exception $e) {
+			/* translators: %s: Remote storage method */
 			return new WP_Error('no_access', sprintf(__('%s error - failed to access the container', 'updraftplus'), $this->desc).' ('.$e->getMessage().')');
 		}
 
@@ -311,6 +317,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 				if ($remote_size >= $upload_size) {
 					$updraftplus->log("$file: Chunk now exists; ignoring error (presuming it was an apparently known curl bug)");
 				} else {
+					/* translators: %s: Remote storage method */
 					$updraftplus->log("$file: ".sprintf(__('%s Error: Failed to upload', 'updraftplus'), $this->desc), 'error');
 					return false;
 				}
@@ -354,10 +361,12 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 				$storage = $this->get_openstack_service($opts, UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts'), UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify'));
 			} catch (AuthenticationError $e) {
 				$updraftplus->log($this->desc.' authentication failed ('.$e->getMessage().')');
+				/* translators: %s: Remote storage method */
 				$updraftplus->log(sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.$e->getMessage().')', 'error');
 				return 'authentication_fail';
 			} catch (Exception $e) {
 				$updraftplus->log($this->desc.' error - failed to access the container ('.$e->getMessage().')');
+				/* translators: %s: Remote storage method */
 				$updraftplus->log(sprintf(__('%s error - failed to access the container', 'updraftplus'), $this->desc).' ('.$e->getMessage().')', 'error');
 				return 'service_unavailable';
 			}
@@ -366,6 +375,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 				$container_object = $storage->getContainer($container);
 			} catch (Exception $e) {
 				$updraftplus->log('Could not access '.$this->desc.' container ('.get_class($e).', '.$e->getMessage().')');
+				/* translators: %s: Remote storage method */
 				$updraftplus->log(sprintf(__('Could not access %s container', 'updraftplus'), $this->desc).' ('.get_class($e).', '.$e->getMessage().')', 'error');
 				return 'container_access_error';
 			}
@@ -419,10 +429,12 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 			$storage = $this->get_openstack_service($opts, UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts'), UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify'));
 		} catch (AuthenticationError $e) {
 			$updraftplus->log($this->desc.' authentication failed ('.$e->getMessage().')');
+			/* translators: %s: Remote storage method */
 			$updraftplus->log(sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.$e->getMessage().')', 'error');
 			return false;
 		} catch (Exception $e) {
 			$updraftplus->log($this->desc.' error - failed to access the container ('.$e->getMessage().')');
+			/* translators: %s: Remote storage method */
 			$updraftplus->log(sprintf(__('%s error - failed to access the container', 'updraftplus'), $this->desc).' ('.$e->getMessage().')', 'error');
 			return false;
 		}
@@ -435,6 +447,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 			$this->container_object = $storage->getContainer($container);
 		} catch (Exception $e) {
 			$updraftplus->log('Could not access '.$this->desc.' container ('.get_class($e).', '.$e->getMessage().')');
+			/* translators: %s: Remote storage method */
 			$updraftplus->log(sprintf(__('Could not access %s container', 'updraftplus'), $this->desc).' ('.get_class($e).', '.$e->getMessage().')', 'error');
 			return false;
 		}
@@ -443,6 +456,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 		$remote_size = $this->get_remote_size($file);
 		if (false === $remote_size) {
 			$updraftplus->log('Could not access '.$this->desc.' object');
+			/* translators: %s: Remote storage method */
 			$updraftplus->log(sprintf(__('The %s object was not found', 'updraftplus'), $this->desc), 'error');
 			return false;
 		}
@@ -457,6 +471,7 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 		} catch (Exception $e) {
 			global $updraftplus;
 			$updraftplus->log("$file: Failed to download (".$e->getMessage().")");
+			/* translators: %s: Remote storage method */
 			$updraftplus->log("$file: ".sprintf(__("%s Error", 'updraftplus'), $this->desc).": ".__('Error downloading remote file: Failed to download', 'updraftplus').' ('.$e->getMessage().")", 'error');
 			return false;
 		}
@@ -492,9 +507,11 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 			}
 			return;
 		} catch (AuthenticationError $e) {
+			/* translators: %s: Remote storage method */
 			echo esc_html(sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.$e->getMessage().')');
 			return;
 		} catch (Exception $e) {
+			/* translators: %s: Remote storage method */
 			echo esc_html(sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.get_class($e).', '.$e->getMessage().')');
 			return;
 		}
@@ -513,11 +530,13 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 				return;
 			}
 		} catch (Exception $e) {
+			/* translators: %s: Remote storage method */
 			echo esc_html(sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.get_class($e).', '.$e->getMessage().')');
 			return;
 		}
 
 		if (!is_a($container_object, 'OpenCloud\ObjectStore\Resource\Container') && !is_a($container_object, 'Container')) {
+			/* translators: %s: Remote storage method */
 			echo esc_html(sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.get_class($container_object).')');
 			return;
 		}
@@ -527,12 +546,15 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 		try {
 			$object = $container_object->uploadObject($try_file, 'UpdraftPlus test file', array('content-type' => 'text/plain'));
 		} catch (Exception $e) {
+			/* translators: %s: Remote storage method */
 			echo esc_html(sprintf(__('%s error - we accessed the container, but failed to create a file within it', 'updraftplus'), $this->desc).' ('.get_class($e).', '.$e->getMessage().')');
+			/* translators: %s: Region name */
 			if (!empty($this->region)) echo ' '.esc_html(sprintf(__('Region: %s', 'updraftplus'), $this->region));
 			return;
 		}
 
 		echo esc_html(__('Success', 'updraftplus').": ".__('We accessed the container, and were able to create files within it.', 'updraftplus'));
+		/* translators: %s: Region name */
 		if (!empty($this->region)) echo ' '.esc_html(sprintf(__('Region: %s', 'updraftplus'), $this->region));
 
 		try {
@@ -574,7 +596,16 @@ class UpdraftPlus_BackupModule_openstack_base extends UpdraftPlus_BackupModule {
 			// Check requirements.
 			global $updraftplus_admin;
 			if (!function_exists('mb_substr')) {
-				$updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('Your web server\'s PHP installation does not included a required module (%s).', 'updraftplus'), 'mbstring').' '.__('Please contact your web hosting provider\'s support.', 'updraftplus').' '.sprintf(__("UpdraftPlus's %s module <strong>requires</strong> %s.", 'updraftplus'), $this->desc, 'mbstring').' '.__('Please do not file any support requests; there is no alternative.', 'updraftplus'), $this->method);
+				$updraftplus_admin->show_double_warning(
+					'<strong>'.__('Warning', 'updraftplus').':</strong> '.
+					/* translators: %s: Required module name */
+					sprintf(__('Your web server\'s PHP installation does not include a required module (%s).', 'updraftplus'), 'mbstring').' '.
+					__('Please contact your web hosting provider\'s support.', 'updraftplus').' '.
+					/* translators: 1: Remote storage method, 2: Required module name */
+					sprintf(__('UpdraftPlus\'s %1$s module <strong>requires</strong> %2$s.', 'updraftplus'), $this->desc, 'mbstring').' '.
+					__('Please do not file any support requests; there is no alternative.', 'updraftplus'),
+					$this->method
+				);
 			}
 			$updraftplus_admin->curl_check($this->long_desc, false, $this->method);
 			echo '<br>';

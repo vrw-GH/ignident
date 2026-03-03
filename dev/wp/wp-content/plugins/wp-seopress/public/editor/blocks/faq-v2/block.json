@@ -7,9 +7,27 @@
   "icon": "index-card",
   "category": "wpseopress",
   "textdomain": "wp-seopress",
+  "keywords": [
+    "faq",
+    "frequently asked questions",
+    "questions",
+    "answers",
+    "help",
+    "support"
+  ],
   "allowedBlocks": [
     "core/details"
   ],
+  "attributes": {
+    "schema": {
+      "type": "object",
+      "default": {}
+    },
+    "printSchema": {
+      "type": "boolean",
+      "default": true
+    }
+  },
   "supports": {
     "anchor": true,
     "html": false,

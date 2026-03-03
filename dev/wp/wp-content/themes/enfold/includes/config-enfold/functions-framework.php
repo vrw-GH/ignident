@@ -167,8 +167,158 @@ if( ! function_exists( 'avia_generate_stylesheet' ) )
 	add_action( 'ava_after_theme_update', 'avia_generate_stylesheet', 30, 1 );				/*after theme update*/
 	add_action( 'ava_after_import_demo_settings', 'avia_generate_stylesheet', 30, 1 );		/*after demo settings imoport*/
 	add_action( 'avia_ajax_after_save_options_page', 'avia_generate_stylesheet', 30, 1 );	/*after options page saving*/
-
 }
+
+
+if( ! function_exists( 'avia_force_clear_caches' ) )
+{
+	/**
+	 * Force popular cache plugins to clear their cache to force reloading - needed to support minified css files
+	 * Plugins are found in ..\includes\admin\option_tabs\avia_performance.php - not all plugins provide functions.
+	 * Results provided by ChatGTP.
+	 *
+	 * @link https://kriesi.at/support/topic/css-files-are-always-deleted/
+	 * @link solution inspired by marcsteiner1  https://kriesi.at/support/topic/css-files-are-always-deleted/#post-1491455
+	 * @since 7.1.4
+	 * @param array|false $options
+	 */
+	function avia_force_clear_caches( $options = false )
+	{
+		/**
+		 * Shortcut or use a custom function
+		 *
+		 * @since 7.1.4
+		 * @param boolean $continue
+		 * @param array|false $options
+		 * @return boolean					false to shortcut
+		 */
+		if( true !== apply_filters( 'avf_before_force_clear_caches', true, $options ) )
+		{
+			return;
+		}
+
+		// Object Cache Pro: flush object cache
+		if( function_exists( 'wp_cache_flush' ) )
+		{
+			wp_cache_flush();
+		}
+
+		// WP Rocket: full cache purge
+		if( function_exists( 'rocket_clean_domain' ) )
+		{
+			rocket_clean_domain();
+		}
+
+		// WP Super Cache: Clear Supercache + Standard-Cache, no message
+		if( function_exists( 'wp_cache_clear_cache' ) )
+		{
+			wp_cache_clear_cache( 'all', false );
+		}
+
+		// Comet Cache + Comet Cache Pro: full cache purge
+		if( function_exists( 'comet_cache_flush' ) )
+		{
+			comet_cache_flush();
+		}
+
+		// W3 Total Cache: full cache purge
+		if( function_exists( 'w3tc_flush_all' ) )
+		{
+			w3tc_flush_all();
+		}
+
+		// WP Fastest Cache: full cache purge
+		if( function_exists( 'wpfc_clear_all_cache' ) )
+		{
+			wpfc_clear_all_cache();
+		}
+
+		// Simple Cache: full cache purge
+		if( function_exists( 'simple_cache_flush' ) )
+		{
+			simple_cache_flush();
+		}
+
+		// Cachify: full cache purge
+		if( class_exists( 'Cachify' ) )
+		{
+			$cachify = Cachify::instance();
+			if( method_exists( $cachify, 'flush' ) )
+			{
+				$cachify->flush();
+			}
+		}
+
+		// Hyper Cache: full cache purge
+		if( function_exists( 'hyper_cache_flush' ) )
+		{
+			hyper_cache_flush(); // leert den gesamten Cache
+		}
+
+		// Cache Enabler: full cache purge
+		if( class_exists( 'Cache_Enabler' ) )
+		{
+			$cache_enabler = Cache_Enabler::instance();
+			if( method_exists( $cache_enabler, 'clear_cache' ) )
+			{
+				$cache_enabler->clear_cache();
+			}
+		}
+
+		// Autoptimize: full cache purge
+		if( function_exists( 'autoptimize_flush_cache' ) )
+		{
+			autoptimize_flush_cache(); // leert alle Autoptimize-Caches
+		}
+
+		// Breeze: full cache purge   (according to ChatGTP)
+		do_action( 'breeze_clear_all_cache' );
+
+		// Lite Speed Cache: full cache purge
+		if( class_exists( 'LiteSpeed_Cache_API' ) )
+		{
+			if( method_exists( 'LiteSpeed_Cache_API', 'purge_all' ) )
+			{
+				LiteSpeed_Cache_API::purge_all();
+			}
+		}
+
+		// Hummingbird Page Speed Optimization: full cache purge
+		if( class_exists( 'WPMUDEV_Hummingbird' ) )
+		{
+			if( method_exists( 'WPMUDEV_Hummingbird', 'flush_cache' ) )
+			{
+				WPMUDEV_Hummingbird::flush_cache();
+			}
+		}
+
+		// Powered Cache: full cache purge
+		if( function_exists( '\PoweredCache\Utils\powered_cache_flush' ) )
+		{
+			\PoweredCache\Utils\powered_cache_flush();
+		}
+
+		// Borlabs Cache: full cache purge
+		if( class_exists( 'BorlabsCache\BorlabsCache' ) )
+		{
+			$borlabsCache = BorlabsCache\BorlabsCache::getInstance();
+			if( method_exists( $borlabsCache, 'flushAll' ) )
+			{
+				$borlabsCache->flushAll();
+			}
+		}
+
+		/**
+		 * @since 7.1.4
+		 */
+		do_action( 'ava_force_clear_caches', $options );
+	}
+
+	add_action( 'ava_after_theme_update', 'avia_force_clear_caches', 30, 1 );				/*after theme update*/
+	add_action( 'ava_after_import_demo_settings', 'avia_force_clear_caches', 30, 1 );		/*after demo settings imoport*/
+	add_action( 'avia_ajax_after_save_options_page', 'avia_force_clear_caches', 30, 1 );	/*after options page saving*/
+}
+
 
 if( ! function_exists( 'avia_generate_grid_dimension' ) )
 {

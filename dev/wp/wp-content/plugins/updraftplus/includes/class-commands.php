@@ -186,6 +186,21 @@ class UpdraftPlus_Commands {
 			'rawbackup' => html_entity_decode($rawbackup),
 		);
 	}
+
+	/**
+	 * Function to retrieve list of existing backups with all of their data.
+	 *
+	 * @return Array - Array of existing backup data.
+	 */
+	public function get_existing_backups_data() {
+		if (false === ($updraftplus_admin = $this->_load_ud_admin()) || false === $this->_load_ud()) return new WP_Error('no_updraftplus');
+		$history = UpdraftPlus_Backup_History::get_history();
+
+		return array(
+			'history' => $history,
+			'download_data' => $updraftplus_admin->get_download_buttons_data($history),
+		);
+	}
 	
 	private function _load_ud() {
 		global $updraftplus;
@@ -292,6 +307,9 @@ class UpdraftPlus_Commands {
 		
 		$remote_storage_options_and_templates = UpdraftPlus_Storage_Methods_Interface::get_remote_storage_options_and_templates();
 		
+		$is_premium = false;
+		if (defined('UPDRAFTPLUS_DIR') && file_exists(UPDRAFTPLUS_DIR.'/udaddons')) $is_premium = true;
+
 		return array(
 			'settings' => $output,
 			'remote_storage_options' => $remote_storage_options_and_templates['options'],
@@ -299,6 +317,9 @@ class UpdraftPlus_Commands {
 			'remote_storage_partial_templates' => $remote_storage_options_and_templates['partial_templates'],
 			'meta' => apply_filters('updraftplus_get_settings_meta', array()),
 			'updraftplus_version' => $updraftplus->version,
+			'backup_methods' => $updraftplus->backup_methods,
+			'active_instances' => $updraftplus_admin->get_active_remote_storages(),
+			'is_premium' => $is_premium,
 		);
 		
 	}
@@ -643,6 +664,12 @@ class UpdraftPlus_Commands {
 		return $response;
 	}
 
+	/**
+	 * Change lock settings for UpdraftPlus admin access
+	 *
+	 * @param array $data Lock settings data
+	 * @return string|WP_Error Success message or error
+	 */
 	public function change_lock_settings($data) {
 		global $updraftplus_addon_lockadmin;
 		
@@ -677,6 +704,31 @@ class UpdraftPlus_Commands {
 		} else {
 			return new WP_Error('error', '', 'wrong_old_password');
 		}
+	}
+
+	/**
+	 * Get lock admin settings data
+	 *
+	 * @return array Lock settings information
+	 */
+	private function get_lock_settings_data() {
+		if (!UpdraftPlus_Options::user_can_manage()) {
+			return new WP_Error('updraftplus_permission_denied');
+		}
+		
+		global $updraftplus_addon_lockadmin;
+		if (is_a($updraftplus_addon_lockadmin, "UpdraftPlus_Addon_LockAdmin")) {
+			$options = $updraftplus_addon_lockadmin->return_opts();
+			return array(
+				'has_lock_admin' => true,
+				'current_password' => $options['password'],
+				'session_length' => $options['session_length'],
+				'support_url' => $options['support_url'],
+				'session_length_options' => $updraftplus_addon_lockadmin->get_session_length_options()
+			);
+		}
+		
+		return array('has_lock_admin' => false);
 	}
 
 	public function delete_key($key_id) {
@@ -1095,7 +1147,7 @@ class UpdraftPlus_Commands {
 			}
 			$content .= '</div>'; // end .updraftclone-main-row
 
-			$content .= isset($response['clone_list']) ? '<div class="clone-list"><h3>'.__('Current clones', 'updraftplus').' - <a target="_blank" href="https://updraftplus.com/my-account/clones/">'.__('manage', 'updraftplus').'</a></h3>'.$response['clone_list'].'</div>' : '';
+			$content .= isset($response['clone_list']) ? '<div class="clone-list"><h3>'.__('Current clones', 'updraftplus').' - <a target="_blank" href="https://teamupdraft.com/my-account/clones/">'.__('manage', 'updraftplus').'</a></h3>'.$response['clone_list'].'</div>' : '';
 
 			$response['html'] = $content;
 		}
@@ -1239,5 +1291,140 @@ class UpdraftPlus_Commands {
 	public function dismiss_admin_warning_pclzip() {
 		UpdraftPlus_Options::update_updraft_option('updraft_dismiss_admin_warning_pclzip', true);
 		return array();
+	}
+
+	/**
+	 * This function is for importing settings via RPC
+	 *
+	 * @param  Array $settings - The settings data to be imported
+	 * @return Array An Array response to be sent back
+	 */
+	public function import_settings($settings) {
+		if (false === ($updraftplus_admin = $this->_load_ud_admin()) || false === ($updraftplus = $this->_load_ud())) return new WP_Error('no_updraftplus');
+		
+		if (!UpdraftPlus_Options::user_can_manage()) return new WP_Error('updraftplus_permission_denied');
+
+		if (empty($settings) || !is_array($settings)) {
+			return new WP_Error('invalid_settings', 'Invalid settings data provided');
+		}
+
+		try {
+			$result = $updraftplus_admin->import_settings($settings, true);
+
+			if (is_array($result)) {
+				if (isset($result['saved']) && !$result['saved'] && !empty($result['error_message'])) {
+					return new WP_Error('import_failed', $result['error_message']);
+				}
+				
+				return $result;
+			} else {
+				return new WP_Error('unexpected_response', 'Unexpected response format from import_settings');
+			}
+		} catch (Exception $e) {
+			return new WP_Error('import_failed', $e->getMessage());
+		}
+	}
+
+	/**
+	 * This function is for updating site information
+	 *
+	 * @param array $params Parameters containing site info to update
+	 * @return array|WP_Error Response or error
+	 */
+	public function update_site_info($params) {
+		if (false === $this->_load_ud_admin()) return new WP_Error('no_updraftplus');
+
+		if (!UpdraftPlus_Options::user_can_manage()) return new WP_Error('updraftplus_permission_denied');
+
+		// Update site title
+		if (isset($params['site_title'])) {
+			$site_title = sanitize_text_field($params['site_title']);
+			update_option('blogname', $site_title);
+		}
+
+		// Update tagline
+		if (isset($params['tagline'])) {
+			$tagline = sanitize_text_field($params['tagline']);
+			update_option('blogdescription', $tagline);
+		}
+
+		// Update admin email
+		if (isset($params['admin_email'])) {
+			$admin_email = sanitize_email($params['admin_email']);
+			
+			// Validate email format
+			if (!is_email($admin_email)) {
+				return new WP_Error('invalid_email', __('Invalid email address format', 'updraftplus'));
+			}
+			
+			update_option('admin_email', $admin_email);
+		}
+
+		return array(
+			'message' => __('Site information updated successfully', 'updraftplus')
+		);
+	}
+
+	/**
+	 * Get advanced tools data in a structured format
+	 *
+	 * @return array|WP_Error Structured data or error
+	 */
+	public function get_structured_data() {
+		if (false === ($updraftplus_admin = $this->_load_ud_admin())) return new WP_Error('no_updraftplus');
+
+		// Site Info
+		$site_info = $updraftplus_admin->get_site_info_data();
+		$site_info['site_title'] = get_bloginfo('name');
+		$site_info['tagline'] = get_bloginfo('description');
+		$site_info['admin_email'] = get_bloginfo('admin_email');
+
+		// Lock Settings
+		$lock_settings = $this->get_lock_settings_data();
+		if (is_wp_error($lock_settings)) {
+			$lock_settings = array('has_premium' => false);
+		}
+
+		// Directory Sizes
+		$site_size = array();
+		if (false !== ($updraftplus = $this->_load_ud())) {
+			$backupable_entities = $updraftplus->get_backupable_file_entities(true, true);
+			foreach ($backupable_entities as $entity => $info) {
+				$size = UpdraftPlus_Filesystem_Functions::get_disk_space_used($entity, 'numeric');
+				$size = is_numeric($size) ? $size : 0;
+				$site_size[$entity] = array(
+					'size' => $size,
+					'size_formatted' => size_format($size)
+				);
+			}
+		}
+
+		// Connection Keys
+		updraft_try_include_file('central/bootstrap.php', 'include_once');
+		$keys = array();
+		global $updraftcentral_main;
+		if (is_a($updraftcentral_main, 'UpdraftCentral_Main') && method_exists($updraftcentral_main, 'get_connection_keys_data')) {
+			$keys = $updraftcentral_main->get_connection_keys_data();
+		}
+
+		// Database Size Information
+		updraft_try_include_file('includes/class-wpadmin-commands.php', 'include_once');
+		
+		$db_size = array('size' => '0 B');
+		if (class_exists('UpdraftPlus_WPAdmin_Commands')) {
+			$wpadmin_commands = new UpdraftPlus_WPAdmin_Commands($this->_uc_helper);
+			$db_size_result = $wpadmin_commands->db_size(true);
+			if (!is_wp_error($db_size_result)) {
+				$db_size = $db_size_result;
+			}
+		}
+
+		return array(
+			'site_info' => $site_info,
+			'site_size' => $site_size,
+			'lock_settings' => $lock_settings,
+			'keys' => $keys,
+			'db_size' => $db_size
+		);
 	}
 }

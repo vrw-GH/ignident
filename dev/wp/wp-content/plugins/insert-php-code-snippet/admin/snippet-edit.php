@@ -34,6 +34,7 @@ if(isset($_POST) && isset($_POST['updateSubmit'])){
     $temp_xyz_ips_title = str_replace('-', '', $temp_xyz_ips_title);
     $xyz_ips_title = str_replace(' ', '-', $_POST['snippetTitle']);
     $xyz_ips_content = $_POST['snippetContent'];
+    $xyz_ips_snippetDescription=sanitize_text_field($_POST['xyz_ips_snippetDescription']);
 
   
 
@@ -93,7 +94,7 @@ if(get_option('xyz_ips_auto_insert')==1){
             $snippet_count = $wpdb->query($wpdb->prepare( 'SELECT * FROM '.$wpdb->prefix.'xyz_ips_short_code WHERE id!=%d AND title=%s LIMIT 0,1',$xyz_ips_snippetId,$xyz_ips_title)) ;
             if($snippet_count == 0){
                 $xyz_shortCode = '[xyz-ips snippet="'.$xyz_ips_title.'"]';
-                $wpdb->update($wpdb->prefix.'xyz_ips_short_code', array('title'=>$xyz_ips_title,'insertionMethod' => $xyz_ips_insertionMethod, 'insertionLocation' => $xyz_ips_insertionLocation, 'insertionLocationType' => $xyz_ips_insertionLocationType,'content'=>$xyz_ips_content,'short_code'=>$xyz_shortCode,), array('id'=>$xyz_ips_snippetId));
+                $wpdb->update($wpdb->prefix.'xyz_ips_short_code', array('title'=>$xyz_ips_title,'description'=>$xyz_ips_snippetDescription,'insertionMethod' => $xyz_ips_insertionMethod, 'insertionLocation' => $xyz_ips_insertionLocation, 'insertionLocationType' => $xyz_ips_insertionLocationType,'content'=>$xyz_ips_content,'short_code'=>$xyz_shortCode,), array('id'=>$xyz_ips_snippetId));
                 wp_safe_redirect(admin_url('admin.php?page=insert-php-code-snippet-manage&action=snippet-edit&snippetId='.$xyz_ips_snippetId.'&xyz_ips_msg=1'.'&goback='.$goback));
             }
             else{
@@ -248,6 +249,15 @@ $xyz_ips_insertionLocation = $snippetDetails->insertionLocation;
                             value="<?php if(isset($_POST['snippetTitle'])){ echo esc_attr($_POST['snippetTitle']);}else{ echo esc_attr($snippetDetails->title); }?>">
                         </td>
                     </tr>
+                    <tr valign="top">
+						<td style="border-bottom: none;width:20%;">&nbsp;&nbsp;&nbsp;Description &nbsp;</td>
+						<td style="border-bottom: none;width:1px;">&nbsp;:&nbsp;</td>
+						<td>
+                        <textarea id="xyz_ips_snippetDescription"  name="xyz_ips_snippetDescription" style="resize: both;width:80%;"><?php
+                           if(isset($_POST['xyz_ips_snippetDescription'])){ echo esc_attr($_POST['xyz_ips_snippetDescription']);}else{ echo esc_attr($snippetDetails->description); }?> 
+                            </textarea>
+                        </td>
+                        </tr>
                     <tr>
                         <td style="border-bottom: none;width:20%; ">
                             <?php

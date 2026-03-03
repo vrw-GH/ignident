@@ -1732,7 +1732,7 @@ if( ! class_exists( 'avia_sc_columns', false ) )
 				}
 			}
 
-			$link = AviaHelper::get_url( $atts['link'] );
+			$link = esc_url( AviaHelper::get_url( $atts['link'] ) );
 			if( ! empty( $link ) )
 			{
 				$element_styling->add_classes( 'flex-column', array( 'avia-link-column', 'av-column-link' ) );
@@ -1962,7 +1962,7 @@ if( ! class_exists( 'avia_sc_columns', false ) )
 				$custom_el_id = 'id="avia_sc_fold_column_' . avia_sc_columns::$counter . '"';
 			}
 
-			$link = AviaHelper::get_url( $atts['link'] );
+			$link = esc_url( AviaHelper::get_url( $atts['link'] ) );
 			$link_data = '';
 			$screen_reader_link = '';
 

@@ -1,10 +1,10 @@
-=== WP Fastest Cache ===
+=== WP Fastest Cache - WordPress Cache Plugin ===
 Contributors: emrevona
 Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
 Requires at least: 5.3
-Tested up to: 6.8
-Stable tag: 1.4.0
+Tested up to: 6.9
+Stable tag: 1.4.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,13 +47,13 @@ In addition, page speed is a ranking factor in Google's search algorithm. Theref
 
 WP Fastest Cache is not only a wp cache plugin but also a speed optimization wordpress cache plugin. There are many features such as Minify Html, Minify Css, Enable Gzip Compression, Leverage Browser Caching, Add Expires Headers, Combine CSS, Combine JS, Disable Emoji.
 
-1. Page Caching - Page caching feature generates and store static HTML files from your dynamic WordPress blog to reduce initial server response time, and improving page load times
-2. Minify Html - Minify HTML is the process of reducing the size of page by removing unnecessary characters, spaces, and line breaks, optimizing it for faster webpage loading
-3. Minify Css - Minify CSS is the process of reducing the size of CSS files by removing unnecessary characters, spaces, and comments to improve website loading performance
+1. Page Caching - Page caching feature generates and store static HTML files from your dynamic WordPress blog to reduce initial server response time, and improving page load time. Page cache and caching play a critical role in improving website speed and overall web performance. By storing frequently accessed data, effective caching reduces server workload and significantly improves cache performance, allowing pages to be delivered faster to users. This optimization directly lowers load time and enhances page speed, resulting in a smoother user experience and better SEO.
+2. Minify Html - Using an HTML minifier is an effective way to reduce HTML size and optimize HTML by removing unnecessary spaces, comments, and line breaks. A smaller HTML file helps reduce page size, which directly improves page speed and leads to a faster website experience for users. By focusing on web performance optimization, optimized HTML allows browsers to load and render pages more efficiently, helping to improve website speed, lower bandwidth usage, and deliver better overall performance across all devices
+3. Minify Css - CSS minify techniques play a crucial role in modern web development by reducing unnecessary characters through a reliable css minifier. With effective css compression, developers can compress CSS files and apply proper css minification to optimize CSS for production environments. This approach helps reduce CSS file size, which directly contributes to improve website speed and overall css performance optimization. As part of a broader page speed optimization strategy, these practices significantly enhance website performance optimization and lead to better website loading performance, especially on mobile and low-bandwidth connections
 4. Enable Gzip Compression - Reduce the size of files sent from your server to increase the speed to which they are transferred to the browser
-5. Leverage browser caching - Browser caching can help to reduce page load times by reducing the number of requests per page for repeat visitors
+5. Leverage browser caching - Browser cache plays a critical role in how efficiently a web browser cache stores static resources like images, stylesheets, and scripts, directly impacting page load speed. By allowing returning visitors to load files from their local browser cache instead of downloading them again, websites can significantly reduce server requests and improve website speed. Properly configured browser caching not only creates a faster and smoother user experience but also helps lower bandwidth usage and enhance overall site performance
 6. Combine CSS - Reduce number of HTTP round-trips by combining multiple CSS resources into one
-7. Combine JS
+7. Combine JS - Combining JavaScript files is a core technique in javascript optimization and js optimization, especially when the goal is to reduce requests and improve page load speed. By combine js assets or combine javascript files into a single bundle, developers can streamline how scripts are delivered to the browser. Whether you call it js combine or javascript combine, the idea is the same: fewer HTTP requests mean faster performance. Similarly, approaches that merge js or merge javascript—also known as js merge or javascript merge—help eliminate overhead caused by loading multiple separate files. When done correctly, combining and merging scripts leads to cleaner delivery, better caching, and noticeably faster websites
 8. Disable Emoji - You can remove the emoji inline css and wp-emoji-release.min.js
 
 <h4>Premium Performance Optimization</h4>
@@ -64,14 +64,14 @@ The free version is enough to speed up your site but in the premium version ther
 2. Widget Cache
 3. Minify HTML Plus
 4. Minify CSS Plus
-5. Minify Javascript - Minifying JavaScript files can reduce payload sizes and script parse time
+5. Minify Javascript - Minify JS is a core step in web performance optimization because js minify techniques remove unnecessary characters, comments, and whitespace, making files smaller and faster to load. Through proper javascript minification, developers can compress JavaScript assets and significantly reduce transfer size, which directly supports effective js optimization and overall javascript optimization strategies. When combined with caching and code splitting, minified scripts help improve website speed, lower bandwidth usage, and enhance user experience. As a result, page speed optimization becomes easier to achieve, leading to faster render times and better search engine rankings.
 6. Combine JS Plus
 7. Defer Javascript - Eliminate render-blocking JavaScript resources. Consider delivering critical JS inline and deferring all non-critical JS
-8. Optimize Images - Optimized images load faster and consume less cellular data
-9. Convert WebP - Serve images in next-gen formats. Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption
-10. Database Cleanup - The Database Cleanup feature clears out all of the garbage datas such as post revisions, trashed posts & pages, comments from trash & spam, trackbacks and pingbacks, transient options etc.
+8. Optimize Images - Optimized images load faster and consume less cellular data. Looking for an easy image compressor? Our tool lets you compress images instantly, including Compress JPEG and Compress PNG options. Enjoy fast image compression to reduce image size without losing quality. Perfect for quick image optimization with a smart image optimizer designed for all your needs.
+9. Convert WebP - Serve images in next-gen formats. Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption. A fast and reliable WebP converter helps you convert to WebP in seconds. Whether you need a WebP convert tool, a JPG to WEBP Converter, PNG to WEBP Converter, or a simple image to WebP option, you can easily optimize your images. Quickly handle JPG to WEBP, PNG to WEBP, jpg convert to webp, and png convert to webp tasks to reduce file size and improve web performance.
+10. Database Cleanup - To keep your system running smoothly, it’s important to clean database structures regularly and ensure you clean DB records that are no longer needed. A database cleaner is essential for effective database cleaning and long-term database optimization. By removing unused entries and organizing data efficiently, you can significantly improve database performance and speed up database operations. Modern db cleaner tools automate the entire db cleaning process, helping developers maintain fast, reliable, and scalable systems. The Database Cleanup feature clears out all of the garbage datas such as post revisions, trashed posts & pages, comments from trash & spam, trackbacks and pingbacks, transient options, orphaned post meta, comment meta, user meta, term meta, and term relationship etc.
 11. Google Fonts Async
-12. Lazy Load - Defer offscreen images. Consider lazy-loading offscreen and hidden images after all critical resources have finished loading to lower time to interactive
+12. Lazy Load - Lazy loading technique improve page speed and overall website loading time by loading content only when it is needed. Using lazy load images, lazy loading images, lazy load videos, and lazy load iframe helps reduce initial load size, enhances web performance, and delivers a smoother user experience. When implemented correctly, these methods make it easier to optimize website performance, lower bandwidth usage, and ensure faster, more efficient page delivery for both users and search engines.
 12. Delay JS - The Delay JavaScript feature helps reduce the 'Reduce unused JavaScript' warning in the Google PageSpeed Insights tool
 
 <h4>Information</h4>
@@ -118,15 +118,37 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 
 == Changelog ==
 
+= 1.4.6 =
+* <strong>[Improvement]</strong> Elementor element cache and CSS Print Method detection logic [<a target="_blank" href="https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/">Details</a>]
+
+= 1.4.5 =
+* Sanitized the cache file path by trimming whitespace
+* <strong>[Improvement]</strong> Elementor element cache and CSS Print Method detection logic [<a target="_blank" href="https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/">Details</a>]
+
+= 1.4.4 =
+* Updated caching behavior to serve URLs with Google Ads Click & Conversion Parameters query strings (e.g., /?gbraid) from the cache, improving performance
+
+= 1.4.3 =
+* Tested and confirmed full compatibility with WordPress 6.9 to ensure smooth and reliable plugin performance
+
+= 1.4.2 =
+* <strong>[Improvement]</strong> Updated the function modifying for url() paths in CSS
+* <strong>[Improvement]</strong> Enhanced the &lt;pre&gt; tag replacement logic for more accurate matching and reliable content updates
+
+= 1.4.1 =
+* Added display of orphaned post meta, comment meta, user meta, term meta, and term relationship counts 
+* Added nonce verification and capability checks to the wpfc_db_fix AJAX action to prevent unauthorized database cleanup requests
+* Added a validation to ensure Elementor’s CSS Print Method is set to “Internal Embedding,” displaying an error with a help link if misconfigured [<a target="_blank" href="https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/">Details</a>]
+
 = 1.4.0 =
 * Fixed: support both old (elementor_experiment-e_element_cache) and new (elementor_element_cache_ttl) Elementor cache options for compatibility
 
 = 1.3.9 =
-* <strong>[Improvement]</strong> Replaced manual <script> output in print_my_inline_script() with wp_print_inline_script_tag() for better compatibility and cleaner code
+* <strong>[Improvement]</strong> Replaced manual &lt;script&gt; output in print_my_inline_script() with wp_print_inline_script_tag() for better compatibility and cleaner code
 * Fixed: RewriteCond syntax to correctly detect HTTPS connections
 
 = 1.3.8 =
-* Added a condition to exclude <script type="module"> tags from js combining 
+* Added a condition to exclude &lt;script type=&quot;module&quot;&gt; tags from js combining 
 * Fixed: Issue where the cache was not being cleared when a page was deleted
 * Fixed: PHP fatal error caused by an undefined function current_datetime() in cache.php on line 1130
 * Added support for fetching and processing multiple pages of Cloudflare zones to ensure all potential matches are considered
@@ -198,7 +220,7 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 * refactoring for getABSPATH()
 * to fix PHP Deprecated:  Creation of dynamic property CssUtilities::$url is deprecated in css-utilities.php on line 348
 * to fix PHP Deprecated:  Creation of dynamic property CssUtilities::$url_for_fix is deprecated in css-utilities.php on line 412
-* to remove duplicate extensions in the <FilesMatch> directive for the browser caching feature
+* to remove duplicate extensions in the &lt;FilesMatch&gt; directive for the browser caching feature
 
 = 1.2.3 =
 * Farewell, StackPath, and a warm welcome to BunnyCDN

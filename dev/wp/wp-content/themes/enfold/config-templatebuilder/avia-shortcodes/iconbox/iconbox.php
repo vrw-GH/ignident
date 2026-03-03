@@ -698,7 +698,7 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 
 			$display_char_wrapper = array();
 
-			$link = AviaHelper::get_url( $link );
+			$link = esc_url( AviaHelper::get_url( $link ) );
 			$blank = AviaHelper::get_link_target( $linktarget );
 
 			$linktitle = '';

@@ -965,7 +965,7 @@ function updraft_show_success_modal(args) {
 			'border-radius': '10px',
 			left: 'calc(50% - 150px)'
 		},
-		message: '<div class="updraft_success_popup '+data.classes+'"><span class="dashicons dashicons-'+data.icon+'"></span><div class="updraft_success_popup--message">'+data.message+'</div><button class="button updraft-close-overlay"><span class="dashicons dashicons-no-alt"></span>'+data.close+'</button></div>'
+		message: '<div class="updraft_success_popup '+data.classes+'"><span class="dashicons udp-dashicons-'+data.icon+'"></span><div class="updraft_success_popup--message">'+data.message+'</div><button class="udp-button updraft-close-overlay"><span class="udp-dashicons udp-dashicons-no-alt"></span>'+data.close+'</button></div>'
 	});
 	// close success popup
 	setTimeout(jQuery.unblockUI, 5000);
@@ -4637,7 +4637,17 @@ jQuery(function($) {
 
 		updraft_send_command('db_size', 1, function (response) {
 			$total_size.html(response.size);
-			$table_body.html(response.html);
+			var html = '';
+			$.each(response.tables, function(i, table) {
+			html += '<tr>' +
+						'<td>' + table.name + '</td>' +
+						'<td>' + table.records + '</td>' +
+						'<td>' + convert_numeric_size_to_text(table.data_length) + '</td>' +
+						'<td>' + convert_numeric_size_to_text(table.index_length) + '</td>' +
+						'<td>' + table.type + '</td>' +
+					'</tr>';
+			});
+			$table_body.html(html);
 			apply_search_on_db_size();
 		});
 	});
@@ -5911,6 +5921,7 @@ jQuery(function($) {
 
 			updraft_html_modal(form_template.html(), updraftlion.updraftcentral_cloud, 520, 400);
 
+			var modal = jQuery('#updraft-iframe-modal');
 			var consent_container = modal.find('.updraftcentral-data-consent');
 			var name = consent_container.find('input').attr('name');
 

@@ -30,6 +30,13 @@ if(get_option('xyz_ips_premium_version_ads')==1){ ?>
 <div style="clear: both;">
 </div>
 <div class="xyz-ips-wrap">
+<div class="xyz-ips-footer-contact">
+    🚀 <span style="font-style: italic;font-size:larger;">We are available for custom development</span> — 
+    <a href="https://xyzscripts.com/support/" target="_blank">
+       Get a quote
+    </a>
+</div></div>
+<div class="xyz-ips-wrap">
     <div class="xyz_ips_social_media">
         <h3 class="xyz_ips_inner_head">
             Follow Us 
