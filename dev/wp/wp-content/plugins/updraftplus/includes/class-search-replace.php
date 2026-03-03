@@ -4,8 +4,6 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
 class UpdraftPlus_Search_Replace {
 
-	private $known_incomplete_classes = array();
-
 	private $columns = array();
 
 	private $current_row = 0;
@@ -137,6 +135,7 @@ class UpdraftPlus_Search_Replace {
 			}
 
 			$row_count = $row_countr[0][0];
+			/* translators: %d: Number of rows. */
 			$print_line .= ': '.sprintf(__('rows: %d', 'updraftplus'), $row_count);
 			$updraftplus->log($print_line, 'notice-restore', 'restoring-table-'.$table);
 			$updraftplus->log('Search and replacing table: '.$table.": rows: ".$row_count);
@@ -288,14 +287,16 @@ class UpdraftPlus_Search_Replace {
 				$report['errors'][] = $log_message;
 				error_log($log_message);
 				$updraftplus->log($log_message);
-				$updraftplus->log(sprintf(__('A PHP exception (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'warning-restore');
+				/* translators: 1: Exception class, 2: Exception message. */
+				$updraftplus->log(sprintf(__('A PHP exception (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage()), 'warning-restore');
 				// @codingStandardsIgnoreLine
 			} catch (Error $e) {
 				$log_message = 'A PHP Fatal error (recoverable, '.get_class($e).') occurred during the recursive search/replace. Exception message: Error message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				$report['errors'][] = $log_message;
 				error_log($log_message);
 				$updraftplus->log($log_message);
-				$updraftplus->log(sprintf(__('A PHP fatal error (%s) has occurred: %s', 'updraftplus'), get_class($e), $e->getMessage()), 'warning-restore');
+				/* translators: 1: Fatal error class, 2: Error message. */
+				$updraftplus->log(sprintf(__('A PHP fatal error (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage()), 'warning-restore');
 			}
 
 			// Something was changed
@@ -330,37 +331,14 @@ class UpdraftPlus_Search_Replace {
 
 		} elseif ($upd) {
 			$report['errors'][] = sprintf('"%s" has no primary key, manual change needed on row %s.', $table, $this->current_row);
-			$updraftplus->log(__('Error:', 'updraftplus').' '.sprintf(__('"%s" has no primary key, manual change needed on row %s.', 'updraftplus'), $table, $this->current_row), 'warning-restore');
+			$updraftplus->log(__('Error:', 'updraftplus').' '.
+				/* translators: 1: Table name, 2: Row number requiring manual change. */
+				sprintf(__('"%1$s" has no primary key, manual change needed on row %2$s.', 'updraftplus'), $table, $this->current_row),
+			'warning-restore');
 		}
 
 		return $report;
 
-	}
-	
-	/**
-	 * Inspect incomplete class object and make a note in the restoration log if it is a new class
-	 *
-	 * @param object $data Object expected to be of __PHP_Incomplete_Class_Name
-	 */
-	private function unserialize_log_incomplete_class($data) {
-		global $updraftplus;
-		
-		try {
-			$patch_object = new ArrayObject($data);
-			$class_name = $patch_object['__PHP_Incomplete_Class_Name'];
-		} catch (Exception $e) {
-			error_log('unserialize_log_incomplete_class: '.$e->getMessage());
-			// @codingStandardsIgnoreLine
-		} catch (Error $e) {
-			error_log('unserialize_log_incomplete_class: '.$e->getMessage());
-		}
-		
-		// Check if this class is known
-		// Have to serialize incomplete class to find original class name
-		if (!in_array($class_name, $this->known_incomplete_classes)) {
-			$this->known_incomplete_classes[] = $class_name;
-			$updraftplus->log('Incomplete object detected in database: '.$class_name.'; Search and replace will be skipped for these entries');
-		}
 	}
 	
 	/**
@@ -413,51 +391,29 @@ class UpdraftPlus_Search_Replace {
 			} elseif (is_array($data)) {
 				$_tmp = array();
 				foreach ($data as $key => $value) {
-					// Check that we aren't attempting search/replace on an incomplete class
-					// We assume that if $data is an __PHP_Incomplete_Class, it is extremely likely that the original did not contain the domain
-					if (is_a($value, '__PHP_Incomplete_Class')) {
-						// Check if this class is known
-						$this->unserialize_log_incomplete_class($value);
-						
-						// return original data
-						$_tmp[$key] = $value;
-					} else {
-						$_tmp[$key] = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
-					}
+					$_tmp[$key] = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
 				}
 
 				$data = $_tmp;
 				unset($_tmp);
 			} elseif (is_object($data)) {
-				$_tmp = $data; // new $data_class();
-				// Check that we aren't attempting search/replace on an incomplete class
-				// We assume that if $data is an __PHP_Incomplete_Class, it is extremely likely that the original did not contain the domain
-				if (is_a($data, '__PHP_Incomplete_Class')) {
-					// Check if this class is known
-					$this->unserialize_log_incomplete_class($data);
-				} else {
-					$props = get_object_vars($data);
-					foreach ($props as $key => $value) {
-						$_tmp->$key = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
-					}
+				$_tmp = clone $data;
+				$props = get_object_vars($data);
+
+				foreach ($props as $key => $value) {
+					// Skip any representation of a protected property or integer property
+					if (!preg_match('/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/', $key)) continue;
+
+					$_tmp->$key = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
 				}
+
 				$data = $_tmp;
 				unset($_tmp);
 			} elseif (is_string($data) && (null !== ($_tmp = json_decode($data, true)))) {
 
 				if (is_array($_tmp)) {
 					foreach ($_tmp as $key => $value) {
-						// Check that we aren't attempting search/replace on an incomplete class
-						// We assume that if $data is an __PHP_Incomplete_Class, it is extremely likely that the original did not contain the domain
-						if (is_a($value, '__PHP_Incomplete_Class')) {
-							// Check if this class is known
-							$this->unserialize_log_incomplete_class($value);
-							
-							// return original data
-							$_tmp[$key] = $value;
-						} else {
-							$_tmp[$key] = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
-						}
+						$_tmp[$key] = $this->recursive_unserialize_replace($from, $to, $value, false, $recursion_level + 1, $visited_data);
 					}
 
 					$data = json_encode($_tmp);

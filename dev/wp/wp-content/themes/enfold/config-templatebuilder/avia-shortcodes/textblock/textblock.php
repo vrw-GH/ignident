@@ -126,6 +126,13 @@ if( ! class_exists( 'avia_sc_text', false ) )
 
 						array(
 								'type'			=> 'template',
+								'template_id'	=> $this->popup_key( 'advanced_accessibility' ),
+								'lockable'		=> true
+							),
+
+
+						array(
+								'type'			=> 'template',
 								'template_id'	=> 'fold_animation_toggle',
 								'lockable'		=> true
 							),
@@ -347,6 +354,33 @@ if( ! class_exists( 'avia_sc_text', false ) )
 					);
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'styling_padding' ), $template );
+
+			$c = array(
+						array(
+							'name'		=> __( 'Container Tag', 'avia_framework' ),
+							'desc'		=> __( 'If you are not using a h1 - h6 headline in this textblock it is recommended to select div tag for better accessibility support.', 'avia_framework' ),
+							'id'		=> 'container_tag',
+							'type'		=> 'select',
+							'std'		=> '',
+							'lockable'	=> true,
+							'subtype'	=> array(
+											__( 'Use section tag', 'avia_framework' )	=> '',
+											__( 'Use div tag', 'avia_framework' )		=> 'div'
+										),
+						)
+				);
+
+			$template = array(
+							array(
+								'type'			=> 'template',
+								'template_id'	=> 'toggle',
+								'title'			=> __( 'Accessibility', 'avia_framework' ),
+								'content'		=> $c
+							)
+					);
+
+			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'advanced_accessibility' ), $template );
+
 		}
 
 		/**
@@ -479,7 +513,8 @@ if( ! class_exists( 'avia_sc_text', false ) )
 						'background_gradient_color2'	=> '',
 						'background_gradient_direction'	=> '',
 						'size'							=> '',
-						'padding'						=> ''
+						'padding'						=> '',
+						'container_tag'					=> ''
 					);
 
 			$default = $this->sync_sc_defaults_array( $default, 'no_modal_item', 'no_content' );
@@ -699,14 +734,17 @@ if( ! class_exists( 'avia_sc_text', false ) )
 				$fold_container .= aviaFrontTemplates::fold_unfold_button( $args );
 			}
 
+			$default_container_tag = apply_filters( 'avf_default_container_tag_textblock', 'section' );
+			$container__tag = empty( $container_tag ) ? $default_container_tag : $container_tag;
+
 			$output  = '';
 			$output .= $style_tag;
-			$output .= "<section {$custom_el_id} class='{$section_class} {$fold_section_class}' {$section_data} {$markup_entry}>";
+			$output .= "<{$container__tag} {$custom_el_id} class='{$section_class} {$fold_section_class}' {$section_data} {$markup_entry}>";
 			$output .=		$fold_container;
 			$output .=		"<div class='{$container_class}' {$markup_text}>";
 			$output .=			ShortcodeHelper::avia_apply_autop( ShortcodeHelper::avia_remove_autop( $content ) );
 			$output .=		'</div>';
-			$output .= '</section>';
+			$output .= "</{$container__tag}>";
 
 			return $output;
 

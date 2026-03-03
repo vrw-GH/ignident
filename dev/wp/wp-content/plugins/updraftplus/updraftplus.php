@@ -6,7 +6,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: TeamUpdraft, DavidAnderson
-Version: 1.25.7
+Version: 1.26.1
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
 Text Domain: updraftplus
@@ -130,12 +130,21 @@ if (is_file(UPDRAFTPLUS_DIR.'/autoload.php')) updraft_try_include_file('autoload
  * @return Boolean The list of our own schedules
  */
 function updraftplus_list_cron_schedules() {
-	/* translators: %s: Number of Hours. */
-	$every_particular_hour_label = __('Every %s hours', 'updraftplus');
+	global $wp_current_filter;
+	// To prevent "_load_textdomain_just_in_time was called incorrectly" warning
+	if (((function_exists('doing_action') && !doing_action('after_setup_theme')) || !in_array('after_setup_theme', $wp_current_filter, true)) && !did_action('after_setup_theme')) {
+		$every_particular_hour_label = 'Every %s hours';
+		$every_hour = 'Every hour';
+	} else {
+		/* translators: %s: Number of Hours. */
+		$every_particular_hour_label = __('Every %s hours', 'updraftplus');
+		$every_hour = __('Every hour', 'updraftplus');
+	}
+
 	return array(
 		'everyhour' => array(
 			'interval' => 3600,
-			'display' => apply_filters('updraftplus_cron_schedule_description', __('Every hour', 'updraftplus'), 'everyhour'),
+			'display' => apply_filters('updraftplus_cron_schedule_description', $every_hour, 'everyhour'),
 		),
 		'every2hours' => array(
 			'interval' => 7200,

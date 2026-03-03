@@ -368,12 +368,16 @@ class UpdraftPlus_Temporary_Clone_Status {
 				break;
 			case self::UPLOADING:
 				$backup_details = $this->get_backup_details();
-				echo esc_html__('The sending of the site data has begun.', 'updraftplus').' '.sprintf(esc_html__('So far %s data archives totalling %s have been received', 'updraftplus'), '<strong>'.esc_html($backup_details['sets']).'</strong>', '<strong>'.esc_html(round($backup_details['uploaded'], 2)).' MB</strong>');
+				echo esc_html__('The sending of the site data has begun.', 'updraftplus').' '.
+				/* translators: 1: Number of data archives, 2: Total size in MB */
+				sprintf(esc_html__('So far %1$s data archives totalling %2$s have been received', 'updraftplus'), '<strong>'.esc_html($backup_details['sets']).'</strong>', '<strong>'.esc_html(round($backup_details['uploaded'], 2)).' MB</strong>');
 				break;
 			case self::RESTORING:
 				UpdraftPlus_Backup_History::rebuild();
 				$backup_details = $this->get_backup_details();
-				echo esc_html__('The site data has all been received, and its import has begun.', 'updraftplus').' '.sprintf(esc_html__('%s archives remain', 'updraftplus'), '<strong>'.esc_html($backup_details['sets']).'</strong>');
+				echo esc_html__('The site data has all been received, and its import has begun.', 'updraftplus').' '.
+				/* translators: %s: Number of remaining archives */
+				sprintf(esc_html__('%s archives remain', 'updraftplus'), '<strong>'.esc_html($backup_details['sets']).'</strong>');
 				break;
 			default:
 				echo "(?)";
@@ -419,8 +423,17 @@ class UpdraftPlus_Temporary_Clone_Status {
 	public function get_content($echo_instead_of_return = false) {
 		if (!$echo_instead_of_return) ob_start();
 		?>
-		<p><?php echo esc_html__('Your UpdraftClone is still setting up.', 'updraftplus').' '.sprintf(esc_html__('You can check the progress here or in %s', 'updraftplus'), '<a href="https://updraftplus.com/my-account/clones/" target="_blank">'.esc_html__('your UpdraftPlus.com account', 'updraftplus').'</a>'); ?></p>
-		<p><a href="https://updraftplus.com/faq-category/updraftclone/" target="_blank"><?php esc_html_e('To read FAQs/documentation about UpdraftClone, go here.', 'updraftplus'); ?></a></p>
+		<p>
+			<?php
+			echo esc_html__('Your UpdraftClone is still setting up.', 'updraftplus').' '.
+			sprintf(
+				/* translators: %s: Link to TeamUpdraft account */
+				esc_html__('You can check the progress here or in %s', 'updraftplus'),
+				'<a href="https://teamupdraft.com/my-account/clones/" target="_blank">'.esc_html__('your TeamUpdraft.com account', 'updraftplus').'</a>'
+			);
+			?>
+		</p>
+		<p><a href="https://teamupdraft.com/documentation/updraftplus/topics/updraftclone/faqs/" target="_blank"><?php esc_html_e('To read FAQs/documentation about UpdraftClone, go here.', 'updraftplus'); ?></a></p>
 		<?php
 		if (!$echo_instead_of_return) return ob_get_clean();
 	}

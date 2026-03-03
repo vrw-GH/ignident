@@ -3,9 +3,9 @@ Contributors: Wpcalc, lobov
 Donate link: https://wow-estore.com/item/floating-button-pro/
 Tags: buttons, floating button, nav menu, contact button, call button
 Requires at least: 5.5
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 7.0
+Stable tag: 7.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,9 @@ Search for answers and ask your questions at [support center](https://wordpress.
 
 
 == Changelog ==
+= 7.0.1 =
+* Updated: Font Awesome Icons to version 7.1
+
 = 7.0 =
 * Added: New button shapes – ellipse, square, and rounded square
 * Added: New button types – email and phone

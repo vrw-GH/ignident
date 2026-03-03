@@ -127,7 +127,7 @@ class Ays_Pb {
 		/**
          * The class responsible for showing Popup Box Welcome page.
          */
-        // require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ays-pb-ays-welcome.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ays-pb-ays-welcome.php';
 
         /**
          * The class responsible for showing Popup Box Feedback popup.
@@ -208,6 +208,9 @@ class Ays_Pb {
         // Add menu item
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
 
+        // Add Popup dashboard
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_dashboard_menu', 10 );
+
 		// Add Popups submenu
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_popups_submenu', 75 );
 
@@ -257,9 +260,10 @@ class Ays_Pb {
 
 		// Add plugin footer
         $this->loader->add_action( 'in_admin_footer', $plugin_admin, 'popup_box_admin_footer', 1 );
+        // $this->loader->add_action( 'in_admin_footer', $plugin_admin, 'ays_pb_black_friady_popup_box', 10 );
 
 		// Sale banner
-		$this->loader->add_action( 'admin_notices', $data_admin, 'ays_pb_sale_baner', 1 );
+		$this->loader->add_action( 'admin_notices', $data_admin, 'ays_pb_sale_baner', 10 );
 
 		// Sale banner dismiss button
 		$this->loader->add_action( 'wp_ajax_ays_pb_dismiss_button', $plugin_admin, 'ays_pb_dismiss_button' );

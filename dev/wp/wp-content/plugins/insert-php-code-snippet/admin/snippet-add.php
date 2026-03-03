@@ -17,6 +17,7 @@ if(isset($_POST) && isset($_POST['addSubmit'])){
     $temp_xyz_ips_title = str_replace(' ', '', $_POST['snippetTitle']);
     $temp_xyz_ips_title = str_replace('-', '', $temp_xyz_ips_title);
     $xyz_ips_title = str_replace(' ', '-', $_POST['snippetTitle']);
+    $xyz_ips_snippetDescription=sanitize_text_field($_POST['xyz_ips_snippetDescription']);
     $xyz_ips_insertionMethod = intval($_POST['xyz_ips_insertionMethod']);
 	$xyz_ips_insertionMethod = ($xyz_ips_insertionMethod >= XYZ_IPS_INSERTION_METHOD['AUTOMATIC'] && $xyz_ips_insertionMethod <= XYZ_IPS_INSERTION_METHOD['EXECUTE_ON_DEMAND']) ? $xyz_ips_insertionMethod : XYZ_IPS_INSERTION_METHOD['AUTOMATIC'];
     $xyz_ips_insertionLocation = intval($_POST['xyz_ips_insertionLocation']);
@@ -69,7 +70,7 @@ if(isset($_POST) && isset($_POST['addSubmit'])){
 
 
                 $xyz_shortCode = '[xyz-ips snippet="'.$xyz_ips_title.'"]';
-                $wpdb->insert($wpdb->prefix.'xyz_ips_short_code', array('title' =>$xyz_ips_title,'insertionMethod' => $xyz_ips_insertionMethod, 'insertionLocation' => $xyz_ips_insertionLocation, 'insertionLocationType' => $xyz_ips_insertionLocationType,'content'=>$xyz_ips_content,'short_code'=>$xyz_shortCode,'status'=>'1'),array('%s','%d','%d','%d','%s','%s','%d'));
+                $wpdb->insert($wpdb->prefix.'xyz_ips_short_code', array('title' =>$xyz_ips_title,'insertionMethod' => $xyz_ips_insertionMethod,'description'=>$xyz_ips_snippetDescription, 'insertionLocation' => $xyz_ips_insertionLocation, 'insertionLocationType' => $xyz_ips_insertionLocationType,'content'=>$xyz_ips_content,'short_code'=>$xyz_shortCode,'status'=>'1'),array('%s','%d','%s','%d','%d','%s','%s','%d'));
                 wp_safe_redirect(admin_url('admin.php?page=insert-php-code-snippet-manage&xyz_ips_msg=1'));
             }
             else{
@@ -215,6 +216,20 @@ if(isset($_POST) && isset($_POST['addSubmit'])){
                         </td>
                     </tr>
                     <tr>
+                    <tr valign="top">
+                        <td style="border-bottom: none;width:20%;">
+                            &nbsp;&nbsp;&nbsp;Description &nbsp;
+                        </td>
+                        <td style="border-bottom: none;width:1px;">
+                        </td>
+                        <td>
+                        <textarea id="xyz_ips_snippetDescription"  name="xyz_ips_snippetDescription" style="resize: both;width:80%;"><?php
+                            if (isset($_POST['xyz_ips_snippetDescription'])) {
+                                echo esc_attr(sanitize_text_field($_POST['xyz_ips_snippetDescription']));
+                            } 
+                            ?></textarea>
+                        </td>
+                    </tr>
 
                         <td style="border-bottom: none;width:20%;">
                                                 <?php

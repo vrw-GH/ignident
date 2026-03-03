@@ -1751,7 +1751,7 @@ class UpdraftPlus_Backup {
 					continue;
 				}
 
-				add_filter('updraftplus_backup_table_sql_where', array($this, 'backup_exclude_jobdata'), 3, 10);
+				add_filter('updraftplus_backup_table_sql_where', array($this, 'backup_exclude_jobdata'), 10, 3);
 
 				$updraftplus->jobdata_set('dbcreating_substatus', array('t' => $table, 'i' => $total_tables, 'a' => $how_many_tables));
 
@@ -2526,12 +2526,13 @@ class UpdraftPlus_Backup {
 
 		$table_data = array();
 		if ('VIEW' != $table_type) {
-			$fields = array();
+			$select_selected_fields = $insert_selected_fields = array();
 			$defs = array();
 			$integer_fields = array();
 			$binary_fields = array();
 			$bit_fields = array();
 			$bit_field_exists = false;
+			$invisible_field_exists = false;
 
 			// false means "not yet set"; a string means what it was set to; null means that there are multiple (and so not useful to us). If it is not a string, then $primary_key_type is invalid and should not be used.
 			$primary_key = false;
@@ -2556,15 +2557,19 @@ class UpdraftPlus_Backup {
 					$binary_fields[strtolower($struct->Field)] = true;
 				}
 
+				$insert_selected_fields[] = UpdraftPlus_Manipulation_Functions::backquote(str_replace('`', '``', $struct->Field));
+
 				if (preg_match('/^bit(?:\(([0-9]+)\))?$/i', trim($struct->Type), $matches)) {
 					if (!$bit_field_exists) $bit_field_exists = true;
 					$bit_fields[strtolower($struct->Field)] = !empty($matches[1]) ? max(1, (int) $matches[1]) : 1;
 					// the reason why if bit fields are found then the fields need to be cast into binary type is that if mysqli_query function is being used, mysql will convert the bit field value to a decimal number and represent it in a string format whereas, if mysql_query function is being used, mysql will not convert it to a decimal number but instead will keep it retained as it is
 					$struct->Field = "CAST(".UpdraftPlus_Manipulation_Functions::backquote(str_replace('`', '``', $struct->Field))." AS BINARY) AS ".UpdraftPlus_Manipulation_Functions::backquote(str_replace('`', '``', $struct->Field));
-					$fields[] = $struct->Field;
+					$select_selected_fields[] = $struct->Field;
 				} else {
-					$fields[] = UpdraftPlus_Manipulation_Functions::backquote(str_replace('`', '``', $struct->Field));
+					$select_selected_fields[] = UpdraftPlus_Manipulation_Functions::backquote(str_replace('`', '``', $struct->Field));
 				}
+
+				if (isset($struct->Extra) && preg_match('/\binvisible\b/i', $struct->Extra)) $invisible_field_exists = true;
 			}
 
 			$expected_via_count = false;
@@ -2617,7 +2622,7 @@ class UpdraftPlus_Backup {
 
 			$original_fetch_rows = $fetch_rows;
 
-			$select = $bit_field_exists ? implode(', ', $fields) : '*';
+			$select_selected_fields = $bit_field_exists || $invisible_field_exists ? implode(', ', $select_selected_fields) : '*';
 
 			$enough_for_now = false;
 
@@ -2671,7 +2676,7 @@ class UpdraftPlus_Backup {
 				}
 
 				// $this->wpdb_obj->prepare() not needed (will throw a notice) as there are no parameters (all parts are already sanitised or cast to known-safe types if not sanitised here)
-				$select_sql = "SELECT $select FROM ".UpdraftPlus_Manipulation_Functions::backquote($table)." $final_where $order_by $limit_statement";
+				$select_sql = "SELECT $select_selected_fields FROM ".UpdraftPlus_Manipulation_Functions::backquote($table)." $final_where $order_by $limit_statement";
 
 				if (defined('UPDRAFTPLUS_LOG_BACKUP_SELECTS') && UPDRAFTPLUS_LOG_BACKUP_SELECTS) $updraftplus->log($select_sql);
 
@@ -2695,7 +2700,8 @@ class UpdraftPlus_Backup {
 					if ($oversized_changes) $updraftplus->jobdata_set('oversized_rows_'.$table, $oversized_rows);
 					continue;
 				}
-				$entries = 'INSERT INTO '.UpdraftPlus_Manipulation_Functions::backquote($dump_as_table).' VALUES ';
+				$insert_selected_fields = $invisible_field_exists ? ' (' . implode(', ', $insert_selected_fields) . ')' : '';
+				$entries = 'INSERT INTO '.UpdraftPlus_Manipulation_Functions::backquote($dump_as_table).$insert_selected_fields.' VALUES ';
 
 				// \x08\\x09, not required
 

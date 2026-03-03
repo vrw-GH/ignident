@@ -30,7 +30,7 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 		<div class="updraftcentral-subheading">
 		<?php esc_html_e('Add this website to your UpdraftCentral Cloud dashboard at teamupdraft.com.', 'updraftplus');?>
 		<ul style="list-style: disc inside;">
-			<li><?php esc_html_e('If you already have an updraftplus.com account, then enter the details below.', 'updraftplus');?></li>
+			<li><?php esc_html_e('If you already have a teamupdraft.com account, then enter the details below.', 'updraftplus');?></li>
 			<li><?php esc_html_e('If not, then choose your details and a new account will be registered.', 'updraftplus');?></li>
 		</ul>
 		</div>

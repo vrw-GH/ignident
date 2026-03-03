@@ -2,9 +2,9 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!class_exists('Updraft_Notices_1_2')) updraft_try_include_file('vendor/team-updraft/common-libs/src/updraft-notices/updraft-notices.php', 'require_once');
+if (!class_exists('Updraft_Notices_1_3')) updraft_try_include_file('vendor/team-updraft/common-libs/src/updraft-notices/updraft-notices.php', 'require_once');
 
-class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
+class UpdraftPlus_Notices extends Updraft_Notices_1_3 {
 
 	protected static $_instance = null;
 
@@ -21,12 +21,22 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 		return self::$_instance;
 	}
 
+	/**
+	 * This method gets any parent notices and adds its own notices to the notice array
+	 *
+	 * @return array - an array of notices
+	 */
 	protected function populate_notices_content() {
+		global $updraftplus;
 		
 		$parent_notice_content = parent::populate_notices_content();
 
 		$sale_description = sprintf(__('%s, %s and %s with %s.', 'updraftplus'), '<b>'.__('Backup', 'updraftplus').'</b>', '<b>'.__('migrate', 'updraftplus').'</b>', '<b>'.__('restore', 'updraftplus').'</b>', '<b>'.__('Premium', 'updraftplus').'</b>');
 		$sale_description .= ' '.sprintf(__('Backup incremental changes, instead of full backups (saving server resources), %s, get more remote storage locations, %s and more.', 'updraftplus'), '<b>'.__('clone or migrate your site with ease', 'updraftplus').'</b>', '<b>'.__('premium support', 'updraftplus').'</b>');
+
+		// Splitting the sale description into sentences.
+		// The regex considers a sentence to be any sequence of text that ends with a period (.), exclamation mark (!), or question mark (?), followed by one or more spaces.
+		$sale_description = implode("\n", array_map('trim', preg_split('/(?<=[.!?])\s+/', $sale_description))) . "\n";
 		
 		// Not used in 2024
 		// $checkout_html = '<a class="updraft_notice_link" href="https://updraftplus.com/shop/updraftplus-premium/">'.__('checkout', 'updraftplus').'</a>';
@@ -59,7 +69,7 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 				'title' => __('Backing up to Google Drive?', 'updraftplus'),
 				'text' => __('Organise backups with subfolders.', 'updraftplus'),
 				'image' => 'notices/updraft_logo.png',
-				'button_link' => 'https://teamupdraft.com/updraftplus/features/back-up-to-subfolders/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=google-drive&utm_creative_format=advert',
+				'button_link' => $updraftplus->get_url('premium_googledrive_advert'),
 				'campaign' => 'morestorage',
 				'button_text' => __('Google Drive enhancement', 'updraftplus'),
 				'dismiss_time' => 'dismiss_notice',
@@ -71,7 +81,7 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 				'title' => __('Backing up to Dropbox?', 'updraftplus'),
 				'text' => __('Organise backups with subfolders.', 'updraftplus'),
 				'image' => 'notices/updraft_logo.png',
-				'button_link' => 'https://teamupdraft.com/updraftplus/features/back-up-to-subfolders/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=dropbox&utm_creative_format=advert',
+				'button_link' => $updraftplus->get_url('premium_dropbox_advert'),
 				'campaign' => 'morestorage',
 				'button_text' => __('Dropbox enhancement', 'updraftplus'),
 				'dismiss_time' => 'dismiss_notice',
@@ -83,7 +93,7 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 				'title' => __('Backing up to Amazon S3?', 'updraftplus'),
 				'text' => __('Save money - back up to the infrequent storage class with Premium.', 'updraftplus'),
 				'image' => 'notices/updraft_logo.png',
-				'button_link' => 'https://teamupdraft.com/updraftplus/features/amazon-s3-enhanced/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=amazons3&utm_creative_format=advert',
+				'button_link' => $updraftplus->get_url('premium_s3_advert'),
 				'campaign' => 'morestorage',
 				'button_text' => __('Amazon S3 enhancement', 'updraftplus'),
 				'dismiss_time' => 'dismiss_notice',
@@ -95,7 +105,7 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 				'title' => __('Secure your backups', 'updraftplus'),
 				'text' => __('Encrypt the database, lock UpdraftPlus settings to other admins and anonymise backups.', 'updraftplus'),
 				'image' => 'notices/updraft_logo.png',
-				'button_link' => 'https://teamupdraft.com/updraftplus/features?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=securebackups3&utm_creative_format=advert',
+				'button_link' => $updraftplus->get_url('premium_features_advert'),
 				'campaign' => 'lockadmin',
 				'button_text' => __('See premium features', 'updraftplus'),
 				'dismiss_time' => 'dismiss_notice',
@@ -106,7 +116,7 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 				'title' => __('Easily migrate or clone your site in minutes', 'updraftplus'),
 				'text' => __('Copy your site to another domain directly.', 'updraftplus').' '.__('Includes find-and-replace tool for database references.', 'updraftplus'),
 				'image' => 'notices/updraft_logo.png',
-				'button_link' => 'https://teamupdraft.com/updraftplus/wordpress-migration-plugin/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=migrate&utm_creative_format=advert',
+				'button_link' => $updraftplus->get_url('premium_migration_advert'),
 				'campaign' => 'migrator',
 				'button_text' => __('Migration', 'updraftplus'),
 				'dismiss_time' => 'dismiss_notice',
@@ -168,7 +178,7 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 				'title' => __('Automatically back up before updates', 'updraftplus'),
 				'text' => __('With UpdraftPlus Premium, your site is backed up before every update.', 'updraftplus').' '.__('Simple, safe, and hassle-free.', 'updraftplus'),
 				'image' => 'notices/updraft_logo.png',
-				'button_link' => 'https://teamupdraft.com/updraftplus/features/wordpress-automatic-backup-before-updates?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=automatic_backup&utm_creative_format=advert',
+				'button_link' => $updraftplus->get_url('premium_autobackup_advert'),
 				'campaign' => 'autobackup',
 				'button_text' => __('Back up before updates', 'updraftplus'),
 				'dismiss_time' => 'dismissautobackup',
@@ -203,8 +213,12 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 				'text' => $sale_description,
 				'text2' => __('at checkout.', 'updraftplus').' <b>'.__('Hurry, offer ends 2 December.', 'updraftplus').'</b>',
 				'image' => 'notices/sale_20_25.png',
-				'button_text' => sprintf(__('Save 20%% with code %s', 'updraftplus'), 'blackfridaysale2025'),
-				'button_link' => 'https://teamupdraft.com/updraftplus/pricing/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=bf25-udp-plugin-banner&utm_content=bf-sale&utm_creative_format=advert',
+				'button_text' => sprintf(
+					/* translators: %s: Discount code */
+					__('Save 20%% with code %s', 'updraftplus'),
+					'blackfridaysale2025'
+				),
+				'button_link' => 'https://teamupdraft.com/plugin-black-friday/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=bf25-udp-plugin-banner&utm_content=bf-sale&utm_creative_format=advert',
 				'campaign' => 'blackfriday',
 				'button_meta' => 'inline',
 				'dismiss_time' => 'dismiss_season',
@@ -364,6 +378,9 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_2 {
 	 */
 	public function is_s3_in_use() {
 		return in_array('s3', (array) UpdraftPlus_Options::get_updraft_option('updraft_service'));
+	}
+	
+	protected function widget_enqueue() {
 	}
 }
 

@@ -400,7 +400,7 @@ class UpdraftPlus_CF_Connection
      */
     function setDebug($bool)
     {
-        $this->dbug = (boolean) $bool;
+        $this->dbug = (bool) $bool;
         $this->cfs_http->setDebug($this->dbug);
     }
 

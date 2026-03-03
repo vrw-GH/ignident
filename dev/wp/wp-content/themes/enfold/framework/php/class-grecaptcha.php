@@ -189,7 +189,7 @@ if( ! class_exists( 'av_google_recaptcha', false ) )
 			 * @return string
 			 */
 			$badge =	'<div class="av-google-badge-message hidden">';
-			$badge .=		__( 'This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.', 'avia_framework' );
+			$badge .=		sprintf( __( 'This site is protected by reCAPTCHA and the Google %1$s and %2$s apply.', 'avia_framework' ), sprintf( '<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">%s</a>', __( 'Privacy Policy', 'avia_framework' ) ), sprintf( '<a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">%s</a>', __( 'Terms of Service', 'avia_framework' ) ) );
 			$badge .=	'</div>';
 
 			$this->display_badge_html = apply_filters( 'avf_google_recaptcha_badge_content', $badge );

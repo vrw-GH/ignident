@@ -174,6 +174,52 @@ class UpdraftCentral_Core_Commands extends UpdraftCentral_Commands {
 	}
 
 	/**
+	 * Pulls blog sites available
+	 * for the current WP instance.
+	 * If the site is a multisite, then sites under the network
+	 * will be pulled, otherwise, it will return an empty array.
+	 *
+	 * @return Array - an array of sites
+	 */
+	public function get_blog_sites() {
+
+		if (!is_multisite()) {
+			return $this->_generic_error_response('not_multisite');
+		}
+
+		$sites = array();
+		$network_sites = array();
+
+		// Use `get_sites` for WP version >= 4.6 else use old `wp_get_sites`.
+		if (function_exists('get_sites') && class_exists('WP_Site_Query')) {
+			$network_sites = get_sites();
+		} else {
+			if (function_exists('wp_get_sites')) {
+				$network_sites = wp_get_sites();
+			}
+		}
+
+		if (!empty($network_sites)) {
+			foreach ($network_sites as $site) {
+
+				// Check if the site type is an array,
+				// because `wp_get_sites` returns site data as associative array while,
+				// `get_sites` returns the data as WP_Site object.
+				$blog_id = is_array($site) ? $site['blog_id'] : $site->blog_id;
+
+				$sites[] = array(
+					'site_id' => $blog_id,
+					'name' => get_blog_details($blog_id)->blogname,
+				);
+			}
+		}
+
+		return $this->_response(array(
+			'sites' => $sites,
+		));
+	}
+
+	/**
 	 * Executes a list of submitted commands (multiplexer)
 	 *
 	 * @param Array $query An array containing the commands to execute and a flag to indicate how to handle command execution failure.
@@ -213,7 +259,7 @@ class UpdraftCentral_Core_Commands extends UpdraftCentral_Commands {
 					if (class_exists($command_php_class)) {
 						$instance = new $command_php_class($this->rc);
 
-						if (method_exists($instance, $action)) {
+						if (method_exists($instance, $action) || is_a($instance, 'UpdraftCentral_UpdraftPlus_Commands') || is_a($instance, 'UpdraftCentral_WP_Optimize_Commands')) {
 							$params = empty($params) ? array() : $params;
 							$call_result = call_user_func(array($instance, $action), $params);
 

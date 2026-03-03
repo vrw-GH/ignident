@@ -1,0 +1,2 @@
+(function(){"use strict";(()=>{const e=window.iwArgsMedia||{},a=(n,o)=>{const t=document.createElement("option");t.value=n,t.textContent=o,document.querySelectorAll('select[name="action"], select[name="action2"]').forEach(r=>{r.appendChild(t.cloneNode(!0))})};document.addEventListener("DOMContentLoaded",()=>{e.applyWatermark&&(a("applywatermark",e.applyWatermark),e.backupImage&&a("removewatermark",e.removeWatermark))})})();
+})();

@@ -1595,6 +1595,7 @@ if ( $if_fox_lms_plugin_exists ) {
 
 $if_fox_lms_plugin_installed_flag = get_option('ays_pb_and_fox_lms_plugin_flag');
 
+$pb_temporarily_do_not_show_fox_lms_popup = false;
 ?>
 
 <style>
@@ -1628,7 +1629,11 @@ $ays_users_roles = $wp_roles->roles;
             <input type="hidden" name="ays_pb_create_date" value="<?php echo esc_attr($pb_create_date); ?>">
             <input type="hidden" name="ays_pb_author" value="<?php echo esc_attr(json_encode($pb_author, JSON_UNESCAPED_SLASHES)); ?>">
             <div class="ays-pb-heading-box">
-                <div class="ays-pb-wordpress-user-manual-box">
+                <div class="ays-pb-wordpress-user-manual-box">                    
+                    <a href="https://www.youtube.com/watch?v=0cZOSdiKqTI" target="_blank">
+                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/youtube-video-icon.svg' ?>">
+                        <span><?php echo esc_html__("How to create Popup", "ays-popup-box"); ?></span>
+                    </a>
                     <a href="https://popup-plugin.com/docs" target="_blank">
                         <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
                         <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
@@ -1700,10 +1705,10 @@ $ays_users_roles = $wp_roles->roles;
                 </p>
                 <?php if ($show_warning_note): ?>
                 <div class="ays-pb-cache-warning-note-container">
-                    <div class="ays-pb-cache-warning-note">
-                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL . "/images/icons/warning.svg"); ?>">
+                    <div class="ays-pb-cache-warning-note">                        
                         <p>
-                            <span><?php echo esc_html__("Please Note: ", "ays-popup-box"); ?></span>
+                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL . "/images/icons/circle-alert.svg"); ?>" class="ays-pb-cache-warning-note-close">
+                            <span class="ays-pb-cache-warning-note-span"><?php echo esc_html__("Note: ", "ays-popup-box"); ?></span>
                             <span><?php echo esc_html__("If you have a cache plugin, clear the caches and exclude the link where the popup is enabled to see immediate front-end changes", "ays-popup-box"); ?></span>
                         </p>
                     </div>
@@ -1819,6 +1824,10 @@ $ays_users_roles = $wp_roles->roles;
                                 </a>
                             </span>
                         </label>
+                        <p class="ays_pb_small_hint_text_for_message_variables">
+                            <span><?php echo esc_html__( "To see all Message Variables " , 'ays-popup-box' ); ?></span>
+                            <a href="?page=ays-pb-settings&ays_pb_tab=tab4" target="_blank"><?php echo esc_html__( "click here" , 'ays-popup-box' ); ?></a>
+                        </p>
                     </div>
                     <div class="col-sm-9">
                         <div style = "text-align: end; margin-bottom: 20px;">
@@ -3123,37 +3132,59 @@ $ays_users_roles = $wp_roles->roles;
                         </label>
                     </div>
                     <div class="col-sm-9">
-                        <select id="<?php echo esc_attr($this->plugin_name); ?>-action_button_type" class="ays_pb_aysDropdown" name="<?php echo esc_attr($this->plugin_name); ?>[action_button_type]">
-                            <option <?php if(!isset($action_button_type)){ echo 'selected'; } echo 'both' == $action_button_type ? 'selected' : ''; ?> value="both"><?php echo esc_html__('Both (On page load & On click)', "ays-popup-box"); ?></option>
-                            <option <?php echo 'pageLoaded' == $action_button_type ? 'selected' : ''; ?> value="pageLoaded"><?php echo esc_html__('Onload', "ays-popup-box"); ?></option>
-                            <option <?php echo 'clickSelector' == $action_button_type ? 'selected' : ''; ?> value="clickSelector"><?php echo esc_html__('On Click', "ays-popup-box"); ?></option>
-                            <option value="exit_intent" disabled><?php echo esc_html__('On hover (Pro)', "ays-popup-box"); ?></option>
-                            <option value="exit_intent" disabled><?php echo esc_html__('Exit Intent (Pro)', "ays-popup-box"); ?></option>
-                            <option value="exit_intent" disabled><?php echo esc_html__('After visiting x pages (Pro)', "ays-popup-box"); ?></option>
-                            <option value="exit_intent" disabled><?php echo esc_html__('Inactivity (Pro)', "ays-popup-box"); ?></option>
-                            <option value="exit_intent" disabled><?php echo esc_html__('Scrolling to element (Pro)', "ays-popup-box"); ?></option>
-                        </select>
-                        <a class="ays_help ays-pb-triggers-tooltip" data-toggle="tooltip" data-html="true" title="<?php
-                            foreach ($show_popup_triggers_tooltip as $key => $show_popup_trigger_tooltip) {
-                                if($key == $action_button_type){
-                                    echo htmlspecialchars($show_popup_trigger_tooltip);
-                                }
-                            }
-                        ?>">
-                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                        </a>
-                        <div class="ays-pb-youtube-video-link">
-                            <div class="ays-pb-small-hint-text">
-                            <a href="https://youtu.be/YTB5_J74AIg" target="_blank">
-                                <?php echo esc_html__("View how to make popup on button click", "ays-popup-box");?>
+                        <div style="margin-bottom: 10px; text-align: end;">
+                            <a href="https://popup-plugin.com/docs/on-page-load-trigger/" target="_blank" style="font-size: 14px;">
+                                <?php echo esc_html__("How to Page Load Trigger?", "ays-popup-box"); ?>
                             </a>
-                            </div>
                         </div>
-                        <div class="ays-pb-youtube-video-link">
-                            <div class="ays-pb-small-hint-text">
-                            <a href="https://youtu.be/Phsw4q2mDmE" target="_blank">
-                                <?php echo esc_html__("How to Set Popup Triggers with WordPress Popup Plugin (PRO)", "ays-popup-box");?>
+                        <div>
+                            <select id="<?php echo esc_attr($this->plugin_name); ?>-action_button_type" class="ays_pb_aysDropdown" name="<?php echo esc_attr($this->plugin_name); ?>[action_button_type]">
+                                <option <?php if(!isset($action_button_type)){ echo 'selected'; } echo 'both' == $action_button_type ? 'selected' : ''; ?> value="both"><?php echo esc_html__('Both (On page load & On click)', "ays-popup-box"); ?></option>
+                                <option <?php echo 'pageLoaded' == $action_button_type ? 'selected' : ''; ?> value="pageLoaded"><?php echo esc_html__('Onload', "ays-popup-box"); ?></option>
+                                <option <?php echo 'clickSelector' == $action_button_type ? 'selected' : ''; ?> value="clickSelector"><?php echo esc_html__('On Click', "ays-popup-box"); ?></option>
+                                <option value="exit_intent" disabled><?php echo esc_html__('On hover (Pro)', "ays-popup-box"); ?></option>
+                                <option value="exit_intent" disabled><?php echo esc_html__('Exit Intent (Pro)', "ays-popup-box"); ?></option>
+                                <option value="exit_intent" disabled><?php echo esc_html__('After visiting x pages (Pro)', "ays-popup-box"); ?></option>
+                                <option value="exit_intent" disabled><?php echo esc_html__('Inactivity (Pro)', "ays-popup-box"); ?></option>
+                                <option value="exit_intent" disabled><?php echo esc_html__('Scrolling to element (Pro)', "ays-popup-box"); ?></option>
+                            </select>
+                            <a class="ays_help ays-pb-triggers-tooltip" data-toggle="tooltip" data-html="true" title="<?php
+                                foreach ($show_popup_triggers_tooltip as $key => $show_popup_trigger_tooltip) {
+                                    if($key == $action_button_type){
+                                        echo htmlspecialchars($show_popup_trigger_tooltip);
+                                    }
+                                }
+                            ?>">
+                                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
                             </a>
+                            <?php
+                                $how_to_make_link_url = esc_url( 'https://youtu.be/2pK9I2r_MyE' );
+                                $how_to_make_link_text = esc_html__("View how to make popup on load", "ays-popup-box");;
+                                switch ( $action_button_type ) {
+                                    case 'pageLoaded':
+                                        $how_to_make_link_url = esc_url( 'https://youtu.be/2pK9I2r_MyE' );
+                                        $how_to_make_link_text = esc_html__( "View how to make popup on load", "ays-popup-box" );
+                                        break;
+                                    case 'both':
+                                    case 'clickSelector':
+                                        $how_to_make_link_url = esc_url( 'https://youtu.be/_BZ1rhfm8O0' );
+                                        $how_to_make_link_text = esc_html__( "View how to make popup on button click", "ays-popup-box" );
+                                        break;
+                                }
+                            ?>
+                            <div class="ays-pb-youtube-video-link">
+                                <div class="ays-pb-small-hint-text">
+                                <a href="<?php echo $how_to_make_link_url; ?>" target="_blank" id="ays-pb-youtube-how-to-make-link">
+                                    <?php echo $how_to_make_link_text; ?>
+                                </a>
+                                </div>
+                            </div>
+                            <div class="ays-pb-youtube-video-link">
+                                <div class="ays-pb-small-hint-text">
+                                <a href="https://youtu.be/Phsw4q2mDmE" target="_blank">
+                                    <?php echo esc_html__("How to Set Popup Triggers with WordPress Popup Plugin (PRO)", "ays-popup-box");?>
+                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -3316,7 +3347,7 @@ $ays_users_roles = $wp_roles->roles;
                                     </div>
                                     <div class="ays-pb-youtube-video-link">
                                         <div class="ays-pb-small-hint-text">
-                                            <a href="https://youtu.be/1ryQv9ojgMY?list=PL4ufu1uAjjWQTYn0O_72TLzmqgmVIYKI2" target="_blank">
+                                            <a href="https://www.youtube.com/watch?v=xHjGrelxwI8" target="_blank">
                                                 <?php echo esc_html__('How to Show Popup after a Time Delay', "ays-popup-box")?>
                                             </a>
                                         </div>
@@ -3445,88 +3476,7 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                             </div>
                         </div>
-                        <!-- Close by clicking outside the box end -->
-                        <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">   
-                        <!-- close popup by scroll start-->
-                        <div class="col-sm-12 ays-pro-features-v2-main-box ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                            <div class="ays-pro-features-v2-small-buttons-box">
-                                <div>
-                                    <a href="https://youtu.be/6TVU_KYDE8Q" target="_blank" class="ays-pro-features-v2-video-button">
-                                        <div>
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
-                                        </div>
-                                        <div class="ays-pro-features-v2-video-text">
-                                            <?php echo esc_html__("Watch video" , "ays-popup-box"); ?>
-                                        </div>
-                                    </a>
-                                </div>
-                                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
-                                    <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
-                                    <div class="ays-pro-features-v2-upgrade-text">
-                                        <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="form-group row ays-pb-pro-feature-row" style="margin-bottom:0;">
-                                <div class="col-sm-3">
-                                    <label for="ays_close_popup_scroll" style="line-height: 50px;">
-                                        <span><?php echo esc_html__('Close the popup on scroll', "ays-popup-box"); ?></span>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__("Define the scroll length by pixels to close the popup when scrolling.", "ays-popup-box"); ?>">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9" style="padding:10px 0;">
-                                        <input type="text" name="close_popup_scroll" class="ays-pb-onoffswitch-checkbox" id="ays_close_popup_scroll" value=""/>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- close popup by scroll end-->
-                        <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                        <!-- close popup by clicking submit btn by classname start -->
-                        <div class="col-sm-12 ays-pro-features-v2-main-box ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                            <div class="ays-pro-features-v2-small-buttons-box">
-                                <div>
-                                    <a href="https://www.youtube.com/watch?v=z6TfjOR2CVM" target="_blank" class="ays-pro-features-v2-video-button">
-                                        <div>
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
-                                        </div>
-                                        <div class="ays-pro-features-v2-video-text">
-                                            <?php echo esc_html__("Watch video" , "ays-popup-box"); ?>
-                                        </div>
-                                    </a>
-                                </div>
-                                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
-                                    <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
-                                    <div class="ays-pro-features-v2-upgrade-text">
-                                        <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="form-group row ays_toggle_parent" style="padding: 10px 0; margin:0;">
-                                <div class="col-sm-3">
-                                    <label for="ays_close_popup_by_classname">
-                                        <?php echo esc_html__('Close by classname (onclick)', "ays-popup-box")?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Copy the given classname, assign it to any tag in the content as well as inside the popup. And the popup will close when the user clicks on the classname.Note: Save your popup before copying the given classname.',"ays-popup-box")?>">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" name="ays_enable_close_by_classname" class="ays-pb-onoffswitch-checkbox ays-enable-timer1 ays_toggle_checkbox" id="ays_close_popup_by_classname" checked/>
-                                </div>
-                                <div class="col-sm-8 ays_toggle_target ays_divider_left">
-                                    <div class="form-group row">
-                                        <div class="col-sm-10">
-                                            <input type="text" name="ays_pb_close_by_classname_".$id id="ays_pb_close_by_classname" class="ays-enable-timerl ays-text-input" value="<?php echo "ays_pb_close_by_classname_".$id ;?>" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- close popup by clicking submit btn by classname end -->
+                        <!-- Close by clicking outside the box end -->                        
                         <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
                         <!-- Hide close button start -->
                         <div class="form-group row">
@@ -3829,6 +3779,121 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                             </div>
                         </div>
+                        <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">   
+                        <!-- close popup by scroll start-->
+                        <div class="col-sm-12 pro_features_main pro_features_popup ays-pro-features-v2-main-box ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+
+                            <div class="pro_features pro_features_popup pro_features_background_bolder">
+                                <div class="pro-features-popup-conteiner">
+                                    <div class="pro-features-popup-title">
+                                        <?php echo __("How to Close Popup On Scroll", 'ays-popup-box'); ?>
+                                    </div>
+                                    <div class="pro-features-popup-content" data-link="https://youtu.be/6TVU_KYDE8Q">
+                                        <p>
+                                            <?php echo __("With Popup Box, you can easily close a popup on scroll. This feature allows visitors to dismiss a popup automatically the moment they start scrolling, without clicking the close button. In the video, we demonstrate how to enable and configure this option. Once activated, it improves the browsing experience by keeping pages clean and distraction-free. It’s a quick way to ensure smoother interaction for your users.", 'ays-popup-box'); ?>
+                                        </p>                                                
+                                    </div>
+                                    <div class="pro-features-popup-button" data-link="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=pro-popup-box-close-on-scroll-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>">
+                                        <?php echo __("Pricing", 'ays-popup-box'); ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ays-pro-features-v2-small-buttons-box">
+                                <div>
+                                    <div class="ays-pb-new-watch-video-button-box ays-pb-new-watch-video-button-box-mobile-style">
+                                        <div>
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover ays-pb-new-watch-video-button-hover">
+                                        </div>
+                                        <div class="ays-pb-new-watch-video-button">
+                                            <?php echo esc_html__("Watch video" , "ays-popup-box"); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                                    <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                                    <div class="ays-pro-features-v2-upgrade-text">
+                                        <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="form-group row ays-pb-pro-feature-row" style="padding: 10px 0;margin-bottom:0;">
+                                <div class="col-sm-3" style="padding-left: 30px;">
+                                    <label for="ays_close_popup_scroll" style="line-height: 50px;">
+                                        <span><?php echo esc_html__('Close the popup on scroll', "ays-popup-box"); ?></span>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__("Define the scroll length by pixels to close the popup when scrolling.", "ays-popup-box"); ?>">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9" style="padding:10px 0;">
+                                        <input type="text" name="close_popup_scroll" class="ays-pb-onoffswitch-checkbox" id="ays_close_popup_scroll" value=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- close popup by scroll end-->
+                        <hr class="ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+                        <!-- close popup by clicking submit btn by classname start -->
+                        <div class="col-sm-12 pro_features_main pro_features_popup ays-pro-features-v2-main-box ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
+
+                            <div class="pro_features pro_features_popup pro_features_background_bolder">
+                                <div class="pro-features-popup-conteiner">
+                                    <div class="pro-features-popup-title">
+                                        <?php echo __("How to Close Popup by Classname (On Click)", 'ays-popup-box'); ?>
+                                    </div>
+                                    <div class="pro-features-popup-content" data-link="https://youtu.be/z6TfjOR2CVM">
+                                        <p>
+                                            <?php echo __("This feature lets you assign a specific button to close the popup when clicked. By adding a classname, you can connect the popup closing action directly to that button, giving you more control over how visitors dismiss it. The video tutorial walks you through setting the classname and applying it step by step. It’s a simple solution for customizing popup behavior and providing a clear, user-friendly way to exit.", 'ays-popup-box'); ?>
+                                        </p>                                                
+                                    </div>
+                                    <div class="pro-features-popup-button" data-link="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=pro-popup-box-close-on-classname-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>">
+                                        <?php echo __("Pricing", 'ays-popup-box'); ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ays-pro-features-v2-small-buttons-box">
+                                <div>
+                                    <div class="ays-pb-new-watch-video-button-box ays-pb-new-watch-video-button-box-mobile-style">
+                                        <div>
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover ays-pb-new-watch-video-button-hover">
+                                        </div>
+                                        <div class="ays-pro-features-v2-video-text">
+                                            <?php echo esc_html__("Watch video" , "ays-popup-box"); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                                    <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                                    <div class="ays-pro-features-v2-upgrade-text">
+                                        <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="form-group row ays_toggle_parent" style="padding: 10px 0; margin:0;">
+                                <div class="col-sm-3">
+                                    <label for="ays_close_popup_by_classname">
+                                        <?php echo esc_html__('Close by classname (onclick)', "ays-popup-box")?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Copy the given classname, assign it to any tag in the content as well as inside the popup. And the popup will close when the user clicks on the classname.Note: Save your popup before copying the given classname.',"ays-popup-box")?>">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-1">
+                                    <input type="checkbox" name="ays_enable_close_by_classname" class="ays-pb-onoffswitch-checkbox ays-enable-timer1 ays_toggle_checkbox" id="ays_close_popup_by_classname" checked/>
+                                </div>
+                                <div class="col-sm-8 ays_toggle_target ays_divider_left">
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <input type="text" name="ays_pb_close_by_classname_".$id id="ays_pb_close_by_classname" class="ays-enable-timerl ays-text-input" value="<?php echo "ays_pb_close_by_classname_".$id ;?>" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- close popup by clicking submit btn by classname end -->
                         <hr>
                     </div>
                 </div>
@@ -4295,201 +4360,7 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                             </div>
                         </div>
-                        <!-- schedule by time end -->
-                        <hr>
-                        <div class="col-sm-12 ays-pro-features-v2-main-box">
-                            <div class="ays-pro-features-v2-small-buttons-box">
-                                <div>
-                                    <a href="https://youtu.be/_5GYMSWSBm4" target="_blank" class="ays-pro-features-v2-video-button">
-                                        <div>
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
-                                        </div>
-                                        <div class="ays-pro-features-v2-video-text">
-                                            <?php echo esc_html__("Watch Video" , "ays-popup-box"); ?>
-                                        </div>
-                                    </a>
-                                </div>
-                                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
-                                    <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
-                                    <div class="ays-pro-features-v2-upgrade-text">
-                                        <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="form-group row" style="padding: 10px 0; margin: 0px;">
-                                <div class="col-sm-3">
-                                    <label for="active_date_check">
-                                        <?php echo esc_html__('Multiple Scheduling', "ays-popup-box"); ?>
-                                        <a class="ays_help ays-pb-help-pro" data-toggle="tooltip"
-                                        title="<?php echo esc_html__('The period of time when Popup will be active', "ays-popup-box") ?>">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9 ays_toggle_parent">
-                                    <div class="active_date_check_header">
-                                        <input id="" type="checkbox" class="active_date_check ays_toggle_checkbox" checked>
-                                        <a href="javascript:void(0)" class="ays_pb_plus_schedule ays_toggle_target ays_divider_left active_date">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/plus-square.svg"?>">
-                                        </a>
-                                    </div>
-                                    <div class="form-group ays_toggle_target ays_divider_left active_date">
-                                        <div class="row">
-                                            <div class="col-sm-12 ays_schedule_parent">
-                                                <div class="form-group ays_schedule_form">
-                                                    <label class="form-check-label active_deactive_date" for="ays_active"> 
-                                                        <?php echo esc_html__('Start date:', "ays-popup-box"); ?> 
-                                                        <div class="input-group-append">
-                                                            <input type="text"class="ays_pb_act_dect">           
-                                                            <label style="padding: 0 12px;" class="input-group-text">
-                                                                <span><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/calendar.svg"?>"></span>
-                                                            </label>
-                                                        </div>
-                                                    </label>
-                                                    <label class="form-check-label active_deactive_date"> 
-                                                        <?php echo esc_html__('End date:', "ays-popup-box"); ?> 
-                                                        <div class="input-group-append">
-                                                            <input type="text" class="ays_pb_act_dect">
-                                                            <label style="padding: 0 12px;" class="input-group-text">
-                                                                <span><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/calendar.svg"?>"></span>
-                                                            </label>
-                                                        </div>
-                                                    </label>
-                                                    <a href="javascript:void(0)" class="ays_pb_delete_schedule">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/times.svg"?>">
-                                                    </a>                                        
-                                                </div>
-                                                <div class="form-group ays_schedule_form">
-                                                    <label class="form-check-label active_deactive_date" for="ays_active"> 
-                                                        <?php echo esc_html__('Start date:', "ays-popup-box"); ?> 
-                                                        <div class="input-group-append">
-                                                            <input type="text"class="ays_pb_act_dect">           
-                                                            <label style="padding: 0 12px;" class="input-group-text">
-                                                                <span><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/calendar.svg"?>"></span>
-                                                            </label>
-                                                        </div>
-                                                    </label>
-                                                    <label class="form-check-label active_deactive_date"> 
-                                                        <?php echo esc_html__('End date:', "ays-popup-box"); ?> 
-                                                        <div class="input-group-append">
-                                                            <input type="text" class="ays_pb_act_dect">
-                                                            <label style="padding: 0 12px;" class="input-group-text">
-                                                                <span><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/calendar.svg"?>"></span>
-                                                            </label>
-                                                        </div>
-                                                    </label>
-                                                    <a href="javascript:void(0)" class="ays_pb_delete_schedule">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/times.svg"?>">
-                                                    </a>                                        
-                                                </div>
-                                            </div>
-                                        </div>                            
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <!-- Action on popup content click -->
-                        <div class="col-sm-12 ays-pro-features-v2-main-box">
-                            <div class="ays-pro-features-v2-small-buttons-box">
-                                <div>
-                                    <a href="https://youtu.be/El-xx0SgDfw" target="_blank" class="ays-pro-features-v2-video-button">
-                                        <div>
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
-                                        </div>
-                                        <div class="ays-pro-features-v2-video-text">
-                                            <?php echo esc_html__("Watch Video" , "ays-popup-box"); ?>
-                                        </div>
-                                    </a>
-                                </div>
-                                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
-                                    <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
-                                    <div class="ays-pro-features-v2-upgrade-text">
-                                        <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="form-group row ays_toggle_parent" style="padding: 10px 0; margin:0px;">
-                                <div class="col-sm-3">
-                                    <label for="ays_content_click">
-                                        <?php echo esc_html__(' Actions while clicking on the popup',"ays-popup-box")?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Enable closing the popup and/or redirecting to the custom URL in case of clicking on any area of the popup container.',"ays-popup-box")?>">
-                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" id="ays_content_click" name="enable_content_click" class="ays_toggle_checkbox"
-                                        value="on" checked/>
-                                </div>
-                                <!-- close and redirect -->
-                                <div class="col-sm-8 ays_toggle_target" style="display:block">
-                                    <!-- close -->
-                                    <div class="col-sm-4">
-                                        <div class="form-group row">
-                                            <div class="col-sm-10">
-                                                <label for="ays_close_pb_content_click">
-                                                    <?php echo esc_html__('Enable closing',"ays-popup-box")?>
-                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('If the option is enabled, then the popup will be closed if the user clicks on any area inside it.',"ays-popup-box")?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input type="checkbox" id="ays_close_pb_content_click" name="enable_close_content_click"
-                                                    value="on" checked/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <!-- redirect -->
-                                    <div class="col-sm-8 ays_toggle_parent_redirect">
-                                        <div class="form-group row">
-                                            <div class="col-sm-5">
-                                                <label for="ays_redirect_content_click">
-                                                    <?php echo esc_html__('Enable redirection',"ays-popup-box")?>
-                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Enable redirection to the custom URL when the user clicks on any area inside the popup.',"ays-popup-box")?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <input type="checkbox" id="ays_redirect_content_click" name="enable_redirect_content_click"  class="ays_toggle_checkbox_redirect" value="on" checked/>
-                                            </div>
-                                            <div class="col-sm-6 ays_toggle_redirect" style="display:block;">
-                                                <div class="form-group row">
-                                                    <div class="col-sm-6">
-                                                        <label for="ays_redirect_url_content_click"> <?php echo esc_html__('Redirection URL',"ays-popup-box")?>
-                                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Provide the redirection URL.',"ays-popup-box")?>">
-                                                                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                            </a>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <input type="text" id="ays_redirect_url_content_click" name="redirect_url_content_click" value=""/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-6">
-                                                        <label for="ays_new_tab_content_click"> <?php echo esc_html__('Open in new tab',"ays-popup-box")?>
-                                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('If the option is enabled, then the system will redirect the URL in a separate new tab.',"ays-popup-box")?>">
-                                                                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                            </a>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <input type="checkbox" id="ays_new_tab_content_click" name="enable_new_tab_content_click" value="on" checked/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- action click end -->
+                        <!-- schedule by time end -->                        
                         <hr>
                         <div class="form-group row">
                             <div class="col-sm-3">
@@ -4678,6 +4549,232 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <div class="col-sm-12 ays-pro-features-v2-main-box pro_features_main pro_features_popup">
+                            <div class="pro_features pro_features_popup pro_features_background_bolder">
+                                <div class="pro-features-popup-conteiner">
+                                    <div class="pro-features-popup-title">
+                                        <?php echo __("Choose When the Popup Will Be Active", 'ays-popup-box'); ?>
+                                    </div>
+                                    <div class="pro-features-popup-content" data-link="https://youtu.be/_5GYMSWSBm4">
+                                        <p>
+                                            <?php echo __("With this feature, you can choose exactly when your popup will be active. Instead of setting a single schedule, you can create multiple time ranges, making it easy to run popups during specific days, hours, or campaigns. The video tutorial shows how to add and manage different schedules step by step. It’s a flexible way to control popup visibility, align with marketing plans, and reach visitors at the right time.", 'ays-popup-box'); ?>
+                                        </p>                                                
+                                    </div>
+                                    <div class="pro-features-popup-button" data-link="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=pro-popup-box-will-be-active-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>">
+                                        <?php echo __("Pricing", 'ays-popup-box'); ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ays-pro-features-v2-small-buttons-box">
+                                <div>
+                                    <div class="ays-pb-new-watch-video-button-box ays-pb-new-watch-video-button-box-mobile-style">
+                                        <div>
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover ays-pb-new-watch-video-button-hover">
+                                        </div>
+                                        <div class="ays-pro-features-v2-video-text">
+                                            <?php echo esc_html__("Watch Video" , "ays-popup-box"); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                                    <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                                    <div class="ays-pro-features-v2-upgrade-text">
+                                        <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="form-group row" style="padding: 10px 0; margin: 0px;">
+                                <div class="col-sm-3">
+                                    <label for="active_date_check">
+                                        <?php echo esc_html__('Multiple Scheduling', "ays-popup-box"); ?>
+                                        <a class="ays_help ays-pb-help-pro" data-toggle="tooltip"
+                                        title="<?php echo esc_html__('The period of time when Popup will be active', "ays-popup-box") ?>">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9 ays_toggle_parent">
+                                    <div class="active_date_check_header">
+                                        <input id="" type="checkbox" class="active_date_check ays_toggle_checkbox" checked>
+                                        <a href="javascript:void(0)" class="ays_pb_plus_schedule ays_toggle_target ays_divider_left active_date">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/plus-square.svg"?>">
+                                        </a>
+                                    </div>
+                                    <div class="form-group ays_toggle_target ays_divider_left active_date">
+                                        <div class="row">
+                                            <div class="col-sm-12 ays_schedule_parent">
+                                                <div class="form-group ays_schedule_form">
+                                                    <label class="form-check-label active_deactive_date" for="ays_active"> 
+                                                        <?php echo esc_html__('Start date:', "ays-popup-box"); ?> 
+                                                        <div class="input-group-append">
+                                                            <input type="text"class="ays_pb_act_dect">           
+                                                            <label style="padding: 0 12px;" class="input-group-text">
+                                                                <span><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/calendar.svg"?>"></span>
+                                                            </label>
+                                                        </div>
+                                                    </label>
+                                                    <label class="form-check-label active_deactive_date"> 
+                                                        <?php echo esc_html__('End date:', "ays-popup-box"); ?> 
+                                                        <div class="input-group-append">
+                                                            <input type="text" class="ays_pb_act_dect">
+                                                            <label style="padding: 0 12px;" class="input-group-text">
+                                                                <span><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/calendar.svg"?>"></span>
+                                                            </label>
+                                                        </div>
+                                                    </label>
+                                                    <a href="javascript:void(0)" class="ays_pb_delete_schedule">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/times.svg"?>">
+                                                    </a>                                        
+                                                </div>
+                                                <div class="form-group ays_schedule_form">
+                                                    <label class="form-check-label active_deactive_date" for="ays_active"> 
+                                                        <?php echo esc_html__('Start date:', "ays-popup-box"); ?> 
+                                                        <div class="input-group-append">
+                                                            <input type="text"class="ays_pb_act_dect">           
+                                                            <label style="padding: 0 12px;" class="input-group-text">
+                                                                <span><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/calendar.svg"?>"></span>
+                                                            </label>
+                                                        </div>
+                                                    </label>
+                                                    <label class="form-check-label active_deactive_date"> 
+                                                        <?php echo esc_html__('End date:', "ays-popup-box"); ?> 
+                                                        <div class="input-group-append">
+                                                            <input type="text" class="ays_pb_act_dect">
+                                                            <label style="padding: 0 12px;" class="input-group-text">
+                                                                <span><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/calendar.svg"?>"></span>
+                                                            </label>
+                                                        </div>
+                                                    </label>
+                                                    <a href="javascript:void(0)" class="ays_pb_delete_schedule">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/times.svg"?>">
+                                                    </a>                                        
+                                                </div>
+                                            </div>
+                                        </div>                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Action on popup content click -->
+                        <div class="col-sm-12 ays-pro-features-v2-main-box pro_features_main pro_features_popup">
+                            <div class="pro_features pro_features_popup pro_features_background_bolder">
+                                <div class="pro-features-popup-conteiner">
+                                    <div class="pro-features-popup-title">
+                                        <?php echo __("Choose What Happens When Clicking on the Popup", 'ays-popup-box'); ?>
+                                    </div>
+                                    <div class="pro-features-popup-content" data-link="https://youtu.be/El-xx0SgDfw">
+                                        <p>
+                                            <?php echo __("This feature allows you to decide the action when a visitor clicks on the popup. You can enable closing, so the popup disappears immediately on click. Alternatively, you can set a redirection URL to send visitors to another page, with the option to open it in a new tab. The video shows how to configure each setting step by step, giving you full control over popup behavior and user navigation.", 'ays-popup-box'); ?>
+                                        </p>                                                
+                                    </div>
+                                    <div class="pro-features-popup-button" data-link="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=pro-popup-box-action-while-clicking-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>">
+                                        <?php echo __("Pricing", 'ays-popup-box'); ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ays-pro-features-v2-small-buttons-box">
+                                <div>
+                                    <div class="ays-pb-new-watch-video-button-box ays-pb-new-watch-video-button-box-mobile-style">
+                                        <div>
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover ays-pb-new-watch-video-button-hover">
+                                        </div>
+                                        <div class="ays-pro-features-v2-video-text">
+                                            <?php echo esc_html__("Watch Video" , "ays-popup-box"); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                                    <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                                    <div class="ays-pro-features-v2-upgrade-text">
+                                        <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="form-group row ays_toggle_parent" style="padding: 10px 0; margin:0px;">
+                                <div class="col-sm-3">
+                                    <label for="ays_content_click">
+                                        <?php echo esc_html__(' Actions while clicking on the popup',"ays-popup-box")?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Enable closing the popup and/or redirecting to the custom URL in case of clicking on any area of the popup container.',"ays-popup-box")?>">
+                                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-1">
+                                    <input type="checkbox" id="ays_content_click" name="enable_content_click" class="ays_toggle_checkbox"
+                                        value="on" checked/>
+                                </div>
+                                <!-- close and redirect -->
+                                <div class="col-sm-8 ays_toggle_target" style="display:block">
+                                    <!-- close -->
+                                    <div class="col-sm-4">
+                                        <div class="form-group row">
+                                            <div class="col-sm-10">
+                                                <label for="ays_close_pb_content_click">
+                                                    <?php echo esc_html__('Enable closing',"ays-popup-box")?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('If the option is enabled, then the popup will be closed if the user clicks on any area inside it.',"ays-popup-box")?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="checkbox" id="ays_close_pb_content_click" name="enable_close_content_click"
+                                                    value="on" checked/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <!-- redirect -->
+                                    <div class="col-sm-8 ays_toggle_parent_redirect">
+                                        <div class="form-group row">
+                                            <div class="col-sm-5">
+                                                <label for="ays_redirect_content_click">
+                                                    <?php echo esc_html__('Enable redirection',"ays-popup-box")?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Enable redirection to the custom URL when the user clicks on any area inside the popup.',"ays-popup-box")?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <input type="checkbox" id="ays_redirect_content_click" name="enable_redirect_content_click"  class="ays_toggle_checkbox_redirect" value="on" checked/>
+                                            </div>
+                                            <div class="col-sm-6 ays_toggle_redirect" style="display:block;">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label for="ays_redirect_url_content_click"> <?php echo esc_html__('Redirection URL',"ays-popup-box")?>
+                                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Provide the redirection URL.',"ays-popup-box")?>">
+                                                                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                            </a>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="ays_redirect_url_content_click" name="redirect_url_content_click" value=""/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <label for="ays_new_tab_content_click"> <?php echo esc_html__('Open in new tab',"ays-popup-box")?>
+                                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('If the option is enabled, then the system will redirect the URL in a separate new tab.',"ays-popup-box")?>">
+                                                                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                            </a>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="checkbox" id="ays_new_tab_content_click" name="enable_new_tab_content_click" value="on" checked/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- action click end -->
                     </div>
                 </div>
             </div>
@@ -4975,7 +5072,7 @@ $ays_users_roles = $wp_roles->roles;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ays-pb-template-themes-view-more-button-content">
+                                <div class="ays-pb-template-themes-view-more-button-content" style="display: none;">
                                     <hr class="ays-pb-template-themes-view-more-border">
                                     <div class="ays-pb-template-themes-view-more-button">
                                         <button class="ays-pb-template-themes-view-more-btn <?php echo !in_array( $view_type, $not_default_view_types ) ? '' : 'display_none'; ?>" type="button">View More</button>
@@ -6793,166 +6890,7 @@ $ays_users_roles = $wp_roles->roles;
                                 <p class="ays-subtitle"><?php echo  esc_html__('Button Style', "ays-popup-box") ?></p>
                             </div>
                             <hr class="ays-pb-bolder-hr"/>
-                            <div class="ays-pb-accordion-body">
-                                <div class="col-sm-12 ays-pro-features-v2-main-box">
-                                    <div class="ays-pro-features-v2-big-buttons-box-main-container">
-                                        <!-- <div class="ays-pro-features-v2-big-buttons-box-view-demo">
-                                            <a href="https://youtu.be/BdwSmLbsCC4?list=PL4ufu1uAjjWQTYn0O_72TLzmqgmVIYKI2" target="_blank" class="ays-pro-features-v2-upgrade-button ays-pro-features-v2-upgrade-button-view-demo">
-                                                <div class="ays-pro-features-v2-upgrade-text">
-                                                    <img src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Video_40x40.svg" class="ays-pb-new-button-img-hide">
-                                                    <img src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Video_40x40_Hover.svg" class="ays-pb-new-watch-video-button-hover">
-                                                    <?php echo esc_html__("Watch Video" , "ays-popup-box"); ?>
-                                                </div>
-                                            </a>
-                                        </div> -->
-                                        <div class="ays-pro-features-v2-big-buttons-box">
-                                            <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
-                                                <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
-                                                <div class="ays-pro-features-v2-upgrade-text">
-                                                    <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="ays-pro-features-v2-small-buttons-box">
-                                        <!-- <div>
-                                            <a href="https://youtu.be/BdwSmLbsCC4?list=PL4ufu1uAjjWQTYn0O_72TLzmqgmVIYKI2" target="_blank" class="ays-pro-features-v2-video-button">
-                                                <div>
-                                                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24.svg" ?>">
-                                                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/pro-features-icons/Video_24x24_Hover.svg" ?>" class="ays-pb-new-video-button-hover">
-                                                </div>
-                                                <div class="ays-pro-features-v2-video-text">
-                                                    <?php echo esc_html__("Watch Video" , "ays-popup-box"); ?>
-                                                </div>
-                                            </a>
-                                        </div> -->
-                                        <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
-                                            <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
-                                            <div class="ays-pro-features-v2-upgrade-text">
-                                                <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
-                                            </div>
-                                        </a>
-                                    </div>     
-                                    <!-- Buttons Size start-->
-                                    <div class="form-group" id="ays_pb_button_size_content" style="margin:0;">
-                                        <div class="form-group row">
-                                            <div class="col-sm-3">
-                                                <label for="ays_pb_buttons_size">
-                                                    <?php echo esc_html__('Button size',"ays-popup-box")?>
-                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('The default sizes of buttons.',"ays-popup-box")?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-7 ays_divider_left">
-                                                <select class="ays-text-input ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" id="ays_pb_buttons_size" name="ays_pb_buttons_size">
-                                                    <option value="small">
-                                                        <?php echo esc_html__('Small',"ays-popup-box")?>
-                                                    </option>
-                                                    <option value="medium">
-                                                        <?php echo esc_html__('Medium',"ays-popup-box")?>
-                                                    </option>
-                                                    <option value="large">
-                                                        <?php echo esc_html__('Large',"ays-popup-box")?>
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <hr> <!-- Button text Color -->
-                                        <div class="form-group row ays-pb-button-color-content" id="ays-pb-button-color-content-first">
-                                            <div class="col-sm-3">
-                                                <label for='ays_pb_button_text_color'>
-                                                    <?php echo esc_html__('Button text color', "ays-popup-box"); ?>
-                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Specify the text color of buttons inside the popup.',"ays-popup-box")?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-7 ays_divider_left">
-                                                <input type="text" class="ays-text-input" id='ays_pb_button_text_color' data-alpha="true" name='ays_pb_button_text_color' value="#000"/>
-                                            </div>
-                                        </div> 
-                                        <hr> <!-- Button Bg Color -->
-                                        <div class="form-group row <?php echo $modal_content == 'yes_or_no' ? 'display_none' : ''; ?> ays-pb-button-color-content">
-                                            <div class="col-sm-3">
-                                                <label for='ays_pb_button_background_color'>
-                                                    <?php echo esc_html__('Button background color', "ays-popup-box"); ?>
-                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Specify the backgound color of buttons inside the popup.',"ays-popup-box")?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-7 ays_divider_left">
-                                                <input type="text" class="ays-text-input" id='ays_pb_button_background_color' data-alpha="true" name='ays_pb_button_background_color'value="#13aff0"/>
-                                            </div>
-                                        </div> <!-- Buttons BG Color -->
-                                        <div class="form-group row">
-                                            <div class="col-sm-3">
-                                                <label for='ays_pb_buttons_font_size'>
-                                                    <?php echo esc_html__('Button font-size', "ays-popup-box"); ?> (px)
-                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('The font size of the buttons in pixels in the popup. It accepts only numeric values.',"ays-popup-box")?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-7 ays_divider_left">
-                                                <input type="number" class="ays-text-input ays-pb-text-input ays-pb-text-input-short" id='ays_pb_buttons_font_size'name='ays_pb_buttons_font_size' value="17"/>
-                                            </div>
-                                        </div> <!-- Buttons font size -->
-                                        <hr>
-                                        <div class="form-group row">
-                                            <div class="col-sm-3">
-                                                <label for='ays_pb_buttons_width'>
-                                                    <?php echo esc_html__('Button width', "ays-popup-box"); ?> (px)
-                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Set the button width in pixels. For an initial width, leave the field blank.', "ays-popup-box"); ?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-7 ays_divider_left">
-                                                <input type="number" class="ays-text-input ays-pb-text-input ays-pb-text-input-short" id='ays_pb_buttons_width'name='ays_pb_buttons_width' value="">
-                                                <span style="display:block;" class="ays-pb-small-hint-text"><?php echo esc_html__('For an initial width, leave the field blank.', "ays-popup-box"); ?></span>
-                                            </div>
-                                        </div> <!-- Buttons font size -->
-                                        <hr>
-                                        <div class="form-group row">
-                                            <div class="col-sm-3">
-                                                <label for="ays_pb_buttons_padding">
-                                                    <?php echo esc_html__('Button padding',"ays-popup-box")?> (px)
-                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Padding of buttons.',"ays-popup-box")?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-7 ays_divider_left">
-                                                <div class="col-sm-5" style="display: inline-block; padding-left: 0;">
-                                                    <span style="display:block;" class="ays-pb-small-hint-text"><?php echo esc_html__('Left / Right',"ays-popup-box")?></span>
-                                                    <input type="number" class="ays-text-input" id='ays_pb_buttons_left_right_padding' name='ays_pb_buttons_left_right_padding' value="20" style="width: 100px;" />
-                                                </div>
-                                                <div class="col-sm-5 ays_divider_left ays-buttons-top-bottom-padding-box" style="display: inline-block;">
-                                                    <span style="display:block;" class="ays-pb-small-hint-text"><?php echo esc_html__('Top / Bottom',"ays-popup-box")?></span>
-                                                    <input type="number" class="ays-text-input" id='ays_pb_buttons_top_bottom_padding' name='ays_pb_buttons_top_bottom_padding' value="10" style="width: 100px;" />
-                                                </div>
-                                            </div>
-                                        </div> <!-- Buttons padding -->
-                                        <hr>
-                                        <div class="form-group row">
-                                            <div class="col-sm-3">
-                                                <label for="ays_pb_buttons_border_radius">
-                                                    <?php echo esc_html__('Button border-radius', "ays-popup-box"); ?> (px)
-                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Popup buttons border-radius in pixels. It accepts only numeric values.',"ays-popup-box")?>">
-                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                                                    </a>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-7 ays_divider_left">
-                                                <input type="number" class="ays-text-input ays-pb-text-input ays-pb-text-input-short" id="ays_pb_buttons_border_radius" name="ays_pb_buttons_border_radius" value="3"/>
-                                            </div>
-                                        </div> <!-- Buttons border radius -->
-                                    </div>
-                                    <!-- Buttons Size End -->
-                                </div>
-                                <hr class="ays_pb_close_bttn_option <?php echo $close_button == 'on' ? 'display_none' : ''; ?>">
+                            <div class="ays-pb-accordion-body">                                
                                 <!-- close button image start  -->
                                 <div class="form-group row ays_pb_close_bttn_option <?php echo $close_button == 'on' ? 'display_none' : ''; ?>" id="ays-popup-box-close-button-image-container">
                                     <div class="col-sm-4">
@@ -7081,6 +7019,147 @@ $ays_users_roles = $wp_roles->roles;
                                     </div>
                                 </div>
                                 <!-- close button padding end  -->
+                                <hr class="ays_pb_close_bttn_option <?php echo $close_button == 'on' ? 'display_none' : ''; ?>">
+                                <div class="col-sm-12 ays-pro-features-v2-main-box">
+                                    <div class="ays-pro-features-v2-big-buttons-box-main-container">
+                                        
+                                        <div class="ays-pro-features-v2-big-buttons-box">
+                                            <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                                                <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                                                <div class="ays-pro-features-v2-upgrade-text">
+                                                    <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ays-pro-features-v2-small-buttons-box">
+                                        
+                                        <a href="https://popup-plugin.com/" target="_blank" class="ays-pro-features-v2-upgrade-button">
+                                            <div class="ays-pro-features-v2-upgrade-icon" style="background-image: url('<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg');" data-img-src="<?php echo esc_attr(AYS_PB_ADMIN_URL); ?>/images/icons/pro-features-icons/Locked_24x24.svg"></div>
+                                            <div class="ays-pro-features-v2-upgrade-text">
+                                                <?php echo esc_html__("Upgrade" , "ays-popup-box"); ?>
+                                            </div>
+                                        </a>
+                                    </div>     
+                                    <!-- Buttons Size start-->
+                                    <div class="form-group" id="ays_pb_button_size_content" style="margin:0;">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_pb_buttons_size">
+                                                    <?php echo esc_html__('Button size',"ays-popup-box")?>
+                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('The default sizes of buttons.',"ays-popup-box")?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7 ays_divider_left">
+                                                <select class="ays-text-input ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" id="ays_pb_buttons_size" name="ays_pb_buttons_size">
+                                                    <option value="small">
+                                                        <?php echo esc_html__('Small',"ays-popup-box")?>
+                                                    </option>
+                                                    <option value="medium">
+                                                        <?php echo esc_html__('Medium',"ays-popup-box")?>
+                                                    </option>
+                                                    <option value="large">
+                                                        <?php echo esc_html__('Large',"ays-popup-box")?>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr> <!-- Button text Color -->
+                                        <div class="form-group row ays-pb-button-color-content" id="ays-pb-button-color-content-first">
+                                            <div class="col-sm-3">
+                                                <label for='ays_pb_button_text_color'>
+                                                    <?php echo esc_html__('Button text color', "ays-popup-box"); ?>
+                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Specify the text color of buttons inside the popup.',"ays-popup-box")?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7 ays_divider_left">
+                                                <input type="text" class="ays-text-input" id='ays_pb_button_text_color' data-alpha="true" name='ays_pb_button_text_color' value="#000"/>
+                                            </div>
+                                        </div> 
+                                        <hr> <!-- Button Bg Color -->
+                                        <div class="form-group row <?php echo $modal_content == 'yes_or_no' ? 'display_none' : ''; ?> ays-pb-button-color-content">
+                                            <div class="col-sm-3">
+                                                <label for='ays_pb_button_background_color'>
+                                                    <?php echo esc_html__('Button background color', "ays-popup-box"); ?>
+                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Specify the backgound color of buttons inside the popup.',"ays-popup-box")?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7 ays_divider_left">
+                                                <input type="text" class="ays-text-input" id='ays_pb_button_background_color' data-alpha="true" name='ays_pb_button_background_color'value="#13aff0"/>
+                                            </div>
+                                        </div> <!-- Buttons BG Color -->
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for='ays_pb_buttons_font_size'>
+                                                    <?php echo esc_html__('Button font-size', "ays-popup-box"); ?> (px)
+                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('The font size of the buttons in pixels in the popup. It accepts only numeric values.',"ays-popup-box")?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7 ays_divider_left">
+                                                <input type="number" class="ays-text-input ays-pb-text-input ays-pb-text-input-short" id='ays_pb_buttons_font_size'name='ays_pb_buttons_font_size' value="17"/>
+                                            </div>
+                                        </div> <!-- Buttons font size -->
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for='ays_pb_buttons_width'>
+                                                    <?php echo esc_html__('Button width', "ays-popup-box"); ?> (px)
+                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Set the button width in pixels. For an initial width, leave the field blank.', "ays-popup-box"); ?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7 ays_divider_left">
+                                                <input type="number" class="ays-text-input ays-pb-text-input ays-pb-text-input-short" id='ays_pb_buttons_width'name='ays_pb_buttons_width' value="">
+                                                <span style="display:block;" class="ays-pb-small-hint-text"><?php echo esc_html__('For an initial width, leave the field blank.', "ays-popup-box"); ?></span>
+                                            </div>
+                                        </div> <!-- Buttons font size -->
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_pb_buttons_padding">
+                                                    <?php echo esc_html__('Button padding',"ays-popup-box")?> (px)
+                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Padding of buttons.',"ays-popup-box")?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7 ays_divider_left">
+                                                <div class="col-sm-5" style="display: inline-block; padding-left: 0;">
+                                                    <span style="display:block;" class="ays-pb-small-hint-text"><?php echo esc_html__('Left / Right',"ays-popup-box")?></span>
+                                                    <input type="number" class="ays-text-input" id='ays_pb_buttons_left_right_padding' name='ays_pb_buttons_left_right_padding' value="20" style="width: 100px;" />
+                                                </div>
+                                                <div class="col-sm-5 ays_divider_left ays-buttons-top-bottom-padding-box" style="display: inline-block;">
+                                                    <span style="display:block;" class="ays-pb-small-hint-text"><?php echo esc_html__('Top / Bottom',"ays-popup-box")?></span>
+                                                    <input type="number" class="ays-text-input" id='ays_pb_buttons_top_bottom_padding' name='ays_pb_buttons_top_bottom_padding' value="10" style="width: 100px;" />
+                                                </div>
+                                            </div>
+                                        </div> <!-- Buttons padding -->
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_pb_buttons_border_radius">
+                                                    <?php echo esc_html__('Button border-radius', "ays-popup-box"); ?> (px)
+                                                    <a class="ays_help ays-pb-help-pro" data-toggle="tooltip" title="<?php echo esc_html__('Popup buttons border-radius in pixels. It accepts only numeric values.',"ays-popup-box")?>">
+                                                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7 ays_divider_left">
+                                                <input type="number" class="ays-text-input ays-pb-text-input ays-pb-text-input-short" id="ays_pb_buttons_border_radius" name="ays_pb_buttons_border_radius" value="3"/>
+                                            </div>
+                                        </div> <!-- Buttons border radius -->
+                                    </div>
+                                    <!-- Buttons Size End -->
+                                </div>
                                 <hr>
                             </div>
                         </div>
@@ -8082,7 +8161,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 <p style="margin:0px; font-size:19px;"><?php echo  esc_html__('Image', "ays-popup-box") ?></p>
                                             </div>
                                             <div class="ays_pb_layer_buttons">
-                                                <!-- <a href="" class="ays-pb-view-demo-content" target="_blank"></a> -->
+                                                <a href="https://demo.popup-plugin.com/image-popup/" class="ays-pb-view-demo-content" target="_blank"><?php echo  esc_html__('View demo', "ays-popup-box") ?></a>
                                                 <div class="ays-pb-select-type">
                                                     <p><?php echo esc_html__('Select', 'ays-popup-box') ?></p>
                                                 </div>
@@ -8103,7 +8182,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 <p style="margin:0px; font-size:19px;"><?php echo  esc_html__('Facebook', "ays-popup-box") ?></p>
                                             </div>
                                             <div class="ays_pb_layer_buttons">
-                                                <!-- <a href="" class="ays-pb-view-demo-content" target="_blank"></a> -->
+                                                <a href="https://demo.popup-plugin.com/facebook-popup/" class="ays-pb-view-demo-content" target="_blank"><?php echo  esc_html__('View demo', "ays-popup-box") ?></a>
                                                 <div class="ays-pb-select-type">
                                                     <p><?php echo esc_html__('Select', 'ays-popup-box') ?></p>
                                                 </div>
@@ -8124,6 +8203,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 <p style="margin:0px; font-size:19px;"><?php echo  esc_html__('Notification', "ays-popup-box") ?></p>
                                             </div>
                                             <div class="ays_pb_layer_buttons">
+                                                <a href="https://demo.popup-plugin.com/notification-popup/" class="ays-pb-view-demo-content" target="_blank"><?php echo  esc_html__('View demo', "ays-popup-box") ?></a>
                                                 <div class="ays-pb-select-type">
                                                     <p><?php echo esc_html__('Select', 'ays-popup-box') ?></p>
                                                 </div>
@@ -8346,6 +8426,9 @@ $ays_users_roles = $wp_roles->roles;
                                                 <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) ?>/images/icons/pro-features-icons/Unlocked_24_24.svg" class="ays-pb-unlocked-img">
                                                 <p><?php echo esc_html__('Upgrade Now', 'ays-popup-box') ?></p>
                                             </a>
+                                            <div class="ays-pb-view-demo-content">
+                                                <a href="https://demo.popup-plugin.com/woocommerce-product-popup/" target="_blank"><?php echo  esc_html__('View demo', "ays-popup-box") ?></a>
+                                            </div>
                                         </div> 
                                     </div>
                                 </label> 
@@ -8442,7 +8525,7 @@ $ays_users_roles = $wp_roles->roles;
                     </label>
                 </div>
             <?php endif; ?>
-            <?php if( !$if_dismiss_cookie_exists && !$if_fox_lms_plugin_exists && !$if_fox_lms_plugin_installed_flag ): ?>
+            <?php if( !$if_dismiss_cookie_exists && !$if_fox_lms_plugin_exists && !$if_fox_lms_plugin_installed_flag && $pb_temporarily_do_not_show_fox_lms_popup ): ?>
                 <!-- Popup Box and Fox LMS integration main page 2025 | Start -->
                 <div id="ays-pb-fox-lms-all-pages-popup" class="bounceInRight_2022" style="display: none;">
                     <div id="ays-pb-fox-lms-all-pages-popup-main">
@@ -8468,12 +8551,12 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="ays-pb-fox-lms-all-pages-popup-footer">
                                 <div id="ays-pb-fox-lms-all-pages-popup-button" class="ays-pb-fox-lms-all-pages-popup-st">
                                     <div class="ays-pb-fox-lms-all-pages-popup-btn">
-                                        <a href="https://bit.ly/43MyeyB" id="ays-pages-submit-popup" class="ays-pb-fox-lms-all-pages-popup-fields ays-pb-fox-lms-all-pages-popup-fields-submit" target="_blank"><?php echo esc_html__("Download FREE version", 'pb-maker'); ?></a>
+                                        <a href="https://bit.ly/43MyeyB" id="ays-pages-submit-popup" class="ays-pb-fox-lms-all-pages-popup-fields ays-pb-fox-lms-all-pages-popup-fields-submit" target="_blank"><?php echo esc_html__("Download FREE version", 'ays-popup-box'); ?></a>
                                     </div>
                                 </div>
                             </div>
                             <div id="ays-pb-fox-lms-all-pages-popup-content">
-                                <div class="ays-pb-fox-lms-all-pages-popup-content-description"><?php echo esc_html__("Get Learning Management System and online course solution in WordPress now.", 'pb-maker'); ?></div>
+                                <div class="ays-pb-fox-lms-all-pages-popup-content-description"><?php echo esc_html__("Get Learning Management System and online course solution in WordPress now.", 'ays-popup-box'); ?></div>
                             </div>
                         </div>
                     </div>
@@ -8481,6 +8564,48 @@ $ays_users_roles = $wp_roles->roles;
                 <!-- Popup Box and Fox LMS integration main page 2025 | End -->
             <?php endif; ?>
         </form>
+
+        <div class="ays-modal" id="pro-features-popup-modal">
+            <div class="ays-modal-content">
+                <!-- Modal Header -->
+                <div class="ays-modal-header">
+                    <span class="ays-close-pro-popup">&times;</span>
+                    <!-- <h2></h2> -->
+                </div>
+
+                <!-- Modal body -->
+                <div class="ays-modal-body">
+                   <div class="row">
+                        <div class="col-sm-6 pro-features-popup-modal-left-section">
+                        </div>
+                        <div class="col-sm-6 pro-features-popup-modal-right-section">
+                           <div class="pro-features-popup-modal-right-box">
+                                <div class="pro-features-popup-modal-right-box-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" overflow="visible" preserveAspectRatio="none" viewBox="0 0 24 24" width="50" height="50"><g><path xmlns:default="http://www.w3.org/2000/svg" id="lock" d="M9.33,11.35v-2c0.01-1.47,1.2-2.66,2.67-2.66c1.47,0,2.67,1.2,2.67,2.67v2H9.33V11.35z M17.99,12.35  c0-0.55-0.45-1-1-1h-0.33v-2c0.03-1.25-0.47-2.46-1.37-3.33c-1.8-1.82-4.73-1.83-6.55-0.03C8.73,6,8.72,6.01,8.71,6.02  c-0.9,0.87-1.4,2.08-1.37,3.33v2H7c-0.55,0-1,0.45-1,1v6c0,0.55,0.45,1,1,1h10c0.55,0,1-0.45,1-1v-6l0,0H17.99z" style="fill: rgb(50 49 48);" vector-effect="non-scaling-stroke"/></g></svg>
+                                    <!-- <i class="ays_fa ays_fa_lock"></i> -->
+                                </div>
+
+                                <div class="pro-features-popup-modal-right-box-title"></div>
+
+                                <div class="pro-features-popup-modal-right-box-content"></div>
+
+                                <div class="pro-features-popup-modal-right-box-button">
+                                    <a href="#" class="pro-features-popup-modal-right-box-link" target="_blank"></a>
+                                </div>
+
+                                <div class="pro-features-popup-modal-right-box-footer-text">
+                                    <span class="ays_quiz_small_hint_text_for_message_variables"><?php echo esc_html__( "One-time payment", 'ays-popup-box' ); ?></span>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="ays-modal-footer" style="display:none">
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>

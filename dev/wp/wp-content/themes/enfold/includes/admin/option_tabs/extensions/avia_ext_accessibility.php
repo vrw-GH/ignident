@@ -91,13 +91,6 @@ $desc1  = '<ul>';
 $desc1 .=	'<li>' . __( 'Simple to use with only a few options', 'avia_framework' ) . '</li>';
 $desc1 .= '</ul>';
 
-$desc_opt_pojo  = $desc_opt;
-$desc_opt_pojo .= '<ul>';
-$desc_opt_pojo .=	'<li>' . sprintf( __( '<a href="%s" rel="noopener noreferrer" target="_blank">General Settings</a>', 'avia_framework' ), admin_url( 'admin.php?page=accessibility-settings' ) ) . '</li>';
-$desc_opt_pojo .=	'<li>' . sprintf( __( '<a href="%s" rel="noopener noreferrer" target="_blank">Frontend Toolbar Settings</a>', 'avia_framework' ), admin_url( 'admin.php?page=accessibility-toolbar' ) ) . '</li>';
-$desc_opt_pojo .=	'<li>' . sprintf( __( '<a href="%s" rel="noopener noreferrer" target="_blank">Frontend Customizer</a>', 'avia_framework' ), admin_url( 'customize.php?autofocus[section]=accessibility' ) ) . '</li>';
-$desc_opt_pojo .= '</ul>';
-
 $desc_opt_wp_a  = $desc_opt;
 $desc_opt_wp_a .= '<ul>';
 $desc_opt_wp_a .=	'<li>' . sprintf( __( '<a href="%s" rel="noopener noreferrer" target="_blank">Settings</a>', 'avia_framework' ), admin_url( 'admin.php/options-general.php?page=wp-accessibility%2Fwp-accessibility.php' ) ) . '</li>';
@@ -115,13 +108,6 @@ $avia_elements[] = array(
 			'found'			=> $desc,
 			'too_many'		=>__( 'We were able to detect multiple active accessibility plugins. It is recommended to use only one!', 'avia_framework' ),
 			'plugins'		=> array(
-						'One Click Accessibility' => array(
-												'download'		=> 'pojo-accessibility',
-												'file'			=> 'pojo-accessibility/pojo-accessibility.php',
-												'desc'			=> $desc1,
-												'target'		=> '',
-												'desc_active'	=> $desc_opt_pojo
-									),
 						'WP Accessibility'	=> array(
 												'download'		=> 'wp-accessibility',
 												'file'			=> 'wp-accessibility/wp-accessibility.php',

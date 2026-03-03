@@ -10,7 +10,7 @@
 		</p>
 
 		<p>
-			<a href="<?php echo esc_url(apply_filters('updraftplus_com_link', "https://teamupdraft.com/updraftplus/wordpress-migration-plugin/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=do-you-want-to-migrate&utm_creative_format=text"));?>" target="_blank"><?php esc_html_e('More information here.', 'updraftplus'); ?></a>
+			<a href="<?php echo esc_url($updraftplus->get_url('premium_migration'));?>" target="_blank"><?php esc_html_e('More information here.', 'updraftplus'); ?></a>
 		</p>
 	</div>
 

@@ -388,6 +388,78 @@ div#ays-pb-new-mega-bundle-dicount-month-main button.notice-dismiss:before{
     text-align: center;
 }
 
+/* Right section */
+.ays-pb-dicount-banner-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.ays-pb-dicount-banner-coupon-box {
+    border: 2px dashed rgba(255, 255, 255, 0.4);
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.ays-pb-dicount-banner-coupon-box:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+}
+
+.ays-pb-dicount-banner-coupon-text {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    font-family: monospace;
+}
+
+.ays-pb-dicount-banner-copy-icon {
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.ays-pb-dicount-banner-coupon-box:hover .ays-pb-dicount-banner-copy-icon {
+    opacity: 1;
+}
+
+.ays-pb-dicount-banner-btn-arrow {
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+.ays-pb-dicount-banner-buy-now-btn:hover .ays-pb-dicount-banner-btn-arrow {
+    transform: translateX(4px);
+}
+
+/* Notification */
+.ays-pb-dicount-banner-copy-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ays-pb-dicount-banner-copy-notification.show {
+    opacity: 1;
+}
+
 @media all and (max-width: 1024px) {
     #ays-pb-new-mega-bundle-dicount-month-main{
         display: none !important;
@@ -1696,7 +1768,7 @@ div#ays-pb-christmas-top-bundle-dicount-month-main button.notice-dismiss:before{
 
 /* New Mega Bundle 2025 Banner pb | Start */
 
-/* div#ays-pb-new-mega-bundle-2025-dicount-month-main {
+/*div#ays-pb-new-mega-bundle-2025-dicount-month-main {
     border: 0;
     background: #FFF;
     border-radius: 20px;
@@ -1704,7 +1776,7 @@ div#ays-pb-christmas-top-bundle-dicount-month-main button.notice-dismiss:before{
     position: relative;
     z-index: 1;
     min-height: 80px;
-    background-color: #6998DD;
+    background-color: #5551ff;
 }
 div#ays-pb-new-mega-bundle-2025-dicount-month-main.ays_pb_dicount_info button {
     display: flex;
@@ -1922,10 +1994,8 @@ div#ays-pb-new-mega-bundle-2025-dicount-month-main.ays_pb_dicount_info {
     min-height: 62px;
     min-width: 62px;
     border-radius: 4.273px;
-    /*border: 0.534px solid #F4F4F4;*/
-    /*background: #9896ED;
-    background: transparent;
-    border: unset;
+    border: 0.534px solid #F4F4F4;
+    background: #9896ED;
 }
 
 #ays-pb-countdown-main-container .emoji {
@@ -1942,7 +2012,7 @@ div#ays-pb-new-mega-bundle-2025-dicount-month-main.ays_pb_dicount_info {
     position: relative;
 }
 
-/*#ays-pb-new-mega-bundle-2025-dicount-month-main .ays-pb-dicount-wrap-box li span:after {
+#ays-pb-new-mega-bundle-2025-dicount-month-main .ays-pb-dicount-wrap-box li span:after {
     content: ":";
     color: #fff;
     position: absolute;
@@ -2007,6 +2077,10 @@ div#ays-pb-new-mega-bundle-2025-dicount-month-main button.notice-dismiss:hover:b
 
 
 @media all and (max-width: 768px) {
+    div#ays-pb-new-mega-bundle-2025-dicount-month-main.ays_quiz_dicount_info.notice {
+        display: none !important;
+    }
+
     div#ays-pb-new-mega-bundle-2025-dicount-month-main {
         padding-right: 0;
     }
@@ -2186,7 +2260,7 @@ div#ays-pb-new-mega-bundle-2025-dicount-month-main button.notice-dismiss:hover:b
         min-height: 50px;
         min-width: 50px;
     }
-} */
+}*/ 
 
 
 /* New Mega Bundle 2025 Banner pb | End */

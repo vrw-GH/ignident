@@ -186,11 +186,6 @@ if( ! current_theme_supports( 'avia_exclude_GFForms' ) )
 	require_once( 'config-gravityforms/config.php' );				// compatibility with gravityforms plugin
 }
 
-if( ! current_theme_supports( 'avia_exclude_pojo_accessibility' ) )
-{
-	require_once( 'config-pojo-accessibility/class-avia-pojo-accessibility.php' );	//compatibility with "One Click Accessibility" plugin
-}
-
 if( ! current_theme_supports( 'avia_exclude_wp_accessibility' ) )
 {
 	require_once( 'config-wp-accessibility/class-avia-wp-accessibility.php' );		//compatibility with "WP Accessibility" plugin

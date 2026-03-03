@@ -401,6 +401,7 @@ abstract class UpdraftPlus_BackupModule {
 		?>
 		<tr class="<?php echo esc_attr($this->get_css_classes()); ?>">
 			<th></th>
+			<?php /* translators: %s: Remote storage method */ ?>
 			<td><p><button id="updraft-<?php echo esc_attr($this->get_id());?>-test-<?php echo esc_attr($instance_id);?>" type="button" class="button-primary updraft-test-button updraft-<?php echo esc_attr($this->get_id());?>-test" data-instance_id="<?php echo esc_attr($instance_id);?>" data-method="<?php echo esc_attr($this->get_id());?>" data-method_label="<?php echo esc_attr($title);?>"><?php echo esc_html(sprintf(__('Test %s Settings', 'updraftplus'), $title));?></button></p></td>
 		</tr>
 		<?php
@@ -631,10 +632,12 @@ abstract class UpdraftPlus_BackupModule {
 
 		if ($template_instead_of_notice) {
 			$instance_id = "{{instance_id}}";
+			/* translators: %s: Description */
 			$text = sprintf(__("<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here and follow this link to complete authentication with %s.", 'updraftplus'), $description);
 		} else {
 			$instance_id = $this->get_instance_id();
-			$text = sprintf(__('Follow this link to authorize access to your %s account (you will not be able to backup to %s without it).', 'updraftplus'), $description, $description);
+			/* translators: 1: Description or remote storage name (e.g. Google Drive, OneDrive, etc.), 2: Description or remote storage name */
+			$text = sprintf(__('Follow this link to authorize access to your %1$s account (you will not be able to backup to %2$s without it).', 'updraftplus'), $description, $description);
 		}
 
 		echo esc_html($account_warning) . ' ' . wp_kses_post($this->build_authentication_link($instance_id, $text));
@@ -697,6 +700,7 @@ abstract class UpdraftPlus_BackupModule {
 		$id = $this->get_id();
 		$description = $this->get_description();
 
+		/* translators: %s: Description */
 		echo ' <a class="updraft_deauthlink" href="'.esc_url(UpdraftPlus_Options::admin_page_url().'?action=updraftmethod-'.$id.'-auth&page=updraftplus&updraftplus_'.$id.'auth=deauth&nonce='.wp_create_nonce($id.'_deauth_nonce').'&updraftplus_instance={{instance_id}}').'" data-instance_id="{{instance_id}}" data-remote_method="'.esc_attr($id).'">'.esc_html(sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $description)).'</a>';
 
 		if (!$echo_instead_of_return) {
@@ -737,9 +741,12 @@ abstract class UpdraftPlus_BackupModule {
 		$description = $this->get_description();
 
 		$template = "<div id='updraftplus_manual_authorisation_template_{$id}'>";
+		/* translators: %s: Description */
 		$template .= "<strong>".sprintf(__('%s authentication:', 'updraftplus'), $description)."</strong>";
+		/* translators: %s: Description */
 		$template .= "<p>".sprintf(__('If you are having problems authenticating with %s you can manually authorize here.', 'updraftplus'), $description)."</p>";
 		$template .= "<p>".__('To complete manual authentication, at the orange UpdraftPlus authentication screen select the "Having problems authenticating?" link, then copy and paste the code given here.', 'updraftplus')."</p>";
+		/* translators: %s: Description */
 		$template .= "<label for='updraftplus_manual_authentication_data_{$id}'>".sprintf(__('%s authentication code:', 'updraftplus'), $description)."</label> <input type='text' id='updraftplus_manual_authentication_data_{$id}' name='updraftplus_manual_authentication_data_{$id}'>";
 		$template .= "<p id='updraftplus_manual_authentication_error_{$id}'></p>";
 		$template .= "<button type='button' data-method='{$id}' class='button button-primary' id='updraftplus_manual_authorisation_submit_{$id}'>".__('Complete manual authentication', 'updraftplus')."</button>";
@@ -857,11 +864,20 @@ abstract class UpdraftPlus_BackupModule {
 		$id = $this->get_id();
 	
 		// Check if the script has already been output for this ID.
-		if (!isset($script_output[$id])) {
+		if (isset($script_output[$id])) return;
+
+		// wp_add_inline_script() is available on WP 4.5+
+		if (function_exists('wp_add_inline_script')) {
 			wp_add_inline_script('updraft-admin-common', "var js_tree_".esc_js($id)." = new updraft_js_tree('".esc_js($id)."'); js_tree_".esc_js($id).".init();", 'after');
-	
-			// Mark the script as output for this ID.
-			$script_output[$id] = true;
+		} elseif (wp_script_is('updraft-admin-common', 'done')) {
+		?>
+			<script>
+				var js_tree_<?php echo esc_js($id); ?> = new updraft_js_tree('<?php echo esc_js($id); ?>');
+				js_tree_<?php echo esc_js($id); ?>.init();
+			</script>
+		<?php
 		}
+		// Mark the script as output for this ID.
+		$script_output[$id] = true;
 	}
 }

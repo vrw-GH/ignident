@@ -78,7 +78,6 @@
                                 <?php echo esc_html__('Buy now', "ays-popup-box"); ?><span class="hide-mobile"></span>
                             </a>
                             <div style="font-size:12px;" class="features-lifetime display_none"> (<?php echo esc_html__('One-time payment', "ays-popup-box"); ?>)</div>
-                            <div style="font-size:12px;" class="features-annual"> <?php echo esc_html__('7-Day Free Trial', "ays-popup-box"); ?></div>
                         </th>
                         <th class="price-info">
                             <div class="price-now">
@@ -91,7 +90,6 @@
                                 <?php echo esc_html__('Buy now', "ays-popup-box"); ?><span class="hide-mobile"></span>
                             </a>
                             <div style="font-size:12px;" class="features-lifetime display_none"> (<?php echo esc_html__('One-time payment', "ays-popup-box"); ?>)</div>
-                            <div style="font-size:12px;" class="features-annual"> <?php echo esc_html__('7-Day Free Trial', "ays-popup-box"); ?></div>
                         </th>
                     </tr>
                 </thead>
@@ -999,14 +997,12 @@
                                 <?php echo esc_html__('Buy now', "ays-popup-box"); ?><span class="hide-mobile"></span>
                             </a>
                             <div style="font-size:12px;" class="features-lifetime display_none"> (<?php echo esc_html__('One-time payment', "ays-popup-box"); ?>)</div>
-                            <div style="font-size:12px;" class="features-annual"> <?php echo esc_html__('7-Day Free Trial', "ays-popup-box"); ?></div>
                         </td>
                         <td>
                             <a href="https://popup-plugin.com/pricing/" class="price-buy">
                                 <?php echo esc_html__('Buy now', "ays-popup-box"); ?><span class="hide-mobile"></span>
                             </a>
                             <div style="font-size:12px;" class="features-lifetime display_none"> (<?php echo esc_html__('One-time payment', "ays-popup-box"); ?>)</div>
-                            <div style="font-size:12px;" class="features-annual"> <?php echo esc_html__('7-Day Free Trial', "ays-popup-box"); ?></div>
                         </td>
                     </tr>
                 </tbody>
@@ -1015,12 +1011,12 @@
         <div class="ays-pb-guarantee-container-main">
             <div class="ays-pb-guarantee-container">
                 <div>
-                    <img style="width: 300px;" src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/features/7-day-trial.png' ?>" loading="lazy" alt="Best money-back guarantee logo">
+                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/features/money_back_logo.webp' ?>" loading="lazy" alt="Best money-back guarantee logo">
                 </div>
                 <div class="ays-pb-guarantee-text-container">
-                    <h3 ><?php echo esc_html__('7-Day Free Trial: Test Popup Box Premium Features with No Commitment', "ays-popup-box"); ?></h3>
+                    <h3 ><?php echo esc_html__('30 day money back guarantee !!!', "ays-popup-box"); ?></h3>
                     <p>
-                        <?php echo esc_html__("Explore the full potential of our Popup Box plugin with a no-commitment 7-day free trial. Test all the premium features at no cost. See how easy it is to build a Popup.", "ays-popup-box"); ?>
+                        <?php echo esc_html__("We're sure that you'll love our Popup Box plugin, but, if for some reason, you're not satisfied in the first 30 days of using our product, there is a money-back guarantee and we'll issue a refund.", "ays-popup-box"); ?>
                     </p>
                 </div>
             </div>

@@ -128,7 +128,9 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 			$max_execution_time = (int) @ini_get('max_execution_time');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
 
 			if ($max_execution_time>0 && $max_execution_time<61) {
-				$warn[] = sprintf(__('The PHP setup on this webserver allows only %s seconds for PHP to run, and does not allow this limit to be raised.', 'updraftplus'), $max_execution_time).' '.__('If you have a lot of data to import, and if the restore operation times out, then you will need to ask your web hosting company for ways to raise this limit (or attempt the restoration piece-by-piece).', 'updraftplus');
+				/* translators: %s: Maximum execution time in seconds */
+				$warn[] = sprintf(__('The PHP setup on this webserver allows only %s seconds for PHP to run, and does not allow this limit to be raised.', 'updraftplus'), $max_execution_time).' '.
+				__('If you have a lot of data to import, and if the restore operation times out, then you will need to ask your web hosting company for ways to raise this limit (or attempt the restoration piece-by-piece).', 'updraftplus');
 			}
 
 			if (isset($backups[$timestamp]['native']) && false == $backups[$timestamp]['native']) {
@@ -157,6 +159,7 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 			if (!empty($backups[$timestamp]['meta_foreign'])) {
 				$foreign_known = apply_filters('updraftplus_accept_archivename', array());
 				if (!is_array($foreign_known) || empty($foreign_known[$backups[$timestamp]['meta_foreign']])) {
+					/* translators: %s: Backup source information */
 					$err[] = sprintf(__('Backup created by unknown source (%s) - cannot be restored.', 'updraftplus'), $backups[$timestamp]['meta_foreign']);
 				} else {
 					// For some reason, on PHP 5.5 passing by reference in a single array stopped working with apply_filters_ref_array (though not with do_action_ref_array).
@@ -181,14 +184,17 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 						$expected_index++;
 					}
 					if (!file_exists($updraft_dir.'/'.$file)) {
+						/* translators: %s: File path */
 						$err[] = sprintf(__('File not found (you need to upload it): %s', 'updraftplus'), $updraft_dir.'/'.$file);
 					} elseif (filesize($updraft_dir.'/'.$file) == 0) {
+						/* translators: %s: File name */
 						$err[] = sprintf(__('File was found, but is zero-sized (you need to re-upload it): %s', 'updraftplus'), $file);
 					} else {
 						$itext = (0 == $index) ? '' : $index;
 						if (!empty($backups[$timestamp][$type.$itext.'-size']) && filesize($updraft_dir.'/'.$file) != $backups[$timestamp][$type.$itext.'-size']) {
 							if (empty($warn['doublecompressfixed'])) {
-								$warn[] = sprintf(__('File (%s) was found, but has a different size (%s) from what was expected (%s) - it may be corrupt.', 'updraftplus'), $file, filesize($updraft_dir.'/'.$file), $backups[$timestamp][$type.$itext.'-size']);
+								/* translators: 1: File name, 2: Actual file size, 3: Expected file size */
+								$warn[] = sprintf(__('File (%1$s) was found, but has a different size (%2$s) from what was expected (%3$s) - it may be corrupt.', 'updraftplus'), $file, filesize($updraft_dir.'/'.$file), $backups[$timestamp][$type.$itext.'-size']);
 							}
 						}
 						do_action_ref_array("updraftplus_checkzip_$type", array($updraft_dir.'/'.$file, &$mess, &$warn, &$err));
@@ -203,6 +209,7 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 					}
 				}
 				if ('' != $missing) {
+					/* translators: %s: List of missing archives with description */
 					$warn[] = sprintf(__("This multi-archive backup set appears to have the following archives missing: %s", 'updraftplus'), $missing.' ('.$entity_info['description'].')');
 				}
 			}
@@ -584,7 +591,9 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 				}
 			}
 		} else {
-			$node_array['error'] = sprintf(__('Failed to open directory: %s.', 'updraftplus'), $path).' '.__('This is normally caused by file permissions.', 'updraftplus');
+			/* translators: %s: Directory path */
+			$node_array['error'] = sprintf(__('Failed to open directory: %s.', 'updraftplus'), $path).' '.
+			__('This is normally caused by file permissions.', 'updraftplus');
 		}
 
 		return $node_array;
@@ -826,14 +835,15 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 	/**
 	 * Return the database information
 	 *
-	 * @return array
+	 * @param bool $raw_data_only If true, returns array of data; if false, returns HTML
+	 * @return array If $raw_data_only is true, returns array with 'tables' and 'size'. If false, returns array with 'size' and 'html'
 	 */
-	public function db_size() {
+	public function db_size($raw_data_only = false) {
 		global $wpdb;
 		
 		$db_table_res = $wpdb->get_results('SHOW TABLE STATUS', ARRAY_A);
 		$db_table_size = 0;
-		$db_table_html = '';
+		$db_size_info = array();
 
 		if ($wpdb->num_rows > 0) {
 			$key_field_name = UpdraftPlus_Manipulation_Functions::backquote('Key');
@@ -855,20 +865,45 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 					if (is_null($rows_count) || false === $rows_count) $rows_count = $wpdb->get_var("SELECT COUNT(*) FROM ".$table_name);
 				}
 
-				$db_table_html .= '<tr>';
-				$db_table_html .= sprintf('<td>%s</td>', esc_html($row['Name']));
-				$db_table_html .= sprintf('<td>%s</td>', esc_html($rows_count));
-				$db_table_html .= sprintf('<td>%s</td>', esc_html(size_format($row['Data_length'], 2)));
-				$db_table_html .= sprintf('<td>%s</td>', esc_html(size_format($row['Index_length'], 2)));
-				$db_table_html .= sprintf('<td>%s</td>', esc_html($row['Engine']));
-				$db_table_html .= '</tr>';
+				$data_length = isset($row['Data_length']) ? (int) $row['Data_length'] : 0;
+				$index_length = isset($row['Index_length']) ? (int) $row['Index_length'] : 0;
 
-				$db_table_size += $row['Data_length'] + $row['Index_length'];
+				$db_size_info[] = array(
+					'name' => $row['Name'],
+					'records' => $rows_count,
+					'data_length' => $data_length,
+					'index_length' => $index_length,
+					'type' => $row['Engine']
+				);
+
+				$db_table_size += $data_length + $index_length;
 			}
 		}
 
+		$total_size_formatted = size_format((int) $db_table_size, 2);
+
+		// Return raw data if requested
+		if ($raw_data_only) {
+			return array(
+				'tables' => $db_size_info,
+				'size' => $total_size_formatted
+			);
+		}
+
+		// Otherwise, construct HTML from the collected data
+		$db_table_html = '';
+		foreach ($db_size_info as $table_info) {
+			$db_table_html .= '<tr>';
+			$db_table_html .= sprintf('<td>%s</td>', esc_html($table_info['name']));
+			$db_table_html .= sprintf('<td>%s</td>', esc_html($table_info['records']));
+			$db_table_html .= sprintf('<td>%s</td>', esc_html($table_info['data_size']));
+			$db_table_html .= sprintf('<td>%s</td>', esc_html($table_info['index_size']));
+			$db_table_html .= sprintf('<td>%s</td>', esc_html($table_info['type']));
+			$db_table_html .= '</tr>';
+		}
+
 		return array(
-			'size' => size_format((int) $db_table_size, 2),
+			'size' => $total_size_formatted,
 			'html' => $db_table_html
 		);
 	}
@@ -904,8 +939,8 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 				sort($events);
 
 				$schedule_name = $schedules[$events[0]['schedule']];
-
-				$formatted_date = wp_date($date_format. ' ' .$time_format, $timestamp);
+				// wp_date() is available on WP 5.3+, it performs locale translation.
+				$formatted_date = function_exists('wp_date') ? wp_date($date_format. ' ' .$time_format, $timestamp) : get_date_from_gmt(gmdate('Y-m-d H:i:s', $timestamp), $date_format. ' ' .$time_format);
 
 				$difference = $timestamp - current_time('timestamp', true);
 				$difference_in_seconds = abs($difference);
@@ -915,10 +950,10 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 				$minutes = floor(($difference_in_seconds % 3600) / 60);
 
 				if ($overdue) {
-					// translators: 1: Number of hours, 2: Number of minutes
+					/* translators: 1: Number of hours, 2: Number of minutes */
 					$interval = sprintf(__('%1$d hours and %2$d minutes ago', 'updraftplus'), $hours, $minutes);
 				} else {
-					// translators: 1: Number of hours, 2: Number of minutes
+					/* translators: 1: Number of hours, 2: Number of minutes */
 					$interval = sprintf(__('%1$d hours and %2$d minutes', 'updraftplus'), $hours, $minutes);
 				}
 

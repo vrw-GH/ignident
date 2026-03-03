@@ -11,16 +11,53 @@
  * @package    Ays_Pb
  * @subpackage Ays_Pb/admin/partials
  */
+
+if (isset($_GET['error'])) {
+    if ($_GET['error'] === 'nonce') {
+        echo '<div class="notice notice-error ays-pb-notice"><p>' . __('Security check failed. Please try again.', 'ays-popup-box') . '</p></div>';
+    } elseif ($_GET['error'] === 'permissions') {
+        echo '<div class="notice notice-error ays-pb-notice"><p>' . __('You do not have sufficient permissions.', 'ays-popup-box') . '</p></div>';
+    }
+}
+
 $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
 $id = isset($_GET['popupbox']) ? absint( intval($_GET['popupbox']) ) : null;
 $popup_max_id = Ays_Pb_Data::get_max_id();
 
 if ($action == 'duplicate') {
+
+    if (!current_user_can('manage_options')) {
+        wp_redirect(add_query_arg('error', 'permissions', admin_url('admin.php?page=' . sanitize_text_field($_REQUEST['page']))));
+        exit;
+    }
+
+    $nonce = sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) ?? '';
+    if (!wp_verify_nonce( sanitize_text_field( wp_unslash( $nonce ) ), $this->plugin_name . '-duplicate-popupbox-' . $id)) {
+        wp_redirect(add_query_arg('error', 'nonce', admin_url('admin.php?page=' . sanitize_text_field($_REQUEST['page']))));
+        exit;
+    }
+
     $this->popupbox_obj->duplicate_popupbox($id);
 }
 
-if ($action == 'unpublish' || $action == 'publish') {
+if ($action == 'unpublish' || $action == 'publish') {      
+
+    if (!current_user_can('manage_options')) {
+        wp_redirect(add_query_arg('error', 'permissions', admin_url('admin.php?page=' . sanitize_text_field($_REQUEST['page']))));
+        exit;
+    }
+
+    $nonce = sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) ?? '';
+    if (!wp_verify_nonce( sanitize_text_field( wp_unslash( $nonce ) ), 'ays_pb_publish_unpublish_' . $id)) {
+        wp_redirect(add_query_arg('error', 'nonce', admin_url('admin.php?page=' . sanitize_text_field($_REQUEST['page']))));
+        exit;
+    }
+
     $this->popupbox_obj->publish_unpublish_popupbox($id, $action);
+
+    wp_redirect(add_query_arg('success', 'status_changed', admin_url('admin.php?page=' . sanitize_text_field($_REQUEST['page']))));
+    exit;
+    
 }
 
 $plus_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/plus-icon.svg'></span>";
@@ -31,6 +68,10 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
 <div class="wrap ays-pb-list-table">
     <div class="ays-pb-heading-box">
         <div class="ays-pb-wordpress-user-manual-box">
+            <a href="https://www.youtube.com/watch?v=0cZOSdiKqTI" target="_blank">
+                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/youtube-video-icon.svg' ?>">
+                <span><?php echo esc_html__("How to create Popup", "ays-popup-box"); ?></span>
+            </a>
             <a href="https://popup-plugin.com/docs" target="_blank">
                 <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
                 <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
@@ -78,8 +119,8 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
                 <h4><?php echo esc_html__( "Create Your First Popup in Under One Minute", "ays-popup-box" ); ?></h4>
             </div>
             <div class="ays-pb-create-pb-youtube-video">
-                <div class="ays-pb-youtube-placeholder" data-video-id="_VEAGGzKe_g">
-                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL .'/images/youtube/create-popup-video-screenshot.webp'); ?>" width="560" height="315">
+                <div class="ays-pb-youtube-placeholder" data-video-id="0cZOSdiKqTI">
+                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL .'/images/youtube/popup-in-60-seconds.webp'); ?>" width="560" height="315">
                 </div>
             </div>
             <div class="ays_pb_small_hint_text_video">
@@ -93,7 +134,7 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
         <div class="ays-pb-create-pb-video-box">
             <div class="ays-pb-create-pb-youtube-video">
                 <?php echo $youtube_icon_svg; ?>
-                <a href="https://www.youtube.com/watch?v=_VEAGGzKe_g" target="_blank" title="YouTube video player" ><?php echo esc_html__("How to create a popup in one minute?", "ays-popup-box"); ?></a>
+                <a href="https://www.youtube.com/watch?v=0cZOSdiKqTI" target="_blank" title="YouTube video player" ><?php echo esc_html__("How to create a popup in one minute?", "ays-popup-box"); ?></a>
             </div>
         </div>
     <?php endif ?>

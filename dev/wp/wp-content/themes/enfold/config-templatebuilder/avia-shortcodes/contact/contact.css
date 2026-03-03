@@ -574,7 +574,7 @@ div div .av-dark-form .button {
 
 /* recaptcha */
 #top .avia_ajax_form .av-recaptcha-area {
-	display: block;
+	display: inline-block;
 }
 
 #top .avia_ajax_form .av-recaptcha-submit.avia_button_inactive,

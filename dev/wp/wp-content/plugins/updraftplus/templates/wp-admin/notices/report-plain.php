@@ -2,16 +2,14 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!empty($prefix)) echo wp_kses_post($prefix).' ';
-echo wp_kses_post($title).': ';
+if (!empty($prefix)) echo wp_kses($prefix, array()).' ';
+echo wp_kses($title, array()).': ';
 
-echo wp_kses_post($text);
+echo wp_kses($text, array());
 
 if (!empty($discount_code)) echo esc_html($discount_code).' ';
 
 if (!empty($button_link) && (!empty($button_meta) || !empty($button_text))) {
-
-	echo ' ';
 
 	$link = apply_filters('updraftplus_com_link', $button_link);
 
@@ -25,7 +23,7 @@ if (!empty($button_link) && (!empty($button_meta) || !empty($button_text))) {
 		)
 	);
 
-	echo ' - '.esc_url($link);
+	echo ' - '.esc_url_raw($link);
 	echo "\r\n";
 	
 }

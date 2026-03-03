@@ -174,7 +174,7 @@ class Ays_Pb_Ays_Welcome {
     }
 
     public function ays_pb_request($cta){
-        $curl = curl_init();
+        // $curl = curl_init();
 
         $api_url = "https://poll-plugin.com/popup-box/";
 
@@ -192,4 +192,4 @@ class Ays_Pb_Ays_Welcome {
         ) );
     }
 }
-//new Ays_Pb_Ays_Welcome();
+// new Ays_Pb_Ays_Welcome();

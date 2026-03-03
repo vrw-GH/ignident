@@ -1551,31 +1551,53 @@ if( ! class_exists( 'aviaElementTemplates', false ) )
 			$js_templates = array();
 
 			//	Special case: First Subitem used as custom element template for all subitems
-			if( $this->is_editable_modal_group_element( $shortcode_class ) && 'first' == $this->subitem_custom_element_handling() )
+			if ( $this->is_editable_modal_group_element( $shortcode_class ) && 'first' == $this->subitem_custom_element_handling() ) 
 			{
 				$item_template = false;
 
-				//	try to get template
-				if( array_key_exists( 'one_element_template', $args ) && ! empty( $args['one_element_template'] ) )
+				if ( array_key_exists( 'one_element_template', $args ) && ! empty( $args['one_element_template'] ) ) 
 				{
-					$this->load_template_cache( $args['one_element_template'] );
-					$item_template = $this->get_template( $args['one_element_template'], $sc_array[0]['content'][0]['shortcode'] );
+						$this->load_template_cache( $args['one_element_template'] );
+
+						if ( isset( $sc_array[0]['content'][0]['shortcode'] ) ) 
+						{
+								$item_template = $this->get_template(
+										$args['one_element_template'],
+										$sc_array[0]['content'][0]['shortcode']
+									);
+						}
 				}
 
-				//	first subitem defines the setting for all
-				if( is_array( $sc_array[0]['content'] ) && ! empty( $sc_array[0]['content'] ) )
+				if (
+						isset( $sc_array[0]['content'] )
+						&& is_array( $sc_array[0]['content'] )
+						&& ! empty( $sc_array[0]['content'][0] )
+						&& is_array( $sc_array[0]['content'][0] )
+					) 
 				{
-					$item_attr = $sc_array[0]['content'][0]['attr'];
-					$item_attr['content'] = $sc_array[0]['content'][0]['raw_content'];
-					$item_attr['element_template'] = ( false !== $item_template ) ? $item_template['sc_array'][0]['template_id'] : '';
-				}
-				else
+						$item_attr = $sc_array[0]['content'][0]['attr'] ?? [];
+						$item_attr['content'] = $sc_array[0]['content'][0]['raw_content'] ?? '';
+						$item_attr['element_template'] = ( false !== $item_template )
+								? ( $item_template['sc_array'][0]['template_id'] ?? '' )
+								: '';
+				} 
+				else 
 				{
-					$item_attr = $shortcode_class->get_default_modal_group_args();
+						$item_attr = $shortcode_class->get_default_modal_group_args();
 				}
 
-				$outer_attr = ( false === $item_template ) ? $shortcode_class->get_default_sc_args() : $item_template['sc_array'][0]['attr'];
-				$item_content = $this->create_custom_element_shortcode( $shortcode_class, $item_attr, $outer_attr, true, true );
+				$outer_attr = ( false === $item_template )
+						? $shortcode_class->get_default_sc_args()
+						: ( $item_template['sc_array'][0]['attr'] ?? [] );
+
+				$item_content = $this->create_custom_element_shortcode(
+						$shortcode_class,
+						$item_attr,
+						$outer_attr,
+						true,
+						true
+					);
+
 				$item_tree = ShortcodeHelper::build_shortcode_tree( $item_content );
 
 				$this->cached_update_sc_array = $this->get_element_template_info_from_content( $item_content );

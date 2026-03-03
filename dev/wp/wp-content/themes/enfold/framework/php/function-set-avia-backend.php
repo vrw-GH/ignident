@@ -401,7 +401,7 @@ if( ! function_exists( 'avia_backend_calculate_similar_color' ) )
 							$char = 'f';
 							break;
 						default:
-							$char++;
+							$char = str_increment($char); #$char++;
 					}
 				}
 				else if( $shade == 'darker' )
@@ -1009,7 +1009,11 @@ if( ! function_exists( 'avia_backend_create_file' ) )
 					throw new Exception();
 				}
 
-				$filecontent = fread( $handle, $fsize );
+				/**
+				 * @link https://kriesi.at/support/topic/bug-latest-update-causes-php-8-3-fatal-error-8-2-works/
+				 * @since 7.1.3
+				 */
+				$filecontent = $fsize > 0 ? fread( $handle, $fsize ) : '';
 				fclose( $handle );
 
 				if( false === $filecontent )

@@ -37,6 +37,8 @@ burst.tracking = burst.tracking || {
   ajaxUrl: '',
 };
 
+burst.should_load_ecommerce = burst.should_load_ecommerce || false;
+
 // Cache fallback normalizations
 burst.cache = burst.cache || {
   uid: null,
@@ -143,17 +145,77 @@ const burst_generate_uid = () => {
   return Array.from({ length: 32 }, () => Math.floor(Math.random() * 16).toString(16)).join(''); // nosemgrep
 };
 
-
 const burst_fingerprint = () => {
   if (burst.cache.fingerprint !== null) return Promise.resolve(burst.cache.fingerprint);
-  const tests = [
-    'availableScreenResolution', 'canvas', 'colorDepth', 'cookies', 'cpuClass', 'deviceDpi', 'doNotTrack',
-    'indexedDb', 'language', 'localStorage', 'pixelRatio', 'platform', 'plugins', 'processorCores',
-    'screenResolution', 'sessionStorage', 'timezoneOffset', 'touchSupport', 'userAgent', 'webGl'
-  ];
-  return imprint.test(tests).then(fingerprint => {
-    burst.cache.fingerprint = fingerprint;
-    return fingerprint;
+  const tm = new ThumbmarkJS.Thumbmark({
+    exclude: [],
+
+    permissions_to_check: [
+      'geolocation',
+      'notifications',
+      'camera',
+      'microphone',
+      'gyroscope',
+      'accelerometer',
+      'magnetometer',
+      'ambient-light-sensor',
+      'background-sync',
+      'persistent-storage'
+    ]
+  });
+
+  return tm.get().then(result => {
+    let baseFingerprint = result.thumbmark;
+
+    const extraEntropy = [
+      // Screen details
+      screen.availWidth + 'x' + screen.availHeight,
+      screen.width + 'x' + screen.height,
+      screen.colorDepth,
+      window.devicePixelRatio || 1,
+
+      // System info
+      navigator.hardwareConcurrency || 0,
+      navigator.deviceMemory || 0,
+      navigator.maxTouchPoints || 0,
+      new Date().getTimezoneOffset(),
+
+      // Browser capabilities
+      navigator.cookieEnabled ? '1' : '0',
+      typeof(Storage) !== 'undefined' ? '1' : '0',
+      typeof(indexedDB) !== 'undefined' ? '1' : '0',
+      navigator.onLine ? '1' : '0',
+      navigator.languages ? navigator.languages.slice(0, 3).join(',') : navigator.language,
+
+      // Platform details
+      navigator.platform,
+      navigator.oscpu || '',
+
+      navigator.connection ? navigator.connection.effectiveType || '' : '',
+
+      'ontouchstart' in window ? '1' : '0',
+      typeof window.orientation !== 'undefined' ? '1' : '0',
+      window.screen.orientation ? window.screen.orientation.type || '' : ''
+    ].filter(item => item !== '').join('|');
+
+    const combinedData = baseFingerprint + '|' + extraEntropy;
+
+    let hash = 0;
+    for (let i = 0; i < combinedData.length; i++) {
+      const char = combinedData.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+
+    const hashHex = Math.abs(hash).toString(16).padStart(8, '0');
+    const finalFingerprint = hashHex + baseFingerprint.substring(8);
+
+    burst.cache.fingerprint = finalFingerprint;
+    return finalFingerprint;
+
+  }).catch(error => {
+    console.error(error);
+    return null;
   });
 };
 
@@ -307,7 +369,8 @@ async function burst_update_hit(update_uid = false, force = false) {
     uid: update_uid ? id[0] : (burst_use_cookies() ? id : false),
     url: location.href,
     time_on_page: time,
-    completed_goals: burst.goals.completed
+    completed_goals: burst.goals.completed,
+    should_load_ecommerce: burst.should_load_ecommerce,
   };
 
   if (time > 0 || data.uid !== false) {
@@ -320,14 +383,15 @@ async function burst_update_hit(update_uid = false, force = false) {
  *
  */
 async function burst_track_hit() {
+  const isInitialHit = burst.tracking.isInitialHit;
+  burst.tracking.isInitialHit = false;
   await pageIsRendered;
-  if (!burst.tracking.isInitialHit) {
+  if ( !isInitialHit ) {
     burst_update_hit();
     return;
   }
   if (burst_is_user_agent() || burst_is_do_not_track()) return;
 
-  burst.tracking.isInitialHit = false;
   if (Date.now() - burst.tracking.lastUpdateTimestamp < 300) return;
 
   document.dispatchEvent(new CustomEvent('burst_before_track_hit', { detail: burst }));
@@ -336,6 +400,17 @@ async function burst_track_hit() {
     burst_get_time_on_page(),
     burst_use_cookies() ? burst_uid() : burst_fingerprint()
   ]);
+
+  //wait for body document to resolve.
+  let attempts = 0;
+  const maxAttempts = 200; // 200 * 2ms = 400ms max, 2ms should be enough to get the body in almost all cases.
+  while ( !document.body && attempts++ < maxAttempts ) {
+    await new Promise(resolve => setTimeout(resolve, 2));
+  }
+
+  if ( !document.body ) {
+    console.warn('Burst: missing page_id attribute, not able to resolve body element.');
+  }
 
   const data = {
     uid: burst_use_cookies() ? id : false,
@@ -346,8 +421,9 @@ async function burst_track_hit() {
     device_resolution: `${window.screen.width * window.devicePixelRatio}x${window.screen.height * window.devicePixelRatio}`,
     time_on_page: time,
     completed_goals: burst.goals.completed,
-    page_id: document.body?.dataset?.burst_id || 0,
-    page_type: document.body?.dataset?.burst_type || '',
+    page_id: document.body?.dataset?.burst_id ?? document.body?.dataset?.b_id ?? 0,
+    page_type: document.body?.dataset?.burst_type ?? document.body?.dataset?.b_type ?? '',
+    should_load_ecommerce: burst.should_load_ecommerce,
   };
 
   document.dispatchEvent(new CustomEvent('burst_track_hit', { detail: data }));
@@ -382,11 +458,21 @@ function burst_init_events() {
   const handleExternalLinkClick = (e) => {
     const target = e.target.closest('a');
     if (!target) return;
-    
+
     // Check if this element is part of a goal
     const isGoalElement = burst.goals?.active?.some(goal => {
       if (goal.type !== 'clicks') return false;
-      return target.closest(goal.selector);
+      if (!goal.selector || goal.selector.trim() === '') {
+        console.warn(goal.selector, "does not exist");
+        return false;
+      }
+
+      try {
+        return target.closest(goal.selector);
+      } catch (error) {
+        console.warn('Invalid selector for goal:', goal.selector, error);
+        return false;
+      }
     });
 
     // Only update hit if it's not a goal element, as the goal will be tracked by the goal tracker

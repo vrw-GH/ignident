@@ -119,12 +119,16 @@ class UpdraftPlus_Tour {
 			),
 			'backup_now_btn' => array(
 				'title' => __("Creating your first backup", 'updraftplus'),
-				'text' => __("Press here to run a manual backup.", 'updraftplus').'<br>'.sprintf(_x("But to avoid server-wide threats backup regularly to remote cloud storage in %s settings %s", 'Translators: %s is a bold tag.', 'updraftplus'), '<strong><a href="#settings" class="js--go-to-settings">', '</a></strong>'),
+				'text' => __("Press here to run a manual backup.", 'updraftplus').'<br>'.
+					/* translators: 1: Opening anchor tag, 2: Closing anchor tag */
+					sprintf(_x('But to avoid server-wide threats backup regularly to remote cloud storage in %1$s settings %2$s', 'Backup warning with link', 'updraftplus'), '<strong><a href="#settings" class="js--go-to-settings">', '</a></strong>'),
 				'btn_text' => __('Go to settings', 'updraftplus')
 			),
 			'backup_now_btn_success' => array(
 				'title' => __('Creating your first backup', 'updraftplus'),
-				'text' => __('Congratulations! Your first backup is running.', 'updraftplus').'<br>'.sprintf(_x('But to avoid server-wide threats backup regularly to remote cloud storage in %s settings %s', 'Translators: %s is a bold tag.', 'updraftplus'), '<strong>', '</strong>'),
+				'text' => __('Congratulations! Your first backup is running.', 'updraftplus').'<br>'.
+					/* translators: 1: Opening strong tag, 2: Closing strong tag */
+					sprintf(_x('But to avoid server-wide threats backup regularly to remote cloud storage in %1$s settings %2$s', 'Backup recommendation', 'updraftplus'), '<strong>', '</strong>'),
 				'btn_text' => __('Go to settings', 'updraftplus')
 			),
 			'settings_timing' => array(
@@ -135,9 +139,9 @@ class UpdraftPlus_Tour {
 				'title' => __("Remote storage", 'updraftplus'),
 				'text' => __('Now select a remote storage destination to protect against server-wide threats.', 'updraftplus').' '.__('If not, your backups remain on the same server as your site.', 'updraftplus')
 					.'<div class="ud-notice">'
-					.'<h3>'.__('Try UpdraftVault!').'</h3>'
+					.'<h3>'.__('Try UpdraftVault!', 'updraftplus').'</h3>'
 					.__("UpdraftVault is our remote storage which works seamlessly with UpdraftPlus.", 'updraftplus')
-					.' <a href="'.apply_filters('updraftplus_com_link', 'https://updraftplus.com/updraftvault/').'" target="_blank">'.__('Find out more here.', 'updraftplus').'</a>'
+					.' <a href="'.apply_filters('updraftplus_com_link', 'https://teamupdraft.com/updraftplus/updraftvault/').'" target="_blank">'.__('Find out more here.', 'updraftplus').'</a>'
 					.'<p><a href="'.apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_5')).'" target="_blank" '.$checkout_embed_5gb_attribute.' class="button button-primary">'.__('Try UpdraftVault for 1 month for only $1!', 'updraftplus').'</a></p>'
 					.'</div>'
 			),
@@ -187,9 +191,9 @@ class UpdraftPlus_Tour {
 				'title' => __("Remote storage", 'updraftplus'),
 				'text' => __('Now select a remote storage destination to protect against server-wide threats.', 'updraftplus').' '.__('If not, your backups remain on the same server as your site.', 'updraftplus')
 					.'<div class="ud-notice">'
-					.'<h3>'.__('Try UpdraftVault!').'</h3>'
+					.'<h3>'.__('Try UpdraftVault!', 'updraftplus').'</h3>'
 					.__("UpdraftVault is our remote storage which works seamlessly with UpdraftPlus.", 'updraftplus')
-					.' <a href="'.apply_filters('updraftplus_com_link', 'https://updraftplus.com/updraftvault/').'" target="_blank">'.__('Find out more here.', 'updraftplus').'</a>'
+					.' <a href="'.apply_filters('updraftplus_com_link', 'https://teamupdraft.com/updraftplus/updraftvault/').'" target="_blank">'.__('Find out more here.', 'updraftplus').'</a>'
 					.'<br>'
 					.__("If you have a valid Premium license, you get 1GB of storage included.", 'updraftplus')
 					.' <a href="'.apply_filters('updraftplus_com_link', $updraftplus->get_url('shop_vault_5')).'" target="_blank" '.$checkout_embed_5gb_attribute.'>'.__('Otherwise, you can try UpdraftVault for 1 month for only $1!', 'updraftplus').'</a>'

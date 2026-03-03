@@ -109,7 +109,7 @@ class WOWP_Admin {
 		$url_assets = WOWP_Plugin::url() . 'vendors/';
 
 		$url_fontawesome = $url_assets . 'fontawesome/css/all.min.css';
-		wp_enqueue_style( $handle . '-fontawesome', $url_fontawesome, null, '7.0' );
+		wp_enqueue_style( $handle . '-fontawesome', $url_fontawesome, null, '7.1' );
 
 		$fonticonpicker_js = $url_assets . 'fonticonpicker/js/jquery.fonticonpicker.js';
 		wp_enqueue_script( $handle . '-fonticonpicker', $fonticonpicker_js, array( 'jquery' ), $version, true );

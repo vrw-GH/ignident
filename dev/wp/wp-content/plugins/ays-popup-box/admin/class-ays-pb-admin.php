@@ -94,9 +94,13 @@ class Ays_Pb_Admin {
 
         // Manual styles
         wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ays-pb-admin.css', array(), $this->version, 'all' );
-        wp_enqueue_style( $this->plugin_name. '-dashboards', plugin_dir_url( __FILE__ ) . 'css/ays-pb-admin-dashboards.css', array(), $this->version, 'all' );
+        wp_enqueue_style( $this->plugin_name. '-admin-dashboards', plugin_dir_url( __FILE__ ) . 'css/ays-pb-admin-dashboards.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name. '-banner', plugin_dir_url( __FILE__ ) . 'css/ays-pb-banner.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name . "-pro-features", plugin_dir_url( __FILE__ ) . 'css/ays-pb-pro-features.css', array(), time(), 'all' );
+        if( isset( $_GET['page'] ) && sanitize_key( $_GET['page'] ) == $this->plugin_name . '-admin-dashboard' ){        
+            wp_enqueue_style( $this->plugin_name . "-dashboard", plugin_dir_url( __FILE__ ) . 'css/ays-pb-dashboard.css', array(), $this->version, 'all' );
+        }
+
 	}
 
 	/**
@@ -135,7 +139,7 @@ class Ays_Pb_Admin {
             );
         }
 
-        $pb_banner_date = $this->ays_pb_update_banner_time();
+        $pb_banner_date = self::ays_pb_update_banner_time();
 
         $pb_ajax_data = array(
             'ajax' => admin_url('admin-ajax.php'),
@@ -197,7 +201,7 @@ class Ays_Pb_Admin {
         }
 	}
 
-    public function ays_pb_update_banner_time() {
+    public static function ays_pb_update_banner_time() {
         $date = time() + ( 3 * 24 * 60 * 60 ) + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS);
         $next_3_days = gmdate('M d, Y H:i:s', $date);
 
@@ -322,6 +326,30 @@ class Ays_Pb_Admin {
         add_action( "load-$hook_popupbox", array($this, 'screen_option_popupbox') );
         add_action( "load-$hook_popupbox", array($this, 'add_tabs') );
     }
+
+    public function add_plugin_admin_dashboard_menu(){
+
+        if ( !doing_action( 'admin_menu' ) ) {
+            return;
+        }
+
+        $menuHook = add_submenu_page(
+            $this->plugin_name,
+            __( 'Dashboard', 'ays-popup-box' ),
+            __( 'Dashboard', 'ays-popup-box' ),
+            'manage_options',
+            $this->plugin_name . '-admin-dashboard',
+            array( $this, 'display_plugin_admin_dashboard_page' ),
+            40
+        );
+
+        if ( !$menuHook ) {
+            return;
+        }
+
+        add_action( "load-$menuHook", array( $this, 'add_tabs' ) );
+    }
+
 
     public function add_plugin_categories_submenu() {
         $hook_categories = add_submenu_page(
@@ -501,6 +529,10 @@ class Ays_Pb_Admin {
         include_once 'partials/features/popup-box-pro-features-display.php';
     }
 
+    public function display_plugin_admin_dashboard_page(){
+        include_once('partials/dashboard/ays-pb-dashboard-display.php');
+    }
+
     public function screen_option_popupbox() {
 		$option = 'per_page';
 		$args = array(
@@ -663,7 +695,7 @@ class Ays_Pb_Admin {
         $settings_link = array(
             '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_name ) . '">' . esc_html__('Settings', "ays-popup-box") . '</a>',
             '<a href="https://demo.popup-plugin.com/wordpress-popup-plugin-free-demo/" target="_blank">' . esc_html__('Demo', "ays-popup-box") . '</a>',
-            '<a id="ays-pb-plugins-buy-now-button" href="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=plugins-buy-now-button" target="_blank">' . esc_html__('Upgrade 30% Sale', "ays-popup-box") . '</a>
+            '<a id="ays-pb-plugins-buy-now-button" href="https://popup-plugin.com/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=plugins-buy-now-button" target="_blank">' . esc_html__('Upgrade 20% Sale', "ays-popup-box") . '</a>
             <input type="hidden" id="popup_box_ajax_deactivate_plugin_nonce" name="popup_box_ajax_deactivate_plugin_nonce" value="' . $popup_ajax_deactivate_plugin_nonce .'">',
             
         );
@@ -854,7 +886,7 @@ class Ays_Pb_Admin {
                     <span class="ays-pb-footer-slash-row">/</span>
                     <span class="ays-pb-footer-link-row"><a href="https://ays-demo.com/popup-box-plugin-survey/" target="_blank"><?php echo esc_html__( "Suggest a Feature", "ays-popup-box"); ?></a></span>
                 </div>
-                <p style="font-size:13px;text-align:center;font-style:italic;">
+                <p class="ays-pb-footer-review-box" style="font-size:13px;text-align:center;font-style:italic;">
                     <span style="margin-left:0px;margin-right:10px;" class="ays_heart_beat"><img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/hearth.svg"?>"></span>
                     <span><?php echo esc_html__( "If you love our plugin, please do big favor and rate us on", "ays-popup-box"); ?></span> 
                     <a target="_blank" href='https://wordpress.org/support/plugin/ays-popup-box/reviews/?rate=5#new-post'>WordPress.org</a>
@@ -1950,4 +1982,183 @@ class Ays_Pb_Admin {
         }
     }
 
+    public function ays_pb_black_friady_popup_box(){
+        if(!empty($_REQUEST['page']) && sanitize_text_field( $_REQUEST['page'] ) != $this->plugin_name . "-admin-dashboard"){
+            if(false !== strpos( sanitize_text_field( $_REQUEST['page'] ), $this->plugin_name)){
+
+                $flag = true;
+
+                if( isset($_COOKIE['aysPbBlackFridayPopupCount']) && intval($_COOKIE['aysPbBlackFridayPopupCount']) >= 2 ){
+                    $flag = false;
+                }
+
+                $ays_pb_cta_button_link = esc_url('https://ays-pro.com/essential-bundle?utm_source=dashboard&utm_medium=pb-free&utm_campaign=mega-bundle-popup-black-friday-sale-' . AYS_PB_NAME_VERSION);
+
+                if( $flag ){
+                ?>
+                <div class="ays-pb-black-friday-popup-overlay" style="opacity: 0; visibility: hidden; display: none;">
+                  <div class="ays-pb-black-friday-popup-dialog">
+                    <div class="ays-pb-black-friday-popup-content">
+                      <div class="ays-pb-black-friday-popup-background-pattern">
+                        <div class="ays-pb-black-friday-popup-pattern-row">
+                          <div class="ays-pb-black-friday-popup-pattern-text">SALE SALE SALE</div>
+                          <div class="ays-pb-black-friday-popup-pattern-text">SALE SALE SALE</div>
+                        </div>
+                        <div class="ays-pb-black-friday-popup-pattern-row">
+                          <div class="ays-pb-black-friday-popup-pattern-text">SALE SALE SALE</div>
+                          <div class="ays-pb-black-friday-popup-pattern-text">SALE SALE SALE</div>
+                        </div>
+                        <div class="ays-pb-black-friday-popup-pattern-row">
+                          <div class="ays-pb-black-friday-popup-pattern-text">SALE SALE SALE</div>
+                          <div class="ays-pb-black-friday-popup-pattern-text">SALE SALE SALE</div>
+                        </div>
+                        <div class="ays-pb-black-friday-popup-pattern-row">
+                          <div class="ays-pb-black-friday-popup-pattern-text">SALE SALE SALE</div>
+                          <div class="ays-pb-black-friday-popup-pattern-text">SALE SALE SALE</div>
+                        </div>
+                      </div>
+                      
+                      <button class="ays-pb-black-friday-popup-close" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M18 6 6 18"></path>
+                          <path d="m6 6 12 12"></path>
+                        </svg>
+                      </button>
+                      
+                      <div class="ays-pb-black-friday-popup-badge">
+                        <div class="ays-pb-black-friday-popup-badge-content">
+                          <div class="ays-pb-black-friday-popup-badge-text-sm"><?php echo esc_html__( 'Up to', 'ays-popup-box' ); ?></div>
+                          <div class="ays-pb-black-friday-popup-badge-text-lg">50%</div>
+                          <div class="ays-pb-black-friday-popup-badge-text-md"><?php echo esc_html__( 'OFF', 'ays-popup-box' ); ?></div>
+                        </div>
+                      </div>
+                      
+                      <div class="ays-pb-black-friday-popup-main-content">
+                        <div class="ays-pb-black-friday-popup-hashtag"><?php echo esc_html__( '#BLACKFRIDAY', 'ays-popup-box' ); ?></div>
+                        <h1 class="ays-pb-black-friday-popup-title-mega"><?php echo esc_html__( 'ESSENTIAL', 'ays-popup-box' ); ?></h1>
+                        <h1 class="ays-pb-black-friday-popup-title-bundle"><?php echo esc_html__( 'BUNDLE', 'ays-popup-box' ); ?></h1>
+                        <div class="ays-pb-black-friday-popup-offer-label">
+                          <h2 class="ays-pb-black-friday-popup-offer-text"><?php echo esc_html__( 'BLACK FRIDAY OFFER', 'ays-popup-box' ); ?></h2>
+                        </div>
+                        <p class="ays-pb-black-friday-popup-description"><?php echo esc_html__( 'Get our exclusive plugins in one bundle', 'ays-popup-box' ); ?></p>
+                        <a href="<?php echo esc_url($ays_pb_cta_button_link); ?>" target="_blank" class="ays-pb-black-friday-popup-cta-btn"><?php echo esc_html__( 'Get Essential Bundle', 'ays-popup-box' ); ?></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <script type="text/javascript">
+                    (function() {
+                      var overlay = document.querySelector('.ays-pb-black-friday-popup-overlay');
+                      var closeBtn = document.querySelector('.ays-pb-black-friday-popup-close');
+                      var learnMoreBtn = document.querySelector('.ays-pb-black-friday-popup-learn-more');
+                      var ctaBtn = document.querySelector('.ays-pb-black-friday-popup-cta-btn');
+
+                      // Cookie helper functions
+                      function setCookie(name, value, days) {
+                        var expires = "";
+                        if (days) {
+                          var date = new Date();
+                          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                          expires = "; expires=" + date.toUTCString();
+                        }
+                        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+                      }
+
+                      function getCookie(name) {
+                        var nameEQ = name + "=";
+                        var ca = document.cookie.split(';');
+                        for (var i = 0; i < ca.length; i++) {
+                          var c = ca[i];
+                          while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                        }
+                        return null;
+                      }
+
+                      // Get current show count from cookie
+                      var showCount = parseInt(getCookie('aysPbBlackFridayPopupCount') || '0', 10);
+                      var maxShows = 2;
+
+                      // Show popup function
+                      function showPopup() {
+                        if (overlay && showCount < maxShows) {
+                          overlay.classList.add('ays-pb-black-friday-popup-active');
+                          showCount++;
+                          // Update cookie with new count (expires in 30 days)
+                          setCookie('aysPbBlackFridayPopupCount', showCount.toString(), 30);
+                        }
+                      }
+
+                      // Close popup function
+                      function closePopup(e) {
+                        if (e) {
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }
+                        if (overlay) {
+                          overlay.classList.remove('ays-pb-black-friday-popup-active');
+                        }
+                      }
+
+                      // Determine timing based on show count
+                      if (showCount === 0) {
+                        // First time - show after 30 seconds
+                        setTimeout(function() {
+                          showPopup();
+                        }, 30000);
+                      } else if (showCount === 1) {
+                        // Second time - show after 200 seconds
+                        setTimeout(function() {
+                          showPopup();
+                        }, 200000);
+                      }
+                      // If showCount >= 2, don't show popup at all
+
+                      // Close button
+                      if (closeBtn) {
+                        closeBtn.addEventListener('click', function(e) {
+                          closePopup(e);
+                        });
+                      }
+
+                      // Learn more button
+                      if (learnMoreBtn) {
+                        learnMoreBtn.addEventListener('click', function(e) {
+                          closePopup(e);
+                        });
+                      }
+
+                      // CTA button (optional - if you want it to close popup too)
+                      if (ctaBtn) {
+                        ctaBtn.addEventListener('click', function(e) {
+                          // You can add redirect logic here if needed
+                          // window.location.href = 'your-url';
+                        });
+                      }
+
+                      // Close on overlay click
+                      if (overlay) {
+                        overlay.addEventListener('click', function(e) {
+                          if (e.target === overlay) {
+                            closePopup(e);
+                          }
+                        });
+                      }
+
+                      // Close on Escape key
+                      document.addEventListener('keydown', function(e) {
+                        if (e.key === 'Escape' && overlay && overlay.classList.contains('ays-pb-black-friday-popup-active')) {
+                          closePopup();
+                        }
+                      });
+                    })();
+                </script>
+                <style>
+                    .ays-pb-black-friday-popup-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background-color:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}.ays-pb-black-friday-popup-overlay.ays-pb-black-friday-popup-active{display:flex!important;opacity:1!important;visibility:visible!important}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-dialog{position:relative;max-width:470px;width:100%;border-radius:8px;overflow:hidden;background:0 0;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);transform:scale(.95);transition:transform .2s}.ays-pb-black-friday-popup-overlay.ays-pb-black-friday-popup-active .ays-pb-black-friday-popup-dialog{transform:scale(1)}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-content{position:relative;width:470px;height:410px;background:linear-gradient(to right bottom,#c056f5,#f042f0,#7d7de8);overflow:hidden}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-background-pattern{position:absolute;top:0;left:0;right:0;bottom:0;opacity:.07;pointer-events:none;transform:rotate(-12deg) translateY(32px);overflow:hidden}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-pattern-row{display:flex;gap:16px;margin-bottom:16px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-pattern-text{color:#fff;font-weight:900;font-size:96px;white-space:nowrap;line-height:1}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-close{position:absolute;top:16px;right:16px;z-index:9999;background:0 0;border:none;color:rgba(255,255,255,.8);cursor:pointer;padding:4px;transition:color .2s;line-height:0}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-close:hover,.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-learn-more:hover{color:#fff}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge{position:absolute;top:32px;right:32px;width:96px;height:96px;background-color:#d4fc79;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);animation:3s ease-in-out infinite ays-pb-black-friday-popup-float}@keyframes ays-pb-black-friday-popup-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-content{text-align:center}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-sm{color:#1a1a1a;font-weight:900;font-size:24px;line-height:1}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-lg{color:#1a1a1a;font-weight:900;font-size:30px;line-height:1;margin-top:4px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-md{color:#1a1a1a;font-weight:900;font-size:20px;line-height:1}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-main-content{position:relative;z-index:10;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 48px;text-align:center}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-hashtag{color:rgba(255,255,255,.9);font-weight:700;font-size:14px;margin-bottom:16px;letter-spacing:.1em}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-title-mega{color:#fff;font-weight:900;font-size:40px;line-height:1;margin:0 0 12px;text-shadow:0 4px 6px rgba(0,0,0,.1)}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-title-bundle{color:#fff;font-weight:900;font-size:40px;line-height:1;margin:0 0 24px;text-shadow:0 4px 6px rgba(0,0,0,.1)}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-offer-label{background-color:#000;padding:12px 32px;margin-bottom:24px;display:inline-block}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-offer-text{color:#fff;font-weight:700;font-size:20px;letter-spacing:.05em;margin:0}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-description{color:rgba(255,255,255,.95);font-size:18px;font-weight:500;margin:0 0 32px!important}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-cta-btn{display:inline-flex;align-items:center;justify-content:center;height:48px;background-color:#fff;color:#a855f7;font-size:18px;font-weight:700;border:none;border-radius:24px;padding:0 40px;cursor:pointer;box-shadow:0 20px 25px -5px rgba(0,0,0,.1);transition:.2s;text-decoration:none}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-cta-btn:hover{background-color:rgba(255,255,255,.9);box-shadow:0 25px 50px -12px rgba(0,0,0,.25);transform:scale(1.05)}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-learn-more{background:0 0;border:none;color:rgba(255,255,255,.9);font-size:14px;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:8px;margin-top:16px;transition:color .2s}@media (max-width:768px){.ays-pb-black-friday-popup-overlay{display:none!important}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-content{width:90vw;max-width:400px;height:380px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-main-content{padding:0 32px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge{width:80px;height:80px;top:24px;right:24px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-sm{font-size:20px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-lg{font-size:26px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-md,.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-offer-text{font-size:18px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-title-bundle,.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-title-mega{font-size:48px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-description{font-size:16px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-pattern-text{font-size:72px}}@media (max-width:480px){.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-content{width:95vw;max-width:340px;height:360px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-main-content{padding:0 24px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge{width:70px;height:70px;top:20px;right:20px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-sm,.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-offer-text{font-size:16px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-lg{font-size:22px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-badge-text-md{font-size:14px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-hashtag{font-size:12px;margin-bottom:12px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-title-bundle,.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-title-mega{font-size:40px;margin-bottom:8px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-offer-label{padding:10px 24px;margin-bottom:20px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-description{font-size:15px;margin-bottom:24px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-cta-btn{font-size:16px;height:44px;padding:0 32px}.ays-pb-black-friday-popup-overlay .ays-pb-black-friday-popup-pattern-text{font-size:60px}}
+                </style>
+                <?php
+                }
+            }
+        }
+    }
 }

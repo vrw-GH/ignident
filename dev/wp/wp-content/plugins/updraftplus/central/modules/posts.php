@@ -215,6 +215,10 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 			require_once(ABSPATH.'wp-admin/includes/theme.php');
 		}
 
+		if (!function_exists('get_block_editor_server_block_settings')) {
+			require_once(ABSPATH.'wp-admin/includes/post.php');
+		}
+
 		$templates = ('post' == $type) ? get_page_templates(null, 'post') : get_page_templates();
 		if (!empty($templates)) {
 			$templates = array_flip($templates);

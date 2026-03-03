@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Plugins - Popup Box &#8211; Best WordPress Popup Plugin - Stable (latest release)\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2024-12-02 15:08+0400\n"
+"PO-Revision-Date: 2025-12-05 02:44+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 
 #: admin/partials/actions/ays-pb-admin-actions.php:2195
 #: admin/partials/actions/ays-pb-admin-actions.php:2230
@@ -2466,7 +2466,7 @@ msgstr "Командная строка"
 
 #: includes/lists/class-ays-pb-list-table.php:102
 msgid "On"
-msgstr "Вкл."
+msgstr "Вкл"
 
 #: includes/lists/class-ays-pb-list-table.php:101
 msgid "Select Status"
@@ -2938,7 +2938,7 @@ msgstr "Всплывающее окно подписки"
 #: admin/partials/features/popup-box-pro-features-display.php:634
 #: admin/partials/features/popup-box-pro-features-display.php:639
 msgid "Iframe popup"
-msgstr "всплывающее окно с Iframe"
+msgstr "Всплывающее окно с Iframe"
 
 #: admin/partials/features/popup-box-pro-features-display.php:619
 #: admin/partials/features/popup-box-pro-features-display.php:624
@@ -3024,7 +3024,7 @@ msgstr "Звук всплывающего окна"
 
 #: admin/partials/actions/ays-pb-admin-actions.php:1044
 msgid "Watch how to add a shortcode popup"
-msgstr "Посмотрите, как добавить всплывающее окно с шорткодом."
+msgstr "Посмотрите, как добавить всплывающее окно с шорткодом"
 
 #: admin/partials/features/popup-box-pro-features-display.php:264
 #: admin/partials/features/popup-box-pro-features-display.php:269
@@ -3074,7 +3074,7 @@ msgstr "После посещения x страниц"
 
 #: admin/partials/actions/ays-pb-admin-actions.php:1626
 msgid "Add your preferred CSS selector(s) if you have given “On click” or “Both” value to the “Popup trigger” option. For example #mybutton or .mybutton."
-msgstr "Добавьте предпочтительные селекторы CSS, если вы указали значение «По клику» или «Оба» для параметра «Триггер Всплывающего Окна». Например, #mybutton или .mybutton"
+msgstr "Add your preferred CSS selector(s) if you have given “On click” or “Both” value to the “Popup trigger” option. For example #mybutton or .mybutton."
 
 #: admin/partials/export-import/ays-pb-export-import.php:34
 msgid "Export popups"
@@ -3146,7 +3146,7 @@ msgstr "Форма входа"
 
 #: admin/partials/settings/popup-box-settings.php:167
 msgid "Insert popup opening and closing sound by clicking on “Select sound”."
-msgstr "Вставьте звук открытия и закрытия всплывающего окна, нажав «Выбрать звук»․"
+msgstr "Insert popup opening and closing sound by clicking on “Select sound”."
 
 #: includes/class-ays-pb-integrations.php:902
 msgid "MailerLite List"
@@ -3154,7 +3154,7 @@ msgstr "Списки MailerLite"
 
 #: admin/partials/how-to-use/ays-pb-how-to-use.php:36
 msgid "On page load:"
-msgstr "При загрузке страницы"
+msgstr "При загрузке страницы:"
 
 #: admin/partials/settings/popup-box-settings.php:166
 msgid "Opening and closing sounds"
@@ -3163,7 +3163,7 @@ msgstr "Звук открытия и закрытия"
 #: admin/partials/how-to-use/ays-pb-how-to-use.php:34
 #: admin/partials/how-to-use/ays-pb-how-to-use.php:37
 msgid "option."
-msgstr "Опция."
+msgstr "опция."
 
 #: admin/partials/actions/ays-pb-admin-actions.php:1600
 msgid "Scrolling to element (Pro)"

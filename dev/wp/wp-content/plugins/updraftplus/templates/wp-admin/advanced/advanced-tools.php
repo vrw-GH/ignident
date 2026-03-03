@@ -14,7 +14,9 @@
 		<div class="advanced_settings_content">
 			<?php
 				if (empty($options)) $options = array();
-				$updraftplus_admin->include_template('/wp-admin/advanced/site-info.php', false, array('options' => $options));
+				$site_info_pass_through = array('options' => $options);
+				if (isset($site_info_data)) $site_info_pass_through['site_info_data'] = $site_info_data;
+				$updraftplus_admin->include_template('/wp-admin/advanced/site-info.php', false, $site_info_pass_through);
 				$updraftplus_admin->include_template('/wp-admin/advanced/lock-admin.php');
 				$updraftplus_admin->include_template('/wp-admin/advanced/updraftcentral.php');
 				$updraftplus_admin->include_template('/wp-admin/advanced/search-replace.php');

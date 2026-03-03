@@ -1388,7 +1388,12 @@ class Updraft_Restorer {
 					}
 				} else {
 					
-					if ($is_dir) $updraftplus->log(sprintf("There was an error when performing the move operation by renaming or copying %s to %s: will attempt a recursive copy instead.", $working_dir."/".$file, $dest_dir.$file), 'updraftplus');
+					if (!$is_dir) {
+						$this->restore_log_permission_failure_message($dest_dir, 'Move '. $working_dir."/".$file." -> ".$dest_dir.$file, 'Destination');
+						return new WP_Error('move_failed', $this->strings['move_failed'], $working_dir.'/'.$file.' -> '.$dest_dir.$file);
+					}
+					
+					$updraftplus->log(sprintf("There was an error when performing the move operation by renaming or copying %s to %s: will attempt a recursive copy instead.", $working_dir."/".$file, $dest_dir.$file), 'updraftplus');
 					
 					if (empty($chmod)) $chmod = octdec(sprintf("%04d", $this->get_current_chmod($dest_dir, $wpfs)));
 					

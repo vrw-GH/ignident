@@ -241,7 +241,7 @@ $avia_pages['leaflet_maps'] = array(
 				'include'	=> $options_default_path . 'option_tabs/extensions/avia_ext_leaflet_maps.php'
 		);
 
-$avia_pages['pojo_accessibility'] = array(
+$avia_pages['avia_accessibility_ext'] = array(
 				'parent'	=> 'avia_ext',
 				'slug'		=> 'accessibility',
 				'icon'		=> 'new/svg/accessibility.svg',

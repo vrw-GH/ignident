@@ -80,7 +80,7 @@ class UpdraftPlus_Filesystem_Functions {
 			
 			if ($wp_filesystem->errors->get_error_code()) {
 				echo '<div class="restore-credential-errors">';
-				echo '<p class="restore-credential-errors--link"><em><a href="' . esc_url(apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/asked-ftp-details-upon-restorationmigration-updates/")) . '" target="_blank">' . esc_html__('Why am I seeing this?', 'updraftplus') . '</a></em></p>';
+				echo '<p class="restore-credential-errors--link"><em><a href="' . esc_url(apply_filters('updraftplus_com_link', "https://teamupdraft.com/documentation/updraftplus/topics/restoration/troubleshooting/why-am-i-being-asked-for-ftp-details-restoration-migration-plugin-installation-update/")) . '" target="_blank">' . esc_html__('Why am I seeing this?', 'updraftplus') . '</a></em></p>';
 				echo '<div class="restore-credential-errors--list">';
 				foreach ($wp_filesystem->errors->get_error_messages() as $message) show_message($message);
 				echo '</div>';
@@ -303,7 +303,13 @@ class UpdraftPlus_Filesystem_Functions {
 			$missing = '';
 			if (!function_exists('gzopen')) $missing .= 'gzopen';
 			if (!function_exists('gzread')) $missing .= ($missing) ? ', gzread' : 'gzread';
-			$err[] = sprintf(__("Your web server's PHP installation has these functions disabled: %s.", 'updraftplus'), $missing).' '.sprintf(__('Your hosting company must enable these functions before %s can work.', 'updraftplus'), __('restoration', 'updraftplus'));
+			/* translators: %s: List of disabled PHP functions. */
+			$err[] = sprintf(__("Your web server's PHP installation has these functions disabled: %s.", 'updraftplus'), $missing).' '.
+			sprintf(
+				/* translators: %s: The process that requires the functions. */
+				__('Your hosting company must enable these functions before %s can work.', 'updraftplus'),
+				__('restoration', 'updraftplus')
+			);
 			return false;
 		}
 		if (false === ($dbhandle = gzopen($file, 'r'))) return false;
@@ -465,7 +471,7 @@ class UpdraftPlus_Filesystem_Functions {
 		global $wp_filesystem;
 
 		if (!$wp_filesystem || !is_object($wp_filesystem)) {
-			return new WP_Error('fs_unavailable', __('Could not access filesystem.'));
+			return new WP_Error('fs_unavailable', __('Could not access filesystem.'));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 		}
 
 		// Unzip can use a lot of memory, but not this much hopefully.
@@ -557,9 +563,10 @@ class UpdraftPlus_Filesystem_Functions {
 		
 			$updraftplus->jobdata_set($jobdata_key, array('index' => $i, 'info' => $info, 'size_written' => $size_written));
 			
-			$updraftplus->log(sprintf(__('Unzip progress: %d out of %d files', 'updraftplus').' (%s, %s)', $i+1, $num_files, UpdraftPlus_Manipulation_Functions::convert_numeric_size_to_text($size_written), $info['name']), 'notice-restore');
-			$updraftplus->log(sprintf('Unzip progress: %d out of %d files (%s, %s)', $i+1, $num_files, UpdraftPlus_Manipulation_Functions::convert_numeric_size_to_text($size_written), $info['name']), 'notice');
-			
+			/* translators: 1: Current file number, 2: Total number of files */
+			$updraftplus->log(sprintf(__('Unzip progress: %1$d out of %2$d files', 'updraftplus').' (%3$s, %4$s)', $i+1, $num_files, UpdraftPlus_Manipulation_Functions::convert_numeric_size_to_text($size_written), $info['name']), 'notice-restore');
+			$updraftplus->log(sprintf('Unzip progress: %1$d out of %2$d files (%3$s, %4$s)', $i+1, $num_files, UpdraftPlus_Manipulation_Functions::convert_numeric_size_to_text($size_written), $info['name']), 'notice');
+
 			do_action('updraftplus_unzip_progress_restore_info', $file, $i, $size_written, $num_files);
 
 			$last_logged_bytes = $size_written;
@@ -718,18 +725,18 @@ class UpdraftPlus_Filesystem_Functions {
 		$zopen = $z->open($file, $flags);
 		
 		if (true !== $zopen) {
-			return new WP_Error('incompatible_archive', __('Incompatible Archive.'), array($method.'_error' => $z->last_error));
+			return new WP_Error('incompatible_archive', __('Incompatible Archive.'), array($method.'_error' => $z->last_error));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 		}
 
 		$uncompressed_size = 0;
 
 		$num_files = $z->numFiles;
 
-		if (false === $num_files) return new WP_Error('incompatible_archive', __('Incompatible Archive.'), array($method.'_error' => $z->last_error));
+		if (false === $num_files) return new WP_Error('incompatible_archive', __('Incompatible Archive.'), array($method.'_error' => $z->last_error));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 		
 		for ($i = $starting_index; $i < $num_files; $i++) {
 			if (!$info = $z->statIndex($i)) {
-				return new WP_Error('stat_failed_'.$method, __('Could not retrieve file from archive.').' ('.$z->last_error.')');
+				return new WP_Error('stat_failed_'.$method, __('Could not retrieve file from archive.').' ('.$z->last_error.')');// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 			}
 
 			// Skip the OS X-created __MACOSX directory
@@ -767,7 +774,7 @@ class UpdraftPlus_Filesystem_Functions {
 		if (self::wp_doing_cron()) {
 			$available_space = function_exists('disk_free_space') ? @disk_free_space(WP_CONTENT_DIR) : false;// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Call is speculative
 			if ($available_space && ($uncompressed_size * 2.1) > $available_space) {
-				return new WP_Error('disk_full_unzip_file', __('Could not copy files.', 'updraftplus').' '.__('You may have run out of disk space.'), compact('uncompressed_size', 'available_space'));
+				return new WP_Error('disk_full_unzip_file', __('Could not copy files.').' '.__('You may have run out of disk space.'), compact('uncompressed_size', 'available_space'));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 			}
 		}
 
@@ -794,7 +801,7 @@ class UpdraftPlus_Filesystem_Functions {
 		foreach ($needed_dirs as $_dir) {
 			// Only check to see if the Dir exists upon creation failure. Less I/O this way.
 			if (!$wp_filesystem->mkdir($_dir, FS_CHMOD_DIR) && !$wp_filesystem->is_dir($_dir)) {
-				return new WP_Error('mkdir_failed_'.$method, __('Could not create directory.'), substr($_dir, strlen($to)));
+				return new WP_Error('mkdir_failed_'.$method, __('Could not create directory.'), substr($_dir, strlen($to)));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 			}
 		}
 		unset($needed_dirs);
@@ -807,7 +814,7 @@ class UpdraftPlus_Filesystem_Functions {
 		for ($i = $starting_index; $i < $num_files; $i++) {
 
 			if (!$info = $z->statIndex($i)) {
-				return new WP_Error('stat_failed_'.$method, __('Could not retrieve file from archive.'));
+				return new WP_Error('stat_failed_'.$method, __('Could not retrieve file from archive.'));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 			}
 
 			// directory
@@ -869,11 +876,11 @@ class UpdraftPlus_Filesystem_Functions {
 			}
 			
 			if (false === $contents && ('pclzip' !== $method || 0 !== $info['size'])) {
-				return new WP_Error('extract_failed_'.$method, __('Could not extract file from archive.').' '.$z->last_error, json_encode($info));
+				return new WP_Error('extract_failed_'.$method, __('Could not extract file from archive.').' '.$z->last_error, json_encode($info));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 			}
 
 			if (!$wp_filesystem->put_contents($to . $info['name'], $contents, FS_CHMOD_FILE)) {
-				return new WP_Error('copy_failed_'.$method, __('Could not copy file.'), $info['name']);
+				return new WP_Error('copy_failed_'.$method, __('Could not copy file.'), $info['name']);// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 			}
 
 			if (!empty($info['size'])) $size_written += $info['size'];

@@ -13,15 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since   3.0
  */
 trait Helper {
-
-
-	/**
-	 * Check if this is Pro
-	 */
-	public function is_pro(): bool {
-		return defined( 'BURST_PRO' );
-	}
-
     // phpcs:disable
 	/**
 	 * Get an option from the burst settings
@@ -34,8 +25,8 @@ trait Helper {
 	/**
 	 * Get an option from the burst settings and cast it to a boolean
 	 */
-	public function get_option_bool( string $option ): bool {
-		return (bool) $this->get_option( $option );
+	public function get_option_bool( string $option, bool $default = false ): bool {
+		return (bool) $this->get_option( $option, $default );
 	}
 
 	/**
@@ -43,55 +34,6 @@ trait Helper {
 	 */
 	public function get_option_int( string $option ): int {
 		return (int) $this->get_option( $option );
-	}
-
-	/**
-	 * Get the upload dir
-	 */
-	public function upload_dir( string $path = '' ): string {
-		$uploads    = wp_upload_dir();
-		$upload_dir = trailingslashit( apply_filters( 'burst_upload_dir', $uploads['basedir'] ) ) . 'burst/' . $path;
-		if ( ! is_dir( $upload_dir ) ) {
-			wp_mkdir_p( $upload_dir );
-		}
-
-		return trailingslashit( $upload_dir );
-	}
-
-	/**
-	 * Check if open_basedir restriction is enabled
-	 */
-	public function has_open_basedir_restriction( string $path ): bool {
-		// Default error handler is required.
-        // phpcs:ignore
-		set_error_handler( null );
-		// Clean last error info.
-
-		error_clear_last();
-		// Testing...
-        // phpcs:disable
-		// @phpstan-ignore-next-line.
-		@file_exists( $path );
-        // phpcs:enable
-		// Restore previous error handler.
-		restore_error_handler();
-		// Return `true` if error has occurred.
-		$error = error_get_last();
-
-		if ( is_array( $error ) ) {
-			return str_contains( $error['message'], 'open_basedir restriction in effect' );
-		}
-		return false;
-	}
-
-	/**
-	 * Get the upload url
-	 */
-	public function upload_url( string $path = '' ): string {
-		$uploads    = wp_upload_dir();
-		$upload_url = $uploads['baseurl'];
-		$upload_url = trailingslashit( apply_filters( 'burst_upload_url', $upload_url ) );
-		return trailingslashit( $upload_url . 'burst/' . $path );
 	}
 
 	/**
@@ -284,6 +226,55 @@ trait Helper {
 		}
 
 		return (int) $page_id;
+	}
+
+	/**
+	 * Get the products page ID, with caching
+	 *
+	 * @return int The checkout page ID.
+	 */
+	public function burst_products_page_id(): int {
+		$cache_key = 'burst_products_page_id';
+		$page_id   = get_transient( $cache_key );
+
+		if ( false === $page_id ) {
+			// Default to -1, allow plugins to filter this
+			$page_id = apply_filters( 'burst_products_page_id', -1 );
+
+			// Cache for 24 hours
+			set_transient( $cache_key, $page_id, DAY_IN_SECONDS );
+		}
+
+		return (int) $page_id;
+	}
+
+	/**
+	 * Get the burst uid from cookie or session.
+	 *
+	 * @return string The burst uid.
+	 */
+	public function get_burst_uid(): string {
+		$burst_uid = isset( $_COOKIE['burst_uid'] ) ? \Burst\burst_loader()->frontend->tracking->sanitize_uid( $_COOKIE['burst_uid'] ) : false;
+		if ( ! $burst_uid ) {
+			// try fingerprint from session.
+			$burst_uid = \Burst\burst_loader()->frontend->tracking->get_fingerprint_from_session();
+		}
+
+		return $burst_uid ?: '';
+	}
+
+	/**
+	 * Calculate percentage change between two values
+	 *
+	 * @param float $previous The previous value.
+	 * @param float $current  The current value.
+	 * @return float|null The percentage change, or null if previous value is zero.
+	 */
+	public static function calculate_percentage_change( float $previous, float $current ): ?float {
+		if ( $previous === 0.0 ) {
+			return null;
+		}
+		return round( ( ( $current - $previous ) / $previous ) * 100, 2 );
 	}
     // phpcs:enable
 }
