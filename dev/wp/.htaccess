@@ -7,14 +7,14 @@ RewriteEngine On
 #RewriteBase /
 RewriteCond %{HTTP_HOST} ^(www\.)?ignident\.com$ [NC]
 RewriteRule ^ http://ignident.dev.localhost%{REQUEST_URI} [R=301,L]
-# vw CORS 
+# vw CORS
 <IfModule mod_headers.c>
 <FilesMatch "\.(ttf|woff|woff2)$">
 Header set Access-Control-Allow-Origin "*"
 </FilesMatch>
 </IfModule>
 # vw END CORS
-# vw HTTPS 
+# vw HTTPS
 #RewriteEngine On
 #RewriteCond %{HTTPS} !=on
 #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
@@ -57,7 +57,7 @@ Require all granted
 #Allow from all
 Require all granted
 </Files>
-## WP Defender - End ### 
+## WP Defender - End ###
 
 # ------------------------------------------------------------------------
 # BEGIN GzipWpFastestCache
@@ -94,7 +94,8 @@ RewriteBase /
 # Start_WPFC_Exclude_Admin_Cookie
 RewriteCond %{HTTP:Cookie} !wordpress_logged_in_[^\=]+\=Ignident|vwDev
 # End_WPFC_Exclude_Admin_Cookie
-RewriteCond %{HTTP_HOST} ^ignident.dev.localhost
+RewriteCond %{HTTP_HOST} ^ignident.com
+##vw: RewriteCond %{HTTP_HOST} ^ignident.dev.localhost
 RewriteCond %{HTTP_USER_AGENT} !(facebookexternalhit|WP_FASTEST_CACHE_CSS_VALIDATOR|Twitterbot|LinkedInBot|WhatsApp|Mediatoolkitbot)
 RewriteCond %{HTTP_USER_AGENT} !(WP\sFastest\sCache\sPreload(\siPhone\sMobile)?\s*Bot)
 RewriteCond %{REQUEST_METHOD} !POST
@@ -108,8 +109,9 @@ RewriteCond %{HTTP:Cookie} !wordpress_logged_in
 RewriteCond %{HTTP:Cookie} !comment_author_
 RewriteCond %{HTTP:Profile} !^[a-z0-9\"]+ [NC]
 RewriteCond %{HTTP_USER_AGENT} !^.*\bCrMo\b|CriOS|Android.*Chrome\/[.0-9]*\s(Mobile)?|\bDolfin\b|Opera.*Mini|Opera.*Mobi|Android.*Opera|Mobile.*OPR\/[0-9.]+|Coast\/[0-9.]+|Skyfire|Mobile\sSafari\/[.0-9]*\sEdge|IEMobile|MSIEMobile|fennec|firefox.*maemo|(Mobile|Tablet).*Firefox|Firefox.*Mobile|FxiOS|bolt|teashark|Blazer|Version.*Mobile.*Safari|Safari.*Mobile|MobileSafari|Tizen|UC.*Browser|UCWEB|baiduboxapp|baidubrowser|DiigoBrowser|Puffin|\bMercury\b|Obigo|NF-Browser|NokiaBrowser|OviBrowser|OneBrowser|TwonkyBeamBrowser|SEMC.*Browser|FlyFlow|Minimo|NetFront|Novarra-Vision|MQQBrowser|MicroMessenger|Android.*PaleMoon|Mobile.*PaleMoon|Android|blackberry|\bBB10\b|rim\stablet\sos|PalmOS|avantgo|blazer|elaine|hiptop|palm|plucker|xiino|Symbian|SymbOS|Series60|Series40|SYB-[0-9]+|\bS60\b|Windows\sCE.*(PPC|Smartphone|Mobile|[0-9]{3}x[0-9]{3})|Window\sMobile|Windows\sPhone\s[0-9.]+|WCE;|Windows\sPhone\s10.0|Windows\sPhone\s8.1|Windows\sPhone\s8.0|Windows\sPhone\sOS|XBLWP7|ZuneWP7|Windows\sNT\s6\.[23]\;\sARM\;|\biPhone.*Mobile|\biPod|\biPad|Apple-iPhone7C2|MeeGo|Maemo|J2ME\/|\bMIDP\b|\bCLDC\b|webOS|hpwOS|\bBada\b|BREW.*$ [NC]
-RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/all/$1/index.html -f [or]
-RewriteCond X:\TLCDev\WordPress\ignident\dev\wp\wp-content/cache/all/$1/index.html -f
+RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/all/$1/index.html -f
+##vw: RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/all/$1/index.html -f [or]
+##vw: RewriteCond X:\TLCDev\WordPress\ignident\dev\wp\wp-content/cache/all/$1/index.html -f
 RewriteRule ^(.*) "/wp-content/cache/all/$1/index.html" [L]
 </IfModule>
 <FilesMatch "index\.(html|htm)$">
@@ -214,4 +216,3 @@ Header unset X-Pingback
 Header unset SERVER
 </IfModule>
 # vw END WP-SICHERHEIT
-
