@@ -91,13 +91,13 @@
 
 # BEG VW 🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽
    $result = (
-      (@include_once '.dev.config')           // cwd
-      || (@include_once __DIR__.'/.dev.config')	// force cwd?
-      || (@include_once '../.dev.config')		   // up one
-      || (@include_once '../../.dev.config')		// up two (ie: from /wp_admin)
-      || (@include_once '/.dev.config') 		   // root
+      (@include_once '.config.dev')             // cwd
+      || (@include_once __DIR__.'/.config.dev')	// force cwd?
+      || (@include_once '../.config.dev')		   // up one
+      || (@include_once '../../.config.dev')		// up two (ie: from /wp_admin)
+      || (@include_once '/.config.dev') 		   // wwwroot
    );
-   // or LIVE/PROD (must have):-
+   //* or LIVE/PROD (must have):-
    if (!$result && !(@include_once '.config'))
       die('🛑E_001: No CONFIGs found.');
 # END VW 🔼🔼🔼🔼🔼🔼🔼🔼🔼🔼🔼🔼
