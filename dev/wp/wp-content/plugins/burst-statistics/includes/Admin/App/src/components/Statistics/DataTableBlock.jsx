@@ -33,7 +33,7 @@ import {useBlockConfig} from '@/hooks/useBlockConfig';
  * @return {JSX.Element} The DataTableBlock component.
  */
 const DataTableBlock = ( /** @type {BlockComponentProps} */ props ) => {
-	const { allowedConfigs=[], id, isEcommerce, startDate, endDate, range, filters, allowBlockFilters, isReport, index } = useBlockConfig( props );
+	const { allowedConfigs = [], id, isEcommerce, startDate, endDate, range, filters, allowBlockFilters, isReport, index } = useBlockConfig( props );
 	const defaultConfig = allowedConfigs[0];
 	const { getValue } = useSettingsData();
 	const filterByDomain = getValue( 'filtering_by_domain' );
@@ -910,8 +910,7 @@ const DataTableBlock = ( /** @type {BlockComponentProps} */ props ) => {
 		return null;
 	}
 
-	const siteUrl = window.burst_admin?.site_url || window.location.origin;
-
+	const siteUrl = window.burst_settings?.site_url || window.location.origin;
 	const safeDomain = new URL( siteUrl ).hostname
 		.replace( /\./g, '-' )
 		.replace( /[^a-zA-Z0-9-]/g, '' );
