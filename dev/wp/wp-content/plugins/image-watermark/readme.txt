@@ -5,7 +5,7 @@ Tags: image, images, watermark, watermarking, protection
 Requires at least: 6.0
 Requires PHP: 7.0
 Tested up to: 6.9.1
-Stable tag: 2.0.8
+Stable tag: 2.0.9
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -96,6 +96,11 @@ No questions yet.
 3. screenshot-3.png
 
 == Changelog ==
+
+= 2.0.9 =
+* Fix: Gutenberg auto-watermarking for admin media uploads
+* Fix: Admin media frame state guard on post editor screens
+* Tweak: Add WordPress PHPUnit coverage and unified test command
 
 = 2.0.8 =
 * New: Optional preservation of file timestamps for backup and restore
@@ -308,5 +313,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 2.0.8 =
-Adds optional preservation of file timestamps during backup and restore operations.
+= 2.0.9 =
+Fixes Gutenberg auto-watermarking and admin media frame compatibility issues.
