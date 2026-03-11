@@ -248,6 +248,12 @@ class Image_Watermark_Actions_Controller {
 				$location = esc_url( add_query_arg( $args, $location ), null, '' );
 			}
 
+			$should_exit = apply_filters( 'iw_bulk_action_should_exit', true, $location, $action, $post_ids );
+
+			if ( ! $should_exit ) {
+				return $location;
+			}
+
 			wp_redirect( $location );
 			exit;
 		}

@@ -59,28 +59,14 @@ class Image_Watermark_Upload_Handler {
 	 */
 	public function handle_upload_files( $file ) {
 		if ( ! $this->plugin->get_extension() ) {
-			return $file;
+			$this->plugin->check_extensions();
+
+			if ( ! $this->plugin->get_extension() ) {
+				return $file;
+			}
 		}
 
-		$script_filename = isset( $_SERVER['SCRIPT_FILENAME'] ) ? $_SERVER['SCRIPT_FILENAME'] : '';
-
-		if ( wp_doing_ajax() ) {
-			$ref = '';
-
-			if ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
-				$ref = wp_unslash( $_REQUEST['_wp_http_referer'] );
-			} elseif ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
-				$ref = wp_unslash( $_SERVER['HTTP_REFERER'] );
-			}
-
-			if ( ( strpos( $ref, admin_url() ) === false ) && ( basename( $script_filename ) === 'admin-ajax.php' ) ) {
-				$this->is_admin = false;
-			} else {
-				$this->is_admin = true;
-			}
-		} else {
-			$this->is_admin = is_admin();
-		}
+		$this->is_admin = $this->is_admin_upload_request();
 
 		$upload_context = isset( $_REQUEST['iw_watermark_upload'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['iw_watermark_upload'] ) ) : '';
 
@@ -138,6 +124,68 @@ class Image_Watermark_Upload_Handler {
 		}
 
 		return $file;
+	}
+
+	/**
+	 * Determine whether the current upload should follow admin automatic watermark rules.
+	 *
+	 * @return bool
+	 */
+	private function is_admin_upload_request() {
+		$script_filename = isset( $_SERVER['SCRIPT_FILENAME'] ) ? (string) $_SERVER['SCRIPT_FILENAME'] : '';
+		$ref = $this->get_request_referer();
+
+		if ( $this->is_rest_admin_media_upload( $ref ) ) {
+			return true;
+		}
+
+		if ( wp_doing_ajax() ) {
+			if ( ( strpos( $ref, admin_url() ) === false ) && ( basename( $script_filename ) === 'admin-ajax.php' ) ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		return is_admin();
+	}
+
+	/**
+	 * Get the current request referer.
+	 *
+	 * @return string
+	 */
+	private function get_request_referer() {
+		if ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
+			return (string) wp_unslash( $_REQUEST['_wp_http_referer'] );
+		}
+
+		if ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
+			return (string) wp_unslash( $_SERVER['HTTP_REFERER'] );
+		}
+
+		return '';
+	}
+
+	/**
+	 * Detect REST media uploads that originate from wp-admin screens such as Gutenberg.
+	 *
+	 * @param string $ref Request referer.
+	 * @return bool
+	 */
+	private function is_rest_admin_media_upload( $ref ) {
+		if ( ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			return false;
+		}
+
+		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$rest_media_route = '/' . rest_get_url_prefix() . '/wp/v2/media';
+
+		if ( strpos( $request_uri, $rest_media_route ) === false ) {
+			return false;
+		}
+
+		return ( $ref !== '' && strpos( $ref, admin_url() ) !== false );
 	}
 
 	/**

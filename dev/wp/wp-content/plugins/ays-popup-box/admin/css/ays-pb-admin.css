@@ -4474,6 +4474,10 @@ p.import-help {
     display: inline-block;
 }
 
+.ays-pb-tab-content legend h5 {
+    margin-left: 10px;
+}
+
 #ays-pb-settings-form .vmessage input[type="text"] {
     width: 350px;
 }
