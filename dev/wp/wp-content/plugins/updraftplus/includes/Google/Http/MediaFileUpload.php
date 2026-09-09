@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+if (!defined('ABSPATH')) die('No direct access allowed');
+
 if (!class_exists('UDP_Google_Client')) {
   require_once dirname(__FILE__) . '/../autoload.php';
 }
@@ -217,7 +219,7 @@ class Google_Http_MediaFileUpload
       $postBody = $this->data;
     } else if (self::UPLOAD_MULTIPART_TYPE == $uploadType) {
       // This is a multipart/related upload.
-      $boundary = $this->boundary ? $this->boundary : mt_rand();
+      $boundary = $this->boundary ? $this->boundary : wp_rand();
       $boundary = str_replace('"', '', $boundary);
       $contentType = 'multipart/related; boundary=' . $boundary;
       $related = "--$boundary\r\n";

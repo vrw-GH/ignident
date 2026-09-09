@@ -7,7 +7,7 @@ function ls_doing_it_wrong( $function, $message, $version ) {
 
 	do_action( 'doing_it_wrong_run', $function, $message, $version );
 
-    if( WP_DEBUG && apply_filters( 'doing_it_wrong_trigger_error', true ) ) {
+	if( WP_DEBUG && apply_filters( 'doing_it_wrong_trigger_error', true ) ) {
 		trigger_error(
 			sprintf(
 				'%1$s was called <strong>incorrectly</strong>. %2$s',
@@ -15,7 +15,21 @@ function ls_doing_it_wrong( $function, $message, $version ) {
 				$message
 			)
 		);
-    }
+	}
+}
+
+function ls_string_to_bytes( $val ) {
+	$val 	= trim( $val );
+	$last 	= strtolower( substr( $val, -1 ) );
+	$num 	= (int) $val;
+
+	switch( $last ) {
+		case 'g': $num *= 1024; // intended fall-through
+		case 'm': $num *= 1024; // intended fall-through
+		case 'k': $num *= 1024;
+	}
+
+	return $num;
 }
 
 function ls_wp_timezone() {
@@ -32,20 +46,20 @@ function ls_wp_timezone() {
 function ls_wp_timezone_string() {
 	$timezone_string = get_option( 'timezone_string' );
 
-    if ( $timezone_string ) {
-        return $timezone_string;
-    }
+	if ( $timezone_string ) {
+		return $timezone_string;
+	}
 
-    $offset  = (float) get_option( 'gmt_offset' );
-    $hours   = (int) $offset;
-    $minutes = ( $offset - $hours );
+	$offset  = (float) get_option( 'gmt_offset' );
+	$hours   = (int) $offset;
+	$minutes = ( $offset - $hours );
 
-    $sign      = ( $offset < 0 ) ? '-' : '+';
-    $abs_hour  = abs( $hours );
-    $abs_mins  = abs( $minutes * 60 );
-    $tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
+	$sign      = ( $offset < 0 ) ? '-' : '+';
+	$abs_hour  = abs( $hours );
+	$abs_mins  = abs( $minutes * 60 );
+	$tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
 
-    return $tz_offset;
+	return $tz_offset;
 }
 
 function ls_date($format, $timestamp = null, $timezone = null ) {
@@ -367,7 +381,7 @@ function ls_normalize_slider_data( $slider ) {
 		];
 	}
 
-	foreach( $slider['layers'] as $slideKey => $slideVal) {
+	foreach( $slider['layers'] as $slideKey => $slideVal ) {
 
 		// Make sure to each slide has a 'properties' object
 		if( ! isset( $slideVal['properties'] ) ) {
@@ -407,6 +421,13 @@ function ls_normalize_slider_data( $slider ) {
 			$slideVal['properties']['thumbnailThumb'] = apply_filters('ls_get_thumbnail', $slideVal['properties']['thumbnailId'], $slideVal['properties']['thumbnail']);
 		}
 
+		// v8.3.0: Convert Origami to new sFX transitions
+		if( ! empty( $slideVal['properties']['transitionorigami'] ) ) {
+			unset( $slideVal['properties']['transitionorigami'] );
+			$slideVal['properties']['sfxTransitions'] = [
+				'origami' => [ [ 'key' => 'darkFold' ] ]
+			];
+		}
 
 		// v6.3.0: Improve compatibility with *really* old sliders
 		if( ! empty( $slideVal['sublayers'] ) && is_array( $slideVal['sublayers'] ) ) {
@@ -587,6 +608,10 @@ function ls_normalize_slider_data( $slider ) {
 			}
 		} else {
 			$slider['layers'][$slideKey]['sublayers'] = [];
+		}
+
+		if( ! isset( $slideVal['meta'] ) ) {
+			$slideVal['meta'] = [];
 		}
 
 		$slider['layers'][$slideKey]['meta'] = (object) $slideVal['meta'];

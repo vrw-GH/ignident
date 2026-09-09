@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react';
 import { __ } from '@wordpress/i18n';
-import { toast } from 'react-toastify';
+import { toast } from '@/utils/toast';
 import FieldWrapper from '@/components/Fields/FieldWrapper';
 import ButtonInput from '@/components/Inputs/ButtonInput';
 import Icon from '@/utils/Icon';
@@ -14,7 +14,7 @@ const EXCLUDED_FIELDS = [
 	'burst_tour_shown_once',
 	'license',
 	'review_notice_shown',
-	'burst_update_to_city_geo_database_time',
+	'update_to_city_geo_database_time',
 	'filtering_by_domain',
 	'goals',
 	'import_settings',
@@ -36,6 +36,8 @@ const EXCLUDED_FIELDS = [
  * @return {JSX.Element}
  */
 const ExportSettingsField = forwardRef(
+
+	// fallow-ignore-next-line complexity
 	({ field, fieldState, label, help, context, className, setting, ...props }, ref ) => {
 		const { settings } = useSettingsData();
 		const [ isExporting, setIsExporting ] = useState( false );

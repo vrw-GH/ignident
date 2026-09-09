@@ -1,6 +1,8 @@
 <?php
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- Direct $wpdb query is required for this operation.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- some query operations need to always receive the most up-to-date or actual data directly from the database, reducing the risk of serving stale information.
+// phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged -- some functions, like set_time_limit() and ini_set(), are used to temporarily change PHP configuration values based on the script's needs (e.g., processing large datasets or performing long operations).
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 
 // Search/replace code adapted in according with the licence from https://github.com/interconnectit/Search-Replace-DB
@@ -247,14 +249,15 @@ class UpdraftPlus_Migrator_Lite {
 			'show_heading' => true,
 		));
 
-		$keyword_to_search = UpdraftPlus_Manipulation_Functions::fetch_superglobal('post', 'search', false, null, null, '');
-		$keyword_replacement_text = UpdraftPlus_Manipulation_Functions::fetch_superglobal('post', 'replace', false, null, null, '');
+		$keyword_to_search = UpdraftPlus_Manipulation_Functions::fetch_superglobal('post', 'search', '');
+		$keyword_replacement_text = UpdraftPlus_Manipulation_Functions::fetch_superglobal('post', 'replace', '');
 	
 		if (!empty($options['show_heading'])) echo '<h2>'.esc_html__('Search / replace database', 'updraftplus').'</h2>';
 		echo '<strong>'.esc_html__('Search for', 'updraftplus').':</strong> '.esc_html(stripslashes($keyword_to_search))."<br>";
 		echo '<strong>'.esc_html__('Replace with', 'updraftplus').':</strong> '.esc_html(stripslashes($keyword_replacement_text))."<br>";
-		$this->page_size = (empty($_POST['pagesize']) || !is_numeric($_POST['pagesize'])) ? 5000 : (int) $_POST['pagesize'];
-		$post_which_tables = UpdraftPlus_Manipulation_Functions::fetch_superglobal('post', 'whichtables', false, null, null, '');
+		$pagesize = UpdraftPlus_Manipulation_Functions::fetch_superglobal('post', 'pagesize');
+		$this->page_size = (empty($pagesize) || !is_numeric($pagesize)) ? 5000 : (int) $pagesize;
+		$post_which_tables = UpdraftPlus_Manipulation_Functions::fetch_superglobal('post', 'whichtables', '');
 		$this->which_tables = empty($post_which_tables) ? '' : explode(',', (stripslashes($post_which_tables)));
 		if (empty($keyword_to_search)) {
 			echo sprintf(
@@ -505,7 +508,8 @@ class UpdraftPlus_Migrator_Lite {
 		if (true == $this->use_wpdb) $updraftplus->log_e('Database access: Direct MySQL access is not available, so we are falling back to wpdb (this will be considerably slower)');
 
 		if (is_multisite()) {
-			$sites = $wpdb->get_results('SELECT id, domain, path FROM '.UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.'site'), ARRAY_N);
+			$escaped_table_name = UpdraftPlus_Database_Utility::escape_table_name($this->base_prefix.'site');
+			$sites = $wpdb->get_results('SELECT id, domain, path FROM '.$escaped_table_name, ARRAY_N); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(); $wpdb->prepare() not recommended for SQL identifiers.
 			if (is_array($sites)) {
 				$nsites = array();
 				foreach ($sites as $site) $nsites[$site[0]] = array($site[1], $site[2]);
@@ -527,11 +531,12 @@ class UpdraftPlus_Migrator_Lite {
 	public function updraftplus_restored_db_table($table, $import_table_prefix, $engine = '') {
 
 		global $updraftplus, $wpdb, $updraftplus_restorer;
+		$escaped_table_name = UpdraftPlus_Database_Utility::escape_table_name($table);
 
 		if (!empty($this->new_blogid) && !empty($this->restore_options['updraft_restore_content_to_user'])) {
 			if ($table == $import_table_prefix.'posts') {
 				$updraftplus->log("Setting all content (posts/post_author) to be owned by ID: ".$this->restore_options['updraft_restore_content_to_user']);
-				$posts_updated = $wpdb->query("UPDATE ".UpdraftPlus_Manipulation_Functions::backquote($table)." SET post_author=".(int) $this->restore_options['updraft_restore_content_to_user']);
+				$posts_updated = $wpdb->query($wpdb->prepare("UPDATE ".$escaped_table_name." SET post_author = %d", (int) $this->restore_options['updraft_restore_content_to_user'])); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 				if (is_numeric($posts_updated)) {
 					$updraftplus->log("Number of rows updated: ".$posts_updated);
 				} else {
@@ -539,7 +544,7 @@ class UpdraftPlus_Migrator_Lite {
 				}
 			} elseif ($table == $import_table_prefix.'postmeta') {
 				// Set WooCommerce orders to belong to guest
-				$keys_deleted = $wpdb->query("DELETE FROM ".UpdraftPlus_Manipulation_Functions::backquote($table)." WHERE meta_key='_customer_user'");
+				$keys_deleted = $wpdb->query($wpdb->prepare("DELETE FROM ".$escaped_table_name." WHERE meta_key = %s", '_customer_user')); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 				if (is_numeric($keys_deleted)) {
 					$updraftplus->log("Number of WooCommerce orders re-assigned to Guest: ".$keys_deleted);
 				}
@@ -621,7 +626,7 @@ class UpdraftPlus_Migrator_Lite {
 		// If we just replaced either the blogs or site table, then populate our records of what is *now* (i.e. post-restore) in them
 		if (!empty($try_site_blog_replace)) {
 			if ($table == $this->base_prefix.'blogs') {
-				$blogs = $wpdb->get_results('SELECT blog_id, domain, path, site_id FROM '.UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.'blogs'), ARRAY_N);
+				$blogs = $wpdb->get_results("SELECT blog_id, domain, path, site_id FROM ".$escaped_table_name, ARRAY_N); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), $wpdb->prepare() not recommended for SQL identifiers.
 				if (is_array($blogs)) {
 					$nblogs = array();
 					foreach ($blogs as $blog) {
@@ -630,7 +635,7 @@ class UpdraftPlus_Migrator_Lite {
 					$this->restored_blogs = $nblogs;
 				}
 			} elseif ($table == $this->base_prefix.'site') {
-				$sites = $wpdb->get_results('SELECT id, domain, path FROM '.UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.'site').' ORDER BY id ASC', ARRAY_N);
+				$sites = $wpdb->get_results("SELECT id, domain, path FROM ".$escaped_table_name." ORDER BY id ASC", ARRAY_N); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), $wpdb->prepare() not recommended for SQL identifiers.
 				if (is_array($sites)) {
 					$nsites = array();
 					foreach ($sites as $site) {
@@ -662,10 +667,12 @@ class UpdraftPlus_Migrator_Lite {
 				if ($any_site_changes) {
 					$updraftplus->log_e('Adjusting multisite paths');
 					foreach ($this->restored_sites as $site_id => $osite) {
-						$wpdb->query($wpdb->prepare("UPDATE ".UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.'site')." SET path=%s WHERE id=%d", array($osite[1], (int) $site_id)));
+						$escaped_table_name = UpdraftPlus_Database_Utility::escape_table_name($this->base_prefix.'site');
+						$wpdb->query($wpdb->prepare("UPDATE ".$escaped_table_name." SET path=%s WHERE id=%d", array($osite[1], (int) $site_id))); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 					}
 					foreach ($this->restored_blogs as $blog_id => $blog) {
-						$wpdb->query($wpdb->prepare("UPDATE ".UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.'blogs')." SET path=%s WHERE blog_id=%d", array($blog['path'], (int) $blog_id)));
+						$escaped_table_name = UpdraftPlus_Database_Utility::escape_table_name($this->base_prefix.'blogs');
+						$wpdb->query($wpdb->prepare("UPDATE ".$escaped_table_name." SET path=%s WHERE blog_id=%d", array($blog['path'], (int) $blog_id))); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 					}
 				}
 			}
@@ -871,10 +878,11 @@ class UpdraftPlus_Migrator_Lite {
 
 		// Until 1.12.25, we just used the main options table, which resulted in wrong results when importing a single site into a multisite
 		$options_table = empty($this->new_blogid) ? 'options' : $this->new_blogid.'_options';
+		$escaped_table_name = UpdraftPlus_Database_Utility::escape_table_name($this->base_prefix.$options_table);
 		
-		$db_siteurl_thissite = $wpdb->get_row("SELECT option_value FROM ".UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.$options_table)." WHERE option_name='siteurl'")->option_value;
+		$db_siteurl_thissite = $wpdb->get_row("SELECT option_value FROM ".$escaped_table_name." WHERE option_name='siteurl'")->option_value; // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 		
-		$db_home_thissite = $wpdb->get_row("SELECT option_value FROM ".UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.$options_table)." WHERE option_name='home'")->option_value;
+		$db_home_thissite = $wpdb->get_row("SELECT option_value FROM ".$escaped_table_name." WHERE option_name='home'")->option_value; // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 
 		if (!$replace_this_siteurl) {
 			$replace_this_siteurl = $db_siteurl_thissite;
@@ -955,7 +963,7 @@ class UpdraftPlus_Migrator_Lite {
 			$updraftplus->log_e(sprintf(__('Warning: the database\'s site URL (%1$s) is different to what we expected (%2$s)', 'updraftplus'), $db_siteurl_thissite, $info['expected_oldsiteurl']));
 			// Here, we change only the site URL entry; we don't run a full search/replace based on it. In theory, if someone developed using two different URLs, then this might be needed.
 			if (!empty($this->base_prefix) && !empty($this->siteurl)) {
-				$wpdb->query($wpdb->prepare("UPDATE ".UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.$options_table)." SET option_value=%s WHERE option_name='siteurl'", array($this->siteurl)));
+				$wpdb->query($wpdb->prepare("UPDATE ".$escaped_table_name." SET option_value=%s WHERE option_name='siteurl'", array($this->siteurl))); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 			}
 		}
 		
@@ -963,7 +971,7 @@ class UpdraftPlus_Migrator_Lite {
 			/* translators: 1: Actual database home URL, 2: Expected home URL */
 			$updraftplus->log_e(sprintf(__('Warning: the database\'s home URL (%1$s) is different to what we expected (%2$s)', 'updraftplus'), $db_home_thissite, $info['expected_oldhome']));
 			if (!empty($this->base_prefix) && !empty($this->home)) {
-				$wpdb->query($wpdb->prepare("UPDATE ".UpdraftPlus_Manipulation_Functions::backquote($this->base_prefix.$options_table)." SET option_value=%s WHERE option_name='home'", array($this->home)));
+				$wpdb->query($wpdb->prepare("UPDATE ".$escaped_table_name." SET option_value=%s WHERE option_name='home'", array($this->home))); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 			}
 		}
 
@@ -993,14 +1001,14 @@ class UpdraftPlus_Migrator_Lite {
 
 		$is_multisite = is_multisite();
 		if ($examine_siteurls && $is_multisite && empty($this->new_blogid)) {
-		
-			$sites = $wpdb->get_results('SELECT id, domain, path FROM '.UpdraftPlus_Manipulation_Functions::backquote($import_table_prefix.'site').' ORDER BY id ASC', ARRAY_N);
+			$escaped_table_name_sites = UpdraftPlus_Database_Utility::escape_table_name($import_table_prefix.'site');
+			$sites = $wpdb->get_results("SELECT id, domain, path FROM ".$escaped_table_name_sites." ORDER BY id ASC", ARRAY_N); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 			$nsites = array();
 			foreach ($sites as $site) {
 				$nsites[$site[0]] = array('dom' => $site[1], 'path' => $site[2]);
 			}
-		
-			$blogs = $wpdb->get_results('SELECT blog_id, domain, path, site_id FROM '.UpdraftPlus_Manipulation_Functions::backquote($import_table_prefix.'blogs').' ORDER BY blog_id ASC', ARRAY_N);
+			$escaped_table_name_blogs = UpdraftPlus_Database_Utility::escape_table_name($import_table_prefix.'blogs');
+			$blogs = $wpdb->get_results("SELECT blog_id, domain, path, site_id FROM ".$escaped_table_name_blogs." ORDER BY blog_id ASC", ARRAY_N); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 			$nblogs = array();
 			foreach ($blogs as $blog) {
 				$nblogs[$blog[0]] = array('dom' => $blog[1], 'path' => $blog[2], 'site_id' => $blog[3]);
@@ -1044,7 +1052,8 @@ class UpdraftPlus_Migrator_Lite {
 						$blog_id = $tmatches[1];
 						if (empty($multisite_processed_sites[$blog_id])) {
 							$multisite_processed_sites[$blog_id] = true;
-							$site_url_current = $wpdb->get_var("SELECT option_value FROM ".UpdraftPlus_Manipulation_Functions::backquote($import_table_prefix.$blog_id)."_options WHERE option_name='siteurl'");
+							$escaped_table_name = UpdraftPlus_Database_Utility::escape_table_name($import_table_prefix.$blog_id.'_options');
+							$site_url_current = $wpdb->get_var("SELECT option_value FROM ".$escaped_table_name." WHERE option_name='siteurl'"); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- Table name is safely escaped via escape_table_name(), table name is a dynamic identifier placeholders cannot be used.
 							if (is_string($site_url_current)) {
 								$bpath = $this->restored_blogs[$blog_id]['path'];
 								// Jan 2016: This line is old, and removes the main site's path, if present, from the front of this site's path - but why? I suspect it was so that images could be referenced directly without help from .htaccess - perhaps from when media used to be differently organised?
@@ -1136,7 +1145,8 @@ class UpdraftPlus_Migrator_Lite {
 	 */
 	public function dismiss_notice_for_old_site_references() {
 		global $pagenow;
-		if (UpdraftPlus_Options::admin_page() != $pagenow || empty($_REQUEST['page']) || 'updraftplus' != $_REQUEST['page']) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- $pagenow is undefined
+		$page = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'page');
+		if (UpdraftPlus_Options::admin_page() != $pagenow || 'updraftplus' != $page) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- $pagenow is a WP global variable and has been early defined
 			$GLOBALS['updraftplus_admin']->admin_enqueue_scripts();
 			?>
 			<script>

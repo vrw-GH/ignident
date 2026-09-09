@@ -394,14 +394,18 @@ if( ! function_exists( 'avia_backend_calculate_similar_color' ) )
 				{
 					switch( $char )
 					{
-						case 9:
+						case '9':
 							$char = 'a';
 							break;
 						case 'f':
 							$char = 'f';
 							break;
 						default:
-							$char = str_increment($char); #$char++;
+//							$char++;		// deprecated with 8.5
+							if( ctype_alnum( $char ) )
+							{
+								$char = chr( ord( $char ) + 1 );
+							}
 					}
 				}
 				else if( $shade == 'darker' )
@@ -415,7 +419,11 @@ if( ! function_exists( 'avia_backend_calculate_similar_color' ) )
 							$char = '0';
 							break;
 						default:
-							$char = chr( ord( $char ) - 1 );
+							//$char = chr( ord( $char ) - 1 );
+						if( ctype_alnum( $char ) )
+							{
+								$char = chr( ord( $char ) - 1 );
+							}
 					}
 				}
 			}
@@ -928,6 +936,104 @@ if( ! function_exists( 'avia_backend_create_folder' ) )
 
 
 /**
+ * Absolute base directory ( trailing slashed ) where downloaded demo files are stored.
+ *
+ * Single source of truth for the demo import / download / delete location so it is always
+ * derived on the server and never taken from the request. Kept in sync with the values set
+ * in includes/admin/register-demo-import.php ( which reuses this helper ).
+ *
+ * @since 8.1
+ * @return string
+ */
+if( ! function_exists( 'avia_demo_import_base_dir' ) )
+{
+	function avia_demo_import_base_dir()
+	{
+		global $avia_config;
+
+		$upload = wp_upload_dir();
+		$basedir = str_replace( '\\', '/', $upload['basedir'] );
+
+		$dynamic = ltrim( $avia_config['dynamic_files_upload_folder'], ' /\\' );
+
+		/**
+		 * Filter location of downloaded demo files.
+		 * For backwards comp. of filter we removed the leading slash in $dynamic !!!
+		 *
+		 * @since 4.8.2
+		 * @since 5.3						moved to dynamic_avia/
+		 * @param string $foldername
+		 * @return string
+		 */
+		$folder = apply_filters( 'avf_demo_import_folder_name', trailingslashit( $dynamic ) . 'avia_demo_files' );
+
+		return trailingslashit( trailingslashit( $basedir ) . $folder );
+	}
+}
+
+
+/**
+ * Absolute folder ( trailing slashed ) for a single demo, derived from a sanitized demo name.
+ *
+ * sanitize_file_name() strips any path separators, so the result can never escape the demo
+ * base directory - the request can only ever choose a demo name, never an arbitrary path.
+ *
+ * @since 8.1
+ * @param string $demo_name
+ * @return string				trailing slashed absolute path, or '' when the name is unusable
+ */
+if( ! function_exists( 'avia_demo_import_dir' ) )
+{
+	function avia_demo_import_dir( $demo_name )
+	{
+		$demo_name = sanitize_file_name( (string) $demo_name );
+		if( '' === $demo_name )
+		{
+			return '';
+		}
+
+		return trailingslashit( avia_demo_import_base_dir() . $demo_name );
+	}
+}
+
+
+/**
+ * Capability required to use a file upload / import feature, resolved by context.
+ *
+ * Content imports ( theme settings, layout builder templates ) only change this site's own
+ * options / templates - data an administrator can already edit by hand - so they default to
+ * 'manage_options' and work for a regular ( multisite subsite ) admin. Uploads that write
+ * executable or renderable asset files ( icon fonts, svg icon sets, type fonts ) keep the
+ * stricter 'update_plugins' ( super admin only on multisite ).
+ *
+ * @since 8.1
+ * @param string $context			'theme_settings' | 'alb_templates' | 'iconfont' | 'typefont' | 'svg_iconset' | 'asset_upload'
+ * @param mixed $element			option element array ( when rendering the button ) or null
+ * @return string
+ */
+if( ! function_exists( 'avia_file_upload_capability' ) )
+{
+	function avia_file_upload_capability( $context, $element = null )
+	{
+		$content_imports = array( 'theme_settings', 'alb_templates' );
+		$default = in_array( $context, $content_imports, true ) ? 'manage_options' : 'update_plugins';
+
+		/**
+		 * Filter the capability required to use a file upload / import feature.
+		 *
+		 * @since 4.5.5						( 2nd param was the element / class name )
+		 * @since 8.1						normalized: 2nd param is now a context string, 3rd the element
+		 * @param string $default			default capability for this context
+		 * @param string $context			the import/upload context ( see avia_file_upload_capability() )
+		 * @param mixed $element			option element array or null
+		 * @return string
+		 */
+		return apply_filters( 'avf_file_upload_capability', $default, $context, $element );
+	}
+}
+
+
+/**
  * Delete a folder and it's content ( including subfolders )
  *
  * @since 4.3
@@ -1177,8 +1283,28 @@ if( ! function_exists( 'avia_backend_admin_bar_menu' ) )
 
 		$urlBase = admin_url( 'admin.php' );
 
+		/**
+		 * A page can opt out of the admin bar with 'admin_bar' => false without
+		 * disappearing from the Enfold menu or the options page itself.
+		 *
+		 * @since 8.0
+		 */
+		$hidden_parents = array();
+
 		foreach( $avia->option_pages as $avia_page )
 		{
+			if( isset( $avia_page['admin_bar'] ) && false === $avia_page['admin_bar'] )
+			{
+				$hidden_parents[] = $avia_page['slug'];
+				continue;
+			}
+
+			//	a child of a hidden page has no node to hang off
+			if( $avia_page['slug'] != $avia_page['parent'] && in_array( $avia_page['parent'], $hidden_parents, true ) )
+			{
+				continue;
+			}
+
 			$safeSlug = avia_backend_safe_string( $avia_page['title'] );
 
 			$menu = array(

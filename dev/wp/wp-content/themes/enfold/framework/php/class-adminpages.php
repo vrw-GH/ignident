@@ -63,6 +63,9 @@ if( ! class_exists( 'avia_adminpages', false ) )
 
 			add_action( 'admin_menu', array( $this, 'attach_options_to_menu' ), 10, 0 );
 			add_action( 'admin_menu', array( $this, 'non_option_page_scripts' ), 10, 0 );
+
+			//	11, so it runs after WP core writes the version string at 10
+			add_filter( 'update_footer', array( $this, 'handler_update_footer' ), 11, 1 );
 		}
 
 		/**
@@ -139,6 +142,54 @@ if( ! class_exists( 'avia_adminpages', false ) )
 			{
 				wp_enqueue_style( 'avia_admin_new', AVIA_CSS_URL . "conditional_load/avia_admin_modern{$min_css}.css", false, $vn );
 			}
+		}
+
+		/**
+		 * Replaces the WordPress version string in the bottom right of the footer with
+		 * the theme's own links and version, on the theme's own screens only.
+		 *
+		 * Note WP only renders this region for users who may update - on other roles it
+		 * stays empty, which is core behaviour and not worth fighting.
+		 *
+		 * @since 8.0
+		 * @param string $text
+		 * @return string
+		 */
+		public function handler_update_footer( $text )
+		{
+			$page = isset( $_GET['page'] ) ? $_GET['page'] : '';
+
+			if( '' === $page || ! in_array( $page, $this->page_slugs, true ) )
+			{
+				return $text;
+			}
+
+			$name = $this->avia_superobject->base_data['Title'];
+			$version = avia_get_theme_version();
+
+			$links = array(
+						'https://kriesi.at/documentation/enfold/'			=> __( 'Documentation', 'avia_framework' ),
+						'https://kriesi.at/support/'						=> __( 'Support', 'avia_framework' ),
+						'https://kriesi.at/documentation/enfold/changelog/'	=> trim( $name . ' ' . $version )
+					);
+
+			/**
+			 * Allows to change the links shown in the backend footer
+			 *
+			 * @since 8.0
+			 * @param array $links				url => label
+			 * @return array
+			 */
+			$links = apply_filters( 'avf_backend_footer_links', $links );
+
+			$output = array();
+
+			foreach( $links as $url => $label )
+			{
+				$output[] = '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( $label ) . '</a>';
+			}
+
+			return implode( ' &middot; ', $output );
 		}
 
 		/**

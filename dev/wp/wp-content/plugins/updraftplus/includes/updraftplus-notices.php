@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 if (!class_exists('Updraft_Notices_1_3')) updraft_try_include_file('vendor/team-updraft/common-libs/src/updraft-notices/updraft-notices.php', 'require_once');
 
@@ -31,8 +31,21 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_3 {
 		
 		$parent_notice_content = parent::populate_notices_content();
 
-		$sale_description = sprintf(__('%s, %s and %s with %s.', 'updraftplus'), '<b>'.__('Backup', 'updraftplus').'</b>', '<b>'.__('migrate', 'updraftplus').'</b>', '<b>'.__('restore', 'updraftplus').'</b>', '<b>'.__('Premium', 'updraftplus').'</b>');
-		$sale_description .= ' '.sprintf(__('Backup incremental changes, instead of full backups (saving server resources), %s, get more remote storage locations, %s and more.', 'updraftplus'), '<b>'.__('clone or migrate your site with ease', 'updraftplus').'</b>', '<b>'.__('premium support', 'updraftplus').'</b>');
+		$sale_description = sprintf(
+			/* translators: 1: String 'Backup', 2: String 'migrate', 3: String 'restore', 4: String 'Premium' */
+			__('%1$s, %2$s and %3$s with %4$s.', 'updraftplus'),
+			'<b>'.__('Backup', 'updraftplus').'</b>',
+			'<b>'.__('migrate', 'updraftplus').'</b>',
+			'<b>'.__('restore', 'updraftplus').'</b>',
+			'<b>'.__('Premium', 'updraftplus').'</b>'
+		);
+
+		$sale_description .= ' '.sprintf(
+			/* translators: 1: String 'clone or migrate your site with ease', 2: String 'premium support' */
+			__('Backup incremental changes, instead of full backups (saving server resources), %1$s, get more remote storage locations, %2$s and more.', 'updraftplus'),
+			'<b>'.__('clone or migrate your site with ease', 'updraftplus').'</b>',
+			'<b>'.__('premium support', 'updraftplus').'</b>'
+		);
 
 		// Splitting the sale description into sentences.
 		// The regex considers a sentence to be any sequence of text that ends with a period (.), exclamation mark (!), or question mark (?), followed by one or more spaces.
@@ -213,11 +226,8 @@ class UpdraftPlus_Notices extends Updraft_Notices_1_3 {
 				'text' => $sale_description,
 				'text2' => __('at checkout.', 'updraftplus').' <b>'.__('Hurry, offer ends 2 December.', 'updraftplus').'</b>',
 				'image' => 'notices/sale_20_25.png',
-				'button_text' => sprintf(
-					/* translators: %s: Discount code */
-					__('Save 20%% with code %s', 'updraftplus'),
-					'blackfridaysale2025'
-				),
+				/* translators: 1: Discount percentage, 2: Discount code */
+				'button_text' => sprintf(__('Save %1$s with code %2$s', 'updraftplus'), '20%', 'blackfridaysale2025'),
 				'button_link' => 'https://teamupdraft.com/plugin-black-friday/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=bf25-udp-plugin-banner&utm_content=bf-sale&utm_creative_format=advert',
 				'campaign' => 'blackfriday',
 				'button_meta' => 'inline',

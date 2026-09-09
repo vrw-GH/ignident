@@ -73,6 +73,23 @@ jQuery(function($) {
 						   			$('.avia_active_nav').removeClass('avia_active_nav');
 						   			$(this).addClass('avia_active_nav');
 						   		}
+
+						   		/**
+						   		 * Keep the address bar in step with the tab that is open. The hash was
+						   		 * already read on page load (urlHash above) but never written, so a tab
+						   		 * could be linked to and reloaded - just not copied out of the browser.
+						   		 *
+						   		 * replaceState, not location.hash: no history entry per click, and no
+						   		 * jump if an element ever happens to carry the same id.
+						   		 */
+						   		if( window.history && window.history.replaceState )
+						   		{
+						   			window.history.replaceState( null, '', '#' + hashtarget );
+						   		}
+						   		else
+						   		{
+						   			window.location.hash = hashtarget;
+						   		}
 						   });
 				});
 
@@ -81,6 +98,31 @@ jQuery(function($) {
 				{
 					$(this.hash.replace("#",".")).trigger('click');
 					return false;
+				});
+
+
+				/**
+				 * Switch the section when the fragment changes on its own.
+				 *
+				 * The hash is read once on load, and the handler above only covers links
+				 * inside the options container. A link from anywhere else - the news panel,
+				 * a bookmark pasted into the address bar, the back button - only changes
+				 * the fragment, which does not reload the page and so used to do nothing
+				 * visible even though the url was right.
+				 *
+				 * Clicking a sidebar entry writes the hash with replaceState, which fires
+				 * no hashchange, so this cannot loop back on itself.
+				 */
+				$(window).on('hashchange', function()
+				{
+					var target = window.location.hash.replace(/^#/, '');
+
+					if( ! /^goto_[a-z0-9_-]+$/i.test( target ) )
+					{
+						return;
+					}
+
+					sidebar.find('.' + target).first().trigger('click');
 				});
 
 

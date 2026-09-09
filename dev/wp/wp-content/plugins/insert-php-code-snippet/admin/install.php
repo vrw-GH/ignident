@@ -110,24 +110,46 @@ PRIMARY KEY (`id`)
 	$wpdb->query("ALTER TABLE ".$wpdb->prefix."xyz_ips_short_code ADD insertionLocationType int NOT NULL default 0");
     if(!(in_array("description", $tblcolums)))
 	$wpdb->query("ALTER TABLE ".$wpdb->prefix."xyz_ips_short_code ADD description TEXT NULL ");
+      $table_name      = $wpdb->prefix . 'xyz_ips_usage';
+      $charset_collate = $wpdb->get_charset_collate();
+      $sql = "CREATE TABLE {$table_name} (
+          post_id BIGINT(20) UNSIGNED NOT NULL,
+          snippet_id BIGINT(20) UNSIGNED NOT NULL,
+          post_type VARCHAR(20) NOT NULL,
+          PRIMARY KEY  (post_id, snippet_id),
+          KEY post_id (post_id),
+          KEY snippet_id (snippet_id)
+      ) {$charset_collate};";
+      require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+      dbDelta($sql);
+      // Set sync flag only if not already set
+      if (get_option('xyz_ips_sync_needed') === false) {
+          add_option('xyz_ips_sync_needed', 1);
+      }
+    add_option('xyz_ips_show_snippet_usage',1);//default enable 
     //preview page
-    $user_ID = get_current_user_id();
   	$slug = 'xyz-ics-preview-page';
   	$title = 'Snippet Preview';
-  	$content = '';
-  	// Cheks if doen't exists a post with slug "wordpress-post-created-with-code".
-  	if( !xyz_ips_page_exists_by_slug( $slug ) ) {
-  		// Set the post ID
-  		$post_id = wp_insert_post(
-  									array(
-  											'post_author'       =>   $user_ID,
+     // Use an option to store the ID
+      $preview_page_id = get_option('xyz_ips_preview_page_id');  
+      // Verify the stored ID actually exists in the DB
+      if (!$preview_page_id || get_post_status($preview_page_id) === false) {
+          // Final safety check: see if a page with this slug exists but isn't in our options
+          $existing_id = xyz_ips_page_exists_by_slug($slug);
+          if (!$existing_id) {
+              $post_id = wp_insert_post(array(
+                  'post_author'  => get_current_user_id() ?: 1, // Avoid author 0
   											'post_name'         =>   $slug,
-  											'post_title'        =>   $title,
-  											'post_content'      =>  $content,
+                  'post_title'   => 'Snippet Preview',
+                  'post_content' => '',
   											'post_status'       =>   'draft',
   											'post_type'         =>   'page'
-  									)
-  		);
+              ));
+              update_option('xyz_ips_preview_page_id', $post_id);
+          } else {
+              // Page exists but we didn't have the ID saved; save it now.
+              update_option('xyz_ips_preview_page_id', $existing_id);
+          }
   	}
 }
 register_activation_hook( XYZ_INSERT_PHP_PLUGIN_FILE ,'xyz_ips_network_install');

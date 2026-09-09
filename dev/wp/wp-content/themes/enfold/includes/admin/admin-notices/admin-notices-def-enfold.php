@@ -78,3 +78,11 @@ $notices['enfold_70_welcome'] = [
 				'capability'	=> 'manage_options'
 			];
 
+$notices['enfold_80_welcome'] = [
+				'class'			=> 'custom',
+				'template'		=> trailingslashit( dirname( __FILE__ ) ) . 'templates/v8_0.php',
+				'close'			=> 'dismiss',
+				'dismiss'		=> 'user_only',
+				'capability'	=> 'manage_options'
+			];
+

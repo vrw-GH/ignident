@@ -12,8 +12,12 @@ interface ModalProps {
 	children?: React.ReactNode;
 	isOpen: boolean;
 	onClose: () => void;
+	size?: 'default' | 'full';
+	onPointerDownOutside?: React.ComponentProps<typeof Dialog.Content>['onPointerDownOutside'];
+	onInteractOutside?: React.ComponentProps<typeof Dialog.Content>['onInteractOutside'];
 }
 
+// fallow-ignore-next-line complexity
 const Modal: React.FC<ModalProps> = ({
 	title,
 	subtitle = '',
@@ -23,8 +27,36 @@ const Modal: React.FC<ModalProps> = ({
 	triggerClassName,
 	children,
 	isOpen,
-	onClose
+	onClose,
+	size = 'default',
+	onPointerDownOutside,
+	onInteractOutside
 }) => {
+	const isDismissingPopperRef = React.useRef( false );
+
+	React.useEffect( () => {
+		if ( ! isOpen ) {
+			return;
+		}
+		const handlePointerDown = () => {
+			const hasOpenPopper = null !== document.getElementById( 'modal-root' )?.querySelector( '[data-radix-popper-content-wrapper]' );
+			if ( hasOpenPopper ) {
+				isDismissingPopperRef.current = true;
+			} else {
+				isDismissingPopperRef.current = false;
+			}
+		};
+		document.addEventListener( 'pointerdown', handlePointerDown, true );
+		return () => {
+			document.removeEventListener( 'pointerdown', handlePointerDown, true );
+		};
+	}, [ isOpen ]);
+
+	const contentSizeClasses =
+		'full' === size ?
+			'@md:w-[calc(100%-40px)] @md:max-w-(--breakpoint-2xl) @xl:w-[calc(100%-64px)]' :
+			'@md:w-full @md:max-w-[720px]';
+
 	return (
 		<Dialog.Root
 			open={isOpen}
@@ -40,11 +72,28 @@ const Modal: React.FC<ModalProps> = ({
 				</Dialog.Trigger>
 			)}
 			<Dialog.Portal container={document.getElementById( 'modal-root' )}>
-				<Dialog.Overlay className="bg-black/50 fixed inset-0 z-50" />
-				<Dialog.Content className="fixed top-[55px] left-1/2 -translate-x-1/2 w-[calc(100%-20px)] max-h-[90vh] m-0 px-4 py-3 rounded-md z-50 bg-gray-100 shadow-md focus:outline-none data-[state=open]:animate-contentShow flex flex-col overflow-x-visible md:w-full md:max-w-[720px] md:m-3 md:absolute md:top-0">
-					<div className="flex flex-row justify-between items-center flex-shrink-0">
+				<Dialog.Overlay className="bg-black/50 fixed inset-0 z-modal" />
+				<Dialog.Content
+					onPointerDownOutside={( e ) => {
+						if ( isDismissingPopperRef.current ) {
+							e.preventDefault();
+							isDismissingPopperRef.current = false;
+						}
+						onPointerDownOutside?.( e );
+					}}
+					onInteractOutside={( e ) => {
+						if ( isDismissingPopperRef.current ) {
+							e.preventDefault();
+							isDismissingPopperRef.current = false;
+						}
+						onInteractOutside?.( e );
+					}}
+					className={`fixed top-[calc(var(--wp-admin--admin-bar--height,0px)+12px)] left-1/2 -translate-x-1/2 w-[calc(100%-20px)] max-h-[90vh] m-0 px-4 py-3 rounded-md z-modal bg-gray-100 shadow-md focus:outline-hidden data-[state=open]:animate-contentShow flex flex-col overflow-x-visible ${contentSizeClasses}`}
+				>
+					<div className="flex flex-row justify-between items-center shrink-0">
 						{customHeader ? (
 							<>
+								<Dialog.Title className="sr-only">{title}</Dialog.Title>
 								<div className="flex-1">{customHeader}</div>
 								<Dialog.Close asChild>
 									<button
@@ -63,11 +112,11 @@ const Modal: React.FC<ModalProps> = ({
 						) : (
 							<>
 								<div>
-									<Dialog.Title className="text-lg font-semibold text-black">
+									<Dialog.Title className="text-lg font-semibold text-text-black">
 										{title}
 									</Dialog.Title>
 									{subtitle && (
-										<p className="text-sm text-gray-600">
+										<p className="text-sm text-text-gray">
 											{subtitle}
 										</p>
 									)}
@@ -88,11 +137,11 @@ const Modal: React.FC<ModalProps> = ({
 							</>
 						)}
 					</div>
-					<Dialog.Description className="text-base text-black mb-6 mt-4 flex-1 overflow-y-auto overflow-x-visible min-h-0">
+					<Dialog.Description className="text-base text-text-black mb-6 mt-4 flex-1 overflow-y-auto overflow-x-visible min-h-0">
 						{content}
 					</Dialog.Description>
 					{footer && (
-						<div className="flex flex-row justify-end gap-2 flex-shrink-0 bottom-0 bg-gray-100 pt-4 border-t border-gray-200 mx-4 px-4">
+						<div className="flex flex-row justify-end gap-2 shrink-0 bottom-0 bg-gray-100 pt-4 border-t border-gray-200 mx-4 px-4">
 							{footer}
 						</div>
 					)}

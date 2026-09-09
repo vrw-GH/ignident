@@ -13,19 +13,11 @@ use SEOPress\Core\Hooks\ExecuteHooks;
  */
 class BotSettings implements ExecuteHooks {
 	/**
-	 * Current user ID
-	 *
-	 * @var int
-	 */
-	private $current_user = '';
-
-	/**
 	 * The Bot Settings hooks.
 	 *
 	 * @since 5.0.0
 	 */
 	public function hooks() {
-		$this->current_user = wp_get_current_user()->ID;
 		add_action( 'rest_api_init', array( $this, 'register' ) );
 	}
 
@@ -39,17 +31,7 @@ class BotSettings implements ExecuteHooks {
 	 * @return boolean
 	 */
 	public function permissionCheck( \WP_REST_Request $request ) {
-		$nonce = $request->get_header( 'x-wp-nonce' );
-		if ( $nonce && ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return false;
-		}
-
-		$current_user = $this->current_user ? $this->current_user : wp_get_current_user()->ID;
-		if ( ! user_can( $current_user, 'manage_options' ) ) {
-			return false;
-		}
-
-		return true;
+		return current_user_can( seopress_capability( 'manage_options', 'bot' ) );
 	}
 
 	/**
@@ -82,7 +64,7 @@ class BotSettings implements ExecuteHooks {
 		$options = get_option( 'seopress_bot_option_name' );
 
 		if ( empty( $options ) ) {
-			return;
+			return new \WP_REST_Response( array() );
 		}
 
 		$data = array();

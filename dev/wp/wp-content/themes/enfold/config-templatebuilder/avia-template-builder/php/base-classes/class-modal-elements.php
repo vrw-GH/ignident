@@ -920,7 +920,14 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 			 */
 			$supress_filter = apply_filters( 'avf_icon_font_filter_suppress', false, $element );
 
-			if( false === $supress_filter && ! isset( $element['locked_value'] ) )
+			/*
+			 * The filter markup is what the js hook for the deferred icon set hangs off, so a
+			 * picker rendered without it must keep rendering its icons eagerly - otherwise it
+			 * would come up empty.
+			 */
+			$has_icon_filter = ( false === $supress_filter && ! isset( $element['locked_value'] ) );
+
+			if( $has_icon_filter )
 			{
 				$output .= $filter;
 			}
@@ -940,6 +947,20 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 			}
 
 			$output .= "<div class='avia_icon_select_container avia-attach-element-container {$element['class']}' {$data}>";
+
+			/*
+			 * Icon markup is collected here rather than appended straight to $output.
+			 *
+			 * An SVG iconset renders one complete inline <svg> per icon, so a picker holding a
+			 * few hundred icons is several hundred kB of live DOM injected the moment a modal
+			 * opens - more than half the html of some modals - even when the picker sits in a
+			 * toggle the user never opens. Collected first, it can be handed over as an inert
+			 * template and turned into DOM only when the picker is actually shown.
+			 *
+			 * Character iconfonts stay eager: one character per icon is not worth deferring.
+			 */
+			$icons_html = '';
+			$defer_icons = false;
 
 			$run = 0;
 			$active_font = '';
@@ -966,6 +987,11 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 				{
 					$firstKey = 'dummy';
 
+					/*
+					 * array_key_first() arrived in PHP 7.3. Current WordPress asks for more than that, but
+					 * the theme is run on older installations that do not - so the call stays guarded and
+					 * the sort falls back to by-key when it is missing.
+					 */
 					// media library key = attachment ID
 					if( function_exists( 'array_key_first' ) )
 					{
@@ -1014,7 +1040,9 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 				}
 
 
-				$output .= "<div class='av-iconselect-heading' data-element-font='{$font}'>{$info}: {$readable}</div>";
+				$defer_icons = $defer_icons || $are_svg_icons;
+
+				$icons_html .= "<div class='av-iconselect-heading' data-element-font='{$font}'>{$info}: {$readable}</div>";
 
 				foreach( $charset as $key => $char )
 				{
@@ -1040,8 +1068,24 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 						$active_font = $font;
 					}
 
-					$output .= "<span title='{$char_name}' data-element-nr='{$key}' data-element-name='{$char_search}' data-element-font='{$font}' class='avia-attach-element-select avia_icon_preview avia-font-{$font} {$active_char}'>{$icon_html}</span>";
+					$icons_html .= "<span title='{$char_name}' data-element-nr='{$key}' data-element-name='{$char_search}' data-element-font='{$font}' class='avia-attach-element-select avia_icon_preview avia-font-{$font} {$active_char}'>{$icon_html}</span>";
 				}
+			}
+
+			if( $defer_icons && $has_icon_filter )
+			{
+				/*
+				 * Inert until JS moves it into the container - the browser does not build or
+				 * style any of it while it sits in a script block. Only "</script" has to be
+				 * neutralised; the icon markup itself cannot close the block.
+				 */
+				$safe = str_ireplace( '</script', '<\\/script', $icons_html );
+
+				$output .= "<script type='text/html' class='avia-icon-set-deferred'>{$safe}</script>";
+			}
+			else
+			{
+				$output .= $icons_html;
 			}
 
 			//default icon value
@@ -1270,6 +1314,49 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 
 			$pt = array_flip( AviaHelper::public_post_types() );
 			$ta = array_flip( AviaHelper::public_taxonomies( false, true ) );
+
+			/**
+			 * What was chosen stays chosen, even once its post type stopped being offered here.
+			 *
+			 * This list holds the post types available now, and the dropdown falls back to the first of
+			 * them when the stored one is not among them - silently, so opening an element to look at it
+			 * would repoint it at an unrelated entry and saving would keep that. A post type is therefore
+			 * put back for as long as something still points at it, and drops out again by itself once
+			 * the entry is changed to something else.
+			 *
+			 * @since 8.0
+			 */
+			$stored_type = isset( $new_std[0] ) ? trim( $new_std[0] ) : '';
+
+			if( '' !== $stored_type && ! in_array( $stored_type, $pt ) && post_type_exists( $stored_type ) )
+			{
+				$stored_object = get_post_type_object( $stored_type );
+				$stored_label = '';
+
+				if( ! is_null( $stored_object ) )
+				{
+					if( ! empty( $stored_object->labels->name ) )
+					{
+						$stored_label = trim( $stored_object->labels->name );
+					}
+					else if( ! empty( $stored_object->label ) )
+					{
+						$stored_label = trim( $stored_object->label );
+					}
+				}
+
+				//	named the same way the list itself names a post type that gave no label of its own
+				$pt[ '' != $stored_label ? $stored_label : ucfirst( $stored_type ) ] = $stored_type;
+
+				/*
+				 * Merged rather than appended to: an element may name a single post type as a plain
+				 * string here - see the product elements - and appending to a string is a fatal error.
+				 */
+				if( isset( $original['posttype'] ) && ! in_array( $stored_type, (array) $original['posttype'] ) )
+				{
+					$original['posttype'] = array_merge( (array) $original['posttype'], array( $stored_type ) );
+				}
+			}
 
 			if( isset( $new_std[1] ) )
 			{
@@ -1532,7 +1619,14 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 
 			if( isset( $element['delete'] ) )
 			{
-				$output .= '<a href="#" class="button avia-delete-gallery-button" title="' . esc_attr( $element['delete'] ) . '">' . $element['delete'] . '</a>';
+				$delete_class = 'button avia-delete-gallery-button';
+
+				if( ! empty( $element['delete_class'] ) )
+				{
+					$delete_class .= ' ' . $element['delete_class'];
+				}
+
+				$output .= '<a href="#" class="' . esc_attr( $delete_class ) . '" title="' . esc_attr( $element['delete'] ) . '">' . $element['delete'] . '</a>';
 			}
 
 			$attachmentids = ! empty( $element['shortcode_data']['attachment'] ) ? explode( ',', $element['shortcode_data']['attachment'] ) : array();
@@ -1974,10 +2068,10 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalElements', false ) )
 				$title .= ' (' . ucfirst( $page->post_status ) . ')';
 			}
 
-			if( aviaModalElements::$show_alb_info && 'active' == Avia_Builder()->get_alb_builder_status( $page->ID ) )
-			{
-				$title .= ' -- ( ALB content )';
-			}
+			// if( aviaModalElements::$show_alb_info && 'active' == Avia_Builder()->get_alb_builder_status( $page->ID ) )
+			// {
+			// 	$title .= ' -- (Layout Builder content)';
+			// }
 
 			return $title;
 		}

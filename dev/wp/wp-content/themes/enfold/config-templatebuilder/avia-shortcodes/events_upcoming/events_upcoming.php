@@ -53,10 +53,12 @@ if ( ! class_exists( 'avia_sc_upcoming_events', false ) )
 
 			$this->config['name']			= __( 'Upcoming Events', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-blog.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-upcoming-events.svg';
 			$this->config['order']			= 30;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_upcoming_events';
+			//	the canvas names which categories it draws from - see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => 'categories' );
 			$this->config['tooltip']		= __( 'Show a list of upcoming events', 'avia_framework' );
 			$this->config['drag-level']		= 3;
 			$this->config['disabling_allowed'] = true;

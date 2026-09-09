@@ -3,8 +3,8 @@
  * Plugin Name: Burst Statistics - Privacy-Friendly Analytics for WordPress
  * Plugin URI: https://www.wordpress.org/plugins/burst-statistics
  * Description: Get detailed insights into visitors’ behavior with Burst Statistics, the privacy-friendly analytics dashboard.
- * Version: 3.2.1
- * Requires at least: 6.4
+ * Version: 3.6.3
+ * Requires at least: 6.6
  * Requires PHP: 8.0
  * Text Domain: burst-statistics
  * Domain Path: /languages
@@ -33,6 +33,8 @@
 
 namespace Burst;
 
+use Burst\Admin\Capability\Capability;
+
 defined( 'ABSPATH' ) || die();
 if ( defined( 'BURST_PRO_FILE' ) ) {
     return;
@@ -40,6 +42,7 @@ if ( defined( 'BURST_PRO_FILE' ) ) {
 
 try {
     define( 'BURST_FREE_FILE', __FILE__ );
+    define( 'BURST_FREE', true );
 
     require_once __DIR__ . '/includes/autoload.php';
 
@@ -63,20 +66,13 @@ try {
         1
     );
 
-    if ( ! function_exists( '\Burst\burst_on_activation' ) && ! function_exists( 'burst_on_activation' ) ) {
+    if ( ! function_exists( '\Burst\burst_on_activation' ) ) {
         /**
          * Set an activation time stamp
          * This function has te have a different name, to ensure that it runs and deactivates free, if required.
          */
         function burst_on_activation(): void {
-            update_option( 'burst_run_activation', true, false );
-
-            // ensure that defaults are set only once.
-            if ( ! get_option( 'burst_activation_time' ) ) {
-                set_transient( 'burst_redirect_to_settings_page', true, 5 * MINUTE_IN_SECONDS );
-                update_option( 'burst_start_onboarding', true, false );
-                update_option( 'burst_set_defaults', true, false );
-            }
+            Bootstrap::on_activation( false );
         }
         register_activation_hook( __FILE__, '\Burst\burst_on_activation' );
     }

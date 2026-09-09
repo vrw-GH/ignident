@@ -601,6 +601,8 @@
 				$content = preg_replace("/\<\!\-\-((?:(?!-->).)+)\-\-\>/", "", $content);
 
 				$content = preg_replace("/<((?:(?!url|loc).)+)>((?:(?!http).)+)<((?:(?!url|loc).)+)>/i", "", $content);
+
+                $content = preg_replace('/<!\[cdata\[(.*?)\]\]>/i', '$1', $content);
 				
 				// to remove <image:image></image:image> tag
 				$content = preg_replace("/<\s*image\s*:\s*image\s*>((?:(?!\<\s*\/\s*image\s*:\s*image\s*>).)+)<\s*\/\s*image\s*\:\s*image\s*>/s", "", $content);
@@ -619,6 +621,7 @@
 					$content = preg_replace("/<\/url>/i", "</url>\n", $content);
 
 				}
+
 
 				if(!is_dir($GLOBALS["wp_fastest_cache"]->getWpContentDir("/cache/all/"))){
 					@mkdir($GLOBALS["wp_fastest_cache"]->getWpContentDir("/cache/all/"), 0755, true);

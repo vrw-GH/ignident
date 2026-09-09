@@ -4,13 +4,16 @@
 			height : 'show'
 		}, 500);
 
-		jQuery('#xyz_ips_system_notice_area_dismiss').click(function() {
+		jQuery(document).on(
+			'click',
+			'#xyz_ips_system_notice_area_dismiss',
+			function () {
 			jQuery('#xyz_ips_system_notice_area').animate({
 				opacity : 'hide',
 				height : 'hide'
 			}, 500);
-
-		});
+			}
+		  );
 
 		let ips_deactivateURL = '';
 		jQuery(document).on('click', '.xyz-ips-deactivate-link', function(e) {

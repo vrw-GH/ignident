@@ -3,9 +3,9 @@ Contributors: Wpcalc, lobov
 Donate link: https://wow-estore.com/item/floating-button-pro/
 Tags: buttons, floating button, nav menu, contact button, call button
 Requires at least: 5.5
-Tested up to: 6.9
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 7.0.1
+Stable tag: 7.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,14 +21,15 @@ https://youtu.be/pUC1Y4wHjbA?si=hmsTAGtCPMPDBj5r
 
 ## Main Features
 
-* 2 submenus
-* More than 2000+ FontAwesome icons
-* Any links insertion
+* 2 submenus (Vertical and Horizontal)
+* More than 2000+ FontAwesome 7.1 icons
+* New button shapes: Circle, Rounded square, Ellipse, Square
+* Advanced color settings for each button and hover effects
+* Button types: Link, Email, Phone, Login, Logout, Register, Lost password
 * Using tooltips to provide more information
-* Round buttons shape
-* Login link
-* Logout link
-* Lost password link
+* Responsive visibility: hide on mobile or desktop devices
+* Shortcode support to place the button anywhere
+* Export and Import functions
 
 ## Use Cases for Floating Button
 
@@ -46,15 +47,11 @@ Connect the Pro-version of the plugin to gain access to more features:
 [Preview of Pro version](https://wow-company.com/floating-button-pro/)
 
 * Create an unlimited number of buttons
-* Change the form of the menu display: Circle, Rounded square, Ellipse, Square
-* Set the color of the main button and submenu items
-* Accompany the change in navigation behavior with the highlight when hovering the mouse cursor
-* Use the built-in user menu, social panel, and print function
 * Set the display according to the user role and status
 * Change the menu output depending on the language of the page
-* Add restrictions for screens with large or small resolution
 * Use the categories on the site, exceptions, and ID to place the menu on individual pages
-* Insert the shortcode of the panel in the specified location
+* Accompany the change in navigation behavior with the highlight when hovering the mouse cursor
+* Use the built-in user menu, social panel, and print function
 * And more...
 
 [Buy Pro version](https://wow-estore.com/item/floating-button-pro/)
@@ -96,6 +93,10 @@ Search for answers and ask your questions at [support center](https://wordpress.
 
 
 == Changelog ==
+= 7.0.2 =
+* Fixed: issue with method `Settings::option()`.
+* Fixed: grammar issue in ListTable.php
+
 = 7.0.1 =
 * Updated: Font Awesome Icons to version 7.1
 

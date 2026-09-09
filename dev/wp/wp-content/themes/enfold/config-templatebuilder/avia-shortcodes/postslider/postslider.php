@@ -26,11 +26,13 @@ if( ! class_exists( 'avia_sc_postslider', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Post Slider', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-postslider.png';
-			$this->config['order']			= 30;
+			$this->config['tab']			= __( 'Post Loops', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-postslider.svg';
+			$this->config['order']			= 60;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_postslider';
+			//	the canvas names which categories it draws from - see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => 'link' );
 			$this->config['tooltip']		= __( 'Display a Slideshow of Post Entries', 'avia_framework' );
 			$this->config['drag-level']		= 3;
 			$this->config['disabling_allowed'] = true;

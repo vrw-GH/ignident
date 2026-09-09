@@ -89,31 +89,21 @@ class Dropbox_Encrypter
      */
     public function decrypt($cipherText)
     {
-    
-        // Decryption: prefer mcrypt, if available (since it can decrypt data encrypted by either mcrypt or phpseclib)
 
+		// Note: mcrypt_decrypt() is deprecated since PHP 7.1 and removed in 7.2.
+		// Switched to phpseclib exclusively for decryption.
+		
+		global $updraftplus;
         $cipherText = base64_decode($cipherText);
         $iv = substr($cipherText, 0, self::IV_SIZE);
         $cipherText = substr($cipherText, self::IV_SIZE);
+            
+		$updraftplus->ensure_phpseclib();
 
-        $decrypted = false;
-    
-        if (function_exists('mcrypt_decrypt')) {
-            // @codingStandardsIgnoreLine
-            $token = @mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $this->key, $cipherText, MCRYPT_MODE_CBC, $iv);
-            // Some plugins provide their own version of mcrypt_* functions and they don't provide the functionality that the original method has, so try and detect if the decryption has failed and if so try rijndael
-            if (false != $token) $decrypted = true;
-        }
-        
-        if (!$decrypted) {
-            global $updraftplus;
-            $updraftplus->ensure_phpseclib();
-
-            $rijndael = new phpseclib_Crypt_Rijndael();
-            $rijndael->setKey($this->key);
-            $rijndael->setIV($iv);
-            $token = $rijndael->decrypt($cipherText);
-        }
+		$rijndael = new phpseclib_Crypt_Rijndael();
+		$rijndael->setKey($this->key);
+		$rijndael->setIV($iv);
+		$token = $rijndael->decrypt($cipherText);
         
         return $token;
     }

@@ -64,7 +64,8 @@ class ManageColumn implements ExecuteHooksBackend {
 		}
 
 		foreach ( $list_post_types as $key => $value ) {
-			if ( null === seopress_get_service( 'TitleOption' )->getSingleCptEnable( $key ) && '' !== $key ) {
+			// Skip only when "Disable SEO metabox" is explicitly on; an empty stored value still means enabled.
+			if ( '1' !== seopress_get_service( 'TitleOption' )->getSingleCptEnable( $key ) && '' !== $key ) {
 				add_filter( 'manage_' . $key . '_posts_columns', array( $this, 'addColumn' ) );
 				add_action( 'manage_' . $key . '_posts_custom_column', array( $this, 'displayColumn' ), 10, 2 );
 				add_filter( 'manage_edit-' . $key . '_sortable_columns', array( $this, 'sortableColumn' ) );
@@ -126,6 +127,9 @@ class ManageColumn implements ExecuteHooksBackend {
 		if ( seopress_get_service( 'AdvancedOption' )->getAppearanceSchemaCol() === '1' ) {
 			$columns['seopress_schema'] = __( 'Schema', 'wp-seopress' );
 		}
+		if ( seopress_get_service( 'AdvancedOption' )->getAppearanceFreezeModifiedDateCol() === '1' ) {
+			$columns['seopress_freeze_date'] = __( 'Freeze date', 'wp-seopress' );
+		}
 
 		return $columns;
 	}
@@ -162,8 +166,14 @@ class ManageColumn implements ExecuteHooksBackend {
 			case 'seopress_title':
 				$meta_post_title = get_post_meta( $post_id, '_seopress_titles_title', true );
 
+				// Fall back to the global Single Post Type title template when no per-post value is set, so the column reflects the effective front-end title.
+				$value = $meta_post_title;
+				if ( empty( $value ) ) {
+					$value = (string) seopress_get_service( 'TitleOption' )->getTitleFromSingle( get_post_type( $post_id ) );
+				}
+
 				$context = seopress_get_service( 'ContextPage' )->buildContextWithCurrentId( $post_id )->getContext();
-				$title   = $this->tags_to_string_service->replace( $meta_post_title, $context );
+				$title   = $this->tags_to_string_service->replace( $value, $context );
 				if ( empty( $title ) ) {
 					$title = $meta_post_title;
 				}
@@ -173,8 +183,15 @@ class ManageColumn implements ExecuteHooksBackend {
 
 			case 'seopress_desc':
 				$meta_description = get_post_meta( $post_id, '_seopress_titles_desc', true );
-				$context          = seopress_get_service( 'ContextPage' )->buildContextWithCurrentId( $post_id )->getContext();
-				$description      = $this->tags_to_string_service->replace( $meta_description, $context );
+
+				// Fall back to the global Single Post Type meta description template when no per-post value is set, mirroring the front end.
+				$value = $meta_description;
+				if ( empty( $value ) ) {
+					$value = (string) seopress_get_service( 'TitleOption' )->getSingleCptDesc( $post_id );
+				}
+
+				$context     = seopress_get_service( 'ContextPage' )->buildContextWithCurrentId( $post_id )->getContext();
+				$description = $this->tags_to_string_service->replace( $value, $context );
 				if ( empty( $description ) ) {
 					$description = $meta_description;
 				}
@@ -341,6 +358,15 @@ class ManageColumn implements ExecuteHooksBackend {
 						</svg><span class="screen-reader-text">' . esc_html__( 'Should be improved', 'wp-seopress' ) . '</span></p>';
 					}
 						echo '</div>';
+				}
+				break;
+
+			case 'seopress_freeze_date':
+				$freeze = get_post_meta( $post_id, '_seopress_robots_freeze_modified_date', true );
+				$global = '1' === seopress_get_service( 'AdvancedOption' )->getAppearanceFreezeModifiedDate();
+				if ( 'yes' === $freeze || ( '' === $freeze && $global ) ) {
+					echo '<span class="dashicons dashicons-lock"></span>';
+					echo '<span class="screen-reader-text">' . esc_html__( 'Modified date is frozen', 'wp-seopress' ) . '</span>';
 				}
 				break;
 

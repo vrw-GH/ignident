@@ -214,7 +214,7 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 			$this->register_shortcodes();
 
 			//set up loading of assets. wait until post id is known
-			add_action( 'wp', array( $this, 'extra_asset_check' ) , 10 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'extra_asset_check' ) , 20 );
 		}
 
 		/**
@@ -544,20 +544,40 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 		 */
 		public function editor_element( $params )
 		{
-			$params['innerHtml'] = '';
+			$params['innerHtml']  = $this->editor_element_head( $params );
+			$params['innerHtml'] .= $this->editor_element_items( $params );
 
+			return $params;
+		}
+
+		/**
+		 * The icon and the name, as the element saying what it is.
+		 *
+		 * Every element on the canvas carries this, whether it draws nothing else or a full preview of
+		 * its content - a heading that shows its own text still has to say that it is a heading, and a
+		 * row of images has to say which element put them there. It is prepended for elements that build
+		 * their own markup, in prepare_editor_element(), so this only has to be called by those that
+		 * want it somewhere other than the top.
+		 *
+		 * @since 8.0
+		 * @param array $params
+		 * @return string
+		 */
+		protected function editor_element_head( array $params )
+		{
 			$name = $this->config['name'];
+
 			if( isset( $params['data']['element_template_name'] ) && ! empty( $params['data']['element_template_name'] ) )
 			{
 				$name = "{$params['data']['element_template_name']} ({$name})";
 			}
 
+			$inner = '';
+
 			if( isset( $this->config['icon'] ) )
 			{
-				$params['innerHtml'] .= "<img src='{$this->config['icon']}' title='{$name}' alt='' />";
+				$inner .= Avia_Element_Icons()->get_html( $this->config['icon'], $name );
 			}
-
-			$inner = '';
 
 			if( empty( $this->config['alb_desc_id'] ) )
 			{
@@ -574,9 +594,583 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 				$inner .=	'</div>';
 			}
 
-			$params['innerHtml'] .= $inner;
+			return "<div class='avia-element-head'>{$inner}</div>";
+		}
 
-			return $params;
+		/**
+		 * The names of the items an element holds, for the canvas.
+		 *
+		 * An accordion is not "an accordion", it is the four sections it contains - and told apart from
+		 * the accordion below it only by those. Elements that keep their items as nested shortcodes can
+		 * name them here by declaring which tag to read and which of its attributes carries the label:
+		 *
+		 *		$this->config['alb_items'] = array( 'tag' => 'av_toggle', 'attr' => 'title' );
+		 *
+		 * Read from the content rather than bound to the modal the way single settings are, so it does
+		 * not follow along as items are renamed - it is right again the next time the element is drawn.
+		 * The alternative was teaching the browser to parse shortcodes, which is a great deal of machinery
+		 * for a line of text.
+		 *
+		 * Only direct children are parsed, and only the first few are named, so an element holding fifty
+		 * items costs the same as one holding five.
+		 *
+		 * @since 8.0
+		 * @param array $params
+		 * @return string					markup, or an empty string when there is nothing to say
+		 */
+		protected function editor_element_items( array $params, $alternative = '' )
+		{
+			if( empty( $this->config['alb_items'] ) || ! is_array( $this->config['alb_items'] ) )
+			{
+				return '';
+			}
+
+			$setup = $this->config['alb_items'];
+
+			/**
+			 * An element whose worth saying is one of its own settings rather than a list of children -
+			 * a table's caption, a countdown's date. Drawn as a single item so it sits in the same row,
+			 * and bound so it follows what is typed in the element window.
+			 *
+			 * It goes here rather than in the head, where a single value would otherwise belong, because
+			 * the head already carries the description a user may have written about the element and one
+			 * would quietly replace the other.
+			 */
+			if( ! empty( $setup['value'] ) )
+			{
+				return $this->editor_element_single_value( $setup, $params );
+			}
+
+			/**
+			 * An element that shows entries from somewhere rather than holding them - a blog, a portfolio,
+			 * a shelf of products. What it is set to is the only thing telling one from the next.
+			 */
+			if( ! empty( $setup['terms'] ) )
+			{
+				return $this->editor_element_terms( $setup, $params );
+			}
+
+			/**
+			 * An element made of pictures. Names would say little about it - the pictures themselves are
+			 * what tells one gallery from the next.
+			 */
+			if( ! empty( $setup['images'] ) )
+			{
+				return $this->editor_element_images( $setup, $params );
+			}
+
+			if( empty( $setup['tag'] ) || empty( $setup['attr'] ) )
+			{
+				return '';
+			}
+
+			$content = isset( $params['content'] ) ? $params['content'] : '';
+
+			if( ! is_string( $content ) )
+			{
+				$content = '';
+			}
+
+			$limit = isset( $setup['limit'] ) ? (int) $setup['limit'] : 4;
+
+			/**
+			 * Unslashed first, as the parser asks for. Without it the tags still match but their
+			 * attributes do not, because the quotes around every value arrive escaped - which reads as
+			 * an element whose items have all lost their names rather than as a parsing failure.
+			 */
+			$children = ShortcodeHelper::shortcode2array( wp_unslash( $content ), 1 );
+
+			$labels = array();
+			$count = 0;
+
+			foreach( $children as $child )
+			{
+				if( ! isset( $child['shortcode'] ) || $child['shortcode'] != $setup['tag'] )
+				{
+					continue;
+				}
+
+				$count ++;
+
+				if( count( $labels ) >= $limit )
+				{
+					continue;
+				}
+
+				$attr = isset( $child['attr'] ) && is_array( $child['attr'] ) ? $child['attr'] : array();
+				$label = isset( $attr[ $setup['attr'] ] ) ? trim( (string) $attr[ $setup['attr'] ] ) : '';
+
+				/**
+				 * An item with no name still has to be counted - a form of three unnamed fields is not
+				 * an empty form - so it takes a placeholder rather than being passed over.
+				 */
+				if( '' === $label )
+				{
+					$label = sprintf( __( 'Item %d', 'avia_framework' ), $count );
+				}
+
+				/**
+				 * Some items name themselves with the value of a dropdown - 'post_date' rather than
+				 * anything a reader would recognise. Turned into words so the canvas reads as English.
+				 */
+				if( ! empty( $setup['humanize'] ) )
+				{
+					$label = ucwords( str_replace( array( '_', '-' ), ' ', $label ) );
+				}
+
+				if( function_exists( 'mb_strimwidth' ) )
+				{
+					$label = mb_strimwidth( $label, 0, 42, '…' );
+				}
+				else if( strlen( $label ) > 42 )
+				{
+					$label = substr( $label, 0, 41 ) . '…';
+				}
+
+				$labels[] = esc_html( html_entity_decode( $label ) );
+			}
+
+			if( empty( $labels ) )
+			{
+				return '';
+			}
+
+			/**
+			 * One span per item, and nothing between them.
+			 *
+			 * Each name is its own element rather than a run of text with marks in between, so how they
+			 * are told apart is left to the stylesheet - spacing, a rule, a chip - and can be changed
+			 * without coming back here. A separator written into the markup would have to be removed
+			 * from it again.
+			 */
+			$items = '';
+
+			foreach( $labels as $label )
+			{
+				$items .= "<span class='avia-element-item'>{$label}</span>";
+			}
+
+			$rest = $count - count( $labels );
+
+			$empty_label = __( 'Item %d', 'avia_framework' );
+			$rest_label = __( '+%d more', 'avia_framework' );
+
+			if( $rest > 0 )
+			{
+				$items .= '<span class="avia-element-items-rest">' . sprintf( $rest_label, $rest ) . '</span>';
+			}
+
+			/**
+			 * Everything the canvas needs to draw this again while the modal is open, rather than only
+			 * when the page is loaded - see avia_repeat_update_html() in avia-builder.js.
+			 *
+			 * It follows the content, because that is where the items are: their names are attributes of
+			 * the nested shortcodes, not fields of this element, so there is no single value to watch.
+			 * The tag, the attribute, the cap and both bits of wording travel with it, which is what
+			 * stops the two sides drifting - change the limit or the words here and the live update
+			 * follows without being touched.
+			 */
+			$template = "<span class='avia-element-item'>{{{$setup['attr']}}}</span>";
+
+			$data  = " data-update_with='content'";
+			$data .= " data-update_tag='" . esc_attr( $setup['tag'] ) . "'";
+			$data .= " data-update_attr='" . esc_attr( $setup['attr'] ) . "'";
+			$data .= " data-update_repeat='" . htmlentities( $template, ENT_QUOTES, get_bloginfo( 'charset' ) ) . "'";
+			$data .= " data-update_limit='{$limit}'";
+			$data .= " data-update_empty='" . esc_attr( $empty_label ) . "'";
+			$data .= " data-update_rest='" . esc_attr( $rest_label ) . "'";
+			$data .= ! empty( $setup['humanize'] ) ? " data-update_humanize='1'" : '';
+
+			/**
+			 * Static wording that belongs with the items rather than around them.
+			 *
+			 * The Headline Rotator is the case: its items are the words it cycles through, and the text
+			 * before and after them is what makes the sentence readable. They are plain options of the
+			 * element, so binding them needs nothing more than the name of the option - the canvas keeps
+			 * them up to date as they are typed.
+			 *
+			 * They sit outside the bound container rather than inside it, because a live update replaces
+			 * everything that container holds - the items are rebuilt from the content, and anything
+			 * standing between them would be thrown away with the old ones. The list keeps the binding,
+			 * the sentence around it stays where it is, and each is updated by what it belongs to.
+			 */
+			$before = $this->editor_element_static_text( $setup, $params, 'before' );
+			$after = $this->editor_element_static_text( $setup, $params, 'after' );
+
+			if( '' === $before && '' === $after )
+			{
+				$list = "<div class='avia-element-items'{$data}>{$items}</div>";
+			}
+			else
+			{
+				$list  = "<div class='avia-element-items'>";
+				$list .=	$before;
+				$list .=	"<div class='avia-element-items-list'{$data}>{$items}</div>";
+				$list .=	$after;
+				$list .= '</div>';
+			}
+
+			if( '' === $alternative )
+			{
+				return $list;
+			}
+
+			/**
+			 * An element that can take its content from somewhere else shows both and hides one.
+			 *
+			 * A menu element either lists entries of its own or points at a menu built elsewhere, and
+			 * which of the two applies is a setting the user flips in the element window. Rather than
+			 * decide here and be wrong until the element is drawn again, both are drawn and the class on
+			 * the wrapper says which one counts - and that class is one the canvas already keeps in step
+			 * with the setting, so flipping it swaps them at once.
+			 *
+			 * The wrapper carries nothing but that class, because updating it replaces the whole class
+			 * attribute - anything else put there would be wiped the first time the setting changed.
+			 */
+			$toggle = $this->class_by_arguments( $setup['toggle'], $params['args'] );
+
+			return "<div{$toggle}>{$list}{$alternative}</div>";
+		}
+
+		/**
+		 * The first few pictures an element holds, drawn as thumbnails.
+		 *
+		 * Two shapes, as elsewhere: a gallery keeps its attachment ids in one setting, while a slideshow
+		 * keeps a slide per nested shortcode with an id on each. Both end as a list of ids.
+		 *
+		 * Only the first few are looked up, and the whole set is primed in one go beforehand, so an
+		 * element holding sixty pictures costs what one holding five does. A picture that has since been
+		 * deleted resolves to nothing and is passed over rather than drawn as a broken frame.
+		 *
+		 * @since 8.0
+		 * @param array $setup					the alb_items config
+		 * @param array $params
+		 * @return string
+		 */
+		protected function editor_element_images( array $setup, array $params )
+		{
+			$setup_images = $setup['images'];
+			$limit = isset( $setup['limit'] ) ? (int) $setup['limit'] : 5;
+			$rest_label = __( '+%d more', 'avia_framework' );
+
+			$ids = array();
+
+			if( is_array( $setup_images ) )
+			{
+				//	one id per nested shortcode - a slideshow, a row of logos
+				$content = isset( $params['content'] ) ? $params['content'] : '';
+
+				if( is_string( $content ) && '' !== trim( $content ) && ! empty( $setup_images['tag'] ) && ! empty( $setup_images['attr'] ) )
+				{
+					$children = ShortcodeHelper::shortcode2array( wp_unslash( $content ), 1 );
+
+					foreach( $children as $child )
+					{
+						if( ! isset( $child['shortcode'] ) || $child['shortcode'] != $setup_images['tag'] )
+						{
+							continue;
+						}
+
+						$attr = isset( $child['attr'] ) && is_array( $child['attr'] ) ? $child['attr'] : array();
+						$id = isset( $attr[ $setup_images['attr'] ] ) ? trim( (string) $attr[ $setup_images['attr'] ] ) : '';
+
+						if( '' !== $id && is_numeric( $id ) )
+						{
+							$ids[] = (int) $id;
+						}
+					}
+				}
+			}
+			else
+			{
+				//	all of them in one setting - a gallery
+				$raw = isset( $params['args'][ $setup_images ] ) ? (string) $params['args'][ $setup_images ] : '';
+
+				foreach( explode( ',', $raw ) as $part )
+				{
+					$part = trim( $part );
+
+					if( '' !== $part && is_numeric( $part ) )
+					{
+						$ids[] = (int) $part;
+					}
+				}
+			}
+
+			$shown_ids = array_slice( $ids, 0, $limit );
+
+			if( ! empty( $shown_ids ) && function_exists( '_prime_post_caches' ) )
+			{
+				_prime_post_caches( $shown_ids, false, true );
+			}
+
+			$thumbs = '';
+			$shown = 0;
+
+			foreach( $shown_ids as $id )
+			{
+				$src = wp_get_attachment_image_src( $id, 'thumbnail' );
+
+				if( ! is_array( $src ) || empty( $src[0] ) )
+				{
+					continue;
+				}
+
+				//	the id travels with the picture so the canvas can keep one it already has - see avia-builder.js
+				$thumbs .= "<img src='" . esc_url( $src[0] ) . "' data-id='" . esc_attr( $id ) . "' alt='' />";
+				$shown ++;
+			}
+
+			$rest = count( $ids ) - $shown;
+
+			if( $rest > 0 )
+			{
+				$thumbs .= '<span class="avia-element-items-rest">' . sprintf( $rest_label, $rest ) . '</span>';
+			}
+
+			/**
+			 * What the canvas needs to draw this again while the element window is open - see
+			 * avia_images_update_html() in avia-builder.js. A gallery keeps its pictures in one setting
+			 * and follows that; a slideshow keeps one per slide and so follows its content, with the tag
+			 * and attribute saying where to look inside it.
+			 */
+			$data  = " data-update_images='1'";
+			$data .= " data-update_limit='{$limit}'";
+			$data .= " data-update_rest='" . esc_attr( $rest_label ) . "'";
+
+			if( is_array( $setup_images ) )
+			{
+				$data .= " data-update_with='content'";
+				$data .= " data-update_tag='" . esc_attr( $setup_images['tag'] ) . "'";
+				$data .= " data-update_attr='" . esc_attr( $setup_images['attr'] ) . "'";
+			}
+			else
+			{
+				$data .= " data-update_with='" . esc_attr( $setup_images ) . "'";
+			}
+
+			return "<div class='avia-element-thumbs'{$data}>{$thumbs}</div>";
+		}
+
+		/**
+		 * The categories an element draws its entries from, named rather than numbered.
+		 *
+		 * Two shapes arrive here. Some elements keep the ids on their own - '12,15' - and others use a
+		 * link picker, which puts the taxonomy in front of them: 'category,12,15'. A leading part that
+		 * is not a number is that taxonomy, and is dropped.
+		 *
+		 * The names cost one query for a set of ids, and nothing at all for the second element on a page
+		 * asking about the same ones: the answers are kept for the length of the request. Live updates
+		 * cost nothing either - the browser reads the names off the dropdown it just edited, which is
+		 * why there is no map of every category on the site written into the page.
+		 *
+		 * @since 8.0
+		 * @param array $setup					the alb_items config
+		 * @param array $params
+		 * @return string
+		 */
+		protected function editor_element_terms( array $setup, array $params )
+		{
+			static $resolved = array();
+
+			/*
+			 * More than one setting can hold the answer. The shop elements offer a plain list of
+			 * categories or a link picker and use whichever the user chose, so both are named here and
+			 * the first with anything in it is the one that counts.
+			 */
+			$option = '';
+			$raw = '';
+
+			foreach( (array) $setup['terms'] as $candidate )
+			{
+				$value = isset( $params['args'][ $candidate ] ) ? trim( (string) $params['args'][ $candidate ] ) : '';
+
+				if( '' === $option )
+				{
+					$option = $candidate;
+				}
+
+				if( '' !== $value && preg_match( '/\d/', $value ) )
+				{
+					$option = $candidate;
+					$raw = $value;
+					break;
+				}
+			}
+
+			$limit = isset( $setup['limit'] ) ? (int) $setup['limit'] : 4;
+			$empty_label = __( 'Item %d', 'avia_framework' );
+			$rest_label = __( '+%d more', 'avia_framework' );
+
+			$ids = array();
+
+			foreach( explode( ',', $raw ) as $part )
+			{
+				$part = trim( $part );
+
+				if( '' !== $part && is_numeric( $part ) )
+				{
+					$ids[] = (int) $part;
+				}
+			}
+
+			$names = array();
+
+			if( ! empty( $ids ) )
+			{
+				$key = implode( ',', $ids );
+
+				if( ! isset( $resolved[ $key ] ) )
+				{
+					$resolved[ $key ] = array();
+
+					$terms = get_terms( array( 'include' => $ids, 'hide_empty' => false ) );
+
+					if( is_array( $terms ) )
+					{
+						foreach( $terms as $term )
+						{
+							$resolved[ $key ][ $term->term_id ] = $term->name;
+						}
+					}
+				}
+
+				foreach( $ids as $id )
+				{
+					if( isset( $resolved[ $key ][ $id ] ) )
+					{
+						$names[] = $resolved[ $key ][ $id ];
+					}
+				}
+			}
+
+			$items = '';
+			$shown = 0;
+
+			foreach( $names as $name )
+			{
+				if( $shown >= $limit )
+				{
+					break;
+				}
+
+				$items .= "<span class='avia-element-item'>" . esc_html( $name ) . '</span>';
+				$shown ++;
+			}
+
+			$rest = count( $names ) - $shown;
+
+			if( $rest > 0 )
+			{
+				$items .= '<span class="avia-element-items-rest">' . sprintf( $rest_label, $rest ) . '</span>';
+			}
+
+			$template = "<span class='avia-element-item'>{{{$option}}}</span>";
+
+			$data  = " data-update_with='" . esc_attr( $option ) . "'";
+			$data .= " data-update_terms='" . esc_attr( $option ) . "'";
+			$data .= " data-update_repeat='" . htmlentities( $template, ENT_QUOTES, get_bloginfo( 'charset' ) ) . "'";
+			$data .= " data-update_limit='{$limit}'";
+			$data .= " data-update_empty='" . esc_attr( $empty_label ) . "'";
+			$data .= " data-update_rest='" . esc_attr( $rest_label ) . "'";
+
+			return "<div class='avia-element-items'{$data}>{$items}</div>";
+		}
+
+		/**
+		 * One of the element's own settings, drawn as a single item.
+		 *
+		 * Bound rather than merely printed, so it follows what is typed in the element window - the
+		 * canvas replaces the span with the new value the moment the window is saved.
+		 *
+		 * @since 8.0
+		 * @param array $setup					the alb_items config
+		 * @param array $params
+		 * @return string
+		 */
+		protected function editor_element_single_value( array $setup, array $params )
+		{
+			$option = $setup['value'];
+			$value = isset( $params['args'][ $option ] ) ? trim( (string) $params['args'][ $option ] ) : '';
+
+			if( ! empty( $setup['humanize'] ) && '' !== $value )
+			{
+				$value = ucwords( str_replace( array( '_', '-' ), ' ', $value ) );
+			}
+
+			if( function_exists( 'mb_strimwidth' ) && '' !== $value )
+			{
+				$value = mb_strimwidth( $value, 0, 60, '…' );
+			}
+
+			$template = "<span class='avia-element-item'>{{{$option}}}</span>";
+			$update = $this->update_template( $option, $template );
+
+			/**
+			 * The box is drawn even with nothing in it, and hidden by the stylesheet while it is empty.
+			 * An element added to the page has no value yet, and if there were nothing here to fill the
+			 * first thing typed would go nowhere - the value would only appear the next time the page
+			 * was loaded.
+			 */
+			$item = '' !== $value ? "<span class='avia-element-item'>" . esc_html( html_entity_decode( $value ) ) . '</span>' : '';
+
+			return "<div class='avia-element-items' {$update}>{$item}</div>";
+		}
+
+		/**
+		 * A piece of the element's own wording, drawn beside its items and kept up to date as it is typed.
+		 *
+		 * @since 8.0
+		 * @param array $setup					the alb_items config
+		 * @param array $params
+		 * @param string $which					'before' or 'after'
+		 * @return string
+		 */
+		protected function editor_element_static_text( array $setup, array $params, $which )
+		{
+			if( empty( $setup[ $which ] ) )
+			{
+				return '';
+			}
+
+			$option = $setup[ $which ];
+			$text = isset( $params['args'][ $option ] ) ? trim( (string) $params['args'][ $option ] ) : '';
+			$template = "<span class='avia-element-items-static'>{{{$option}}}</span>";
+			$update = $this->update_template( $option, $template );
+
+			return "<span class='avia-element-items-static' {$update}>" . esc_html( html_entity_decode( $text ) ) . '</span>';
+		}
+
+		/**
+		 * The chosen entry of a dropdown, named rather than numbered.
+		 *
+		 * A select stores an id, which says nothing on the canvas - so the labels are handed to the
+		 * browser alongside it and it picks the right one. That is what keeps this current when a
+		 * different entry is chosen, without the canvas having to ask the server what it is called.
+		 *
+		 * @since 8.0
+		 * @param string $option				option id holding the value
+		 * @param array $params
+		 * @param array $labels					value => label
+		 * @param string $class					extra class for the wrapper
+		 * @return string
+		 */
+		protected function editor_element_option_label( $option, array $params, array $labels, $class = '' )
+		{
+			$value = isset( $params['args'][ $option ] ) ? (string) $params['args'][ $option ] : '';
+			$label = isset( $labels[ $value ] ) ? $labels[ $value ] : '';
+
+			if( '' === $label )
+			{
+				$label = __( 'Nothing selected', 'avia_framework' );
+			}
+
+			$template = "<span class='avia-element-item'>{{{$option}}}</span>";
+			$update = $this->update_template( $option, $template, $labels );
+
+			$class = trim( 'avia-element-items ' . $class );
+
+			return "<div class='" . esc_attr( $class ) . "' {$update}><span class='avia-element-item'>" . esc_html( $label ) . '</span></div>';
 		}
 
 		/**
@@ -1636,6 +2230,44 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 			$params = $this->editor_element( $params );
 
 			/**
+			 * Every element says what it is, whatever else it draws.
+			 *
+			 * Most build their own markup on the canvas - a preview of the text, the image, the button
+			 * they stand for - and used to show that and nothing more, which reads well until a page has
+			 * six of them and none says which element it came from. The icon and name go on top of that
+			 * preview rather than instead of it.
+			 *
+			 * Done here rather than in each element because there are two dozen of them, each ending in
+			 * its own way: this cannot miss one, and cannot add a second head to an element that already
+			 * drew its own. Structural elements - sections, columns, tab sections - set alb_head to false,
+			 * as they are the frame around other elements rather than an element with a name.
+			 *
+			 * @since 8.0
+			 */
+			if( is_array( $params ) )
+			{
+				$wants_head = ! isset( $this->config['alb_head'] ) || ( false !== $this->config['alb_head'] );
+				$html = isset( $params['innerHtml'] ) ? $params['innerHtml'] : '';
+
+				if( $wants_head && ( false === strpos( $html, 'avia-element-head' ) ) )
+				{
+					$params['innerHtml'] = $this->editor_element_head( $params ) . $html;
+
+					/*
+					 * Elements that draw a preview replace the container class, and with it the box the
+					 * others are drawn in - which left the name and icon standing above that preview with
+					 * nothing tying them to it. Marked here so the stylesheet can put the box back around
+					 * both. Only these need it: an element that kept the default container is inside one
+					 * already.
+					 */
+					if( isset( $params['class'] ) )
+					{
+						$params['class'] .= ' avia-has-head';
+					}
+				}
+			}
+
+			/**
 			 * Since 4.2.1 we have $this->config['self_closing'] = 'yes'|'no'
 			 * Now we can use this to remove any content here and do not need to do this in each element seperatly in $this->editor_element
 			 */
@@ -2120,11 +2752,23 @@ if ( ! class_exists( 'aviaShortcodeTemplate', false ) )
 				//will extract the shortcode into $_POST['extracted_shortcode']
 				$this->builder->text_to_interface( $shortcode );
 
+				/**
+				 * Nothing is extracted when the shortcode cannot be parsed - which happens to an
+				 * element whose shortcode is not registered on this site, the usual case being
+				 * content brought over from an installation that had the plugin or post type
+				 * this element belongs to. Reading the result unchecked passed null to end() and
+				 * count(): a warning on PHP 7, a fatal on PHP 8, and the element window never
+				 * opened.
+				 *
+				 * @since 8.1
+				 */
+				$extracted = isset( $_POST['extracted_shortcode'] ) && is_array( $_POST['extracted_shortcode'] ) ? $_POST['extracted_shortcode'] : array();
+
 				//the main shortcode (which is always the last array item) will be stored in $extracted_shortcode
-				$extracted_shortcode = end( $_POST['extracted_shortcode'] );
+				$extracted_shortcode = ! empty( $extracted ) ? end( $extracted ) : array();
 
 				//if the $_POST['extracted_shortcode'] has more than one items we are dealing with nested shortcodes
-				$multi_content = count( $_POST['extracted_shortcode'] );
+				$multi_content = count( $extracted );
 
 				//proceed if the main shortcode has either arguments or content
 				if( ! empty( $extracted_shortcode['attr'] ) || ! empty( $extracted_shortcode['content'] ) )

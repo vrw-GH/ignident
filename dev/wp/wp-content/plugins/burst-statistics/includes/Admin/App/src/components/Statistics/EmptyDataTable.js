@@ -31,7 +31,7 @@ const SkeletonRow = ({ index, isLast }) => {
 
 	return (
 		<div
-			className={`flex items-center gap-4 px-6 max-xl:px-2.5 ${! isLast ? 'border-b border-gray-100' : ''}`}
+			className={`bg-gray-50 flex items-center gap-4 px-6 @max-xl:px-2.5 ${! isLast ? 'border-b border-gray-100' : ''}`}
 			style={{ height: `${ROW_HEIGHT}px` }}
 		>
 			{/* First column - wider, simulates URL/name. */}
@@ -59,13 +59,13 @@ const SkeletonRow = ({ index, isLast }) => {
 const SkeletonHeader = () => {
 	return (
 		<div
-			className="flex items-center gap-4 px-6 max-xl:px-2.5 border-b border-gray-200 bg-gray-50"
+			className="flex items-center gap-4 px-6 @max-xl:px-2.5 border-b border-gray-200 bg-gray-100"
 			style={{ height: `${HEADER_HEIGHT}px` }}
 		>
 			{/* First column header - blurred text effect. */}
 			<div className="flex items-center gap-2 flex-1">
 				<span
-					className="text-sm font-semibold text-gray-400 select-none animate-pulseSlow"
+					className="text-sm font-semibold text-text-gray-light select-none animate-pulseSlow"
 					style={{ filter: 'blur(4px)' }}
 				>
 					{__( 'Page URL', 'burst-statistics' )}
@@ -74,7 +74,7 @@ const SkeletonHeader = () => {
 			{/* Second column header - blurred text effect. */}
 			<div className="flex items-center gap-2 ml-auto">
 				<span
-					className="text-sm font-semibold text-gray-400 select-none animate-pulseSlow"
+					className="text-sm font-semibold text-text-gray-light select-none animate-pulseSlow"
 					style={{ filter: 'blur(4px)' }}
 				>
 					{__( 'Pageviews', 'burst-statistics' )}
@@ -87,25 +87,31 @@ const SkeletonHeader = () => {
 /**
  * SkeletonPagination component for rendering a disabled pagination bar.
  *
+ * @param {Object} props - Component props.
+ * @param {boolean} [props.isInOverlay=false] - Whether the table is inside an overlay.
  * @return {JSX.Element} A skeleton pagination element.
  */
-const SkeletonPagination = () => {
+const SkeletonPagination = ({ isInOverlay = false }) => {
 	return (
 		<div
-			className="flex items-center justify-end gap-4 px-6 max-xl:px-2.5 border-t border-gray-200 bg-white"
+			className={`flex items-center gap-4 px-6 @max-xl:px-2.5 border-t border-gray-200 bg-gray-50 ${
+				isInOverlay ? 'justify-end' : 'justify-center'
+			}`}
 			style={{ height: `${PAGINATION_HEIGHT}px` }}
 		>
 			{/* Rows per page selector skeleton. */}
-			<div className="flex items-center gap-2">
-				<div
-					className="h-8 w-16 bg-gray-100 rounded border border-gray-200 animate-pulseSlow"
-					style={{ animationDelay: '200ms' }}
-				/>
-			</div>
+			{ isInOverlay && (
+				<div className="flex items-center gap-2">
+					<div
+						className="h-8 w-16 bg-gray-100 rounded border border-gray-200 animate-pulseSlow"
+						style={{ animationDelay: '200ms' }}
+					/>
+				</div>
+			) }
 
 			{/* Page info skeleton. */}
 			<span
-				className="text-sm text-gray-400 select-none animate-pulseSlow"
+				className="text-sm text-text-gray-light select-none animate-pulseSlow"
 				style={{ filter: 'blur(3px)', animationDelay: '100ms' }}
 			>
 				1-10 {__( 'of', 'burst-statistics' )} 100
@@ -118,7 +124,7 @@ const SkeletonPagination = () => {
 					className="w-8 h-8 bg-gray-100 rounded border border-gray-200 animate-pulseSlow flex items-center justify-center"
 					style={{ animationDelay: '150ms' }}
 				>
-					<svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg className="w-4 h-4 text-text-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
 					</svg>
 				</div>
@@ -127,7 +133,7 @@ const SkeletonPagination = () => {
 					className="w-8 h-8 bg-gray-100 rounded border border-gray-200 animate-pulseSlow flex items-center justify-center"
 					style={{ animationDelay: '200ms' }}
 				>
-					<svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg className="w-4 h-4 text-text-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
 					</svg>
 				</div>
@@ -136,7 +142,7 @@ const SkeletonPagination = () => {
 					className="w-8 h-8 bg-gray-100 rounded border border-gray-200 animate-pulseSlow flex items-center justify-center"
 					style={{ animationDelay: '250ms' }}
 				>
-					<svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg className="w-4 h-4 text-text-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
 					</svg>
 				</div>
@@ -145,7 +151,7 @@ const SkeletonPagination = () => {
 					className="w-8 h-8 bg-gray-100 rounded border border-gray-200 animate-pulseSlow flex items-center justify-center"
 					style={{ animationDelay: '300ms' }}
 				>
-					<svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg className="w-4 h-4 text-text-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
 					</svg>
 				</div>
@@ -157,9 +163,11 @@ const SkeletonPagination = () => {
 /**
  * LoadingState component for displaying a skeleton table.
  *
+ * @param {Object} props - Component props.
+ * @param {boolean} [props.isInOverlay=false] - Whether the table is inside an overlay.
  * @return {JSX.Element} A skeleton table element.
  */
-const LoadingState = () => {
+const LoadingState = ({ isInOverlay = false }) => {
 	return (
 		<div
 			className="w-full"
@@ -175,7 +183,7 @@ const LoadingState = () => {
 					/>
 				) )}
 			</div>
-			<SkeletonPagination />
+			<SkeletonPagination isInOverlay={isInOverlay} />
 		</div>
 	);
 };
@@ -183,43 +191,49 @@ const LoadingState = () => {
 /**
  * EmptyPagination component for rendering a disabled pagination bar for empty/error states.
  *
+ * @param {Object} props - Component props.
+ * @param {boolean} [props.isInOverlay=false] - Whether the table is inside an overlay.
  * @return {JSX.Element} A disabled pagination element.
  */
-const EmptyPagination = () => {
+const EmptyPagination = ({ isInOverlay = false }) => {
 	return (
 		<div
-			className="flex items-center justify-end gap-4 px-6 max-xl:px-2.5 border-t border-gray-200 bg-white opacity-40"
+			className={`flex items-center gap-4 px-6 @max-xl:px-2.5 border-t border-gray-200 bg-gray-50 opacity-40 ${
+				isInOverlay ? 'justify-end' : 'justify-center'
+			}`}
 			style={{ height: `${PAGINATION_HEIGHT}px` }}
 		>
 			{/* Rows per page selector. */}
-			<div className="flex items-center gap-2">
-				<div className="h-8 w-16 bg-gray-100 rounded border border-gray-200" />
-			</div>
+			{ isInOverlay && (
+				<div className="flex items-center gap-2">
+					<div className="h-8 w-16 bg-gray-100 rounded border border-gray-200" />
+				</div>
+			) }
 
 			{/* Page info. */}
-			<span className="text-sm text-gray-400 select-none">
+			<span className="text-sm text-text-gray-light select-none">
 				0-0 {__( 'of', 'burst-statistics' )} 0
 			</span>
 
 			{/* Navigation buttons. */}
 			<div className="flex items-center gap-1">
 				<div className="w-8 h-8 bg-gray-100 rounded border border-gray-200 flex items-center justify-center">
-					<svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg className="w-4 h-4 text-text-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
 					</svg>
 				</div>
 				<div className="w-8 h-8 bg-gray-100 rounded border border-gray-200 flex items-center justify-center">
-					<svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg className="w-4 h-4 text-text-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
 					</svg>
 				</div>
 				<div className="w-8 h-8 bg-gray-100 rounded border border-gray-200 flex items-center justify-center">
-					<svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg className="w-4 h-4 text-text-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
 					</svg>
 				</div>
 				<div className="w-8 h-8 bg-gray-100 rounded border border-gray-200 flex items-center justify-center">
-					<svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg className="w-4 h-4 text-text-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
 					</svg>
 				</div>
@@ -231,9 +245,12 @@ const EmptyPagination = () => {
 /**
  * EmptyState component for displaying when no data is available.
  *
+ * @param {Object} props - Component props.
+ * @param {string} props.emptyStateMessage - The empty state message.
+ * @param {boolean} [props.isInOverlay=false] - Whether the table is inside an overlay.
  * @return {JSX.Element} An empty state element.
  */
-const EmptyState = ({ emptyStateMessage = '' }) => {
+const EmptyState = ({ emptyStateMessage = '', isInOverlay = false }) => {
 	return (
 		<div
 			className="w-full flex flex-col"
@@ -246,7 +263,7 @@ const EmptyState = ({ emptyStateMessage = '' }) => {
 				{/* Empty state icon. */}
 				<div className="mb-4">
 					<svg
-						className="w-16 h-16 text-gray-300"
+						className="w-16 h-16 text-text-gray-light"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -260,17 +277,17 @@ const EmptyState = ({ emptyStateMessage = '' }) => {
 					</svg>
 				</div>
 				{/* Empty state message. */}
-				<h3 className="text-base font-medium text-gray-600 mb-1">
+				<h3 className="text-base font-medium text-text-gray-light mb-1">
 					{__( 'No data to display', 'burst-statistics' )}
 				</h3>
-				<p className="text-sm text-gray-400 max-w-xs">
+				<p className="text-sm text-text-gray-light max-w-xs">
 					{
 						emptyStateMessage ? emptyStateMessage : __( 'There is no data available for the selected filters and date range.', 'burst-statistics' )
 					}
 				</p>
 			</div>
 			{/* Disabled pagination. */}
-			<EmptyPagination />
+			<EmptyPagination isInOverlay={isInOverlay} />
 		</div>
 	);
 };
@@ -280,10 +297,11 @@ const EmptyState = ({ emptyStateMessage = '' }) => {
  *
  * @param {Object} props         - The properties passed to the component.
  * @param {Object} props.error   - The error object.
+ * @param {boolean} [props.isInOverlay=false] - Whether the table is inside an overlay.
  *
  * @return {JSX.Element} An error state element.
  */
-const ErrorState = ({ error }) => {
+const ErrorState = ({ error, isInOverlay = false }) => {
 	return (
 		<div
 			className="w-full flex flex-col"
@@ -296,7 +314,7 @@ const ErrorState = ({ error }) => {
 				{/* Error icon. */}
 				<div className="mb-4">
 					<svg
-						className="w-16 h-16 text-red-light"
+						className="w-16 h-16 text-red-100"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -310,15 +328,15 @@ const ErrorState = ({ error }) => {
 					</svg>
 				</div>
 				{/* Error message. */}
-				<h3 className="text-base font-medium text-gray-600 mb-1">
+				<h3 className="text-base font-medium text-text-gray-light mb-1">
 					{__( 'Something went wrong', 'burst-statistics' )}
 				</h3>
-				<p className="text-sm text-gray-400 max-w-xs">
+				<p className="text-sm text-text-gray-light max-w-xs">
 					{error?.message || __( 'An unexpected error occurred while loading data.', 'burst-statistics' )}
 				</p>
 			</div>
 			{/* Disabled pagination. */}
-			<EmptyPagination />
+			<EmptyPagination isInOverlay={isInOverlay} />
 		</div>
 	);
 };
@@ -332,28 +350,29 @@ const ErrorState = ({ error }) => {
  * @param {Object|null}  props.error        - An error object that may occur during data loading.
  * @param {boolean} props.noData            - Indicates whether there is no data available.
  * @param {string}  props.emptyStateMessage - Custom message to display when no data is available.
+ * @param {boolean} [props.isInOverlay=false] - Whether the table is inside an overlay.
  *
  * @return {JSX.Element} A div element containing a message based on the current state.
  */
-const EmptyDataTable = ({ isLoading, error, noData, emptyStateMessage }) => {
+const EmptyDataTable = ({ isLoading, error, noData, emptyStateMessage, isInOverlay = false }) => {
 
 	// Loading state.
 	if ( isLoading ) {
-		return <LoadingState />;
+		return <LoadingState isInOverlay={isInOverlay} />;
 	}
 
 	// Error state.
 	if ( error ) {
-		return <ErrorState error={error} />;
+		return <ErrorState error={error} isInOverlay={isInOverlay} />;
 	}
 
 	// No data state.
 	if ( noData ) {
-		return <EmptyState emptyStateMessage={ emptyStateMessage } />;
+		return <EmptyState emptyStateMessage={ emptyStateMessage } isInOverlay={isInOverlay} />;
 	}
 
 	// Fallback or unexpected error state.
-	return <ErrorState error={null} />;
+	return <ErrorState error={null} isInOverlay={isInOverlay} />;
 };
 
 // Export memoized component to prevent unnecessary re-renders.

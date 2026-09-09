@@ -27,7 +27,7 @@ if( ! class_exists( 'avia_sc_product_upsells', false ) )
 
 			$this->config['name']			= __( 'Related Products', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-tabs.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-related-products.svg';
 			$this->config['order']			= 15;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_product_upsells';

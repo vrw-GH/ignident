@@ -121,11 +121,12 @@ function lsGetSwitchOptionField( $key, $default, $attrs = [] ) {
 
 }
 
-function lsOptionRow( $type, $default, $current, $attrs = [], $trClasses = '', $forceOptionVal = false) {
+function lsOptionRow( $type, $default, $current, $attrs = [], $trClasses = '', $forceOptionVal = false, $trAttrs = [] ) {
 
 	$wrapperStart = '';
 	$wrapperEnd = '';
 	$control = '';
+	$unit = ! empty( $default['unit'] ) ? '<lse-unit>'.esc_html( $default['unit'] ).'</lse-unit>' : '';
 
 	$default['desc'] = ! empty( $default['desc'] ) ? $default['desc'] : '';
 
@@ -147,6 +148,9 @@ function lsOptionRow( $type, $default, $current, $attrs = [], $trClasses = '', $
 	switch($type) {
 		case 'input':
 			$control = lsGetInput($default, $current, $attrs, true);
+			if( ! empty( $unit ) ) {
+				$control = '<lse-ib class="lse-range-inputs lse-modal-inputs">'.$control.''.$unit.'</lse-ib>';
+			}
 			break;
 
 		case 'checkbox':
@@ -160,25 +164,20 @@ function lsOptionRow( $type, $default, $current, $attrs = [], $trClasses = '', $
 
 	$trClasses = ! empty($trClasses) ? ' class="'.$trClasses.'"' : '';
 
-	echo '<tr'.$trClasses.'>
+	$trAttributes = '';
+	if( ! empty( $trAttrs ) && is_array( $trAttrs ) ) {
+		foreach( $trAttrs as $attrName => $attrValue ) {
+			$trAttributes .= ' '.$attrName.( $attrValue !== '' ? '="'.esc_attr( $attrValue ).'"' : '' );
+		}
+	}
+
+	echo '<tr'.$trClasses.''.$trAttributes.'>
 	<td>'.$wrapperStart.''.$default['name'].''.$wrapperEnd.'</td>
 	<td>'.$control.'</td>
 	<td class="desc">'.$default['desc'].'</td>
 </tr>';
 }
 
-
-function lsGetOptionValue( $default, $current ) {
-
-	$value = $default['value'];
-
-	// Override the default
-	if( isset( $current[ $name ] ) && $current[ $name ] !== '' ) {
-		$value = htmlspecialchars( stripslashes( $current[ $name ] ) );
-	}
-
-	return $value;
-}
 
 
 function lsGetInput($default, $current = null, $attrs = [], $return = false) {
@@ -221,6 +220,11 @@ function lsGetInput($default, $current = null, $attrs = [], $return = false) {
 		//if( ! is_string( $default['value'] ) || ! empty( $default['value'] ) ) {
 			// $attributes['placeholder'] = $default['value'];
 		//}
+	}
+
+	// v8.3.0: Remove empty 'name' attribute
+	if( empty( $attributes['name'] ) ) {
+		unset( $attributes['name'] );
 	}
 
 	$el->attr($attributes);
@@ -309,65 +313,105 @@ function lsGetCheckbox($default, $current = null, $attrs = [], $return = false, 
 
 
 
-function lsGetSelect($default, $current = null, $attrs = [], $forceOptionVal = false, $return = false ) {
+function lsGetSelect( $default, $current = null, $attrs = [], $forceOptionVal = false, $return = false ) {
 
 	// Var to hold data to print
-	$el 		= LayerSlider\DOM::newDocumentHTML('<select>')->children();
+	$el         = LayerSlider\DOM::newDocumentHTML( '<select>' )->children();
 	$attributes = [];
-	$options 	= [];
+	$options    = [];
 	$listItems  = [];
 
-	$name  = is_string($default['keys']) ? $default['keys'] : $default['keys'][0];
+	// Name / keys
+	$name = is_string( $default['keys'] ) ? $default['keys'] : $default['keys'][0];
 
-	$attributes['value'] 		= $value = $default['value'];
-	$attributes['name']  		= $name;
-	$attributes['data-prop'] 	= $name;
+	// Base attributes
+	$value = $default['value'];
+	$attributes['name']      = $name;
+	$attributes['data-prop'] = $name;
 
-	if( ! empty( $default['name'] ) ) {
+	if( !empty( $default['name'] ) ) {
 		$attributes['data-search-name'] = $default['name'];
 	}
 
-	// Attributes
-	$attrs = isset($default['attrs']) ? array_merge($default['attrs'], $attrs) : $attrs;
-	if( ! empty($attrs) && is_array( $attrs ) ) {
-		$attributes = array_merge($attributes, $attrs);
+	// Merge attributes (default attrs first, then runtime attrs)
+	$attrs = isset( $default['attrs'] ) ? array_merge( $default['attrs'], $attrs ) : $attrs;
+	if( !empty( $attrs ) && is_array( $attrs ) ) {
+		$attributes = array_merge( $attributes, $attrs );
 	}
 
-	// Get options
-	if(isset($default['options']) && is_array($default['options'])) {
+	// Get options (default -> attrs fallback)
+	if( isset( $default['options'] ) && is_array( $default['options'] ) ) {
 		$options = $default['options'];
-	} elseif(isset($attrs['options']) && is_array($attrs['options'])) {
+	} elseif( isset( $attrs['options'] ) && is_array( $attrs['options'] ) ) {
 		$options = $attrs['options'];
 	}
 
-	// Override the default
-	if(isset($current[$name]) && $current[$name] !== '') {
-		$attributes['value'] = $value = $current[$name];
+	// Override the default by current
+	if( isset( $current[$name] ) && $current[$name] !== '' ) {
+		$value = $current[$name];
 	}
 
-	// Add options
-	foreach($options as $name => $val) {
+	// Detect if options are in the new grouped format
+	$isGrouped = ( ! empty( $options[0]['label'] ) && is_array( $options[0]['options'] ) );
 
-		$disabled = '';
-		$name = (is_string($name) || $forceOptionVal) ? $name : $val;
-		$name = ($name === 'zero') ? 0 : $name;
+	if( $isGrouped ) {
+		// Render grouped <optgroup>
+		for( $gi = 0; $gi < count( $options ); $gi++ ) {
 
-		if( $name === 'ui-separator' ) {
-			$disabled = 'disabled';
+			$group = $options[$gi];
+			if( !is_array( $group ) || !isset( $group['label'] ) || !isset( $group['options'] ) || !is_array( $group['options'] ) ) {
+				continue;
+			}
+
+			$label = htmlspecialchars( $group['label'], ENT_QUOTES, 'UTF-8' );
+			$html  = '<optgroup label="' . $label . '">';
+
+			foreach( $group['options'] as $optVal => $optLabel ) {
+
+				$disabled = '';
+				$optName  = ( is_string( $optVal ) || $forceOptionVal ) ? $optVal : $optLabel;
+				$optName  = ( $optName === 'zero' ) ? 0 : $optName;
+
+				if( $optName === 'ui-separator' ) {
+					$disabled = 'disabled';
+				}
+
+				$checked = ( $optName == $value ) ? ' selected="selected"' : '';
+				$html   .= '<option value="' . htmlspecialchars( (string)$optName, ENT_QUOTES, 'UTF-8' ) . '"' . $checked . ' ' . $disabled . '>'
+					. htmlspecialchars( (string)$optLabel, ENT_QUOTES, 'UTF-8' )
+					. '</option>';
+			}
+
+			$html .= '</optgroup>';
+			$listItems[] = $html;
 		}
+	} else {
+		// Back-compat: flat option list (value => label)
+		foreach( $options as $optVal => $optLabel ) {
 
-		$checked = ($name == $value) ? ' selected="selected"' : '';
-		$listItems[] = "<option value=\"$name\" $checked $disabled>$val</option>";
+			$disabled = '';
+			$optName  = ( is_string( $optVal ) || $forceOptionVal ) ? $optVal : $optLabel;
+			$optName  = ( $optName === 'zero' ) ? 0 : $optName;
+
+			if( $optName === 'ui-separator' ) {
+				$disabled = 'disabled';
+			}
+
+			$checked = ( $optName == $value ) ? ' selected="selected"' : '';
+			$listItems[] = '<option value="' . htmlspecialchars( (string)$optName, ENT_QUOTES, 'UTF-8' ) . '"' . $checked . ' ' . $disabled . '>'
+				. htmlspecialchars( (string)$optLabel, ENT_QUOTES, 'UTF-8' )
+				. '</option>';
+		}
 	}
 
 	$attributes['data-default'] = $default['value'];
-	$el->append( implode('', $listItems) )->attr($attributes);
+	$el->append( implode( '', $listItems ) )->attr( $attributes );
 
 	// License registration check
-	if( ! empty( $default['premium'] ) ) {
-		if( ! LS_Config::isActivatedSite() ) {
-			$el->addClass('locked');
-			$el->attr('disabled', 'disabled');
+	if( !empty( $default['premium'] ) ) {
+		if( !LS_Config::isActivatedSite() ) {
+			$el->addClass( 'locked' );
+			$el->attr( 'disabled', 'disabled' );
 		}
 	}
 

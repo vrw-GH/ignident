@@ -85,12 +85,14 @@ if( ! class_exists( 'avia_sc_post_metadata', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Post Metadata', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-post-metadata.png';
-			$this->config['order']			= 5;
+			$this->config['tab']			= __( 'Post Loops', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-post-metadata.svg';
+			$this->config['order']			= 10;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_post_metadata';
 			$this->config['shortcode_nested'] = array( 'av_metadata_item' );
+			//	the canvas shows which metadata it shows - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_metadata_item', 'attr' => 'metadata', 'humanize' => true );
 			$this->config['tooltip']		= __( 'Add selected page/post metadata in a textline', 'avia_framework' );
 			$this->config['preview']		= 'large';
 			$this->config['disabling_allowed'] = true;

@@ -62,7 +62,7 @@
                 <h3 class="ays-pb-community-item-title"><?php echo esc_html__("YouTube community", "ays-popup-box"); ?></h3>
                 <p class="ays-pb-community-item-desc"><?php echo esc_html__("Our YouTube community guides you to step by step tutorials about our products and not only...", "ays-popup-box"); ?></p>
                 <div class="ays-pb-community-item-footer">
-                    <a href="https://www.youtube.com/channel/UC-1vioc90xaKjE7stq30wmA" target="_blank" class="button"><?php echo esc_html__("Subscribe", "ays-popup-box"); ?></a>
+                    <a href="https://www.youtube.com/@PopupBoxWordPressPlugin" target="_blank" class="button"><?php echo esc_html__("Subscribe", "ays-popup-box"); ?></a>
                 </div>
             </div>
             <div class="ays-pb-community-item">

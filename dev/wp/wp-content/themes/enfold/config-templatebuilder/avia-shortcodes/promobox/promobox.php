@@ -24,8 +24,8 @@ if( ! class_exists( 'avia_sc_promobox', false ) )
 
 			$this->config['name']			= __( 'Promo Box', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL']. 'sc-promobox.png';
-			$this->config['order']			= 50;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-promobox.svg';
+			$this->config['order']			= 90;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_promobox';
 			$this->config['tooltip'] 	    = __( 'Creates a notification box with call to action button', 'avia_framework' );

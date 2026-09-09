@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('UPDRAFTCENTRAL_CLIENT_DIR')) die('No access.');
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 /**
  * Handles UpdraftCentral Plugin Commands which basically handles
@@ -74,6 +74,32 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 
 		$result = $this->_get_plugin_info($query);
 		return $this->_response($result);
+	}
+
+	/**
+	 * Checks whether the plugins are currently installed and activated.
+	 *
+	 * @param array $query Parameter array containing the names of the plugins to check
+	 * @return array Contains the result of the current process
+	 */
+	public function are_plugins_installed($query) {
+
+		if (!isset($query['plugins']) || !is_array($query['plugins'])) {
+			return $this->_generic_error_response('plugin_name_required');
+		}
+
+		$results = array();
+
+		// Process each requested plugin
+		foreach ($query['plugins'] as $key => $plugin) {
+			if (!isset($plugin['plugin'])) {
+				continue;
+			}
+
+			$info = $this->_get_plugin_info($plugin);
+			$results[$key] = $info;
+		}
+		return $this->_response($results);
 	}
 
 	/**

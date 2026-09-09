@@ -120,7 +120,7 @@
 						<?= lsGetSVGIcon( 'face-monocle', 'duotone' ) ?>
 					</div>
 					<div class="not-found-main-text">
-						<?= __('Can’t find any assets.', 'LayerSlider') ?>
+						<?= __('Can’t Find Any Assets', 'LayerSlider') ?>
 					</div>
 					<div class="not-found-sub-text">
 						<?= __('Try a different search term or repeat the search for another asset type.', 'LayerSlider') ?>

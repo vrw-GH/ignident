@@ -16,7 +16,7 @@ $request_uri = '';
 if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 	$request_uri = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 }
-$offset = basename( wp_parse_url( $request_uri, PHP_URL_PATH ), '.xml' );
+$offset = basename( (string) wp_parse_url( $request_uri, PHP_URL_PATH ), '.xml' );
 $offset = preg_match_all( '/\d+/', $offset, $matches );
 $offset = end( $matches[0] );
 
@@ -49,6 +49,37 @@ if ( get_post_type_archive_link( $path ) && 0 === $offset ) {
 		$sitemap_url   = '';
 		$archive_links = array();
 
+		/**
+		 * Queue an archive link, unless the page standing in for that archive
+		 * asks to stay out of the sitemaps.
+		 *
+		 * The archive of `post` is the static Posts page and the archive of
+		 * `product` is the WooCommerce shop page. Both are ordinary pages whose
+		 * per-page noindex checkbox promises an exclusion from the XML and HTML
+		 * sitemaps, while the setting checked above is the global "noindex" of
+		 * the post type and never looks at them.
+		 *
+		 * @param string   $link    Archive URL.
+		 * @param int|null $page_id Page behind that URL when the caller already
+		 *                          resolved it, a translation for instance.
+		 *                          Resolved from the current language otherwise.
+		 */
+		$seopress_queue_archive_link = function ( $link, $page_id = null ) use ( $path, &$archive_links ) {
+			if ( empty( $link ) || is_wp_error( $link ) ) {
+				return;
+			}
+
+			if ( null === $page_id ) {
+				$page_id = seopress_sitemap_get_archive_page_id( $path );
+			}
+
+			if ( seopress_sitemap_is_page_noindex( $page_id ) ) {
+				return;
+			}
+
+			$archive_links[] = htmlspecialchars( urldecode( user_trailingslashit( $link ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		};
+
 		// WPML Workaround.
 		if ( class_exists( 'SitePress' ) ) {
 			if ( 2 != apply_filters( 'wpml_setting', false, 'language_negotiation_type' ) ) {
@@ -64,10 +95,12 @@ if ( get_post_type_archive_link( $path ) && 0 === $offset ) {
 
 							if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && 'product' === $path ) {
 								if ( function_exists( 'wc_get_page_id' ) ) {
-									$archive_links[] = htmlspecialchars( urldecode( user_trailingslashit( get_permalink( wc_get_page_id( 'shop' ) ) ) ) );
+									$shop_id = wc_get_page_id( 'shop' );
+
+									$seopress_queue_archive_link( get_permalink( $shop_id ), $shop_id );
 								}
 							} else {
-								$archive_links[] = htmlspecialchars( urldecode( user_trailingslashit( get_post_type_archive_link( $path ) ) ) );
+								$seopress_queue_archive_link( get_post_type_archive_link( $path ) );
 							}
 
 							// Restore language to the original.
@@ -79,67 +112,107 @@ if ( get_post_type_archive_link( $path ) && 0 === $offset ) {
 		}
 
 		// Polylang support.
+		$polylang_handled = false;
 		if ( function_exists( 'PLL' )
+			&& function_exists( 'pll_current_language' )
 			&& function_exists( 'pll_is_translated_post_type' )
 			&& pll_is_translated_post_type( $path )
 			&& ( is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'polylang-pro/polylang.php' ) )
 		) {
-			$languages = PLL()->model->get_languages_list();
+			$pll_options     = PLL()->options;
+			$is_multi_domain = isset( $pll_options['force_lang'] ) && $pll_options['force_lang'] >= 2;
 
-			if ( ! empty( $languages ) ) {
-				$base_archive = user_trailingslashit( get_post_type_archive_link( $path ) );
+			if ( $is_multi_domain ) {
+				// Multi-domain / subdomain: each host has its own sitemap,
+				// only include the current language archive link.
+				$pll_current_lang = pll_current_language();
 
-				foreach ( $languages as $language ) {
-					if ( ! $language->active ) {
-						continue;
-					}
-
+				if ( ! empty( $pll_current_lang ) ) {
+					$polylang_handled  = true;
 					$localized_archive = '';
-
-					$previous_language_slug = '';
-					$previous_language_obj  = null;
-
-					if ( function_exists( 'pll_switch_language' ) ) {
-						$previous_language_slug = pll_current_language();
-						pll_switch_language( $language->slug );
-					} elseif ( isset( PLL()->curlang ) ) {
-						$previous_language_obj = PLL()->curlang;
-						PLL()->curlang         = $language;
-					}
+					$localized_page_id = null;
 
 					if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && 'product' === $path && function_exists( 'wc_get_page_id' ) ) {
 						$shop_id = wc_get_page_id( 'shop' );
 
 						if ( $shop_id && function_exists( 'pll_get_post' ) ) {
-							$translated_shop_id = pll_get_post( $shop_id, $language->slug );
+							$translated_shop_id = pll_get_post( $shop_id, $pll_current_lang );
 
 							if ( $translated_shop_id ) {
 								$localized_archive = get_permalink( $translated_shop_id );
+								$localized_page_id = $translated_shop_id;
 							}
 						}
 					} else {
 						$localized_archive = get_post_type_archive_link( $path );
 					}
 
-					if ( function_exists( 'pll_switch_language' ) ) {
-						if ( ! empty( $previous_language_slug ) ) {
-							pll_switch_language( $previous_language_slug );
+					// Replace default home URL with the current language home URL
+					// so the domain is correct in multi-domain setups.
+					if ( ! empty( $localized_archive ) && function_exists( 'pll_home_url' ) ) {
+						$default_home = untrailingslashit( get_option( 'home' ) );
+						$lang_home    = untrailingslashit( pll_home_url( $pll_current_lang ) );
+
+						if ( $default_home !== $lang_home ) {
+							$localized_archive = str_replace( $default_home, $lang_home, $localized_archive );
 						}
-					} elseif ( null !== $previous_language_obj ) {
-						PLL()->curlang = $previous_language_obj;
 					}
 
-					if ( empty( $localized_archive ) || is_wp_error( $localized_archive ) ) {
-						continue;
+					$seopress_queue_archive_link( $localized_archive, $localized_page_id );
+				}
+			} else {
+				// Single-domain (directory mode): one sitemap contains all
+				// languages, include archive links for every active language.
+				$languages = PLL()->model->get_languages_list();
+
+				if ( ! empty( $languages ) ) {
+					$polylang_handled       = true;
+					$previous_language_slug = pll_current_language();
+
+					foreach ( $languages as $language ) {
+						if ( ! $language->active ) {
+							continue;
+						}
+
+						if ( function_exists( 'pll_switch_language' ) ) {
+							pll_switch_language( $language->slug );
+						} elseif ( isset( PLL()->curlang ) ) {
+							PLL()->curlang = $language;
+						}
+
+						$localized_archive = '';
+						$localized_page_id = null;
+
+						if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && 'product' === $path && function_exists( 'wc_get_page_id' ) ) {
+							$shop_id = wc_get_page_id( 'shop' );
+
+							if ( $shop_id && function_exists( 'pll_get_post' ) ) {
+								$translated_shop_id = pll_get_post( $shop_id, $language->slug );
+
+								if ( $translated_shop_id ) {
+									$localized_archive = get_permalink( $translated_shop_id );
+									$localized_page_id = $translated_shop_id;
+								}
+							}
+						} else {
+							$localized_archive = get_post_type_archive_link( $path );
+						}
+
+						$seopress_queue_archive_link( $localized_archive, $localized_page_id );
 					}
 
-					$archive_links[] = htmlspecialchars( urldecode( user_trailingslashit( $localized_archive ) ) );
+					// Restore original language.
+					if ( function_exists( 'pll_switch_language' ) && ! empty( $previous_language_slug ) ) {
+						pll_switch_language( $previous_language_slug );
+					}
 				}
 			}
 		}
 
-		// array with all the information needed for a sitemap url.
-		$archive_links[] = htmlspecialchars( urldecode( user_trailingslashit( get_post_type_archive_link( $path ) ) ) );
+		// Fallback when Polylang is not handling this post type.
+		if ( ! $polylang_handled ) {
+			$seopress_queue_archive_link( get_post_type_archive_link( $path ) );
+		}
 
 		$archive_links = array_unique( $archive_links );
 
@@ -185,7 +258,7 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && 'product' === $path ) 
 }
 
 // Polylang: remove hidden languages.
-if ( function_exists( 'get_languages_list' ) && ( is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'polylang-pro/polylang.php' ) ) ) {
+if ( defined( 'POLYLANG_VERSION' ) && function_exists( 'PLL' ) && isset( PLL()->model ) ) {
 	$languages = PLL()->model->get_languages_list();
 	if ( wp_list_filter( $languages, array( 'active' => false ) ) ) {
 		$args['lang'] = wp_list_pluck( wp_list_filter( $languages, array( 'active' => false ), 'NOT' ), 'slug' );
@@ -196,38 +269,40 @@ $args = apply_filters( 'seopress_sitemaps_single_query', $args, $path );
 
 $postslist = get_posts( $args );
 
-/**
- * Primary category.
- *
- * @param object $cats_0 The primary category.
- * @param object $cats The categories.
- * @param object $post The post.
- *
- * @return object The primary category.
- */
-function seopress_sitemaps_primary_cat_hook( $cats_0, $cats, $post ) {
-	$primary_cat = null;
+if ( ! function_exists( 'seopress_sitemaps_primary_cat_hook' ) ) {
+	/**
+	 * Primary category.
+	 *
+	 * @param object $cats_0 The primary category.
+	 * @param object $cats The categories.
+	 * @param object $post The post.
+	 *
+	 * @return object The primary category.
+	 */
+	function seopress_sitemaps_primary_cat_hook( $cats_0, $cats, $post ) {
+		$primary_cat = null;
 
-	if ( $post ) {
-		$_seopress_robots_primary_cat = get_post_meta( $post->ID, '_seopress_robots_primary_cat', true );
-		if ( isset( $_seopress_robots_primary_cat ) && '' !== $_seopress_robots_primary_cat && 'none' !== $_seopress_robots_primary_cat ) {
-			if ( null !== $post->post_type && 'product' === $post->post_type ) {
-				$primary_cat = get_term( $_seopress_robots_primary_cat, 'product_cat' );
-			} elseif ( null !== $post->post_type && 'post' === $post->post_type ) {
-				$primary_cat = get_category( $_seopress_robots_primary_cat );
-			}
+		if ( $post ) {
+			$_seopress_robots_primary_cat = get_post_meta( $post->ID, '_seopress_robots_primary_cat', true );
+			if ( isset( $_seopress_robots_primary_cat ) && '' !== $_seopress_robots_primary_cat && 'none' !== $_seopress_robots_primary_cat ) {
+				if ( null !== $post->post_type && 'product' === $post->post_type ) {
+					$primary_cat = get_term( $_seopress_robots_primary_cat, 'product_cat' );
+				} elseif ( null !== $post->post_type && 'post' === $post->post_type ) {
+					$primary_cat = get_category( $_seopress_robots_primary_cat );
+				}
 
-			if ( ! is_wp_error( $primary_cat ) && null !== $primary_cat ) {
-				return $primary_cat;
+				if ( ! is_wp_error( $primary_cat ) && null !== $primary_cat ) {
+					return $primary_cat;
+				} else {
+					return $cats_0;
+				}
 			} else {
+				// no primary cat.
 				return $cats_0;
 			}
 		} else {
-			// no primary cat.
 			return $cats_0;
 		}
-	} else {
-		return $cats_0;
 	}
 }
 
@@ -271,7 +346,7 @@ foreach ( $postslist as $post ) {
 
 	// array with all the information needed for a sitemap url.
 	$seopress_url = array(
-		'loc'    => htmlspecialchars( urldecode( get_permalink( $post ) ) ),
+		'loc'    => htmlspecialchars( urldecode( get_permalink( $post ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ),
 		'mod'    => $seopress_mod,
 		'images' => array(),
 	);
@@ -340,14 +415,17 @@ foreach ( $postslist as $post ) {
 									if ( false === strpos( $url, 'data:image/' ) ) {
 
 										// Initiate $seopress_url['images] and needed data for the sitemap image template.
-										if ( true === seopress_is_absolute( $url ) ) {
-											// do nothing.
-										} else {
-											$url = $home_url . $url;
+										// Resolves a root-relative or protocol-relative src, and rejects
+										// anything that has no single correct absolute form, such as a page
+										// builder's unresolved dynamic tag.
+										$url = seopress_sitemap_resolve_image_url( $url, $home_url );
+
+										if ( '' === $url ) {
+											continue;
 										}
 
 										// cleaning url.
-										$url = htmlspecialchars( urldecode( esc_attr( wp_filter_nohtml_kses( $url ) ) ) );
+										$url = htmlspecialchars( urldecode( esc_attr( wp_filter_nohtml_kses( $url ) ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
 
 										// remove query strings.
 										$parse_url = wp_parse_url( $url );

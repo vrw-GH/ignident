@@ -43,8 +43,8 @@ if ( ! class_exists( 'avia_sc_codeblock', false ) )
 
 			$this->config['name']           = __( 'Code Block', 'avia_framework' );
 			$this->config['tab']            = __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']           = AviaBuilder::$path['imagesURL'] . 'sc-codeblock.png';
-			$this->config['order']          = 1;
+			$this->config['icon']           = AviaBuilder::$path['iconsURL'] . 'sc-codeblock.svg';
+			$this->config['order']          = 5;
 			$this->config['target']         = 'avia-target-insert';
 			$this->config['shortcode']      = 'av_codeblock';
 			$this->config['tinyMCE']        = array( 'disable' => true );
@@ -151,7 +151,7 @@ if ( ! class_exists( 'avia_sc_codeblock', false ) )
 			$c = array(
 						array(
 							'name'  => __( 'Code Block Content. Add your own HTML/CSS/Javascript here', 'avia_framework' ),
-							'desc'  => __( 'Enter some text/code/shortcode. You can also add plugin shortcodes here. Adding theme shortcodes is supported now for many elements. Be carefull not to nest same named shortcodes because this is not supported by WordPress ([foo] [foo]  [/foo] [/foo] will break layout !!! )', 'avia_framework' ),
+							'desc'  => __( 'Enter some text/code/shortcode. You can also add plugin shortcodes here.', 'avia_framework' ),
 							'id'    => 'content',
 							'container_class' => 'avia-element-fullwidth avia-no-special-character-msg',
 							'type'  => 'textarea',
@@ -246,9 +246,51 @@ if ( ! class_exists( 'avia_sc_codeblock', false ) )
 		 * @param array $params			holds the default values for $content and $args.
 		 * @return array				usually holds an innerHtml key that holds item specific markup.
 		 */
+		/**
+		 * The code itself, shown on the canvas.
+		 *
+		 * A code block is the one element whose content cannot be summarised - it is either the code or
+		 * it is nothing - so the first lines of it are drawn as they are written.
+		 *
+		 * Escaped, and that is the reason this is done by hand: the content is markup as often as not,
+		 * and written into the canvas as markup it becomes part of the builder, where one unclosed tag
+		 * takes the page with it. The live update carries the escape flag for the same reason, so what
+		 * is typed cannot become part of the editor either - see avia-builder.js.
+		 *
+		 * Only the first lines are kept. The rest would be a wall of text on a canvas meant to be
+		 * scanned, and would be sent to the browser for every code block on the page.
+		 *
+		 * @since 8.0
+		 * @param array $params
+		 * @return array
+		 */
 		public function editor_element( $params )
 		{
 			$params = parent::editor_element( $params );
+
+			$code = isset( $params['content'] ) ? (string) $params['content'] : '';
+			$code = trim( html_entity_decode( $code ) );
+
+			$lines = preg_split( '/\r\n|\r|\n/', $code );
+
+			if( count( $lines ) > 8 )
+			{
+				$lines = array_slice( $lines, 0, 8 );
+				$lines[] = '…';
+			}
+
+			/*
+			 * Drawn even while there is no code, and hidden by the stylesheet until there is. A block
+			 * added to the page starts empty, and with nothing here the first thing written would have
+			 * nowhere to go until the page was loaded again.
+			 */
+
+			//	the bound element is the <pre> itself, so the template is what goes inside it - not another one
+			$template = '{{content}}';
+			$update = $this->update_template( 'content', $template );
+
+			$params['innerHtml'] .= "<pre class='avia-element-code' {$update} data-update_escape='1'>" . esc_html( implode( "\n", $lines ) ) . '</pre>';
+
 			return $params;
 		}
 

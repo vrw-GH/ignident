@@ -256,7 +256,7 @@ if( ! trait_exists( __NAMESPACE__ . '\scSlideshowUIControls' ) )
 					$atts['slider_navigation'] = 'av-navigate-dots';
 					break;
 				case 'arrows':
-				default;
+				default:
 					$atts['slider_navigation'] = 'av-navigate-arrows';
 					break;
 			}

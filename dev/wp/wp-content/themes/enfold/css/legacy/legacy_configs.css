@@ -243,9 +243,3 @@ background-image: -moz-linear-gradient(rgba(0, 0, 0, .05) 50%, transparent 50%, 
 -webkit-transition: all ease-in-out 0.5s;
 -moz-transition: all ease-in-out 0.5s;
 }
-
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded .avia-fixed-controls {
-	-webkit-box-shadow: 0 4px 4px 0px rgb(0 0 0 / 10%);
-	-moz-box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.1);
-}

@@ -70,6 +70,14 @@ return [
 		'plusone'     => false,
 	],
 	[
+		'id'          => 'search_console_integration',
+		'msg'         => __( 'New: connect Google Search Console to Burst and see which search queries bring visitors to your site, right in your dashboard.', 'burst-statistics' ),
+		'icon'        => 'new',
+		'url'         => '#/settings/integrations',
+		'dismissible' => true,
+		'plusone'     => true,
+	],
+	[
 		// no condition on this task, as when this issue happens, cron is not working to add the task.
 		'id'          => 'cron',
 		'msg'         => __( 'Your WordPress cron hasn’t been triggered for over 24 hours. As a result, Burst can’t update first visit and bounce data until it runs again.', 'burst-statistics' ),
@@ -89,14 +97,6 @@ return [
 		'url'         => 'why-burst-removes-anomalous-visits-and-how-you-can-customize-it/',
 		'dismissible' => true,
 		'fix'         => 'burst_clean_data',
-	],
-	[
-		'id'          => 'trial_offer_loyal_users',
-		'msg'         => __( 'Thanks for using Burst for over a year! To show our appreciation, we have a surprise for you as a loyal user!', 'burst-statistics' ),
-		'icon'        => 'sale',
-		'url'         => 'thanks-for-using-burst/',
-		'dismissible' => true,
-		'plusone'     => true,
 	],
 	[
 		'id'          => 'php_error_detected',
@@ -166,6 +166,28 @@ return [
 		'plusone'     => false,
 	],
 	[
+		'id'          => 'external_links_tracking',
+		'msg'         => __( 'New: external link click tracking is now enabled. You can manage this in Settings > Features.', 'burst-statistics' ),
+		'icon'        => 'new',
+		'dismissible' => true,
+		'plusone'     => false,
+	],
+	[
+		'id'                  => 'enable_ai_chat',
+		'condition'           => [
+			'type'     => 'serverside',
+			'function' => 'Burst\Admin\Abilities_Api\Abilities_Api::should_show_enable_notice()',
+		],
+		'msg'                 => __( 'New: Burst AI chat can answer analytics questions and use Burst abilities for you. Enable the Abilities API to try it.', 'burst-statistics' ),
+		'icon'                => 'new',
+		'fix'                 => 'burst_option_enable_abilities_api',
+		'dismissible'         => true,
+		'plusone'             => true,
+		'dismiss_permanently' => true,
+		'url'                 => 'guides/ask-burst-anything-setting-up-the-ai-chat-for-your-analytics',
+
+	],
+	[
 		'id'          => 'opt-in-sharing',
 		'msg'         => __( 'Help us build better features, prioritize integrations, and improve recommendations by sharing anonymous usage data. We never collect personal information, your site URL, or IP addresses. Everything stays completely anonymous.', 'burst-statistics' ),
 		'icon'        => 'new',
@@ -181,5 +203,44 @@ return [
 		'plusone'     => false,
 		'url'         => 'definition/turbo-mode/',
 		'fix'         => 'burst_option_enable_turbo_mode',
+	],
+	[
+		'id'                  => 'mainwp_integration_disabled',
+		'condition'           => [
+			'type'     => 'serverside',
+			'function' => 'Burst\\Admin\\Tasks::should_show_mainwp_integration_task()',
+		],
+		'msg'                 => __( 'MainWP Child is active on this site, but Burst MainWP integration is disabled. Enable it in settings to allow MainWP Dashboard statistics.', 'burst-statistics' ),
+		'icon'                => 'warning',
+		'url'                 => 'guides/manage-burst-statistics-across-all-your-sites-with-mainwp/',
+		'fix'                 => 'burst_option_enable_mainwp_integration',
+		'dismissible'         => true,
+		'plusone'             => true,
+		'dismiss_permanently' => true,
+	],
+	[
+		'id'                  => 'persistent_object_cache_recommended',
+		'condition'           => [
+			'type'     => 'serverside',
+			'function' => 'Burst\Admin\Statistics\Statistics::should_recommend_object_cache()',
+		],
+		'msg'                 => __( 'Burst detected very slow analytics queries. To reduce repeated heavy database load, we recommend enabling a persistent object cache (Redis or Memcached).', 'burst-statistics' ),
+		'icon'                => 'warning',
+		'dismissible'         => true,
+		'plusone'             => false,
+		'dismiss_permanently' => true,
+	],
+	[
+		'id'                  => 'wp_consent_api_notice',
+		'condition'           => [
+			'type'     => 'serverside',
+			'function' => 'Burst\Admin\Tasks::is_wp_consent_api_active()',
+		],
+		'msg'                 => __( 'If you have configured a cookiebanner to ask consent for statistics, this will cause Burst not to track any user who is not flagged by the cookie banner as having consent for statistics.', 'burst-statistics' ),
+		'icon'                => 'warning',
+		'url'                 => 'wp-consent-api-integration',
+		'dismissible'         => true,
+		'plusone'             => true,
+		'dismiss_permanently' => true,
 	],
 ];

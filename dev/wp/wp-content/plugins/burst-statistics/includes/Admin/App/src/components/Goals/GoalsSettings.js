@@ -1,31 +1,46 @@
+import { useState, useMemo } from 'react';
 import useGoalsData from '@/hooks/useGoalsData';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import Icon from '../../utils/Icon';
 import GoalSetup from './GoalSetup';
-import { useState } from 'react';
 import { burst_get_website_url } from '../../utils/lib';
 import * as Popover from '@radix-ui/react-popover';
 import useLicenseData from '@/hooks/useLicenseData';
+import ButtonInput from '../Inputs/ButtonInput';
+import IconButton from '../Inputs/IconButton';
 
+// fallow-ignore-next-line complexity
 const GoalsSettings = () => {
 	const {
 		goals,
 		goalFields,
 		predefinedGoals,
 		addGoal,
-		deleteGoal,
-		updateGoal,
 		addPredefinedGoal,
+		deleteGoal,
+		toggleGoalStatus,
 		setGoalValue,
-		saveGoalTitle
+		saveGoalTitle,
+		activeGoalsCount,
+		goalLimit
 	} = useGoalsData();
 	const { isLicenseValid } = useLicenseData();
-	const [ predefinedGoalsVisible, setPredefinedGoalsVisible ] = useState( false );
 
-	const handleAddPredefinedGoal = async( goal ) => {
-		setPredefinedGoalsVisible( false );
-		await addPredefinedGoal( goal.id );
-	};
+	// Limit is only active for free users; use server-side count as single source of truth.
+	const isLimitReached = ! isLicenseValid && 0 < goalLimit && goalLimit <= activeGoalsCount;
+
+	const [ searchQuery, setSearchQuery ] = useState( '' );
+	const [ predefinedSearch, setPredefinedSearch ] = useState( '' );
+
+	const filteredGoals = useMemo( () => {
+		if ( ! searchQuery.trim() ) {
+			return goals;
+		}
+		const query = searchQuery.toLowerCase();
+		return goals.filter( ( goal ) =>
+			goal && 'string' === typeof goal.title && goal.title.toLowerCase().includes( query )
+		);
+	}, [ goals, searchQuery ]);
 
 	const getGoalTypeNice = ( type ) => {
 		switch ( type ) {
@@ -40,162 +55,248 @@ const GoalsSettings = () => {
 		}
 	};
 
+	const filteredPredefinedGoals = useMemo( () => {
+		if ( ! predefinedGoals ) {
+			return [];
+		}
+		if ( ! predefinedSearch.trim() ) {
+			return predefinedGoals;
+		}
+		const query = predefinedSearch.toLowerCase();
+		return predefinedGoals.filter( ( goal ) => {
+			const title = ( goal.title || '' ).toLowerCase();
+			const type = ( getGoalTypeNice( goal.type ) || '' ).toLowerCase();
+			return title.includes( query ) || type.includes( query );
+		});
+	}, [ predefinedGoals, predefinedSearch ]);
+
+	const popoverContainer =
+		'undefined' !== typeof document ?
+			( document.querySelector( '#burst-statistics' ) || document.querySelector( '.burst' ) ) :
+			null;
+
+	const handleAddPredefinedGoal = async( goal ) => {
+		await addPredefinedGoal( goal.id );
+	};
+
 	const predefinedGoalsButtonClass =
 		! predefinedGoals || 0 === predefinedGoals.length ?
 			'burst-inactive' :
 			'';
 	return (
 		<div className="box-border w-full p-3 md:p-6">
-			<p className="text-base">
+			<p className="text-base text-text-gray mb-4">
 				{__(
 					'Goals are a great way to track your progress and keep you motivated.',
 					'burst-statistics'
 				)}
 				{! isLicenseValid &&
 					' ' +
-						__(
-							'While free users can create one goal, Burst Pro lets you set unlimited goals to plan, measure, and achieve more.',
-							'burst-statistics'
+						sprintf(
+							__(
+								'While free users can create up to %d goals, Burst Pro lets you set unlimited goals to plan, measure, and achieve more.',
+								'burst-statistics'
+							),
+							goalLimit
 						)}
 			</p>
+			{0 < goals.length && (
+				<div className="relative w-full mb-4">
+					<input
+						type="text"
+						value={searchQuery}
+						onChange={( e ) => setSearchQuery( e.target.value )}
+						placeholder={__( 'Search goals...', 'burst-statistics' )}
+						className="w-full bg-gray-100 border border-gray-200 rounded-md pl-12 pr-10 py-2.5 text-md text-text-black placeholder:text-text-gray-light focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200"
+					/>
+					<div className="absolute left-4 top-0 bottom-0 text-text-gray pointer-events-none flex items-center justify-center">
+						<Icon name="search" size={18} />
+					</div>
+					{searchQuery && (
+						<button
+							type="button"
+							onClick={() => setSearchQuery( '' )}
+							className="absolute right-3.5 top-0 bottom-0 text-text-gray hover:text-text-black transition-colors flex items-center justify-center cursor-pointer"
+							style={{ border: 'none', background: 'none' }}
+						>
+							<Icon name="times" size={18} />
+						</button>
+					)}
+				</div>
+			)}
 			<div className="flex flex-wrap flex-col gap-4 mt-4">
-				{0 < goals.length &&
-					goals.map( ( goal, index ) => {
+				{0 < filteredGoals.length ? (
+					filteredGoals.map( ( goal, index ) => {
 						return (
 							<GoalSetup
-								key={index}
+								key={goal.id || index}
 								goal={goal}
 								goalFields={goalFields}
 								setGoalValue={setGoalValue}
 								deleteGoal={deleteGoal}
-								onUpdate={updateGoal}
 								saveGoalTitle={saveGoalTitle}
+								toggleGoalStatus={toggleGoalStatus}
+								isLimitReached={isLimitReached}
 							/>
 						);
-					})}
+					})
+				) : (
+					0 < goals.length && (
+						<div className="p-8 text-center text-text-gray bg-gray-100 rounded-lg">
+							{__( 'No goals match your search.', 'burst-statistics' )}
+						</div>
+					)
+				)}
 
-				{( isLicenseValid || 0 === goals.length ) && (
+				{( isLicenseValid || activeGoalsCount < goalLimit || 0 > goalLimit ) && (
 					<div className="flex items-center gap-2">
-						<button
-							className="burst-button burst-button--secondary"
-							type={'button'}
-							onClick={addGoal}
-						>
+						<ButtonInput btnVariant={'tertiary'} onClick={addGoal}>
 							{__( 'Add goal', 'burst-statistics' )}
-						</button>
+						</ButtonInput>
+
 						{predefinedGoals && (
-							<Popover.Root
-								open={predefinedGoalsVisible}
-								onOpenChange={() => {
-									setPredefinedGoalsVisible(
-										! predefinedGoalsVisible
-									);
-								}}
-							>
-								<Popover.Trigger
-									type={'button'}
-									className={
-										predefinedGoalsButtonClass +
-										' burst-button burst-button--secondary burst-add-predefined-goal'
-									}
-									onClick={() => {
-										setPredefinedGoalsVisible(
-											! predefinedGoalsVisible
-										);
-									}}
-								>
-									{__(
-										'Add predefined goal',
-										'burst-statistics'
-									)}{' '}
-									<Icon
-										name={
-											predefinedGoalsVisible ?
-												'chevron-up' :
-												'chevron-down'
+							<Popover.Root onOpenChange={() => setPredefinedSearch( '' )}>
+								<Popover.Trigger asChild>
+									<IconButton
+										label={__(
+											'Add predefined goal',
+											'burst-statistics'
+										)}
+										icon={'chevron-down'}
+										className={
+											predefinedGoalsButtonClass +
+											' burst-button burst-button--secondary burst-add-predefined-goal'
 										}
-										color={'gray'}
 									/>
 								</Popover.Trigger>
 
-								<Popover.Content
-									sideOffset={5}
-									align={'end'}
-									className="burst-predefined-goals-list z-50 flex flex-col gap-2 rounded-lg border border-gray-400 bg-white p-2"
-								>
-									{predefinedGoals.map( ( goal, index ) => {
-										return (
-											<div
-												key={index}
-												className={
-													'relative z-50 flex cursor-pointer flex-row gap-1 rounded-lg border border-gray-400 bg-gray-100 p-2'
-												}
-												onClick={() =>
-													handleAddPredefinedGoal(
-														goal
-													)
-												}
-											>
-												<Icon
-													name={'plus'}
-													size={18}
-													color="gray"
-												/>
-												{goal.title +
-													' (' +
-													getGoalTypeNice( goal.type ) +
-													')'}
-											</div>
-										);
-									})}
-									{__(
-										'Plug-in you\'re looking for not listed?',
-										'burst-statistics'
-									) + ' '}
-									<a
-										className="underline"
-										href={burst_get_website_url(
-											'/request-goal-integration/',
-											{
-												utm_source:
-													'goals-integration-request'
-											}
-										)}
+								<Popover.Portal container={popoverContainer}>
+									<Popover.Content
+										sideOffset={5}
+										align={'end'}
+										className="burst-predefined-goals-container z-50 flex w-80 sm:w-[420px] max-h-[460px] flex-col gap-2.5 rounded-xl border border-gray-400 bg-white p-3.5 shadow-xl"
 									>
-										{__(
-											'Request it here!',
-											'burst-statistics'
-										)}
-									</a>
-								</Popover.Content>
+										<div className="relative flex items-center">
+											<div className="pointer-events-none absolute left-3 flex items-center justify-center text-text-gray">
+												<Icon
+													name={'search'}
+													size={16}
+												/>
+											</div>
+											<input
+												type="text"
+												value={predefinedSearch}
+												onChange={( e ) => setPredefinedSearch( e.target.value )}
+												placeholder={__( 'Search predefined goals...', 'burst-statistics' )}
+												className="w-full rounded-lg border border-gray-400 bg-gray-100 py-2 pl-9 pr-8 text-sm text-text-black placeholder:text-text-gray focus:border-primary focus:bg-white focus:outline-hidden"
+											/>
+											{predefinedSearch && (
+												<button
+													type="button"
+													onClick={() => setPredefinedSearch( '' )}
+													className="absolute right-2.5 flex items-center justify-center text-text-gray hover:text-text-black"
+													aria-label={__( 'Clear search', 'burst-statistics' )}
+												>
+													<Icon name={'times'} size={14} />
+												</button>
+											)}
+										</div>
+
+										<div className="flex max-h-[300px] flex-col gap-2 overflow-y-auto burst-custom-scrollbar pr-1.5">
+											{0 < filteredPredefinedGoals.length ? (
+												filteredPredefinedGoals.map( ( goal, index ) => {
+													return (
+														<Popover.Close asChild key={index}>
+															<div
+																className={
+																	'burst-predefined-goals-list relative z-50 flex cursor-pointer flex-row items-center gap-2.5 rounded-lg border border-gray-400 bg-gray-100 hover:bg-gray-200 p-2.5 text-sm font-medium text-text-black transition-colors'
+																}
+																onClick={() =>
+																	handleAddPredefinedGoal(
+																		goal
+																	)
+																}
+															>
+																<Icon
+																	name={'plus'}
+																	size={16}
+																	className="shrink-0 text-text-gray"
+																/>
+																<span className="truncate">
+																	{goal.title +
+																		' (' +
+																		getGoalTypeNice( goal.type ) +
+																		')'}
+																</span>
+															</div>
+														</Popover.Close>
+													);
+												})
+											) : (
+												<div className="p-4 text-center text-sm text-text-gray">
+													{__( 'No matching predefined goals found', 'burst-statistics' )}
+												</div>
+											)}
+										</div>
+
+										<div className="border-t border-gray-400 pt-2.5 text-center text-xs text-text-gray">
+											{__(
+												'Plug-in you\'re looking for not listed?',
+												'burst-statistics'
+											) + ' '}
+											<a
+												className="font-medium text-wp-blue hover:underline"
+												target="_blank"
+												rel="noopener noreferrer"
+												href={burst_get_website_url(
+													'/request-goal-integration/',
+													{
+														utm_source:
+															'goals-integration-request'
+													}
+												)}
+											>
+												{__(
+													'Request it here!',
+													'burst-statistics'
+												)}
+											</a>
+										</div>
+									</Popover.Content>
+								</Popover.Portal>
 							</Popover.Root>
 						)}
 						<div className="ml-auto text-right">
-							<p className="rounded-lg bg-gray-300 p-1 px-3 text-sm text-gray">
+							<p className="rounded-lg bg-gray-300 p-1 px-3 text-sm text-text-gray">
 								{isLicenseValid ? (
-									<> {goals.length} / &#8734; </>
+									<> {activeGoalsCount} / &#8734; </>
 								) : (
-									<>{goals.length} / 1</>
+									<>{activeGoalsCount} / {goalLimit}</>
 								)}
 							</p>
 						</div>
 					</div>
 				)}
-				{! isLicenseValid && (
-					<div className="flex gap-4 p-4 bg-gray-200 rounded-md mt-4 justify-start items-center border-2 border-gray-300">
-						<Icon name={'goals'} size={24} color="gray" />
-						<h4>{__( 'Want more goals?', 'burst-statistics' )}</h4>
-						<div className="burst-divider" />
-						<p className="text-sm text-gray">
-							{__( 'Upgrade to Burst Pro', 'burst-statistics' )}
-						</p>
+				{isLimitReached && (
+					<div className="flex flex-col sm:flex-row gap-4 p-4 bg-brand-lightest dark:bg-green-dark rounded-md mt-4 justify-between items-start sm:items-center border border-brand-light dark:border-green-dark">
+						<div className="flex gap-4 items-center">
+							<Icon name={'goals'} size={24} color="green" />
+							<div className="text-left">
+								<h4 className="text-base font-semibold m-0 leading-tight">
+									{__( 'Want more active goals?', 'burst-statistics' )}
+								</h4>
+								<p className="text-sm text-text-gray mt-1 mb-0 leading-normal">
+									{__( 'Upgrade to Pro to activate unlimited goals', 'burst-statistics' )}
+								</p>
+							</div>
+						</div>
 						<a
 							href={burst_get_website_url( '/pricing/', {
 								utm_source: 'goals-setting',
 								utm_content: 'more-goals'
 							})}
 							target={'_blank'}
-							className="ml-auto burst-button burst-button--pro"
+							className="w-full sm:w-auto text-center burst-button burst-button--pro shrink-0"
 						>
 							{__( 'Upgrade to Pro', 'burst-statistics' )}
 						</a>

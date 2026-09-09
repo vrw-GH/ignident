@@ -9,6 +9,7 @@ use Burst\Pro\Pro;
 use Burst\Integrations\Integrations;
 use Burst\Traits\Admin_Helper;
 use Burst\Admin\AutoInstaller\Auto_Installer;
+use Burst\Admin\Search_Console\Search_Console;
 
 	// ignore the 'only one object' rule, as it is a trick for compatibility.
     //phpcs:ignore
@@ -31,6 +32,7 @@ use Burst\Admin\AutoInstaller\Auto_Installer;
 	public ?bool $has_admin_access         = null;
 	public ?bool $is_logged_in_rest        = null;
 	public ?bool $is_shareable_link_viewer = null;
+	public ?bool $is_mainwp_request        = null;
 	public string $admin_url;
 	/**
 	 * Constructor
@@ -69,13 +71,16 @@ use Burst\Admin\AutoInstaller\Auto_Installer;
 		define( 'BURST_DASHBOARD_URL', admin_url( 'admin.php?page=burst' ) );
 		define( 'BURST_PLUGIN', plugin_basename( BURST_FILE ) );
 		define( 'BURST_PLUGIN_NAME', defined( 'BURST_PRO' ) ? 'Burst Pro' : 'Burst Statistics' );
-		define( 'BURST_VERSION', '3.2.1' );
+		define( 'BURST_VERSION', '3.6.3' );
 		define( 'BURST_PUBLIC_KEY', 'bst_7k9mQpX2vL4nWzR8jYhF6tGcU5eBxN3dS1aM0iKoHgJfVq' );
 		// deprecated constant.
         //phpcs:ignore
         define( 'burst_version', BURST_VERSION );
 		define( 'BURST_ITEM_ID', 889 );
 		define( 'BURST_PRODUCT_NAME', 'Burst Pro' );
+		if ( ! defined( 'BURST_TRACK_ONLY' ) ) {
+			define( 'BURST_TRACK_ONLY', false );
+		}
 	}
 
 	/**
@@ -85,9 +90,19 @@ use Burst\Admin\AutoInstaller\Auto_Installer;
 		if ( $this->booted ) {
 			return;
 		}
+
+		$this->bootstrap();
 		$this->booted = true;
+	}
+
+	/**
+	 * Bootstrap plugin components in a predictable order.
+	 */
+	private function bootstrap(): void {
 
 		$this->constants();
+
+		add_filter( 'wp_is_application_passwords_available_for_user', [ $this, 'disable_app_passwords_for_viewer' ], 10, 2 );
 		// not using the formdata.
 		//phpcs:ignore
 		if ( isset( $_GET['install_pro'] ) ) {
@@ -97,16 +112,23 @@ use Burst\Admin\AutoInstaller\Auto_Installer;
 		$this->integrations = new Integrations();
 		$this->integrations->init();
 
-		if ( is_user_logged_in() ) {
+		if ( is_user_logged_in() && ! BURST_TRACK_ONLY ) {
 			$this->frontend_admin = new Frontend_Admin();
 			$this->frontend_admin->init();
 		}
 
-		if ( $this->has_admin_access() ) {
+		if ( $this->has_admin_access( true ) ) {
 			$this->admin = new Admin();
 			$this->admin->init();
 			$capability = new Capability();
 			$capability->init();
+		}
+
+		// The Google Search Console OAuth popup returns to admin-post.php and must be
+		// handled even when the broader admin bootstrap gate above is closed. The
+		// callback itself requires the Burst capability and its single-use OAuth nonce.
+		if ( is_admin() && $this->get_option_bool( 'enable_search_console' ) ) {
+			( new Search_Console() )->register_oauth_callback();
 		}
 
 		if ( defined( 'BURST_PRO_FILE' ) ) {
@@ -116,5 +138,19 @@ use Burst\Admin\AutoInstaller\Auto_Installer;
 
 		$this->frontend = new Frontend();
 		$this->frontend->init();
+	}
+
+	/**
+	 * Disable Application Passwords for shared-link viewer accounts.
+	 *
+	 * @param bool     $available Whether Application Passwords are available for the user.
+	 * @param \WP_User $user      The user being checked.
+	 */
+	public function disable_app_passwords_for_viewer( bool $available, \WP_User $user ): bool {
+		if ( in_array( 'burst_viewer', (array) $user->roles, true ) ) {
+			return false;
+		}
+
+		return $available;
 	}
 }

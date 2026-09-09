@@ -55,8 +55,8 @@ if( ! class_exists( 'avia_sc_lottie_animation', false ) )
 
 			$this->config['name']			= __( 'Lottie Animation', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-lottie.png';
-			$this->config['order']			= 100;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-lottie.svg';
+			$this->config['order']			= 30;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_lottie';
 			$this->config['tooltip'] 	    = __( 'Inserts a single lottie animation of your choice', 'avia_framework' );
@@ -834,7 +834,7 @@ if( ! class_exists( 'avia_sc_lottie_animation', false ) )
 
 			switch( $atts['hover_effect'] )
 			{
-				case 'av-hover-blur';
+				case 'av-hover-blur':
 					$element_styling->add_callback_styles( 'animation-hover', array( 'blur_image' ) );
 					break;
 				case 'av-hover-grayscale':

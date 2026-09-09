@@ -1,0 +1,37 @@
+
+/*
+	* LayerSlider Add-On: Slicer Layer Effect
+	*
+	* (c) 2011-2026 George Krupa, John Gera & Kreatura Media
+	*
+	* LayerSlider home:		https://layerslider.com/
+	* Licensing:			https://layerslider.com/licensing/
+*/
+
+
+
+/* Common */
+
+ls-slicer-wrapper {
+	display: block;
+	position: absolute;
+	visibility: visible;
+	width: inherit;
+	height: inherit;
+}
+
+ls-slicer-wrapper .ls-slice {
+	position: absolute !important;
+	left: 0 !important;
+	top: 0 !important;
+	width: inherit !important;
+	height: inherit !important;
+}
+
+.ls-wrapper.ls-get-dimensions {
+	display: block !important;
+	visibility: hidden !important;
+	width: 100%;
+	height: 100%;
+}
+

@@ -10,11 +10,11 @@ import ErrorBoundary from '../Common/ErrorBoundary';
 
 const GhostWorldMapBlock = () => {
 	return (
-		<Block className="row-span-2 xl:col-span-6">
+		<Block className="row-span-2 @xl:col-span-6">
 			<ErrorBoundary>
 				<BlockHeading
 					className="border-b border-gray-200"
-					title={__( 'World View', 'burst-statistics' )}
+					title={__( 'World view', 'burst-statistics' )}
 
 					// controls={<WorldMapHeader />}
 				/>

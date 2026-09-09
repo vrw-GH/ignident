@@ -7,6 +7,7 @@ import {
 	ShoppingCart,
 	UserRoundCheck,
 	UserRoundPlus,
+	UserRoundX,
 	TriangleAlert,
 	Download,
 	Zap,
@@ -19,7 +20,9 @@ import {
 	Ban,
 	Braces,
 	Building,
+	Banknote,
 	Calendar,
+	CalendarSync,
 	CalendarX,
 	Car,
 	Check,
@@ -28,10 +31,13 @@ import {
 	ChevronLeft,
 	ChevronRight,
 	ChevronUp,
+	ChevronsLeft,
+	ChevronsRight,
 	Circle,
 	CircleDot,
 	CircleOff,
 	Clock,
+	Cog,
 	Copy,
 	Cpu,
 	Eye,
@@ -41,6 +47,7 @@ import {
 	FileText,
 	FileX,
 	Filter,
+	Gem,
 	Globe,
 	Goal,
 	Grid3x3,
@@ -50,17 +57,22 @@ import {
 	Layers,
 	LineChart,
 	Link,
-	Loader,
+	LoaderCircle,
 	LogOut,
 	MapPin,
 	Megaphone,
 	Minus,
 	Monitor,
+	Moon,
 	Mouse,
+	MousePointerClick,
 	PanelTop,
 	PieChart,
+	Pin,
+	PinOff,
 	Plus,
 	Radio,
+	Receipt,
 	RefreshCw,
 	Search,
 	Settings,
@@ -70,8 +82,8 @@ import {
 	Sun,
 	Tablet,
 	Tag,
-	Target,
 	Trash,
+	TrendingDown,
 	Trophy,
 	User,
 	UserCircle,
@@ -80,6 +92,7 @@ import {
 	XCircle,
 	Activity,
 	Webhook,
+	ArrowLeftRight,
 	Earth,
 	LogIn,
 	CircleAlert,
@@ -96,14 +109,28 @@ import {
 	Upload,
 	Pencil,
 	GripVertical,
-	Image
+	Image,
+	Settings2,
+	Key,
+	SlidersVertical,
+	HardDrive,
+	MessageCircle,
+	Maximize2,
+	Menu,
+	Table2,
+	ShieldCheck,
+	Cookie,
+	Shield,
+	Fingerprint,
+	Repeat,
+	Plug
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
 // Color mapping from our custom colors to CSS variables
 const iconColors = {
 	'black-light': 'black-light',
-	black: 'black',
+	black: 'text-black',
 	green: 'green',
 	yellow: 'yellow',
 	red: 'red',
@@ -111,6 +138,8 @@ const iconColors = {
 	gray: 'gray-500',
 	lightgray: 'gray-300',
 	white: 'white',
+	'text-white': 'text-white',
+
 	gold: 'gold'
 };
 
@@ -136,6 +165,8 @@ const iconComponents = {
 	'chevron-down': ChevronDown,
 	'chevron-right': ChevronRight,
 	'chevron-left': ChevronLeft,
+	'chevrons-left': ChevronsLeft,
+	'chevrons-right': ChevronsRight,
 	plus: Plus,
 	minus: Minus,
 	sync: RefreshCw,
@@ -148,6 +179,7 @@ const iconComponents = {
 	'calendar-error': CalendarX,
 	website: PanelTop,
 	help: HelpCircle,
+	cog: Cog,
 	copy: Copy,
 	trash: Trash,
 	visitor: User,
@@ -169,7 +201,8 @@ const iconComponents = {
 	conversions: Goal,
 	'goals-empty': CircleDot,
 	filter: SlidersHorizontal,
-	loading: Loader,
+	loading: LoaderCircle,
+	'compare-arrows': ArrowLeftRight,
 	desktop: Monitor,
 	tablet: Tablet,
 	mobile: Smartphone,
@@ -179,6 +212,7 @@ const iconComponents = {
 	page: File,
 	hashtag: Hash,
 	sun: Sun,
+	moon: Moon,
 	world: Earth,
 	filters: Filter,
 	referrers: ExternalLink,
@@ -187,12 +221,14 @@ const iconComponents = {
 	'log-out': LogOut,
 	alert: CircleAlert,
 	search: Search,
+	pin: Pin,
+	'pin-off': PinOff,
 	upload: Upload,
+	plug: Plug,
 
-	// Filter icons from useFiltersStore
+	// Filter icons from useFiltersStore.
 	bounce: LogOut,
 	user: User,
-	conversion: Target,
 	parameters: Settings,
 	campaign: Megaphone,
 	source: Milestone,
@@ -212,6 +248,11 @@ const iconComponents = {
 	// Star icons
 	'star-filled': Star,
 	'star-outline': Star,
+	cookie: Cookie,
+	security: Shield,
+	shield: Shield,
+	fingerprint: Fingerprint,
+	repeat: Repeat,
 	'map-pinned': MapPinned,
 
 	// Additional icons
@@ -219,6 +260,7 @@ const iconComponents = {
 	grid: Grid3x3,
 	'user-check': UserRoundCheck,
 	'user-plus': UserRoundPlus,
+	'user-x': UserRoundX,
 	'line-squiggle': LineSquiggle,
 	'shopping-cart': ShoppingCart,
 	'party-popper': PartyPopper,
@@ -230,20 +272,41 @@ const iconComponents = {
 	bulb: Lightbulb,
 	'right-arrow': MoveRight,
 	ellipsis: Ellipsis,
-    download: Download,
-    ban: Ban,
-    'external-link': ExternalLink,
+	download: Download,
+	ban: Ban,
+	'external-link': ExternalLink,
 	'arrow-down-up': ArrowDownUp,
 	pencil: Pencil,
-	'grip-vertical': GripVertical
+	'grip-vertical': GripVertical,
+	'move-right': MoveRight,
+	preferences: Settings2,
+	key: Key,
+	'sliders-vertical': SlidersVertical,
+	'hard-drive': HardDrive,
+	chat: MessageCircle,
+	expand: Maximize2,
+	menu: Menu,
+	close: X,
+	'shield-check': ShieldCheck,
+	privacy: ShieldCheck,
+
+	// Sales & subscription metric icons
+	banknote: Banknote,
+	'calendar-sync': CalendarSync,
+	gem: Gem,
+	'mouse-pointer-click': MousePointerClick,
+	receipt: Receipt,
+	'trending-down': TrendingDown,
+	datatable: Table2
 };
 
+
 // Define types for icon names and colors
-export type IconName = keyof typeof iconComponents | string;
-export type ColorName = keyof typeof iconColors | string;
+type IconName = keyof typeof iconComponents | string;
+type ColorName = keyof typeof iconColors | string;
 
 // Props interface for the Icon component
-export interface IconProps {
+interface IconProps {
 	name?: IconName;
 	color?: ColorName;
 	size?: number;
@@ -286,6 +349,7 @@ const Icon = memo(
 		 *
 		 * @return {JSX.Element} The rendered icon component
 		 */
+		// fallow-ignore-next-line complexity
 		const renderIcon = () => {
 
 			// Special handling for bullet and dot icons - they should be filled
@@ -312,13 +376,13 @@ const Icon = memo(
 			}
 
 			// Special handling for loading icon - should spin
-			if ( 'loading' === name && IconComponent === Loader ) {
+			if ( 'loading' === name && IconComponent === LoaderCircle ) {
 				return (
-					<Loader
+					<LoaderCircle
 						{...iconProps}
 						className={clsx(
 							className,
-							'animate-spin [animation-duration:2s]',
+							'animate-spin [animation-duration:1s]',
 							colorVal && `text-${colorVal}`
 						)}
 					/>

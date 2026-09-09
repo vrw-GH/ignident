@@ -67,11 +67,13 @@ if( ! class_exists( 'avia_sc_timeline', false ) )
 
 			$this->config['name']			= __( 'Timeline', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-timeline.png';
-			$this->config['order']			= 70;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-timeline.svg';
+			$this->config['order']			= 64;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_timeline';
 			$this->config['shortcode_nested'] = array( 'av_timeline_item' );
+			//	the canvas names the milestone titles so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_timeline_item', 'attr' => 'title' );
 			$this->config['tooltip']		= __( 'Creates a timeline', 'avia_framework' );
 			$this->config['preview']		= 'large';
 			$this->config['disabling_allowed'] = true;

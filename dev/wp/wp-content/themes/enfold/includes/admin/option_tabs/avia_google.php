@@ -66,7 +66,7 @@ $tutorial_link = 'https://kriesi.at/documentation/enfold/how-to-register-a-googl
 $avia_elements[] = array(
 			'slug'		=> 'google',
 			'name'		=> __( 'Google Maps', 'avia_framework' ),
-			'desc'		=> __( 'Google recently changed the way their map service works. New pages which want to use Google Maps need to register an API key for their website. Older pages should work fine without this API key. If the google map elements of this theme do not work properly you need to register a new API key.', 'avia_framework' ) . "<br><a href='{$google_link}' target='_blank' rel='noopener noreferrer'>" . __( 'Register an API Key', 'avia_framework' ) . "</a> | <a target='_blank' href='{$tutorial_link}' rel='noopener noreferrer'>" . __( 'Tutorial: How to create an API key', 'avia_framework' ) . '</a>',
+			'desc'		=> __( 'Google Maps requires an API key for your website. If the map elements do not display correctly, register a key and enter it here.', 'avia_framework' ) . "<br><a href='{$google_link}' target='_blank' rel='noopener noreferrer'>" . __( 'Register an API Key', 'avia_framework' ) . "</a> | <a target='_blank' href='{$tutorial_link}' rel='noopener noreferrer'>" . __( 'Tutorial: How to create an API key', 'avia_framework' ) . '</a>',
 			'id'		=> 'avia_gmaps_heading',
 			'type'		=> 'heading',
 			'std'		=> '',
@@ -76,7 +76,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'google',
 			'name'		=> __( 'Enable Google Maps On Your Site', 'avia_framework' ),
-			'desc'		=> __( 'Select if you want to use Google Maps on your site. If it is disabled no Javascript to connect to Google Maps will be loaded in frontend.', 'avia_framework' ),
+			'desc'		=> __( 'Enable Google Maps on your site. When disabled, no Google Maps code is loaded on your pages.', 'avia_framework' ),
 			'id'		=> 'gmap_enabled',
 			'type'		=> 'select',
 			'std'		=> 'disable_gmap',

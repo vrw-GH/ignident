@@ -437,7 +437,9 @@ if( ! class_exists( 'aviaCustomLayout', false ) )
 
 			if( avia_backend_get_post_type() == $this->get_post_type() )
 			{
+				//	design hints, useful once and then in the way - see aviaBuilderNotes
 				$params['noteclass'] = 'av-notice av-only-active';
+				$params['note_key'] = 'custom_layout_hints';
 
 				$params['note']  = '<ul>';
 				$params['note'] .=		'<li>';

@@ -1,7 +1,6 @@
 <?php
 // phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Using the default PHP fopen() function instead of the WP Filesystem API.
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 /**
  * Converted to job_options: yes
@@ -59,21 +58,6 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk extends UpdraftPlus_BackupModul
 	public function get_supported_features() {
 		// This options format is handled via only accessing options via $this->get_options()
 		return array('multi_options', 'config_templates', 'multi_storage', 'conditional_logic');
-	}
-
-	/**
-	 * Retrieve default options for this remote storage module.
-	 *
-	 * @return Array - an array of options
-	 */
-	public function get_default_options() {
-		return array(
-			'user' => '',
-			'authurl' => 'https://auth.api.rackspacecloud.com',
-			'apikey' => '',
-			'path' => '',
-			'region' => null
-		);
 	}
 	
 	/**
@@ -470,7 +454,7 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk extends UpdraftPlus_BackupModul
 				<p>
 				<?php
 					echo wp_kses_post('Get your API key from your <a href="https://mycloud.rackspace.com/" target="_blank">Rackspace Cloud console</a> (<a href="http://www.rackspace.com/knowledge_center/article/rackspace-cloud-essentials-1-generating-your-api-key" target="_blank">read instructions here</a>), then pick a container name to use for storage.', 'updraftplus');
-					echo ' '.esc_html__('This container will be created for you if it does not already exist.', 'updraftplus').' <a href="https://updraftplus.com/faqs/there-appear-to-be-lots-of-extra-files-in-my-rackspace-cloud-files-container/" target="_blank">'.esc_html__('Also, you should read this important FAQ.', 'updraftplus').'</a>';
+					echo ' '.esc_html__('This container will be created for you if it does not already exist.', 'updraftplus').' <a href="https://teamupdraft.com/documentation/updraftplus/topics/cloud-storage/rackspace/faqs/there-are-extra-files-in-my-rackspace-cloud-files-container/" target="_blank">'.esc_html__('Also, you should read this important FAQ.', 'updraftplus').'</a>';
 				?>
 				</p>
 			</td>
@@ -606,6 +590,7 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk extends UpdraftPlus_BackupModul
 			return;
 		}
 
+		$this->set_connection_status(true);
 		echo esc_html(__('Success', 'updraftplus').": ".__('We accessed the container, and were able to create files within it.', 'updraftplus'));
 
 		@$container_object->delete_object($try_file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the method.

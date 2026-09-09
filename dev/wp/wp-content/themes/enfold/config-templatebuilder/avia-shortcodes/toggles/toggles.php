@@ -97,11 +97,13 @@ if( ! class_exists( 'avia_sc_toggle', false ) )
 
 			$this->config['name']			= __( 'Accordion', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-accordion.png';
-			$this->config['order']			= 70;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-accordion.svg';
+			$this->config['order']			= 68;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_toggle_container';
 			$this->config['shortcode_nested'] = array( 'av_toggle' );
+			//	the canvas names the section titles so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_toggle', 'attr' => 'title' );
 			$this->config['tooltip']		= __( 'Creates toggles or accordions (can be used for FAQ)', 'avia_framework' );
 			$this->config['preview']		= 'large';
 			$this->config['disabling_allowed'] = true;
@@ -282,7 +284,7 @@ if( ! class_exists( 'avia_sc_toggle', false ) )
 
 						array(
 							'name' 	=> __( 'Use as FAQ Page (SEO improvement)', 'avia_framework' ),
-							'desc' 	=> __( 'Select if content is used as FAQ and add schema.org markup to support Google Search. You must enable theme option &quot;Automated Schema.org HTML Markup&quot; (SEO tab). For valid structured HTML only one FAQ section allowed per page - you can activate &quot;Sorting&quot; and group questions if needed.', 'avia_framework' ),
+							'desc' 	=> __( 'Mark this content as an FAQ so Google can show it in search results. Requires the "Automated Schema.org HTML Markup" option (SEO tab), and only one FAQ section per page.', 'avia_framework' ),
 							'id' 	=> 'faq_markup',
 							'type' 	=> 'select',
 							'std' 	=> '',

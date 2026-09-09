@@ -285,6 +285,10 @@
     margin: 20px auto 0;
 }
 
+.ays-pb-dashboard-main-wrap #tab1.ays-pb-tab-content.ays-pb-new-step-tab-content {
+    background-color: transparent;
+}
+
 .ays-pb-dashboard-main-wrap input[type=checkbox] {
     accent-color: #005AE0;
 }

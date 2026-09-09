@@ -1854,15 +1854,39 @@ if( ! class_exists( 'aviaElementTemplates', false ) )
 						'parent_item_colon'		=> ''
 					);
 
+			/**
+			 * Not public, and that is the whole point of it.
+			 *
+			 * A custom element is a piece of a page - a heading, a button, a box - kept aside to be used
+			 * on pages. It is not a page itself, and it was reachable as one: the frontend served it as a
+			 * standalone entry, header, breadcrumb and footer around a single element. From there the
+			 * admin bar offered to edit it, which led to the one screen where editing is not supported.
+			 *
+			 * Taking it off the frontend closes both, and one more besides: the link pickers list the post
+			 * types that are public, so a custom element is no longer offered as something a Custom Layout
+			 * element could display. Anything already pointing at one keeps working - see the entry that
+			 * is put back in aviaModalElements.
+			 *
+			 * show_ui stays on: the entries are still listed and edited in the backend, from the builder.
+			 *
+			 * @since 8.0
+			 */
 			$args = array(
 						'labels'			=> $labels,
-						'public'			=> true,
+						'public'			=> false,
+						'publicly_queryable' => false,
 						'show_ui'			=> true,
 						'show_in_menu'		=> false,
 						'capability_type'	=> 'post',
 						'hierarchical'		=> true,
 						'rewrite'			=> false,
-						'query_var'			=> true,
+						/*
+						 * Off, and it has to be: with a query var and no permalink structure WordPress
+						 * still builds ?alb_elements=<slug> for these entries, while refusing to answer
+						 * it - so every address a custom element ever had would return the front page
+						 * under a 200 rather than a 404, at addresses that used to be in the sitemap.
+						 */
+						'query_var'			=> false,
 						'show_in_nav_menus'	=> false,
 						'show_in_rest'		=> false,				//	set to false to disallow block editor
 						'taxonomies'		=> array(),
@@ -2493,7 +2517,6 @@ if( ! class_exists( 'aviaElementTemplates', false ) )
 
 			$footer  = '';
 			$footer .= '<div class="av-custom-element-footer av-custom-element-buttons">';
-			$footer .=  '<div class="av-custom-element-info editing-disabled">' . esc_html( __( 'Editing of custom elements is not allowed on fullscreen mode.', 'avia_framework' ) ) . '</div>';
 			$footer .=	'<div class="av-custom-element-button element-button-add-new button button-primary">' . esc_html( __( 'Add New Custom Element', 'avia_framework' ) ) . '</div>';
 			$footer .=	'<div class="av-custom-element-button element-button-edit button button-primary" ' . $tt . '>' . esc_html( __( 'Edit Custom Elements', 'avia_framework' ) ) . '</div>';
 			$footer .=	'<div class="av-custom-element-button element-button-end-edit button button-primary">' . esc_html( __( 'End Edit Custom Elements', 'avia_framework' ) ) . '</div>';

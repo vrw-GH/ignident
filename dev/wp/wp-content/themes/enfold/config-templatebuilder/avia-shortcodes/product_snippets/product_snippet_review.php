@@ -43,7 +43,7 @@ if( ! class_exists( 'avia_sc_product_review', false ) )
 
 			$this->config['name']			= __( 'Product Reviews', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-comments.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-product-reviews.svg';
 			$this->config['order']			= 9;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_product_review';

@@ -10,13 +10,14 @@
 	background: transparent url(../../images/tiny-button.png) center center no-repeat;
 }
 
-
 /*************  AVIA BUILDER  ************/
 
 /* @since 5.6.9    make sure that svg is visible in backend - needs to add logic for frontend !!!  */
-#avia_builder img[src*=".svg"],
+
 .wp-admin .avia-modal img[src*=".svg"] {
-	width: 1500px;
+	width: 100%;
+    height: 100%;
+	object-fit: cover;
 }
 
 #normal-sortables .postbox:last-child{
@@ -32,10 +33,6 @@
 	width:100%;
 	display: block;
 	z-index: 10;
-}
-
-#avia_builder.avia-expanded {
-	z-index: 9999;
 }
 
 #adv-settings label[for="avia_builder-hide"] {
@@ -58,10 +55,6 @@
 
 #normal-sortables .postbox#avia_builder:first-child{
 	margin-top:-12px;
-}
-
-#normal-sortables .postbox.avia-expanded#avia_builder:first-child{
-	margin-top:-0;
 }
 
 .avia_meta_box{
@@ -115,6 +108,44 @@
 
 .avia-advanced-editor-enabled .av-builder-note.av-only-active{
 	display: block;
+}
+
+/*	The close button is positioned rather than laid out with flex on purpose:
+	av-only-active switches display between none and block, so the note cannot own a
+	display value of its own. Padding keeps the text clear of the button. */
+.av-builder-note-dismissable{
+	position: relative;
+	padding-right: 40px;
+}
+
+.av-builder-note-dismiss{
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border: 0;
+	border-radius: 2px;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+	opacity: .7;
+	line-height: 1;
+}
+
+.av-builder-note-dismiss:hover,
+.av-builder-note-dismiss:focus{
+	opacity: 1;
+	background: rgba( 0, 0, 0, .15 );
+}
+
+#wpwrap .av-builder-note-dismiss .dashicons{
+	width: 24px;
+	height: 24px;
+	font-size: 18px;
+	line-height: 24px;
+	color: inherit;
 }
 
 .av-builder-note.av-neutral a{
@@ -171,7 +202,6 @@
 	color: #0330f5;
 }
 
-.av-no-drag-drop .avia-expand-button,
 .av-no-drag-drop .avia_sorthandle .avia-clone,
 .av-no-drag-drop .avia_sorthandle .avia-delete,
 .av-no-drag-drop .avia_sorthandle .avia-save-element,
@@ -190,20 +220,9 @@
 	margin-top: -11px;
 }
 
+/* the hidden buttons leave the flow, so the rest of the row closes up on its own */
 .av-no-drag-drop .avia-col-size{
-	left:0;
-}
-
-.av-no-drag-drop .avia_layout_column > .avia_sorthandle .avia-edit-element{
-	left:25px;
-}
-
-.av-no-drag-drop .avia_sorthandle .avia-edit-element{
-	left:2px;
-}
-
-.av-no-drag-drop .avia_layout_cell > .avia_sorthandle .avia-edit-element{
-	left:33px;
+	transform: none;
 }
 
 .avia-modal div.mce-toolbar-grp{
@@ -328,80 +347,6 @@
 	box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
 }
 
-.avia-expand-button{
-	position: absolute;
-	right:8px;
-	bottom: -15px;
-	background: #333;
-	overflow: hidden;
-	text-indent: 200%;
-	width:24px;
-	height:24px;
-	z-index: 100;
-	white-space: nowrap;
-	background: transparent url(../../images/icon-expand.png) top left no-repeat;
-	z-index: 150;
-}
-
-.avia-expand-button:hover{
-	background: transparent url(../../images/icon-expand.png) bottom left no-repeat;
-}
-
-.avia-expanded .avia-expand-button{
-	display:none;
-}
-
-.postbox:hover .avia-expand-button{
-	opacity: 1;
-}
-
-.postbox.avia-expanded{
-	position: fixed;
-	top:-3px;
-	left:0;
-	right:0;
-	bottom:0;
-	z-index: 10000;
-	margin:0;
-	overflow: auto;
-	overflow-x: hidden;
-}
-
-body.avia-noscroll-box{
-	overflow: hidden;
-}
-
-.avia-expanded .avia-tab-container {
-	visibility: hidden;
-}
-
-.avia-expanded .avia-fixed-controls {
-	position: fixed;
-	top: 0px;
-	left: 0;
-	right: 16px;
-	background: #F8F8F8;
-	padding: 41px 10px 10px;
-	z-index: 120;
-	box-shadow: 0 1px 8px 0px rgba(0,0,0,0.2);
-	visibility: visible;
-}
-
-.avia-expanded .avia-fixed-controls .avia-tab-container {
-	visibility: visible;
-}
-
-.postbox.avia-expanded .avia-expand-button{
-	position: fixed;
-	top:40px;
-}
-
-.avia-expanded-buttons{
-	position: absolute;
-	top:-6px;
-	right:0;
-}
-
 .avia-fixed-controls #publish{
 	float:left;
 	margin-right: 4px;
@@ -415,49 +360,6 @@ body.avia-noscroll-box{
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-/*expand button*/
-.avia-expanded .avia-fixed-controls  .avia-expand-button{
-	position: relative;
-	float: left;
-	top: 0;
-	right: 0;
-	background: none;
-	text-indent: 0;
-	width: auto;
-	display: inline-block;
-	text-decoration: none;
-	line-height: 29px;
-	height: 30px;
-	color: white;
-	opacity: 1;
-	border-color: #D54E21;
-	background-color: #D54E21;
-	background-image: linear-gradient(to bottom,#DD7C5C,#D54E21);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-}
-
-.avia-expanded .avia-fixed-controls .avia-expand-button:hover{
-	background-color: #DD7C5C;
-	background-image:none;
-}
-
-.avia-expanded .avia-fixed-controls .avia-expand-button:active{
-	background-color: #F05F2F;
-	background-image: linear-gradient(to bottom,#D54E21,#DD7C5C);
-}
-
-.avia-expand-whitescreen{
-	position: fixed;
-	top:0;
-	left:0;
-	bottom:0;
-	right:0;
-	background: #fff;
-	z-index: 99998;
-	display:none;
-}
-
 .avia-style a:focus,
 .avia_meta_box a:focus{
 	box-shadow:none;
@@ -465,10 +367,13 @@ body.avia-noscroll-box{
 
 /*template save button*/
 #wpwrap a.save-template-button {
-	max-width: 90%;
-	white-space: normal;
-	height: auto;
-	min-height: 30px;
+    max-width: 90%;
+    white-space: normal;
+    height: auto;
+    min-height: 30px;
+    font-size: 12px;
+    padding: 3px;
+    width: 100%;
 }
 
 .avia-template-save-button-container {
@@ -488,19 +393,21 @@ body.avia-noscroll-box{
 	line-height: 30px;
 	position: relative;
 	padding-left:33px;
-	background: #f7f7f7 url(../../images/icon-template.png) 4px 3px no-repeat;
+	background-color: #f7f7f7;
 	transition-property: border,color;
+	min-height: 30px;
+	color:#666;
 }
 
 #avia_builder a.av-template-added-highlight.button{
 	color: #00A0D2;
-	background: #fff url(../../images/icon-template.png) 4px -45px no-repeat;
+	background-color: #fff;
 }
 
 #avia_builder a.open-template-button.button:hover,
 #avia_builder a.open-template-button.button-primary{
 	color:#00A0D2;
-	background: #fff url(../../images/icon-template.png) 4px -45px no-repeat;
+	background-color: #fff;
 }
 
 .avia-template-save-button-inner{
@@ -621,7 +528,7 @@ body.avia-noscroll-box{
 	top:50%;
 	margin-top:-12px;
 	right:2px;
-	background: transparent url(../../images/icon-trash.png) top left no-repeat;
+	
 	overflow: hidden;
 	text-indent: 200%;
 	opacity: 0;
@@ -633,57 +540,105 @@ body.avia-noscroll-box{
 	opacity: 1;
 }
 
-.avia-template-save-button-inner ul li .avia-delete-template:hover{
-	background: transparent url(../../images/icon-trash.png) bottom left no-repeat;
-}
-
 div .avia-template-save-button-inner ul li .avia-delete-template.preloading,
 div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hover{
 	background: transparent url(../../images/loading_mini.gif) center center no-repeat;
 	opacity: 1;
 }
 
-
-.avia-expanded .avia-template-save-button-container {
-	right: 16px;
-}
-
-.avia-expanded .avia-template-save-button-inner {
-	left: -119px;
-}
-
-.avia-expanded .avia-template-save-button-inner .avia-arrow {
-	right: 32px;
-}
-
-/*tooltips*/
-.avia-tooltip,
-.avia-help-tooltip{
-	position: absolute;
-	z-index: 9999999;
+/*
+ * Tooltips.
+ *
+ * Drawn in the top layer as a popover (see avia-tooltip.js), which is why there is no z-index here:
+ * nothing on the page can be in front of it, and no ancestor can clip it. The reset below is against
+ * the browser's own popover styling - a popover is centred in the viewport with a border and a
+ * background of its own until told otherwise, and the script writes the position it should have.
+ *
+ * Every rule is tied to the popover attribute rather than the class alone. The frontend shortcode
+ * stylesheet is loaded in here as well so element previews look right, and it styles .avia-tooltip
+ * for its own, absolutely positioned tooltip - at the same weight and later in the order, so on the
+ * class alone it would win and drop this one back into the page.
+ */
+.avia-tooltip[popover],
+.avia-help-tooltip[popover],
+.avia-panel-tooltip[popover]{
+	position: fixed;
+	inset: auto;
+	width:140px;
+	height: auto;
+	max-width: calc(100vw - 10px);
+	margin: 0;
 	padding:12px;
-	margin-top:-18px;
+	border: 0;
+	overflow: visible;
 	background: #000;
 	background: rgba(0, 0, 0, 0.7);
 	color:#fff;
-	width:140px;
 	border-radius: 2px;
+	opacity: 0;
+	translate: 0 -6px;
+	transition: opacity 0.2s ease, translate 0.2s ease;
 }
 
-.avia-tooltip .avia-arrow, .avia-help-tooltip .avia-arrow{
+.avia-tooltip[popover].av-tooltip-visible,
+.avia-help-tooltip[popover].av-tooltip-visible,
+.avia-panel-tooltip[popover].av-tooltip-visible{
+	opacity: 1;
+	translate: 0 0;
+}
+
+.avia-tooltip[popover] .avia-arrow,
+.avia-help-tooltip[popover] .avia-arrow,
+.avia-panel-tooltip[popover] .avia-arrow{
 	background: rgba(0, 0, 0, 0.7);
 	border:none;
 }
 
-.avia-tooltip .avia-arrow-wrap,
-.avia-help-tooltip .avia-arrow-wrap{
+/*
+ * The script writes left, so that the arrow points at the element wherever the box had to go - and
+ * the margin is cleared for the same reason the box clears its own: the frontend stylesheet nudges
+ * this arrow sideways to suit its own centring, which would take the arrow back off the element.
+ */
+.avia-tooltip[popover] .avia-arrow-wrap,
+.avia-help-tooltip[popover] .avia-arrow-wrap,
+.avia-panel-tooltip[popover] .avia-arrow-wrap{
 	width:20px;
 	height:20px;
 	position: absolute;
 	bottom:-20px;
-	left:50%;
-	margin-left:-10px;
+	left:0;
+	margin: 0;
 	overflow: hidden;
+}
+
+/*
+ * The hints on the panel's own row of icons, drawn smaller than the rest.
+ *
+ * Those name a button in a word or two, where the others describe an element in a sentence or more -
+ * so this one is sized to its text instead of being held at a fixed width, which would otherwise
+ * draw a 140px box around the word "Fullscreen".
+ */
+.avia-panel-tooltip[popover]{
+	width: auto;
+	max-width: 180px;
+	padding: 6px 8px;
+	font-size: 11px;
+	line-height: 1.4;
+	white-space: nowrap;
+}
+
+/*
+ * A hint is something to read, never something to point at.
+ *
+ * Both of these open on hover, and the arrow reaches twenty pixels past the box towards whatever the
+ * hint belongs to - so without this the top of that element is covered by its own hint. Pointing at
+ * it then means pointing at the hint instead, which drops the hover: on the sorting icon that closed
+ * the menu the hover had just opened, over and over. The help hint is left alone - it opens on a
+ * click and holds text worth selecting.
+ */
+.avia-tooltip[popover],
+.avia-panel-tooltip[popover]{
+	pointer-events: none;
 }
 
 .avia-hotkey-info{
@@ -698,31 +653,104 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	top: 7px;
 	right: 18px;
 	z-index: 25;
-	background: transparent url(../../images/icon-info.png) top left no-repeat;
+
 }
 
-.avia-hotkey-info:hover{
-	background: transparent url(../../images/icon-info.png) bottom left no-repeat;
+/*
+ * Hands the builder the whole screen - see avia-panel-fullscreen.js.
+ *
+ * Shown only once it has been moved into the panel row, which settles two things at once. It is
+ * written into the markup beside the sorting menu, nowhere near where it belongs, so this keeps it
+ * from appearing in the corner of the builder for a moment on every page load. And it means the
+ * button is simply absent in toolbar mode, where there is no row to move it into: the toolbar pins
+ * the sorting menu and the help icon into the same corner with their own coordinates, 49px and 18px
+ * from the edge, and the seven pixels between them are not a place to put a third control.
+ */
+.avia-alb-fullscreen{
+	width: 24px;
+	height: 24px;
+	overflow: hidden;
+	text-indent: 200%;
+	white-space: nowrap;
+	border-radius: 3px;
+	position: absolute;
+    display: inline-block;
+    top: 68px;
+    right: 25px;
 }
 
-.avia-help-tooltip {
+.avia-alb-fullscreen.avia-in-panel-row{
+	display: block;
+}
+
+/*
+ * Switched on, it is filled with whatever colour the admin is wearing - the same token the admin
+ * colour scheme gives its primary buttons, so it matches the Save button of the screen it sits on
+ * rather than a blue of our own.
+ */
+.avia-alb-fullscreen.avia-alb-fullscreen-active{
+	background: var( --wp-admin-theme-color, #2271b1 );
+	--av-ui-icon: #fff;
+}
+
+.avia-alb-fullscreen.avia-alb-fullscreen-active:hover::before,
+.avia-alb-fullscreen.avia-alb-fullscreen-active:focus-visible::before{
+	background-color: #fff;
+}
+
+/*
+ * While the builder is expanded, the sorting dropdown and the hotkey info are moved into this row
+ * next to the publish/preview/close buttons (see avia-element-behavior.js). Laying the row out with
+ * flex means nothing in it needs coordinates of its own: it stays correct in both editors, in every
+ * scroll state, and whether the editor renders three buttons next to it or none.
+ */
+.avia-fixed-controls .avia-alb-panel-row{
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+/*
+ * The extra class is carried by the elements themselves (added when they are moved into the row) so
+ * these win outright. Both are pinned into a corner with their own coordinates by the base and the
+ * block editor stylesheet, and those have to be neutralised here or they leave the row and reappear
+ * somewhere in the middle of the panel the moment anything makes them positioned again.
+ */
+.avia-fixed-controls .avia-alb-panel-row > #avia-sort-list-dropdown.avia-in-panel-row,
+.avia-fixed-controls .avia-alb-panel-row > .avia-alb-fullscreen.avia-in-panel-row,
+.avia-fixed-controls .avia-alb-panel-row > .avia-hotkey-info.avia-in-panel-row{
+	/*
+	 * relative, not static: these draw their icon with an inset ::before, which would otherwise take
+	 * the whole panel as its containing block and paint the glyph centred in the middle of it.
+	 */
+	position: relative;
+	top: auto;
+	right: auto;
+	left: auto;
+	bottom: auto;
+	flex: 0 0 auto;
+	
+}
+.avia-fixed-controls.avia-alb-panel-side .avia-alb-panel-row > #avia-sort-list-dropdown.avia-in-panel-row{
+	max-width: 150px;
+}
+
+
+.avia-help-tooltip[popover] {
 	width: 390px;
-	margin-top: 11px;
-	margin-left: -187px;
 	background: #fff;
 	color:#777;
 	border:1px solid #e1e1e1;
 	box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.2);
 }
 
-.avia-help-tooltip .avia-arrow-wrap{
+/*	opens below the element it belongs to, so its arrow points up out of the top edge */
+.avia-help-tooltip[popover] .avia-arrow-wrap{
 	bottom:auto;
 	top:-20px;
-	left:auto;
-	right:10px;
 }
 
-.avia-help-tooltip .avia-arrow{
+.avia-help-tooltip[popover] .avia-arrow{
 	top: 15px;
 	background: #fff;
 	border:1px solid #e1e1e1;
@@ -746,7 +774,6 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	font-weight: normal;
 }
 
-
 /*shortcode wrap*/
 .shortcode_button_wrap{
 	display: block;
@@ -754,8 +781,8 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 }
 
 .shortcode_insert_button{
-	height:50px;
-	width:70px;
+	height:70px;
+	width:80px;
 	border:1px solid #e1e1e1;
 	padding: 4px 2px 10px 2px;
 	background: #fff;
@@ -767,7 +794,7 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	outline: none;
 	line-height:13px;
 	float:left;
-	margin:0px 3px 3px 0;
+	margin:0px 3px 10px 0;
 	position: relative;
 	color:#777;
 }
@@ -820,6 +847,92 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	opacity: 0.5;
 }
 
+/*
+ * Element icons - inlined svg rather than a linked bitmap, so the glyph takes its
+ * colour from here instead of carrying it in the file. 20px keeps the picker and the
+ * canvas laid out exactly as the 20x20 pngs did.
+ *
+ * The img rules above still apply to icons registered by plugins, which stay <img>.
+ *
+ * @since 8.0
+ */
+.avia-element-icon{
+	width: var( --av-element-icon-size );
+	height: var( --av-element-icon-size );
+	color: var( --av-ui-icon );
+	flex: 0 0 auto;
+	transition: color .15s ease;
+}
+
+.shortcode_insert_button svg.avia-element-icon{
+	display: block;
+	margin: 6px auto 5px auto;
+	position: relative;
+}
+
+.shortcode_insert_button:hover svg.avia-element-icon,
+.shortcode_insert_button:active svg.avia-element-icon{
+	color: var( --av-ui-icon-hover );
+}
+
+/*
+ * Icon and name as one row - see the avia-element-head wrapper in class-shortcode-template.php.
+ *
+ * These used to be two inline-blocks with the icon pushed down 6px to look centred, which only held
+ * while the name stayed on one line: a name that wrapped, or the description some elements add after
+ * it, left the icon sitting against the first line instead of the block. Aligning them properly is
+ * what the wrapper is for, and it lets the icon grow without the offset needing to be re-guessed.
+ */
+.avia_inner_shortcode .avia-element-head{
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	min-width: 0;
+}
+
+.avia_inner_shortcode .avia-element-head .avia-element-label{
+	margin: 0;
+	min-width: 0;
+	color:#111;
+	font-weight: 700;
+}
+
+.avia_inner_shortcode .avia-element-head + div,
+.avia_inner_shortcode .avia-element-head + pre{
+	margin-top:15px;
+}
+
+/*
+ * The box around an element that draws its own preview.
+ *
+ * Elements without a preview are drawn inside a container of their own, which is what makes the icon
+ * and name read as belonging to the thing below them. Those with a preview - a text block, a heading,
+ * an image - replace that container to make room for it, so their name sat above a separate box with
+ * nothing holding the two together. This gives them the same box, with the preview inside it.
+ */
+.avia_sortable_element.avia-has-head > .avia_inner_shortcode{
+	background: #fcfcfc;
+	padding: 10px;
+	border: 1px solid #e1e1e1;
+	border-radius: 3px;
+}
+
+.avia_inner_shortcode .avia-element-head .avia-element-icon{
+	height: 20px;
+	width: 20px;
+	color:#111;
+}
+
+/*
+ * A plugin may still register an svg through the <img> fallback, and the catch-all
+ * rule near the top of this file would blow it up to 1500px. Element icons are a
+ * known size, so pin them.
+ */
+#avia_builder img.avia-element-icon[src*=".svg"]{
+	width: var( --av-element-icon-size );
+	height: var( --av-element-icon-size );
+}
+
 .avia_layout_builder {
 	min-height: 200px;
 	background: white;
@@ -831,7 +944,6 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	left: -12px;
 	top: 9px;
 }
-
 
 /*controll bar*/
 .layout-builder-wrap{
@@ -845,7 +957,7 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	line-height: 30px;
 	width: 100%;
 	position: absolute;
-	top: 9px;
+	top: -11px;
 	left: -12px;
 	z-index: 8;
 	color: #333;
@@ -872,26 +984,17 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	overflow: hidden;
 	text-indent: 200%;
 	white-space: nowrap;
-	background: transparent url(../../images/icon-redo.png) top left no-repeat;
+	
 }
 .avia-undo-button{
 	margin-left:0;
-	background: transparent url(../../images/icon-undo.png) top left no-repeat;
-}
-
-.avia-redo-button:hover{
-	background: transparent url(../../images/icon-redo.png) bottom left no-repeat;
-}
-
-.avia-undo-button:hover{
-	background: transparent url(../../images/icon-undo.png) bottom left no-repeat;
+	
 }
 
 .avia-redo-button.avia-inactive-step,
 .avia-undo-button.avia-inactive-step,
 .avia-redo-button.avia-inactive-step:active,
 .avia-undo-button.avia-inactive-step:active{
-	background-position: top left !important;
 	opacity: 0.5;
 }
 
@@ -901,7 +1004,6 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	opacity: 0.8;
 }
 
-
 /*shortcode layout*/
 .avia_layout_column,
 .avia_layout_section,
@@ -910,12 +1012,12 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	margin:1%;
 	float:left;
 	position: relative;
+	border-radius: 4px;
 }
 
 .avia_pop_class{
-	animation: avia_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	/* animation: avia_pop 0.3s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); */
 }
-
 
 @keyframes avia_pop {
   0%   { transform:scale(0.8);  }
@@ -932,7 +1034,7 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 
 .avia_inner_shortcode{
 	position: relative;
-	z-index: 1;
+	z-index: 10;
 }
 
 .avia_layout_column > .avia_inner_shortcode {
@@ -956,19 +1058,72 @@ div .avia-template-save-button-inner ul li .avia-delete-template.preloading:hove
 	clear:both;
 }
 
-.avia_layout_column > .avia_sorthandle .avia-edit-element{
-	left:113px;
+div .avia_sorthandle{
+	--av-handle-btn-size: 28px;
+
+    height: calc(var(--av-handle-btn-size) + 1px);
+    width: auto;
+    position: relative;
+    z-index: 10;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    padding-inline-start: 1px;
+    border-radius: 3px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border: 1px solid #e1e1e1;
+    box-shadow: none;
 }
 
-
-div .avia_sorthandle{
-	height:25px;
-	width:auto;
+/*
+ * The buttons flow in a single row - order decides where they sit, so no button
+ * needs to know the width of the ones before it. Hidden buttons (.av-no-drag-drop)
+ * drop out of the flow on their own and the rest closes the gap.
+ */
+.avia_sorthandle > a,
+.avia_sorthandle > .avia-col-size{
 	position: relative;
-	z-index: 10;
-	opacity: 1;
-	border-bottom-right-radius: 0px;
-	border-bottom-left-radius: 0px;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	float: none;
+	flex: 0 1 var( --av-handle-btn-size );
+	width: var( --av-handle-btn-size );
+	min-width: 16px;
+	height: var( --av-handle-btn-size );
+	line-height: var( --av-handle-btn-size );
+}
+
+/* .avia-element-bg-color is a backdrop, not a button - it keeps its own placement */
+.avia_sorthandle > .avia-element-bg-color{
+	flex: none;
+	order: 0;
+}
+
+.avia_sorthandle > .avia-change-col-size{ order: 30; }
+.avia_sorthandle > .avia-change-col-size.avia-smaller{ order: 10; }
+.avia_sorthandle > .avia-col-size{ order: 20; }
+.avia_sorthandle > .avia-save-element{ order: 40; }
+.avia_sorthandle > .avia-new-target{ order: 45; }
+.avia_sorthandle > .avia-clone{ order: 50; }
+.avia_sorthandle > .avia-edit-element{ order: 60; }
+.avia_sorthandle > .avia-toggle-visibility{ order: 80; }
+.avia_sorthandle > .custom-elements-lock{ order: 85; }
+.avia_sorthandle > .avia-delete{ order: 90; }
+
+/* the lock used to float right - the row places it now */
+.avia_sorthandle > .custom-elements-lock.avia-svg-icon svg:first-child{
+	float: none;
+	padding: 0;
+}
+
+/* spacer that pushes the visibility toggle and the delete button to the far end */
+div .avia_sorthandle::after{
+	content: '';
+	flex: 1 1 auto;
+	order: 70;
 }
 
 .avia-col-size{
@@ -977,7 +1132,6 @@ div .avia_sorthandle{
 
 .avia_sorthandle a,
 .avia_sortable_element .avia_sorthandle,
-.avia-expand-button,
 .avia-element-title,
 .avia_sorthandle a.avia-element-bg-color{
 	transition: opacity 0.2s ease-in-out;
@@ -1000,14 +1154,10 @@ div .avia_sorthandle{
 	position: absolute;
 	top:0px;
 	right:0px;
-	background: transparent url(../../images/icon-trash.png) top left no-repeat;
+	
 	overflow: hidden;
 	text-indent: 200%;
 	opacity: 0;
-}
-
-.avia-delete:hover{
-	background: transparent url(../../images/icon-trash.png) bottom left no-repeat;
 }
 
 .avia-new-target{
@@ -1016,14 +1166,10 @@ div .avia_sorthandle{
 	position: absolute;
 	top:0px;
 	left:0px;
-	background: transparent url(../../images/icon-cut.png) top left no-repeat;
+	
 	overflow: hidden;
 	text-indent: 200%;
 	opacity: 0;
-}
-
-.avia-new-target:hover{
-	background: transparent url(../../images/icon-cut.png) bottom left no-repeat;
 }
 
 .avia-save-element{
@@ -1032,43 +1178,20 @@ div .avia_sorthandle{
 	position: absolute;
 	top:0px;
 	left:1px;
-	background: transparent url(../../images/icon-store.png) center left no-repeat;
+	
 	overflow: hidden;
 	text-indent: 200%;
 	opacity: 0;
-}
-
-.avia-save-element:hover{
-	background: transparent url(../../images/icon-store.png) bottom left no-repeat;
 }
 
 .avia_layout_column:hover>.avia_sorthandle .avia-save-element{
 	opacity: 0.8;
 }
 
-.avia_layout_column>.avia_sorthandle>.avia-save-element{
-	left:68px;
-}
-
-.avia_layout_column>.avia_sorthandle>.avia-new-target{
-	left:70px;
-}
-
 .avia_sorthandle .avia-edit-element{
-	height:24px;
-	width:24px;
-	line-height: 24px;
-	position: absolute;
-	top:1px;
-	left:50px;
-	background: transparent url(../../images/icon-edit.png) top center no-repeat;
 	overflow: hidden;
 	text-indent: 200%;
 	opacity: 0;
-}
-
-.avia_sorthandle .avia-edit-element:hover{
-	background: transparent url(../../images/icon-edit.png) bottom center no-repeat;
 }
 
 .avia-edit-element{
@@ -1076,72 +1199,41 @@ div .avia_sorthandle{
 }
 
 .avia_sorthandle .avia-clone{
-	height:24px;
-	width:24px;
-	line-height: 24px;
-	position: absolute;
-	top:0px;
-	left:25px;
-	background: transparent url(../../images/icon-clone.png) top center no-repeat;
 	overflow: hidden;
 	text-indent: 200%;
 	opacity: 0;
 	border:none;
 }
 
-
-.avia_layout_column>.avia_sorthandle .avia-clone{
-	left:auto;
-	left:90px;
-}
-
-.avia_sorthandle .avia-clone:hover{
-	background: transparent url(../../images/icon-clone.png?ver=23) bottom center no-repeat;
-}
-
-.avia_layout_column:hover>.avia_sorthandle .avia-clone{
-	opacity: 0.6;
-}
-
 .avia-change-col-size{
 	height:24px;
 	width:24px;
 	line-height: 24px;
-	float:left;
 	display: block;
 	overflow: hidden;
 	text-indent: 200%;
-	background: transparent url(../../images/icon-grow.png) top left no-repeat;
-	position: relative;
-	left:0px;
 	opacity: 0;
-}
-
-.avia-change-col-size.avia-smaller{
-	background: transparent url(../../images/icon-shrink.png) top left no-repeat;
-}
-
-.avia-change-col-size:hover{
-	background-position-y: bottom;
 }
 
 .avia-col-size{
 	height:24px;
 	width:24px;
-	float:left;
-	line-height: 26px;
+	line-height: 24px;
 	text-align: center;
-	position: relative;
-	left:-20px;
 	color:#999;
+	font-size:12px;
+
+	/* the resize arrows next to it are invisible until hover - slide over them until then */
+	transform: translateX( -20px );
 }
 
 .avia_layout_cell > .avia_sorthandle > .avia-col-size{
+	flex-basis: 42px;
 	width:42px;
 }
 
 .avia_layout_column:hover .avia-col-size{
-	left:0px;
+	transform: none;
 	color:#333;
 }
 
@@ -1259,13 +1351,13 @@ div .avia_sorthandle{
 	margin-top:-12px;
 	overflow: hidden;
 	display: block;
-	background: transparent url(../../images/icon-move.png) top left no-repeat;
+	
 	z-index: 10;
 }
 
 .avia-modal-group-element .avia-move-handle:hover,
 .avia-modal-group-element .avia-move-handle:active{
-	background: transparent url(../../images/icon-move.png) bottom left no-repeat;
+	
 	outline: none;
 }
 
@@ -1293,7 +1385,6 @@ div .avia_sorthandle{
 	text-indent: 200%;
 	overflow: hidden;
 	display: block;
-	background: #fff url(../../images/icon-add.png) top left no-repeat;
 	border: 1px solid #E1E1E1;
 	border-top: none;
 	z-index: 10;
@@ -1305,17 +1396,14 @@ div .avia_sorthandle{
 }
 
 .avia-add:hover, .avia-add:active{
-	background: #fff url(../../images/icon-add.png) bottom left no-repeat;
 	outline: none;
 }
 
 .avia-clone{
-	background: #fff url(../../images/icon-clone.png) top left no-repeat;
 }
 
 .avia-clone:hover,
 .avia-clone:active{
-	background: #fff url(../../images/icon-clone.png) bottom left no-repeat;
 	outline: none;
 }
 
@@ -1346,13 +1434,23 @@ div .avia_inner_shortcode .avia_image_container img{
 	font-size: 11px;
 }
 
+/*
+ * Once it carries a label the button is no longer a 24px square, it is as wide as its text with the
+ * glyph in the gutter the padding above reserves. The layer that draws the glyph is pinned to all
+ * four edges and centres it, so left to itself it centres over the whole button and the icon lands
+ * on top of the words. Confining it to that gutter is what puts the glyph back beside the label.
+ */
+.avia-add.avia-custom-label::before,
+.avia-clone.avia-custom-label::before{
+	right: auto;
+	width: 25px;
+}
+
 .av-hide-delete .avia-modal-group-wrapper .avia-attach-modal-element-delete,
 .av-hide-add .avia-modal-group-wrapper .avia-attach-modal-element-add,
 .av-hide-clone .avia-modal-group-wrapper .avia-attach-modal-element-clone{
 	display: none;
 }
-
-
 
 /*element were group items are not managed manually*/
 .av-automated-inserts .avia-modal-group:empty{
@@ -1363,7 +1461,6 @@ div .avia_inner_shortcode .avia_image_container img{
 .av-automated-inserts .avia-modal-group-element .avia-delete{
 	display:none;
 }
-
 
 /*elements with hidden bg, like images or buttons*/
 div .avia_sortable_element .avia_hidden_bg_box img{
@@ -1391,7 +1488,6 @@ div .avia_layout_column .avia_sortable_element:hover .avia_hidden_bg_box {
 	border: 1px solid #E1E1E1;
 	background: #fff;
 }
-
 
 /*interface tabs that hold shortcode buttons*/
 .avia-tab-title-container a{
@@ -1429,7 +1525,6 @@ div .avia_layout_column .avia_sortable_element:hover .avia_hidden_bg_box {
 	margin:0;
 }
 
-
 /* shortcodes */
 .avia_sortable_element{
 	width: 98%;
@@ -1439,11 +1534,13 @@ div .avia_layout_column .avia_sortable_element:hover .avia_hidden_bg_box {
 	color: #666;
 }
 
-.avia_sortable_element svg:first-child{
-	fill: #666;
-	stroke: #666;
-	height: 1em;
-	width: 1em;
+/*
+ * The icon font's glyphs - the lock on a locked element and its kin - drawn at the size of the text
+ * around them. Element icons are excluded: they are artwork with a size of their own, and this rule
+ * outranks it, so without the exclusion they collapse to one em and take a hardcoded grey with them.
+ */
+.avia_sortable_element svg:first-child:not(.avia-element-icon){
+
 }
 
 .avia_sortable_element img[is-svg-img="true"]{
@@ -1484,25 +1581,37 @@ div .avia_layout_column .avia_sortable_element:hover .avia_hidden_bg_box {
 }
 
 .avia_sortable_element .avia_sorthandle{
-	opacity: 0;
-	position: absolute;
-	top:-24px;
-	left:0px;
-	right:0px;
-	background: rgba(0,0,0,0.3);
-	border:none;
-	box-shadow: none;
+opacity: 0;
+    position: absolute;
+    top: calc( ( var(--av-handle-btn-size) + 7px )* -1);
+    right: 0px;
+    left: 0px;
+    background: #111111d1;
+    border: none;
+    box-shadow: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 4px;
+    color: #fff;
+    backdrop-filter: blur(2px);
+}
+
+.avia_sortable_element .avia_sorthandle a::before{
+	background-color:#ffffffa8;
+}
+
+.avia_sortable_element .avia_sorthandle a:hover::before{
+	background-color:#fff;
 }
 
 .avia_sortable_element:hover .avia_sorthandle{
 	opacity:1;
-	z-index: 10;
+	z-index: 12;
 }
 
 .avia_sortable_element:hover, .avia_layout_column:hover{
 	z-index: 20;
 }
-
 
 /*hr*/
 .avia_sortable_element.av_hr .avia-divider{
@@ -1511,11 +1620,6 @@ div .avia_layout_column .avia_sortable_element:hover .avia_hidden_bg_box {
 	display: block;
 	position: relative;
 	top:-3px;
-}
-
-.avia_sortable_element.av_hr .avia_sorthandle{
-	top:-5px;
-	border-radius: 3px;
 }
 
 
@@ -1615,7 +1719,6 @@ div .avia-element-tiny_mce iframe{
 	background: #fff;
 }
 
-
 /*heading*/
 .avia_sortable_element .avia-special-heading{
 	font-size: 25px;
@@ -1694,7 +1797,6 @@ div .avia-element-tiny_mce iframe{
 	display:none;
 }
 
-
 /*sections*/
 .avia_layout_section{
 	clear:both;
@@ -1710,10 +1812,12 @@ div .avia-element-tiny_mce iframe{
 	z-index: 20;
 }
 
+/* sits on top of the button row - the two cross fade on hover */
 .avia-element-title{
-	margin-left:10px;
+	position: absolute;
+	inset-inline-start: 10px;
+	top: 0;
 	height: 27px;
-	float: left;
 	line-height: 26px;
 	color: #999;
 	opacity: 1;
@@ -1722,7 +1826,6 @@ div .avia-element-tiny_mce iframe{
 .avia_layout_section:hover .avia-element-title{
 	opacity: 0;
 }
-
 
 /*LAYOUT ROW + CELL*/
 .avia_layout_row{
@@ -1746,18 +1849,29 @@ div .avia-element-tiny_mce iframe{
 	padding: 0 7px 0 27px;
 }
 
+/*
+ * Both of these are as wide as their words with the glyph in the gutter the padding above reserves,
+ * and the layer that draws the glyph is pinned to all four edges - so left alone it centres the icon
+ * over the middle of the button, on top of the label. Confining it to that gutter puts it back.
+ */
+.avia-add-cell::before,
+.avia-set-cell-size::before{
+	right: auto;
+	width: 27px;
+}
+
 .avia_layout_row.ui-draggable-dragging .avia-add{
 	display: none;
 }
 
 .avia-set-cell-size{
 	/*right:83px;*/
-	background: #FFF url(../../images/icon-leftright.png) top left no-repeat;
+	background-color: #FFF;
 }
 
 .avia-set-cell-size:hover,
 .avia-set-cell-size:active {
-	background: #FFF url(../../images/icon-leftright.png) bottom left no-repeat;
+	background-color: #FFF;
 }
 
 div .avia_layout_row > .avia_inner_shortcode{
@@ -1890,20 +2004,13 @@ div .avia_layout_row > .avia_inner_shortcode{
 	color:#fff;
 }
 
+/* a cell has no resize arrows, so its size label needs no room made for them */
 .avia_layout_cell > .avia_sorthandle > .avia-col-size,
 .avia_layout_row .avia_layout_cell:hover > .avia_sorthandle >  .avia-col-size{
-	left:6px;
+	transform: none;
+	margin-inline-start: 5px;
 	line-height: 24px;
 }
-
-.avia_layout_cell > .avia_sorthandle .avia-edit-element{
-	left: 71px;
-}
-
-.avia_layout_row .avia_layout_cell>.avia_sorthandle .avia-clone{
-	left:49px;
-}
-
 
 /*sidebar*/
 .avia_inner_shortcode .avia-element-label{
@@ -1915,7 +2022,6 @@ div .avia_layout_row > .avia_inner_shortcode{
 	background: #fcfcfc;
 	padding:10px;
 	border:1px solid #e1e1e1;
-	text-align: center;
 }
 
 .avia_sortable_element.av_sidebar .avia_inner_shortcode select{
@@ -1934,13 +2040,11 @@ div .avia_layout_row > .avia_inner_shortcode{
 	background: transparent;
 }
 
-
 /*team*/
 .avia_job_container_inner{
 	font-style: italic;
 	color:#aaa;
 }
-
 
 /*icon element*/
 .avia_icon_element .avia_icon_char{
@@ -1992,7 +2096,6 @@ div .avia_layout_row > .avia_inner_shortcode{
 .avia_icon_element .avia-style-border .av_icon_caption{
 	display: block;
 }
-
 
 /*iconbox element*/
 .avia_iconbox{
@@ -2057,7 +2160,6 @@ div .avia_layout_row > .avia_inner_shortcode{
 	text-align: left;
 }
 
-
 /*numbers element*/
 span.avia_big_numbers_icon {
 	font-size: 30px;
@@ -2088,15 +2190,13 @@ span.avia_big_numbers_icon svg:first-child[is-colored="true"]{
 	display:inline;
 }
 
-
 /*portfolio element, gallery element, contact element, table element*/
 .avia_default_container.avia_sortable_element .avia_inner_shortcode{
 	background: #fcfcfc;
 	padding:10px;
 	border:1px solid #e1e1e1;
-	text-align: center;
+	border-radius: 3px;
 }
-
 
 /*image element*/
 .avia_image .avia-align-right{
@@ -2136,7 +2236,6 @@ span.avia_big_numbers_icon svg:first-child[is-colored="true"]{
 	z-index: 5000;
 	top: 25%;
 }
-
 
 /*	before/after image - image diff		*/
 .avia-image-diff-container > div{
@@ -2235,7 +2334,6 @@ span.avia_big_numbers_icon svg:first-child[is-colored="true"]{
 	top: unset;
 }
 
-
 /*  lottie player   */
 .avia_lottie_player dotlottie-player,
 .avia_lottie_player .avia-align-left dotlottie-player{
@@ -2250,7 +2348,6 @@ span.avia_big_numbers_icon svg:first-child[is-colored="true"]{
 	float: none;
 	margin: 0 auto;
 }
-
 
 /*button element*/
 .avia_button_box > div{
@@ -2476,7 +2573,6 @@ span.avia_big_numbers_icon svg:first-child[is-colored="true"]{
 	padding: 15px 53px;
 }
 
-
 /*fullwidth button*/
 .av_button_big .avia_button_box>div{
 	width: 100%;
@@ -2491,7 +2587,6 @@ span.avia_big_numbers_icon svg:first-child[is-colored="true"]{
 .avia-icon_select-yes-right-icon .avia_button_icon_left{
 	display:none;
 }
-
 
 /*promo box*/
 .av_promobox .avia_textblock{
@@ -2547,7 +2642,6 @@ span.avia_big_numbers_icon svg:first-child[is-colored="true"]{
 .avia-button-no .avia_button_box{
 	display:none;
 }
-
 
 /*message box*/
 .avia_message_box>div{
@@ -2707,8 +2801,11 @@ div .avia_message_box .avia_message_box_title:empty{
 	border-style: dashed;
 }
 
-
 /*tabs element*/
+.avia-tab-container a{
+box-shadow: none !important;
+}
+
 .avia-tab-container .avia_title_container{
 	min-height: 19px;
 	min-width: 31px;
@@ -2740,15 +2837,6 @@ div .avia_message_box .avia_message_box_title:empty{
 .avia-tab-container .avia-modal-group-element-inner{
 	min-height: 54px;
 	line-height:30px;
-}
-
-.avia-tab-container .avia-modal-group-element .avia-move-handle {
-	background: transparent url(../../images/icon-leftright.png) top left no-repeat;
-}
-
-.avia-tab-container .avia-modal-group-element .avia-move-handle:hover,
-.avia-tab-container .avia-modal-group-element .avia-move-handle:active {
-	background: transparent url(../../images/icon-leftright.png) bottom left no-repeat;
 }
 
 .avia-tab-container .avia-modal-group-element-highlight{
@@ -2861,15 +2949,6 @@ div.sidebar_tab #fakeTabContent{
 	position: relative;
 }
 
-div.sidebar_tab .avia-modal-group-element .avia-move-handle:hover,
-div.sidebar_tab .avia-modal-group-element .avia-move-handle:active {
-	background: transparent url(../../images/icon-move.png) bottom left no-repeat;
-}
-
-div.sidebar_tab .avia-modal-group-element .avia-move-handle {
-	background: transparent url(../../images/icon-move.png) top left no-repeat;
-}
-
 div.sidebar_tab_left .avia-add{
 	right:1px;
 }
@@ -2891,12 +2970,10 @@ div.sidebar_tab .avia-modal-group-element-inner{
 	line-height: 18px;
 }
 
-
 /*progress bars*/
 .avia-icon_select-no .avia_tab_icon{
 	display:none;
 }
-
 
 /*tab elements*/
 .avia-modal-tab-titles{
@@ -2926,7 +3003,6 @@ div.sidebar_tab .avia-modal-group-element-inner{
 	float: left;
 	width:100%;
 }
-
 
 /*toggle elements*/
 a.avia-modal-toggle-title{
@@ -3036,7 +3112,6 @@ a.avia-modal-toggle-title.active-modal-toggles .avia-modal-toggle-arrow{
 	min-height: 300px;
 }
 
-
 /*iconswitcher*/
 .avia-modal-iconswitcher-titles {
     padding: 0 20px;
@@ -3077,7 +3152,6 @@ a.avia-modal-toggle-title.active-modal-toggles .avia-modal-toggle-arrow{
 	width: 100%;
 	padding-left: 18px;
 }
-
 
 /*table element*/
 .avia-table-builder-wrapper{
@@ -3138,7 +3212,7 @@ a.avia-modal-toggle-title.active-modal-toggles .avia-modal-toggle-arrow{
 
 .avia-table .avia-button-row .avia-table-cell,
 .avia-table .avia-dynamic-data-row .avia-table-cell{
-	background: #fff url(../../images/icon-add-nohover.png) center center no-repeat;
+	background-color: #fff;
 }
 
 .avia-table .avia-button-row .avia-table-cell.avia-noselect:not(.avia-table-cell-delete),
@@ -3149,26 +3223,22 @@ a.avia-modal-toggle-title.active-modal-toggles .avia-modal-toggle-arrow{
 div .avia-delete-row .avia-table-cell,
 div .avia-delete-row .avia-table-cell:last-child{
 	border:none;
-	background: transparent url(../../images/icon-trash.png) top center no-repeat;
+	
 	height: 25px;
 	padding: 0px 10px;
 }
 
 div .avia-delete-row .avia-table-cell:hover{
 	border:none;
-	background: transparent url(../../images/icon-trash.png) bottom center no-repeat;
+	
 }
 
 .avia-table-builder-wrapper .avia-table .avia-table-cell-delete{
 	border-bottom:none;
 	border-top:none !important;
-	background: transparent url(../../images/icon-trash-side.png) center left no-repeat;
+	
 	width:24px;
 	padding:10px 0;
-}
-
-.avia-table-builder-wrapper .avia-table .avia-table-cell-delete:hover{
-	background: transparent url(../../images/icon-trash-side.png) center right no-repeat;
 }
 
 .avia-delete-row .avia-table-cell-delete,
@@ -3229,10 +3299,6 @@ div .avia-delete-row .avia-table-cell-style select{
 	cursor: default;
 }
 
-.avia-table .menu-item-handle .avia-edit-element{
-	left:0;
-}
-
 .avia-table .avia_button_box{
 	background: #fff !important;
 }
@@ -3281,6 +3347,7 @@ div .avia-delete-row .avia-table-cell-style select{
 
 .av-table-pos-button{
 	display: block;
+	background-color: #fff;
 	float:left;
 	height:27px;
 	width:27px;
@@ -3296,22 +3363,6 @@ div .avia-delete-row .avia-table-cell-style select{
 	height: 12px;
 }
 
-.av-table-pos-button.av-table-left{
-	background: #fff url(../../images/icon-table-lr.png)  0px 2px no-repeat;
-}
-
-.av-table-pos-button.av-table-right{
-	background: #fff url(../../images/icon-table-lr.png)  2px -22px no-repeat;
-}
-
-.av-table-pos-button.av-table-up{
-	background: #fff url(../../images/icon-table-ud.png) center -7px no-repeat;
-}
-
-.av-table-pos-button.av-table-down{
-	background: #fff url(../../images/icon-table-ud.png) center -30px no-repeat;
-}
-
 .avia-table .av-table-pos-button:hover{
 	border:1px solid #aaa;
 	background-color: #f8f8f8;
@@ -3320,7 +3371,6 @@ div .avia-delete-row .avia-table-cell-style select{
 .avia-modal .avia-form-element-container.avia-element-table{
 	background: #FCFCFC;
 }
-
 
 /*team member*/
 div .av_team_member .avia_inner_shortcode img{
@@ -3333,15 +3383,17 @@ div .av_team_member .avia_inner_shortcode img{
 	text-align: center;
 }
 
-
 /*flex elements that are fullwidth by default and non fullwith in columns*/
 .avia-flex-element{
 	border:1px solid #e1e1e1;
 	background: #fff;
 	padding:10px;
 	max-width:500px;
-	text-align: center;
-	margin:10px auto;
+}
+
+.avia-element-items + .avia-flex-element,
+.avia-element-thumbs + .avia-flex-element{
+	margin-top: 10px;
 }
 
 .avia-flex-element-2nd{
@@ -3370,7 +3422,6 @@ div .av_team_member .avia_inner_shortcode img{
 .av_one_fifth .avia-flex-element, .av_one_fourth .avia-flex-element{
 	display:none;
 }
-
 
 /*image hotspots*/
 #wpwrap .av-hotspot-container .avia-builder-prev-img-container-wrap{
@@ -3477,6 +3528,7 @@ div .av_team_member .avia_inner_shortcode img{
 	white-space: normal;
 	height: auto;
 	max-width:86%;
+	text-align: center;
 }
 
 .avia_hotspot_image {
@@ -3515,7 +3567,6 @@ div .av_team_member .avia_inner_shortcode img{
     100% 	{transform: scale(1); opacity: 0.0;}
 }
 
-
 /*catalogue*/
 .av_catalogue .avia_inner_shortcode img,
 .av_productlist .avia_inner_shortcode img{
@@ -3532,7 +3583,6 @@ div .av_team_member .avia_inner_shortcode img{
 	color: #D54E21;
 }
 
-
 /*button row*/
 .av_buttonrow .avia_inner_shortcode img,
 .av_productlist .avia_inner_shortcode img{
@@ -3544,31 +3594,10 @@ div .av_team_member .avia_inner_shortcode img{
 	display:block;
 }
 
-
 /* All Mobile Sizes (devices and browser) */
 @media only screen and (max-width: 767px)
 {
-	.avia-expanded-buttons{
-		position: relative;
-		top: 4px;
-		overflow: hidden;
-		padding: 4px 0;
-		text-align: center;
-	}
-
-	.avia-expanded-buttons #post-preview,
-	.avia-expanded-buttons #publish,
-	.avia-expanded .avia-expanded-buttons .avia-expand-button{
-		display:inline-block;
-		float:none;
-	}
-
-	.avia-expanded .inside .shortcode_button_wrap{
-		padding-bottom:38px;
-	}
-
 }
-
 
 /*drag and drop system*/
 body div.ui-draggable-dragging{
@@ -3604,7 +3633,6 @@ body .ui-draggable-dragging .avia_inner_shortcode img{
 	border: 1px dashed #9ACF57;
 }
 
-
 /*drag drop highlight of single elements*/
 .avia-select-target-1.av_drop[data-dragdrop-level="0"],
 .avia-select-target-2.av_drop[data-dragdrop-level="0"],
@@ -3632,7 +3660,6 @@ body .ui-draggable-dragging .avia_inner_shortcode img{
 	background: #DFF0FF;
 }
 
-
 /*target mode highlight of elements*/
 .avia-hover-target{
 	cursor: crosshair;
@@ -3650,12 +3677,10 @@ body .ui-draggable-dragging .avia_inner_shortcode img{
 	border: 1px dashed #9ACF57;
 }
 
-
 /*drag and drop special elements like hr*/
 body .ui-draggable-dragging.av_hr .avia_inner_shortcode{
 	display:none;
 }
-
 
 /*ELEMENTS IN META BOX*/
 
@@ -3761,7 +3786,6 @@ div .avia-element-hr{
     text-align: center;
 }
 
-
 /*section bgs + col/cell bgs*/
 .avia-layout-element-bg{
 	position: absolute;
@@ -3838,14 +3862,12 @@ a.avia-layout-element-hidden:hover {
 
 a.avia-toggle-visibility {
 	height: 24px;
+	flex-basis: 26px;
 	width: 26px;
 	line-height: 24px;
-	position: absolute;
-	top: 1px;
-	right: 25px;
 	overflow: hidden;
 	color: #999;
-	border-right: 1px solid #e1e1e1;
+	border-inline-end: 1px solid #e1e1e1;
 	opacity: 0;
 }
 
@@ -3877,13 +3899,21 @@ a.avia-toggle-visibility:hover{
 	z-index: -1;
 }
 
+/*
+ * The colour of an element is shown as a dot until it is hovered, and then it gives way to the
+ * buttons that appear in the same corner.
+ *
+ * A cell is left out of that. It carries the column class as well, so it used to fade its dot too -
+ * but a cell keeps its dot beside the size label at the other end of the row, where no button ever
+ * appears, so it was making room for nothing and the colour disappeared exactly when it was being
+ * looked at.
+ */
 .avia_layout_column_no_cell:hover > div > .avia-element-bg-color,
-.avia_layout_column:hover .avia-element-bg-color,
+.avia_layout_column:not( .avia_layout_cell ):hover .avia-element-bg-color,
 .avia_layout_section:hover >.avia_sorthandle > .avia-element-bg-color,
 .avia_sortable_element:hover .avia-element-bg-color{
 	opacity: 0;
 }
-
 
 /* TAB SECTION */
 
@@ -3912,21 +3942,12 @@ a.avia-toggle-visibility:hover{
 	border-color:transparent;
 }
 
-.avia_layout_tab>.avia_sorthandle .avia-clone{
-	left:1px;
-}
-
-.avia_layout_tab>.avia_sorthandle .avia-edit-element{
-	left:25px;
-}
-
 .avia_tab_section_titles {
     margin: 0 0 -1px 0;
     position: relative;
     z-index: 100;
     padding: 14px 130px 0 16px;
 }
-
 
 .avia_tab_section_titles .av-admin-section-tab,
 .av-admin-section-tab-placeholder{
@@ -3963,6 +3984,17 @@ a.avia-toggle-visibility:hover{
     top: 14px;
 }
 
+/*
+ * Same as the labelled add buttons above: this one is as wide as its words with the glyph in the
+ * gutter its padding reserves, and the layer that draws the glyph is pinned to all four edges - so
+ * left alone it centres the plus over the middle of the button, on top of "Add Tab". Confining it to
+ * that gutter puts it back beside the label.
+ */
+.avia_tab_section_titles .avia-add::before{
+	right: auto;
+	width: 28px;
+}
+
 .avia_tab_section_titles .avia-add-tab{
 	margin-left:10px;
 }
@@ -3971,7 +4003,7 @@ a.avia-toggle-visibility:hover{
 	height: 20px;
 	width: 24px;
 	cursor: move;
-	background: transparent url(../../images/icon-leftright.png) top left no-repeat;
+	
 	display: inline-block;
 	vertical-align: bottom;
 	margin: 0 2px 0 2px;
@@ -4002,8 +4034,10 @@ span.av-tab-title-text-wrap-full {
 
 /*	Avia Player	*/
 .avia_inner_shortcode .av-player{
-	margin-bottom: 5px;
 	display: inline-block;
+	padding: 7px;
+    border: 1px solid #e1e1e1;
+    border-radius: 3px;
 }
 
 .avia_inner_shortcode .av-player .av-player-manual .av-play-manual,
@@ -4020,14 +4054,12 @@ span.av-tab-title-text-wrap-full {
 	color: #0085ba;
 }
 
-
 /*	Product Info Tab		*/
 .avia_inner_shortcode .avia-flex-element.product-info-tabs ul{
 	list-style: disc;
 	text-align: left;
 	padding: 0 0 0 10px;
 }
-
 
 /* Search Element */
 .avia-sc-search-fakeinput {
@@ -4063,7 +4095,6 @@ span.av-tab-title-text-wrap-full {
 .avia_inner_shortcode .av-google-maps .av-gmap-page_only .av-gmap-link-confirm_link{
 	display: none;
 }
-
 
 /*	Sort shortcodes dropdown	*/
 #avia-sort-list-dropdown {
@@ -4142,7 +4173,6 @@ li.avia-sort-list-wrap strong {
 .shortcode_button_wrap .avia-tab-title-container {
     padding-right: 230px;
 }
-
 
 /*	Custom ALB element tempates select shortcode type dropdown	*/
 #avia-select-shortcode-type-dropdown{
@@ -4306,4 +4336,1202 @@ body.avia-force-alb #avia-builder-button{
 
 body.block-editor-page.avia-force-alb .avia-builder-button{
 	display: none !important;
+}
+
+
+/* ----------------------------------------------------------------------------
+   Builder interface icons
+   ----------------------------------------------------------------------------
+   These used to be png sprites: one image per control, with the hover state
+   stacked underneath the resting one inside the same file, and a third blank
+   frame that nothing ever used. The glyph is now an svg mask painted with a
+   background colour, so hover is a colour change and the extra frames are gone.
+
+   The mask sits on a ::before rather than on the control itself because several
+   of these controls carry their own background - a white button face, a table
+   cell - and a mask on the element would clip that away with the glyph.
+
+   Colours are the ones the sprites were drawn in: black at low opacity resting,
+   Enfold blue on hover, and the delete red for anything destructive.
+
+   @since 8.0
+   ---------------------------------------------------------------------------- */
+:root{
+	--av-ui-icon: rgba( 0, 0, 0, .35 );
+	--av-ui-icon-hover: #278ab7;
+	--av-ui-icon-danger: #cb4a1f;
+
+	/*
+	 * One knob for every icon in the builder. The width and height inside each svg
+	 * file are only the intrinsic size a browser falls back to - these win over them,
+	 * so the files never need touching to change the scale.
+	 *
+	 * The element icons sit at 32px: they label a button in the picker and carry the
+	 * element name on the canvas, so they read as artwork rather than as controls -
+	 * and on the canvas they are the only thing distinguishing one row from the next.
+	 * The toolbar icons are controls packed into a 24px box and want a smaller glyph.
+	 */
+	--av-icon-size: 20px;
+	--av-ui-icon-size: 17px;
+	--av-element-icon-size: 32px;
+}
+
+/*
+ * What an element holds, listed under its name on the canvas - see editor_element_items() in
+ * class-shortcode-template.php.
+ *
+ * Set quieter and smaller than the name: it answers "which accordion is this" at a glance, and the
+ * moment it competes with the element name it stops doing that. One line only - a long list turns a
+ * canvas of elements back into a wall of text, which is what the icons were meant to fix.
+ */
+.avia_inner_shortcode .avia-element-items{
+	/*
+	 * Centred to sit under the element name above it, and allowed to wrap: a chip cut in half by the
+	 * edge of the element says less than no chip at all, and the count past the cap keeps the row
+	 * short enough that wrapping stays rare.
+	 */
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	font-size: 12px;
+	line-height: 1.45;
+	color: #888;
+}
+
+/*
+ * Each item is its own span, so it can be drawn as a thing rather than as a run of words - which is
+ * what makes four field names read as four fields. Spacing is the container's gap, not a character
+ * written between them.
+ */
+.avia_inner_shortcode .avia-element-item,
+.avia_inner_shortcode .avia-element-items-rest{
+	padding: 7px;
+	border: 1px solid #e1e1e1;
+	border-radius: 3px;
+}
+
+.avia_inner_shortcode .avia-element-items-rest{
+	font-style: italic;
+	border-style: dashed;
+}
+
+/*
+ * The items themselves, when there is wording either side of them. It exists only to be the thing a
+ * live update rebuilds, so it hands its children straight to the row above and takes up no space of
+ * its own - the chips stay in one row with the sentence rather than forming a row inside it.
+ */
+.avia_inner_shortcode .avia-element-items-list{
+	display: contents;
+}
+
+/*
+ * Wording of the element's own that belongs with the items - the text a Headline Rotator keeps either
+ * side of the words it cycles through. Left unboxed on purpose: it is the sentence around the items,
+ * not another one of them, and drawing it as a chip would say the opposite.
+ */
+.avia_inner_shortcode .avia-element-items-static{
+	align-self: center;
+	color: #999;
+}
+
+.avia_inner_shortcode .avia-element-items-static:empty,
+.avia_inner_shortcode .avia-element-items:empty,
+.avia_inner_shortcode pre.avia-element-code:empty{
+	display: none;
+}
+
+/*
+ * The first lines of a code block, as written.
+ *
+ * Clipped rather than scrolled: the canvas is scanned, and a box that scrolls invites the reader to
+ * work through it. The server sends only the first lines anyway - this holds the height while the
+ * live update, which sends what is being typed, is longer than that.
+ */
+/*
+ * The share buttons an element offers, drawn as the icons themselves.
+ *
+ * Every network the element knows is drawn and the stylesheet keeps the chosen ones. A checkbox that
+ * is off leaves its class ending in nothing - avia-share_svg__facebook- with no value after it - and
+ * that is what the rule below reads. It works for any network without naming one, and it keeps up as
+ * boxes are ticked, because the canvas rewrites that class the moment the setting changes.
+ */
+.avia_inner_shortcode .avia-element-social{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 8px;
+	color: #777;
+}
+
+.avia_inner_shortcode .avia-element-social > span{
+	display: contents;
+}
+
+.avia_inner_shortcode .avia-element-social span[data-update_class_with^="share_svg__"]{
+	display: none;
+}
+
+/*
+ * Shown only when its checkbox carries a value. Unticked reads two ways depending on who drew it -
+ * the server leaves the class ending in nothing after the dash, the canvas empties the attribute
+ * altogether when it rewrites it - so the rule turns icons on rather than off, and neither form of
+ * "not chosen" can slip through.
+ */
+.avia_inner_shortcode .avia-element-social span[data-update_class_with^="share_svg__"][class]:not( [class$="-"] ):not( [class=""] ){
+	display: block;
+}
+
+/*
+ * Where the blog's own set is chosen, shown only while the element follows it. Quiet, because it is a
+ * note about where a setting lives rather than part of what the element will render.
+ */
+.avia_inner_shortcode .avia-element-social .avia-element-share-source{
+	align-self: center;
+	color: #888;
+	font-size: 11px;
+	text-decoration: none;
+	border-bottom: 1px dotted currentColor;
+}
+
+.avia_inner_shortcode .avia-element-social .avia-element-share-source:hover,
+.avia_inner_shortcode .avia-element-social .avia-element-share-source:focus-visible{
+	color: #555;
+	border-bottom-style: solid;
+}
+
+.avia_inner_shortcode .avia-element-social .avia-buttons-custom .avia-element-share-source{
+	display: none;
+}
+
+.avia_inner_shortcode .avia-element-social svg{
+	display: block;
+	width: 17px;
+	height: 17px;
+	fill: currentColor;
+}
+
+/*
+ * The pictures an element holds, shown as they are.
+ *
+ * Drawn like the previews in the element window - a square on a light ground with a hairline round it -
+ * so the canvas and the window that fills it look like the same thing, only smaller. A gallery is told
+ * from the one below it by what is in it, which no amount of naming achieves.
+ *
+ * The first few only, with a count for the rest: this is a glance, and a row that wraps for three lines
+ * stops being one.
+ */
+.avia_inner_shortcode .avia-element-thumbs{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+}
+
+.avia_inner_shortcode .avia-element-thumbs:empty{
+	display: none;
+}
+
+.avia_inner_shortcode .avia-element-thumbs img{
+	width: 42px;
+	max-width: 42px;
+	height: 42px;
+	max-height: 42px;
+	object-fit: cover;
+	display: block;
+	border: 1px solid #e1e1e1;
+	background: #f8f8f8;
+	box-sizing: border-box;
+	border-radius: 2px;
+	margin:0;
+	top:0;
+}
+
+.avia_inner_shortcode .avia-element-thumbs .avia-element-items-rest{
+	align-self: center;
+}
+
+.avia_inner_shortcode pre.avia-element-code{
+	margin: 15px 0 0 0 ;
+	padding: 8px 10px;
+	max-height: 7.2em;
+	overflow: hidden;
+	border: 1px solid #e1e1e1;
+	border-radius: 3px;
+	background: #fbfbfb;
+	color: #666;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 11px;
+	line-height: 1.45;
+	white-space: pre;
+	text-align: start;
+	/* a long line should not stretch the element - it scrolls nowhere, it simply ends */
+	text-overflow: ellipsis;
+}
+
+/*
+ * An element that can take its content from two places draws both and hides one, so that flipping the
+ * setting in the element window swaps them at once rather than at the next redraw. The class comes
+ * from the setting itself and the canvas keeps it in step - see editor_element_items().
+ */
+.avia_inner_shortcode .avia-which_menu-custom > .avia-element-items-alt,
+.avia_inner_shortcode [data-update_class_with]:not( .avia-which_menu-custom ) > .avia-element-items:not( .avia-element-items-alt ){
+	display: none;
+}
+
+/*
+ * The Custom Layout element names the entry it pulls in, and that name opens it for editing. It is
+ * underlined only on hover: on a canvas full of element names, one permanently underlined would read
+ * as an error rather than as a link.
+ */
+.avia_inner_shortcode a.av-postcontent-edit{
+	color: #fff;
+	text-decoration: none;
+	padding: 7px;
+	background: var(--wp-admin-theme-color);
+	border-radius: 3px;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.avia_inner_shortcode a.av-postcontent-edit:hover,
+.avia_inner_shortcode a.av-postcontent-edit:focus-visible{
+	opacity: 0.8;
+}
+
+/*
+ * Says that this one leaves the page - it opens the entry it names in a tab of its own, which is worth
+ * knowing before it is clicked rather than after. Drawn from the icon rather than written into the
+ * markup, so the live update does not have to carry it.
+ */
+.avia_inner_shortcode a.av-postcontent-edit::after{
+	content: '';
+	width: 14px;
+	height: 14px;
+	flex: 0 0 auto;
+	background-color: currentColor;
+	-webkit-mask: url( ../../icons/ui/open_in_new.svg ) center / 14px 14px no-repeat;
+	        mask: url( ../../icons/ui/open_in_new.svg ) center / 14px 14px no-repeat;
+}
+
+/* the kind of entry, beside its name - said quietly, the name is the thing being read */
+.avia_inner_shortcode .av-postcontent-type{
+	opacity: 0.75;
+}
+
+.avia-hotkey-info::before,
+.avia-alb-fullscreen::before,
+.avia-undo-button::before,
+.avia-redo-button::before,
+.avia-delete::before,
+.avia-template-save-button-inner ul li .avia-delete-template::before,
+.avia-save-element::before,
+.avia_sorthandle .avia-edit-element::before,
+.avia_sorthandle .avia-clone::before,
+.avia-change-col-size::before,
+.avia-modal-group-element .avia-move-handle::before,
+.avia-add::before,
+.avia-clone::before,
+.avia-set-cell-size::before,
+.av-admin-section-tab-move-handle::before,
+.avia-table .avia-button-row .avia-table-cell::before,
+.avia-table .avia-dynamic-data-row .avia-table-cell::before,
+div .avia-delete-row .avia-table-cell::before,
+.avia-table-builder-wrapper .avia-table .avia-table-cell-delete::before,
+.av-table-pos-button::before,
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-wrap > strong > span.avia-font-entypo-fontello::before,
+#avia_builder a.open-template-button.button::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: var( --av-ui-icon );
+	-webkit-mask: var( --av-ui-glyph ) center / var( --av-ui-icon-size ) var( --av-ui-icon-size ) no-repeat;
+	        mask: var( --av-ui-glyph ) center / var( --av-ui-icon-size ) var( --av-ui-icon-size ) no-repeat;
+	transition: background-color .15s ease;
+	pointer-events: none;
+}
+
+/* controls that never needed a positioning context while the glyph was a background */
+.avia-undo-button,
+.avia-redo-button,
+.avia-set-cell-size,
+.av-table-pos-button,
+.avia-table .avia-button-row .avia-table-cell,
+.avia-table .avia-dynamic-data-row .avia-table-cell,
+div .avia-delete-row .avia-table-cell,
+.avia-table-builder-wrapper .avia-table .avia-table-cell-delete{
+	position: relative;
+}
+
+/* which glyph each control wears */
+.avia-hotkey-info{ --av-ui-glyph: url( ../../icons/ui/keyboard.svg ); }
+.avia-alb-fullscreen{ --av-ui-glyph: url( ../../icons/ui/open_in_full.svg ); }
+.avia-alb-fullscreen.avia-alb-fullscreen-active{ --av-ui-glyph: url( ../../icons/ui/close_fullscreen.svg ); }
+.avia-undo-button{ --av-ui-glyph: url( ../../icons/ui/undo.svg ); }
+.avia-redo-button{ --av-ui-glyph: url( ../../icons/ui/redo.svg ); }
+.avia-delete,
+.avia-template-save-button-inner ul li .avia-delete-template,
+div .avia-delete-row .avia-table-cell,
+.avia-table-builder-wrapper .avia-table .avia-table-cell-delete{ --av-ui-glyph: url( ../../icons/ui/delete.svg ); }
+.avia-save-element{ --av-ui-glyph: url( ../../icons/ui/save.svg ); }
+.avia_sorthandle .avia-edit-element{ --av-ui-glyph: url( ../../icons/ui/edit.svg ); }
+.avia-clone,
+.avia_sorthandle .avia-clone{ --av-ui-glyph: url( ../../icons/ui/content_copy.svg ); }
+.avia-change-col-size{ --av-ui-glyph: url( ../../icons/ui/keyboard_double_arrow_right.svg ); }
+.avia-change-col-size.avia-smaller{ --av-ui-glyph: url( ../../icons/ui/keyboard_double_arrow_left.svg ); }
+.avia-modal-group-element .avia-move-handle,
+div.sidebar_tab .avia-modal-group-element .avia-move-handle{ --av-ui-glyph: url( ../../icons/ui/drag_indicator.svg ); }
+.avia-tab-container .avia-modal-group-element .avia-move-handle,
+.av-admin-section-tab-move-handle{ --av-ui-glyph: url( ../../icons/ui/drag_handle.svg ); }
+.avia-add,
+.avia-table .avia-button-row .avia-table-cell,
+.avia-table .avia-dynamic-data-row .avia-table-cell{ --av-ui-glyph: url( ../../icons/ui/add.svg ); }
+.avia-set-cell-size{ --av-ui-glyph: url( ../../icons/ui/swap_horiz.svg ); }
+.av-table-pos-button.av-table-left{ --av-ui-glyph: url( ../../icons/ui/arrow_back.svg ); }
+.av-table-pos-button.av-table-right{ --av-ui-glyph: url( ../../icons/ui/arrow_forward.svg ); }
+.av-table-pos-button.av-table-up{ --av-ui-glyph: url( ../../icons/ui/arrow_upward.svg ); }
+.av-table-pos-button.av-table-down{ --av-ui-glyph: url( ../../icons/ui/arrow_downward.svg ); }
+#avia_builder a.open-template-button.button{ --av-ui-glyph: url( ../../icons/ui/library_books.svg ); }
+
+/* hover */
+.avia-hotkey-info:hover::before,
+.avia-undo-button:hover::before,
+.avia-redo-button:hover::before,
+.avia-save-element:hover::before,
+.avia_sorthandle .avia-edit-element:hover::before,
+.avia_sorthandle .avia-clone:hover::before,
+.avia-add:hover::before,
+.avia-add:active::before,
+.avia-clone:hover::before,
+.avia-clone:active::before,
+.avia-set-cell-size:hover::before,
+.avia-set-cell-size:active::before,
+.avia-change-col-size:hover::before,
+.av-table-pos-button:hover::before,
+.avia-modal-group-element .avia-move-handle:hover::before,
+.avia-modal-group-element .avia-move-handle:active::before,
+#avia_builder a.open-template-button.button:hover::before,
+#avia_builder a.av-template-added-highlight.button::before{
+	background-color: var( --av-ui-icon-hover );
+}
+
+.avia-delete:hover::before,
+.avia-template-save-button-inner ul li .avia-delete-template:hover::before,
+div .avia-delete-row .avia-table-cell:hover::before,
+.avia-table-builder-wrapper .avia-table .avia-table-cell-delete:hover::before{
+	background-color: var( --av-ui-icon-danger );
+}
+
+/*
+ * The template button is the one control where the glyph is not centred: it sits
+ * beside a text label, which is what the 33px left padding is holding room for.
+ */
+#avia_builder a.open-template-button.button::before{
+	right: auto;
+	left: 4px;
+	top: 3px;
+	width: 24px;
+	height: 24px;
+}
+
+
+/* ==========================================================================
+   Element panel - sidebar layout
+
+   Opt-in through Theme Options > Layout Builder > "Position Of The Element Panel".
+   The toolbar layout above is untouched; everything here hangs off the two classes the
+   theme option adds, so both layouts share one set of markup.
+
+   The panel is attached to <body> rather than to the metabox (see avia-element-behavior.js):
+   the block editor puts a filter on its metabox wrapper, which would turn position:fixed into
+   something that scrolls away with the page.
+   ========================================================================== */
+
+body{
+	/* editor chrome the panel has to clear - written by sync_chrome_offset() */
+	--av-alb-chrome-top: 0px;
+	--av-alb-chrome-start: 0px;
+	/* fits three element icons per row - the default until the user drags the edge */
+	--av-alb-sidebar-width: 309px;
+	/*
+	 * What one column of element buttons costs the panel. Read by avia-panel-resize.js to work out
+	 * which step the user is dragging towards; the widths below are the same arithmetic written out.
+	 *
+	 * 92px, not the 86px a button measures: the buttons are floated, and a float wraps on its margin
+	 * box, so the 6px gutter after the last one in a row has to fit as well or the row is one short.
+	 * The measured minimums are 215, 307 and 399 - each width below clears its own by 2px so that a
+	 * scrollbar a pixel wider than this machine's cannot cost a column.
+	 */
+	--av-alb-panel-width-min: 125px;
+	--av-alb-panel-width-step: 92px;
+}
+
+/*
+ * The four widths the panel snaps to, one per column of elements.
+ *
+ * Written as an attribute on <html> rather than an inline style on <body> for two reasons: an inline
+ * style would beat the full width fallback in the media query at the end of this file, and the panel
+ * watches the body class to know when the editor chrome moved - writing there would make it
+ * re-measure itself every time the user dragged it.
+ */
+html[data-av-alb-cols="1"] body{
+	--av-alb-sidebar-width: 125px;
+}
+
+html[data-av-alb-cols="2"] body{
+	--av-alb-sidebar-width: 217px;
+}
+
+html[data-av-alb-cols="3"] body{
+	--av-alb-sidebar-width: 309px;
+}
+
+html[data-av-alb-cols="4"] body{
+	--av-alb-sidebar-width: 401px;
+}
+
+.avia-alb-panel-side{
+	    --av-element-icon-size: 40px;
+}
+
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-select{
+	border: none;
+}
+
+.avia-fixed-controls.avia-alb-panel-side{
+	position: fixed;
+	top: var(--av-alb-chrome-top);
+	bottom: 0;
+	/*
+	 * Logical rather than left/right so the panel sits on the starting side of whichever direction
+	 * the admin runs in. The right to left stylesheet is behind a filter a site can switch off, so
+	 * the layout must not depend on it being loaded.
+	 */
+	inset-inline-start: var(--av-alb-chrome-start);
+	inset-inline-end: auto;
+	width: var(--av-alb-sidebar-width);
+	margin: 0;
+	padding: 0;
+	z-index: 8000;
+
+	/*
+	 * Frosted rather than a solid slab, so the panel reads as an overlay on the editor instead of a
+	 * second page chrome competing with the admin menu next to it.
+	 *
+	 * backdrop-filter is decoration only - the canvas is inset rather than running underneath, so
+	 * there is little behind to blur. Browsers without it just get the translucent tint, which is the
+	 * greater part of the effect anyway.
+	 */
+	background: rgba( 247, 248, 250, 0.82 );
+	-webkit-backdrop-filter: saturate( 180% ) blur( 20px );
+	backdrop-filter: saturate( 180% ) blur( 20px );
+	border-inline-end: 1px solid rgba( 0, 0, 0, 0.07 );
+	border-top: 1px solid rgba( 0, 0, 0, 0.07 );
+	/* no horizontal offset: the shadow would fall on the wrong side in a right to left admin */
+	box-shadow: 0 0 3px 0 rgba( 0, 0, 0, 0.03 );
+
+	/* the point of the whole exercise: the panel scrolls on its own, the canvas keeps its place */
+	overflow-y: auto;
+	overflow-x: hidden;
+	overscroll-behavior: contain;
+
+	/*
+	 * Hidden until it has been measured. The offsets are only known once the editor has finished
+	 * drawing its chrome, and showing the panel before then means it appears in the wrong place and
+	 * jumps. The room for it is reserved from the start, so nothing else shifts when it appears.
+	 *
+	 * visibility rather than display: it still has to be measurable while it waits.
+	 */
+	visibility: hidden;
+	opacity: 0;
+}
+
+/*
+ * The other half of the line above the panel, taken off.
+ *
+ * The block editor draws a border along the top of every metabox header, and on the builder that
+ * one lands directly above the "Avia Layout Builder" title. It meets the panel's own top border at
+ * the same height, so the two run together as a single rule across the width - darker on the
+ * builder's side, because the editor's is a solid grey where the panel's is barely there.
+ *
+ * Only this metabox gives it up. Every other one keeps the border, where it is still doing the job
+ * of separating one box from the next.
+ */
+#avia_builder .postbox-header{
+	border-top: none;
+}
+
+.avia-fixed-controls.avia-alb-panel-side.avia-alb-panel-ready{
+	visibility: visible;
+	opacity: 1;
+}
+
+/*
+ * Added a frame after the panel is revealed, never before: it should not slide in from wherever it
+ * started. From then on the editor chrome changing - fullscreen, the admin menu folding - moves the
+ * panel as a deliberate step instead of a jump.
+ */
+.avia-fixed-controls.avia-alb-panel-side.avia-alb-panel-animated{
+	transition: opacity 0.15s ease-out, top 0.2s ease-in-out, inset-inline-start 0.2s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce){
+
+	.avia-fixed-controls.avia-alb-panel-side.avia-alb-panel-ready,
+	.avia-fixed-controls.avia-alb-panel-side.avia-alb-panel-animated{
+		transition: none;
+	}
+}
+
+/*
+ * The grip that sets how wide the panel is - see avia-panel-resize.js.
+ *
+ * Fixed to the same edge the panel ends at rather than living inside it: the panel scrolls its
+ * elements, and a handle within it would scroll away with them. Being its own fixed element also
+ * keeps it clear of the panel's overflow, which would otherwise clip it.
+ *
+ * Wider than it looks. The line drawn on hover is one pixel, which is a miserable thing to aim at,
+ * so the part that answers the pointer reaches a few pixels either side of it.
+ */
+.avia-alb-panel-resize{
+	position: fixed;
+	top: var(--av-alb-chrome-top);
+	bottom: 0;
+	inset-inline-start: calc( var(--av-alb-chrome-start) + var(--av-alb-sidebar-width) - 3px );
+	width: 12px;
+	z-index: 8001;
+	cursor: col-resize;
+	background: transparent;
+	/* the pointer owns this element while dragging - without it a touch drag scrolls the page instead */
+	touch-action: none;
+}
+
+.avia-alb-panel-resize::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	inset-inline-start: 3px;
+	width: 3px;
+	background: rgba( 0, 0, 0, 0.2 );
+	opacity: 0;
+	transition: opacity 0.12s ease;
+}
+
+.avia-alb-panel-resize:hover::before,
+.avia-alb-panel-resize:focus-visible::before,
+html.avia-alb-resizing .avia-alb-panel-resize::before{
+	opacity: 1;
+}
+
+.avia-alb-panel-resize:focus-visible{
+	outline: none;
+}
+
+/*
+ * While dragging, the pointer is over the canvas as often as it is over the handle, and without this
+ * the cursor flickers between the two and the drag selects whatever text it passes over.
+ */
+html.avia-alb-resizing,
+html.avia-alb-resizing body{
+	cursor: col-resize;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+/*
+ * Reserve the column at the level of the editor's own content region, not on the builder metabox.
+ *
+ * Everything the editor puts above and around the builder lives inside these - the autosave notice,
+ * admin notices, anything a plugin injects - so insetting the region means nothing can end up under
+ * the panel, whoever added it. Insetting only the metabox would leave all of that overlapped.
+ *
+ * The two editors are kept apart on purpose: in the block editor the metabox sits in normal flow
+ * inside the scrolling region, so insetting both would indent the builder twice.
+ */
+body.block-editor-page.avia-alb-sidebar-open .interface-interface-skeleton__content{
+	padding-inline-start: var(--av-alb-sidebar-width);
+	box-sizing: border-box;
+}
+
+body:not(.block-editor-page).avia-alb-sidebar-open #wpbody-content{
+	padding-inline-start: var(--av-alb-sidebar-width);
+	box-sizing: border-box;
+}
+
+/*
+ * Fullscreen is a separate case: the metabox is lifted out and covers the viewport, so it is inset in
+ * its own right and the panel moves into the corner with it (sync_chrome_offset zeroes the offsets).
+ */
+/*
+ * The panel belongs to the Layout Builder, so it goes away with it when the user switches to the
+ * default WordPress editor - and so does the room reserved for it, or the editor would keep an empty
+ * gutter. The toolbar is inside the metabox and gets hidden along with it; the sidebar is attached to
+ * <body>, so it has to be hidden here.
+ *
+ * These come after the rules above on purpose: they carry the same specificity, so being last is what
+ * lets them win.
+ */
+body.wp-default-editor-enabled .avia-fixed-controls{
+	display: none;
+}
+
+body.wp-default-editor-enabled.avia-alb-sidebar-open .interface-interface-skeleton__content,
+body.wp-default-editor-enabled.avia-alb-sidebar-open #wpbody-content{
+	padding-inline-start: 0;
+}
+
+/*
+ * A column so the header row can be ordered above the tabs. The markup renders it last because in the
+ * toolbar it is positioned absolutely into the corner; here it is a real row at the top of the panel.
+ */
+.avia-alb-panel-side .shortcode_button_wrap{
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	margin: 0;
+	width: auto;
+	float: none;
+}
+
+.avia-alb-panel-side .avia-alb-panel-row{
+	order: -1;
+}
+
+/* --- header row: sorting and the keyboard shortcut help ------------------ */
+
+.avia-alb-panel-side .avia-alb-panel-row{
+	position: static;
+	/*
+	 * One line, always. The search field is the only thing here that can give, and it is set to - the
+	 * two icons keep their size. Letting the row wrap instead would drop them onto a second line at
+	 * the opposite end, and the sort menu hangs off the icon: it would open away from the panel and
+	 * be clipped by it.
+	 */
+	flex-wrap: nowrap;
+	align-items: center;
+	padding: 8px 10px;
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.06 );
+	background: transparent;
+}
+
+/*
+ * Search takes the room, and the two controls beside it are icons.
+ *
+ * The row used to spend its whole width on a dropdown reading "Sorting: Default" - a lot of space to
+ * describe something most people set once, in a panel where the useful thing to do is find an element
+ * among a hundred. Sorting keeps its menu, it just opens from an icon now.
+ */
+.avia-alb-panel-side .avia-alb-panel-row > .avia-alb-panel-filter{
+	order: 1;
+	flex: 1 1 auto;
+	min-width: 0;
+	height: 28px;
+	margin: 0;
+	padding: 0 8px;
+	border: 1px solid rgba( 0, 0, 0, 0.12 );
+	border-radius: 3px;
+	background: #fff;
+	font-size: 12px;
+	line-height: 26px;
+	color: #555;
+	box-shadow: none;
+}
+
+.avia-alb-panel-side .avia-alb-panel-row > .avia-alb-panel-filter:focus{
+	border-color: rgba( 0, 0, 0, 0.37 );
+	outline: none;
+	box-shadow: none;
+}
+
+/*
+ * The clear button, drawn small but aimed at large.
+ *
+ * The browser's own is a few pixels across, which is a poor target for something people reach for the
+ * moment they are done searching. Replacing it lets the two sizes be set apart: the element is the
+ * full height of the field and wide enough to hit without looking, while the mask inside it stays the
+ * size the mark wants to be. Only the part that answers the pointer grows.
+ */
+.avia-alb-panel-side .avia-alb-panel-row > .avia-alb-panel-filter::-webkit-search-cancel-button{
+	-webkit-appearance: none;
+	appearance: none;
+	width: 26px;
+	height: 26px;
+	margin-inline-end: -7px;
+	/*
+	 * A background rather than the mask the rest of the builder's icons use: this pseudo element does
+	 * not paint one, so the mark is drawn straight and softened with opacity instead of a colour.
+	 */
+	background: url( ../../icons/ui/close.svg ) center / 12px 12px no-repeat;
+	opacity: 0.45;
+	cursor: pointer;
+}
+
+.avia-alb-panel-side .avia-alb-panel-row > .avia-alb-panel-filter::-webkit-search-cancel-button:hover{
+	opacity: 0.75;
+}
+
+.avia-alb-panel-side .avia-alb-panel-row > #avia-sort-list-dropdown{
+	/*
+	 * Last in the row on purpose, and the reason is worth keeping: the menu hangs from this icon's
+	 * end edge, so that edge has to be the panel's own. Put anything after it and the menu is pushed
+	 * inwards by that much - at the narrow panel widths it is nearly as wide as the panel, so it
+	 * reaches back past the opposite edge and is cut off by the panel's overflow.
+	 *
+	 * The same overflow is what opens and closes it - the container clips the menu until it is
+	 * hovered - so the menu cannot be moved out of the container's reach to escape the clipping
+	 * either. It stays here, and everything else goes in front of it.
+	 */
+	order: 4;
+	flex: 0 0 auto;
+	width: 28px;
+	height: 28px;
+	max-width: none;
+	background: transparent;
+}
+
+.avia-alb-panel-side .avia-alb-panel-row > .avia-hotkey-info{
+	order: 2;
+	flex: 0 0 auto;
+}
+
+/* in front of the sorting icon, which has to keep the end of the row - see the note on it */
+.avia-alb-panel-side .avia-alb-panel-row > .avia-alb-fullscreen{
+	order: 3;
+	flex: 0 0 auto;
+	width: 28px;
+	height: 28px;
+}
+
+/*
+ * Narrow panel: the icons keep the first line and the search moves under them.
+ *
+ * A third icon is what makes this necessary - at one and two columns there is no longer a usable
+ * field left beside them (26px and 84px of it), and a search box too small to read what was typed
+ * into it is worse than one on a line of its own.
+ *
+ * Only the field wraps. Letting the row wrap freely would carry an icon down instead, and the
+ * sorting menu hangs off its icon: from a second line it would open past the bottom of the row and
+ * be clipped by the panel. Keyed to the panel width rather than measured, because the panel only
+ * ever takes the four widths the drag handle snaps to.
+ */
+[data-av-alb-cols="1"] .avia-alb-panel-side .avia-alb-panel-row,
+[data-av-alb-cols="2"] .avia-alb-panel-side .avia-alb-panel-row{
+	flex-wrap: wrap;
+	row-gap: 8px;
+	/*
+	 * The icons keep to the end of their line rather than the start, which is where they sit at the
+	 * wider panel widths anyway - and it is what the sorting menu needs: it hangs from the end of the
+	 * last icon, so that edge has to stay the panel's own or the menu reaches out of the panel.
+	 */
+	justify-content: flex-end;
+}
+
+[data-av-alb-cols="1"] .avia-alb-panel-side .avia-alb-panel-row > .avia-alb-panel-filter,
+[data-av-alb-cols="2"] .avia-alb-panel-side .avia-alb-panel-row > .avia-alb-panel-filter{
+	order: 9;
+	flex: 1 1 100%;
+}
+
+/*
+ * At the narrowest width the three icons want 92px of the 90px there are, and the last of them
+ * wraps to a line of its own - a row of icons broken across two lines for the sake of two pixels.
+ * They are drawn a little tighter here so they stay on one line with room to spare.
+ */
+[data-av-alb-cols="1"] .avia-alb-panel-side .avia-alb-panel-row{
+	column-gap: 4px;
+}
+
+[data-av-alb-cols="1"] .avia-alb-panel-side .avia-alb-panel-row > #avia-sort-list-dropdown,
+[data-av-alb-cols="1"] .avia-alb-panel-side .avia-alb-panel-row > .avia-alb-fullscreen{
+	width: 24px;
+	height: 24px;
+}
+
+
+/*
+ * The trigger, reduced to its icon.
+ *
+ * The words beside it are bare text nodes inside the <strong>, and a text node cannot be selected -
+ * so the only way to take them out is to zero the font size on the parent and give it back to the
+ * icon. The label span inside collapses with them, which is what we want.
+ */
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-select{
+	padding: 0;
+	background: transparent;
+	box-shadow: none;
+	min-height: 0;
+}
+
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-wrap > strong{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	font-size: 0;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.avia-alb-panel-side #avia-sort-list-dropdown:hover .avia-sort-list-wrap > strong{
+	background: rgba( 0, 0, 0, 0.06 );
+}
+
+/*
+ * The glyph is the one icon in the panel still coming from the old icon font's arrow-combo, drawn as
+ * an inline svg by the markup that both layouts share. Rather than change that markup and the toolbar
+ * with it, the inline drawing is set aside here and the span wears a mask instead, exactly as every
+ * other control in the builder does - so the sidebar gets the same Material sort mark as the rest.
+ */
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-wrap > strong > span.avia-font-entypo-fontello{
+	position: relative;
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	top: 0;
+	--av-ui-glyph: url( ../../icons/ui/sort.svg );
+	--av-ui-icon-size: 16px;
+}
+
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-wrap > strong > span.avia-font-entypo-fontello > svg{
+	display: none;
+}
+
+/*
+ * The label span is a sibling of the icon span, not a child of it, so anything aimed at "the span
+ * inside the trigger" hits both and the glyph gets drawn twice. It is empty of use here - the
+ * trigger is an icon - so it goes rather than merely being collapsed by the font size above.
+ */
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-wrap > strong > .avia-sort-list-label{
+	display: none;
+}
+
+/*
+ * With the trigger down to an icon the menu no longer has a box to hang under, so it is given one and
+ * lifted out of the flow - in the row it would otherwise stretch the header as it opens. The panel
+ * clips it until then, exactly as it did before: the container is overflow:hidden and turns visible
+ * on hover, which is the whole open/close mechanism.
+ */
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-main{
+	position: absolute;
+	top: 100%;
+	/*
+	 * Hung from the end of the icon and grown inwards. The icon sits at the far edge of the row, and
+	 * the panel clips anything wider than itself - so a menu anchored the other way would have its
+	 * last 20px cut off. The width is held to the panel for the same reason: at one column there is
+	 * less room than the menu would like, and wrapped labels beat invisible ones.
+	 */
+	inset-inline-end: 0;
+	margin-top: 4px;
+	min-width: min( 190px, calc( var(--av-alb-sidebar-width) - 36px ) );
+	max-width: calc( var(--av-alb-sidebar-width) - 36px );
+	background: #fff;
+	border: 1px solid #e1e1e1;
+	box-shadow: 0 5px 5px 0 rgba( 0, 0, 0, 0.2 );
+	z-index: 30;
+}
+
+/*
+ * Bridges the gap above the menu.
+ *
+ * The menu stays open by keeping its own container hovered, which works anywhere on the icon and
+ * anywhere on the menu - but not in the few pixels of nothing between them, and that is the line
+ * every pointer crosses on its way from one to the other. This covers those pixels and belongs to the
+ * menu, so crossing them is still hovering it. The gap stays there to look at.
+ */
+.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-main::before{
+	content: '';
+	position: absolute;
+	inset-inline: 0;
+	top: -5px;
+	height: 5px;
+}
+
+/*
+ * While a search is running the sections stop being drawers and become the results themselves: every
+ * one with a match is open, and the ones without are not there at all. A chevron would be inviting
+ * the user to collapse a group the search just opened, so it goes - the click behind it is stopped in
+ * avia-panel-search.js, and this is the half that says so.
+ */
+.avia-alb-panel-side.avia-alb-filtering .avia-tab-title-container a.avia-alb-tab::after,
+.avia-alb-panel-side.avia-alb-filtering .avia-tab-title-container a.avia-custom-element-tab::after{
+	display: none;
+}
+
+.avia-alb-panel-side.avia-alb-filtering .avia-tab-title-container a.avia-alb-tab,
+.avia-alb-panel-side.avia-alb-filtering .avia-tab-title-container a.avia-custom-element-tab{
+	cursor: default;
+}
+
+.avia-alb-panel-side .avia-alb-panel-no-results{
+	margin: 0;
+	padding: 16px 10px;
+	color: #777;
+	font-size: 12px;
+	text-align: center;
+}
+
+/*
+ * The close button is positioned absolutely by default and pinned by a rule that only reaches inside
+ * the expanded metabox. The sidebar lives on <body>, outside that, so it has to be placed here or it
+ * drops to the bottom of the scrolling panel and off screen.
+ */
+/*
+ * The template button sits in the undo/redo bar (moved there by move_template_button). It keeps
+ * position:relative so its dropdown still opens against the button rather than against the bar.
+ *
+ * The long selector is deliberate: the button is pinned into a corner with a bottom offset by both
+ * the base and the block editor stylesheet, and those offsets have to be outranked here or the button
+ * hangs out of the top of the bar.
+ */
+/*
+ * The bar sets a z-index, which makes it a stacking context - so the dropdown inside it cannot rise
+ * above anything in the layout that outranks the bar, and it ends up behind the elements on the
+ * canvas. Raising the bar lifts the dropdown with it. Hover is included because the bar raises itself
+ * on hover, which would otherwise re-cap the dropdown exactly while it is being used.
+ */
+body.avia-alb-sidebar-open .avia-controll-bar,
+body.avia-alb-sidebar-open .avia-controll-bar:hover{
+	z-index: 100;
+}
+
+body.avia-alb-sidebar-open .avia-controll-bar > .avia-template-save-button-container.avia-in-control-bar{
+	position: relative;
+	float: right;
+	top: auto;
+	bottom: auto;
+	inset-inline: auto;
+	margin: 0;
+}
+
+/*
+ * float has no logical form that is safe to rely on yet, so the one case that needs it is turned
+ * round here. Keyed off the dir attribute rather than a body class: WordPress always sets it, while
+ * the rtl class the theme adds depends on a filter.
+ */
+html[dir="rtl"] body.avia-alb-sidebar-open .avia-controll-bar > .avia-template-save-button-container.avia-in-control-bar{
+	float: left;
+}
+
+/* --- accordion: a heading per section, stacked ---------------------------
+   The sections are moved to sit under their own heading by build_accordion().
+   Opening one closes the others, which is the tab script's own behaviour. */
+
+.avia-alb-panel-side .avia-tab-title-container{
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	margin: 0;
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.06 );
+}
+
+.avia-alb-panel-side .avia-tab-title-container a.avia-alb-tab,
+.avia-alb-panel-side .avia-tab-title-container a.avia-custom-element-tab{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	float: none;
+	width: auto;
+	margin: 0;
+	padding: 14px;
+	border: none;
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.06 );
+	background: transparent;
+	font-size: 13px;
+	line-height: 1.4;
+	text-decoration: none;
+	color: #50575e;
+	cursor: pointer;
+}
+
+/* open/closed chevron, drawn rather than shipped as an icon so it inherits the text colour */
+.avia-alb-panel-side .avia-tab-title-container a.avia-alb-tab::after,
+.avia-alb-panel-side .avia-tab-title-container a.avia-custom-element-tab::after{
+	content: '';
+	flex: 0 0 auto;
+	width: 7px;
+	height: 7px;
+	margin-inline-start: 8px;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(-45deg);
+	transform-origin: center;
+	opacity: 0.55;
+	transition: transform 0.15s ease-in-out;
+}
+
+.avia-alb-panel-side .avia-tab-title-container a.avia-alb-tab:hover,
+.avia-alb-panel-side .avia-tab-title-container a.avia-custom-element-tab:hover{
+	background: rgba( 255, 255, 255, 0.6 );
+	color: #135e96;
+}
+
+.avia-alb-panel-side .avia-tab-title-container a.active-tab{
+	background: rgba( 255, 255, 255, 0.75 );
+	border-bottom-color: transparent;
+	color: #1d2327;
+	font-weight: 600;
+	border-radius: 0px;
+}
+
+.avia-alb-panel-side .avia-tab-title-container a.active-tab::after{
+	transform: rotate(45deg);
+	opacity: 0.9;
+}
+
+/* the open section reads as part of its heading rather than as a separate block */
+.avia-alb-accordion .avia-tab-title-container > .avia-tab{
+	background: rgba( 255, 255, 255, 0.5 );
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.05 );
+}
+
+/* --- the element buttons ------------------------------------------------ */
+
+/*
+ * The buttons keep the floated layout of the toolbar and simply wrap inside the narrower panel.
+ * They deliberately are not a grid: the tab script toggles panels with an inline display:block,
+ * which would override a display:grid here - and overriding that back with !important would also
+ * defeat the display:none it uses to hide the other tabs.
+ */
+.avia-alb-panel-side .avia-tab{
+	padding: 6px 4px 10px 10px;
+	overflow: hidden;
+}
+
+.avia-alb-panel-side .avia-tab > a.shortcode_insert_button{
+	width: 80px;
+	height: 72px;
+	margin: 0 6px 6px 0;
+	padding: 6px 2px 12px;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	background: #fff;
+	transition: background-color .12s ease, border-color .12s ease;
+}
+
+.avia-alb-panel-side .avia-tab > a.shortcode_insert_button:hover{
+	background: #fff;
+	border-color: rgba( 0, 0, 0, 0.37 );
+}
+
+.avia-alb-panel-side .avia-tab > a.shortcode_insert_button:hover{
+	border-color: rgba( 0, 0, 0, 0.37 );
+	color:#333;
+}
+
+/* --- custom element buttons --------------------------------------------- */
+
+/*
+ * "Editing of custom elements is not allowed on fullscreen mode" belonged to the old fullscreen view,
+ * where the panel was duplicated: the edit mode class landed on the original while the copy was the
+ * one on screen, so the action buttons never appeared and editing was switched off instead. There is
+ * only one panel now, editing works here, and the notice would only be confusing.
+ *
+ * It shows at all because the rule that normally hides it is scoped to #avia_builder, and the panel
+ * sits outside that in this layout.
+ */
+.avia-alb-panel-side .av-custom-element-footer .av-custom-element-info{
+	display: none;
+}
+
+/* Full width and stacked - the labels are too long to sit beside each other at this width. */
+.avia-alb-panel-side .av-custom-element-footer{
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 10px;
+}
+
+.avia-alb-panel-side .av-custom-element-button{
+	display: block;
+	float: none;
+	width: 100%;
+	height: auto;
+	min-height: 0;
+	margin: 0;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	font-size: 12px;
+	line-height: 1.7;
+	text-align: center;
+	white-space: normal;
+}
+
+.avia-alb-panel-side .av-custom-element-select-buttons{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* --- narrow screens: fall back to a full width panel over the canvas ----- */
+
+@media only screen and (max-width: 782px){
+
+	/*
+	 * Whatever width the user picked, it is overruled at this size - the panel lies over the canvas
+	 * rather than beside it, so it takes the full width. The attribute selector has to be named again
+	 * because it is the more specific one; the resize handle goes away with it.
+	 */
+	body,
+	html[data-av-alb-cols] body{
+		--av-alb-sidebar-width: 100%;
+	}
+
+	.avia-alb-panel-resize{
+		display: none;
+	}
+
+	/*
+	 * The sidebar width is a percentage down here, and the menu measures itself against a 28px icon -
+	 * so the calc above would hold it to a few pixels. There is room for the full menu at this size.
+	 */
+	.avia-alb-panel-side #avia-sort-list-dropdown .avia-sort-list-main{
+		min-width: 190px;
+		max-width: none;
+	}
+
+	.avia-fixed-controls.avia-alb-panel-side{
+		max-height: 45vh;
+		bottom: auto;
+		border-inline-end: none;
+		border-bottom: 1px solid #dcdcde;
+	}
+}
+
+
+/* ------------------------------------------------------------------------- */
+/* Fullscreen in the classic editor                                           */
+/* ------------------------------------------------------------------------- */
+
+/*
+ * The block editor has a fullscreen mode of its own and the button simply turns it on. The classic
+ * editor has none, so this is it: the admin menu is folded, the two column layout becomes one, and
+ * the builder is put at the top of it.
+ *
+ * That last part is the whole reason there are rules here rather than a class and nothing else.
+ * WordPress writes the side column - Publish, Featured Image - into the markup before the main one,
+ * so a single column layout on its own drops the builder underneath them, roughly six hundred
+ * pixels down the page. Ordering the three children puts it back directly under the title and sends
+ * the side boxes to the end, where they are out of the way but still reachable: this is a mode for
+ * building a page, and publishing it should not require leaving.
+ */
+body.avia-alb-is-fullscreen #post-body.columns-1{
+	display: flex;
+	flex-direction: column;
+}
+
+body.avia-alb-is-fullscreen #post-body.columns-1 > #post-body-content{
+	order: 1;
+}
+
+body.avia-alb-is-fullscreen #post-body.columns-1 > #postbox-container-2{
+	order: 2;
+}
+
+body.avia-alb-is-fullscreen #post-body.columns-1 > #postbox-container-1{
+	order: 3;
 }

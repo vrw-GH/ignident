@@ -15,13 +15,6 @@ use SEOPress\Helpers\Metas\RobotSettings as MetaRobotSettingsHelper;
 class RobotSettings implements ExecuteHooks {
 
 	/**
-	 * The current user.
-	 *
-	 * @var int|null
-	 */
-	private $current_user;
-
-	/**
 	 * The Robot Settings register.
 	 *
 	 * @since 5.0.0
@@ -29,7 +22,6 @@ class RobotSettings implements ExecuteHooks {
 	 * @return void
 	 */
 	public function hooks() {
-		$this->current_user = wp_get_current_user()->ID;
 		add_action( 'rest_api_init', array( $this, 'register' ) );
 	}
 
@@ -55,14 +47,7 @@ class RobotSettings implements ExecuteHooks {
 					),
 				),
 				'permission_callback' => function ( $request ) {
-					$post_id      = $request['id'];
-					$current_user = $this->current_user ? $this->current_user : wp_get_current_user()->ID;
-
-					if ( ! user_can( $current_user, 'edit_post', $post_id ) ) {
-						return false;
-					}
-
-					return true;
+					return current_user_can( 'edit_post', (int) $request['id'] );
 				},
 			)
 		);
@@ -81,6 +66,9 @@ class RobotSettings implements ExecuteHooks {
 					),
 				),
 				'permission_callback' => function ( $request ) {
+					if ( seopress_metabox_role_is_blocked( 'GLOBAL' ) ) {
+						return false;
+					}
 					$post_id = $request['id'];
 					return current_user_can( 'edit_post', $post_id );
 				},
@@ -112,6 +100,7 @@ class RobotSettings implements ExecuteHooks {
 				'_seopress_robots_primary_cat',
 				'_seopress_robots_breadcrumbs',
 				'_seopress_robots_freeze_modified_date',
+				'_seopress_robots_custom_modified_date',
 			);
 
 			foreach ( $metas as $key => $value ) {
@@ -136,6 +125,7 @@ class RobotSettings implements ExecuteHooks {
 					|| '_seopress_robots_snippet' === $value['key']
 					|| '_seopress_robots_breadcrumbs' === $value['key']
 					|| '_seopress_robots_freeze_modified_date' === $value['key']
+					|| '_seopress_robots_custom_modified_date' === $value['key']
 				) {
 					$item = sanitize_text_field( $item );
 				}
@@ -144,6 +134,33 @@ class RobotSettings implements ExecuteHooks {
 					update_post_meta( $id, $value['key'], $item );
 				} else {
 					delete_post_meta( $id, $value['key'] );
+				}
+			}
+
+			// If a custom modified date is set, update post_modified directly.
+			$custom_date = isset( $params['_seopress_robots_custom_modified_date'] )
+				? sanitize_text_field( $params['_seopress_robots_custom_modified_date'] )
+				: '';
+
+			if ( ! empty( $custom_date ) ) {
+				$timestamp = strtotime( $custom_date );
+				if ( $timestamp ) {
+					// Use date() instead of gmdate() since post_modified stores site-local time.
+				$date_local = date( 'Y-m-d H:i:s', $timestamp );
+					$date_gmt   = get_gmt_from_date( $date_local );
+
+					global $wpdb;
+					$wpdb->update(
+						$wpdb->posts,
+						array(
+							'post_modified'     => $date_local,
+							'post_modified_gmt' => $date_gmt,
+						),
+						array( 'ID' => $id ),
+						array( '%s', '%s' ),
+						array( '%d' )
+					);
+					clean_post_cache( $id );
 				}
 			}
 
@@ -195,6 +212,26 @@ class RobotSettings implements ExecuteHooks {
 					)
 				);
 			}
+		}
+
+		// Append post modified dates as extra data.
+		$post = get_post( $id );
+		if ( $post ) {
+			$wp_date_format = get_option( 'date_format' );
+			$wp_time_format = get_option( 'time_format' );
+
+			$data[] = array(
+				'key'   => 'post_modified',
+				'value' => $post->post_modified,
+			);
+			$data[] = array(
+				'key'   => 'post_modified_gmt',
+				'value' => $post->post_modified_gmt,
+			);
+			$data[] = array(
+				'key'   => 'post_modified_formatted',
+				'value' => mysql2date( $wp_date_format . ' ' . $wp_time_format, $post->post_modified ),
+			);
 		}
 
 		return new \WP_REST_Response( $data );

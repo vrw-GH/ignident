@@ -111,12 +111,14 @@
 				</lse-ib>
 				<lse-ib class="lse-jcc">
 					<lse-fe-wrapper class="lse-select">
-						<?php lsGetSelect( $lsDefaults['layers']['counterAnimationType']) ?>
+						<?php lsGetSelect( $lsDefaults['layers']['counterAnimationType'], null, [
+							'lse-tgl' => 'counter-anim-type-modal'
+						]) ?>
 					</lse-fe-wrapper>
 				</lse-ib>
 			</lse-col>
 
-			<lse-col class="lse-full lse-show-on-time-based-only">
+			<lse-col class="lse-full" lse-tgl-t="counter-anim-type-modal" tgl-time>
 				<lse-ib>
 					<lse-text><?= __('Easing', 'LayerSlider') ?></lse-text>
 				</lse-ib>
@@ -129,7 +131,7 @@
 				</lse-ib>
 			</lse-col>
 
-			<lse-col class="lse-full lse-show-on-time-based-only">
+			<lse-col class="lse-full" lse-tgl-t="counter-anim-type-modal" tgl-time>
 				<lse-ib>
 					<lse-text><?= __('Duration', 'LayerSlider') ?></lse-text>
 				</lse-ib>
@@ -139,7 +141,7 @@
 				</lse-ib>
 			</lse-col>
 
-			<lse-col class="lse-full lse-show-on-step-based-only">
+			<lse-col class="lse-full" lse-tgl-t="counter-anim-type-modal" tgl-step>
 				<lse-ib>
 					<lse-text><?= __('Step', 'LayerSlider') ?></lse-text>
 				</lse-ib>
@@ -150,7 +152,7 @@
 				</lse-ib>
 			</lse-col>
 
-			<lse-col class="lse-full lse-show-on-step-based-only">
+			<lse-col class="lse-full" lse-tgl-t="counter-anim-type-modal" tgl-step>
 				<lse-ib>
 					<lse-text><?= __('Step Delay', 'LayerSlider') ?></lse-text>
 				</lse-ib>

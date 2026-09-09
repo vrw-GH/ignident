@@ -1,5 +1,6 @@
 <?php
-// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped
+// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Error message to be escaped when caught and printed
+// phpcs:disable WordPress.WP.AlternativeFunctions.curl_curl_setopt_array, WP.AlternativeFunctions.curl_curl_setopt, WordPress.WP.AlternativeFunctions.curl_curl_init, WordPress.WP.AlternativeFunctions.curl_curl_exec, WordPress.WP.AlternativeFunctions.curl_curl_getinfo, WordPress.WP.AlternativeFunctions.curl_curl_multi_init, WordPress.WP.AlternativeFunctions.curl_curl_multi_add_handle, WordPress.WP.AlternativeFunctions.curl_curl_multi_exec, WordPress.WP.AlternativeFunctions.curl_curl_multi_select, WordPress.WP.AlternativeFunctions.curl_curl_multi_getcontent, WordPress.WP.AlternativeFunctions.curl_curl_multi_remove_handle, WordPress.WP.AlternativeFunctions.curl_curl_multi_close, WordPress.WP.AlternativeFunctions.curl_curl_error, WordPress.WP.AlternativeFunctions.curl_curl_close -- Direct cURL usage is intentional to leverage specific low-level options not available via the WordPress HTTP API.
 /**
 * OAuth consumer using PHP cURL
 * @author Ben Tadiar <ben@handcraftedbyben.co.uk>
@@ -208,7 +209,11 @@ class Dropbox_Curl extends Dropbox_ConsumerAbstract
         $error = curl_error($handle);
         $getinfo = curl_getinfo($handle);
 
-        curl_close($handle);
+        if (version_compare(PHP_VERSION, '8.0', '<')) {
+            curl_close($handle);
+        } else {
+            unset($handle); // On PHP 8+, curl_close() is a no-op (deprecated in 8.5); unset the handle instead.
+        }
 
         //Check if a cURL error has occured
         if ($response === false) {

@@ -187,8 +187,9 @@
 			item.attr("type", e.type);
 
 			item.find(".wpfc-exclude-item-url").html(self.create_url_description(e.prefix, e.content, e.type));
+			item.find(".wpfc-exclude-item-url").find("b").text(self.update_text(e.content));
 
-			item.find(".wpfc-exclude-item-form-title").html(self.create_title(e.prefix, e.content));
+			item.find(".wpfc-exclude-item-form-title").text(self.create_title(e.prefix, e.content));
 
 			item.click(function(){
 				var clone_modal = jQuery("#wpfc-modal-exclude").clone();
@@ -267,8 +268,9 @@
 									jQuery("div.wpfc-exclude-item[wpfc-exclude-item-number='" + number + "']").attr("content", content);
 
 									jQuery("div.wpfc-exclude-item[wpfc-exclude-item-number='" + number + "']").find(".wpfc-exclude-item-url").html(self.create_url_description(prefix, content, type));
+									jQuery("div.wpfc-exclude-item[wpfc-exclude-item-number='" + number + "']").find(".wpfc-exclude-item-url").find("b").text(self.update_text(e.content));
 									
-									jQuery("div.wpfc-exclude-item[wpfc-exclude-item-number='" + number + "']").find(".wpfc-exclude-item-form-title").html(self.create_title(prefix, content));
+									jQuery("div.wpfc-exclude-item[wpfc-exclude-item-number='" + number + "']").find(".wpfc-exclude-item-form-title").text(self.create_title(prefix, content));
 								});
 							}
 						}
@@ -295,10 +297,14 @@
 					}
 				}else{
 					if(type != "page"){
-						if(this.value != "contain"){
+
+						if(type == "cookie" && this.value == "regex"){
+
+						}else if(this.value != "contain"){
 							jQuery(this).remove();
 							
 						}
+
 					}
 
 				}
@@ -313,6 +319,32 @@
 			});
 
 		},
+		update_text: function(text){
+
+			if(text == "homepage"){
+				return "Home Page";
+			}else if(text == "tag"){
+				return "Tags";
+			}else if(text == "archive"){
+				return "Archives";
+			}else if(text == "category"){
+				return "Categories";
+			}else if(text == "post"){
+				return "Posts";
+			}else if(text == "page"){
+				return "Pages";
+			}else if(text == "attachment"){
+				return "Attachments";
+			}else if(text == "googleanalytics"){
+				return "Google Analytics Parameters";
+			}else if(text == "yandexclickid"){
+				return "Yandex Click ID";
+			}else if(text == "woocommerce_items_in_cart"){
+				return "Woocommerce Items in Cart";
+			}
+
+			return text;
+		},
 		create_title: function(prefix, content){
 			var title = "";
 
@@ -322,32 +354,10 @@
 				title = "Start With: " + content;
 			}else if(prefix == "contain"){
 				title = "Contains: " + content;
-
 			}else if(prefix == "regex"){
 				title = "Regex: /" + content + "/i";
-
-			}else if(prefix == "homepage"){
-				title = "Home Page";
-			}else if(prefix == "tag"){
-				title = "Tags";
-			}else if(prefix == "archive"){
-				title = "Archives";
-			}else if(prefix == "category"){
-				title = "Categories";
-			}else if(prefix == "post"){
-				title = "Posts";
-			}else if(prefix == "page"){
-				title = "Pages";
-			}else if(prefix == "attachment"){
-				title = "Attachments";
-			}else if(prefix == "googleanalytics"){
-				title = "Google Analytics Parameters";
-
-			}else if(prefix == "yandexclickid"){
-				title = "Yandex Click ID";
-
-			}else if(prefix == "woocommerce_items_in_cart"){
-				title = "Woocommerce Items in Cart";
+			}else{
+				title = this.update_text(content);
 			}
 
 			return title;
@@ -357,12 +367,12 @@
 				var b_start = "<b style='font-size:11px;color:#FFA100;'>";
 				var b_end = "</b>"
 
-				if(prefix == "exact"){
-					request_uri = b_start + content.replace(/^\//, "") + b_end;
+				if(prefix == "exact" || prefix == "regex"){
+					request_uri = b_start + b_end;
 				}else if(prefix == "startwith"){
-					request_uri = b_start + content.replace(/^\//, "") + b_end + '(.*)';
+					request_uri = b_start + b_end + '(.*)';
 				}else if(prefix == "contain"){
-					request_uri = '(.*)' + b_start + content + b_end + '(.*)';
+					request_uri = '(.*)' + b_start + b_end + '(.*)';
 				}else if(prefix == "homepage"){
 					request_uri = "";
 				}
@@ -372,7 +382,7 @@
 						if(prefix == "homepage"){
 							return "The " + b_start + "homepage" + b_end + " has been excluded";
 						}else{
-							return "All" + " " + b_start + this.create_title(prefix).toLowerCase() + b_end + " " + "have been excluded";
+							return "All" + " " + b_start + b_end + " " + "have been excluded";
 						}
 					}else{
 						if(content == "wp-login.php" || content == "wp-admin"){

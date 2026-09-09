@@ -112,7 +112,7 @@ $iconModules = [
 				<?= lsGetSVGIcon( 'face-monocle', 'duotone' ) ?>
 			</div>
 			<div class="not-found-main-text">
-				<?= __('Can’t find any icons.', 'LayerSlider') ?>
+				<?= __('Can’t Find Any Icons', 'LayerSlider') ?>
 			</div>
 			<div class="not-found-sub-text">
 				<?= __('Try a different search term or icon family.', 'LayerSlider') ?>

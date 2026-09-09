@@ -1,9 +1,9 @@
-<?php if (!defined('UPDRAFTPLUS_DIR')) die('No direct access.'); ?>
+<?php if (!defined('ABSPATH')) die('No direct access.'); ?>
 <div class="updraft_backup_content">
 	<div id="updraft-insert-admin-warning"></div>
 	<noscript>
 		<div>
-			<?php esc_html_e('JavaScript warning', 'updraftplus').': ';?><span style="color:red"><?php echo esc_html(__('This admin interface uses JavaScript heavily.', 'updraftplus').' '.__('You either need to activate it within your browser, or to use a JavaScript-capable browser.', 'updraftplus'));?></span>
+			<?php echo esc_html__('JavaScript warning', 'updraftplus').': ';?><span style="color:red"><?php echo esc_html(__('This admin interface uses JavaScript heavily.', 'updraftplus').' '.__('You either need to activate it within your browser, or to use a JavaScript-capable browser.', 'updraftplus'));?></span>
 		</div>
 	</noscript>
 	

@@ -116,10 +116,12 @@ if( ! class_exists( 'avia_sc_slide_section' ) )
 			$this->config['layout_children']	= array( 'av_slide_sub_section' );
 
 			$this->config['name']				= __( 'Slideshow Section', 'avia_framework' );
-			$this->config['icon']				= AviaBuilder::$path['imagesURL'] . 'sc-slideshow-section.png';
+			$this->config['icon']				= AviaBuilder::$path['iconsURL'] . 'sc-slideshow-section.svg';
 			$this->config['tab']				= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']				= 13;
 			$this->config['shortcode']			= 'av_slide_section';
+			//	the frame around other elements, so no icon and name of its own - see prepare_editor_element()
+			$this->config['alb_head']		= false;
 			$this->config['html_renderer']		= false;
 			$this->config['tinyMCE']			= array( 'disable' => 'true' );
 			$this->config['tooltip']			= __( 'Add a fullwidth section with slides that can contain columns and other elements', 'avia_framework' );

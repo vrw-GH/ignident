@@ -184,6 +184,14 @@ $avia_pages['google'] = array(
 				'include'	=> $options_default_path . 'option_tabs/avia_google.php'
 		);
 
+$avia_pages['security'] = array(
+				'parent'	=> 'avia',
+				'slug'		=> 'security',
+				'icon'		=> "new/svg/lock-outline-7.svg",
+				'title'		=> __( 'Security', 'avia_framework' ),
+				'include'	=> $options_default_path . 'option_tabs/avia_security.php'
+		);
+
 $visible = class_exists( 'woocommerce', false ) ? '' : 'hidden';
 
 $avia_pages['shop'] = array(
@@ -222,16 +230,20 @@ $avia_pages['upload'] = array(
 /**
  * Options Page Theme Extensions
  * =============================
+ *
+ * 'admin_bar' => false keeps this group out of the WP admin bar only. The pages
+ * themselves stay exactly where they were, in the Enfold menu and as tabs.
+ * Its children are skipped with it - they hang off this entry, so a child in the
+ * bar without its parent would have nothing to attach to.
  */
 $avia_pages['avia_ext'] = array(
 				'parent'	=> 'avia_ext',
 				'slug'		=> 'avia_ext',
 				'icon'		=> 'new/svg/server-plus-7.svg',
 				'title'		=>  __( 'Theme Extensions', 'avia_framework' ),
+				'admin_bar'	=> false,
 				'include'	=> $options_default_path . 'option_tabs/extensions/avia_ext_avia_ext.php'
 		);
-
-
 
 $avia_pages['leaflet_maps'] = array(
 				'parent'	=> 'avia_ext',

@@ -57,11 +57,23 @@ $default_path = get_template_directory() . '/includes/admin/demo_files/default';
 
 if( isset( $_POST['files'] ) && ! empty( $_POST['files'] ) )
 {
-	$default_path = get_template_directory() . $_POST['files'];
+	//	Shipped demo: a theme relative path. Reject traversal so it can only point inside the theme.
+	$files = wp_normalize_path( (string) $_POST['files'] );
+	if( false === strpos( $files, '..' ) )
+	{
+		$default_path = get_template_directory() . $files;
+	}
 }
-else if( isset( $_POST['import_dir'] ) && isset( $_POST['demo_name'] ) && ! empty( $_POST['import_dir'] ) && ! empty( $_POST['demo_name'] ) )
+else if( ! empty( $_POST['demo_name'] ) )
 {
-	$default_path = trailingslashit( $_POST['import_dir'] ) . $_POST['demo_name'];
+	//	Downloaded demo: derive the folder from the ( sanitized ) demo name on the server, never from
+	//	the request, so the import can only ever read from inside the demo folder.
+	$demo_name_safe = sanitize_file_name( (string) $_POST['demo_name'] );
+	$demo_dir = avia_demo_import_dir( $demo_name_safe );
+	if( '' !== $demo_dir )
+	{
+		$default_path = $demo_dir . $demo_name_safe;
+	}
 }
 
 $import_filepath = apply_filters(  'avf_import_dummy_filepath', $default_path, THEMENAME );
@@ -150,17 +162,34 @@ else
 			$wp_import = new avia_wp_import();
 			$wp_import->rename_existing_menus();
 			$wp_import->fetch_attachments = true;
+
+			/**
+			 * Demo content is first party ( vendor authored, shipped with the theme or downloaded from
+			 * the allow-listed demo server ). A multisite subsite admin lacks 'unfiltered_html', which
+			 * would silently strip demo markup ( code blocks, custom embeds ) and report a clean import.
+			 * Bypass kses for the first party demo import only, then restore the previous state.
+			 *
+			 * @since 8.1
+			 */
+			$restore_kses = ! current_user_can( 'unfiltered_html' );
+			if( $restore_kses )
+			{
+				kses_remove_filters();
+			}
+
 			$wp_import->import( $import_filepath . '.xml' );
 
-			//	With 4.8.2 with downloading files we change to .txt, so php is only a fallback
+			if( $restore_kses )
+			{
+				kses_init();
+			}
+
+			//	Demo theme options are read from the .txt options file. Legacy .php option files are
+			//	no longer supported - the theme never includes a php file from a downloaded demo.
 			$options_file = '';
 			if( is_file( $import_filepath . '.txt' ) )
 			{
 				$options_file = $import_filepath . '.txt';
-			}
-			else if( is_file( $import_filepath . '.php' ) )
-			{
-				$options_file = $import_filepath . '.php';
 			}
 
 			if( ! empty( $options_file ) )
@@ -169,6 +198,14 @@ else
 			}
 
 			$wp_import->set_menus();
+
+			/**
+			 * Replace the term and post ids of the demo by the ids on this site.
+			 * Must run before 'ava_after_import_demo_settings' regenerates the assets.
+			 *
+			 * @since 8.0
+			 */
+			$wp_import->remap_imported_ids();
 
 			$wp_import_msg = trim( ob_get_clean() );
 

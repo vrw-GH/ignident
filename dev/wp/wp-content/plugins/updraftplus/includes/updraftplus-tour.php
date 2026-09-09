@@ -40,18 +40,19 @@ class UpdraftPlus_Tour {
 		add_filter('plugin_action_links', array($this, 'plugin_action_links'), 10, 2);
 
 		// only init and load assets if the tour hasn't been canceled
-		if (isset($_REQUEST['updraftplus_tour']) && 0 === (int) $_REQUEST['updraftplus_tour']) {
+		$updraftplus_tour = UpdraftPlus_Manipulation_Functions::fetch_superglobal('request', 'updraftplus_tour');
+		if (isset($updraftplus_tour) && 0 === (int) $updraftplus_tour) {
 			$this->set_tour_status(array('current_step' => 'start'));
 			return;
 		}
 		
 		// if backups already exist and
-		if ($this->updraftplus_was_already_installed() && !isset($_REQUEST['updraftplus_tour'])) {
+		if ($this->updraftplus_was_already_installed() && !isset($updraftplus_tour)) {
 			return;
 		}
 
 		// if 'Take tour' link was used, reset tour
-		if (isset($_REQUEST['updraftplus_tour']) && 1 === (int) $_REQUEST['updraftplus_tour']) {
+		if (isset($updraftplus_tour) && 1 === (int) $updraftplus_tour) {
 			$this->reset_tour_status();
 		}
 
@@ -149,6 +150,11 @@ class UpdraftPlus_Tour {
 				'title' => __("More settings", 'updraftplus'),
 				'text' => __("Look through the other settings here, making any changes you’d like.", 'updraftplus')
 			),
+			'auto_backup' => array(
+				'title' => __('Automatic backups before update', 'updraftplus'),
+				'text' => __('Check this box to enable automatic backups whenever a plugin, theme, or the WordPress core is updated.', 'updraftplus'),
+				'enabled' => false,
+			),
 			'settings_save' => array(
 				'title' => __("Save", 'updraftplus'),
 				'text' => __('Press here to save your settings.', 'updraftplus')
@@ -179,9 +185,9 @@ class UpdraftPlus_Tour {
 				'text' => _x('To get started with UpdraftVault, select one of the options below:', 'Translators: UpdraftVault is a product name and should not be translated.', 'updraftplus')
 			)
 		);
-
-		if (isset($_REQUEST['tab'])) {
-			$tour_data['show_tab_on_load'] = '#updraft-navtab-'.esc_attr(sanitize_text_field($_REQUEST['tab']));
+		$tab = UpdraftPlus_Manipulation_Functions::fetch_superglobal('request', 'tab');
+		if (isset($tab)) {
+			$tour_data['show_tab_on_load'] = '#updraft-navtab-'.esc_attr(sanitize_text_field($tab));
 		}
 
 		// Change the data for premium users
@@ -200,6 +206,8 @@ class UpdraftPlus_Tour {
 					.'</div>'
 			);
 
+			$tour_data['auto_backup']['enabled'] = true;
+
 			if ($updraftplus_addons2->connection_status() && !is_wp_error($updraftplus_addons2->connection_status())) {
 				$tour_data['premium'] = array(
 					'title' => 'UpdraftPlus Premium',
@@ -212,7 +220,7 @@ class UpdraftPlus_Tour {
 					'title' => 'UpdraftPlus Premium',
 					'text' => __('Thank you for taking the tour.', 'updraftplus')
 						.'<div class="ud-notice">'
-						.'<h3>'.__('Connect to updraftplus.com', 'updraftplus').'</h3>'
+						.'<h3>'.__('Connect to teamupdraft.com', 'updraftplus').'</h3>'
 						.__('Log in here to enable all the features you have access to.', 'updraftplus')
 						.'</div>',
 					'attach_to' => '#updraftplus-addons_options_email right',

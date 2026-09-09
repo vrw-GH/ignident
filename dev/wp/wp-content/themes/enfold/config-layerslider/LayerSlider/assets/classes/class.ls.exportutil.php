@@ -10,7 +10,7 @@ defined( 'LS_ROOT_FILE' ) || exit;
  * @package LS_ExportUtil
  * @since 5.0.3
  * @author John Gera
- * @copyright Copyright (c) 2025  John Gera, George Krupa, and Kreatura Media Kft.
+ * @copyright Copyright (c) 2026  John Gera, George Krupa, and Kreatura Media Kft.
  */
 
 class LS_ExportUtil {
@@ -102,7 +102,8 @@ class LS_ExportUtil {
 
 				if( ! $forceDir ) {
 					$isAsset = ( strpos( $file, '/layerslider/assets/' ) !== false );
-					$imagesDir = $isAsset ? 'assets' : 'uploads';
+					$isLottie = ( strpos( $file, '/layerslider/lottiefiles/' ) !== false );
+					$imagesDir = $isAsset ? 'assets' : ($isLottie ? 'lottiefiles' : 'uploads');
 				}
 
 				$projectDir = is_string($folder) ? $folder."/$imagesDir/" : "$imagesDir/";
@@ -197,6 +198,8 @@ class LS_ExportUtil {
 
 		$this->_addImageToList( $data['properties'], 'backgroundimageId', 'backgroundimage' );
 
+		$uploads 		= wp_upload_dir();
+		$uploadsBaseDir = $uploads['basedir'];
 
 		// Slides
 		if(!empty($data['layers']) && is_array($data['layers'])) {
@@ -220,6 +223,13 @@ class LS_ExportUtil {
 						if( ! empty( $layer['mediaAttachments'] ) ) {
 							foreach( $layer['mediaAttachments'] as $media ) {
 								$this->imageList[] = $media['url'];
+							}
+						}
+
+						// Lottie files
+						if( ! empty( $layer['lottie']['src'] ) && substr($layer['lottie']['src'], 0, 4) !== 'http' ) {
+							if( file_exists($uploadsBaseDir .'/layerslider/lottiefiles/'. $layer['lottie']['src']) ) {
+								$this->imageList[] = $uploadsBaseDir .'/layerslider/lottiefiles/'. $layer['lottie']['src'];
 							}
 						}
 					}

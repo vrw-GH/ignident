@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 if (!empty($prefix)) echo wp_kses($prefix, array()).' ';
 echo wp_kses($title, array()).': ';

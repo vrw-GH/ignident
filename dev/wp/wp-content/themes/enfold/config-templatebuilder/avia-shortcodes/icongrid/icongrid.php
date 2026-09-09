@@ -95,11 +95,13 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 
 			$this->config['name']			= __( 'Icon/Flipbox Grid', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-icongrid.png';
-			$this->config['order']			= 90;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-icon-flipbox-grid.svg';
+			$this->config['order']			= 78;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_icongrid';
 			$this->config['shortcode_nested'] = array( 'av_icongrid_item' );
+			//	the canvas names the grid item titles so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_icongrid_item', 'attr' => 'title' );
 			$this->config['tooltip']		= __( 'Creates a grid with optional icon, text and background images for tooltips or flipbox', 'avia_framework' );
 			$this->config['preview']		= false;
 			$this->config['disabling_allowed'] = true;

@@ -18,6 +18,8 @@ import ChoroplethTooltip from './ChoroplethTooltip';
 import PatternLegend from './PatternLegend';
 
 const Choropleth = memo(
+
+    // fallow-ignore-next-line complexity
     ( props ) => {
         const {
             width,
@@ -35,12 +37,12 @@ const Choropleth = memo(
             projectionRotation = [ 0, 0, 0 ],
             colors = 'greens',
             domain,
-            unknownColor = '#dee2e6',
+            unknownColor = 'var(--color-gray-300)',
             borderWidth = 0,
-            borderColor = '#000000',
+            borderColor = 'var(--color-gray-500)',
             enableGraticule = false,
             graticuleLineWidth = 0.5,
-            graticuleLineColor = '#999999',
+            graticuleLineColor = 'var(--color-gray-300)',
             baseMapFeatures = [],
             baseMapFeatureColor = false,
             overlayFeatures = [],
@@ -343,6 +345,7 @@ const Choropleth = memo(
         }, [ path, handleZoomChange, borderWidth ]);
 
         // Handle zoom to feature prop changes
+        // fallow-ignore-next-line complexity
         useEffect( () => {
             if ( ! zoomToFeatureProp || ! zoomRef.current ) {
                 return;
@@ -460,6 +463,8 @@ const Choropleth = memo(
         // Render only map-related layers inside the zoomable group
         const renderMapLayers = () => {
             return layers
+
+                // fallow-ignore-next-line complexity
                 .map( ( layer, i ) => {
                     if ( 'graticule' === layer ) {
                         if ( true !== enableGraticule ) {
@@ -493,12 +498,12 @@ const Choropleth = memo(
                                             fillColor={
                                                 baseMapFeatureColor ?
                                                     baseMapFeatureColor :
-                                                    '#e9ecef'
+                                                    'var(--color-gray-100)'
                                             }
                                             borderWidth={getBorderWidth(
                                                 feature
                                             )}
-                                            borderColor="rgb(249 249 249)"
+                                            borderColor="var(--color-gray-200)"
                                         />
                                     ) )}
                                 </g>
@@ -520,6 +525,7 @@ const Choropleth = memo(
                         return (
                             <Fragment key="features">
                                 <g className="features-group">
+                                    {/* fallow-ignore-next-line complexity */}
                                     {boundFeatures.map( ( feature, index ) => (
                                         <GeoMapFeature
                                             key={

@@ -113,6 +113,15 @@ const LS_SearchActions = [
 				action: function() {
 					LayerSlider.addFormattedLayer('counter');
 				}
+			},
+
+			{
+				name: 'Lottie',
+				icon: 'lottie',
+				keywords: 'add new create animation',
+				action: function() {
+					LayerSlider.addFormattedLayer('lottie');
+				}
 			}
 
 		]
@@ -132,7 +141,7 @@ const LS_SearchActions = [
 				icon: 'plus',
 				keywords: 'create',
 				action: function() {
-					jQuery('.lse-add-layer-button').click();
+					jQuery('#lse-add-layer-button').trigger('click');
 				}
 			},
 

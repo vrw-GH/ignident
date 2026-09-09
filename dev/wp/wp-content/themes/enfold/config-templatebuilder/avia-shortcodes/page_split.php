@@ -59,7 +59,7 @@ if( ! class_exists( 'av_sc_page_split', false ) )
 
 			$this->config['name']			= __( 'Page Split', 'avia_framework' );
 			$this->config['tab']			= __( 'Layout Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-heading.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-page-split.svg';
 			$this->config['order']			= 1;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_sc_page_split';

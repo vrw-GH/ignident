@@ -102,18 +102,6 @@
 				//	resorting buttons removes the action handlers
 				obj.bindShortcodeButtonActions.call( obj, 'reset' );
 			});
-
-			this.body_container.on( 'avia_builder_expanded', function( e, data )
-			{
-				var builder = data.builder;
-				var sc_container = obj.builder.shortcode_wrap;
-
-				if( sc_container.hasClass( 'avia-edit-elements-clicked' ) )
-				{
-					obj.end_edit_btn.trigger( 'click' );
-					builder.find( '.avia-fixed-controls .shortcode_button_wrap' ).removeClass( 'avia-edit-elements-clicked' );
-				}
-			});
 		},
 
 		clearEditingArea: function()
@@ -204,14 +192,12 @@
 			{
 				obj.tab_container.addClass( 'av-alb-tab-selected' ).removeClass( 'av-custom-tab-selected' );
 				obj.tab_container.find( '.av-custom-element-buttons' ).hide();
-				$( '.avia-fixed-controls .av-custom-element-buttons' ).hide().removeClass('av-custom-element-editing-disabled');
 			});
 
 			custom_tab.on( 'avia-tab-title-container-clicked', function( e, tab )
 			{
 				obj.tab_container.addClass( 'av-custom-tab-selected' ).removeClass( 'av-alb-tab-selected' );
 				obj.tab_container.find( '.av-custom-element-buttons' ).show();
-				$( '.avia-fixed-controls .av-custom-element-buttons' ).show().addClass('av-custom-element-editing-disabled');
 			});
 		},
 

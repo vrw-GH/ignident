@@ -108,13 +108,17 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $selected_all = "style='font-weight:bold;'";
         }
 
-        $href = "?page=" . esc_attr($_REQUEST['page']);
+        $href = add_query_arg(
+            'page',
+            isset($_REQUEST['page']) ? sanitize_key(wp_unslash($_REQUEST['page'])) : '',
+            admin_url('admin.php')
+        );
         $href = $this->ays_pb_add_filters_to_link($href);
 
         $status_links = array(
-            "all" => "<a " . $selected_all . " href='" . $href . "'>" . esc_html__('All', "ays-popup-box") . " (" . $all_count . ")</a>",
-            "published" => "<a " . $selected_on . " href='" . $href . "&fstatus=published'>" . esc_html__('Published', "ays-popup-box") . " (" . $published_count . ")</a>",
-            "unpublished" => "<a " . $selected_off . " href='" . $href . "&fstatus=unpublished'>" . esc_html__('Unpublished', "ays-popup-box") . " (" . $unpublished_count . ")</a>"
+            "all" => "<a " . $selected_all . " href='" . esc_url($href) . "'>" . esc_html__('All', "ays-popup-box") . " (" . $all_count . ")</a>",
+            "published" => "<a " . $selected_on . " href='" . esc_url(add_query_arg('fstatus', 'published', $href)) . "'>" . esc_html__('Published', "ays-popup-box") . " (" . $published_count . ")</a>",
+            "unpublished" => "<a " . $selected_off . " href='" . esc_url(add_query_arg('fstatus', 'unpublished', $href)) . "'>" . esc_html__('Unpublished', "ays-popup-box") . " (" . $unpublished_count . ")</a>"
         );
 
         return $status_links;
@@ -220,22 +224,22 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         if (isset($_GET['filterby']) && absint(sanitize_text_field($_GET['filterby'])) > 0) {
             $cat_id = absint(sanitize_text_field($_GET['filterby']));
-            $href .= '&filterby=' . $cat_id;
+            $href = add_query_arg('filterby', $cat_id, $href);
         }
 
         if (isset($_GET['filterbyAuthor']) && $_GET['filterbyAuthor'] != '') {
-            $ays_pb_author = esc_sql(sanitize_text_field($_GET['filterbyAuthor']));
-            $href .= '&filterbyAuthor=' . $ays_pb_author;
+            $ays_pb_author = absint(wp_unslash($_GET['filterbyAuthor']));
+            $href = add_query_arg('filterbyAuthor', $ays_pb_author, $href);
         }
 
         if (isset($_GET['filterbyType']) && $_GET['filterbyType'] != '') {
-            $ays_pb_type = esc_sql(sanitize_text_field($_GET['filterbyType']));
-            $href .= '&filterbyType=' . $ays_pb_type;
+            $ays_pb_type = sanitize_text_field(wp_unslash($_GET['filterbyType']));
+            $href = add_query_arg('filterbyType', $ays_pb_type, $href);
         }
 
         if (isset($_REQUEST['s']) && $_REQUEST['s'] != '') {
-            $search = esc_sql(sanitize_text_field($_REQUEST['s']));
-            $href .= '&s=' . $search;
+            $search = sanitize_text_field(wp_unslash($_REQUEST['s']));
+            $href = add_query_arg('s', $search, $href);
         }
 
         return $href;
@@ -448,7 +452,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
             $publish_url = wp_nonce_url($publish_url, 'ays_pb_publish_unpublish_' . absint($item['id']));
 
-            $actions['publish'] = '<a href="' . esc_url($publish_url) . '">' . esc_html__('Publish', 'ays-popup-box') . '</a>';
+            // $actions['publish'] = '<a href="' . esc_url($publish_url) . '">' . esc_html__('Publish', 'ays-popup-box') . '</a>';
         }
 
         return $title . $this->row_actions($actions);
@@ -1011,13 +1015,15 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                     }
                 ?>
             </select>
-            <input type="button" id="doaction-<?php echo esc_attr($which); ?>" class="ays-popup-question-tab-all-filter-button-<?php echo esc_attr($which); ?> button" value="<?php echo esc_html__("Filter", "ays-popup-box"); ?>">
+            <input type="button" id="doaction-<?php echo esc_attr($which); ?>" class="ays-popup-question-tab-all-filter-button-<?php echo esc_attr($which); ?> button action" value="<?php echo esc_html__("Filter", "ays-popup-box"); ?>">
         </div>
-        <a href="?page=<?php echo esc_attr($_REQUEST['page']); ?>" class="button ays-pb-clear-filters"><?php echo esc_html__("Clear filters", "ays-popup-box"); ?></a>
+        <a href="?page=<?php echo esc_attr($_REQUEST['page']); ?>" class="button ays-pb-clear-filters action"><?php echo esc_html__("Clear filters", "ays-popup-box"); ?></a>
         <?php
     }
 
     public function duplicate_popupbox($id) {
+
+        $pb_allowed_html = Ays_Pb_Data::ays_pb_custom_allowed_html();
 
         // Run a security check.
         if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popups_list_table_nonce' ) ) {
@@ -1047,13 +1053,13 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             if (is_super_admin()) {
                 $description = (isset($popup['description']) && $popup['description'] != '') ? stripslashes($popup['description'] ) : '';
             } else {
-                $description = (isset($popup['description']) && $popup['description'] != '') ? stripslashes(wp_kses_post($popup['description'])) : '';
+                $description = (isset($popup['description']) && $popup['description'] != '') ? wp_kses( $popup['description'], $pb_allowed_html ) : '';
             }
         } else {
             if (current_user_can('unfiltered_html')) {
                 $description = (isset($popup['description']) && $popup['description'] != '') ? stripslashes($popup['description']) : '';
             } else {
-                $description = (isset($popup['description']) && $popup['description'] != '') ? stripslashes( wp_kses_post($popup['description']) ) : '';
+                $description = (isset($popup['description']) && $popup['description'] != '') ? wp_kses( $popup['description'], $pb_allowed_html ) : '';
             }
         }
 
@@ -1062,13 +1068,13 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             if (is_super_admin()) {
                 $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? stripslashes($popup['custom_html']) : '';
             } else {
-                $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
+                $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? wp_kses( $popup['custom_html'], $pb_allowed_html ) : '';
             }
         } else {
             if (current_user_can('unfiltered_html')) {
                 $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? stripslashes($popup['custom_html']) : '';
             } else {
-                $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
+                $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? wp_kses( $popup['custom_html'], $pb_allowed_html ) : '';
             }
         }
 
@@ -1218,6 +1224,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
     public function add_or_edit_popupbox() {
 
+        $pb_allowed_html = Ays_Pb_Data::ays_pb_custom_allowed_html();
+
         // Run a security check.
         if (empty($this->ays_pb_nonce) || ! wp_verify_nonce( $this->ays_pb_nonce, 'ays_pb_admin_popups_list_table_nonce' ) ) {
             // This nonce is not valid.
@@ -1280,13 +1288,13 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             if (is_super_admin()) {
                 $custom_html = (isset($_POST['ays-pb']['custom_html']) && $_POST['ays-pb']['custom_html'] != '') ? stripslashes($_POST['ays-pb']['custom_html']) : '';
             } else {
-                $custom_html = (isset($_POST['ays-pb']['custom_html']) && $_POST['ays-pb']['custom_html'] != '') ? wp_kses_post($_POST['ays-pb']['custom_html']) : '';
+                $custom_html = (isset($_POST['ays-pb']['custom_html']) && $_POST['ays-pb']['custom_html'] != '') ? wp_kses( $_POST['ays-pb']['custom_html'], $pb_allowed_html ) : '';
             }
         } else {
             if (current_user_can('unfiltered_html')) {
                 $custom_html = (isset($_POST['ays-pb']['custom_html']) && $_POST['ays-pb']['custom_html'] != '') ? stripslashes($_POST['ays-pb']['custom_html']) : '';
             } else {
-                $custom_html = (isset($_POST['ays-pb']['custom_html']) && $_POST['ays-pb']['custom_html'] != '') ? stripslashes( wp_kses_post($_POST['ays-pb']['custom_html']) ) : '';
+                $custom_html = (isset($_POST['ays-pb']['custom_html']) && $_POST['ays-pb']['custom_html'] != '') ? wp_kses( $_POST['ays-pb']['custom_html'], $pb_allowed_html ) : '';
             }
         }
 
@@ -1466,13 +1474,13 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             if (is_super_admin()) {
                 $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? stripslashes($_POST['ays-pb']['popup_description']) : '';
             } else {
-                $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? wp_kses_post($_POST['ays-pb']['popup_description']) : '';
+                $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? wp_kses( $_POST['ays-pb']['popup_description'], $pb_allowed_html ) : '';
             }
         } else {
             if (current_user_can('unfiltered_html')) {
                 $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? stripslashes($_POST['ays-pb']['popup_description']) : '';
             } else {
-                $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? wp_kses_post($_POST['ays-pb']['popup_description']) : '';
+                $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? wp_kses( $_POST['ays-pb']['popup_description'], $pb_allowed_html ) : '';
             }
         }
 
@@ -1621,7 +1629,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         $enable_social_links = (isset($_POST['ays_pb_enable_social_links']) && $_POST['ays_pb_enable_social_links'] == 'on') ? 'on' : 'off';
 
         // Enable social media links | Heading for share buttons
-        $social_buttons_heading = (isset($_POST['ays_pb_social_buttons_heading']) && $_POST['ays_pb_social_buttons_heading'] != '') ? stripslashes($_POST['ays_pb_social_buttons_heading']) : '';
+        $social_buttons_heading = (isset($_POST['ays_pb_social_buttons_heading']) && $_POST['ays_pb_social_buttons_heading'] != '') ? wp_kses( $_POST['ays_pb_social_buttons_heading'], $pb_allowed_html ) : '';
 
         // Enable social media links | Social media link buttons
         $ays_social_links = (isset($_POST['ays_social_links'])) ? array_map( 'sanitize_text_field', $_POST['ays_social_links'] ) : $social_links_default;
@@ -1771,8 +1779,22 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         $default_height = $view_type == 'notification' ? 100 : 500;
 		$height = (isset($_POST['ays-pb']['height']) && $_POST['ays-pb']['height']) ? absint( intval($_POST['ays-pb']['height']) ) : $default_height;
 
+        // Height | On desktop | Measurement unit
+        $popup_height_by_percentage_px = (isset($_POST['ays_popup_height_by_percentage_px']) && $_POST['ays_popup_height_by_percentage_px'] != '') ? stripslashes( sanitize_text_field($_POST['ays_popup_height_by_percentage_px']) ) : 'pixels';
+
         // Height | On mobile
         $mobile_height = (isset($_POST['ays_pb_mobile_height']) && $_POST['ays_pb_mobile_height'] != '') ? abs( intval($_POST['ays_pb_mobile_height']) ) : '';
+
+        // Height | On mobile | Measurement unit
+        $popup_height_by_percentage_px_mobile = (isset($_POST['ays_popup_height_by_percentage_px_mobile']) && $_POST['ays_popup_height_by_percentage_px_mobile'] != '') ? stripslashes( sanitize_text_field($_POST['ays_popup_height_by_percentage_px_mobile']) ) : 'pixels';
+
+        if ($popup_height_by_percentage_px == 'percentage' && $height > 100) {
+            $height = 100;
+        }
+
+        if ($popup_height_by_percentage_px_mobile == 'percentage' && $mobile_height > 100) {
+            $mobile_height = 100;
+        }
 
         // Popup max-height | On desktop
         $pb_max_height = (isset($_POST['ays_pb_max_height']) && $_POST['ays_pb_max_height'] != '') ? absint( intval($_POST['ays_pb_max_height']) ) : '';
@@ -1788,6 +1810,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         // Popup min-height
         $pb_min_height = (isset($_POST['ays_pb_min_height']) && $_POST['ays_pb_min_height'] != '') ? absint( intval($_POST['ays_pb_min_height']) ) : '';
+
+        // Popup min-height | Measurement unit
+        $popup_min_height_by_percentage_px = (isset($_POST['ays_popup_min_height_by_percentage_px']) && $_POST['ays_popup_min_height_by_percentage_px'] != '') ? stripslashes( sanitize_text_field($_POST['ays_popup_min_height_by_percentage_px']) ) : 'pixels';
 
         // Full-screen mode
         $enable_pb_fullscreen = (isset($_POST['enable_pb_fullscreen']) && $_POST['enable_pb_fullscreen'] == 'on') ? 'on' : 'off';
@@ -1821,6 +1846,12 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         // Description text align mobile
         $pb_text_align_mobile = (isset($_POST['ays_pb_description_alignment_for_mobile']) && $_POST['ays_pb_description_alignment_for_mobile'] != '') ? stripslashes( sanitize_text_field($_POST['ays_pb_description_alignment_for_mobile']) ) : 'left';
+
+        // Description font weight
+        $pb_font_weight = (isset($_POST['ays_pb_description_font_weight_for_pc']) && $_POST['ays_pb_description_font_weight_for_pc'] != '') ? stripslashes( sanitize_text_field($_POST['ays_pb_description_font_weight_for_pc']) ) : 'normal';
+
+        // Description font weight mobile
+        $pb_font_weight_mobile = (isset($_POST['ays_pb_description_font_weight_for_mobile']) && $_POST['ays_pb_description_font_weight_for_mobile'] != '') ? stripslashes( sanitize_text_field($_POST['ays_pb_description_font_weight_for_mobile']) ) : 'normal';
 
         // Title text shadow | On desktop
         $enable_pb_title_text_shadow = (isset($_POST['ays_enable_title_text_shadow']) && $_POST['ays_enable_title_text_shadow'] != '') ? 'on' : 'off';
@@ -2147,6 +2178,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'close_popup_esc' => $close_popup_esc,
             'popup_width_by_percentage_px' => $popup_width_by_percentage_px,
             'popup_width_by_percentage_px_mobile' => $popup_width_by_percentage_px_mobile,
+            'popup_height_by_percentage_px' => $popup_height_by_percentage_px,
+            'popup_height_by_percentage_px_mobile' => $popup_height_by_percentage_px_mobile,
             'popup_content_padding' => $padding,
             'popup_content_padding_mobile' => $padding_mobile,
             'popup_padding_by_percentage_px' => $popup_padding_by_percentage_px,
@@ -2245,10 +2278,13 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'pb_max_height_mobile' => $pb_max_height_mobile,
             'popup_max_height_by_percentage_px_mobile' => $popup_max_height_by_percentage_px_mobile,
             'pb_min_height' => $pb_min_height,
+            'popup_min_height_by_percentage_px' => $popup_min_height_by_percentage_px,
             'pb_font_size' => $pb_font_size,
             'pb_font_size_for_mobile' => $pb_font_size_for_mobile,
             'pb_description_alignment_for_pc' => $pb_text_align,
             'pb_description_alignment_for_mobile' => $pb_text_align_mobile,
+            'pb_description_font_weight_for_pc' => $pb_font_weight,
+            'pb_description_font_weight_for_mobile' => $pb_font_weight_mobile,
             'pb_title_text_shadow' => $pb_title_text_shadow,
             'enable_pb_title_text_shadow' => $enable_pb_title_text_shadow,
             'pb_title_text_shadow_x_offset' => $pb_title_text_shadow_x_offset,
@@ -2417,6 +2453,8 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                 '%s',   // options
             )
 			);
+
+            $inserted_id = $wpdb->insert_id;
 			$message = "created";
 		}else{
 			$pb_result = $wpdb->update(
@@ -2524,8 +2562,25 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             ),
 				array( "%d" )
 			);
+
+            $inserted_id = $id;
 			$message = "updated";
 		}
+
+        if($message == 'created'){
+            setcookie('ays_pb_created_new', $inserted_id, time() + 3600, '/');
+                    
+            $homepage_url = get_home_url();
+            if(!empty($homepage_url)){
+                $custom_post_url = array(
+                    'preview'   => 'true',
+                );
+                $custom_post_url_ready = http_build_query($custom_post_url);
+                $ready_url = get_home_url();
+                $ready_url .= '/?' . $custom_post_url_ready;
+                setcookie('ays_pb_created_new_'.$inserted_id.'_post_id', $ready_url, time() + 3600, '/');
+            }
+        }
 
 		if( $pb_result >= 0 ){
 			if($submit_type != ''){

@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || die();
 return [
 	[
 		'id'                      => 'dashboard',
-		'title'                   => __( 'Dashboard', 'burst-statistics' ),
+		'title'                   => __( 'Overview', 'burst-statistics' ),
 		'default_hidden'          => false,
 		'menu_items'              => [],
 		'capabilities'            => 'view_burst_statistics',
@@ -31,7 +31,16 @@ return [
 		'capabilities'   => 'view_burst_statistics',
 		'menu_slug'      => 'burst#/sources',
 		'show_in_admin'  => true,
-		'pro'            => true,
+		'shareable'      => true,
+	],
+	[
+		'id'             => 'engagement',
+		'title'          => __( 'Engagement', 'burst-statistics' ),
+		'default_hidden' => false,
+		'menu_items'     => [],
+		'capabilities'   => 'view_burst_statistics',
+		'menu_slug'      => 'burst#/engagement',
+		'show_in_admin'  => true,
 		'shareable'      => true,
 	],
 	[
@@ -42,11 +51,12 @@ return [
 		'menu_slug'               => 'burst#/reporting/reports',
 		'show_in_admin'           => true,
 		'show_in_plugin_overview' => true,
-		'location'                => 'right',
+		'location'                => 'left',
 		'menu_items'              => [
 			[
 				'id'       => 'reports',
 				'group_id' => 'reports',
+				'icon'     => 'graph',
 				'title'    => __( 'Reports', 'burst-statistics' ),
 				'groups'   => [
 					[
@@ -58,17 +68,23 @@ return [
 			[
 				'id'       => 'customization',
 				'group_id' => 'customization',
+				'icon'     => 'pencil',
 				'title'    => __( 'Customization', 'burst-statistics' ),
 				'groups'   => [
 					[
 						'id'    => 'customization',
 						'title' => __( 'Customization', 'burst-statistics' ),
 					],
+					[
+						'id'    => 'email',
+						'title' => __( 'Email', 'burst-statistics' ),
+					],
 				],
 			],
 			[
 				'id'       => 'logs',
 				'group_id' => 'logs',
+				'icon'     => 'file',
 				'title'    => __( 'Logs', 'burst-statistics' ),
 				'groups'   => [
 					[
@@ -88,15 +104,21 @@ return [
 		'show_in_admin'           => true,
 		'show_in_plugin_overview' => true,
 		'location'                => 'right',
+		'icon'                    => 'cog',
 		'menu_items'              => [
 			[
 				'id'       => 'general',
 				'group_id' => 'general',
+				'icon'     => 'cog',
 				'title'    => __( 'General', 'burst-statistics' ),
 				'groups'   => [
 					[
 						'id'    => 'general',
 						'title' => __( 'General', 'burst-statistics' ),
+					],
+					[
+						'id'    => 'privacy',
+						'title' => __( 'Privacy', 'burst-statistics' ),
 					],
 					[
 						'id'    => 'anonymous_usage_data',
@@ -107,6 +129,7 @@ return [
 			[
 				'id'       => 'goals',
 				'group_id' => 'goals',
+				'icon'     => 'goals',
 				'title'    => __( 'Goals', 'burst-statistics' ),
 				'groups'   => [
 					[
@@ -118,6 +141,7 @@ return [
 			[
 				'id'       => 'data',
 				'group_id' => 'archiving',
+				'icon'     => 'hard-drive',
 				'title'    => __( 'Data', 'burst-statistics' ),
 				'groups'   => [
 					[
@@ -139,8 +163,25 @@ return [
 				],
 			],
 			[
+				'id'       => 'features',
+				'group_id' => 'features',
+				'icon'     => 'zap',
+				'title'    => __( 'Features', 'burst-statistics' ),
+				'groups'   => [
+					[
+						'id'    => 'features',
+						'title' => __( 'Features', 'burst-statistics' ),
+					],
+					[
+						'id'    => 'smart_update_timing',
+						'title' => __( 'Smart update timing', 'burst-statistics' ),
+					],
+				],
+			],
+			[
 				'id'       => 'advanced',
 				'group_id' => 'tracking',
+				'icon'     => 'sliders-vertical',
 				'title'    => __( 'Advanced', 'burst-statistics' ),
 				'groups'   => [
 					[

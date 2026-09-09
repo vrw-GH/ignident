@@ -1,102 +1,95 @@
 import FieldWrapper from '@/components/Fields/FieldWrapper';
-import RadioInput from '@/components/Inputs/RadioInput';
-import RecommendBadge from '@/components/Common/RecommendBadge';
+import RadioFieldOption from '@/components/Fields/RadioFieldOption';
+import { buildControllerFieldProps } from '@/components/Fields/fieldHelpers';
 
 /**
- * RadioField component
+ * Resolves the `context` prop into the text/node to render next to the label.
  *
- * Renders a group of radio inputs within a FieldWrapper.
- * Now supports context information for individual options and recommended option indicators.
+ * `context` may be a plain string/node, or an object carrying a `text` field.
  *
- * @param {Object}  field      - Provided by react-hook-form's Controller.
- * @param {Object}  fieldState - Contains validation state.
- * @param {string}  label      - Field label.
- * @param {string}  help       - Help text for the field.
- * @param {string}  context    - Contextual information for the field.
- * @param {string}  className  - Additional Tailwind CSS classes.
- * @param {boolean} disabled   - Whether the field is disabled.
- * @param {Object}  options    - Radio options as key-value pairs or objects with label, context, and recommended flag.
+ * @param {string|Object} context - Raw context prop.
+ * @return {React.ReactNode} Text/node to render, or a falsy value.
+ */
+const resolveContextText = ( context ) => {
+	if ( 'object' !== typeof context || ! context ) {
+		return context;
+	}
+	return context.text;
+};
+
+/**
+ * RadioField component.
+ *
+ * Renders a group of selectable option cards (with optional icon, returning
+ * text, description, and privacy meter) within a FieldWrapper.
+ *
+ * @param {Object} field              - Provided by react-hook-form's Controller.
+ * @param {Object} fieldState         - Contains validation state.
+ * @param {string} label              - Field label.
+ * @param {string} help               - Help text for the field.
+ * @param {string|Object} context     - Contextual information for the field.
+ * @param {string} [className]       - Additional Tailwind CSS classes.
+ * @param {boolean} [recommended]     - Whether the field is marked as recommended.
+ * @param {boolean} [disabled]        - Whether the field is disabled.
  * @return {JSX.Element}
  */
-const RadioField =
-	(
-		{
-			field,
-			fieldState,
-			label,
-			help,
-			context,
-			className,
-			recommended,
-			disabled,
-			...props
-		}
-	) => {
-		const inputId = props.id || field.name;
-		const options = props.options || {};
+const RadioField = (
+	{
+		field,
+		fieldState,
+		label,
+		help,
+		context,
+		className,
+		recommended,
+		disabled,
+		...props
+	}
+) => {
+	const { inputId, error } = buildControllerFieldProps({ field, fieldState, props, label, help, context, className });
+	const options = props.options || {};
+	const contextText = resolveContextText( context );
 
-		return (
-			<FieldWrapper
-				label={label}
-				help={help}
-				error={fieldState?.error?.message}
-				context={context}
-				className={className}
-				inputId={inputId}
-				required={props.required}
-				recommended={recommended}
-				disabled={disabled}
-				{...props}
-			>
-				<div className="space-y-4">
-					{Object.entries( options ).map( ([ value, option ]) => {
-
-						// Handle both simple string labels and object format with label and context
-						const optionLabel =
-							'string' === typeof option ? option : option.label;
-						const optionContext =
-							'object' === typeof option && option.context ?
-								option.context :
-								null;
-						const isRecommended =
-							'object' === typeof option &&
-							true === option.recommended;
-
-						return (
-							<div
-								key={`${inputId}-${value}`}
-								className="space-y-1"
-							>
-								<div className="flex items-start gap-2 rounded-md border border-gray-400 bg-gray-100 px-3 py-2">
-									<RadioInput
-										id={`${inputId}-${value}`}
-										name={field.name}
-										value={value}
-										label={optionLabel}
-										checked={field.value === value}
-										disabled={disabled}
-										onChange={( value ) =>
-											field.onChange( value )
-										}
-										className={className}
-									>
-										{isRecommended && <RecommendBadge />}
-
-										{optionContext && (
-											<div className="text-sm font-light text-gray">
-												{optionContext}
-											</div>
-										)}
-									</RadioInput>
-								</div>
-							</div>
-						);
-					})}
+	return (
+		<FieldWrapper
+			label=""
+			help={help}
+			error={error}
+			className={className}
+			inputId={inputId}
+			required={props.required}
+			recommended={recommended}
+			disabled={disabled}
+			{...props}
+		>
+			<div className="flex flex-col gap-4">
+				<div className="flex items-center justify-between gap-4">
+					<span className="text-md font-medium text-text-black">
+						{label}
+					</span>
+					{contextText && (
+						<span className="text-sm text-text-gray text-right">
+							{contextText}
+						</span>
+					)}
 				</div>
-			</FieldWrapper>
-		);
-	};
 
+				<div className="flex flex-col gap-3">
+					{Object.entries( options ).map( ([ value, option ]) => (
+						<RadioFieldOption
+							key={`${inputId}-${value}`}
+							inputId={inputId}
+							value={value}
+							field={field}
+							option={option}
+							disabled={disabled}
+						/>
+					) )}
+				</div>
+			</div>
+		</FieldWrapper>
+	);
+};
 
 RadioField.displayName = 'RadioField';
 

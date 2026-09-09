@@ -113,7 +113,6 @@ function ls_parse_defaults( $defaults = [], $raw = [], $parseProperties = [] ) {
 	$permission = current_user_can( $capability );
 	$ret = [];
 
-
 	foreach($defaults as $key => $default) {
 
 		$phpKey = is_string($default['keys']) ? $default['keys'] : $default['keys'][0];
@@ -163,12 +162,12 @@ function ls_parse_defaults( $defaults = [], $raw = [], $parseProperties = [] ) {
 		} elseif(isset($raw[$phpKey])) {
 
 			if(
-				isset($default['props']['meta']) ||
+				isset( $default['props']['meta'] ) ||
 				(
 					(string)$default['value'] !== (string)$raw[$phpKey] &&
-					(string)$raw[$phpKey] !== '')
+					(string)$raw[$phpKey] !== ''
 				)
-			{
+			) {
 				$raw[$phpKey] = isset($default['props']['raw']) ? addslashes($raw[$phpKey]) : $raw[$phpKey];
 				$ret[$retKey][$jsKey] = stripslashes($raw[$phpKey]);
 			}

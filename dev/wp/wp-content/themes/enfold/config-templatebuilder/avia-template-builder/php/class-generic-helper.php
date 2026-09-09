@@ -106,7 +106,7 @@ if( ! class_exists( 'AviaHelper', false ) )
 				case '':
 				case ',':
 				case ',,':
-				case ',,,';
+				case ',,,':
 					return true;
 			}
 
@@ -210,6 +210,21 @@ if( ! class_exists( 'AviaHelper', false ) )
 			}
 
 
+			/**
+			 * Pad to 4 before the loop below reads it, not after.
+			 *
+			 * $fill_with_0_val is sized by count( $directions ), but the loop is
+			 * hardcoded to 4 and guards on $explode_css — a different array, sized
+			 * by how many comma separated values were saved. Callers that pass a
+			 * shorter $directions (class-element-styling.php passes array( 'top',
+			 * 'bottom' ) and array( 'top' ) for tab margin/padding) therefore read
+			 * keys that were never set.
+			 */
+			if( count( $fill_with_0_val ) < 4 )
+			{
+				$fill_with_0_val = array_slice ( array_merge( $fill_with_0_val, array( '0', '0', '0', '0' ) ), 0, 4 );
+			}
+
 			$rules_complete = array();
 
 			for( $i = 0; $i < 4; $i++ )
@@ -257,10 +272,6 @@ if( ! class_exists( 'AviaHelper', false ) )
 			$css_rules = ! empty( $css_rules_val ) ? $attr_name . implode( ' ', $css_rules_val ) . $comma : '';
 			$css_rules_with_0 = ! empty( $css_rules_val ) ? $css_rules : $attr_name . '0' . $comma;
 
-			if( count( $fill_with_0_val ) < 4 )
-			{
-				$fill_with_0_val = array_slice ( array_merge( $fill_with_0_val, array( '0', '0', '0', '0' ) ), 0, 4 );
-			}
 
 			$fill_with_0 = $attr_name . ': ' . implode( ' ', $fill_with_0_val ) . ';';
 
@@ -1174,6 +1185,22 @@ if( ! class_exists( 'AviaHelper', false ) )
 				$depr = $term_args;
 				unset( $depr['taxonomy'] );
 				$terms = get_terms( $term_args['taxonomy'], $depr );
+			}
+
+			/**
+			 * Always a list of terms, even when there are none to give.
+			 *
+			 * get_terms() answers with a WP_Error when the taxonomy is not registered - the case
+			 * of a page brought over from an installation that had a post type or plugin this one
+			 * does not. Every caller here treats the result as a list and none of them asks what
+			 * went wrong, so handing the error on only moved the failure further away: counting it
+			 * or reading a term id off it warned on PHP 7 and is fatal on PHP 8.
+			 *
+			 * @since 8.1
+			 */
+			if( ! is_array( $terms ) )
+			{
+				return array();
 			}
 
 			return $terms;

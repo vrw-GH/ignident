@@ -4,15 +4,8 @@ import AsyncSelectInput from '@/components/Inputs/AsyncSelectInput';
 import TextInput from '@/components/Inputs/TextInput';
 import useFiltersData from '@/hooks/useFiltersData';
 import debounce from 'lodash/debounce';
-
-interface FilterConfig {
-	label: string;
-	icon: string;
-	type: string;
-	options?: string;
-	pro?: boolean;
-	reloadOnSearch?: boolean;
-}
+import { type FilterConfig, isExcluding } from '@/config/filterConfig';
+import { FilterExclusion, modifyValueBasedOnExclusionConfig } from '@/components/Filters/Modal/FilterExclusion';
 
 interface FilterOption {
 	id: string;
@@ -31,14 +24,15 @@ interface StringFilterSetupProps {
 	onChange: ( value: string ) => void;
 }
 
+// fallow-ignore-next-line complexity
 const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 	filterKey,
 	config,
 	initialValue = '',
 	onChange
 }) => {
-	const [ value, setValue ] = useState<string>( initialValue );
-	const selectInputRef = useRef<any>( null ); // eslint-disable-line @typescript-eslint/no-explicit-any
+	const value = initialValue;
+	const selectInputRef = useRef<HTMLInputElement>( null );
 	const textInputRef = useRef<HTMLInputElement>( null );
 	const [ availableOptions, setAvailableOptions ] = useState<SelectOption[]>(
 		[]
@@ -48,9 +42,18 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 	const [ hasFullDataset, setHasFullDataset ] = useState<boolean>( false );
 	const { getFilterOptions } = useFiltersData();
 
-	useEffect( () => {
-		setValue( initialValue );
-	}, [ initialValue ]);
+	const toSelectOptions = ( opts: unknown ): SelectOption[] => {
+		return Array.isArray( opts ) ?
+			opts.map( ( option: FilterOption ) => ({
+				value: option.id || option.title,
+				label: option.title
+			}) ) :
+			[];
+	};
+
+	// Clean value without '!' prefix - used for display in input/select.
+	const excluded = isExcluding( value );
+	const cleanValue = excluded ? value.substring( 1 ) : value;
 
 	// Initial load - fetch first 1000 options
 	useEffect( () => {
@@ -60,12 +63,7 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 			}
 
 			const opts = await getFilterOptions( config.options, '' );
-			const transformedOptions: SelectOption[] = Array.isArray( opts ) ?
-				opts.map( ( option: FilterOption ) => ({
-						value: option.id || option.title,
-						label: option.title
-					}) ) :
-				[];
+			const transformedOptions = toSelectOptions( opts );
 
 			setAvailableOptions( transformedOptions );
 
@@ -75,6 +73,7 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 			// If we got less than 1000 options, we have the full dataset
 			setHasFullDataset( 1000 > transformedOptions.length );
 		};
+
 		fetchOptions();
 	}, [ config.options, getFilterOptions ]);
 
@@ -86,13 +85,7 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 			}
 
 			const opts = await getFilterOptions( config.options, search );
-
-			const transformedOptions: SelectOption[] = Array.isArray( opts ) ?
-				opts.map( ( option: FilterOption ) => ({
-					value: option.id || option.title,
-					label: option.title
-				}) ) :
-				[];
+			const transformedOptions = toSelectOptions( opts );
 
 			setAvailableOptions( transformedOptions );
 
@@ -135,13 +128,11 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 
 	// Focus the appropriate input on mount
 	useEffect( () => {
+
+		// fallow-ignore-next-line complexity
 		const timer = setTimeout( () => {
 			if ( config.options && selectInputRef.current ) {
-				if ( selectInputRef.current.focus ) {
-					selectInputRef.current.focus();
-				} else if ( selectInputRef.current.select?.inputRef?.current ) {
-					selectInputRef.current.select.inputRef.current.focus();
-				}
+				selectInputRef.current.focus();
 			} else if ( ! config.options && textInputRef.current ) {
 				textInputRef.current.focus();
 			}
@@ -151,6 +142,7 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 	}, [ config.options ]);
 
 	// Load options function for AsyncSelectInput
+	// fallow-ignore-next-line complexity
 	const loadOptions = async(
 		inputValue?: string,
 		callback?: ( options: SelectOption[]) => void
@@ -184,27 +176,48 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 		setFilteredOptions( filtered );
 	};
 
+	const maxSelections = config.multi_select ? Number.POSITIVE_INFINITY : 1;
+
 	const handleTextChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-		const newValue = e.target.value;
-		setValue( newValue );
+		const newValue = modifyValueBasedOnExclusionConfig({ value: e.target.value, excluded });
 		onChange( newValue );
 	};
 
-	const handleSelectChange = ( selectedOption: any ) => {  // eslint-disable-line @typescript-eslint/no-explicit-any
-		const newValue = selectedOption ? selectedOption.value : '';
-		setValue( newValue );
+	const handleSelectChange = ( selected: SelectOption | SelectOption[] | null ) => {
+		let rawValue = '';
+		if ( Array.isArray( selected ) ) {
+			rawValue = selected.map( ( opt ) => ( opt?.value ?? opt ) + '' ).filter( Boolean ).join( ',' );
+		} else if ( selected ) {
+			rawValue = ( selected.value ?? selected ) + '';
+		}
+
+		const newValue = modifyValueBasedOnExclusionConfig({ value: rawValue, excluded });
+		onChange( newValue );
+	};
+
+	const handleExclusionChange = ( newValue: string ) => {
 		onChange( newValue );
 	};
 
 	// Create option object for AsyncSelectInput current value
-	const getSelectValue = (): SelectOption | null => {
-		if ( ! value ) {
-			return null;
+	const getSelectValue = (): SelectOption | SelectOption[] | null => {
+		if ( ! cleanValue ) {
+			return 1 < maxSelections ? [] : null;
+		}
+
+		if ( 1 < maxSelections ) {
+			const rawValues = cleanValue.split( ',' ).map( ( v ) => v.trim() ).filter( Boolean );
+			return rawValues.map( ( val ) => {
+				const foundOption = availableOptions.find(
+					( option: SelectOption ) => String( option.value ) === String( val )
+				);
+				return foundOption || { value: val, label: val };
+			});
 		}
 
 		// Try to find the option in available options
 		const foundOption = availableOptions.find(
-			( option: SelectOption ) => option.value === value
+			( option: SelectOption ) => String( option.value ) === String( cleanValue )
 		);
 		if ( foundOption ) {
 			return foundOption;
@@ -212,11 +225,12 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 
 		// If not found but we have a value, create a custom option
 		return {
-			value,
-			label: value
+			value: cleanValue,
+			label: cleanValue
 		};
 	};
 
+	// fallow-ignore-next-line complexity
 	const getPlaceholder = (): string => {
 		if ( config.options ) {
 			return __( 'Search or select an option…', 'burst-statistics' );
@@ -230,16 +244,20 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 					'Enter referrer URL (e.g., google.com)',
 					'burst-statistics'
 				);
-			case 'campaign':
+			case 'utm_campaign':
 				return __( 'Enter campaign name', 'burst-statistics' );
 			case 'source':
 				return __( 'Enter traffic source', 'burst-statistics' );
-			case 'medium':
-				return __( 'Enter traffic medium', 'burst-statistics' );
-			case 'term':
-				return __( 'Enter search term', 'burst-statistics' );
-			case 'content':
-				return __( 'Enter content identifier', 'burst-statistics' );
+			case 'source_category':
+				return __( 'Enter source category', 'burst-statistics' );
+			case 'utm_source':
+				return __( 'Enter UTM source', 'burst-statistics' );
+			case 'utm_medium':
+				return __( 'Enter UTM medium', 'burst-statistics' );
+			case 'utm_term':
+				return __( 'Enter UTM term', 'burst-statistics' );
+			case 'utm_content':
+				return __( 'Enter UTM content', 'burst-statistics' );
 			case 'parameter':
 				return __(
 					'Enter URL parameter (e.g., utm_campaign)',
@@ -251,35 +269,54 @@ const StringFilterSetup: React.FC<StringFilterSetupProps> = ({
 	};
 
 	return (
-		<div className="space-y-4">
-			{/* Input Field */}
-			<div className="space-y-2 relative">
-				<label className="block text-sm font-medium text-gray-700">
-					{__( 'Filter value', 'burst-statistics' )}
-				</label>
+		<div className="flex flex-col gap-4">
 
-				{config.options ? (
-					<AsyncSelectInput
-						ref={selectInputRef}
-						value={getSelectValue()}
-						onChange={handleSelectChange}
-						loadOptions={loadOptions}
-						defaultOptions={filteredOptions}
-						placeholder={getPlaceholder()}
-						isSearchable={true}
-						disabled={false}
-						insideModal={true}
-						allowCustomValue={0 === filteredOptions.length}
-					/>
-				) : (
-					<TextInput
-						ref={textInputRef}
-						value={value}
-						onChange={handleTextChange}
-						placeholder={getPlaceholder()}
-						className="w-full"
-					/>
-				)}
+			<div className="relative flex flex-col gap-2">
+				<label className="block text-sm font-medium text-text-gray">
+					{ __( 'Only show data where…', 'burst-statistics' ) }
+				</label>
+				<div className="flex items-start gap-2 pr-0.5">
+					<span className="whitespace-nowrap text-sm font-medium text-text-black mt-2">
+						{config.label}
+					</span>
+
+					{
+						config.exclusion_allowed && (
+							<FilterExclusion value={value} onChange={handleExclusionChange} />
+						)
+					}
+
+					{
+						config.options ? (
+							<AsyncSelectInput
+								ref={selectInputRef}
+								value={getSelectValue()}
+								onChange={handleSelectChange}
+								loadOptions={loadOptions}
+								defaultOptions={filteredOptions}
+								placeholder={getPlaceholder()}
+								isSearchable={true}
+								disabled={false}
+								allowCustomValue={0 === filteredOptions.length}
+								maxSelections={maxSelections}
+								initialIsOpen={true}
+								selectionSeparator={
+									config.multi_select ?
+										__( 'or', 'burst-statistics' ) :
+										undefined
+								}
+							/>
+					) : (
+						<TextInput
+							ref={textInputRef}
+							value={cleanValue}
+							onChange={handleTextChange}
+							placeholder={getPlaceholder()}
+							className="w-full"
+						/>
+					)
+					}
+				</div>
 			</div>
 		</div>
 	);

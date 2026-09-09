@@ -515,13 +515,13 @@ if( ! class_exists( 'ShortcodeParser', false ) )
 				{
 					switch( $key )
 					{
-						case 'warning';
+						case 'warning':
 							$msg_text[] = sprintf( __( '%d warning(s)', 'avia_framework' ), $err );
 							break;
-						case 'error';
+						case 'error':
 							$msg_text[] = sprintf( __( '%d error(s)', 'avia_framework' ), $err );
 							break;
-						case 'fatal_error';
+						case 'fatal_error':
 							$msg_text[] = sprintf( __( '%d fatal error(s)', 'avia_framework' ), $err );
 							break;
 						default:
@@ -2736,7 +2736,7 @@ if( ! class_exists( 'ShortcodeParser', false ) )
 			{
 				case 'valid':
 				case 'invalid':
-				case 'undefined';
+				case 'undefined':
 					$class = $message['shortcode_state'];
 					break;
 				default:

@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import RadioButtonsInput from '@/components/Inputs/RadioButtonsInput';
-
-interface FilterConfig {
-	label: string;
-	icon: string;
-	type: string;
-	pro?: boolean;
-}
+import { type FilterConfig } from '@/config/filterConfig';
 
 interface BooleanFilterSetupProps {
 	filterKey: string;
@@ -55,12 +49,12 @@ const BooleanFilterSetup: React.FC<BooleanFilterSetupProps> = ({
 				include: {
 					type: 'include',
 					icon: 'bounce',
-					label: __( 'Bounced visitors', 'burst-statistics' )
+					label: __( 'Bounced', 'burst-statistics' )
 				},
 				exclude: {
 					type: 'exclude',
 					icon: 'user-check',
-					label: __( 'Active visitors', 'burst-statistics' )
+					label: __( 'Active', 'burst-statistics' )
 				}
 			};
 		} else if ( 'new_visitor' === filterKey ) {
@@ -73,12 +67,12 @@ const BooleanFilterSetup: React.FC<BooleanFilterSetupProps> = ({
 				include: {
 					type: 'include',
 					icon: 'user-plus',
-					label: __( 'New visitors', 'burst-statistics' )
+					label: __( 'New', 'burst-statistics' )
 				},
 				exclude: {
 					type: 'exclude',
 					icon: 'user-check',
-					label: __( 'Returning visitors', 'burst-statistics' )
+					label: __( 'Returning', 'burst-statistics' )
 				}
 			};
 		} else if ( 'entry_exit_pages' === filterKey ) {
@@ -91,12 +85,30 @@ const BooleanFilterSetup: React.FC<BooleanFilterSetupProps> = ({
 				entry: {
 					type: 'entry',
 					icon: 'user-plus',
-					label: __( 'Entry pages', 'burst-statistics' )
+					label: __( 'Entry', 'burst-statistics' )
 				},
 				exit: {
 					type: 'exit',
 					icon: 'user-check',
-					label: __( 'Exit pages', 'burst-statistics' )
+					label: __( 'Exit', 'burst-statistics' )
+				}
+			};
+		} else if ( 'status' === filterKey ) {
+			return {
+				all: {
+					type: 'all',
+					icon: 'total',
+					label: __( 'All statuses', 'burst-statistics' )
+				},
+				'200': {
+					type: '200',
+					icon: 'circle-check',
+					label: __( 'OK', 'burst-statistics' )
+				},
+				'404': {
+					type: '404',
+					icon: 'file-disabled',
+					label: __( 'Not Found', 'burst-statistics' )
 				}
 			};
 		}
@@ -136,10 +148,10 @@ const BooleanFilterSetup: React.FC<BooleanFilterSetupProps> = ({
 	const radioOptions = getFilterOptions();
 
 	return (
-		<div className="space-y-6">
+		<div className="flex flex-col gap-6">
 			{/* Radio Options */}
-			<div className="space-y-3">
-				<label className="block text-sm font-medium text-gray-700">
+			<div className="flex flex-col gap-3">
+				<label className="block text-sm font-medium text-text-gray">
 					{__( 'Filter option', 'burst-statistics' )}
 				</label>
 				<RadioButtonsInput

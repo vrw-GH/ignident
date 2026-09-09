@@ -1,5 +1,13 @@
 <div class="wrap">
     <div class="container-fluid">
+        <div class="ays-pb-heading-box">
+            <div class="ays-pb-wordpress-user-manual-box">
+                <a href="https://popup-plugin.com/docs/custom-fields/" target="_blank">
+                    <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
+                    <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
+                </a>
+            </div>
+        </div>
         <h1 class="wp-heading-inline">
             <?php
                 echo esc_html(get_admin_page_title());

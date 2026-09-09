@@ -85,7 +85,7 @@ if( ! class_exists( 'avia_sc_cell', false ) )
 		{
 			$this->config['invisible']	= true;
 			$this->config['name']		= '1/1';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-full.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-full.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 100;
 			$this->config['target']		= 'avia-section-drop';
@@ -821,7 +821,7 @@ if( ! class_exists( 'avia_sc_cell_one_half', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '1/2';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-half.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-half.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 90;
 			$this->config['target']		= 'avia-section-drop';
@@ -845,7 +845,7 @@ if( ! class_exists( 'avia_sc_cell_one_third', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '1/3';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-third.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-third.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 80;
 			$this->config['target']		= 'avia-section-drop';
@@ -868,7 +868,7 @@ if( ! class_exists( 'avia_sc_cell_two_third', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '2/3';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-two_third.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-two_third.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 70;
 			$this->config['target']		= 'avia-section-drop';
@@ -891,7 +891,7 @@ if( ! class_exists( 'avia_sc_cell_one_fourth', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '1/4';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-fourth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-fourth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 60;
 			$this->config['target']		= 'avia-section-drop';
@@ -914,7 +914,7 @@ if( ! class_exists( 'avia_sc_cell_three_fourth', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '3/4';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-three_fourth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-three_fourth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 50;
 			$this->config['target']		= 'avia-section-drop';
@@ -937,7 +937,7 @@ if( ! class_exists( 'avia_sc_cell_one_fifth', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '1/5';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-fifth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-fifth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 40;
 			$this->config['target']		= 'avia-section-drop';
@@ -960,7 +960,7 @@ if( ! class_exists( 'avia_sc_cell_two_fifth', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '2/5';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-two_fifth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-two_fifth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 39;
 			$this->config['target']		= 'avia-section-drop';
@@ -983,7 +983,7 @@ if( ! class_exists( 'avia_sc_cell_three_fifth', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '3/5';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-three_fifth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-three_fifth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 38;
 			$this->config['target']		= 'avia-section-drop';
@@ -1006,7 +1006,7 @@ if( ! class_exists( 'avia_sc_cell_four_fifth', false ) )
 		{
 			$this->config['invisible'] = true;
 			$this->config['name']		= '4/5';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-four_fifth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-four_fifth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 37;
 			$this->config['target']		= 'avia-section-drop';

@@ -1116,6 +1116,41 @@ if( ! class_exists( 'avia_form', false ) )
 		}
 
 		/**
+		 * Adds a Cloudflare Turnstile div. Cloudflare's script renders the widget
+		 * automatically wherever it finds an element with the `cf-turnstile` class,
+		 * so no explicit JS render call is needed here.
+		 *
+		 * @since 7.1.7
+		 * @param string $id
+		 * @param array $element
+		 */
+		protected function turnstile( $id, array $element )
+		{
+			if( ! isset( $element['context'] ) || 'av_contact_form' != $element['context'] )
+			{
+				return;
+			}
+
+			if( Avia_Turnstile()->is_loading_prohibited() )
+			{
+				return;
+			}
+
+			$element = shortcode_atts( array(
+												'class'				=> '',
+												'container_class'	=> '',
+												'custom_class'		=> '',
+												'context'			=> 'av_contact_form',
+												'token_input'		=> 'cf-turnstile-response',
+											), $element, 'cloudflare_turnstile_form_params' );
+
+			$output  = '';
+			$output .= "<div id='{$id}' class='cf-turnstile av-turnstile-area {$element['class']} {$element['container_class']}' data-sitekey='" . esc_attr( Avia_Turnstile()->get_site_key() ) . "' data-response-field-name='" . esc_attr( $element['token_input'] ) . "'></div>";
+
+			$this->elements_html .= $output;
+		}
+
+		/**
 		 * The captcha method creates input element that needs to be filled  correctly to send the form
 		 *
 		 * @param string $id holds the key of the element

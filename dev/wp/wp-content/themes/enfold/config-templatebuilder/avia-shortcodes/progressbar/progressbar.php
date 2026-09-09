@@ -66,11 +66,13 @@ if( ! class_exists( 'avia_sc_progressbar', false ) )
 
 			$this->config['name']			= __( 'Progress Bars', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-progressbar.png';
-			$this->config['order']			= 30;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-progressbar.svg';
+			$this->config['order']			= 46;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']	 	= 'av_progress';
 			$this->config['shortcode_nested'] = array( 'av_progress_bar' );
+			//	the canvas names the bar titles so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_progress_bar', 'attr' => 'title' );
 			$this->config['tooltip']	 	= __( 'Create some progress bars', 'avia_framework' );
 			$this->config['preview']	 	= true;
 			$this->config['disabling_allowed'] = true;

@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import TextInput from '@/components/Inputs/TextInput';
 import RangeSliderInput from '@/components/Inputs/RangeSliderInput';
-
-interface FilterConfig {
-	label: string;
-	icon: string;
-	type: string;
-	pro?: boolean;
-}
+import { type FilterConfig } from '@/config/filterConfig';
 
 interface IntFilterSetupProps {
 	filterKey: string;
@@ -26,6 +20,7 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 }) => {
 
 	// Parse initial value - could be single value or range
+	// fallow-ignore-next-line complexity
 	const parseInitialValue = ( value: string ): Range => {
 		if ( ! value || '' === value ) {
 			return [ 0, 100 ];
@@ -54,17 +49,12 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 		setRangeValue( parseInitialValue( initialValue ) );
 	}, [ initialValue ]);
 
-	// Set appropriate min/max based on filter type
+	// Set appropriate min/max based on filter type.
 	useEffect( () => {
 		switch ( filterKey ) {
-			case 'bounce_rate':
-			case 'conversion_rate':
-				setMin( 0 );
-				setMax( 100 );
-				break;
 			case 'time_per_session':
 				setMin( 0 );
-				setMax( 3600 ); // 1 hour in seconds
+				setMax( 3600 ); // 1 hour in seconds.
 				break;
 			default:
 				setMin( 0 );
@@ -83,32 +73,27 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 		onChange( rangeString );
 	};
 
-	const handleMinInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-		const newValue = e.target.value;
+	// fallow-ignore-next-line complexity
+	const updateRangeFromInput = ( newValue: string, index: 0 | 1 ) => {
 		const numValue = parseFloat( newValue );
 
 		if (
 			'' === newValue ||
 			( ! isNaN( numValue ) && numValue >= min && numValue <= max )
 		) {
-			const newRange: Range = [ numValue || 0, rangeValue[1] ];
+			const newRange: Range =
+				0 === index ? [ numValue || 0, rangeValue[1] ] : [ rangeValue[0], numValue || max ];
 			setRangeValue( newRange );
 			handleRangeChange( newRange );
 		}
 	};
 
-	const handleMaxInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-		const newValue = e.target.value;
-		const numValue = parseFloat( newValue );
+	const handleMinInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
+		updateRangeFromInput( e.target.value, 0 );
+	};
 
-		if (
-			'' === newValue ||
-			( ! isNaN( numValue ) && numValue >= min && numValue <= max )
-		) {
-			const newRange: Range = [ rangeValue[0], numValue || max ];
-			setRangeValue( newRange );
-			handleRangeChange( newRange );
-		}
+	const handleMaxInputChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
+		updateRangeFromInput( e.target.value, 1 );
 	};
 
 	const handleClear = () => {
@@ -117,6 +102,7 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 		onChange( '' );
 	};
 
+	// fallow-ignore-next-line complexity
 	const formatValue = ( val: number | string ): string => {
 		if ( '' === val || null === val || val === undefined ) {
 			return '';
@@ -125,9 +111,6 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 		const numVal = 'string' === typeof val ? parseFloat( val ) : val;
 
 		switch ( filterKey ) {
-			case 'bounce_rate':
-			case 'conversion_rate':
-				return `${numVal}%`;
 			case 'time_per_session': {
 				const minutes = Math.floor( numVal / 60 );
 				const seconds = numVal % 60;
@@ -139,9 +122,9 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 	};
 
 	return (
-		<div className="space-y-4">
+		<div className="flex flex-col gap-4">
 			{/* Range Slider */}
-			<div className="space-y-4">
+			<div className="flex flex-col gap-4">
 				<RangeSliderInput
 					min={min}
 					max={max}
@@ -155,8 +138,8 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 				/>
 
 				{/* Number Inputs for Min/Max */}
-				<div className="space-y-2">
-					<label className="block text-sm font-medium text-gray-700">
+				<div className="flex flex-col gap-2">
+					<label className="block text-sm font-medium text-text-gray">
 						{__( 'Exact range values', 'burst-statistics' )}
 					</label>
 					<div className="flex space-x-2">
@@ -173,7 +156,7 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 								max={max}
 								className="w-full"
 							/>
-							<p className="text-xs text-gray-500 mt-1">
+							<p className="text-xs text-text-gray-light mt-1">
 								{__( 'Minimum value', 'burst-statistics' )}
 							</p>
 						</div>
@@ -190,19 +173,19 @@ const IntFilterSetup: React.FC<IntFilterSetupProps> = ({
 								max={max}
 								className="w-full"
 							/>
-							<p className="text-xs text-gray-500 mt-1">
+							<p className="text-xs text-text-gray-light mt-1">
 								{__( 'Maximum value', 'burst-statistics' )}
 							</p>
 						</div>
 						<button
 							type="button"
 							onClick={handleClear}
-							className="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+							className="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-transparent"
 						>
 							{__( 'Clear', 'burst-statistics' )}
 						</button>
 					</div>
-					<p className="text-xs text-gray-500">
+					<p className="text-xs text-text-gray-light">
 						{__( 'Clear to remove this filter', 'burst-statistics' )}
 					</p>
 				</div>

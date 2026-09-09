@@ -42,8 +42,8 @@ if( ! class_exists( 'avia_sc_team', false ) )
 
 			$this->config['name']			= __( 'Team Member', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-team.png';
-			$this->config['order']			= 35;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-team.svg';
+			$this->config['order']			= 58;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_team_member';
 			$this->config['shortcode_nested'] = array( 'av_team_icon' );
@@ -672,8 +672,6 @@ if( ! class_exists( 'avia_sc_team', false ) )
 			if( empty( $attr['src'] ) )
 			{
 				$params['innerHtml'] .= "<div class='avia_image_container' {$templateIMG}>";
-				$params['innerHtml'] .=		"<img src='{$this->config['icon']}' title='{$this->config['name']}' alt='' />";
-				$params['innerHtml'] .=		"<div class='avia-element-label'>{$this->config['name']}</div>";
 				$params['innerHtml'] .= '</div>';
 			}
 			else

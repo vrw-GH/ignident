@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) die('No direct access allowed');
 // @codingStandardsIgnoreStart
 /*
 To dump the decrypted file using the given key on stdout, call:

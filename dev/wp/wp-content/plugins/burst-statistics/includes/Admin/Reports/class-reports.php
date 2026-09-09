@@ -11,7 +11,7 @@ use Burst\Admin\Reports\DomainTypes\Report_Frequency;
 use Burst\Admin\Reports\DomainTypes\Report_Log_Status;
 use Burst\Admin\Reports\DomainTypes\Report_Week_Of_Month;
 use Burst\Admin\Share\Share;
-use Burst\Admin\Statistics\Query_Data;
+use Burst\Admin\Statistics\Statistics_Query;
 use Burst\Traits\Admin_Helper;
 use Burst\Traits\Database_Helper;
 use Burst\Traits\Helper;
@@ -41,7 +41,21 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			add_action( 'burst_send_email_batch', [ $this, 'handle_email_batch' ], 10, 3 );
 			add_filter( 'burst_all_tables', [ $this, 'burst_add_reports_table' ] );
 			add_filter( 'burst_do_action', [ $this, 'do_action_handler' ], 10, 3 );
+			add_filter( 'burst_get_action', [ $this, 'get_action_handler' ], 10, 3 );
 			add_action( 'burst_create_report_from_onboarding', [ $this, 'create_report_from_onboarding' ] );
+			add_filter( 'burst_allowed_field_types', [ $this, 'allowed_field_types' ] );
+		}
+
+		/**
+		 * Add 'wysiwyg' to the list of allowed field types
+		 *
+		 * @param array<int, string> $field_types The existing list of field types.
+		 * @return array<int, string> The modified list of field types.
+		 */
+		public function allowed_field_types( array $field_types ): array {
+			$field_types[] = 'wysiwyg';
+			$field_types[] = 'color_picker';
+			return $field_types;
 		}
 
 		/**
@@ -85,15 +99,27 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 		 * Handle email batch sending
 		 */
 		public function handle_email_batch( int $report_id, string $queue_id, ?int $batch_id ): void {
+			self::error_log( "Report email: cron burst_send_email_batch fired for report $report_id, queue $queue_id, batch " . ( $batch_id ?? 'null' ) . '.' );
+
 			$report = new Report( $report_id );
+
+			if ( empty( $report->id ) ) {
+				self::error_log( "Report email: report $report_id not found, aborting batch send." );
+				return;
+			}
+
+			self::error_log( 'Report email: report loaded with ' . count( $report->recipients ) . ' recipient(s), frequency ' . $report->frequency . ', format ' . $report->format . '.' );
+
 			$mailer = new Mailer();
 			$mailer->set_to( $report->recipients )
 				->set_report_id( $report->id )
 				->set_queue_id( $queue_id )
 				->set_batch_id( $batch_id );
 
+			self::error_log( "Report email: building report content for report $report_id." );
 			$this->build_report( $mailer, $report->frequency, $report->content, $report->format );
 
+			self::error_log( "Report email: handing off to mailer queue for report $report_id, batch " . ( $batch_id ?? 'null' ) . '.' );
 			$mailer->send_mail_queue();
 		}
 
@@ -115,7 +141,6 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			'report-create',
 			'report-delete',
 			'report-update',
-			'report-send-test-report',
 			'report-send-report-now',
 		];
 
@@ -137,15 +162,28 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			}
 
 			return match ( $action ) {
-				'report-create'           => $this->create_report( $data ),
-				'report-delete'           => $this->delete_report( $data ),
-				'report-update'           => $this->update_report( $data ),
-				'report-send-test-report' => $this->send_test_report_action( $data ),
-				'report-send-report-now'  => $this->send_report_now_action( $data ),
-				'report-preview'          => $this->get_report_preview( $data ),
-				'report-data'             => $this->get_report_data( $data ),
-				default                   => $output,
+				'report-create'          => $this->create_report( $data ),
+				'report-delete'          => $this->delete_report( $data ),
+				'report-update'          => $this->update_report( $data ),
+				'report-send-report-now' => $this->send_report_now_action( $data ),
+				'report-preview'         => $this->get_report_preview( $data ),
+				default                  => $output,
 			};
+		}
+
+		/**
+		 * Handle get actions for reports
+		 *
+		 * @param array<string, mixed>      $output The output array.
+		 * @param string                    $action The action to perform.
+		 * @param array<string, mixed>|null $data   The data for the action.
+		 * @return array<string, mixed> The modified output array.
+		 */
+		public function get_action_handler( array $output, string $action, ?array $data ): array {
+			if ( $action === 'story-report-data' ) {
+				return $this->get_story_report_data( $data );
+			}
+			return $output;
 		}
 
 		/**
@@ -172,7 +210,11 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			}
 
 			$report->set_next_send_timestamp( time() );
-			return $this->send_report_instance( $report );
+
+			// Use a dedicated test queue ID so a manual send never collides with
+			// (and thereby suppresses) the automatic send scheduled for the same
+			// day, and vice versa.
+			return $this->send_report_instance( $report, $this->get_test_queue_id() );
 		}
 
 		/**
@@ -264,6 +306,13 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 				}
 			}
 
+			// For scheduled reports, anchor fixed_end_date to "yesterday" at save
+			// time so the shared story link reflects a recent window until the
+			// next email send refreshes it again via build_report().
+			if ( $report->scheduled ) {
+				$report->fixed_end_date = gmdate( 'Y-m-d', strtotime( 'yesterday' ) );
+			}
+
 			if ( ! $report->save() ) {
 				return [
 					'success' => false,
@@ -337,6 +386,13 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 					->set_enabled( $data['enabled'] )
 					->set_scheduled( $data['scheduled'] );
 
+			// For scheduled reports, anchor fixed_end_date to "yesterday" at save
+			// time so the shared story link reflects a recent window until the
+			// next email send refreshes it again via build_report().
+			if ( $report->scheduled ) {
+				$report->set_fixed_end_date( gmdate( 'Y-m-d', strtotime( 'yesterday' ) ) );
+			}
+
 			if ( ! $report->save() ) {
 				return [
 					'success' => false,
@@ -400,26 +456,94 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 		 * @param array $data The REST request object.
 		 * @return array The response.
 		 */
-		public function get_report_data( array $data ): array {
-			$token       = $data['token'];
+		public function get_story_report_data( array $data ): array {
+			if ( empty( $data['token'] ) || ! self::validate_share_token( $data['token'] ) ) {
+				return [];
+			}
+
 			$share       = new Share();
+			$token       = $data['token'];
 			$report      = null;
-			$share_links = $share::get_share_links( $token );
+			$share_links = $share->tokens->get_share_links( 'report', $token );
+
 			if ( ! empty( $share_links ) ) {
-				// get first share link.
+				// Get first share link.
 				$share_links = array_values( $share_links );
 				$share_link  = $share_links[0];
 				$report_id   = $share_link['report_id'];
-				$report      = new Report( $report_id );
+				$report      = new Report( $report_id, true );
 			}
 
 			if ( ob_get_length() ) {
 				ob_clean();
 			}
 
+			// Resolve the logo URL server-side so it's available without wp.media in the story view.
+			$logo_attachment_id = (int) burst_get_option( 'logo_attachment_id', 0 );
+			$logo_url           = '';
+			if ( $logo_attachment_id > 0 ) {
+				$image_src = wp_get_attachment_image_src( $logo_attachment_id, 'medium' )
+					?: wp_get_attachment_image_src( $logo_attachment_id, 'large' )
+					?: wp_get_attachment_image_src( $logo_attachment_id, 'full' );
+				if ( $image_src ) {
+					$logo_url = $image_src[0];
+				}
+			}
+
+			// Same pattern for the dark mode logo.
+			$logo_attachment_id_dark = (int) burst_get_option( 'logo_attachment_id_dark', 0 );
+			$logo_url_dark           = '';
+			if ( $logo_attachment_id_dark > 0 ) {
+				$image_src = wp_get_attachment_image_src( $logo_attachment_id_dark, 'medium' )
+					?: wp_get_attachment_image_src( $logo_attachment_id_dark, 'large' )
+					?: wp_get_attachment_image_src( $logo_attachment_id_dark, 'full' );
+				if ( $image_src ) {
+					$logo_url_dark = $image_src[0];
+				}
+			}
+
+			// Same pattern for the hero background image (used in the right column of HeroBlock).
+			$hero_bg_attachment_id = (int) burst_get_option( 'hero_background_image_attachment_id', 0 );
+			$hero_bg_url           = '';
+			if ( $hero_bg_attachment_id > 0 ) {
+				$image_src = wp_get_attachment_image_src( $hero_bg_attachment_id, 'large' )
+					?: wp_get_attachment_image_src( $hero_bg_attachment_id, 'full' )
+					?: wp_get_attachment_image_src( $hero_bg_attachment_id, 'medium' );
+				if ( $image_src ) {
+					$hero_bg_url = $image_src[0];
+				}
+			}
+
+			// Same pattern for the dark mode hero background image.
+			$hero_bg_attachment_id_dark = (int) burst_get_option( 'hero_background_image_attachment_id_dark', 0 );
+			$hero_bg_url_dark           = '';
+			if ( $hero_bg_attachment_id_dark > 0 ) {
+				$image_src = wp_get_attachment_image_src( $hero_bg_attachment_id_dark, 'large' )
+					?: wp_get_attachment_image_src( $hero_bg_attachment_id_dark, 'full' )
+					?: wp_get_attachment_image_src( $hero_bg_attachment_id_dark, 'medium' );
+				if ( $image_src ) {
+					$hero_bg_url_dark = $image_src[0];
+				}
+			}
+
+			$brand_color                = sanitize_hex_color( (string) burst_get_option( 'brand_color', '#2B8133' ) ) ?: '#2B8133';
+			$hero_color_overlay_enabled = (bool) burst_get_option( 'hero_color_overlay_enabled', true );
+			$report_array               = ! empty( $report ) ? $report->to_array() : null;
+
+			// Custom CSS is sanitized on save (the 'css' field type), but re-read raw here so the
+			// publicly shared story view stays in sync with the stored value.
+			$custom_css = (string) burst_get_option( 'custom_css', '' );
+
 			return [
-				'request_success' => true,
-				'report'          => $report?->to_array(),
+				'request_success'                => true,
+				'report'                         => $report_array,
+				'logo_url'                       => $logo_url,
+				'logo_url_dark'                  => $logo_url_dark,
+				'hero_background_image_url'      => $hero_bg_url,
+				'hero_background_image_url_dark' => $hero_bg_url_dark,
+				'brand_color'                    => $brand_color,
+				'hero_color_overlay_enabled'     => $hero_color_overlay_enabled,
+				'custom_css'                     => $custom_css,
 			];
 		}
 
@@ -459,6 +583,15 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 		 * @return \WP_REST_Response The REST response containing the list of reports.
 		 */
 		public function get_reports( \WP_REST_Request $request ): \WP_REST_Response {
+			if ( ! $this->user_can_manage() ) {
+				return new \WP_REST_Response(
+					[
+						'success' => false,
+						'message' => 'You do not have permission to manage reports.',
+					]
+				);
+			}
+
 			$nonce = $request->get_param( 'nonce' );
 			if ( ! $this->verify_nonce( $nonce, 'burst_nonce' ) ) {
 				return new \WP_REST_Response(
@@ -509,13 +642,13 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			$sql = "CREATE TABLE {$wpdb->prefix}burst_reports (
 				`ID` int unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(255) NOT NULL,
-				`date_range` varchar(255) NOT NULL,
+				`date_range` varchar(32) NOT NULL,
 				`format` varchar(32) NOT NULL,
 				`frequency` varchar(16) NOT NULL,
-				`fixed_end_date` varchar(16) NOT NULL,
-				`day_of_week` varchar(16) DEFAULT NULL,
+				`fixed_end_date` date DEFAULT NULL,
+				`day_of_week` varchar(9) DEFAULT NULL,
 				`week_of_month` int DEFAULT NULL,
-				`send_time` varchar(16) NOT NULL,
+				`send_time` varchar(5) NOT NULL,
 				`last_edit` int unsigned NOT NULL,
 				`enabled` tinyint(1) NOT NULL DEFAULT 1,
 				`scheduled` tinyint(1) NOT NULL DEFAULT 0,
@@ -531,10 +664,9 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 				self::error_log( 'Error creating burst_reports table: ' . $wpdb->last_error );
 			}
 
-			// Add indexes.
+			// Add indexes. ID is already the PRIMARY KEY, so it is not indexed again here.
 			$indexes = [
 				'burst_reports' => [
-					[ 'ID' ],
 					[ 'enabled' ],
 					[ 'frequency' ],
 					[ 'day_of_week' ],
@@ -542,69 +674,50 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			];
 
 			foreach ( $indexes as $table => $table_indexes ) {
-				$table_name = $wpdb->prefix . $table;
 				foreach ( $table_indexes as $index ) {
-					$this->add_index( $table_name, $index );
+					$this->add_index( 'burst_reports', $index );
 				}
 			}
 		}
 
 		/**
-		 * User can send a report by clicking the button in the settings page.
+		 * Get Queue ID from next send timestamp.
 		 *
-		 * @return array<string, mixed> The modified output array.
+		 * @param int $next_send_timestamp The next send timestamp.
+		 * @return string The generated Queue ID.
 		 */
-		public function send_test_report_action( ?array $data ): array {
-			if ( empty( $data['id'] ) ) {
-				return [
-					'success' => false,
-					'message' => 'Report ID is required.',
-				];
-			}
-
-			$report = new Report( (int) $data['id'] );
-
-			if ( empty( $report->id ) ) {
-				return [
-					'success' => false,
-					'message' => 'Report not found.',
-				];
-			}
-
-			// For test reports, set the send timestamp to now.
-			$report->set_next_send_timestamp( time() );
-			return $this->send_report_instance( $report, true );
+		public function get_queue_id_from_timestamp( int $next_send_timestamp ): string {
+			return gmdate( 'Y-m-d', $next_send_timestamp );
 		}
 
 		/**
-		 * Get Queue ID from next send timestamp.
+		 * Build a unique queue ID for a manual ("send now") send.
 		 *
-		 * @param int  $next_send_timestamp The next send timestamp.
-		 * @param bool $is_test             Whether it's a test report.
-		 * @return string The generated Queue ID.
+		 * Manual sends use a `test-{Y-m-d}-{timestamp}` queue ID so they never
+		 * collide with the date-based queue ID of the automatic send for the same
+		 * day. A collision would make either send skip the other via the
+		 * per-queue de-duplication in the mailer. The date portion is still
+		 * recoverable for log grouping via extract_date_from_queue_id().
+		 *
+		 * @return string The generated test queue ID.
 		 */
-		public function get_queue_id_from_timestamp( int $next_send_timestamp, bool $is_test = false ): string {
-			$queue_id = gmdate( 'Y-m-d', $next_send_timestamp );
-
-			if ( $is_test ) {
-				$queue_id = sprintf(
-					'test-%s-%s',
-					$queue_id,
-					time()
-				);
-			}
-
-			return $queue_id;
+		public function get_test_queue_id(): string {
+			$now = time();
+			return 'test-' . gmdate( 'Y-m-d', $now ) . '-' . $now;
 		}
 
 		/**
 		 * Send a report instance.
 		 *
-		 * @param Report $report The report object.
+		 * @param Report      $report   The report object.
+		 * @param string|null $queue_id Explicit queue ID; when null it is derived from the report's send timestamp.
 		 * @return array The result of the send operation.
 		 */
-		private function send_report_instance( Report $report, bool $is_test = false ): array {
+		private function send_report_instance( Report $report, ?string $queue_id = null ): array {
+			self::error_log( "Report email: send_report_instance called for report $report->id." );
+
 			if ( empty( $report->recipients ) ) {
+				self::error_log( "Report email: report $report->id has no recipients, aborting." );
 				return [
 					'success' => false,
 					'message' => __( 'No recipients specified for the report.', 'burst-statistics' ),
@@ -612,66 +725,98 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			}
 
 			$report_id = $report->id;
-			$queue_id  = $this->get_queue_id_from_timestamp( $report->next_send_timestamp, $is_test );
+			$queue_id  = $queue_id ?? $this->get_queue_id_from_timestamp( $report->next_send_timestamp );
 			$batch_id  = 1;
 
-			// Do not schedule test reports on cron, but send immediately.
-			if ( $is_test ) {
-				$this->handle_email_batch( $report_id, $queue_id, $batch_id );
-				return [
-					'success' => true,
-					'message' => __( 'Report sent.', 'burst-statistics' ),
-				];
-			} else {
-				if ( ! wp_next_scheduled( 'burst_send_email_batch', [ $report_id, $queue_id, $batch_id ] ) ) {
-					if ( ! Report_Logs::instance()->parent_processing_exists(
-						$report_id,
-						$queue_id
-					) ) {
-						Report_Logs::instance()->insert_log(
-							$report_id,
-							$queue_id,
-							null,
-							Report_Log_Status::PROCESSING,
-							Report_Log_Status::get_log_message( Report_Log_Status::PROCESSING )
-						);
-					}
+			self::error_log( "Report email: prepared queue $queue_id for report $report_id (" . count( $report->recipients ) . ' recipient(s)).' );
 
-					wp_schedule_single_event(
-						time() + 5 * MINUTE_IN_SECONDS,
-						'burst_send_email_batch',
-						[ $report_id, $queue_id, $batch_id ]
+			if ( ! wp_next_scheduled( 'burst_send_email_batch', [ $report_id, $queue_id, $batch_id ] ) ) {
+				if ( ! Report_Logs::instance()->parent_processing_exists(
+					$report_id,
+					$queue_id
+				) ) {
+					Report_Logs::instance()->insert_log(
+						$report_id,
+						$queue_id,
+						null,
+						Report_Log_Status::PROCESSING,
+						Report_Log_Status::get_log_message( Report_Log_Status::PROCESSING )
 					);
 				}
-				return [
-					'success' => true,
-					'message' => __( 'Sending of report scheduled.', 'burst-statistics' ),
-				];
+
+				self::error_log( "Report email: scheduling first batch for queue $queue_id (report $report_id) in 5 minutes." );
+				wp_schedule_single_event(
+					time() + 5 * MINUTE_IN_SECONDS,
+					'burst_send_email_batch',
+					[ $report_id, $queue_id, $batch_id ]
+				);
+			} else {
+				self::error_log( "Report email: first batch for queue $queue_id (report $report_id) is already scheduled, not rescheduling." );
 			}
+			return [
+				'success' => true,
+				'message' => __( 'Sending of report scheduled.', 'burst-statistics' ),
+			];
 		}
 
 		/**
 		 * Check if we need to send a report.
 		 */
 		public function maybe_send_report(): void {
+			if ( ! $this->table_exists( 'burst_reports' ) ) {
+				self::error_log( 'Report email: maybe_send_report aborted, burst_reports table does not exist.' );
+				return;
+			}
+
 			global $wpdb;
 
 			$ids = $wpdb->get_col(
 				"SELECT ID FROM {$wpdb->prefix}burst_reports WHERE enabled = 1 AND scheduled = 1"
 			);
 
+			self::error_log( 'Report email: maybe_send_report found ' . count( $ids ) . ' enabled & scheduled report(s) to evaluate.' );
+
 			foreach ( $ids as $id ) {
 				$report = new Report( (int) $id );
 
-				if ( empty( $report->next_send_timestamp ) ) {
+				// The most recent scheduled occurrence at or before now (or null
+				// when the report has no usable schedule).
+				$due = $report->next_send_timestamp;
+				if ( empty( $due ) ) {
+					self::error_log( "Report email: report $id has no due send moment, skipping." );
 					continue;
 				}
 
 				$now = time();
 
-				if ( $now < $report->next_send_timestamp || $now > $report->next_send_timestamp + DAY_IN_SECONDS ) {
+				// Catch-up window: a missed occurrence may still be sent for some
+				// time after its target (e.g. when cron only runs sporadically on
+				// low-traffic sites, so no tick lands between the target time and
+				// local midnight), but very stale occurrences are not resurrected.
+				$catch_up_window = (int) apply_filters( 'burst_report_catch_up_window', DAY_IN_SECONDS, $report );
+				if ( $now - $due > $catch_up_window ) {
+					self::error_log( "Report email: report $id due moment $due is older than the catch-up window ($catch_up_window s), skipping." );
 					continue;
 				}
+
+				// De-duplicate per occurrence: once this occurrence's batch has
+				// been queued/sent, it is logged and must not be sent again. This
+				// is what makes the catch-up window safe to keep re-evaluating.
+				$queue_id = $this->get_queue_id_from_timestamp( $due );
+				if ( Report_Logs::instance()->queue_exists( $report->id, $queue_id, 1 ) ) {
+					self::error_log( "Report email: report $id occurrence $queue_id already sent, skipping." );
+					continue;
+				}
+
+				// Guard against two parallel cron processes entering at once,
+				// before the first one has had a chance to write its log entry.
+				$transient_key = 'burst_report_sent_' . $report->id;
+				if ( get_transient( $transient_key ) ) {
+					self::error_log( "Report email: report $id already handled in this run (transient set), skipping." );
+					continue;
+				}
+				set_transient( $transient_key, $due, 5 * MINUTE_IN_SECONDS );
+
 				$this->send_report_instance( $report );
 			}
 		}
@@ -705,12 +850,11 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 		 *
 		 * @return array<int, array<int, string>> List of results
 		 */
-		public function get_top_results( int $start_date, int $end_date, Query_Data $qd ): array {
-			$results        = [];
-			$qd->limit      = apply_filters( 'burst_mail_report_limit', 5 );
-			$qd->date_start = $start_date;
-			$qd->date_end   = $end_date;
-			$raw_results    = \Burst\burst_loader()->admin->statistics->get_results( $qd, ARRAY_A );
+		public function get_top_results( int $start_date, int $end_date, Statistics_Query $qd ): array {
+			$results = [];
+			$qd->limit( (int) apply_filters( 'burst_mail_report_limit', 5 ) );
+			$qd->date_range( $start_date, $end_date );
+			$raw_results = $qd->fetch( ARRAY_A );
 
 			$raw_results = apply_filters( 'burst_mail_report_results', $raw_results, $qd, $start_date, $end_date );
 
@@ -718,7 +862,7 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			$raw_results = array_filter(
 				$raw_results,
 				function ( $row ) {
-					return ! in_array( 'Direct', $row, true );
+					return ! in_array( 'Direct / unknown', $row, true );
 				}
 			);
 
@@ -750,7 +894,7 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 		/**
 		 * Get compare data for the email report.
 		 *
-		 * @return array<int, array<int, string>> List of compare rows grouped by type.
+		 * @return array<int, array{0: string, 1: array{raw: string}}> List of compare rows grouped by type.
 		 */
 		private function get_compare_data( int $date_start, int $date_end, int $compare_date_start, int $compare_date_end ): array {
 			$args = [
@@ -800,7 +944,7 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 		 *
 		 * @param string $type The metric type (e.g., 'pageviews', 'sessions').
 		 * @param array  $compare_data The current and previous data for comparison.
-		 * @return array{0: string, 1: string} An array with the title and formatted HTML string.
+		 * @return array{0: string, 1: array{raw: string}} The title (untrusted text) and the pre-rendered, trusted uplift HTML.
 		 */
 		private function get_compare_row( string $type, array $compare_data ): array {
 			$data = [
@@ -831,7 +975,13 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			$uplift = $uplift > 0 ? '+' . $uplift : $uplift;
 			return [
 				$data[ $type ]['title'],
-				'<span style="font-size: 13px; color: ' . esc_attr( $color ) . '">' . esc_html( $uplift ) . '%</span>&nbsp;<span>' . esc_html( $current ) . '</span>',
+				// Pre-rendered, plugin-generated HTML: a fixed colour palette plus
+				// numeric values that are already escaped here. Wrapped as 'raw' so
+				// format_array_as_table() emits it verbatim instead of escaping the
+				// markup into visible tags.
+				[
+					'raw' => '<span style="font-size: 13px; color: ' . esc_attr( $color ) . '">' . esc_html( $uplift ) . '%</span>&nbsp;<span>' . esc_html( $current ) . '</span>',
+				],
 			];
 		}
 		/**
@@ -848,9 +998,9 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 				$first_row = true;
 				foreach ( $row as $column ) {
 					if ( $first_row ) {
-						$html .= '<th style="text-align: left; font-size: 14px; font-weight: 400">' . $column . '</th>';
+						$html .= '<th style="text-align: left; font-size: 14px; font-weight: 400">' . self::render_table_cell( $column ) . '</th>';
 					} else {
-						$html .= '<th style="text-align: right; font-size: 14px; font-weight: 400">' . $column . '</th>';
+						$html .= '<th style="text-align: right; font-size: 14px; font-weight: 400">' . self::render_table_cell( $column ) . '</th>';
 					}
 					$first_row = false;
 				}
@@ -864,16 +1014,16 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 					if ( $first_row ) {
 						// max 45 characters add ...
 						if ( $column === null ) {
-							$column = __( 'Direct', 'burst-statistics' );
+							$column = __( 'Direct / unknown', 'burst-statistics' );
 						}
 						if ( ! is_numeric( $column ) ) {
 							if ( strlen( $column ) > 35 ) {
 								$column = substr( $column, 0, 35 ) . '...';
 							}
 						}
-						$html .= '<td style="width: fit-content; text-align: left;">' . $column . '</td>';
+						$html .= '<td style="width: fit-content; text-align: left;">' . self::render_table_cell( $column ) . '</td>';
 					} else {
-						$html .= '<td style="width: fit-content; text-align: right;">' . $column . '</td>';
+						$html .= '<td style="width: fit-content; text-align: right;">' . self::render_table_cell( $column ) . '</td>';
 					}
 					$first_row = false;
 				}
@@ -882,6 +1032,26 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 			}
 
 			return $html;
+		}
+
+		/**
+		 * Render a single report-table cell.
+		 *
+		 * Untrusted values (page titles, referrers, campaign values that originate
+		 * from visitors) are escaped. Cells wrapped as `[ 'raw' => $html ]` are
+		 * trusted, plugin-generated HTML (e.g. the compare block's colour-coded
+		 * uplift indicator) and are emitted verbatim; the mailer still runs
+		 * wp_kses_post() over the whole table as a final backstop.
+		 *
+		 * @param string|array $column Cell value: a string of untrusted text, or a
+		 *                             `[ 'raw' => string ]` wrapper of trusted HTML.
+		 * @return string The escaped or trusted cell inner HTML.
+		 */
+		private static function render_table_cell( string|array $column ): string {
+			if ( is_array( $column ) ) {
+				return isset( $column['raw'] ) ? (string) $column['raw'] : '';
+			}
+			return esc_html( $column );
 		}
 
 		/**
@@ -938,8 +1108,10 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 				$mailer->set_read_more_button_url( $this->get_story_url( $mailer->report_id ) )
 				->set_read_more_button_text( __( 'View story', 'burst-statistics' ) )
 				->set_read_more_header( '' )
-					// translators: %s is the website's domain name (e.g., example.com).
-					->set_read_more_teaser( sprintf( __( 'A new report is available for %s.', 'burst-statistics' ), $mailer->pretty_domain ) );
+				// translators: %s is the website's domain name (e.g., example.com).
+				->set_read_more_teaser( sprintf( __( 'A new report is available for %s.', 'burst-statistics' ), $mailer->pretty_domain ) )
+				// Story reports need the "view report" button regardless of footer customization.
+				->set_force_read_more( true );
 			}
 		}
 
@@ -981,9 +1153,11 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 					$query_data_args = $block;
 				}
 
-				$qd      = new Query_Data( $query_data_args );
-				$results = $this->get_top_results( $date_range->start, $date_range->end, $qd );
-				// prepend header row to results.
+				$query_id = sprintf( 'report_block_%s', sanitize_key( (string) $key ) );
+				$qd       = Statistics_Query::create( $query_id )->apply_args( $query_data_args );
+				$results  = $this->get_top_results( $date_range->start, $date_range->end, $qd );
+
+				// Prepend header row to results.
 				array_unshift( $results, $block['header'] );
 
 				$blocks[ $key ] = [
@@ -1006,6 +1180,32 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 				}
 			}
 
+			$logo_attachment_id = (int) burst_get_option( 'logo_attachment_id', 0 );
+
+			if ( $logo_attachment_id > 0 ) {
+				$image_src = wp_get_attachment_image_src( $logo_attachment_id, 'medium' )
+					?: wp_get_attachment_image_src( $logo_attachment_id, 'large' )
+						?: wp_get_attachment_image_src( $logo_attachment_id, 'full' );
+
+				if ( $image_src ) {
+					$mailer->set_logo( $image_src[0] );
+					// Dark mode fallback, overridden below when a dark mode logo is set.
+					$mailer->set_logo_dark( $image_src[0] );
+				}
+			}
+
+			$logo_attachment_id_dark = (int) burst_get_option( 'logo_attachment_id_dark', 0 );
+
+			if ( $logo_attachment_id_dark > 0 ) {
+				$image_src = wp_get_attachment_image_src( $logo_attachment_id_dark, 'medium' )
+					?: wp_get_attachment_image_src( $logo_attachment_id_dark, 'large' )
+						?: wp_get_attachment_image_src( $logo_attachment_id_dark, 'full' );
+
+				if ( $image_src ) {
+					$mailer->set_logo_dark( $image_src[0] );
+				}
+			}
+
 			$mailer->set_blocks( $blocks );
 		}
 
@@ -1017,12 +1217,17 @@ if ( ! class_exists( 'Burst\Admin\Reports\Reports' ) ) {
 		 */
 		public function get_story_url( int $report_id ): string {
 			$share       = new Share();
-			$share_links = $share::get_share_links( '', $report_id );
+			$share_links = $share->tokens->get_share_links( 'report', '', $report_id );
+
 			if ( ! empty( $share_links ) ) {
 				$share_links = array_values( $share_links );
 				$share_link  = $share_links[0];
 				$token       = $share_link['token'];
-				return site_url( '/burst-dashboard/?burst_share_token=' . $token . '#/story' );
+				// During cron, site_url() may return http:// while the site runs on https://.
+				// Normalize to the same scheme as BURST_URL to ensure the link is correct.
+				// Story links are now first-class path routes on /burst-dashboard/story/.
+				$burst_scheme = wp_parse_url( BURST_URL, PHP_URL_SCHEME );
+				return set_url_scheme( site_url( '/burst-dashboard/story/?burst_share_token=' . $token ), $burst_scheme );
 			}
 			return '';
 		}

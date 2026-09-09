@@ -1,0 +1,119 @@
+
+/*
+	* LayerSlider Add-On: Borderize Layer Effect
+	*
+	* (c) 2011-2026 George Krupa, John Gera & Kreatura Media
+	*
+	* LayerSlider home:		https://layerslider.com/
+	* Licensing:			https://layerslider.com/licensing/
+*/
+
+
+
+/* Common */
+
+ls-borderize-wrapper {
+	display: block;
+	position: absolute;
+	pointer-events: none !important;
+	visibility: visible !important;
+	color: inherit;
+	overflow: hidden;
+}
+
+ls-borderize-wrapper[data-ls-placement="i"] {
+	inset: var(--ls-offset)
+}
+
+ls-borderize-wrapper[data-ls-placement="o"] {
+	left: calc( -1 *  var(--ls-border-size) - var(--ls-offset) );
+	top: calc( -1 *  var(--ls-border-size) - var(--ls-offset) );
+	width: calc(100% + 2 * ( var(--ls-border-size) + var(--ls-offset) ) );
+ 	height: calc(100% + 2 * ( var(--ls-border-size) + var(--ls-offset) ) );
+}
+
+ls-border {
+	display: block;
+	position: absolute;
+	background-color: currentColor;
+}
+
+.ls-border-l {
+	left: 0;
+	bottom: 0;
+	transform-origin: center bottom;
+}
+
+.ls-border-r {
+	right: 0;
+	top: 0;
+	transform-origin: center top;
+}
+
+.ls-border-l,
+.ls-border-r {
+ 	height: 100%;
+	width: var(--ls-border-size);
+	transform: scaleY(0);
+}
+
+.ls-border-t {
+	left: 0;
+	top: 0;
+	transform-origin: center left;
+}
+
+.ls-border-b {
+	right: 0;
+	bottom: 0;
+	transform-origin: center right;
+}
+
+.ls-border-t,
+.ls-border-b {
+	width: 100%;
+	height: var(--ls-border-size);
+	transform: scaleX(0);
+}
+
+
+
+/* Sides */
+
+[data-ls-sides="h"] .ls-border-l,
+[data-ls-sides="h"] .ls-border-r,
+[data-ls-sides="v"] .ls-border-t,
+[data-ls-sides="v"] .ls-border-b {
+	display: none;
+}
+
+
+
+/* Directions */
+
+[data-ls-direction="c"] .ls-border-l,
+[data-ls-direction="c"] .ls-border-t,
+[data-ls-direction="c"] .ls-border-r,
+[data-ls-direction="c"] .ls-border-b {
+	transform-origin: center center;
+}
+
+[data-ls-direction="ccw"] .ls-border-b,
+[data-ls-direction="l"] .ls-border-b {
+	transform-origin: left center;
+}
+
+[data-ls-direction="ccw"] .ls-border-t,
+[data-ls-direction="r"] .ls-border-t {
+	transform-origin: right center;
+}
+
+[data-ls-direction="ccw"] .ls-border-l,
+[data-ls-direction="t"] .ls-border-l {
+	transform-origin: center top;
+}
+
+[data-ls-direction="ccw"] .ls-border-r,
+[data-ls-direction="b"] .ls-border-r {
+	transform-origin: center bottom;
+}

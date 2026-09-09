@@ -26,9 +26,9 @@ if( ! class_exists( 'avia_sc_heading', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Special Heading', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-heading.png';
-			$this->config['order']			= 93;
+			$this->config['tab']			= __( 'Basic Elements', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-heading.svg';
+			$this->config['order']			= 95;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_heading';
 			$this->config['modal_data']		= array( 'modal_class' => 'mediumscreen' );

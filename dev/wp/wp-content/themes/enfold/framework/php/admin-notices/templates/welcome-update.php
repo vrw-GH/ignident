@@ -13,5 +13,5 @@ $name = avia_get_theme_name();
 
 echo	'<div class="container avia-welcome-update">';
 echo		'<h2>' . sprintf( __( 'Welcome to version %1$s of %2$s - version update was successful', 'avia_framework' ), $vn, $name ) . '</h2>';
-echo		'<p>' . __( 'Bugs have been fixed and new features have been added. Enjoy them ....', 'avia_framework' ) . '</p>';
+echo		'<p>' . __( 'Bugs have been fixed and new features have been added. Enjoy!', 'avia_framework' ) . '</p>';
 echo	'</div>';

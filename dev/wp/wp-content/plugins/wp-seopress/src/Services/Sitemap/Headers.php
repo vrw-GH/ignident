@@ -26,11 +26,19 @@ class Headers {
 	 */
 	public function printHeaders() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$headers = array(
-			'Content-type' => 'text/xml',
-			'x-robots-tag' => 'noindex, follow',
+			'Content-type'  => 'text/xml',
+			'x-robots-tag'  => 'noindex, follow',
+			'Cache-Control' => 'public, max-age=3600',
 		);
 		$headers = apply_filters( 'seopress_sitemaps_headers', $headers );
 		if ( empty( $headers ) ) {
+			return;
+		}
+
+		// Nothing to send once the response has started. This is normal under
+		// WP-CLI and PHPUnit, where the bootstrap has already produced output,
+		// and header() would only raise a warning that buries the real ones.
+		if ( headers_sent() ) {
 			return;
 		}
 

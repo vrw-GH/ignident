@@ -1,0 +1,21 @@
+Colors: blue 82CFF0 (old: 6dcff6)
+Grey 5e91a8
+SEC info:
+<<file://X:\Prototypes\ignident.proto\access_info\ignident.sec>>
+
+
+Enfold Child Theme - 
+use root-relative for image uploads:
+ie:
+/wp-content/uploads/igde_favicon.png
+/wp-content/uploads/igde-logo-claim.png
+
+
+
+--- to develop -------------------------
+
+* what about testpage? (https://ignident.com/testpage/) "testpage123"
+
+* Ignident - DMD aligner secure data transfer
+- https://wordpress.org/plugins/user-private-files/
+- https://wordpress.org/plugins/shared-files/

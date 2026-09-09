@@ -2,7 +2,7 @@
 /*
 	* Style settings of Kreatura Modal Window
 	*
-	* (c) 2019-2025 Kreatura Media, AgeraWeb, George K., John G.
+	* (c) 2019-2026 Kreatura Media, AgeraWeb, George K., John G.
 	*
 */
 
@@ -63,6 +63,11 @@
 		z-index: 5;
 	}
 
+	.kmw-sidebar-sub {
+		width: 0;
+		z-index: 6;
+	}
+
 	.kmw-sidebar-bg-helper {
 		position: absolute;
 		top: 0;
@@ -70,7 +75,8 @@
 		z-index: 1;
 	}
 
-	.kmw-sidebar-left .kmw-sidebar-bg-helper {
+	.kmw-sidebar-left .kmw-sidebar-bg-helper,
+	.kmw-sidebar-left-sub .kmw-sidebar-bg-helper {
 		left: 100%;
 	}
 
@@ -167,8 +173,8 @@
 	}
 
 	.kmw-modal.kmw-effects {
-		backdrop-filter: blur(5px);
 		-webkit-backdrop-filter: blur(5px);
+		backdrop-filter: blur(5px);
 	}
 
 

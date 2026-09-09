@@ -54,11 +54,13 @@ if ( ! class_exists( 'avia_sc_content_slider', false ) )
 
 			$this->config['name']			= __( 'Content Slider', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-contentslider.png';
-			$this->config['order']			= 83;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-contentslider.svg';
+			$this->config['order']			= 66;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_content_slider';
 			$this->config['shortcode_nested'] = array( 'av_content_slide' );
+			//	the canvas names the slide titles so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_content_slide', 'attr' => 'title' );
 			$this->config['tooltip'] 	    = __( 'Display a content slider element', 'avia_framework' );
 			$this->config['preview'] 		= false;
 			$this->config['disabling_allowed'] = true;
@@ -961,7 +963,7 @@ if ( ! class_exists( 'avia_content_slider', false ) )
 				case 'bg_simple':
 					$element_styling->add_styles( 'slide', array( 'background-color' => $this->config['bg_color'] ) );
 					break;
-				case 'bg_grad';
+				case 'bg_grad':
 					$element_styling->add_callback_styles( 'slide', array( 'gradient_color' ) );
 					break;
 			}

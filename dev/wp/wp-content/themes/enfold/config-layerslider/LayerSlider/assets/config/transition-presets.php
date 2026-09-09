@@ -51,7 +51,7 @@ $presets = [
 
 		[
 			'name' => __('Rotating & scaling in (random)', 'LayerSlider'),
-			'data' => '{ "styles": {}, "transition": { "scalexin":"1.5","scaleyin":"1.5","rotatein":"random(120,-120)","rotatexin":"random(120,-120)","rotateyin":"random(120,-120)","durationin":"1200","easingin":"easeOutQuart"}}'
+			'data' => '{ "styles": {}, "transition": { "scalexin":"1.5","scaleyin":"1.5","rotatein":"[-120..120]","rotatexin":"[-120..120]","rotateyin":"[-120..120]","durationin":"1200","easingin":"easeOutQuart"}}'
 		]
 	],
 
@@ -89,12 +89,12 @@ $presets = [
 
 		[
 			'name' => __('Rotating random from the edges by chars', 'LayerSlider'),
-			'data' => '{"styles":{},"transition":{"transitionin":false,"textoverflowin":"visible","textstartatin":"transitioninstart + 0","textstartatintiming":"0","texttypein":"chars_edge","textscaleyin":"2","textrotatein":"random(120,-120)","textstartatintiming":"transitioninstart","textdurationin":"1000","textshiftin":"20","texteasingin":"easeOutQuint"}}'
+			'data' => '{"styles":{},"transition":{"transitionin":false,"textoverflowin":"visible","textstartatin":"transitioninstart + 0","textstartatintiming":"0","texttypein":"chars_edge","textscaleyin":"2","textrotatein":"[-120..120]","textstartatintiming":"transitioninstart","textdurationin":"1000","textshiftin":"20","texteasingin":"easeOutQuint"}}'
 		],
 
 		[
 			'name' => __('Rotating & scaling random by chars', 'LayerSlider'),
-			'data' => '{"styles":{},"transition":{"transitionin":false,"textoverflowin":"visible","textstartatin":"transitioninstart + 0","textstartatintiming":"0","texttypein":"chars_asc","textoffsetxin":"random(-100,100)","textoffsetyin":"random(-200,200)","textscalexin":"2","textscaleyin":"2","textrotatein":"random(120,-120)","textrotatexin":"random(120,-120)","textrotateyin":"random(120,-120)","textdurationin":"1500","textshiftin":"0","texteasingin":"easeOutQuad"}}'
+			'data' => '{"styles":{},"transition":{"transitionin":false,"textoverflowin":"visible","textstartatin":"transitioninstart + 0","textstartatintiming":"0","texttypein":"chars_asc","textoffsetxin":"[-100..100]","textoffsetyin":"[-200..200]","textscalexin":"2","textscaleyin":"2","textrotatein":"[-120..120]","textrotatexin":"[-120..120]","textrotateyin":"[-120..120]","textdurationin":"1500","textshiftin":"0","texteasingin":"easeOutQuad"}}'
 		],
 
 		[
@@ -104,7 +104,7 @@ $presets = [
 
 		[
 			'name' => __('Spinning & scaling random by chars', 'LayerSlider'),
-			'data' => '{"styles":{},"transition":{"transitionin":false,"textoverflowin":"visible","textstartatin":"transitioninstart + 0","textstartatintiming":"0","texttypein":"chars_rand","textscalexin":"0","textscaleyin":"0","textrotatein":"random(180,720)","texttransformoriginin":"slidercenter slidermiddle","textdurationin":"2000","texteasingin":"easeOutQuint","textfadein":false}}'
+			'data' => '{"styles":{},"transition":{"transitionin":false,"textoverflowin":"visible","textstartatin":"transitioninstart + 0","textstartatintiming":"0","texttypein":"chars_rand","textscalexin":"0","textscaleyin":"0","textrotatein":"[180..720]","texttransformoriginin":"slidercenter slidermiddle","textdurationin":"2000","texteasingin":"easeOutQuint","textfadein":false}}'
 		],
 
 		[
@@ -119,7 +119,7 @@ $presets = [
 
 		[
 			'name' => __('Falling chars from top random', 'LayerSlider'),
-			'data' => '{"styles":{},"transition":{"transitionin":false,"textoverflowin":"visible","textstartatin":"transitioninstart + 0","textstartatintiming":"0","texttypein":"chars_rand","textoffsetyin":"top","textrotatein":"random(120,-120)","textshiftin":"100","texteasingin":"easeOutBounce","textfadein":false}}'
+			'data' => '{"styles":{},"transition":{"transitionin":false,"textoverflowin":"visible","textstartatin":"transitioninstart + 0","textstartatintiming":"0","texttypein":"chars_rand","textoffsetyin":"top","textrotatein":"[-120..120]","textshiftin":"100","texteasingin":"easeOutBounce","textfadein":false}}'
 		]
 	],
 
@@ -172,7 +172,7 @@ $presets = [
 
 		[
 			'name' => __('Rotating (random, infinite)', 'LayerSlider'),
-			'data' => '{ "styles": {}, "transition": { "looprotate":"random(120,-120)","looprotatex":"random(120,-120)","looprotatey":"random(120,-120)","loopduration":"3000","loopeasing":"easeInOutQuad","loopcount":"-1","loopyoyo":true}}'
+			'data' => '{ "styles": {}, "transition": { "looprotate":"[-120..120]","looprotatex":"[-120..120]","looprotatey":"[-120..120]","loopduration":"3000","loopeasing":"easeInOutQuad","loopcount":"-1","loopyoyo":true}}'
 		]
 	],
 
@@ -205,12 +205,12 @@ $presets = [
 
 		[
 			'name' => __('Random disappearing chars vertically', 'LayerSlider'),
-			'data' => '{"styles":{},"transition":{"transitionout":false,"textstartatout":"slidechangeonly","texttypeout":"chars_edge","textoffsetyout":"random(-100,100)","textscalexout":"0","textscaleyout":"0","textdurationout":"300","texteasingout":"easeInBack","textoverflowout":"visible"}}'
+			'data' => '{"styles":{},"transition":{"transitionout":false,"textstartatout":"slidechangeonly","texttypeout":"chars_edge","textoffsetyout":"[-100..100]","textscalexout":"0","textscaleyout":"0","textdurationout":"300","texteasingout":"easeInBack","textoverflowout":"visible"}}'
 		],
 
 		[
 			'name' => __('Exploding text randomly', 'LayerSlider'),
-			'data' => '{"styles":{},"transition":{"textoffsetxout":"random(-100,100)","textoffsetyout":"random(-200,200)","textscalexout":"2","textscaleyout":"2","textrotateout":"random(120,-120)","textrotatexout":"random(120,-120)","textrotateyout":"random(120,-120)","textstartatout":"slidechangeonly","textstartatouttiming":"slidechangeonly","textdurationout":"1000","textshiftout":"0","texteasingout":"easeOutQuad","textoverflowout":"visible"}}'
+			'data' => '{"styles":{},"transition":{"textoffsetxout":"[-100..100]","textoffsetyout":"[-200..200]","textscalexout":"2","textscaleyout":"2","textrotateout":"[-120..120]","textrotatexout":"[-120..120]","textrotateyout":"[-120..120]","textstartatout":"slidechangeonly","textstartatouttiming":"slidechangeonly","textdurationout":"1000","textshiftout":"0","texteasingout":"easeOutQuad","textoverflowout":"visible"}}'
 		],
 
 		[
@@ -220,7 +220,7 @@ $presets = [
 
 		[
 			'name' => __('Flying away by chars', 'LayerSlider'),
-			'data' => '{"styles":{},"transition":{"texttypeout":"chars_rand","textoffsetxout":"random(-1000,1000)","textoffsetyout":"random(-1000,1000)","textscalexout":"0","textscaleyout":"0","textrotateout":"random(500,-500)","texttransformoriginout":"slidercenter slidermiddle","textstartatout":"slidechangeonly","textstartatouttiming":"slidechangeonly","textdurationout":"700","texteasingout":"easeInBack","textoverflowout":"visible"}}'
+			'data' => '{"styles":{},"transition":{"texttypeout":"chars_rand","textoffsetxout":"[-1000..1000]","textoffsetyout":"[-1000..1000]","textscalexout":"0","textscaleyout":"0","textrotateout":"[-500..500]","texttransformoriginout":"slidercenter slidermiddle","textstartatout":"slidechangeonly","textstartatouttiming":"slidechangeonly","textdurationout":"700","texteasingout":"easeInBack","textoverflowout":"visible"}}'
 		],
 
 		[
@@ -298,7 +298,7 @@ $presets = [
 
 		[
 			'name' => __('Fading out & rotating (random)', 'LayerSlider'),
-			'data' => '{ "styles": {}, "transition": { "scalexout":"1.3","scaleyout":"1.3","rotateout":"random(60,-60)","rotatexout":"random(60,-60)","rotateyout":"random(60,-60)","easingout":"easeOutQuart"}}'
+			'data' => '{ "styles": {}, "transition": { "scalexout":"1.3","scaleyout":"1.3","rotateout":"[-60..60]","rotatexout":"[-60..60]","rotateyout":"[-60..60]","easingout":"easeOutQuart"}}'
 		]
 	],
 

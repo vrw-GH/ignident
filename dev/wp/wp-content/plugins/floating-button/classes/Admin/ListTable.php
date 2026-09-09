@@ -290,7 +290,7 @@ class ListTable extends WP_List_Table {
 
 	public function get_bulk_actions(): array {
 		$actions = [
-			'delete'     => __( 'Delate', 'floating-button' ),
+			'delete'     => __( 'Delete', 'floating-button' ),
 			'activate'   => __( 'Activate', 'floating-button' ),
 			'deactivate' => __( 'Deactivate', 'floating-button' ),
 			'test_on'    => __( 'Test mode ON', 'floating-button' ),

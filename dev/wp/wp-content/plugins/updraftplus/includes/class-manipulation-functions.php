@@ -67,12 +67,12 @@ class UpdraftPlus_Manipulation_Functions {
 	 *
 	 * When using, it is recommended that if the $type or $sanitisation parameters are not used then a code comment is added to state the reason.
 	 *
-	 * @param String		$superglobal  - should be one of 'get', 'post', 'request' or 'cookie'
-	 * @param String		$key		  - the key to fetch from the superglobal array
+	 * @param String        $superglobal  - Should be one of 'get', 'post', 'request' or 'cookie'
+	 * @param String        $key          - The key to fetch from the superglobal array
+	 * @param Mixed         $default      - Value to return if the key is not found or if the value is invalid
 	 * @param Boolean       $auto_unslash - Whether to automatically strip slashes from the variable value but not to force it
-	 * @param String|Null	$type		  - if specified, then this must (modulo case) match what is returned by gettype() upon the returned value; otherwise, $default will be used. If it is not possible to return a value of the correct type (e.g. if $default itself is not of the correct type) then a TypeError will be thrown. This can be useful if the caller wishes to distinguish between the fetched value being equal to the default, and being invalid (the caller can catch the TypeError to detect this).
-	 * @param Callable|Null $sanitisation - the sanitisation function to run the result through (any function), with the first parameter being the putative value. Any $default value will not be sanitised, which allows different cases to be distinguished as described above.
-	 * @param Mixed			$default	  - value to return if the key is not found or if the value is invalid
+	 * @param String|Null   $type         - If specified, then this must (modulo case) match what is returned by gettype() upon the returned value; otherwise, $default will be used. If it is not possible to return a value of the correct type (e.g. if $default itself is not of the correct type) then a TypeError will be thrown. This can be useful if the caller wishes to distinguish between the fetched value being equal to the default, and being invalid (the caller can catch the TypeError to detect this).
+	 * @param Callable|Null $sanitisation - The sanitisation function to run the result through (any function), with the first parameter being the putative value. Any $default value will not be sanitised, which allows different cases to be distinguished as described above.
 	 *
 	 * @see https://developer.wordpress.org/apis/security/sanitizing/
 	 * @see https://www.php.net/manual/en/function.gettype.php
@@ -81,7 +81,7 @@ class UpdraftPlus_Manipulation_Functions {
 	 *
 	 * @return Mixed The superglobal or global variable value or null
 	 */
-	public static function fetch_superglobal($superglobal, $key, $auto_unslash = false, $type = null, $sanitisation = null, $default = null) {
+	public static function fetch_superglobal($superglobal, $key, $default = null, $auto_unslash = false, $type = null, $sanitisation = null) {
 
 		$superglobal = '_'.strtoupper($superglobal);
 		
@@ -102,12 +102,41 @@ class UpdraftPlus_Manipulation_Functions {
 		
 		if (null !== $type) {
 			if (strtolower(gettype($putative_return)) !== strtolower($type)) {
-				throw new Exception('fetch_superglobal() was unable to return any value of the required type '.$type, 255);
+				throw new Exception('fetch_superglobal() was unable to return any value of the required type '.$type, 255);// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Error messages should be escaped when caught and printed.
 			}
 		}
 		
 		return $putative_return;
 
+	}
+
+	/**
+	 * Fetch multiple values from superglobals using fetch_superglobal().
+	 *
+	 * Each argument should be an array with the structure:
+	 * array( $superglobal, $key, $default, $auto_unslash, $type, $sanitisation )
+	 *
+	 * @return array
+	 */
+	public static function fetch_superglobal_array() {
+		$args = func_get_args();
+		if (empty($args)) return array();
+
+		$results = array();
+		foreach ($args as $arg) {
+			if (!is_array($arg) || count($arg) < 2) continue;
+
+			$superglobal  = $arg[0];
+			$key = $arg[1];
+			$default = isset($arg[2]) ? $arg[2] : null;
+			$auto_unslash = isset($arg[3]) ? $arg[3] : false;
+			$type = isset($arg[4]) ? $arg[4] : null;
+			$sanitisation = isset($arg[5]) ? $arg[5] : null;
+
+			$results[$key] = self::fetch_superglobal($superglobal, $key, $default, $auto_unslash, $type, $sanitisation);
+		}
+
+		return $results;
 	}
 
 	/**
@@ -472,7 +501,7 @@ class UpdraftPlus_Manipulation_Functions {
 		$characters_length = strlen($characters);
 		$random_string = '';
 		for ($i = 0; $i < $length; $i++) {
-			$random_string .= $characters[rand(0, $characters_length - 1)];
+			$random_string .= $characters[wp_rand(0, $characters_length - 1)];
 		}
 		return $random_string;
 	}
@@ -563,5 +592,18 @@ class UpdraftPlus_Manipulation_Functions {
 				break;
 		}
 		return $anonymous;
+	}
+
+	/**
+	 * Send the error message to the PHP system logger if the 'WP_DEBUG' constant is 'true' or the 'updraft_debug_mode' is activated.
+	 *
+	 * @param string $message - the error message
+	 *
+	 * @return void
+	 */
+	public static function error_log($message) {
+		if ((defined('WP_DEBUG') && WP_DEBUG) || (class_exists('UpdraftPlus_Options') && UpdraftPlus_Options::get_updraft_option('updraft_debug_mode'))) {
+			error_log($message); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- error_log() is intentionally used to log the error when debug mode is enabled.
+		}
 	}
 }

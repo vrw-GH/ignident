@@ -18,9 +18,48 @@ if( defined( 'WP_DEBUG' ) && WP_DEBUG )
 	error_log( $debug_prefix . __( 'Download started', 'avia_framework' ) );
 }
 
-if( empty( $_REQUEST['download_url'] ) || empty( $_REQUEST['import_dir'] ) || empty( $_REQUEST['demo_name'] ) )
+if( empty( $_REQUEST['download_url'] ) || '' === $demo_name )
 {
 	$msg = __( 'To few parameters provided - a download is not possible.', 'avia_framework' );
+	if( defined( 'WP_DEBUG' ) && WP_DEBUG )
+	{
+		error_log( $debug_prefix . $msg );
+	}
+	exit( 'avia_error-' . $msg );
+}
+
+/**
+ * The target folder is always derived from the ( sanitized ) demo name on the server, never taken
+ * from the request, so a download can only ever write inside the demo folder.
+ *
+ * @since 8.1
+ */
+$import_dir = avia_demo_import_dir( $demo_name );
+if( '' === $import_dir )
+{
+	$msg = __( 'Invalid demo name - a download is not possible.', 'avia_framework' );
+	if( defined( 'WP_DEBUG' ) && WP_DEBUG )
+	{
+		error_log( $debug_prefix . $msg );
+	}
+	exit( 'avia_error-' . $msg );
+}
+
+/**
+ * Only allow downloads from the first party demo download server. Self hosted demos ( set up via
+ * the 'avf_demo_import_settings' filter ) can add their host with this filter.
+ *
+ * @since 8.1
+ * @param string[] $hosts
+ * @return string[]
+ */
+$allowed_hosts = apply_filters( 'avf_demo_import_download_hosts', array( 'kriesi.at' ) );
+$allowed_hosts = array_map( 'strtolower', (array) $allowed_hosts );
+$download_host = strtolower( (string) wp_parse_url( $_REQUEST['download_url'], PHP_URL_HOST ) );
+
+if( '' === $download_host || ! in_array( $download_host, $allowed_hosts, true ) )
+{
+	$msg = __( 'The demo download URL is not from an allowed server - a download is not possible.', 'avia_framework' );
 	if( defined( 'WP_DEBUG' ) && WP_DEBUG )
 	{
 		error_log( $debug_prefix . $msg );
@@ -40,11 +79,11 @@ if( $tmp_filename instanceof WP_Error )
 	exit( 'avia_error-' . $msg );
 }
 
-avia_backend_delete_folder( $_REQUEST['import_dir'] );
+avia_backend_delete_folder( $import_dir );
 
-if( ! avia_backend_create_folder( $_REQUEST['import_dir'] ) )
+if( ! avia_backend_create_folder( $import_dir ) )
 {
-	$msg = sprintf( __( 'Unable to create the download folder <pre>%s</pre> for demo files.', 'avia_framework' ), $_REQUEST['import_dir'] );
+	$msg = sprintf( __( 'Unable to create the download folder <pre>%s</pre> for demo files.', 'avia_framework' ), $import_dir );
 	if( defined( 'WP_DEBUG' ) && WP_DEBUG )
 	{
 		error_log( $debug_prefix . $msg );
@@ -99,7 +138,9 @@ for( $i = 0; $i < $zip->numFiles; $i++ )
 			continue;
 		}
 
-		if( false === stripos( $source_file_check, 'xml' ) && false === stripos( $source_file_check, 'txt' ) && false === stripos( $source_file_check, 'php' ) )
+		//	Only the demo content ( .xml ) and the theme options ( .txt ) are extracted.
+		//	.php option files are no longer supported - never extract executable files from a zip.
+		if( false === stripos( $source_file_check, 'xml' ) && false === stripos( $source_file_check, 'txt' ) )
 		{
 			continue;
 		}
@@ -133,7 +174,7 @@ for( $i = 0; $i < $zip->numFiles; $i++ )
 			$source_file_name = substr( $source_file_check, $skip + 1 );
 		}
 
-		$dest_file = trailingslashit( $_REQUEST['import_dir'] ) . $source_file_name;
+		$dest_file = trailingslashit( $import_dir ) . $source_file_name;
 
 		$fp = $zip->getStream( $source_file );
 		if( ! $fp )
@@ -177,7 +218,7 @@ for( $i = 0; $i < $zip->numFiles; $i++ )
 		$zip->close();
 		unlink( $tmp_filename );
 
-		avia_backend_delete_folder( $_REQUEST['import_dir'] );
+		avia_backend_delete_folder( $import_dir );
 
 		$msg = __( 'Wasn\'t able to read demo files from downloaded zip file.', 'avia_framework' );
 		if( defined( 'WP_DEBUG' ) && WP_DEBUG )
@@ -188,6 +229,48 @@ for( $i = 0; $i < $zip->numFiles; $i++ )
 	}
 }
 
+/*
+ * Files not matching the demo name are silently skipped in the loop above.
+ * A wrongly packed zip file would report a successfull download and the user only gets a
+ * misleading "XML file is missing" message in the following import step.
+ * Therefore we collect the content of the zip file to report a usefull error message.
+ *
+ * @since 8.0
+ */
+$zip_content = array();
+
+for( $i = 0; $i < $zip->numFiles; $i++ )
+{
+	$source_file_check = trim( str_replace( '\\', '/', $zip->getNameIndex( $i ) ) );
+
+	//	skip folders and system files added by iOS systems
+	if( 0 === stripos( $source_file_check, '__MACOSX' ) || '/' == substr( $source_file_check, -1 ) )
+	{
+		continue;
+	}
+
+	$zip_content[] = $source_file_check;
+}
+
 $zip->close();
 unlink( $tmp_filename );
+
+if( ! $imported['xml'] )
+{
+	avia_backend_delete_folder( $import_dir );
+
+	$msg = sprintf( __( 'The downloaded zip file does not contain the demo content file <strong>%1$s.xml</strong>.<br/>Files found in zip file: <strong>%2$s</strong><br/>Demo files must be named <strong>%1$s.xml</strong> and <strong>%1$s.txt</strong> and are allowed to be placed in a folder <strong>%1$s/</strong>.', 'avia_framework' ), $demo_name, implode( ', ', $zip_content ) );
+
+	if( defined( 'WP_DEBUG' ) && WP_DEBUG )
+	{
+		error_log( $debug_prefix . $msg );
+	}
+
+	exit( 'avia_error-' . $msg );
+}
+
+if( ! $imported['txt'] && defined( 'WP_DEBUG' ) && WP_DEBUG )
+{
+	error_log( $debug_prefix . sprintf( __( 'The downloaded zip file does not contain the theme options file <strong>%1$s.txt</strong> - demo is imported without theme options.', 'avia_framework' ), $demo_name ) );
+}
 

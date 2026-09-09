@@ -1,0 +1,106 @@
+
+/*
+	* LayerSlider Add-On: Typewriter Layer Effect
+	*
+	* (c) 2011-2026 George Krupa, John Gera & Kreatura Media
+	*
+	* LayerSlider home:		https://layerslider.com/
+	* Licensing:			https://layerslider.com/licensing/
+*/
+
+
+
+/* Common */
+.ls-layer .ls-wd[busy="1"]:after {
+	left: 0;
+}
+
+.ls-layer:not([blink]) .ls-ch[busy="1"]:before,
+.ls-layer:not([blink]) .ls-wd[busy="1"]:after,
+.ls-layer[noblink="1"] .ls-ch[busy="1"]:before,
+.ls-layer[noblink="1"] .ls-wd[busy="1"]:after {
+	display: none !important;
+}
+
+
+.ls-layer .ls-ch[busy="1"]:before,
+.ls-layer .ls-wd[busy="1"]:after,
+.ls-layer .ls-ch[busy="1"]:before,
+.ls-layer .ls-wd[busy="1"]:after {
+	visibility: visible !important;
+}
+
+/* Cursor: Block */
+
+.ls-layer[tw-cursor-type="block"] .ls-ch[busy="1"]:before,
+.ls-layer[tw-cursor-type="block"] .ls-wd[busy="1"]:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	width: calc( var(--tw-cursor-size) * 0.5em );
+	height: calc( var(--tw-cursor-size) * 1em );
+	background-color: var(--tw-cursor-color);
+	transform: translateY(-50%);
+}
+
+.ls-layer[tw-cursor-type="block"] .ls-wd[busy="1"]:after {
+	left: 100%;
+}
+
+.ls-layer[tw-cursor-type="block"] .ls-ch[busy="1"]:before {
+	left: 0;
+}
+
+/* Cursor: Line */
+
+.ls-layer[tw-cursor-type="line"] .ls-ch[busy="1"]:before,
+.ls-layer[tw-cursor-type="line"] .ls-wd[busy="1"]:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	width: calc( var(--tw-cursor-size) * 0.06em );
+	height: calc( var(--tw-cursor-size) * 1em );
+	background-color: var(--tw-cursor-color);
+	transform: translateY(-50%);
+}
+
+.ls-layer[tw-cursor-type="line"] .ls-wd[busy="1"]:after {
+	left: 100%;
+}
+
+.ls-layer[tw-cursor-type="line"] .ls-ch[busy="1"]:before {
+	left: 0;
+}
+
+/* Cursor: Underscore */
+
+.ls-layer[tw-cursor-type="underscore"] .ls-ch[busy="1"]:before,
+.ls-layer[tw-cursor-type="underscore"] .ls-wd[busy="1"]:after {
+	content: '_';
+	position: absolute;
+	bottom: 0;
+	line-height: inherit !important;
+	font-size: calc( var(--tw-cursor-size) * 1em );
+	color: var(--tw-cursor-color);
+}
+
+.ls-layer[tw-cursor-type="underscore"] .ls-wd[busy="1"]:after {
+	left: 100%;
+}
+
+.ls-layer[tw-cursor-type="underscore"] .ls-ch[busy="1"]:before {
+	left: 0;
+}
+
+/* Cursor: Letters */
+
+.ls-layer[tw-cursor-type="nextl"] .ls-ch[busy="1"]:before,
+.ls-layer[tw-cursor-type="nextl"] .ls-wd[busy="1"]:after,
+.ls-layer[tw-cursor-type="randoml"] .ls-ch[busy="1"]:before,
+.ls-layer[tw-cursor-type="randoml"] .ls-wd[busy="1"]:after {
+	content: var(--tw-letter);
+	line-height: 1px !important;
+	vertical-align: baseline;
+	font-size: calc( var(--tw-cursor-size) * 1em );
+	color: var(--tw-cursor-color);
+}

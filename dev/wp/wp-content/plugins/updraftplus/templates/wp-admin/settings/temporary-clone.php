@@ -53,7 +53,15 @@ $checkout_clone_token_attributes = 'href="'.esc_url($checkout_url).'" target="_b
 		</div>
 		<div class="updraft_migrate_widget_temporary_clone_stage1" style="display: none;">
 			<p>
-				<?php echo wp_kses_post(sprintf(__('To clone your site, you need %s.', 'updraftplus'), '<a '.$checkout_clone_token_attributes.'>UpdraftClone tokens</a>').' '.__('Once you have them, return here to connect to your account.', 'updraftplus')); ?></a>
+				<?php
+				echo wp_kses_post(
+					sprintf(
+						/* translators: %s: UpdraftClone url */
+						__('To clone your site, you need %s.', 'updraftplus'),
+						'<a '.$checkout_clone_token_attributes.'>UpdraftClone tokens</a>'
+					).' '.__('Once you have them, return here to connect to your account.', 'updraftplus')
+				);
+				?>
 			</p>
 			<?php $updraftplus_admin->build_credentials_form('temporary_clone', true, false, array('terms_and_conditions' => __('I accept the UpdraftClone terms and conditions', 'updraftplus'), 'terms_and_conditions_link' => 'https://teamupdraft.com/terms-and-conditions?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=i-accept-updraftclone-terms&utm_creative_format=checkbox')); ?>
 			<h2> <?php esc_html_e('Or, use an UpdraftClone key', 'updraftplus'); ?></h2>

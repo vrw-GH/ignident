@@ -21,6 +21,7 @@ export type DayOfWeekType =
 
 export type ContentBlockId =
 	| 'logo'
+	| 'hero'
 	| 'insights'
 	| 'compare'
 	| 'compare_story'
@@ -37,7 +38,9 @@ export type ContentBlockId =
 	| 'sales'
 	| 'funnel'
 	| 'top_performers'
-	| 'referrers';
+	| 'referrers'
+	| 'text_block'
+	| 'footer';
 
 export type ContentBlock = {
 	fixed_end_date: string;
@@ -60,7 +63,7 @@ export type ReportLogStatus =
 	| 'scheduled'
 	| 'processing'
 	| 'partly_sent'
-	| 'ready_to_send';
+	| 'ready_to_share';
 
 export type ReportLogSeverity =
 	| 'success'

@@ -108,11 +108,6 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
         </div>
         <br class="clear">
     </div>
-    <div class="ays-pb-add-new-button-box">
-        <?php
-            echo sprintf( '<a href="?page=%s&action=%s" class="page-title-action button-primary ays-pb-add-new-button-new-design"> %s '. esc_html__( "Add New", "ays-popup-box" ) .'</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );
-        ?>
-    </div>
     <?php if ($popup_max_id <= 3): ?>
         <div class="ays-pb-create-pb-video-box">
             <div class="ays-pb-create-pb-title">
@@ -125,9 +120,6 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
             </div>
             <div class="ays_pb_small_hint_text_video">
                 <?php echo esc_html__( 'Please note that this video will disappear once you created 4 popups.', "ays-popup-box" ); ?>
-            </div>
-            <div class="ays-pb-create-pb-youtube-video-button-box">
-                <?php echo sprintf( '<a href="?page=%s&action=%s" class="ays-pb-add-new-button-video ays-pb-add-new-button-new-design"> %s '. esc_html__( "Add New", "ays-popup-box" ) .'</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );?>
             </div>
         </div>
     <?php else: ?>

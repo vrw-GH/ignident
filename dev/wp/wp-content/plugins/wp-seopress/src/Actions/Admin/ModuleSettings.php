@@ -1,0 +1,743 @@
+<?php // phpcs:ignore
+
+namespace SEOPress\Actions\Admin;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+use SEOPress\Core\Hooks\ExecuteHooks;
+use SEOPress\Helpers\PagesAdmin;
+
+/**
+ * Module settings for React admin pages.
+ */
+class ModuleSettings implements ExecuteHooks {
+
+	/**
+	 * Supported pages and their configurations.
+	 *
+	 * @var array
+	 */
+	private $supported_pages = array(
+		'seopress-option'          => array(
+			'type'   => 'dashboard',
+			'option' => null,
+		),
+		'seopress-titles'          => array(
+			'type'   => 'titles',
+			'option' => 'seopress_titles_option_name',
+		),
+		'seopress-xml-sitemap'     => array(
+			'type'   => 'sitemaps',
+			'option' => 'seopress_xml_sitemap_option_name',
+		),
+		'seopress-social'          => array(
+			'type'   => 'social',
+			'option' => 'seopress_social_option_name',
+		),
+		'seopress-google-analytics' => array(
+			'type'   => 'analytics',
+			'option' => 'seopress_google_analytics_option_name',
+		),
+		'seopress-instant-indexing' => array(
+			'type'   => 'instant-indexing',
+			'option' => 'seopress_instant_indexing_option_name',
+		),
+		'seopress-advanced'        => array(
+			'type'   => 'advanced',
+			'option' => 'seopress_advanced_option_name',
+		),
+		'seopress-import-export'   => array(
+			'type'   => 'tools',
+			'option' => 'seopress_import_export_option_name',
+		),
+		'seopress-network-option'  => array(
+			'type'   => 'network-admin',
+			'option' => 'seopress_pro_mu_option_name',
+		),
+	);
+
+	/**
+	 * Get supported pages, filtered for extensibility.
+	 *
+	 * @return array
+	 */
+	private function getSupportedPages() {
+		return apply_filters( 'seopress_settings_supported_pages', $this->supported_pages );
+	}
+
+	/**
+	 * The ModuleSettings hooks.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @return void
+	 */
+	public function hooks() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+	}
+
+	/**
+	 * Check if current page is a supported settings page.
+	 *
+	 * @return string|false Page key if supported, false otherwise.
+	 */
+	private function getCurrentPageKey() {
+		if ( ! isset( $_GET['page'] ) ) { // phpcs:ignore
+			return false;
+		}
+
+		$page = sanitize_text_field( wp_unslash( $_GET['page'] ) ); // phpcs:ignore
+
+		$supported = $this->getSupportedPages();
+		if ( isset( $supported[ $page ] ) ) {
+			return $page;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Build the PRO license-activation notice payload consumed by the React
+	 * settings shell (LicenseNotice component).
+	 *
+	 * Replaces the legacy PHP admin_notices banner so the reminder uses the
+	 * native @wordpress/components Notice and renders on every settings page.
+	 * Returns an empty array when no notice should show: PRO inactive,
+	 * multisite, or an already-valid license.
+	 *
+	 * @return array
+	 */
+	private function getLicenseNotice() {
+		// Hide the reminder in debug/dev environments, matching the legacy
+		// behaviour of the PHP admin_notices banner.
+		if ( defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) {
+			return array();
+		}
+
+		if ( ! is_plugin_active( 'wp-seopress-pro/seopress-pro.php' ) ) {
+			return array();
+		}
+
+		if ( is_multisite() ) {
+			return array();
+		}
+
+		if ( 'valid' === get_option( 'seopress_pro_license_status' ) ) {
+			return array();
+		}
+
+		return array(
+			'title'    => __( 'Welcome to SEOPress PRO!', 'wp-seopress' ),
+			'message'  => __( 'Please activate your license to receive automatic updates and get premium support.', 'wp-seopress' ),
+			'ctaUrl'   => admin_url( 'admin.php?page=seopress-license' ),
+			'ctaLabel' => __( 'Activate License', 'wp-seopress' ),
+		);
+	}
+
+	/**
+	 * Get the navigation map of all SEOPress settings pages.
+	 *
+	 * @return array
+	 */
+	private function getAllPages() {
+		$pages = array(
+			array(
+				'slug'    => 'seopress-option',
+				'type'    => 'dashboard',
+				'feature' => null,
+				'label'   => __( 'Dashboard', 'wp-seopress' ),
+				'url'     => admin_url( 'admin.php?page=seopress-option' ),
+			),
+			array(
+				'slug'    => 'seopress-titles',
+				'type'    => 'titles',
+				'feature' => 'titles',
+				'label'   => __( 'Titles & Metas', 'wp-seopress' ),
+				'url'     => admin_url( 'admin.php?page=seopress-titles' ),
+			),
+			array(
+				'slug'    => 'seopress-xml-sitemap',
+				'type'    => 'sitemaps',
+				'feature' => 'xml-sitemap',
+				'label'   => __( 'XML - HTML Sitemap', 'wp-seopress' ),
+				'url'     => admin_url( 'admin.php?page=seopress-xml-sitemap' ),
+			),
+			array(
+				'slug'    => 'seopress-social',
+				'type'    => 'social',
+				'feature' => 'social',
+				'label'   => __( 'Social Networks', 'wp-seopress' ),
+				'url'     => admin_url( 'admin.php?page=seopress-social' ),
+			),
+			array(
+				'slug'    => 'seopress-google-analytics',
+				'type'    => 'analytics',
+				'feature' => 'google-analytics',
+				'label'   => __( 'Analytics', 'wp-seopress' ),
+				'url'     => admin_url( 'admin.php?page=seopress-google-analytics' ),
+			),
+			array(
+				'slug'    => 'seopress-instant-indexing',
+				'type'    => 'instant-indexing',
+				'feature' => 'instant-indexing',
+				'label'   => __( 'Instant Indexing', 'wp-seopress' ),
+				'url'     => admin_url( 'admin.php?page=seopress-instant-indexing' ),
+			),
+			array(
+				'slug'    => 'seopress-advanced',
+				'type'    => 'advanced',
+				'feature' => 'advanced',
+				'label'   => __( 'Advanced', 'wp-seopress' ),
+				'url'     => admin_url( 'admin.php?page=seopress-advanced' ),
+			),
+			array(
+				'slug'    => 'seopress-import-export',
+				'type'    => 'tools',
+				'feature' => null,
+				'label'   => __( 'Tools', 'wp-seopress' ),
+				'url'     => admin_url( 'admin.php?page=seopress-import-export' ),
+			),
+			array(
+				'slug'    => 'seopress-network-option',
+				'type'    => 'network-admin',
+				'feature' => null,
+				'label'   => __( 'SEO Network settings', 'wp-seopress' ),
+				'url'     => network_admin_url( 'admin.php?page=seopress-network-option' ),
+			),
+		);
+
+		return apply_filters( 'seopress_settings_all_pages', $pages );
+	}
+
+	/**
+	 * Get page types that have working React implementations.
+	 *
+	 * @return array
+	 */
+	private function getReactReadyPages() {
+		return apply_filters(
+			'seopress_settings_react_ready_pages',
+			array( 'dashboard', 'titles', 'sitemaps', 'social', 'analytics', 'instant-indexing', 'advanced', 'tools' )
+		);
+	}
+
+	/**
+	 * Enqueue scripts and styles for settings pages.
+	 *
+	 * @param string $hook The current admin page hook.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @return void
+	 */
+	public function enqueue( $hook ) {
+		// Check if this is a supported settings page.
+		$page_key = $this->getCurrentPageKey();
+
+		if ( ! $page_key ) {
+			return;
+		}
+
+		// Check user capabilities, respecting the custom capability system
+		// so that roles granted seopress_manage_* caps for the current page
+		// can load the React app instead of being silently denied.
+		$context    = PagesAdmin::getCapabilityByPage( $page_key );
+		$capability = seopress_capability( 'manage_options', $context );
+
+		if ( ! current_user_can( $capability ) ) {
+			return;
+		}
+
+		$supported   = $this->getSupportedPages();
+		$page_config = $supported[ $page_key ];
+
+		// WP core's wp-admin/css/forms.css ships globally-scoped rules on
+		// `input[type=checkbox]`, `select`, etc. that clash with the React
+		// settings UI (every control comes from @wordpress/components — no
+		// native form elements are rendered here). `forms` is also a
+		// registered dependency of the `wp-admin` style bundle, so a plain
+		// wp_dequeue_style() is not enough — strip it from wp-admin's deps
+		// then dequeue + deregister, on this page only.
+		add_action(
+			'admin_print_styles',
+			static function () {
+				global $wp_styles;
+				if ( isset( $wp_styles->registered['wp-admin'] ) ) {
+					$wp_styles->registered['wp-admin']->deps = array_values(
+						array_diff( $wp_styles->registered['wp-admin']->deps, array( 'forms' ) )
+					);
+				}
+				wp_dequeue_style( 'forms' );
+				wp_deregister_style( 'forms' );
+			},
+			0
+		);
+
+		// Load asset manifest generated by @wordpress/dependency-extraction-webpack-plugin.
+		$asset_file = SEOPRESS_PLUGIN_DIR_PATH . 'public/admin/settings.asset.php';
+		$asset      = file_exists( $asset_file ) ? require $asset_file : array(
+			'dependencies' => array( 'react', 'react-dom', 'wp-components', 'wp-api-fetch', 'wp-i18n', 'wp-data', 'wp-notices', 'wp-element' ),
+			'version'      => SEOPRESS_VERSION,
+		);
+
+		// Enqueue wp-components styles.
+		wp_enqueue_style( 'wp-components' );
+
+		// Enqueue settings CSS (extracted by webpack build).
+		$css_file = SEOPRESS_PLUGIN_DIR_PATH . 'public/admin/settings.css';
+		if ( file_exists( $css_file ) ) {
+			wp_enqueue_style(
+				'seopress-admin-settings',
+				SEOPRESS_URL_PUBLIC . '/admin/settings.css',
+				array( 'wp-components' ),
+				SEOPRESS_VERSION
+			);
+		}
+
+		// Enqueue media uploader for image fields.
+		wp_enqueue_media();
+
+		// Enqueue our React app.
+		wp_enqueue_script(
+			'seopress-admin-settings',
+			SEOPRESS_URL_PUBLIC . '/admin/settings.js',
+			$asset['dependencies'],
+			$asset['version'],
+			true
+		);
+
+		// Backward-compat alias for SEOPress PRO < 9.9.1, which enqueues
+		// its dashboard bundle with a dependency on the legacy
+		// `seopress-react-dashboard` handle (the standalone Dashboard
+		// React app that no longer ships). Aliasing it to the unified
+		// Settings handle keeps PRO's bundle loading via the dependency
+		// chain on direct loads of seopress-option, so its Site overview
+		// tabs still register on that page. SPA-navigated entry into the
+		// Dashboard remains tab-less for those PRO sites — a notice in
+		// the Dashboard tells them to update.
+		if ( ! wp_script_is( 'seopress-react-dashboard', 'registered' ) ) {
+			wp_register_script(
+				'seopress-react-dashboard',
+				false,
+				array( 'seopress-admin-settings' ),
+				$asset['version'],
+				true
+			);
+		}
+
+		// Load translations for the React settings bundle.
+		// Point to wp-content/languages/plugins/ where GlotPress language packs are stored.
+		wp_set_script_translations( 'seopress-admin-settings', 'wp-seopress', WP_LANG_DIR . '/plugins' );
+
+		// Merge translations from lazy-loaded webpack chunks into the main script.
+		// GlotPress generates a separate JSON per chunk, but wp_set_script_translations
+		// only loads the one matching the main bundle. This filter merges all of them.
+		add_filter(
+			'pre_load_script_translations',
+			function ( $translations, $file, $handle, $domain ) {
+				if ( 'seopress-admin-settings' !== $handle || 'wp-seopress' !== $domain ) {
+					return $translations;
+				}
+
+				$locale    = determine_locale();
+				$cache_key = 'seopress_i18n_merged_' . $locale;
+				$cached    = wp_cache_get( $cache_key, 'seopress' );
+
+				if ( false !== $cached ) {
+					return $cached;
+				}
+
+				$lang_dir = WP_LANG_DIR . '/plugins';
+				$merged   = array( 'locale_data' => array( 'messages' => array( '' => array() ) ) );
+
+				foreach ( glob( $lang_dir . '/wp-seopress-' . $locale . '-*.json' ) as $json_file ) {
+					$content = file_get_contents( $json_file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+					if ( ! $content ) {
+						continue;
+					}
+					$data = json_decode( $content, true );
+					if ( ! isset( $data['locale_data']['messages'] ) ) {
+						continue;
+					}
+					foreach ( $data['locale_data']['messages'] as $key => $value ) {
+						if ( '' === $key ) {
+							if ( empty( $merged['locale_data']['messages'][''] ) ) {
+								$merged['locale_data']['messages'][''] = $value;
+							}
+							continue;
+						}
+						$merged['locale_data']['messages'][ $key ] = $value;
+					}
+				}
+
+				$result = wp_json_encode( $merged );
+
+				wp_cache_set( $cache_key, $result, 'seopress' );
+
+				return $result;
+			},
+			10,
+			4
+		);
+
+		// Get post types and taxonomies from the WordPressData service for consistency.
+		$post_types = $this->formatPostTypes( seopress_get_service( 'WordPressData' )->getPostTypes() );
+		$taxonomies = $this->formatTaxonomies( seopress_get_service( 'WordPressData' )->getTaxonomies() );
+
+		// Get dynamic variables.
+		$dynamic_variables = function_exists( 'seopress_get_dyn_variables' )
+			? seopress_get_dyn_variables()
+			: array();
+
+		// Get docs links.
+		$docs_links = function_exists( 'seopress_get_docs_links' )
+			? seopress_get_docs_links()
+			: array();
+
+		// Detect NGINX.
+		$is_nginx = false;
+		if ( isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
+			$server_software = explode( '/', sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) );
+			$is_nginx        = 'nginx' === strtolower( current( $server_software ) );
+		}
+
+		// Get sitemap post types (includes attachment).
+		$sitemap_post_types = $this->getSitemapPostTypes();
+
+		// Static posts page (Settings → Reading). When a dedicated page is
+		// assigned, its SEO title/meta are edited on the page itself (via the
+		// metabox), not in this screen — WordPress treats it as a real page
+		// ( is_home() ), not as a post type archive. Surface a pointer in the
+		// Archives tab so users stop looking for it here.
+		$page_for_posts = (int) get_option( 'page_for_posts' );
+		$blog_page      = null;
+		if ( $page_for_posts > 0 && 'page' === get_post_type( $page_for_posts ) ) {
+			$blog_page = array(
+				'id'        => $page_for_posts,
+				'title'     => get_the_title( $page_for_posts ),
+				'edit_link' => get_edit_post_link( $page_for_posts, 'raw' ),
+			);
+		}
+
+		// Permalink rewrite bases used by the /category/ + /product-category/
+		// "strip" toggles in the Advanced tab. WP defaults to "category" when
+		// the option is empty; WooCommerce defaults to "product-category".
+		$category_base = get_option( 'category_base' );
+		if ( empty( $category_base ) ) {
+			$category_base = 'category';
+		}
+
+		$product_category_base = 'product-category';
+		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+			$wc_permalinks = get_option( 'woocommerce_permalinks', array() );
+			if ( ! empty( $wc_permalinks['category_base'] ) ) {
+				$product_category_base = $wc_permalinks['category_base'];
+			}
+		}
+
+		// Localize main data.
+		wp_localize_script(
+			'seopress-admin-settings',
+			'SEOPRESS_SETTINGS_DATA',
+			array(
+				'REST_URL'            => rest_url(),
+				'NONCE'               => wp_create_nonce( 'wp_rest' ),
+				'PAGE_TYPE'           => $page_config['type'],
+				'OPTION_NAME'         => $page_config['option'],
+				'DYNAMIC_VARIABLES'   => $dynamic_variables,
+				'PREVIEW_VALUES'        => array(
+					'%%sitetitle%%' => get_bloginfo( 'name' ),
+					'%%tagline%%'   => get_bloginfo( 'description' ),
+				),
+				'POST_TYPES'          => $post_types,
+				'TAXONOMIES'          => $taxonomies,
+				'SITEMAP_POST_TYPES'  => $sitemap_post_types,
+				'BLOG_PAGE'             => $blog_page,
+				'FEATURE_ENABLED'     => true,
+				'ADMIN_URL'           => admin_url(),
+				'SITE_URL'            => get_option( 'home' ),
+				'ALL_PAGES'           => $this->getAllPages(),
+				'REACT_READY_PAGES'   => $this->getReactReadyPages(),
+				'ASSETS_URL'          => SEOPRESS_URL_PUBLIC,
+				'PLUGIN_URL'          => SEOPRESS_PLUGIN_DIR_URL,
+				'DOCS_LINKS'          => $docs_links,
+				'IS_NGINX'            => $is_nginx,
+				'IMAGE_SIZES'         => array_merge( get_intermediate_image_sizes(), array( 'full' ) ),
+			'USER_ROLES'          => $this->getUserRoles(),
+			'INDEXING_LOG'        => get_option( 'seopress_instant_indexing_log_option_name', array() ),
+			'INDEXING_NONCES'     => array(
+				'submit' => wp_create_nonce( 'seopress_instant_indexing_post_nonce' ),
+			),
+			'AJAX_URL'            => admin_url( 'admin-ajax.php' ),
+			'PANELS_STATE'              => 'titles' === $page_config['type'] ? $this->getPanelsState() : new \stdClass(),
+			'FEATURE_TOGGLES'     => $this->getFeatureToggles(),
+			'TOGGLE_NONCE'        => wp_create_nonce( 'seopress_toggle_features_nonce' ),
+			'MIGRATION_NONCES'    => $this->getMigrationNonces(),
+			'TOOLS_TABS'          => $this->getToolsTabs(),
+			'TOOLS_EXTRA_RESET_ACTIONS' => apply_filters( 'seopress_react_tools_reset_actions', array() ),
+			'IS_PRO_ACTIVE'             => is_plugin_active( 'wp-seopress-pro/seopress-pro.php' ),
+			'LICENSE_NOTICE'            => $this->getLicenseNotice(),
+			'IS_WOOCOMMERCE_ACTIVE'     => is_plugin_active( 'woocommerce/woocommerce.php' ),
+			'CATEGORY_BASE'             => $category_base,
+			'PRODUCT_CATEGORY_BASE'     => $product_category_base,
+			'PROMOTIONS'                => $this->getContextualPromotion( $page_config['type'] ),
+			'PROMO_NONCE'         => wp_create_nonce( 'seopress_dismiss_promotion_nonce' ),
+			'EXTRA_API_ENDPOINTS' => apply_filters( 'seopress_settings_api_endpoints', array() ),
+			'INITIAL_SETTINGS'    => $this->getInitialSettings( $page_config['option'] ),
+			'REVIEW_PROMPT'       => array(
+				'show'       => \SEOPress\Actions\Api\ReviewPrompt::should_show(),
+				'reviewUrl'  => isset( $docs_links['external']['review'] ) ? $docs_links['external']['review'] : '',
+				'supportUrl' => isset( $docs_links['support'] ) ? $docs_links['support'] : '',
+			),
+			)
+		);
+
+		// Co-localize the Dashboard payload onto the Settings handle so
+		// the Dashboard section finds its data regardless of which page
+		// the user enters from. ModuleDashboard lives in src/Actions/
+		// (not the service container); instantiate it directly (zero-arg
+		// constructor) just to call the public payload builder.
+		if ( class_exists( '\\SEOPress\\Actions\\Admin\\ModuleDashboard' ) ) {
+			$dashboard_module = new ModuleDashboard();
+			wp_localize_script(
+				'seopress-admin-settings',
+				'SEOPRESS_DASHBOARD_DATA',
+				$dashboard_module->getDashboardPayload()
+			);
+		}
+	}
+
+	/**
+	 * Get public post types for settings.
+	 *
+	 * @return array
+	 */
+	/**
+	 * Format post type objects into arrays for the React frontend.
+	 *
+	 * @param array $post_types Post type objects from WordPressData service.
+	 *
+	 * @return array
+	 */
+	private function formatPostTypes( $post_types ) {
+		$result = array();
+
+		if ( ! is_array( $post_types ) ) {
+			return $result;
+		}
+
+		foreach ( $post_types as $post_type ) {
+			$result[] = array(
+				'name'        => $post_type->name,
+				'label'       => $post_type->label,
+				'has_archive' => $post_type->has_archive,
+				'menu_icon'   => $post_type->menu_icon,
+			);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get post types for sitemap settings (includes attachment).
+	 *
+	 * Reuses WordPressData::getPostTypes() so the shared blocklist
+	 * (bricks_template, elementor_library, ct_template, seopress_*, etc.)
+	 * and the `seopress_post_types` filter both apply — every other
+	 * settings screen already filters them out. Attachment is then
+	 * re-added explicitly because the Sitemap UI intentionally exposes it
+	 * (with a "You should never include attachment" warning notice) so
+	 * users can opt in; getPostTypes() strips it by default.
+	 *
+	 * @return array
+	 */
+	private function getSitemapPostTypes() {
+		$post_types = seopress_get_service( 'WordPressData' )->getPostTypes();
+
+		$attachment = get_post_type_object( 'attachment' );
+		if ( $attachment ) {
+			$post_types['attachment'] = $attachment;
+		}
+
+		$result = array();
+
+		foreach ( $post_types as $post_type ) {
+			$result[] = array(
+				'name'  => $post_type->name,
+				'label' => $post_type->label,
+			);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get user roles for settings.
+	 *
+	 * @return array
+	 */
+	private function getUserRoles() {
+		global $wp_roles;
+
+		if ( ! isset( $wp_roles ) ) {
+			$wp_roles = new \WP_Roles();
+		}
+
+		$roles = array();
+
+		foreach ( $wp_roles->get_names() as $key => $value ) {
+			$roles[] = array(
+				'key'   => $key,
+				'name'  => $value,
+				'label' => translate_user_role( $value, 'default' ),
+			);
+		}
+
+		return $roles;
+	}
+
+	/**
+	 * Get migration nonces for AJAX migration handlers.
+	 *
+	 * @return array
+	 */
+	private function getMigrationNonces() {
+		return array(
+			'yoast'            => wp_create_nonce( 'seopress_yoast_migrate_nonce' ),
+			'aio'              => wp_create_nonce( 'seopress_aio_migrate_nonce' ),
+			'seo-framework'    => wp_create_nonce( 'seopress_seo_framework_migrate_nonce' ),
+			'rk'               => wp_create_nonce( 'seopress_rk_migrate_nonce' ),
+			'squirrly'         => wp_create_nonce( 'seopress_squirrly_migrate_nonce' ),
+			'seo-ultimate'     => wp_create_nonce( 'seopress_seo_ultimate_migrate_nonce' ),
+			'wp-meta-seo'      => wp_create_nonce( 'seopress_meta_seo_migrate_nonce' ),
+			'premium-seo-pack' => wp_create_nonce( 'seopress_premium_seo_pack_migrate_nonce' ),
+			'smartcrawl'       => wp_create_nonce( 'seopress_smart_crawl_migrate_nonce' ),
+			'slim-seo'         => wp_create_nonce( 'seopress_slim_seo_migrate_nonce' ),
+			'siteseo'          => wp_create_nonce( 'seopress_siteseo_migrate_nonce' ),
+			'surerank'         => wp_create_nonce( 'seopress_surerank_migrate_nonce' ),
+		);
+	}
+
+	/**
+	 * Get tools page tabs, filtered so PRO can add its own.
+	 *
+	 * @return array
+	 */
+	private function getToolsTabs() {
+		$tabs = array(
+			'tab_seopress_tool_settings' => __( 'Settings', 'wp-seopress' ),
+			'tab_seopress_tool_plugins'  => __( 'Plugins', 'wp-seopress' ),
+			'tab_seopress_tool_reset'    => __( 'Reset', 'wp-seopress' ),
+		);
+
+		return apply_filters( 'seopress_tools_tabs', $tabs );
+	}
+
+	/**
+	 * Get contextual promotion for a page type.
+	 *
+	 * Reuses the same data source as the PHP-rendered promotions.
+	 *
+	 * @param string $page_type The page type (titles, sitemaps, analytics, advanced).
+	 *
+	 * @return array|null Promotion data or null.
+	 */
+	private function getContextualPromotion( $page_type ) {
+		if ( ! function_exists( 'seopress_get_contextual_promotion' ) ) {
+			return null;
+		}
+
+		return seopress_get_contextual_promotion( $page_type );
+	}
+
+	/**
+	 * Get feature toggle states for all pages.
+	 *
+	 * @return array Keyed by feature slug, value is "1" (enabled) or "0".
+	 */
+	private function getFeatureToggles() {
+		$features = array( 'titles', 'xml-sitemap', 'social', 'google-analytics', 'instant-indexing', 'advanced' );
+		$features = apply_filters( 'seopress_settings_feature_toggle_keys', $features );
+		$toggles  = array();
+
+		foreach ( $features as $feature ) {
+			$toggles[ $feature ] = ( '1' == seopress_get_toggle_option( $feature ) ) ? '1' : '0'; // phpcs:ignore
+		}
+
+		return $toggles;
+	}
+
+	/**
+	 * Get initial settings for the current page to avoid an extra REST fetch.
+	 *
+	 * @param string $option_name The WordPress option name.
+	 *
+	 * @return array|object The option values, or empty object if none.
+	 */
+	private function getInitialSettings( $option_name ) {
+		$options = get_option( $option_name );
+
+		if ( empty( $options ) || ! is_array( $options ) ) {
+			return new \stdClass();
+		}
+
+		// This payload is inlined so the screen skips the REST round-trip, which
+		// means the GET controller never runs on the page the user lands on.
+		// The sitemap include lists have to be normalized here too, otherwise a
+		// bare `type => '1'` entry has no `include` key and renders unchecked
+		// while its sitemap is being served.
+		if ( 'seopress_xml_sitemap_option_name' === $option_name ) {
+			$options = seopress_get_service( 'SitemapOption' )->normalizeIncludeLists( $options );
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Get public taxonomies for settings.
+	 *
+	 * @return array
+	 */
+	/**
+	 * Format taxonomy objects into arrays for the React frontend.
+	 *
+	 * @param array $taxonomies Taxonomy objects from WordPressData service.
+	 *
+	 * @return array
+	 */
+	private function formatTaxonomies( $taxonomies ) {
+		$result = array();
+
+		if ( ! is_array( $taxonomies ) ) {
+			return $result;
+		}
+
+		foreach ( $taxonomies as $taxonomy ) {
+			$result[] = array(
+				'name'  => $taxonomy->name,
+				'label' => $taxonomy->label,
+			);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get current user's panels expand/collapse state.
+	 *
+	 * @return array
+	 */
+	private function getPanelsState() {
+		$user_id = get_current_user_id();
+		$state   = get_user_meta( $user_id, 'seopress_panels_state', true );
+
+		if ( ! is_array( $state ) ) {
+			$state = array();
+		}
+
+		return $state;
+	}
+
+}

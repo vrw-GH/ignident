@@ -18,7 +18,8 @@ const transformDevicesTitleAndValue = ( response ) => {
 		Object.assign( data, {
 			[key]: {
 				title: value,
-				value: getPercentage( response[key].count, response.all.count )
+				value: getPercentage( response[key].count, response.all.count ),
+				count: response[key].count || 0
 			}
 		});
 	}
@@ -26,6 +27,7 @@ const transformDevicesTitleAndValue = ( response ) => {
 };
 
 // New transform function for subtitle
+// fallow-ignore-next-line complexity
 const transformDevicesSubtitle = ( response ) => {
 	const data = {};
 	for ( const [ key ] of Object.entries( deviceNames ) ) {
@@ -34,6 +36,7 @@ const transformDevicesSubtitle = ( response ) => {
 		Object.assign( data, {
 			[key]: {
 				device_id: response[key].device_id,
+				top_count: response[key].top_count || 0,
 				subtitle:
 					'' === os && '' === browser ? '-' : os + ' / ' + browser
 			}

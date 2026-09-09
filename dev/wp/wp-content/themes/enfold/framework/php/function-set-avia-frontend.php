@@ -2161,7 +2161,14 @@ if( ! function_exists( 'avia_debugging_info' ) )
 			}
 			else
 			{
-				$updates = $token_state == $verified_token ? 'enabled - verified token' : 'enabled - token has changed and not verified';
+				/**
+				 * Compare the token against the last verified token.
+				 *
+				 * This compared $token_state, which holds a 'Y/m/d H:i' timestamp,
+				 * against a token string - so it could never match and every site
+				 * reported its token as changed and unverified.
+				 */
+				$updates = $token == $verified_token ? 'enabled - verified token' : 'enabled - token has changed and not verified';
 			}
 		}
 		else if( $username && $API )
@@ -2734,7 +2741,7 @@ if( ! function_exists( 'avia_targeted_link_rel' ) )
 
 			switch( $iteration )
 			{
-				case 0;
+				case 0:
 					$source = $attr_translate;
 					$replace = $trans_attributes;
 					break;
@@ -2788,7 +2795,7 @@ if( ! function_exists( 'avia_targeted_link_rel' ) )
 
 			switch( $iteration )
 			{
-				case 0;
+				case 0:
 					if( true === $exec_call )
 					{
 						$text = wp_targeted_link_rel( $text );

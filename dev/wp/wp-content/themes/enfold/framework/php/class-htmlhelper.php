@@ -899,13 +899,14 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 		 */
 		public function file_upload( array $element )
 		{
-			# deny if user is no super admin
+			# deny if the user does not have the capability required for this upload context
 			$output = '';
-			$cap = apply_filters( 'avf_file_upload_capability', 'update_plugins', $element );
+			$context = ! empty( $element['capability_context'] ) ? $element['capability_context'] : 'asset_upload';
+			$cap = avia_file_upload_capability( $context, $element );
 
 			if( ! current_user_can( $cap ) )
 			{
-				return "<div class='av-error'><p>Using this feature is reserved for Super Admins</p><p>You unfortunately don't have the necessary permissions.</p></div>";
+				return "<div class='av-error'><p>" . __( 'You do not have the required permissions to use this feature.', 'avia_framework' ) . "</p></div>";
 			}
 
 			#check if its allowed on multisite
@@ -913,7 +914,17 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 			{
 				$file = strtoupper( $element['file_extension'] );
 
-				return "<div class='av-error'><p>You are currently on a WordPress multisite installation and .{$file} file upload is disabled. <br/>Go to your <a href='".network_admin_url('settings.php')."'>Network settings page</a> and add the '{$file}' file extension to the list of allowed 'Upload file types'</p></div>";
+				if( current_user_can( 'manage_network_options' ) )
+				{
+					$link = "<a href='" . network_admin_url( 'settings.php' ) . "'>" . __( 'Network settings page', 'avia_framework' ) . "</a>";
+					$msg = sprintf( __( "You are on a WordPress multisite installation and .%1\$s file upload is disabled. Go to your %2\$s and add the '%1\$s' file extension to the list of allowed 'Upload file types'.", 'avia_framework' ), $file, $link );
+				}
+				else
+				{
+					$msg = sprintf( __( "You are on a WordPress multisite installation and .%1\$s file upload is disabled. Please ask your network administrator to add the '%1\$s' file extension to the list of allowed 'Upload file types' in the Network settings.", 'avia_framework' ), $file );
+				}
+
+				return "<div class='av-error'><p>{$msg}</p></div>";
 			}
 
 			if( ! ini_get( 'allow_url_fopen' ) && ! empty( $element['fopen_check'] ) )
@@ -2059,7 +2070,7 @@ if( ! class_exists( 'avia_htmlhelper', false ) )
 				return '';
 			}
 
-			$names = Avia_Builder()->get_AviaSaveBuilderTemplate()->template_names();
+			$names = Avia_Builder()->get_AviaSaveBuilderTemplate( true )->template_names();
 
 			$text  = __( 'Export Layout Builder Templates File', 'avia_framework' );
 			$text .= '<br />';

@@ -79,6 +79,9 @@ class LS_FileSystem {
 			$uploadsBaseDir.'/layerslider/assets/objects',
 			$uploadsBaseDir.'/layerslider/assets/remote',
 			$uploadsBaseDir.'/layerslider/assets/imported',
+			$uploadsBaseDir.'/layerslider/lottiefiles',
+			$uploadsBaseDir.'/layerslider/lottiefiles/remote',
+			$uploadsBaseDir.'/layerslider/lottiefiles/imported',
 		];
 
 		foreach( $directories as $dir ) {

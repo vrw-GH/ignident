@@ -1212,17 +1212,19 @@ clear:both;
 }
 
 #wpwrap .avia_style_wrap .avia_select_unify:before{
-	content: "";
-	background-image: url(../images/layout/svg/select.svg);
-	background-size: cover;
-	position: absolute;
-	top: 0.5em;
-	right: 0px;
-	opacity: 0.2;
-	width: 18px;
-	height: 18px;
-	margin-top: 7px;
-	border-left: 1px solid;
+    content: "";
+    background-image: url(../images/layout/svg/select.svg);
+    background-size: 18px;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 6px;
+    right: 3px;
+    opacity: 0.2;
+    width: 30px;
+    height: 18px;
+    margin-top: 7px;
+    border-left: 1px solid;
+    background-position: center center;
 }
 
 .avia_select_fake_val {
@@ -2806,6 +2808,10 @@ body .wp-block{
 	max-width: 1400px;
 }
 
+/* WP 7.0 */
+.avia-advanced-editor-enabled .edit-post-layout__metaboxes.edit-post-meta-boxes-main__liner[hidden] {
+	display: block;
+}
 
 /*enfold 4.6.3*/
 #wpwrap #avia_options_page div .avia_visual_set.avia_boxed_visual_group {
@@ -2818,3 +2824,39 @@ body .wp-block{
     border: 1px solid #e1e1e1;
 }
 
+
+/* update tab: the status box is a callout only when there is something to act on.
+   the "you are up to date" and "enter your token" states are description, so they
+   drop the box and read as plain text. av-updates-info is set in class-avia-auto-updates.php */
+.avia_backend_theme_updates.av-updates-info{
+	padding: 0;
+	background: none;
+	border: 0;
+	text-align: left;
+}
+.avia_backend_theme_updates.av-updates-info h3{
+	margin: 0 0 4px;
+	font-size: 13px;
+	font-weight: 600;
+}
+.avia_backend_theme_updates.av-updates-info .avia_theme_update_php{
+	padding: 6px 0 0 0;
+	color: #787c82;
+}
+/* the help links under the token field */
+#avia_options_page .av-update-help-links{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#avia_options_page .av-update-help-links li{
+	margin: 0 0 4px;
+	padding: 0 0 0 14px;
+	position: relative;
+}
+#avia_options_page .av-update-help-links li:before{
+	content: "\2013";
+	position: absolute;
+	left: 0;
+	color: #a7aaad;
+}

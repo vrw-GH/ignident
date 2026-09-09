@@ -1027,6 +1027,9 @@ class Ays_Pb_Public {
                 $pb_max_height_mobile = 100;
             }
 
+            // Min-Height Measurement Unit
+            $popup_min_height_by_percentage_px = ( isset($options['popup_min_height_by_percentage_px']) && $options['popup_min_height_by_percentage_px'] != '' ) ? stripslashes( esc_attr($options['popup_min_height_by_percentage_px']) ) : 'pixels';
+
             if ($pb_max_height == '') {
                 $max_height_styles = 'max-height: none;';
             } else {
@@ -1052,8 +1055,17 @@ class Ays_Pb_Public {
 
             if ($pb_min_height_val == 0) {
                 $pb_min_height = '';
-            }else{
-                $pb_min_height = "min-height: ".$pb_min_height_val."px;";
+            } else {
+                // if measurement unit is percentage than maximum value = 100
+                if ($popup_min_height_by_percentage_px == 'percentage' && $pb_min_height_val > 100) {
+                    $pb_min_height_val = 100;
+                }
+                
+                if ($popup_min_height_by_percentage_px == 'pixels') {
+                    $pb_min_height = "min-height: " . $pb_min_height_val . "px;";
+                } else {
+                    $pb_min_height = "min-height: " . $pb_min_height_val . "%;";
+                }
             }
 
             /* 
@@ -1119,6 +1131,10 @@ class Ays_Pb_Public {
                 $mobile_width = '100%';
             }
 
+            // PopupBox container height for mobile
+            $popup_height_by_percentage_px_mobile = (isset($options['popup_height_by_percentage_px_mobile']) && $options['popup_height_by_percentage_px_mobile'] != '') ? stripslashes( esc_attr($options['popup_height_by_percentage_px_mobile']) ) : 'pixels';
+            $mobile_height_unit = $popup_height_by_percentage_px_mobile == 'percentage' ?  '%' : 'px';
+
             // PopupBox container max-width for mobile
             if(isset($options['mobile_max_width']) && $options['mobile_max_width'] != ''){
                 $mobile_max_width = $options['mobile_max_width'] . '%';
@@ -1128,9 +1144,12 @@ class Ays_Pb_Public {
 
             //Font Size for mobile
             $pb_font_size_for_mobile = (isset($options['pb_font_size_for_mobile']) && $options['pb_font_size_for_mobile'] != '') ? absint($options['pb_font_size_for_mobile']) : 13;
-            
+
             // Description text align for mobile
             $pb_text_align_mobile = (isset($options['pb_description_alignment_for_mobile']) && $options['pb_description_alignment_for_mobile'] != '') ? esc_attr( stripslashes($options['pb_description_alignment_for_mobile']) ) : 'left';
+
+            // Description font weight for mobile
+            $pb_font_weight_mobile = (isset($options['pb_description_font_weight_for_mobile']) && $options['pb_description_font_weight_for_mobile'] != '') ? esc_attr( stripslashes($options['pb_description_font_weight_for_mobile']) ) : 'normal';
 
             ///////////////////////////////////////////////////////////////////////////////////
 
@@ -1190,7 +1209,7 @@ class Ays_Pb_Public {
             $mobile_height = (isset($options['mobile_height']) && $options['mobile_height'] != "") ? $options['mobile_height'] : $popupbox["height"];
 
             if(isset($options['mobile_height']) && $options['mobile_height'] != ''){
-                
+
                 $mobile_height = $options['mobile_height'];
                 if( $options['mobile_height'] == 0){
                     $mobile_height = $popupbox["height"];
@@ -1198,6 +1217,8 @@ class Ays_Pb_Public {
             }else{
                 $mobile_height = $popupbox["height"];
             }
+
+            $mobile_height = $mobile_height . $mobile_height_unit;
 
             $ays_pb_padding_mobile = (isset($options['popup_content_padding_mobile']) && $options['popup_content_padding_mobile'] != '') ? $options['popup_content_padding_mobile'] : '20';
             $enable_padding_mobile = (isset($options['enable_padding_mobile']) && $options['enable_padding_mobile'] == 'on') ? true : false;
@@ -1795,7 +1816,7 @@ class Ays_Pb_Public {
                             .ays-pb-modal_".$id."{
                                 width: $mobile_width !important;
                                 max-width: $mobile_max_width !important;
-                                height : ".$mobile_height."px !important;
+                                height : ".$mobile_height." !important;
                                 " . $box_shadow_mobile . ";
                                 box-sizing: border-box;
                                 " . $max_height_styles_mobile . "
@@ -1856,6 +1877,7 @@ class Ays_Pb_Public {
                             .ays-pb-modal_".$id."  .ays_pb_description {
                                 font-size: {$pb_font_size_for_mobile}px !important;
                                 text-align: {$pb_text_align_mobile} !important;
+                                font-weight: {$pb_font_weight_mobile} !important;
                             }
 
                             .ays-pb-modal_".$id.".ays_template_window p.ays_pb_timer.ays_pb_timer_".$id."{
@@ -1971,7 +1993,9 @@ class Ays_Pb_Public {
                             }
                             let time_pb_".$id." = $(document).find('.ays_pb_timer_".$id." span').data('seconds'),
                                 ays_pb_animation_close_seconds = (ays_pb_animation_close_speed / 1000);
-                            if( ays_pb_delayOpen_".$id." == 0 &&  ays_pb_scrollTop_".$id." == 0){
+                            // Only show immediately for pageLoaded and both trigger types, not for exitIntent
+                            let actionType = '".$ays_pb_action_buttons_type."';
+                            if( (actionType == 'pageLoaded' || actionType == 'both') && ays_pb_delayOpen_".$id." == 0 &&  ays_pb_scrollTop_".$id." == 0){
                                 $(document).find('.av_pop_modals_".$id."').css('display','block');
                             }
 
@@ -1986,15 +2010,18 @@ class Ays_Pb_Public {
                             $(document).find('.ays_pb_music_sound').css({'display':'none'});
                             if(time_pb_".$id." !== undefined){
                                 if(time_pb_".$id." !== 0){
-                                    $(document).find('#ays-pb-modal-checkbox_".$id."').trigger('click');
-                                    if(ays_pb_scrollTop_".$id." == 0){
-                                        var ays_pb_flag =  true;
-                                        $(document).find('.ays-pb-modal_".$id."').css({
-                                            'animation-duration': ays_pb_animation_close_seconds + 's'
-                                        });
-                                        let timer_pb_".$id." = setInterval(function(){
-                                            let newTime_pb_".$id." = time_pb_".$id."--;
-                                            $(document).find('.ays_pb_timer_".$id." span').text(newTime_pb_".$id.");
+                                    // Only run this timer for non-exitIntent triggers
+                                    let currentActionType = '".$ays_pb_action_buttons_type."';
+                                    if(currentActionType != 'exitIntent'){
+                                        $(document).find('#ays-pb-modal-checkbox_".$id."').trigger('click');
+                                        if(ays_pb_scrollTop_".$id." == 0){
+                                            var ays_pb_flag =  true;
+                                            $(document).find('.ays-pb-modal_".$id."').css({
+                                                'animation-duration': ays_pb_animation_close_seconds + 's'
+                                            });
+                                            let timer_pb_".$id." = setInterval(function(){
+                                                let newTime_pb_".$id." = time_pb_".$id."--;
+                                                $(document).find('.ays_pb_timer_".$id." span').text(newTime_pb_".$id.");
                                             if(newTime_pb_".$id." <= 0){
                                                 $(document).find('.ays-pb-modal-close_".$id."').trigger('click');
                                                 $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$custom_class." ays-pb-bg-styles_" . $id . " ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
@@ -2113,6 +2140,7 @@ class Ays_Pb_Public {
                                                 }
                                             });
                                         }
+                                    }
                                     }
                                 } else {
                                      $(document).find('.ays_pb_timer_".$id."').css('display','none');
@@ -2355,42 +2383,46 @@ class Ays_Pb_Public {
                                     }
                                 });
                             }else{
-                                if( ays_pb_delayOpen_".$id." !== 0 ){
-                                    $(document).find('.ays-pb-modal_".$id."').css('animation-delay', ays_pb_delayOpen_".$id."/1000);
-                                    setTimeout(function(){
-                                        $(document).find('.av_pop_modals_".$id."').css('display','block');
-                                        $(document).find('.ays-pb-modal_".$id."').addClass(ays_pb_effectIn_".$id.");
-                                        $(document).find('.ays-pb-modal_".$id."').css('display', 'block');
-                                        if (window.innerWidth < 768 && $(document).find('#ays-pb-screen-shade_".$id."').attr('data-mobile-overlay') == 'true') {
-                                            $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_mobile_opacity."'});
-                                        }
-                                        else{
-                                            $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_opacity."'});
-                                        }
-                                        $(document).find('.ays-pb-modal-check_".$id."').attr('checked', 'checked');
+                                // Only show automatically for pageLoaded and both trigger types, not for exitIntent
+                                let actionType = $(document).find('.ays_pb_abt_".$id."').val();
+                                if(actionType != 'exitIntent'){
+                                    if( ays_pb_delayOpen_".$id." !== 0 ){
+                                        $(document).find('.ays-pb-modal_".$id."').css('animation-delay', ays_pb_delayOpen_".$id."/1000);
+                                        setTimeout(function(){
+                                            $(document).find('.av_pop_modals_".$id."').css('display','block');
+                                            $(document).find('.ays-pb-modal_".$id."').addClass(ays_pb_effectIn_".$id.");
+                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'block');
+                                            if (window.innerWidth < 768 && $(document).find('#ays-pb-screen-shade_".$id."').attr('data-mobile-overlay') == 'true') {
+                                                $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_mobile_opacity."'});
+                                            }
+                                            else{
+                                                $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_opacity."'});
+                                            }
+                                            $(document).find('.ays-pb-modal-check_".$id."').attr('checked', 'checked');
 
-                                        if(isPageScrollDisabled){
-                                            $(document).find('body').addClass('pb_disable_scroll_".$id."');
-                                            $(document).find('html').removeClass('pb_enable_scroll');
-                                        }
+                                            if(isPageScrollDisabled){
+                                                $(document).find('body').addClass('pb_disable_scroll_".$id."');
+                                                $(document).find('html').removeClass('pb_enable_scroll');
+                                            }
 
-                                    }, ays_pb_delayOpen_".$id.");
-                                } else {
-                                    if($(document).find('.ays_pb_abt_".$id."').val() != 'clickSelector'){
-                                        $(document).find('.av_pop_modals_".$id."').css('display','block');
-                                        $(document).find('.ays-pb-modal_".$id."').addClass(ays_pb_effectIn_".$id.");
-                                        $(document).find('.ays-pb-modal_".$id."').css('display', 'block');
-                                        if (window.innerWidth < 768 && $(document).find('#ays-pb-screen-shade_".$id."').attr('data-mobile-overlay') == 'true') {
-                                            $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_mobile_opacity."'});
-                                        }
-                                        else{
-                                            $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_opacity."'});
-                                        }
-                                        $(document).find('.ays-pb-modal-check_".$id."').attr('checked', 'checked');
+                                        }, ays_pb_delayOpen_".$id.");
+                                    } else {
+                                        if($(document).find('.ays_pb_abt_".$id."').val() != 'clickSelector'){
+                                            $(document).find('.av_pop_modals_".$id."').css('display','block');
+                                            $(document).find('.ays-pb-modal_".$id."').addClass(ays_pb_effectIn_".$id.");
+                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'block');
+                                            if (window.innerWidth < 768 && $(document).find('#ays-pb-screen-shade_".$id."').attr('data-mobile-overlay') == 'true') {
+                                                $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_mobile_opacity."'});
+                                            }
+                                            else{
+                                                $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_opacity."'});
+                                            }
+                                            $(document).find('.ays-pb-modal-check_".$id."').attr('checked', 'checked');
 
-                                        if(isPageScrollDisabled){
-                                            $(document).find('body').addClass('pb_disable_scroll_".$id."');
-                                            $(document).find('html').addClass('pb_disable_scroll_".$id."');
+                                            if(isPageScrollDisabled){
+                                                $(document).find('body').addClass('pb_disable_scroll_".$id."');
+                                                $(document).find('html').addClass('pb_disable_scroll_".$id."');
+                                            }
                                         }
                                     }
                                 }
@@ -2953,6 +2985,239 @@ class Ays_Pb_Public {
                             })( jQuery );
                         });
                     </script>";
+            }
+
+            // Exit Intent Trigger - Initialize popup as hidden
+            if($ays_pb_action_buttons_type == 'exitIntent'){
+                $popupbox_view .= "
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        (function( $ ) {
+                            // Ensure exit intent popup is hidden on page load
+                            $(document).find('input#ays-pb-modal-checkbox_".$id."').prop('checked', false);
+                            $(document).find('input#ays-pb-modal-checkbox_".$id."').removeAttr('checked');
+                            $(document).find('.av_pop_modals_".$id."').css('display', 'none');
+                        })( jQuery );
+                    });
+                </script>";
+            }
+
+            // Exit Intent Trigger
+            if($ays_pb_action_buttons_type == 'exitIntent'){
+                $popupbox_view .= "
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        (function( $ ) {
+                            'use strict';
+                            let pbViewsFlag_".$id." = true;
+                            let exitIntentTriggered_".$id." = false;
+                            let timerRunning_".$id." = false;
+                            
+                            // Exit intent detection
+                            document.addEventListener('mouseleave', function(e) {
+                                // Only trigger on desktop (not mobile)
+                                if (window.innerWidth >= 768 && !exitIntentTriggered_".$id.") {
+                                    // Check if mouse is leaving from the top (Y coordinate near 0) 
+                                    // or bottom (Y coordinate near viewport height - for taskbar area)
+                                    if (e.clientY <= 0 || e.clientY >= window.innerHeight - 10) {
+                                        exitIntentTriggered_".$id." = true;
+                                        
+                                        let isMobile = false;
+                                        let closePopupOverlay = " . $close_popup_overlay_flag . ";
+                                        let isPageScrollDisabled = " . (int)$disable_scroll . ";
+                                        let checkAnimSpeed = " . $ays_pb_check_anim_speed . ";
+                                        let ays_pb_animation_close_speed = $(document).find('#ays_pb_animation_close_speed_".$id."').val();
+                                        let ays_pb_effectIn_".$id." = $(document).find('#ays_pb_modal_animate_in_".$id."').val();
+                                        let ays_pb_effectOut_".$id." = $(document).find('#ays_pb_modal_animate_out_".$id."').val();
+                                        
+                                        // Get open delay settings
+                                        let ays_pb_delayOpen_".$id." = parseInt($(document).find('.ays_pb_delay_".$id."').val());
+                                        if (isMobile) {
+                                            if (" . $enable_open_delay_mobile . ") {
+                                                ays_pb_delayOpen_".$id." = parseInt($(document).find('.ays_pb_delay_mobile_".$id."').val());
+                                            }
+                                        }
+                                        
+                                        // Function to show popup
+                                        function showPopup_".$id."() {
+                                            var ays_flag = true;
+                                            var dataAttr = $(document).find('.ays-pb-modal_".$id."').attr('data-ays-flag');
+                                            
+                                            if(ays_flag && dataAttr == 'true'){
+                                                ays_flag = false;
+                                                $(document).find('.av_pop_modals_".$id."').css('display','block');
+                                                $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'auto');
+
+                                                if (window.innerWidth < 768) {
+                                                    $(document).find('.ays_pb_timer_".$id." span').html($(document).find('.ays_pb_timer_".$id." span').attr('data-ays-mobile-seconds'));
+                                                } else {
+                                                    $(document).find('.ays_pb_timer_".$id." span').html($(document).find('.ays_pb_timer_".$id." span').attr('data-ays-seconds'));
+                                                }
+                                            
+                                                $(document).find('.ays-pb-modal_".$id."').removeClass(ays_pb_effectOut_".$id.");
+                                                $(document).find('.ays-pb-modal_".$id."').addClass(ays_pb_effectIn_".$id.");
+                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'block');
+
+                                                if (window.innerWidth < 768 && $(document).find('#ays-pb-screen-shade_".$id."').attr('data-mobile-overlay') == 'true') {
+                                                    $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_mobile_opacity."', 'display': 'block'});
+                                                } else {
+                                                    $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '".$overlay_opacity."', 'display': 'block'});
+                                                }
+                                                $(document).find('.ays-pb-modal-check_".$id."').prop('checked', true);
+                                                $(document).find('.ays-pb-modal-check_".$id."').attr('checked', true);
+                                                
+                                                var ays_pb_animation_close_seconds = (ays_pb_animation_close_speed / 1000);
+                                                var sound_src = $(document).find('#ays_pb_sound_".$id."').attr('src');
+                                                var close_sound_src = $(document).find('#ays_pb_close_sound_".$id."').attr('src');
+
+                                                ays_pb_animation_close_speed = parseFloat(ays_pb_animation_close_speed) - 50;
+
+                                                if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                                    $('#ays_pb_sound_".$id."').get(0).play();
+                                                    $(document).find('.ays_pb_pause_sound_".$id."').on('click',function(){
+                                                        var audio = $('#ays_pb_sound_".$id."').get(0);
+                                                        audio.pause();
+                                                        audio.currentTime = 0;
+                                                    });
+                                                }
+                                                
+                                                var time_pb_str_".$id." = $(document).find('.ays_pb_timer_".$id." span').attr('data-ays-seconds');
+                                                var initial_time_pb_".$id." = parseInt(time_pb_str_".$id.");
+                                                var hasTimer = (initial_time_pb_".$id." !== undefined && initial_time_pb_".$id." !== 0);
+                                                
+                                                if(hasTimer && !timerRunning_".$id."){
+                                                    // Clear any existing timer just in case
+                                                    if(typeof timer_pb_".$id." !== 'undefined'){
+                                                        clearInterval(timer_pb_".$id.");
+                                                    }
+                                                    timerRunning_".$id." = true;
+                                                    // Use the timer display time
+                                                    var time_pb_".$id." = initial_time_pb_".$id."; // Preserve initial value
+                                                    
+                                                    // Set initial timer display immediately
+                                                    $(document).find('.ays_pb_timer_".$id." span').text(time_pb_".$id.");
+                                                    
+                                                    var timer_pb_".$id." = setInterval(function(){
+                                                        if(timerRunning_".$id."){ // Additional check
+                                                            let newTime_pb_".$id." = time_pb_".$id."--;
+                                                            $(document).find('.ays_pb_timer_".$id." span').text(newTime_pb_".$id.");
+                                                            $(document).find('.ays-pb-modal_".$id."').css({
+                                                                'animation-duration': ays_pb_animation_close_seconds + 's'
+                                                            }); 
+                                                            if(newTime_pb_".$id." <= 0){
+                                                                $(document).find('.ays-pb-modal-close_".$id."').trigger('click');
+                                                                $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$custom_class." '+ays_pb_effectOut_".$id.");
+                                                                $modal_close_additional_js
+                                                                if(ays_pb_effectOut_".$id." != 'none'){
+                                                                    setTimeout(function(){
+                                                                        $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                        ays_flag = true;
+                                                                    }, ays_pb_animation_close_speed);
+                                                                }else{
+                                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                    ays_flag = true;
+                                                                }
+                                                                if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                                                    var audio = $('#ays_pb_sound_".$id."').get(0);
+                                                                    audio.pause();
+                                                                    audio.currentTime = 0;
+                                                                    clearInterval(timer_pb_".$id.");
+                                                                }
+                                                                clearInterval(timer_pb_".$id.");
+                                                                timerRunning_".$id." = false;
+                                                            }
+                                                        }
+                                                        $(document).find('.ays-pb-modal-close_".$id."').one('click', function(){
+                                                            clearInterval(timer_pb_".$id.");
+                                                            timerRunning_".$id." = false;
+                                                            if (pbViewsFlag_".$id.") {
+                                                                var pb_id = ".$id.";
+
+                                                                $.ajax({
+                                                                    url: pbLocalizeObj.ajax,
+                                                                    method: 'POST',
+                                                                    dataType: 'text',
+                                                                    data: {
+                                                                        id: pb_id,
+                                                                        action: 'ays_increment_pb_views',
+                                                                    },
+                                                                });
+
+                                                                pbViewsFlag_".$id." = false;
+                                                            }
+                                                            $(document).find('.av_pop_modals_".$id."').css('pointer-events', 'none');
+                                                            $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$ays_pb_show_scrollbar_class."  ".$custom_class." ays-pb-bg-styles_" . $id . " ays-pb-border-mobile_".$id." '+ays_pb_effectOut_".$id.");
+                                                            $modal_close_additional_js
+                                                            if(ays_pb_effectOut_".$id." != 'none'){
+                                                                setTimeout(function(){ 
+                                                                    $(document).find('.ays-pb-modal_".$id."').css('display', 'none'); 
+                                                                    ays_flag = true;
+                                                                }, ays_pb_animation_close_speed);  
+                                                            }else{
+                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none'); 
+                                                                ays_flag = true;
+                                                            }
+                                                            $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none'});
+                                                            clearInterval(timer_pb_".$id.");
+                                                        });
+                                                    }, 1000);
+                                                }
+                                                
+                                                // Autoclose logic - separate from timer display
+                                                if(".$ays_pb_autoclose." != 0 && !hasTimer){
+                                                    setTimeout(function(){
+                                                        $(document).find('.ays-pb-modal-close_".$id."').trigger('click');
+                                                        $(document).find('.ays-pb-modal_".$id."').attr('class', '".$modal_class." ays-pb-modal_".$id." ".$custom_class." '+ays_pb_effectOut_".$id.");
+                                                        $modal_close_additional_js
+                                                        if(ays_pb_effectOut_".$id." != 'none'){
+                                                            setTimeout(function(){
+                                                                $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                                ays_flag = true;
+                                                            }, ays_pb_animation_close_speed);
+                                                        }else{
+                                                            $(document).find('.ays-pb-modal_".$id."').css('display', 'none');
+                                                            ays_flag = true;
+                                                        }
+                                                        if ('". $ays_pb_check_sound ."' === 'on' && typeof sound_src !== 'undefined'){
+                                                            var audio = $('#ays_pb_sound_".$id."').get(0);
+                                                            audio.pause();
+                                                            audio.currentTime = 0;
+                                                        }
+                                                    }, ".$ays_pb_autoclose." * 1000);
+                                                }
+                                                
+                                                if(isPageScrollDisabled){
+                                                    $(document).find('body').addClass('pb_disable_scroll_".$id."');
+                                                    $(document).find('html').addClass('pb_disable_scroll_".$id."');
+
+                                                    jQuery(document).on('click', '.ays-pb-modal-close_".$id."', function() {
+                                                        $(document).find('body').removeClass('pb_disable_scroll_".$id."');
+                                                        $(document).find('html').removeClass('pb_disable_scroll_".$id."');
+                                                    });
+                                                }
+                                                
+                                                if ('".$popupbox['onoffoverlay']."' != 'On'){
+                                                    $(document).find('#ays-pb-screen-shade_".$id."').css({'opacity': '0', 'display': 'none !important', 'pointer-events': 'none'});
+                                                    $(document).find('.ays-pb-modal_".$id."').css('pointer-events', 'auto');
+                                                    $(document).find('.av_pop_modals_".$id."').css('pointer-events','none');
+                                                };
+                                            }
+                                        }
+                                        
+                                        // Show popup with delay if set
+                                        if( ays_pb_delayOpen_".$id." !== 0 ){
+                                            setTimeout(function(){
+                                                showPopup_".$id."();
+                                            }, ays_pb_delayOpen_".$id.");
+                                        } else {
+                                            showPopup_".$id."();
+                                        }
+                                    }
+                                }
+                            });
+                        })( jQuery );
+                    });
+                </script>";
             }
 
             if ($popupbox['onoffoverlay'] != 'On'){

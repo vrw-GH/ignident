@@ -168,11 +168,25 @@ if($xyz_ips_message == 8)
 
 	<form method="post">
 	<?php wp_nonce_field( 'bulk_actions_ips');?>
-		<fieldset
-			style="width: 99%; border: 1px solid #F7F7F7; padding: 10px 0px;">
+		<fieldset style="width: 98.8%; border: 1px solid #4d3e3e2e; padding: 10px 0px;">
 			<legend><h3>PHP Code Snippets</h3></legend>
 			<?php
 			global $wpdb;
+
+			if ((get_option('xyz_ips_sync_needed') != 0) && (get_option('xyz_ips_show_snippet_usage')==1)) 
+			{
+				echo '<div id="ips-sync-notice" class="notice notice-warning is-dismissible">
+						<p>
+							<strong>Usage Tracking Sync Required.</strong><br>
+							Your site needs a one-time synchronization to build snippet usage records.
+							This helps in displaying accurate usage statistics.
+							<button id="xyz-start-sync" class="button button-primary"  data-offset ="'. get_option('xyz_ips_sync_needed').'">
+								'.(get_option('xyz_ips_sync_needed') > 1 ? 'Resume Sync' : 'Start Sync').'
+							</button>
+							<span id="sync-progress" style="margin-left:10px;"></span>
+						</p>
+					  </div>';
+			  }
  			$pagenum = isset( $_GET['pagenum'] ) ? absint( $_GET['pagenum'] ) : 1;
 			$limit = get_option('xyz_ips_limit');
 			$offset = ( $pagenum - 1 ) * $limit;
@@ -199,8 +213,10 @@ if($xyz_ips_message == 8)
 			$strInsertionMethod=" AND insertionMethod=$insertionMethod";
 			}
 
-			$entries = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."xyz_ips_short_code  	WHERE title like '%".$search_name_db."%'".$strInsertionMethod." ORDER BY  $field $order LIMIT $offset,$limit" );
-
+			//$entries = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."xyz_ips_short_code  	WHERE title like '%".$search_name_db."%'".$strInsertionMethod." ORDER BY  $field $order LIMIT $offset,$limit" );
+			$entries = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}xyz_ips_short_code WHERE title LIKE %s {$strInsertionMethod} ORDER BY $field $order LIMIT %d, %d",	'%' . $wpdb->esc_like($search_name_db) . '%',$offset,$limit
+				)
+			);
 
 			?>
 			<input  id="xyz_ips_submit_ips"
@@ -252,8 +268,8 @@ if($xyz_ips_message == 8)
 		<tr>
 		    <th scope="col" width="3%"><input type="checkbox" id="chkAllSnippets" /></th>
 			<th scope="col" >Tracking Name</th>
-			<th scope="col">Snippet Placement 
-</th>
+			<th scope="col">Snippet Placement </th>
+			<th scope="col">Placement Details</th>
 			<th scope="col" >Status</th>
 			<th scope="col" colspan="4" style="text-align: center;">Action</th>
 		</tr>
@@ -278,17 +294,66 @@ if($xyz_ips_message == 8)
 			<td>
 				
 				
-			<?php if($entry->status == 2){
-				echo 'NA';
+			<?php
+			$placement_text = '';
+			if($entry->status == 2){
+				$placement_text ='NA';
 			 } else{ 
-				 echo ($entry->insertionMethod == 1) ? 'Automatic' : 
-(($entry->insertionMethod == 2) ?  
-'<span onclick=xyz_ips_copy_shortcode('.$entry->id.') class="xyz_ic_copy_shortcode"  id="xyz_ips_shortcode_'.$entry->id.'">[xyz-ips snippet="'.esc_html($entry->title).'"]</span>'.
-'<span onclick=xyz_ips_copy_shortcode('.$entry->id.')><img class="xyz_ips_img xyz_ips_img_table" title="Click to copy" src="'.plugins_url('insert-php-code-snippet/images/copy-document.png').'"></span>'
+/* AUTOMATIC PLACEMENT */
+if ($entry->insertionMethod == 1) {
+	$placement_text =
+		'<span class="ips-badge ips-badge-auto">Automatic</span>';
+}
+/* SHORTCODE PLACEMENT */
+elseif ($entry->insertionMethod == 2) {
 
-:
- (($entry->insertionMethod == 3) ? 'Execute on demand'.'<img onclick=xyz_ips_execute_shortcode('.$entry->id.') class="xyz_ips_img xyz_ips_img_table" id="xyz_ips_img_execute_shortcode" title="Click to execute" src="'.plugins_url('xyz-wp-insert-code-snippet/images/play-button.png').'">':
-'')); }?>
+
+	$placement_text =
+		'<span class="ips-badge ips-badge-shortcode">Shortcode</span> ' .
+		'<span onclick="xyz_ips_copy_shortcode(' . (int) $entry->id . ')" ' .
+		'class="xyz_ips_copy_shortcode" id="xyz_ips_shortcode_' . (int) $entry->id . '">' .
+		'[xyz-ips snippet="' . esc_html($entry->title) . '"]</span>' .
+		'<span onclick="xyz_ips_copy_shortcode(' . (int) $entry->id . ')">' .
+		'<img class="xyz_ips_img xyz_ips_img_table" title="Click to copy" ' .
+		'src="' . esc_url(plugins_url('insert-php-code-snippet/images/copy-document.png')) . '">' .
+		'</span>';
+}
+elseif ($entry->insertionMethod == 3) {
+	$placement_text ='<span class="ips-badge ips-badge-ondemand">Execute on demand</span>'.'<img onclick=xyz_ips_execute_shortcode('.$entry->id.') class="xyz_ips_img xyz_ips_img_table" id="xyz_ips_img_execute_shortcode" title="Click to execute" src="'.plugins_url('insert-php-code-snippet/images/play-button.png').'">';
+}
+echo $placement_text;
+}?>
+</td>
+		<td id="xyz_ips_vAlign" style="color:#1c331cbf;">
+		<?php
+		if ($entry->status == 2) {
+			echo '—';
+		} elseif ($entry->insertionMethod == 1) {
+			if (!empty($entry->insertionLocation)) {
+				echo esc_html(
+					xyz_ips_get_insertion_location_label($entry->insertionLocation)
+				);
+			} else {
+				echo '—';
+			}
+		} elseif ($entry->insertionMethod == 2) {
+			$post_count=0;
+			$post_count = $wpdb->get_var($wpdb->prepare(
+				"SELECT COUNT(*) FROM {$wpdb->prefix}xyz_ips_usage WHERE snippet_id = %d", 
+				$entry->id
+			));
+			if ($post_count > 0 && (get_option('xyz_ips_show_snippet_usage')==1)) {
+			  echo 'Used in ' . $count . ' posts/pages';
+			}else {
+			  if(get_option('xyz_ips_show_snippet_usage')!=1)
+			  echo '<span title="Usage details are hidden. Enable &quot;Show Snippet Usage Details&quot; in settings." style="cursor: help;">Hidden</span>';      else
+				echo 'Not used';
+			}
+		}
+		elseif ($entry->insertionMethod == 3) {
+			echo 'Manually triggered';
+		}
+		?>
 </td>
 			<td id="xyz_ips_vAlign">
 				<?php
@@ -401,6 +466,43 @@ jQuery(document).ready(function(){
 	jQuery("#chkAllSnippets").click(function(){
 		jQuery(".chk").prop("checked",jQuery("#chkAllSnippets").prop("checked"));
     });
+    // Handling the Sync Button click
+    jQuery(document).on('click', '#xyz-start-sync', function(e) {
+    e.preventDefault();
+    let btn = jQuery(this);
+    let progress = jQuery('#sync-progress');
+    btn.prop('disabled', true).text('Syncing...');
+    // Read initial offset from button data attribute
+    let initialOffset = parseInt(btn.data('offset')) || 0;
+    function runSyncBatch(offset) {
+        jQuery.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'xyz_ips_sync_usage',
+                offset: offset
+            },
+            success: function(response) {
+                if (response.success && response.data.status === 'processing') {
+                    progress.text('Processed ' + response.data.new_offset + ' posts...');
+                    // Update button data-offset to keep track
+                    btn.data('offset', response.data.new_offset);
+                    runSyncBatch(response.data.new_offset);
+                } else {
+                    progress.text('✅ Sync Complete!');
+                    btn.prop('disabled', false).text('Sync Usage Now');
+                    btn.data('offset', 0); // reset offset
+                    location.reload(); 
+                }
+            },
+            error: function() {
+                progress.text('❌ Sync failed. Please try again.');
+                btn.prop('disabled', false).text('Sync Usage Now');
+            }
+        });
+    }
+    runSyncBatch(initialOffset);
+});
 });
 const xyz_ips_copy_shortcode = (id) => {
 

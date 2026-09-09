@@ -1,6 +1,5 @@
 <?php
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 ?>
 <div tabindex="0" class="advanced_tools_button active" id="site_info">
 	<span class="advanced_tools_text dashicons dashicons-info"></span>

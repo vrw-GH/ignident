@@ -1,6 +1,5 @@
 <?php
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 ?>
 
 <div id="updraft-message-modal" title="UpdraftPlus">
@@ -58,6 +57,7 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 						<fieldset>
 							<input type="hidden" name="action" value="updraft_restore">
 							<input type="hidden" name="updraftplus_ajax_restore" value="start_ajax_restore">
+							<input type="hidden" name="nonce" value="<?php echo esc_attr(wp_create_nonce('updraftplus-credentialtest-nonce'));?>">
 							<input type="hidden" name="backup_timestamp" value="0" id="updraft_restore_timestamp">
 							<input type="hidden" name="meta_foreign" value="0" id="updraft_restore_meta_foreign">
 							<input type="hidden" name="updraft_restorer_backup_info" value="" id="updraft_restorer_backup_info">

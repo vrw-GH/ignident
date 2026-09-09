@@ -70,11 +70,13 @@ if ( ! class_exists( 'avia_sc_audio_player', false ) )
 
 			$this->config['name']			= __( 'Audio Player', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-audio-player.png';
-			$this->config['order']			= 90;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-audio-player.svg';
+			$this->config['order']			= 20;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_player';
 			$this->config['shortcode_nested'] = array( 'av_playlist_element' );
+			//	the canvas names the tracks in the playlist - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_playlist_element', 'attr' => 'title' );
 			$this->config['tooltip'] 	    = __( 'Add an audio player element', 'avia_framework' );
 			$this->config['tinyMCE'] 		= array( 'disable' => 'true' );
 			$this->config['drag-level'] 	= 3;
@@ -283,7 +285,7 @@ if ( ! class_exists( 'avia_sc_audio_player', false ) )
 
 						array(
 							'name'			=> __( 'Loop playlist', 'avia_framework' ),
-							'desc'			=> __( 'Choose if you want to stop after playing the list once or if you want to continue from beginning again. <strong>Since WP 5.2 Firefox does not stop when Enfold javascript file merging and compression is enabled. Other browsers work as expected.</strong>', 'avia_framework' ),
+							'desc'			=> __( 'Stop after playing the list once, or loop from the beginning.', 'avia_framework' ),
 							'id'			=> 'loop',
 							'type'			=> 'select',
 							'std'			=> '',
@@ -634,43 +636,22 @@ if ( ! class_exists( 'avia_sc_audio_player', false ) )
 		 */
 		public function editor_element( $params )
 		{
-			$element = $this->get_popup_element_by_id( 'autoplay' );
-
 			/**
 			 * Element has been disabled with option 'Disable self hosted video and audio features'
 			 */
-			if( false === $element )
+			if( false === $this->get_popup_element_by_id( 'autoplay' ) )
 			{
 				return $params;
 			}
 
-			$playmodes = $element['subtype'];
-
-			$update_template =	'<span class="av-player-{{autoplay}}">';
-
-			foreach( $playmodes as $info => $playmode )
-			{
-				$update_template .=		'<span class="av-play-' . $playmode . '">' . $info . '</span>';
-			}
-
-			$update_template .=	'</span>';
-
-
-			$default = array();
-			$locked = array();
-			$attr = $params['args'];
-			Avia_Element_Templates()->set_locked_attributes( $attr, $this, $this->config['shortcode'], $default, $locked );
-
-			$update	= $this->update_template_lockable( 'autoplay', $update_template, $locked );
-
-			$selected = empty( $attr['autoplay'] ) ? 'manual' : $attr['autoplay'];
-			$template = str_replace('{{autoplay}}', $selected, $update_template );
-
-			$params['innerHtml']  = '';
-			$params['innerHtml'] .= "<img src='{$this->config['icon']}' title='{$this->config['name']}' />";
-			$params['innerHtml'] .= "<div class='av-player' data-update_element_template='yes'>";
-			$params['innerHtml'] .=		"{$this->config['name']} -  <span {$update}>{$template}</span>";
-			$params['innerHtml'] .= '</div>';
+			/**
+			 * The tracks, and nothing else. Whether the player starts on its own was shown here too, which
+			 * said little about which player this is - the playlist is what tells one from the next.
+			 *
+			 * Written here rather than left to the base, because this element defines an editor_element of
+			 * its own for the check above - see editor_element_items() for where the names come from.
+			 */
+			$params['innerHtml'] = $this->editor_element_items( $params );
 
 			return $params;
 		}

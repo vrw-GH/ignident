@@ -117,27 +117,6 @@ class Notifications {
 		}
 
 		$status = false;
-		if ( '1' !== seopress_get_service( 'NoticeOption' )->getNoticeUSM() && '1' !== seopress_get_service( 'AdvancedOption' )->getAccessUniversalMetaboxGutenberg() ) {
-			++$alerts_info;
-			$status = true;
-		}
-		$args[] = array(
-			'id'         => 'notice-usm',
-			'title'      => __( 'Enable our universal SEO metabox for the Block Editor', 'wp-seopress' ),
-			'desc'       => __( 'By default, our new SEO metabox is disabled for Gutenberg. Test it without further delay!', 'wp-seopress' ),
-			'impact'     => array(
-				'info' => __( 'Wizard', 'wp-seopress' ),
-			),
-			'link'       => array(
-				'en'       => admin_url( 'admin.php?page=seopress-advanced#tab=tab_seopress_advanced_appearance' ),
-				'title'    => __( 'Activate it', 'wp-seopress' ),
-				'external' => false,
-			),
-			'deleteable' => true,
-			'status'     => $status ? $status : false,
-		);
-
-		$status = false;
 		if ( '1' !== seopress_get_service( 'NoticeOption' )->getNoticeWizard() ) {
 			++$alerts_info;
 			$status = true;
@@ -150,7 +129,7 @@ class Notifications {
 				'info' => __( 'Wizard', 'wp-seopress' ),
 			),
 			'link'       => array(
-				'en'       => admin_url( 'admin.php?page=seopress-setup&step=welcome&parent=welcome' ),
+				'en'       => admin_url( 'admin.php?page=seopress-setup' ),
 				'title'    => __( 'Start the wizard', 'wp-seopress' ),
 				'external' => false,
 			),
@@ -924,11 +903,11 @@ class Notifications {
 			$html .= '<p class="seopress-alert-actions">';
 
 			if ( ! empty( $link ) ) {
-				$html .= '<a class="btn btnSecondary"' . $href . $target . ' title="' . esc_attr( $link['title'] ) . '">' . esc_html( $link['title'] ) . '</a>';
+				$html .= '<a class="components-button is-secondary"' . $href . $target . ' title="' . esc_attr( $link['title'] ) . '">' . esc_html( $link['title'] ) . '</a>';
 			}
 			if ( true === $deleteable && true === $status ) {
 				$dismiss_text = __( 'Dismiss', 'wp-seopress' );
-				$html        .= '<button id="' . esc_attr( $id ) . '" name="notice-title-tag" type="button" class="btn btnLink" data-notice="' . esc_attr( $id ) . '" title="' . esc_attr( $dismiss_text ) . '">' . esc_html( $dismiss_text ) . '</button>';
+				$html        .= '<button id="' . esc_attr( $id ) . '" name="notice-title-tag" type="button" class="components-button is-tertiary" data-notice="' . esc_attr( $id ) . '" title="' . esc_attr( $dismiss_text ) . '">' . esc_html( $dismiss_text ) . '</button>';
 			}
 
 			$html .= '</p>';

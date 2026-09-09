@@ -18,13 +18,22 @@ if ( ! class_exists( 'aviaSaveBuilderTemplate', false ) )
 		protected $builder;
 
 		/**
+		 * @since 7.1.5
+		 * @var boolean
+		 */
+		protected $ignore_scripts;
+
+		/**
 		 *
+		 * @since 7.1.5					added  $ignore_scripts
 		 * @param AviaBuilder $builder
+		 * @param boolean $ignore_scripts
 		 * @return type
 		 */
-		public function __construct( $builder )
+		public function __construct( $builder, $ignore_scripts = false )
 		{
 			$this->builder = $builder;
+			$this->ignore_scripts = $ignore_scripts;
 
 			if( ! isset( $_REQUEST['avia_export'] ) )
 			{
@@ -45,8 +54,17 @@ if ( ! class_exists( 'aviaSaveBuilderTemplate', false ) )
 			$ver = Avia_Builder()->get_theme_version();
 			$min_js = avia_minify_extension( 'js' );
 
-			#js
-			wp_enqueue_script( 'avia_template_save_js', AviaBuilder::$path['assetsURL'] . "js/avia-template-saving{$min_js}.js", array( 'avia_element_js' ), $ver, true );
+			/**
+			 * js
+			 *
+			 * Fixes problem with "The script with the handle "avia_template_save_js" was enqueued with dependencies that are not registered: avia_element_js."
+			 *
+			 * @since 7.1.5
+			 */
+			if( ! $this->ignore_scripts )
+			{
+    			wp_enqueue_script( 'avia_template_save_js', AviaBuilder::$path['assetsURL'] . "js/avia-template-saving{$min_js}.js", array( 'avia_element_js' ), $ver, true );
+			}
 
 			#ajax
 			add_action( 'wp_ajax_avia_ajax_save_builder_template', array( $this, 'handler_save_builder_template' ), 10, 0 );
@@ -55,7 +73,6 @@ if ( ! class_exists( 'aviaSaveBuilderTemplate', false ) )
 
 			add_filter( 'avf_generate_export_file', array( $this, 'handler_generate_export_file' ), 10, 1 );
 		}
-
 
 		/**
 		* save button html
@@ -377,7 +394,8 @@ if ( ! class_exists( 'aviaSaveBuilderTemplate', false ) )
 		 */
 		public function import_saved_templates( $contents )
 		{
-			$templates = unserialize( base64_decode( $contents ) );
+			//	User uploaded file - never allow objects to be instantiated while decoding.
+			$templates = unserialize( base64_decode( $contents ), array( 'allowed_classes' => false ) );
 
 			if( ! is_array( $templates ) || ! isset( $templates['__file_content'] ) || ( $templates['__file_content'] != 'alb-saved-templates' ) )
 			{

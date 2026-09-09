@@ -119,10 +119,12 @@ if( ! class_exists( 'avia_sc_section', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Color Section', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-section.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-section.svg';
 			$this->config['tab']			= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']			= 20;
 			$this->config['shortcode']		= 'av_section';
+			//	the frame around other elements, so no icon and name of its own - see prepare_editor_element()
+			$this->config['alb_head']		= false;
 			$this->config['html_renderer'] 	= false;
 			$this->config['tinyMCE']		= array( 'disable' => 'true' );
 			$this->config['tooltip']		= __( 'Creates a section with unique background image and colors', 'avia_framework' );

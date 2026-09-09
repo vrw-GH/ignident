@@ -486,7 +486,7 @@ class JSqueeze
                 case '3': $f[$j] = 'while'; break 2;
                 }
 
-            case '[';
+            case '[':
                 if ($j >= 0 && "\n" == $f[$j]) {
                     $f[$j] = ';';
                 }

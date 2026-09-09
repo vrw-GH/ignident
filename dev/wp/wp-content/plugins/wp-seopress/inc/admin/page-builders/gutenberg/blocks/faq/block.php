@@ -121,7 +121,7 @@ function seopress_block_faq_render_frontend( $attributes ) {
 						<div id="wpseopress-faq-title-<?php echo $i; ?>" class="wpseopress-wrap-faq-question">
 							<button class="wpseopress-accordion-button" type="button" aria-expanded="false" aria-controls="wpseopress-faq-answer-<?php echo $i; ?>">
 					<?php } ?>
-					<?php echo $title_tag . $faq['question'] . $title_close_tag; ?>
+					<?php echo $title_tag . wp_kses_post( $faq['question'] ) . $title_close_tag; ?>
 					<?php if ( $accordion ) { ?>
 							</button>
 						</div>
@@ -138,7 +138,7 @@ function seopress_block_faq_render_frontend( $attributes ) {
 							</div>
 						<?php endif; ?>
 					<?php if ( ! empty( $faq['answer'] ) ) : ?>
-							<p class="wpseopress-faq-answer-desc"><?php echo $faq['answer']; ?></p>
+							<p class="wpseopress-faq-answer-desc"><?php echo wp_kses_post( $faq['answer'] ); ?></p>
 						<?php endif; ?>
 					</div>
 				<?php
@@ -150,15 +150,25 @@ function seopress_block_faq_render_frontend( $attributes ) {
 
 	// FAQ Schema.
 	if ( (bool) $attributes['isProActive'] && (int) $attributes['showFAQScheme'] ) {
-		$schema = '<script type="application/ld+json">
-				{
-				"@context": "https://schema.org",
-				"@type": "FAQPage",
-				"mainEntity": ' . wp_json_encode( $entities ) . '
-				}
-			</script>';
+		// Questions and answers are RichText values, so they carry HTML
+		// entities. Encoding the whole node in one go decodes them and turns
+		// every angle bracket, ampersand and quote into a JSON unicode escape,
+		// which both keeps the JSON-LD readable without an HTML unescaping pass
+		// and stops an answer containing markup from closing the script
+		// element.
+		$json = seopress_json_ld_encode(
+			array(
+				'@context'   => 'https://schema.org',
+				'@type'      => 'FAQPage',
+				'mainEntity' => $entities,
+			)
+		);
 
-		echo apply_filters( 'seopress_schemas_faq_html', $schema );
+		if ( false !== $json ) {
+			$schema = '<script type="application/ld+json">' . $json . '</script>';
+
+			echo apply_filters( 'seopress_schemas_faq_html', $schema );
+		}
 	}
 	$html = apply_filters( 'seopress_faq_block_html', ob_get_clean() );
 	return $html;

@@ -18,11 +18,13 @@ class Menu {
 	 * @return array<int, array{
 	 *     id: string,
 	 *     title: string,
+	 *     icon?: string,
 	 *     default_hidden?: bool,
 	 *     menu_items?: array<int, array{
 	 *         id: string,
 	 *         group_id: string,
 	 *         title: string,
+	 *         icon?: string,
 	 *         groups: array<int, array{
 	 *             id: string,
 	 *             title: string,
@@ -37,9 +39,9 @@ class Menu {
 	public function get(): array {
 		$this->menu = require BURST_PATH . 'includes/Admin/App/config/menu.php';
 		$menu_items = $this->menu;
-		// remove items where capabilities are not met.
+		// Remove items where capabilities are not met.
 		foreach ( $menu_items as $key => $menu_item ) {
-			if ( ! current_user_can( $menu_item['capabilities'] ) ) {
+			if ( ! $this->is_mainwp_request() && ! current_user_can( $menu_item['capabilities'] ) ) {
 				unset( $menu_items[ $key ] );
 				continue;
 			}

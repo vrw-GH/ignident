@@ -24,8 +24,8 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 
 			$this->config['name']			= __( 'Icon Box', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-icon_box.png';
-			$this->config['order']			= 90;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-icon_box.svg';
+			$this->config['order']			= 82;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_icon_box';
 			$this->config['tooltip'] 	    = __( 'Creates a content block with icon to the left or above', 'avia_framework' );

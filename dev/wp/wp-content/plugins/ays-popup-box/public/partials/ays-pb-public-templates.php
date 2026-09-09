@@ -77,12 +77,15 @@ class Ays_Pb_Public_Templates {
         //popup box font-family
         $ays_pb_font_family  = (isset($options->pb_font_family) && $options->pb_font_family != '') ? stripslashes( esc_attr($options->pb_font_family) ) : '';
 
-        // Font Size 
+        // Font Size
         $pb_font_size = (isset($options->pb_font_size) && $options->pb_font_size != '') ? absint($options->pb_font_size) : 13;
 
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
-        
+
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //close button hover text
         $ays_pb_close_button_hover_text = (isset($options->close_button_hover_text) && $options->close_button_hover_text != '') ? stripslashes( esc_attr($options->close_button_hover_text) ) : "";
 
@@ -97,7 +100,7 @@ class Ays_Pb_Public_Templates {
 
         //Show Popup Title Mobile
         $show_title_mobile_class = $popup['show_title_mobile'] == 'On' ? 'ays_pb_show_title_on_mobile' : 'ays_pb_hide_title_on_mobile';
-        
+
         //Show Popup Description Mobile
         $show_desc_mobile_class = $popup['show_desc_mobile']  == 'On' ? 'ays_pb_show_desc_on_mobile' : 'ays_pb_hide_desc_on_mobile';
 
@@ -113,13 +116,13 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
             $ays_pb_flag = "data-ays-flag='false'";
         }
-        if($popup['ays_pb_action_buttons_type'] == 'clickSelector'){
+        if($popup['ays_pb_action_buttons_type'] == 'clickSelector' || $popup['ays_pb_action_buttons_type'] == 'exitIntent'){
             $ays_pb_flag = "data-ays-flag='true'";
         }
         if ( $popup['closeButton'] == "on" ){
@@ -142,6 +145,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $pb_height = '';
         if($ays_pb_full_screen == 'on'){
@@ -149,14 +155,14 @@ class Ays_Pb_Public_Templates {
             $popup['ays_pb_height'] = 'auto';
         }else{
             $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-            $pb_height = $popup['ays_pb_height'] . 'px';
+            $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -373,18 +379,21 @@ class Ays_Pb_Public_Templates {
 
         //close button hover text
         $ays_pb_close_button_hover_text = (isset($options->close_button_hover_text) && $options->close_button_hover_text != '') ? stripslashes( esc_attr($options->close_button_hover_text) ) : "";
-        
+
         // Box shadow
         $box_shadow = $this->ays_pb_generate_box_shadow_styles($options);
 
         //popup box font-family
         $ays_pb_font_family  = (isset($options->pb_font_family) && $options->pb_font_family != '') ? stripslashes( esc_attr($options->pb_font_family) ) : '';
 
-        // Font Size 
+        // Font Size
         $pb_font_size = (isset($options->pb_font_size) && $options->pb_font_size != '') ? absint($options->pb_font_size) : 13;
 
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
+
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
 
         //Show Popup Title
         $show_popup_title = $popup['show_title'] == "On" ? 'block' : 'none';
@@ -394,7 +403,7 @@ class Ays_Pb_Public_Templates {
 
         //Show Popup Title Mobile
         $show_title_mobile_class = $popup['show_title_mobile'] == 'On' ? 'ays_pb_show_title_on_mobile' : 'ays_pb_hide_title_on_mobile';
-        
+
         //Show Popup Description Mobile
         $show_desc_mobile_class = $popup['show_desc_mobile']  == 'On' ? 'ays_pb_show_desc_on_mobile' : 'ays_pb_hide_desc_on_mobile';
 
@@ -410,20 +419,20 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
             $ays_pb_flag = "data-ays-flag='false'";
         }
-        if($popup['ays_pb_action_buttons_type'] == 'clickSelector'){
+        if($popup['ays_pb_action_buttons_type'] == 'clickSelector' || $popup['ays_pb_action_buttons_type'] == 'exitIntent'){
             $ays_pb_flag = "data-ays-flag='true'";
         }
 
         if ( $popup['closeButton'] == "on" ){
             $popup['closeButton'] = "ays-close-button-on-off";
         } else { $popup['closeButton'] = ""; }
-        
+
         //popup width percentage
         $popup_width_by_percentage_px = (isset($options->popup_width_by_percentage_px) && $options->popup_width_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_width_by_percentage_px) ) : 'pixels';
         if(isset($popup['ays_pb_width']) && $popup['ays_pb_width'] != ''){
@@ -440,6 +449,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $ays_pb_full_screen  = (isset($options->enable_pb_fullscreen) && $options->enable_pb_fullscreen == 'on') ? 'on' : 'off';
         $pb_height = '';
@@ -448,14 +460,14 @@ class Ays_Pb_Public_Templates {
            $popup['ays_pb_height'] = 'auto';
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -713,6 +725,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //Show Popup Title
         $show_popup_title = $popup['show_title'] == "On" ? 'block' : 'none';
 
@@ -737,7 +752,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -767,6 +782,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $ays_pb_full_screen  = (isset($options->enable_pb_fullscreen) && $options->enable_pb_fullscreen == 'on') ? 'on' : 'off';
         $pb_height = '';
@@ -775,14 +793,14 @@ class Ays_Pb_Public_Templates {
            $popup['ays_pb_height'] = 'auto';
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -1071,6 +1089,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //Show Popup Title
         $show_popup_title = $popup['show_title'] == "On" ? 'block' : 'none';
 
@@ -1095,7 +1116,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -1123,6 +1144,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $ays_pb_full_screen  = (isset($options->enable_pb_fullscreen) && $options->enable_pb_fullscreen == 'on') ? 'on' : 'off';
         $pb_height = '';
@@ -1131,14 +1155,14 @@ class Ays_Pb_Public_Templates {
            $popup['ays_pb_height'] = 'auto';
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -1406,6 +1430,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //Show Popup Title
         $show_popup_title = $popup['show_title'] == "On" ? 'block' : 'none';
 
@@ -1430,7 +1457,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -1460,6 +1487,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $ays_pb_full_screen  = (isset($options->enable_pb_fullscreen) && $options->enable_pb_fullscreen == 'on') ? 'on' : 'off';
         $pb_height = '';
@@ -1468,14 +1498,14 @@ class Ays_Pb_Public_Templates {
            $popup['ays_pb_height'] = 'auto';
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -1732,6 +1762,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //Show Popup Title
         $show_popup_title = $popup['show_title'] == "On" ? 'block' : 'none';
 
@@ -1756,7 +1789,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -1786,6 +1819,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $ays_pb_full_screen  = (isset($options->enable_pb_fullscreen) && $options->enable_pb_fullscreen == 'on') ? 'on' : 'off';
         $pb_height = '';
@@ -1794,14 +1830,14 @@ class Ays_Pb_Public_Templates {
            $popup['ays_pb_height'] = 'auto';
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -2030,6 +2066,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //close button hover text
         $ays_pb_close_button_hover_text = (isset($options->close_button_hover_text) && $options->close_button_hover_text != '') ? stripslashes( esc_attr($options->close_button_hover_text) ) : "";
 
@@ -2060,7 +2099,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -2091,6 +2130,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         
         $pb_height = '';
@@ -2099,14 +2141,14 @@ class Ays_Pb_Public_Templates {
            $popup['ays_pb_height'] = 'auto';
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -2344,6 +2386,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //close button hover text
         $ays_pb_close_button_hover_text = (isset($options->close_button_hover_text) && $options->close_button_hover_text != '') ? stripslashes( esc_attr($options->close_button_hover_text) ) : "";
 
@@ -2374,7 +2419,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -2422,14 +2467,14 @@ class Ays_Pb_Public_Templates {
            ";
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -2666,6 +2711,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //close button hover text
         $ays_pb_close_button_hover_text = (isset($options->close_button_hover_text) && $options->close_button_hover_text != '') ? stripslashes( esc_attr($options->close_button_hover_text) ) : "";
 
@@ -2693,7 +2741,7 @@ class Ays_Pb_Public_Templates {
         
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -2726,6 +2774,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $ays_pb_full_screen  = (isset($options->enable_pb_fullscreen) && $options->enable_pb_fullscreen == 'on') ? 'on' : 'off';
         $pb_height = '';
@@ -2734,14 +2785,14 @@ class Ays_Pb_Public_Templates {
            $popup['ays_pb_height'] = 'auto';
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -2986,6 +3037,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //close button hover text
         $ays_pb_close_button_hover_text = (isset($options->close_button_hover_text) && $options->close_button_hover_text != '') ? stripslashes( esc_attr($options->close_button_hover_text) ) : "";
 
@@ -3016,7 +3070,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -3064,14 +3118,14 @@ class Ays_Pb_Public_Templates {
            ";
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -3300,6 +3354,9 @@ class Ays_Pb_Public_Templates {
         // Font Size 
         $pb_font_size = (isset($options->pb_font_size) && $options->pb_font_size != '') ? absint($options->pb_font_size) : 13;
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
@@ -3336,7 +3393,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -3355,6 +3412,7 @@ class Ays_Pb_Public_Templates {
         //popup width percentage
 
         $popup_width_by_percentage_px = (isset($options->popup_width_by_percentage_px) && $options->popup_width_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_width_by_percentage_px) ) : 'pixels';
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
         if(isset($popup['ays_pb_width']) && $popup['ays_pb_width'] != ''){
             if ($popup_width_by_percentage_px && $popup_width_by_percentage_px == 'percentage') {
                 if (absint(intval($popup['ays_pb_width'])) > 100 ) {
@@ -3388,14 +3446,14 @@ class Ays_Pb_Public_Templates {
            ";
         }else{
            $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-           $pb_height = $popup['ays_pb_height'] . 'px';
+           $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -3587,6 +3645,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $pb_height = '';
         if($ays_pb_full_screen == 'on'){
@@ -3594,14 +3655,14 @@ class Ays_Pb_Public_Templates {
             $popup['ays_pb_height'] = 'auto';
         }else{
             $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-            $pb_height = $popup['ays_pb_height'] . 'px';
+            $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -3753,6 +3814,9 @@ class Ays_Pb_Public_Templates {
         // Description text align for pc
         $pb_text_align = (isset($options->pb_description_alignment_for_pc) && $options->pb_description_alignment_for_pc != '') ? esc_attr( stripslashes($options->pb_description_alignment_for_pc) ) : 'left';
 
+        // Description font weight for pc
+        $pb_font_weight = (isset($options->pb_description_font_weight_for_pc) && $options->pb_description_font_weight_for_pc != '') ? esc_attr( stripslashes($options->pb_description_font_weight_for_pc) ) : 'normal';
+
         //close button hover text
         $ays_pb_close_button_hover_text = (isset($options->close_button_hover_text) && $options->close_button_hover_text != '') ? stripslashes( esc_attr($options->close_button_hover_text) ) : "";
 
@@ -3783,7 +3847,7 @@ class Ays_Pb_Public_Templates {
 
         if ($popup['ays_pb_description'] != '') {
             $content_desktop = Ays_Pb_Public::ays_autoembed( $popup['ays_pb_description'] );
-            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
+            $popup['ays_pb_description'] = "<div class='ays_pb_description " . $show_desc_mobile_class . "' style='text-align:{$pb_text_align}; font-size:{$pb_font_size}px; font-weight:{$pb_font_weight}; display:" . $show_popup_desc . "'>".$content_desktop."</div>";
         }
 
         if($popup['ays_pb_action_buttons_type'] == 'both' || $popup['ays_pb_action_buttons_type'] == 'pageLoaded'){
@@ -3812,6 +3876,9 @@ class Ays_Pb_Public_Templates {
             $pb_width = '100%';
         }
 
+        //popup height percentage
+        $popup_height_by_percentage_px = (isset($options->popup_height_by_percentage_px) && $options->popup_height_by_percentage_px != '') ? stripslashes( esc_attr($options->popup_height_by_percentage_px) ) : 'pixels';
+
         //pb full screen
         $pb_height = '';
         if($ays_pb_full_screen == 'on'){
@@ -3819,14 +3886,14 @@ class Ays_Pb_Public_Templates {
             $popup['ays_pb_height'] = 'auto';
         }else{
             $pb_width  = $popup_width_by_percentage_px == 'percentage' ? $popup['ays_pb_width'] . '%' : $popup['ays_pb_width'] . 'px';
-            $pb_height = $popup['ays_pb_height'] . 'px';
+            $pb_height = $popup_height_by_percentage_px == 'percentage' ? $popup['ays_pb_height'] . '%' : $popup['ays_pb_height'] . 'px';
         }
 
         if($pb_width == '0px' ||  $pb_width == '0%'){       
             $pb_width = '100%';
         }
 
-        if($pb_height == '0px'){       
+        if($pb_height == '0px' || $pb_height == '0%'){
             $pb_height = '500px';
         }
 
@@ -4193,6 +4260,14 @@ class Ays_Pb_Public_Templates {
             $options['options'] = json_decode($popup_options['options']);
         }
 
+        if (isset($options['options']->popup_height_by_percentage_px) && $options['options']->popup_height_by_percentage_px == 'percentage' && $options['ays_pb_height'] > 100) {
+            $options['ays_pb_height'] = 100;
+        }
+
+        if (isset($options['options']->popup_height_by_percentage_px_mobile) && $options['options']->popup_height_by_percentage_px_mobile == 'percentage' && isset($options['options']->mobile_height) && $options['options']->mobile_height > 100) {
+            $options['options']->mobile_height = 100;
+        }
+
         return $options;
     }
 
@@ -4202,6 +4277,8 @@ class Ays_Pb_Public_Templates {
         $user_display_name = ( isset( $user_data->display_name ) && $user_data->display_name != '' ) ? stripslashes( $user_data->display_name ) : '';
 
         $user_email = ( isset( $user_data->user_email ) && $user_data->user_email != '' ) ? stripslashes( $user_data->user_email ) : '';
+
+        $user_website_url = ( isset( $user_data->user_url ) && ! empty( $user_data->user_url ) ) ? $user_data->user_url : "";
 
         $pb_user_information  = Ays_Pb_Data::get_user_profile_data();
 		$user_first_name      = (isset( $pb_user_information['user_first_name'] ) && $pb_user_information['user_first_name']  != "") ? $pb_user_information['user_first_name'] : '';
@@ -4214,14 +4291,35 @@ class Ays_Pb_Public_Templates {
         $current_popup_author = ( isset( $author->name ) && $author->name != "" ) ? $author->name : '';
 
         $current_popup_author_email = "";
+        $current_popup_author_nickname = "";
+        $current_popup_author_display_name = "";
+        $current_popup_author_website_url = "";
+        $current_popup_author_registered = "";
         if( isset($author) && !empty($author) && isset($author->id) && intval($author->id) > 0 ){
             $current_popup_author_data = get_userdata( $author->id );
             if ( isset( $current_popup_author_data ) && $current_popup_author_data ) {
                 // Get popup author email
                 $current_popup_author_email = ( isset( $current_popup_author_data->data->user_email ) && $current_popup_author_data->data->user_email != '' ) ? sanitize_text_field( $current_popup_author_data->data->user_email ) : '';
+                // Get popup author nickname
+                $current_popup_author_nickname = ( isset( $current_popup_author_data->data->user_nicename ) && $current_popup_author_data->data->user_nicename != '' ) ? sanitize_text_field( $current_popup_author_data->data->user_nicename ) : "";
+                // Get popup author display name
+                $current_popup_author_display_name = ( isset( $current_popup_author_data->data->display_name ) && $current_popup_author_data->data->display_name != '' ) ? sanitize_text_field( $current_popup_author_data->data->display_name ) : "";
+                // Get popup author website URL
+                $current_popup_author_website_url = ( isset( $current_popup_author_data->data->user_url ) && $current_popup_author_data->data->user_url != '' ) ? sanitize_text_field( $current_popup_author_data->data->user_url ) : "";
+                // Get popup author registered
+                $current_popup_author_registered = ( isset( $current_popup_author_data->data->user_registered ) && $current_popup_author_data->data->user_registered != '' ) ? sanitize_text_field( $current_popup_author_data->data->user_registered ) : "";
             } else {
                 $current_popup_author_email = '';
+                $current_popup_author_nickname = '';
+                $current_popup_author_display_name = '';
+                $current_popup_author_website_url = '';
+                $current_popup_author_registered = '';
             }
+        }
+
+
+        if ( ! empty( $current_popup_author_website_url ) ) {
+            $current_popup_author_website_url = '<a href="'. $current_popup_author_website_url .'" target="_blank">'. $current_popup_author_website_url .'</a>';
         }
 
         $ays_pb_protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";         
@@ -4251,48 +4349,75 @@ class Ays_Pb_Public_Templates {
         $post_title = get_the_title();
 
         // Get the Post author meta
+        $post_author_roles = '';
+
         $author_id = get_the_author_meta('ID');
         $post_author_nickname = get_the_author_meta( 'nickname', $author_id );
         $post_author_email = get_the_author_meta( 'email', $author_id );
         $post_author_first_name = get_the_author_meta( 'first_name', $author_id );
         $post_author_last_name = get_the_author_meta( 'last_name', $author_id );
         $post_author_display_name = get_the_author_meta( 'display_name', $author_id );
+        $post_author_website_url = get_the_author_meta( 'url', $author_id );
+
+        if ( is_user_logged_in() ) {
+            $post_author_roles  = get_the_author_meta( 'roles', $author_id );
+        }
+
+        if ( ! empty( $post_author_roles ) && $post_author_roles != "" ) {
+            if ( is_array( $post_author_roles ) ) {
+                $post_author_roles = implode( ", ", $post_author_roles );
+            }
+        }
 
         $post_id = url_to_postid( get_permalink() );
         $get_site_title = get_bloginfo('name');
         $get_site_description = get_bloginfo('description');
 
+        if ( ! empty( $post_author_website_url ) ) {
+            $post_author_website_url = '<a href="'. $post_author_website_url .'" target="_blank">'. $post_author_website_url .'</a>';
+        }
+
+        if ( ! empty( $user_website_url ) ) {
+            $user_website_url = '<a href="'. $user_website_url .'" target="_blank">'. $user_website_url .'</a>';
+        }
 
         $message_variables_data = array(
-            'popup_title'                   => $popup_title,
-            'user_name'                     => $user_display_name,
-            'user_email'                    => $user_email,
-            'user_first_name'               => $user_first_name,
-            'user_last_name'                => $user_last_name,
-            'admin_email'                   => $super_admin_email,
-            'current_popup_author'          => $current_popup_author,
-            'current_popup_author_email'    => $current_popup_author_email,
-            'current_popup_page_link'       => $popup_current_page_link_html,
-            'user_wordpress_roles'          => $user_wordpress_roles,
-            'creation_date'                 => $creation_date,
-            'current_date'                  => $current_date,
-            'user_nickname'                 => $user_nickname,
-            'current_time'                  => $current_time,
-            'current_day'                   => $current_day,
-            'current_month'                 => $current_month,
-            'user_id'                       => $current_user_id,
-            'user_registered'               => $user_registered,
-            'post_author_nickname'          => $post_author_nickname,
-            'post_author_email'             => $post_author_email,
-            'post_author_first_name'        => $post_author_first_name,
-            'post_author_last_name'         => $post_author_last_name,
-            'post_author_display_name'      => $post_author_display_name,
-            'post_title'                    => $post_title,
-            'post_id'                       => $post_id,
-            'site_title'                    => $get_site_title,
-            'site_description'              => $get_site_description,
-            'home_page_url'                 => $home_page_url,
-        );
+            'popup_title'                           => $popup_title,
+            'user_name'                             => $user_display_name,
+            'user_email'                            => $user_email,
+            'user_first_name'                       => $user_first_name,
+            'user_last_name'                        => $user_last_name,
+            'user_nickname'                         => $user_nickname,
+            'user_wordpress_roles'                  => $user_wordpress_roles,
+            'user_id'                               => $current_user_id,
+            'user_registered'                       => $user_registered,
+            'user_website_url'                      => $user_website_url,
+            'admin_email'                           => $super_admin_email,
+            'current_popup_author'                  => $current_popup_author,
+            'current_popup_author_email'            => $current_popup_author_email,
+            'current_popup_author_nickname'         => $current_popup_author_nickname,
+            'current_popup_author_display_name'     => $current_popup_author_display_name,
+            'current_popup_author_website_url'      => $current_popup_author_website_url,
+            'current_popup_author_registered'       => $current_popup_author_registered,
+            'current_popup_page_link'               => $popup_current_page_link_html,
+            'creation_date'                         => $creation_date,
+            'current_date'                          => $current_date,
+            'current_time'                          => $current_time,
+            'current_day'                           => $current_day,
+            'current_month'                         => $current_month,
+            'post_author_nickname'                  => $post_author_nickname,
+            'post_author_email'                     => $post_author_email,
+            'post_author_first_name'                => $post_author_first_name,
+            'post_author_last_name'                 => $post_author_last_name,
+            'post_author_display_name'              => $post_author_display_name,
+            'post_author_website_url'               => $post_author_website_url,
+            'post_author_roles'                     => $post_author_roles,
+            'post_title'                            => $post_title,
+            'post_id'                               => $post_id,
+            'site_title'                            => $get_site_title,
+            'site_description'                      => $get_site_description,
+            'home_page_url'                         => $home_page_url,
+        );  
 
         return $message_variables_data;
     }

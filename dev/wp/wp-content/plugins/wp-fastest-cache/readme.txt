@@ -2,9 +2,9 @@
 Contributors: emrevona
 Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
-Requires at least: 5.3
-Tested up to: 6.9
-Stable tag: 1.4.6
+Requires at least: 5.7
+Tested up to: 7.1
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,27 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.5.1 =
+* <strong>[Improvement]</strong> Validates Polylang domain mappings against an allowlist to prevent security risks
+* <strong>[Improvement]</strong> Added protection against feed cache poisoning via query string parameters
+* Prevent caching URLs that contain query strings
+
+= 1.5.0 =
+* Fixed: Replaced the non-standard text/js MIME type with a valid JavaScript content type for missing minified JS file responses
+* Fixed: Resolved an issue where the preload tool could fail while processing the sitemap.
+
+= 1.4.9 =
+* Tested and confirmed full compatibility with WordPress 7.0 to ensure smooth and reliable plugin performance
+
+= 1.4.8 =
+* to fix PHP Warning: unlink(), scandir(), rmdir() No such file or directory in wpFastestCache.php on lines 2285, 2291, 2294
+* Added regex support to the cookie exclude feature
+* Added protection to block null byte injection attempt
+
+= 1.4.7 =
+* to fix E_WARNING: scandir(): No such file or directory in wpFastestCache.php  on line 2208 and 2227
+* <strong>[Improvement]</strong> Enhanced exclude rules processing with safe regex support, added protection against regex injection, proper HTML entity decoding, and more precise matching in generated .htaccess rules
 
 = 1.4.6 =
 * <strong>[Improvement]</strong> Elementor element cache and CSS Print Method detection logic [<a target="_blank" href="https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/">Details</a>]

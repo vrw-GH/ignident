@@ -153,6 +153,9 @@
 		'restoreSelectError' => __('Select an item to restore', 'LayerSlider'),
 		'restoreSuccess' => sprintf( _n( '%d item has been restored', '%d items have been restored', $notificationsItemCount, 'LayerSlider' ), $notificationsItemCount ),
 
+		'uploadError' => sprintf(__('Upload error. See %sSystem Status%s.', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider&section=system-status').'">', '</a>'),
+		'uploadErrorSize' => sprintf(__('Upload size limit reached. See %sSystem Status%s.', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider&section=system-status').'">', '</a>'),
+
 		'exportNotFound' => __('No items were found to export', 'LayerSlider'),
 		'exportSelectError' => __('Select an item to export', 'LayerSlider'),
 		'exportZipError' => __('The PHP ZipArchive extension is required to import .zip files', 'LayerSlider'),
@@ -726,7 +729,6 @@
 					<select name="action">
 						<option value="0"><?= __('Bulk Actions', 'LayerSlider') ?></option>
 						<option value="export"><?= __('Export selected', 'LayerSlider') ?></option>
-						<option value="export-html"><?= __('Export as HTML', 'LayerSlider') ?></option>
 						<option value="duplicate"><?= __('Duplicate selected', 'LayerSlider') ?></option>
 						<option value="hide"><?= __('Hide selected', 'LayerSlider') ?></option>
 						<option value="delete"><?= __('Delete permanently', 'LayerSlider') ?></option>

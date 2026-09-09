@@ -48,10 +48,12 @@ if( ! class_exists( 'avia_sc_grid_row', false ) )
 
 
 			$this->config['name']				= __( 'Grid Row', 'avia_framework' );
-			$this->config['icon']				= AviaBuilder::$path['imagesURL'] . 'sc-layout_row.png';
+			$this->config['icon']				= AviaBuilder::$path['iconsURL'] . 'sc-layout_row.svg';
 			$this->config['tab']				= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']				= 15;
 			$this->config['shortcode']			= 'av_layout_row';
+			//	the frame around other elements, so no icon and name of its own - see prepare_editor_element()
+			$this->config['alb_head']		= false;
 			$this->config['html_renderer']		= false;
 			$this->config['tinyMCE']			= array( 'disable' => 'true' );
 			$this->config['tooltip']			= __( 'Add multiple Grid Rows below each other to create advanced grid layouts. Cells can be styled individually', 'avia_framework' );

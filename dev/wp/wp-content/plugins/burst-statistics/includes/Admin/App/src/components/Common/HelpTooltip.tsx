@@ -21,6 +21,15 @@ interface HelpTooltipProps {
 
 	/** Children to display in the trigger */
 	children?: React.ReactNode;
+
+	/** Render trigger as child to preserve wrapped element layout */
+	asChild?: boolean;
+
+	/**
+	 * Visual style. 'default' is the compact gray bubble; 'rich' is a cleaner
+	 * white card with more breathing room, used for metric explainers.
+	 */
+	variant?: 'default' | 'rich';
 }
 
 const HelpTooltip: React.FC<HelpTooltipProps> = ({
@@ -28,17 +37,36 @@ const HelpTooltip: React.FC<HelpTooltipProps> = ({
 	side = 'top',
 	hasArrow = true,
 	delayDuration = 300,
-	children
+	children,
+	asChild = false,
+	variant = 'default'
 }) => {
 	const handleClick = ( e: React.MouseEvent ) => {
 		e.preventDefault();
 		e.stopPropagation();
 	};
 
+	const isRich = 'rich' === variant;
+
+	const contentClassName = isRich ?
+		`burst-tooltip z-toast max-w-[300px] font-normal tracking-normal border px-4 py-3 rounded-lg text-left
+            animate-in fade-in-50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0
+            data-[state=delayed-open]:data-[side=top]:slide-in-from-bottom-2
+            data-[state=delayed-open]:data-[side=bottom]:slide-in-from-top-2
+            data-[state=delayed-open]:data-[side=left]:slide-in-from-right-2
+            data-[state=delayed-open]:data-[side=right]:slide-in-from-left-2` :
+		`burst-tooltip z-toast max-w-xs font-normal tracking-normal border px-2 py-1.5 text-base rounded text-left
+            animate-in fade-in-50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0
+            data-[state=delayed-open]:data-[side=top]:slide-in-from-bottom-2
+            data-[state=delayed-open]:data-[side=bottom]:slide-in-from-top-2
+            data-[state=delayed-open]:data-[side=left]:slide-in-from-right-2
+            data-[state=delayed-open]:data-[side=right]:slide-in-from-left-2`;
+
 	return (
 		<Tooltip.Provider delayDuration={delayDuration}>
 			<Tooltip.Root>
 				<Tooltip.Trigger
+					asChild={asChild}
 					aria-label={__( 'Help information', 'burst-statistics' )}
 					onClick={handleClick}
 					onMouseDown={( e ) => e.stopPropagation()}
@@ -48,26 +76,23 @@ const HelpTooltip: React.FC<HelpTooltipProps> = ({
 
 				<Tooltip.Content
 					side={side}
-					sideOffset={5}
-					className="z-[99999] max-w-xs bg-gray-200 text-gray border border-gray-300 px-2 py-1.5 text-base rounded shadow-md
-            animate-in fade-in-50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0
-            data-[state=delayed-open]:data-[side=top]:slide-in-from-bottom-2
-            data-[state=delayed-open]:data-[side=bottom]:slide-in-from-top-2
-            data-[state=delayed-open]:data-[side=left]:slide-in-from-right-2
-            data-[state=delayed-open]:data-[side=right]:slide-in-from-left-2"
+					sideOffset={6}
+					className={contentClassName}
 					onClick={( e ) => e.stopPropagation()}
 				>
-					{'string' === typeof content ?
-						__( content, 'burst-statistics' ) :
-						content}
+					{
+						'string' === typeof content ? __( content, 'burst-statistics' ) : content
+					}
 
-					{hasArrow && (
-						<Tooltip.Arrow
-							className="fill-gray-300"
-							width={10}
-							height={5}
-						/>
-					)}
+					{
+						hasArrow && (
+							<Tooltip.Arrow
+								className="burst-tooltip-arrow"
+								width={10}
+								height={5}
+							/>
+						)
+					}
 				</Tooltip.Content>
 			</Tooltip.Root>
 		</Tooltip.Provider>

@@ -38,6 +38,94 @@
 				</ls-p>
 			</ls-b>
 
+			<!-- SFX Slide Transitions -->
+			<ls-b data-tab="slidefx">
+
+				<ls-box class="ls--show-if-not-registered ls-show-activation-box">
+					<ls-b>
+					<?= __('Register license to use this feature.', 'LayerSlider') ?>
+					</ls-b>
+				</ls-box>
+
+				<ls-b class="ls--addon-desc">
+					<ls-p>
+						<?= sprintf(__('%sGive your slide transitions a cinematic edge with special effects.%s Going beyond LayerSlider’s standard 2D and 3D transitions, this add-on introduces a whole new class of GPU-powered effects. Built with WebGL and custom shaders, they deliver visuals and performance that conventional transitions simply can’t reach.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>' ) ?>
+					</ls-p>
+					<ls-p>
+						<?= __('Choose from 56 ready-made effects across 13 categories. Every effect is fully customizable through an extensive set of options, and when you want something truly your own, you can build special effects from scratch.', 'LayerSlider') ?>
+					</ls-p>
+					<ls-p>
+						<?= sprintf(__('Longtime favorites like the %sOrigami%s transition are right here too.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>' ) ?>
+					</ls-p>
+				</ls-b>
+
+				<ls-p class="ls--form-control ls--text-center">
+					<ls-button-group class="ls--vertical">
+						<a href="https://layerslider.com/sliders/trawellio/" target="_blank" class="ls--button">
+							<?= __('Trawellio Demo', 'LayerSlider') ?>
+						</a>
+						<a href="https://layerslider.com/sliders/origami/" target="_blank" class="ls--button">
+							<?= __('Origami Demo', 'LayerSlider') ?>
+						</a>
+					</ls-button-group>
+				</ls-p>
+
+
+			</ls-b>
+
+			<!-- Lottie -->
+			<ls-b data-tab="lottie">
+
+				<ls-box class="ls--show-if-not-registered ls-show-activation-box">
+					<ls-b>
+					<?= __('Register license to use this feature.', 'LayerSlider') ?>
+					</ls-b>
+				</ls-box>
+
+				<ls-b class="ls--addon-desc">
+					<ls-p>
+						<?= sprintf(__('%sTake LayerSlider animations to the next level with the Lottie Add-On.%s Enhance your already dynamic designs by integrating beautifully crafted Lottie animations, powered by the latest and most efficient renderer, with support for both classic Lottie and the modern dotLottie format, as well as Lottie theming.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>' ) ?>
+					</ls-p>
+					<ls-p>
+						<?= __('This add-on creates a smooth bridge between LayerSlider and professional tools like Adobe After Effects, Figma, or Canva, so you can seamlessly move assets between workflows. Enjoy flexible customization and interactive playback options, including click, hover, mouse move, and scroll-based playback, for animations that respond to user actions.', 'LayerSlider') ?>
+					</ls-p>
+				</ls-b>
+
+				<ls-p class="ls--form-control ls--text-center">
+					<ls-button-group class="ls--vertical">
+						<a target="_blank" href="https://lottiefiles.com/featured-free-animations" class="ls--button">
+							<?= __('Discover Lottie Animations', 'LayerSlider') ?>
+						</a>
+					</ls-button-group>
+				</ls-p>
+
+			</ls-b>
+
+			<!-- Layer Effects -->
+			<ls-b data-tab="layer-effects">
+
+				<ls-box class="ls--show-if-not-registered ls-show-activation-box">
+					<ls-b>
+					<?= __('Register license to use this feature.', 'LayerSlider') ?>
+					</ls-b>
+				</ls-box>
+
+				<ls-b class="ls--addon-desc">
+					<ls-p><?= sprintf( __('%sUnleash your creativity with a growing collection of Layer Effects%s, each designed to transform your layers into captivating visual experiences.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>' ) ?></ls-p>
+
+					<ls-ul>
+						<ls-li><?= sprintf(__('%sBorderize:%s Frame your layers with animated borders and stylish outlines.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sLiquify:%s Add a playful, elastic twist that makes layers bend and ripple like soft jelly when you interact with them.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sReplicator:%s Turn a single layer into many, creating everything from depth effects and motion trails to bold visual patterns.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sReveal:%s Unveil your layers with a rich set of mask transitions that expand and collapse to reveal content underneath, naturally drawing attention as they unfold.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sSlicer:%s Cut your layers into moving strips that break apart and scatter, turning the layer into drifting fragments.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sTypewriter:%s Bring your designs to life with the timeless charm of typewriter-style text and cursor animation.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+					</ls-ul>
+
+					<ls-p><?= __('This is just the beginning. More effects are coming soon!', 'LayerSlider') ?></ls-p>
+				</ls-b>
+
+			</ls-b>
 
 			<!-- Counter -->
 			<ls-b data-tab="counter">
@@ -181,32 +269,6 @@
 				</ls-grid> -->
 			</ls-b>
 
-
-			<!-- Origami -->
-			<ls-b data-tab="origami">
-
-				<ls-box class="ls--show-if-not-registered ls-show-activation-box">
-					<ls-b>
-					<?= __('Register license to use this feature.', 'LayerSlider') ?>
-					</ls-b>
-				</ls-box>
-
-				<ls-b class="ls--addon-desc">
-					<ls-p>
-						<?= sprintf(__('%sFold your users’ expectations.%s Origami slide transition is the perfect solution to share your gorgeous photos with the world or your loved ones in a truly inspirational way and create sliders with stunning effects.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>' ) ?>
-					</ls-p>
-				</ls-b>
-				<ls-p class="ls--form-control ls--text-center">
-					<ls-button-group class="ls--vertical">
-						<a href="https://layerslider.com/sliders/origami/" target="_blank" class="ls--button">
-							<?= __('Origami Demo', 'LayerSlider') ?>
-						</a>
-						<a href="https://layerslider.com/sliders/origami-buildings/" target="_blank" class="ls--button">
-							<?= __('Origami Buildings Demo', 'LayerSlider') ?>
-						</a>
-					</ls-button-group>
-				</ls-p>
-			</ls-b>
 
 
 			<!-- Assets Library -->
@@ -479,7 +541,45 @@
 
 			<ls-row class="km-tabs-list" data-target="#ls-addons-content" data-disable-auto-rename>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="counter">
+				<ls-col	ls-col class="kmw-menuitem ls--col1-2"  data-tab-target="slidefx">
+					<ls-box>
+						<ls-b class="ls--container">
+							<video src="https://layerslider.com/media/premium/sfx.mp4" class="ls--video ls--allowstop" muted></video>
+						</ls-b>
+					</ls-box>
+					<ls-b class="ls--title">
+						<?= __('SFX Slide Transitions', 'LayerSlider') ?>
+					</ls-b>
+					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
+				</ls-col>
+
+				<ls-col	ls-col class="kmw-menuitem ls--col1-2"  data-tab-target="lottie">
+					<ls-box>
+						<ls-b class="ls--container">
+							<video src="https://layerslider.com/media/premium/lottie.mp4" class="ls--video" muted></video>
+						</ls-b>
+					</ls-box>
+					<ls-b class="ls--title">
+						<?= __('Lottie', 'LayerSlider') ?>
+					</ls-b>
+					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
+				</ls-col>
+
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="layer-effects">
+					<ls-box>
+						<ls-b class="ls--container">
+							<video class="ls--video ls--allowstop" muted src="https://layerslider.com/media/premium/layer-effects.mp4"></video>
+						</ls-b>
+					</ls-box>
+					<ls-b class="ls--title">
+						<?= __('Layer Effects', 'LayerSlider') ?>
+					</ls-b>
+					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
+				</ls-col>
+
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="counter">
 					<ls-box>
 						<ls-b class="ls--container">
 							<video class="ls--video" muted src="https://layerslider.com/media/premium/counter.mp4"></video>
@@ -488,11 +588,10 @@
 					<ls-b class="ls--title">
 						<?= __('Counter', 'LayerSlider') ?>
 					</ls-b>
-					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="maintenance">
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="maintenance">
 					<ls-box>
 						<ls-b class="ls--container">
 							<video class="ls--video" muted src="https://layerslider.com/media/premium/under-maintenance.mp4"></video>
@@ -501,11 +600,10 @@
 					<ls-b class="ls--title">
 						<?= __('Maintenance & Coming Soon', 'LayerSlider') ?>
 					</ls-b>
-					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="countdown">
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="countdown">
 					<ls-box>
 						<ls-b class="ls--container">
 							<video class="ls--video" muted src="https://layerslider.com/media/premium/countdown.mp4"></video>
@@ -514,7 +612,6 @@
 					<ls-b class="ls--title">
 						<?= __('Countdown', 'LayerSlider') ?>
 					</ls-b>
-					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
@@ -587,18 +684,6 @@
 					</ls-box>
 					<ls-b class="ls--title">
 						<?= __('Popups', 'LayerSlider') ?>
-					</ls-b>
-					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
-				</ls-col>
-
-				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="origami">
-					<ls-box>
-						<ls-b class="ls--container ls--nozoom">
-							<video class="ls--video" muted src="https://layerslider.com/media/premium/origami.mp4"></video>
-						</ls-b>
-					</ls-box>
-					<ls-b class="ls--title">
-						<?= __('Origami Slide Transition', 'LayerSlider') ?>
 					</ls-b>
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>

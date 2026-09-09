@@ -20,8 +20,8 @@ if( ! class_exists( 'avia_sc_widgetarea', false ) )
 
 			$this->config['name']		= __( 'Widget Area', 'avia_framework' );
 			$this->config['tab']		= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-sidebar.png';
-			$this->config['order']		= 10;
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-sidebar.svg';
+			$this->config['order']		= 24;
 			$this->config['target']		= 'avia-target-insert';
 			$this->config['shortcode'] 	= 'av_sidebar';
 			$this->config['tinyMCE'] 	= array( 'instantInsert' => '[av_sidebar widget_area="Displayed Everywhere"]' );

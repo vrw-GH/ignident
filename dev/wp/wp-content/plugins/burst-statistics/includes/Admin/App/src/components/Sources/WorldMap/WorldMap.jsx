@@ -6,12 +6,13 @@ import { useGeoData } from '@/hooks/useGeoData';
 import { useGeoAnalytics } from '@/hooks/useGeoAnalytics';
 import { createValueFormatter } from '@/utils/formatting';
 import { __, sprintf } from '@wordpress/i18n';
-import useSettingsData from '@/hooks/useSettingsData';
+import useLicenseData from '@/hooks/useLicenseData';
 import {useBlockConfig} from '@/hooks/useBlockConfig';
 import MapOverlay from '@/components/Sources/WorldMap/MapOverlay';
 import InCompleteDataNotice from '@/components/Sources/WorldMap/InCompleteDataNotice';
 import MapStatisticsInfo from '@/components/Sources/WorldMap/MapStatisticsInfo';
 
+// fallow-ignore-next-line complexity
 const WorldMap = ( props ) => {
 	const { isStory } = useBlockConfig( props );
 
@@ -36,10 +37,9 @@ const WorldMap = ( props ) => {
 		( state ) => state.classificationMethod
 	);
 
-	// Settings data for getting the database update time
-	const { getValue } = useSettingsData();
-
-	const geoIpDatabaseType = getValue( 'geo_ip_database_type' );
+	// Derived (not a setting): Pro tracks city, free tracks country.
+	const { isPro } = useLicenseData();
+	const geoIpDatabaseType = isPro ? 'city' : 'country';
 
 	const colorScheme = useMemo( () => {
 		return metricOptions[selectedMetric]?.colorScheme || 'greens';
@@ -75,6 +75,8 @@ const WorldMap = ( props ) => {
 	} = useGeoAnalytics( props );
 
 	const handleFeatureClick = useCallback(
+
+		// fallow-ignore-next-line complexity
 		( feature ) => {
 			if ( ! feature || ! feature.properties?.iso_a2 ) {
 				return;
@@ -123,6 +125,7 @@ const WorldMap = ( props ) => {
 	);
 
 	// When view changes to a country and its data is loaded, set the zoom target
+	// fallow-ignore-next-line complexity
 	useEffect( () => {
 		if (
 			'country' === currentView.level &&
@@ -149,6 +152,7 @@ const WorldMap = ( props ) => {
 	const matchProperty = useMemo( () => {
 
 		// Custom matching function to match GeoJSON features with analytics data
+		// fallow-ignore-next-line complexity
 		return ( feature, datum ) => {
 
 			// Get the country code from the feature's properties
@@ -204,6 +208,7 @@ const WorldMap = ( props ) => {
 	}, []);
 
 	// Calculate total for the selected metric
+	// fallow-ignore-next-line complexity
 	const totalMetricValue = useMemo( () => {
 		if ( ! analyticsData || 0 === analyticsData.length ) {
 			return 0;
@@ -304,7 +309,7 @@ const WorldMap = ( props ) => {
 
 	if ( isGeoSimpleLoading ) {
 		return (
-			<div className="p-4 text-gray">
+			<div className="p-4 text-text-gray">
 				{__( 'Loading map data…', 'burst-statistics' )}
 			</div>
 		);
@@ -312,7 +317,7 @@ const WorldMap = ( props ) => {
 
 	if ( ! selectedMetric ) {
 		return (
-			<div className="p-4 text-gray">
+			<div className="p-4 text-text-gray">
 				{__( 'No metrics available for display.', 'burst-statistics' )}
 			</div>
 		);
@@ -336,8 +341,10 @@ const WorldMap = ( props ) => {
 			{/* Breadcrumbs Navigation - Only show for city database type */}
 			{'city' === geoIpDatabaseType && <div className="absolute left-3 top-3 z-10"><MapBreadcrumbs /></div>}
 
-			{/* Incomplete Data Notice - Top Left - Only for city database type */}
-			{'city' === geoIpDatabaseType && currentViewMissingData && <InCompleteDataNotice />}
+			{/* Incomplete Data Notice - Top Left. City: when viewing a region with
+			    missing data. Country (free): always — the notice self-gates on the
+			    "available from" timestamp (only set on upgrade, not fresh install). */}
+			{( ( 'city' === geoIpDatabaseType && currentViewMissingData ) || 'country' === geoIpDatabaseType ) && <InCompleteDataNotice />}
 
 			{/* Map Statistics Info */}
 			<MapStatisticsInfo dataStatistics={dataStatistics} missingDataCount={missingDataCount}/>
@@ -370,7 +377,7 @@ const WorldMap = ( props ) => {
 					margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
 					colors={colorScheme}
 					domain={colorDomain}
-					unknownColor="#dee2e6"
+					unknownColor="var(--color-gray-300)"
 					label={labelAccessor}
 					valueFormat={valueFormatter}
 					projectionType="naturalEarth1"
@@ -380,9 +387,9 @@ const WorldMap = ( props ) => {
 					projectionTranslation={projection.translation}
 					projectionRotation={projection.rotation}
 					enableGraticule={true}
-					graticuleLineColor="#dddddd"
+					graticuleLineColor="var(--color-gray-300)"
 					borderWidth={0.5}
-					borderColor="#adb5bd"
+					borderColor="var(--color-gray-500)"
 					metric={selectedMetric}
 					metricOptions={metricOptions}
 					patternsEnabled={patternsEnabled}
@@ -401,14 +408,14 @@ const WorldMap = ( props ) => {
 							itemWidth: 94,
 							itemHeight: 18,
 							itemDirection: 'left-to-right',
-							itemTextColor: '#444444',
+							itemTextColor: 'var(--color-text-gray)',
 							itemOpacity: 0.85,
 							symbolSize: 18,
 							effects: [
 								{
 									on: 'hover',
 									style: {
-										itemTextColor: '#000000',
+										itemTextColor: 'var(--color-text-black)',
 										itemOpacity: 1
 									}
 								}
@@ -420,6 +427,18 @@ const WorldMap = ( props ) => {
 					geoIpDatabaseType={geoIpDatabaseType}
 				/>
 			)}
+
+			{/* MaxMind attribution — required when displaying GeoLite2 data.
+			    Absolutely positioned so it stays out of the map's height
+			    measurement and never affects the responsive layout. */}
+			<a
+				href="https://www.maxmind.com"
+				target="_blank"
+				rel="noopener noreferrer"
+				className="absolute bottom-1 right-2 z-10 text-[10px] leading-none text-gray-400 hover:text-gray-600"
+			>
+				{__( 'Location data by MaxMind GeoLite2', 'burst-statistics' )}
+			</a>
 		</div>
 	);
 };

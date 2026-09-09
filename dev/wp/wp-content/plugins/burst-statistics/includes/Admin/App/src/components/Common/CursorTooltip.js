@@ -20,16 +20,13 @@ const CursorTooltip = ({ children, content, delayDuration = 400 }) => {
 				</TooltipUI.Trigger>
 				<TooltipUI.Portal>
 					<TooltipUI.Content
-						className="burst rounded-xs
+						className="burst burst-tooltip border rounded-xs
                 px-xs py-[7px]
                 text-base leading-[1.5]
-                text-white
-                bg-black
-                shadow-tooltip
                 select-none
                 will-change-transform will-change-opacity
                 max-w-[40ch]
-                animate-[none]
+                animate-none
                 data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade
                 data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade
                 data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade

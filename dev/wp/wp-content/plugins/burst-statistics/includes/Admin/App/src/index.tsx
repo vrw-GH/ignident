@@ -1,6 +1,5 @@
 import { Suspense, StrictMode } from 'react';
 import { createRoot, render } from '@wordpress/element';
-import { ToastContainer } from 'react-toastify';
 import {
 	QueryClient,
 	QueryCache,
@@ -10,6 +9,7 @@ import {
 import {
 	RouterProvider,
 	createRouter,
+	createBrowserHistory,
 	createHashHistory
 } from '@tanstack/react-router';
 
@@ -18,6 +18,8 @@ import {
 // passes to styled components, which causes warnings in styled-components v6
 import { StyleSheetManager } from 'styled-components';
 import isPropValid from '@emotion/is-prop-valid';
+import { ThemeProvider } from './hooks/useTheme';
+import { startScrollLockWatchdog } from './utils/scrollLockWatchdog';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
@@ -51,18 +53,26 @@ const shouldForwardProp = ( prop: string ) => {
 	return isPropValid( prop );
 };
 
-// Add type declaration for window.burst_settings
+export type {
+	BurstMenuPro,
+	BurstMenuGroup,
+	BurstMenuItem,
+	BurstMenuPage,
+	BurstMenuConfig,
+	BurstSettings
+} from './types/burst-settings';
+
 declare global {
 	interface Window {
-		burst_settings?: {
-			is_pro?: string;
-			view_sales_burst_statistics?: string;
-			[key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-		};
+		burstLoaded?: boolean;
 	}
 }
 
-const hashHistory = createHashHistory();
+// This bundle is mounted in wp-admin and on shared dashboard URLs. wp-admin
+// still needs hash routing, while /burst-dashboard/<tab>/ should behave like a
+// normal path-based app.
+const isSharedDashboardRoute = /\/burst-dashboard(\/|$)/.test( window.location.pathname );
+const routerHistory = isSharedDashboardRoute ? createBrowserHistory() : createHashHistory();
 const HOUR_IN_SECONDS = 3600;
 
 interface QueryConfig {
@@ -96,6 +106,17 @@ config = { ...config, ...{ queryCache } };
 const queryClient = new QueryClient( config );
 const isPro = window.burst_settings?.is_pro;
 const canViewSales = window.burst_settings?.view_sales_burst_statistics;
+const menus = window.burst_settings?.menu;
+
+const normalizedMenus = Array.isArray( menus ) ?
+	menus :
+	Object.values( menus ?? {});
+
+if ( window.burst_settings ) {
+
+	// Normalize menu here itself.
+	window.burst_settings.menu = normalizedMenus;
+}
 
 // Create the router with improved loading state
 const router = createRouter({
@@ -103,7 +124,8 @@ const router = createRouter({
 	context: {
 		queryClient,
 		isPro,
-		canViewSales
+		canViewSales,
+		menus: normalizedMenus
 	},
 	defaultPendingComponent: () => <PendingComponent />,
 	defaultErrorComponent: ({ error }) => (
@@ -112,7 +134,11 @@ const router = createRouter({
 			<p>{error?.message || 'An unexpected error occurred'}</p>
 		</div>
 	),
-	history: hashHistory,
+	history: routerHistory,
+
+	// Shared links are mounted under /burst-dashboard, but the route tree itself
+	// still uses app-relative paths such as /statistics and /story.
+	...( isSharedDashboardRoute ? { basepath: '/burst-dashboard' } : {}),
 	defaultPreload: 'viewport'
 
 	// Since we're using React Query, we don't want loader calls to ever be stale
@@ -120,45 +146,44 @@ const router = createRouter({
 	// defaultPreloadStaleTime: 0,
 });
 
+const SkeletonBlock = ({ className }: { className: string }) => (
+	<div className={ `${ className } bg-white shadow-sm rounded-xl p-5 dark:bg-dashboard-dark-surface @max-sm:col-span-12 @max-sm:row-span-1` }>
+		<div className="h-6 w-1/2 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
+		<div className="h-6 w-4/5 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
+		<div className="h-6 w-full px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
+		<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
+		<div className="h-6 w-4/5 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
+		<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
+		<div className="h-6 w-full px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
+		<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
+	</div>
+);
+
 const PendingComponent = () => {
 	return (
 		<>
 			{/* Left Block */}
-			<div className="col-span-6 row-span-2 bg-white shadow-sm rounded-xl p-5 max-sm:col-span-12 max-sm:row-span-1">
-				<div className="h-6 w-1/2 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-4/5 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-full px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-4/5 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-full px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-			</div>
+			<SkeletonBlock className="col-span-6 row-span-2" />
 
 			{/* Middle Block */}
-			<div className="col-span-3 row-span-2 bg-white shadow-sm rounded-xl p-5 max-sm:col-span-12 max-sm:row-span-1">
-				<div className="h-6 w-1/2 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-4/5 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-full px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-4/5 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-full px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-			</div>
+			<SkeletonBlock className="col-span-3 row-span-2" />
 
 			{/* Right Block */}
-			<div className="col-span-3 row-span-2 bg-white shadow-sm rounded-xl p-5 max-sm:col-span-12 max-sm:row-span-1">
-				<div className="h-6 w-1/2 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-4/5 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-full px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-4/5 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-full px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-				<div className="h-6 w-5/6 px-5 py-2 bg-gray-200 rounded-md mb-5 animate-pulse"></div>
-			</div>
+			<SkeletonBlock className="col-span-3 row-span-2" />
 		</>
+	);
+};
+
+const AppShell = () => {
+	return (
+		<StyleSheetManager shouldForwardProp={shouldForwardProp}>
+			<QueryClientProvider client={queryClient}>
+				<Suspense fallback={<PendingComponent />}>
+					<RouterProvider router={router} />
+				</Suspense>
+				<div id="modal-root" />
+			</QueryClientProvider>
+		</StyleSheetManager>
 	);
 };
 
@@ -172,31 +197,15 @@ const initApp = () => {
 	// Create the app element
 	const app = (
 		<StrictMode>
-			{/*
+			<ThemeProvider>
+				{/*
 				StyleSheetManager prevents styled-components from forwarding the 'right' prop to DOM elements.
 				This is needed because react-data-table-component uses 'right' prop for column alignment,
 				which triggers warnings in styled-components v6 when passed to DOM elements.
 				See: getDataTableData.js line 267 where 'right' prop is set based on column alignment.
 			*/}
-			<StyleSheetManager
-				shouldForwardProp={shouldForwardProp}
-			>
-				<QueryClientProvider client={queryClient}>
-					<Suspense fallback={<PendingComponent />}>
-						<RouterProvider router={router} />
-						<div id="modal-root" />
-					</Suspense>
-					<ToastContainer
-						position="bottom-right"
-						autoClose={2000}
-						hideProgressBar={true}
-						newestOnTop={false}
-						theme="light"
-						pauseOnFocusLoss={false}
-						pauseOnHover={false}
-					/>
-				</QueryClientProvider>
-			</StyleSheetManager>
+				<AppShell />
+			</ThemeProvider>
 		</StrictMode>
 	);
 
@@ -207,6 +216,11 @@ const initApp = () => {
 	} else {
 		render( app, container );
 	}
+
+	// Signal that the React app has loaded (used by ad blocker detection)
+	window.burstLoaded = true;
+
+	startScrollLockWatchdog();
 
 	// Remove the skeleton styles after React app is mounted
 	setTimeout( () => {

@@ -18,6 +18,7 @@ export const Steps = () => {
 
 	return (
 		<div className="flex items-center justify-between">
+			{/* fallow-ignore-next-line complexity */}
 			{steps.map( ( step, idx ) => {
 				const isClickable = canNavigateToStep();
 
@@ -36,7 +37,7 @@ export const Steps = () => {
 							<div
 								className={`flex items-center justify-center w-6 h-6 rounded-full border-2 transition-all duration-300 ease-in-out ${
 									step.number <= currentStep ?
-										'bg-brand-lightest border-brand' :
+										'bg-green-50 border-green' :
 										'border-gray-400 bg-gray-200'
 								}`}
 							>
@@ -61,19 +62,19 @@ export const Steps = () => {
 								)}
 							</div>
 
-							<div className="flex flex-col">
-								<p className="text-xs text-gray-600 uppercase tracking-[0.05em] whitespace-nowrap">
+							<div className="flex flex-col max-sm:hidden">
+								<p className="text-xs text-text-gray-light uppercase tracking-[0.05em] whitespace-nowrap">
 									{sprintf( __( 'Step %d', 'burst-statistics' ), step.number )}
 								</p>
 
-								<p className={clsx( 'text-md font-medium whitespace-nowrap transition-all duration-300 ease-in-out group-hover:text-gray-700', step.number === currentStep ? 'text-gray-700' : 'text-gray-500' )}>
+								<p className={clsx( 'text-md font-medium whitespace-nowrap transition-all duration-300 ease-in-out group-hover:text-text-gray', step.number === currentStep ? 'text-text-gray' : 'text-text-gray-light' )}>
 									{step.label}
 								</p>
 							</div>
 						</div>
 
 						{idx < steps.length - 1 && (
-							<div className="md:block h-0.5 w-full mx-5 bg-gray-300 rounded-xs" />
+							<div className="h-0.5 w-full mx-1 sm:mx-3 md:mx-5 bg-gray-300 rounded-xs min-w-[8px]" />
 						)}
 					</React.Fragment>
 				);

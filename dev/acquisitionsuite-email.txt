@@ -1,0 +1,40 @@
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:40px 0">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
+  <tr><td style="padding:32px;text-align:center;border-radius:10px 10px 0 0">
+    {{logo_block}}
+    <h1 style="color:#030419;margin:0;font-size:24px;font-weight:700">Ihr Download steht bereit!</h1>
+  </td></tr>
+  <tr><td style="background:#ffffff;padding:36px 40px">
+    <p style="font-size:16px;color:#333;margin:0 0 16px">Hallo <strong>{full_name}</strong>,</p>
+    <p style="font-size:15px;color:#555;margin:0 0 24px;line-height:1.6">
+      Vielen Dank für Ihr Interesse. Ihre Datei <strong>{file_name}</strong> ist bereit. 
+      Klicken Sie unten, um es jetzt herunterzuladen.
+    </p>
+    <div style="text-align:center;margin:32px 0">
+      <a href="{download_link}" style="display:inline-block;background:#030419;color:#ffffff;text-decoration:none;padding:16px 40px;border-radius:8px;font-size:16px;font-weight:700">
+        {{button_text}}
+      </a>
+    </div>
+    <p style="font-size:13px;color:#999;text-align:center;margin:16px 0 0">
+      Dieser Link läuft in {{expiry_minutes}} Minuten ab. Geben Sie ihn nicht weiter.
+    </p>
+<div>
+    <p style="font-size:1rem;color:#555;text-align:center;margin:16px 0 0">
+       Sie möchten sehen, wie sich patientenindividuelle Unterkieferbewegungen in einen vollständig digitalen Workflow integrieren lassen?
+    </p>
+    <p style="font-size:1rem;color:#555;text-align:center;margin:16px 0 0">
+       <a target="_blank" href="https://scheduler.zoom.us/victor-wright-8m3bif/wright-it" style="margin:1rem;padding:1rem;border-radius:5px;background-color:blue;text-align:center;color:white;text-decoration:none">
+        DMD-System in einer Zoomkonferenz kennenlernen
+       </a>
+    </p>
+</div>
+  </td></tr>
+  <tr><td style="background:#f9f9f9;padding:20px 40px;text-align:center;border-radius:0 0 10px 10px;border-top:1px solid #eee">
+    <p style="font-size:12px;color:#aaa;margin:0">{{footer_text}}</p>
+    <p style="font-size:11px;color:#ccc;margin:6px 0 0">&copy; {{current_year}} {site_name}. All rights reserved.</p>
+  </td></tr>
+</table>
+</td></tr>
+</table>
+

@@ -1,7 +1,6 @@
 <?php
-
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler -- we use the set_error_handler() function to provide a flexible way of handling PHP errors according to our needs; we centralises error handling in one place and customises certain errors based on their severity and context.
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 /**
  * This class is the basic glue between the lower-level Remote Communications (RPC) class in UpdraftCentral, and the host plugin. It does not contain actual commands themselves; the class names to use for actual commands are passed in as a parameter to the constructor.
@@ -71,12 +70,14 @@ class UpdraftCentral_Listener {
 		}
 		
 		// If we ever need to expand beyond a single GET action, this can/should be generalised and put into the commands class
-		if (!empty($_GET['udcentral_action']) && 'login' == $_GET['udcentral_action']) {
+		$udcentral_action = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'udcentral_action');
+		if (!empty($udcentral_action) && 'login' == $udcentral_action) {
 			// auth_redirect() does not return, according to the documentation; but the code shows that it can
 			// auth_redirect();
-
-			if (!empty($_GET['login_id']) && is_numeric($_GET['login_id']) && !empty($_GET['login_key'])) {
-				$login_user = get_user_by('id', $_GET['login_id']);
+			$login_id = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'login_id', 0, false, 'integer', 'intval');
+			$get_login_key = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'login_key');
+			if (!empty($login_id) && !empty($get_login_key)) {
+				$login_user = get_user_by('id', $login_id);
 				
 				// THis is included so we can get $wp_version
 				include_once(ABSPATH.WPINC.'/version.php');
@@ -86,7 +87,7 @@ class UpdraftCentral_Listener {
 					$allow_autologin = apply_filters('updraftcentral_allow_autologin', true, $login_user);
 					if ($allow_autologin) {
 						$login_key = get_user_meta($login_user->ID, 'updraftcentral_login_key', true);
-						if (is_array($login_key) && !empty($login_key['created']) && $login_key['created'] > time() - 60 && !empty($login_key['key']) && $login_key['key'] == $_GET['login_key']) {
+						if (is_array($login_key) && !empty($login_key['created']) && $login_key['created'] > time() - 60 && !empty($login_key['key']) && $login_key['key'] == $get_login_key) {
 							$autologin = empty($login_key['redirect_url']) ? network_admin_url() : $login_key['redirect_url'];
 						}
 					}
@@ -270,7 +271,7 @@ class UpdraftCentral_Listener {
 			$command_class = isset($this->commands[$class_prefix]) ? $this->commands[$class_prefix] : new stdClass;
 	
 			if ('_' == substr($command, 0, 1) || !is_a($command_class, $command_php_class) || (!method_exists($command_class, $command) && !method_exists($command_class, '__call'))) {
-				if (defined('UPDRAFTCENTRAL_UDRPC_FORCE_DEBUG') && UPDRAFTCENTRAL_UDRPC_FORCE_DEBUG) error_log("Unknown RPC command received: ".$command);
+				if (defined('UPDRAFTCENTRAL_UDRPC_FORCE_DEBUG') && UPDRAFTCENTRAL_UDRPC_FORCE_DEBUG) error_log("Unknown RPC command received: ".$command); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging is intentionally enabled.
 
 				return $this->return_rpc_message(array('response' => 'rpcerror', 'data' => array('code' => 'unknown_rpc_command', 'data' => array('prefix' => $class_prefix, 'command' => $command, 'class' => $command_php_class))));
 			}
@@ -301,13 +302,12 @@ class UpdraftCentral_Listener {
 			return $this->return_rpc_message($msg);
 		} catch (Exception $e) {
 			$log_message = 'PHP Fatal Exception error ('.get_class($e).') has occurred during UpdraftCentral command execution. Error Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
-			error_log($log_message);
+			error_log($log_message); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging is intentionally enabled.
 
 			return $this->return_rpc_message(array('response' => 'rpcerror', 'data' => array('code' => 'rpc_fatal_error', 'data' => array('command' => $command, 'message' => $log_message))));
-		// @codingStandardsIgnoreLine
-		} catch (Error $e) {
+		} catch (Error $e) { // phpcs:ignore PHPCompatibility.Classes.NewClasses.errorFound -- The Error class does not exist in PHP below 5.6.
 			$log_message = 'PHP Fatal error ('.get_class($e).') has occurred during UpdraftCentral command execution. Error Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
-			error_log($log_message);
+			error_log($log_message); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logging is intentionally enabled.
 
 			return $this->return_rpc_message(array('response' => 'rpcerror', 'data' => array('code' => 'rpc_fatal_error', 'data' => array('command' => $command, 'message' => $log_message))));
 		}
@@ -322,7 +322,7 @@ class UpdraftCentral_Listener {
 
 		$this->host->error_reporting_stop_when_logged = true;
 		$error_levels = version_compare(PHP_VERSION, '8.4.0', '>=') ? E_ALL : E_ALL & ~E_STRICT;
-		set_error_handler(array($this->host, 'php_error'), $error_levels);
+		set_error_handler(array($this->host, 'php_error'), $error_levels); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler -- set_error_handle is intentionally used here.
 		$this->php_events = array();
 		@ob_start();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Might be a bigger picture that I am missing but do we need to silence errors here?
 		add_filter($updraftcentral_host_plugin->get_logline_filter(), array($this, 'updraftcentral_logline'), 10, 4);

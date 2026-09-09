@@ -55,8 +55,8 @@ if ( ! class_exists( 'avia_sc_button_full', false ) )
 
 			$this->config['name']			= __( 'Fullwidth Button', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-button.png';
-			$this->config['order']			= 84;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-fullwidth-button.svg';
+			$this->config['order']			= 98;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_button_big';
 			$this->config['tooltip']		= __( 'Creates a colored button that stretches across the full width', 'avia_framework' );

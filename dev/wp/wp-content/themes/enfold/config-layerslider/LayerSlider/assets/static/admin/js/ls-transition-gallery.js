@@ -61,14 +61,17 @@
 		let $previewSlider = jQuery( '#lse-slide-transition-sample' );
 
 		// Add slider HTML markup
-		jQuery('<lse-b class="lse-transition-preview-slider" style="width: '+settings.width+'px; height: '+settings.height+'px;"> \
-				<lse-b class="ls-slide" data-ls="slidedelay: '+settings.delay+';"> \
-					<img src="'+settings.imgPath+'sample_slide_1.jpg" class="ls-bg"> \
-				</lse-b> \
-				<lse-b class="ls-slide" data-ls="slidedelay: '+settings.delay+';"> \
-					<img src="'+settings.imgPath+'sample_slide_2.jpg" class="ls-bg"> \
-				</lse-b> \
-			</lse-b>').appendTo( $previewSlider );
+		jQuery(`<div class="transitionpreview" style="width: ${settings.width}px; height: ${settings.height}px;">
+			<div class="ls-slide" data-ls="slidedelay: ${settings.slidedelay};">
+				<img src="${LS_slideTransitionImages[0]}" class="ls-bg">
+			</div>
+			<div class="ls-slide" data-ls="slidedelay: ${settings.slidedelay};">
+				<img src="${LS_slideTransitionImages[1]}" class="ls-bg">
+			</div>
+			<div class="ls-slide" data-ls="slidedelay: ${settings.slidedelay};">
+				<img src="${LS_slideTransitionImages[2]}" class="ls-bg">
+			</div>
+		</div>`).appendTo( $previewSlider );
 
 		// Initialize the slider
 		$previewSlider.find('.lse-transition-preview-slider').layerSlider( settings );

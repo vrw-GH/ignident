@@ -2,6 +2,9 @@
 
 namespace Burst\Admin\Data_Sharing\Data_Collectors\Metrics;
 
+use Burst\Traits\Database_Helper;
+use function Burst\burst_loader;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -10,12 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Database_Metrics
  */
 class Database_Metrics {
+	use Database_Helper;
+
 	/**
 	 * Collect database metrics
 	 *
 	 * @return array Database metrics
 	 */
 	public function collect(): array {
+		// The referrers table is truncated weekly and only repopulated lazily on first
+		// read from the filter UI, so without this trigger the count is almost always 0.
+		burst_loader()->admin->app->maybe_populate_referrers_table();
+
 		return [
 			'statistics_table_rows' => $this->get_table_row_count( 'burst_statistics' ),
 			'referrers_table_rows'  => $this->get_table_row_count( 'burst_referrers' ),
@@ -32,7 +41,7 @@ class Database_Metrics {
 	private function get_table_row_count( string $table_suffix ): int {
 		global $wpdb;
 
-		$table_suffix = esc_sql( $table_suffix );
+		$table_suffix = $this->validate_table_name( $table_suffix );
 
 		$count = $wpdb->get_var(
 			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be parameterized, but it's controlled and sanitized within the method.

@@ -36,20 +36,7 @@ add_filter(
 	}
 );
 
-add_action(
-	'the_post',
-	function ( $post ) {
-		$language = apply_filters(
-			'wpml_element_language_code',
-			null,
-			array(
-				'element_id'   => $post->ID,
-				'element_type' => 'page',
-			)
-		);
-		do_action( 'wpml_switch_language', $language );
-	}
-);
+add_action( 'the_post', 'seopress_sitemap_switch_wpml_language' );
 
 /**
  * Polylang: remove hidden languages
@@ -58,7 +45,7 @@ add_action(
  * @return array Arguments.
  */
 function seopress_pll_exclude_hidden_lang( $args ) {
-	if ( function_exists( 'get_languages_list' ) && is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'polylang-pro/polylang.php' ) ) {
+	if ( defined( 'POLYLANG_VERSION' ) && function_exists( 'PLL' ) && isset( PLL()->model ) ) {
 		$languages = PLL()->model->get_languages_list();
 		if ( wp_list_filter( $languages, array( 'active' => false ) ) ) {
 			$args['lang'] = wp_list_pluck( wp_list_filter( $languages, array( 'active' => false ), 'NOT' ), 'slug' );
@@ -122,6 +109,13 @@ function seopress_xml_sitemap_index() {
 	if ( '' !== seopress_get_service( 'SitemapOption' )->getPostTypesList() ) {
 		if ( ! empty( seopress_get_service( 'SitemapOption' )->getPostTypesList() ) ) {
 			foreach ( seopress_get_service( 'SitemapOption' )->getPostTypesList() as $cpt_key => $cpt_value ) {
+				// Skip post types that no longer exist on this site. Importing
+				// settings from another site (or a removed CPT) leaves orphaned
+				// entries in the option, which would otherwise list a sitemap for
+				// a post type that isn't registered here.
+				if ( ! post_type_exists( $cpt_key ) ) {
+					continue;
+				}
 				foreach ( $cpt_value as $_cpt_key => $_cpt_value ) {
 					if ( '1' === $_cpt_value ) {
 						$args = array(
@@ -184,8 +178,7 @@ function seopress_xml_sitemap_index() {
 
 							$all_lastmod_dates = $wpdb->get_col( $sql ); // phpcs:ignore
 
-							// Cache for 1 hour to match existing behavior.
-							$cache_duration = apply_filters( 'seopress_sitemaps_cache_duration', HOUR_IN_SECONDS );
+							$cache_duration = apply_filters( 'seopress_sitemaps_cache_duration', 12 * HOUR_IN_SECONDS );
 							set_transient( $cache_key_all, $all_lastmod_dates, $cache_duration );
 						}
 
@@ -230,6 +223,12 @@ function seopress_xml_sitemap_index() {
 		$seopress_xml_terms_list = array();
 		if ( ! empty( seopress_get_service( 'SitemapOption' )->getTaxonomiesList() ) ) {
 			foreach ( seopress_get_service( 'SitemapOption' )->getTaxonomiesList() as $tax_key => $tax_value ) {
+				// Skip taxonomies that no longer exist on this site (orphaned
+				// entries left by importing settings or removing a taxonomy).
+				if ( ! taxonomy_exists( $tax_key ) ) {
+					continue;
+				}
+
 				foreach ( $tax_value as $_tax_key => $_tax_value ) {
 					if ( '1' === $_tax_value ) {
 						$args = array(

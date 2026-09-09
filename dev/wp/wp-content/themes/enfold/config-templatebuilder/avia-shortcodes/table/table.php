@@ -46,12 +46,14 @@ if( ! class_exists( 'avia_sc_table', false ) )
 
 			$this->config['name']			= __( 'Table', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-table.png';
-			$this->config['order']			= 35;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-table.svg';
+			$this->config['order']			= 50;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_table';
 			$this->config['modal_data']		= array( 'modal_class' => 'bigscreen', 'before_save' => 'before_table_save' );
 			$this->config['shortcode_nested'] = array( 'av_row', 'av_cell', 'av_button', 'av_dynamic_field' );
+			//	the canvas shows the table caption - see editor_element_items()
+			$this->config['alb_items']		= array( 'value' => 'caption' );
 			$this->config['tooltip']		= __( 'Creates a data or pricing table', 'avia_framework' );
 			$this->config['preview']		= false;
 			$this->config['disabling_allowed'] = true;

@@ -20,7 +20,6 @@ body.post-type-alb_elements .av-builder-note.av-notice-element-templates-cache s
 
 body.post-type-alb_elements #avia-builder-button,
 body.post-type-alb_elements .avia-template-save-button-container,
-body.post-type-alb_elements .avia-expand-button,
 body.post-type-alb_elements .avia-hotkey-info,
 body.post-type-alb_elements .avia-clone,
 body.post-type-alb_elements .avia-save-element,
@@ -275,18 +274,6 @@ body.post-type-alb_elements.post-php #avia_builder.element-added #aviaLayoutBuil
 
 body.post-type-alb_elements.post-php.avia-no-terms #avia_builder.element-added #aviaLayoutBuilder .avia-delete{
 	display: block;
-}
-
-/*	do not allow to add/edit custom elements in fullscreen mode	*/
-#avia_builder .av-custom-element-footer .av-custom-element-info,
-#avia_builder .avia-fixed-controls .av-custom-element-footer,
-#avia_builder .avia-fixed-controls .av-custom-element-footer.av-custom-element-editing-disabled .av-custom-element-button {
-	display: none;
-}
-
-#avia_builder .avia-fixed-controls .av-custom-element-footer.av-custom-element-editing-disabled .av-custom-element-info {
-	display: block;
-	padding: 10px;
 }
 
 
@@ -563,5 +550,5 @@ body.avia-custom-elements-admins-only .avia-modal.avia-modal-edit-alb-element .a
 	background: #fcfcfc;
 	position: relative;;
 	top: -1px;
-	padding: 5px 10px;
+	padding: 5px 10px 15px;
 }

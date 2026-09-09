@@ -121,17 +121,10 @@ class FreezeModifiedDate implements ExecuteHooks {
 
 		$freeze = $this->isFreezeEnabled( $post_id );
 
-		// In REST requests (Gutenberg Request 1), save pre-save dates to a transient.
-		// A subsequent metabox POST (Request 2) may need them if the user checked
-		// the freeze checkbox in the classic metabox.
-		if ( 'yes' !== $freeze && defined( 'REST_REQUEST' ) && REST_REQUEST ) {
-			set_transient(
-				self::TRANSIENT_PREFIX . $post_id,
-				$this->original_dates[ $post_id ],
-				30
-			);
-		}
-
+		// The cross-request transient (used to bridge Gutenberg's two-phase save
+		// to a later classic metabox POST) is written once, in maybeRestoreDate(),
+		// after the post and its meta are saved. Setting it here as well would
+		// duplicate that write on every REST save, so we only capture the dates.
 		if ( 'yes' !== $freeze ) {
 			return $data;
 		}
@@ -148,6 +141,14 @@ class FreezeModifiedDate implements ExecuteHooks {
 			}
 		}
 
+		// If a custom date is set, use it instead of original dates.
+		$custom_date = $this->getCustomDate( $post_id );
+		if ( $custom_date ) {
+			$data['post_modified']     = $custom_date;
+			$data['post_modified_gmt'] = get_gmt_from_date( $custom_date );
+			return $data;
+		}
+
 		// Preserve the original modified dates in the data being written to the DB.
 		$data['post_modified']     = $this->original_dates[ $post_id ]['post_modified'];
 		$data['post_modified_gmt'] = $this->original_dates[ $post_id ]['post_modified_gmt'];
@@ -158,7 +159,7 @@ class FreezeModifiedDate implements ExecuteHooks {
 	/**
 	 * Backup capture of original dates just before the database write.
 	 *
-	 * pre_post_update fires after wp_insert_post_data but immediately before
+	 * `pre_post_update` fires after `wp_insert_post_data` but immediately before
 	 * $wpdb->update(). If the dates were not captured by maybePreserveModifiedDate()
 	 * for any reason, this ensures we still have them before they are overwritten.
 	 *
@@ -237,7 +238,16 @@ class FreezeModifiedDate implements ExecuteHooks {
 			}
 		}
 
-		$frozen = $this->original_dates[ $post_id ];
+		// If a custom date is set, use it instead of frozen dates.
+		$custom_date = $this->getCustomDate( $post_id );
+		if ( $custom_date ) {
+			$frozen = array(
+				'post_modified'     => $custom_date,
+				'post_modified_gmt' => get_gmt_from_date( $custom_date ),
+			);
+		} else {
+			$frozen = $this->original_dates[ $post_id ];
+		}
 
 		global $wpdb;
 
@@ -311,9 +321,18 @@ class FreezeModifiedDate implements ExecuteHooks {
 			return;
 		}
 
-		global $wpdb;
+		// If a custom date is set, use it instead of frozen dates.
+		$custom_date = $this->getCustomDate( $product_id );
+		if ( $custom_date ) {
+			$frozen = array(
+				'post_modified'     => $custom_date,
+				'post_modified_gmt' => get_gmt_from_date( $custom_date ),
+			);
+		} else {
+			$frozen = $this->original_dates[ $product_id ];
+		}
 
-		$frozen = $this->original_dates[ $product_id ];
+		global $wpdb;
 
 		$wpdb->update(
 			$wpdb->posts,
@@ -340,6 +359,8 @@ class FreezeModifiedDate implements ExecuteHooks {
 	 * For block editor / REST API: reads from post meta, which was already
 	 * saved via the REST API before the post save.
 	 *
+	 * Falls back to the global setting when no per-post meta is set.
+	 *
 	 * @since 9.6
 	 *
 	 * @param int $post_id Post ID.
@@ -350,9 +371,52 @@ class FreezeModifiedDate implements ExecuteHooks {
 		$is_classic_editor = isset( $_POST['seopress_cpt_nonce'] );
 
 		if ( $is_classic_editor ) {
-			return ! empty( $_POST['seopress_robots_freeze_modified_date'] ) ? 'yes' : '';
+			$value = ! empty( $_POST['seopress_robots_freeze_modified_date'] ) ? 'yes' : '';
+		} else {
+			$value = get_post_meta( $post_id, '_seopress_robots_freeze_modified_date', true );
 		}
 
-		return get_post_meta( $post_id, '_seopress_robots_freeze_modified_date', true );
+		// If per-post is explicitly set, use it.
+		if ( 'yes' === $value ) {
+			return 'yes';
+		}
+
+		// Fall back to global setting.
+		if ( '1' === seopress_get_service( 'AdvancedOption' )->getAppearanceFreezeModifiedDate() ) {
+			return 'yes';
+		}
+
+		return '';
+	}
+
+	/**
+	 * Get the custom modified date for a post.
+	 *
+	 * @since 9.7
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return string Custom date in Y-m-d H:i:s format, or empty string.
+	 */
+	private function getCustomDate( $post_id ) {
+		$is_classic = isset( $_POST['seopress_cpt_nonce'] );
+		$custom     = $is_classic
+			? ( ! empty( $_POST['seopress_robots_custom_modified_date'] ) ? sanitize_text_field( wp_unslash( $_POST['seopress_robots_custom_modified_date'] ) ) : '' )
+			: get_post_meta( $post_id, '_seopress_robots_custom_modified_date', true );
+
+		if ( empty( $custom ) ) {
+			return '';
+		}
+
+		// Interpret the user-provided value in the site timezone, then normalize
+		// it to Y-m-d H:i:s. post_modified stores site-local time, and the caller
+		// converts it to GMT via get_gmt_from_date() (which also assumes
+		// site-local input), so both sides stay consistent.
+		$datetime = date_create( $custom, wp_timezone() );
+		if ( false === $datetime ) {
+			return '';
+		}
+
+		return $datetime->format( 'Y-m-d H:i:s' );
 	}
 }

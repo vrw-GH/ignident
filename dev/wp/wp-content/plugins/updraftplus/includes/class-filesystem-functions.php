@@ -1,6 +1,8 @@
 <?php
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.rename_rename -- false positive; it's actually safe to use native PHP's fwrite(), rename() usage is intentional and safe within this context
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- using the native PHP fclose() function instead of the WP Filesystem API.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- we try to reduce overhead by bypassing WP APIs and other extra layers; Some custom complex queries tailored specifically to our needs, giving us full control over the SQL commands and data manipulation
+// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose, WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fgets, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.WP.AlternativeFunctions.file_system_operations_mkdir, WordPress.WP.AlternativeFunctions.file_system_operations_fread, WordPress.WP.AlternativeFunctions.file_system_operations_chmod, WordPress.WP.AlternativeFunctions.file_system_operations_fputs, WordPress.WP.AlternativeFunctions.file_system_operations_is_writable, WordPress.WP.AlternativeFunctions.file_system_operations_chown, WordPress.WP.AlternativeFunctions.file_system_operations_chgrp, WordPress.WP.AlternativeFunctions.file_system_operations_touch, WordPress.WP.AlternativeFunctions.file_system_operations_rmdir -- Native PHP fileystem function is used for direct control and performance because it can bypass additional layers of abstraction so that no overhead from the WordPress filesystem API's internal handling
+// phpcs:disable WordPress.WP.AlternativeFunctions.rename_rename -- rename() usage is intentional and safe within this context
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- some query operations need to always receive the most up-to-date or actual data directly from the database, reducing the risk of serving stale information.
 if (!defined('ABSPATH')) die('No direct access.');
 
 /**
@@ -62,7 +64,7 @@ class UpdraftPlus_Filesystem_Functions {
 	
 		global $wp_filesystem, $updraftplus;
 
-		$build_url = UpdraftPlus_Options::admin_page().'?page=updraftplus&action=updraft_restore';
+		$build_url = UpdraftPlus_Options::admin_page().'?page=updraftplus&action=updraft_restore&nonce='.wp_create_nonce('updraftplus-credentialtest-nonce');
 		
 		foreach ($url_parameters as $k => $v) {
 			$build_url .= '&'.$k.'='.$v;
@@ -151,7 +153,8 @@ class UpdraftPlus_Filesystem_Functions {
 			$value_column = is_multisite() ? 'meta_value' : 'option_value';
 			
 			// Limit the maximum number for performance (the rest will get done next time, if for some reason there was a back-log)
-			$all_jobs = $wpdb->get_results("SELECT $key_column, $value_column FROM $table WHERE $key_column LIKE 'updraft_jobdata_%' LIMIT 100", ARRAY_A);
+			// phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.InterpolatedNotPrepared  -- $key_column, $value_column are safe string literals ('meta_key'/'option_name', 'meta_value'/'option_value'); $table is $wpdb->sitemeta or $wpdb->options, both are trusted wpdb properties.
+			$all_jobs = $wpdb->get_results($wpdb->prepare("SELECT $key_column, $value_column FROM $table WHERE $key_column LIKE %s LIMIT 100", 'updraft_jobdata_%'), ARRAY_A);
 			
 			foreach ($all_jobs as $job) {
 				$nonce = str_replace('updraft_jobdata_', '', $job[$key_column]);
@@ -169,14 +172,16 @@ class UpdraftPlus_Filesystem_Functions {
 				}
 				if (isset($val['temp_import_table_prefix']) && '' != $val['temp_import_table_prefix'] && $wpdb->prefix != $val['temp_import_table_prefix']) {
 					$tables_to_remove = array();
-					$prefix = $wpdb->esc_like($val['temp_import_table_prefix'])."%";
+					$prefix = UpdraftPlus_Database_Utility::esc_like($val['temp_import_table_prefix'])."%";
 					$sql = $wpdb->prepare("SHOW TABLES LIKE %s", $prefix);
 					
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql is built using $wpdb->prepare() on the line above.
 					foreach ($wpdb->get_results($sql) as $table) {
 						$tables_to_remove = array_merge($tables_to_remove, array_values(get_object_vars($table)));
 					}
 					
 					foreach ($tables_to_remove as $table_name) {
+						// phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange -- DDL DROP TABLE statement; $table_name is a SQL identifier sanitized using backquote(), Direct schema change is required here and handled carefully.
 						$wpdb->query('DROP TABLE '.UpdraftPlus_Manipulation_Functions::backquote($table_name));
 					}
 				}
@@ -242,19 +247,35 @@ class UpdraftPlus_Filesystem_Functions {
 	/**
 	 * Find out whether we really can write to a particular folder
 	 *
-	 * @param String $dir - the folder path
+	 * @param String  $dir					 - the folder path
+	 * @param Boolean $test_case_sensitivity - also require that the filesystem be case-sensitive to return true (hence, false could be for multiple reasons)
 	 *
 	 * @return Boolean - the result
 	 */
-	public static function really_is_writable($dir) {
+	public static function really_is_writable($dir, $test_case_sensitivity = false) {
 		// Suppress warnings, since if the user is dumping warnings to screen, then invalid JavaScript results and the screen breaks.
-		if (!@is_writable($dir)) return false;// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+		if (!@is_writable($dir)) return false;// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- PHP's logging is not useful here.
 		// Found a case - GoDaddy server, Windows, PHP 5.2.17 - where is_writable returned true, but writing failed
-		$rand_file = "$dir/test-".md5(rand().time()).".txt";
-		while (file_exists($rand_file)) {
-			$rand_file = "$dir/test-".md5(rand().time()).".txt";
+		$rand_file = "$dir/test-".md5(wp_rand().time())."-ud.txt";
+		$rand_file_uc = substr($rand_file, 0, -7).'-UD.txt';
+		while (file_exists($rand_file) && (!$test_case_sensitivity || file_exists($rand_file_uc))) {
+			$rand_file = "$dir/test-".md5(wp_rand().time())."-ud.txt";
+			$rand_file_uc = substr($rand_file, 0, -7).'-UD.txt';
 		}
-		$ret = @file_put_contents($rand_file, 'testing...');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+		
+		$file_contents = 'testing... '.wp_rand();
+		
+		$ret = @file_put_contents($rand_file, $file_contents);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- PHP's logging is not useful here
+		
+		if ($ret && $test_case_sensitivity) {
+			if (is_file($rand_file_uc)) {
+				if (file_get_contents($rand_file_uc) === $file_contents) {
+					$ret = 0;
+				}
+				// If it exists but was different, then it's apparently been created by something else. N.B. We only attempt to remove the file we created.
+			}
+		}
+		
 		@unlink($rand_file);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist.
 		return ($ret > 0);
 	}
@@ -461,14 +482,19 @@ class UpdraftPlus_Filesystem_Functions {
 	 *
 	 * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
 	 *
-	 * @param String  $file               - Full path and filename of ZIP archive.
-	 * @param String  $to                 - Full path on the filesystem to extract archive to.
-	 * @param Integer $starting_index     - index of entry to start unzipping from (allows resumption)
-	 * @param array   $folders_to_include - an array of second level folders to include
+	 * @param string  $file                    - Full path and filename of ZIP archive.
+	 * @param string  $to                      - Full path on the filesystem to extract archive to.
+	 * @param integer $starting_index          - index of entry to start unzipping from (allows resumption)
+	 * @param array   $folders_to_look         - an array of folders that want to be extracted or not. It can contain:
+	 *                                           * The names of the second-level folders. For example: '2025'.
+	 *                                           * The relative paths of the folders. For example: '2025/12'.
+	 * @param string  $extract_matched_folders - the value is either 'extract_only' or 'extract_except'.
+	 *                                           * If the value is 'extract_only', then it'll extract only files in the '$folders_to_look' parameter.
+	 *                                           * If the value is 'extract_except', then it'll extract all files except the ones in the '$folders_to_look' parameter.
 	 *
-	 * @return Boolean|WP_Error True on success, WP_Error on failure.
+	 * @return boolean|WP_Error True on success, WP_Error on failure.
 	 */
-	public static function unzip_file($file, $to, $starting_index = 0, $folders_to_include = array()) {
+	public static function unzip_file($file, $to, $starting_index = 0, $folders_to_look = array(), $extract_matched_folders = 'extract_only') {
 		global $wp_filesystem;
 
 		if (!$wp_filesystem || !is_object($wp_filesystem)) {
@@ -508,7 +534,7 @@ class UpdraftPlus_Filesystem_Functions {
 		}
 		
 		if (class_exists('ZipArchive', false) && apply_filters('unzip_file_use_ziparchive', true)) {
-			$result = self::unzip_file_go($file, $to, $needed_dirs, 'ziparchive', $starting_index, $folders_to_include);
+			$result = self::unzip_file_go($file, $to, $needed_dirs, 'ziparchive', $starting_index, $folders_to_look, $extract_matched_folders);
 			if (true === $result || (is_wp_error($result) && 'incompatible_archive' != $result->get_error_code())) return $result;
 			if (is_wp_error($result)) {
 				global $updraftplus;
@@ -519,7 +545,7 @@ class UpdraftPlus_Filesystem_Functions {
 		// Fall through to PclZip if ZipArchive is not available, or encountered an error opening the file.
 		// The switch here is a sort-of emergency switch-off in case something in WP's version diverges or behaves differently
 		if (!defined('UPDRAFTPLUS_USE_INTERNAL_PCLZIP') || UPDRAFTPLUS_USE_INTERNAL_PCLZIP) {
-			return self::unzip_file_go($file, $to, $needed_dirs, 'pclzip', $starting_index, $folders_to_include);
+			return self::unzip_file_go($file, $to, $needed_dirs, 'pclzip', $starting_index, $folders_to_look, $extract_matched_folders);
 		} else {
 			return _unzip_file_pclzip($file, $to, $needed_dirs);
 		}
@@ -696,19 +722,27 @@ class UpdraftPlus_Filesystem_Functions {
 	 *
 	 * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
 	 *
-	 * @param String  $file               - full path and filename of ZIP archive.
-	 * @param String  $to                 - full path on the filesystem to extract archive to.
-	 * @param Array	  $needed_dirs        - a partial list of required folders needed to be created.
-	 * @param String  $method             - either 'ziparchive' or 'pclzip'.
-	 * @param Integer $starting_index     - index of entry to start unzipping from (allows resumption)
-	 * @param array   $folders_to_include - an array of second level folders to include
+	 * @param string  $file                    - full path and filename of ZIP archive.
+	 * @param string  $to                      - full path on the filesystem to extract archive to.
+	 * @param array	  $needed_dirs             - a partial list of required folders needed to be created.
+	 * @param string  $method                  - either 'ziparchive' or 'pclzip'.
+	 * @param integer $starting_index          - index of entry to start unzipping from (allows resumption)
+	 * @param array   $folders_to_look         - an array of folders that want to be extracted or not. It can contain:
+	 *                                           * The names of the second-level folders. For example: '2025'.
+	 *                                           * The relative paths of the folders. For example: '/2025/12'.
+	 * @param string  $extract_matched_folders - the value is either 'extract_only' or 'extract_except'.
+	 *                                           * If the value is 'extract_only', then it'll extract only files in the '$folders_to_look' parameter.
+	 *                                           * If the value is 'extract_except', then it'll extract all files except the ones in the '$folders_to_look' parameter.
 	 *
-	 * @return Boolean|WP_Error True on success, WP_Error on failure.
+	 * @return boolean|WP_Error True on success, WP_Error on failure.
 	 */
-	private static function unzip_file_go($file, $to, $needed_dirs = array(), $method = 'ziparchive', $starting_index = 0, $folders_to_include = array()) {
+	private static function unzip_file_go($file, $to, $needed_dirs = array(), $method = 'ziparchive', $starting_index = 0, $folders_to_look = array(), $extract_matched_folders = 'extract_only') {
 		global $wp_filesystem, $updraftplus;
 		
 		$class_to_use = ('ziparchive' == $method) ? 'UpdraftPlus_ZipArchive' : 'UpdraftPlus_PclZip';
+		
+		// Check if the current filesystem is case-sensitive
+		$case_sensitive_filesystem = self::really_is_writable($to, true);
 
 		if (!class_exists($class_to_use)) updraft_try_include_file('includes/class-zip.php', 'require_once');
 		
@@ -746,10 +780,12 @@ class UpdraftPlus_Filesystem_Functions {
 			// Don't extract invalid files:
 			if (0 !== validate_file($info['name'])) continue;
 
-			if (!empty($folders_to_include)) {
+			if (!empty($folders_to_look)) {
 				// Don't create folders that we want to exclude
-				$path = preg_split('![/\\\]!', untrailingslashit($info['name']));
-				if (isset($path[1]) && !in_array($path[1], $folders_to_include)) continue;
+				$path = trim(UpdraftPlus_Manipulation_Functions::wp_normalize_path($info['name']), '/');
+				$path = strstr($path, '/');
+				$folder_matches_given_path = self::is_path_in_files((string) $path, $folders_to_look, $case_sensitive_filesystem);
+				if (('extract_only' === $extract_matched_folders && !$folder_matches_given_path) || ('extract_except' === $extract_matched_folders && $folder_matches_given_path)) continue;
 			}
 
 			$uncompressed_size += $info['size'];
@@ -827,11 +863,15 @@ class UpdraftPlus_Filesystem_Functions {
 			// Don't extract invalid files:
 			if (0 !== validate_file($info['name'])) continue;
 
-			if (!empty($folders_to_include)) {
+			if (!empty($folders_to_look)) {
 				// Don't extract folders that we want to exclude
-				$path = preg_split('![/\\\]!', untrailingslashit($info['name']));
-				if (isset($path[1]) && !in_array($path[1], $folders_to_include)) continue;
+				$path = trim(UpdraftPlus_Manipulation_Functions::wp_normalize_path($info['name']), '/');
+				$path = strstr($path, '/', false); // phpcs:ignore PHPCompatibility.FunctionUse.NewFunctionParameters.strstr_before_needleFound -- The third param ($before_needle) of the strstr function doesn't exist on PHP 5.2, but we don't longer support PHP 5.2.
+				$folder_matches_given_path = self::is_path_in_files((string) $path, $folders_to_look, $case_sensitive_filesystem);
+				if (('extract_only' === $extract_matched_folders && !$folder_matches_given_path) || ('extract_except' === $extract_matched_folders && $folder_matches_given_path)) continue;
 			}
+
+			$is_stream_extract = false;
 
 			// N.B. PclZip will return (boolean)false for an empty file
 			if (isset($info['size']) && 0 == $info['size']) {
@@ -873,14 +913,43 @@ class UpdraftPlus_Filesystem_Functions {
 						$content_cache = $z->updraftplus_getFromIndexBulk($cache_indexes);
 					}
 				}
-				$contents = isset($content_cache[$i]) ? $content_cache[$i] : $z->getFromIndex($i);
+
+				if (isset($content_cache[$i])) {
+					$contents = $content_cache[$i];
+				} elseif ($updraftplus->verify_free_memory($info['size'] * 1.2)) {
+					$contents = $z->getFromIndex($i);
+				} else {
+					// Use streaming extraction when remaining PHP memory is insufficient for in-memory extraction (ZIP + inflate overhead).
+					if ('UpdraftPlus_PclZip' == $class_to_use) {
+						$extract_result = $z->extract($to, $info['name']);
+						if (!$extract_result) return new WP_Error('extract_failed_'.$method, __('Could not extract file from archive.'));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
+					} else {
+						$stream = $z->getStream($info['name']);
+						if ($stream) {
+							$handle = fopen($to.$info['name'], 'w');
+							if (false === $handle) {
+								fclose($stream);
+								return new WP_Error('extract_failed_'.$method, __('Could not extract file from archive.'));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
+							}
+
+							while (!feof($stream)) {
+								// 512KB chunks
+								if (false === fwrite($handle, fread($stream, 524288))) return new WP_Error('extract_failed_'.$method, __('Could not extract file from archive.'));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
+							}
+
+							fclose($handle);
+							fclose($stream);
+						}
+					}
+					$is_stream_extract = true;
+				}
 			}
 			
-			if (false === $contents && ('pclzip' !== $method || 0 !== $info['size'])) {
+			if (!$is_stream_extract && false === $contents && ('pclzip' !== $method || 0 !== $info['size'])) {
 				return new WP_Error('extract_failed_'.$method, __('Could not extract file from archive.').' '.$z->last_error, json_encode($info));// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 			}
 
-			if (!$wp_filesystem->put_contents($to . $info['name'], $contents, FS_CHMOD_FILE)) {
+			if (!$is_stream_extract && !$wp_filesystem->put_contents($to . $info['name'], $contents, FS_CHMOD_FILE)) {
 				return new WP_Error('copy_failed_'.$method, __('Could not copy file.'), $info['name']);// phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- The string exists within the WordPress core.
 			}
 
@@ -893,5 +962,97 @@ class UpdraftPlus_Filesystem_Functions {
 		$z->close();
 
 		return true;
+	}
+
+	/**
+	 * Recursively scan and delete files located in a directory whose modification time is considered older than a given time
+	 *
+	 * @param string  $working_dir   - An absolute path of working directory that will be scanned.
+	 * @param integer $timestamp     - The timestamp to compare with the files' modified time. Files will be deleted if the modified time is older than this timestamp.
+	 * @param array   $paths_to_keep - An array of folder or file absolute paths that we want to keep.
+	 *
+	 * @return void
+	 */
+	public static function delete_files_by_age($working_dir, $timestamp, $paths_to_keep = array()) {
+		global $updraftplus;
+
+		$dir = dir($working_dir);
+		if (!$dir) {
+			$updraftplus->log("Cannot access the $working_dir directory.", 'notice', false, true);
+			return;
+		}
+
+		static $depth_level = 0;
+		static $total_deleted = 0;
+		
+		if (0 === $depth_level) $total_deleted = 0;
+
+		$depth_level++;
+		while (false !== ($filename = $dir->read())) {
+			if ('.' === $filename || '..' === $filename) continue;
+
+			$result = null;
+			$filepath = UpdraftPlus_Manipulation_Functions::wp_normalize_path($working_dir.'/'.$filename);
+			$file_mtime = @filemtime($filepath); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
+			if (is_dir($filepath)) self::delete_files_by_age($filepath, $timestamp, $paths_to_keep);
+
+			if (false === $file_mtime) {
+				$updraftplus->log("Unable to get the '$filepath' modification time.", 'notice', false, true);
+				continue;
+			}
+			
+			// Keep file that is inside the paths that we want to keep or whose modification time is considered newer than a given time.
+			if (self::is_path_in_files($filepath, $paths_to_keep) || $file_mtime >= $timestamp) continue;
+			
+			if (is_dir($filepath)) {
+				// Delete the empty folder
+				$result = @rmdir($filepath); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the folder isn't empty.
+			} else {
+				// Delete the file whose modified time is older than the given timestamp
+				$result = @unlink($filepath); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise if the file doesn't exist or we don't have sufficient permission to it.
+			}
+
+			if (!isset($result)) continue;
+
+			if ($result) {
+				$total_deleted++;
+			} else {
+				$reason = (is_dir($filepath)) ? "The directory isn't empty." : "The file doesn't exist, or you don't have sufficient permission to it.";
+				$updraftplus->log("Cannot delete '$filepath'. $reason", 'notice', false, true);
+			}
+
+			if ($total_deleted > 0 && 0 === $total_deleted % 100) {
+				$updraftplus->log("$total_deleted files deleted.", 'notice', false, true);
+			}
+		}
+
+		$depth_level--;
+
+		if (0 === $depth_level && $total_deleted % 100 > 0) $updraftplus->log("$total_deleted files deleted.", 'notice', false, true);
+	}
+
+	/**
+	 * Check if a given path matches with any files/folders in the list (case sensitive)
+	 * NOTE: Since the given path can be a file or folder hence a check might be required if a boolean true is returned by this method.
+	 * The check can also be done before calling and passing the path into this method.
+	 *
+	 * @param string  $path           - The path of a folder or file that want to be checked.
+	 * @param array   $files          - The list of files and/or folders that want to be checked.
+	 * @param boolean $case_sensitive - Whether or not the filesystem is case-sensitive.
+	 *
+	 * @return boolean True if the path matches with any folder in the list, false otherwise
+	 */
+	private static function is_path_in_files($path, $files, $case_sensitive = false) {
+		$path = trim(UpdraftPlus_Manipulation_Functions::wp_normalize_path($path), '/');
+		$path = ($case_sensitive) ? $path : strtolower($path);
+		foreach ($files as $file) {
+			$file = trim(UpdraftPlus_Manipulation_Functions::wp_normalize_path($file), '/');
+			$file = ($case_sensitive) ? $file : strtolower($file);
+			$path_parts = explode('/', $path);
+			$file_parts = explode('/', $file);
+			array_splice($path_parts, count($file_parts));
+			if ($path_parts === $file_parts) return true;
+		}
+		return false;
 	}
 }

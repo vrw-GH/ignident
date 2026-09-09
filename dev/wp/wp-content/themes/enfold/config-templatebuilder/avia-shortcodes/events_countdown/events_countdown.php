@@ -101,10 +101,12 @@ if ( ! class_exists( 'avia_sc_events_countdown', false ) )
 
 			$this->config['name']			= __( 'Events Countdown', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-countdown.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-events-countdown.svg';
 			$this->config['order']			= 14;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_events_countdown';
+			//	the canvas names which categories it draws from - see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => 'categories' );
 			$this->config['tooltip']		= __( 'Display a countdown to the next upcoming event', 'avia_framework' );
 			$this->config['preview']		= 'xlarge';
 			$this->config['disabling_allowed'] = true;

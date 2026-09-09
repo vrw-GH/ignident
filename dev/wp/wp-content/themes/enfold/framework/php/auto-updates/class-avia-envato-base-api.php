@@ -119,7 +119,15 @@ if( ! class_exists( 'Avia_Envato_Base_API', false ) )
 		 */
 		public function get_personal_token( $throw = true )
 		{
-			if( ! empty( $this->personal_token ) )
+			/**
+			 * Compared against '' rather than tested with empty(): empty( '0' ) is
+			 * true, so a token of "0" used to be reported as no token at all. The
+			 * customer entered something, so the honest answer comes from Envato
+			 * rejecting it, not from us claiming the field was blank.
+			 *
+			 * @since 8.1
+			 */
+			if( '' !== (string) $this->personal_token )
 			{
 				return $this->personal_token;
 			}
@@ -211,74 +219,37 @@ if( ! class_exists( 'Avia_Envato_Base_API', false ) )
 		 */
 		protected function add_envato_api_error( array $response, $body = array(), $prefix = '' )
 		{
+			/**
+			 * Unwrapping the response stays here, where the response lives;
+			 * choosing the sentence moved to Avia_Envato_Error_Translator.
+			 *
+			 * These four accessors were the only reason the wording a customer
+			 * reads could not be tested - they need a real WordPress, the messages
+			 * do not.
+			 *
+			 * @since 8.1
+			 */
 			$code = wp_remote_retrieve_response_code( $response );
 			$message = wp_remote_retrieve_response_message( $response );
 
-			if( 401 == $code )
-			{
-				$this->errors->add( 'Envato API Error', $prefix . ' ' . __( 'Your private token is invalid.', 'avia_framework' ) );
-				return;
-			}
-
+			$retry_after = null;
 			if( 429 == $code )
 			{
 				$headers = wp_remote_retrieve_headers( $response );
-				$time = isset( $headers['Retry-After'] ) ? $headers['Retry-After'] : 0;
-				if( ! empty( $time ) && is_numeric( $time ) )
-				{
-					$report = $prefix . ' ' . sprintf( __( 'Envato Rate Limit exceeded - Requests are blocked for %d seconds.', 'avia_framework' ), $time );
-				}
-				else
-				{
-					$report = $prefix . ' ' . __( 'Envato Rate Limit for requests exceeded.', 'avia_framework' );
-				}
-
-				$report .= ' ' . __( 'We are unable to get the download URL for your products.', 'avia_framework' );
-
-				$this->errors->add( 'Envato API Error', $report );
-				return;
+				$retry_after = isset( $headers['Retry-After'] ) ? $headers['Retry-After'] : 0;
 			}
 
-			$message = sprintf( __( 'Errorcode %s returned by Envato: %s', 'avia_framework' ), $code, $message );
-			if( ! empty( $prefix ) )
+			if( ! class_exists( 'Avia_Envato_Error_Translator', false ) )
 			{
-				$message = $prefix . ' ' . $message;
+				require_once( __DIR__ . '/class-avia-envato-error-translator.php' );
 			}
 
-			if( ! is_array( $body ) || ! isset( $body['error'] ) )
+			$translated = Avia_Envato_Error_Translator::translate( $code, $message, $body, $prefix, $retry_after );
+
+			foreach( $translated as $error_code => $error_message )
 			{
-				$this->errors->add( 'Envato API Error', $message );
-				return;
+				$this->errors->add( $error_code, $error_message );
 			}
-
-			if( 'invalid_grant' == $body['error'] )
-			{
-				$message = __( 'The valid access time to Envato has expired. Please login again with your Envato Username. Thank you.', 'avia_framework' );
-				$this->errors->add( 'Envato Login', $message );
-				return;
-			}
-
-			unset( $body['error'] );
-
-			if( empty( $body ) )
-			{
-				$this->errors->add( 'Envato API Error', $message );
-				return;
-			}
-
-			foreach( $body as $key => $value )
-			{
-				$body[ $key ]  = $key . ': ' . $value;
-			}
-
-			$message .= ':<br />- ' . implode( '<br />- ', $body );
-
-			if( 404 == $code )
-			{
-				$message .= ':<br />- ' . __( 'Possible cause: your download limit might be exceeded - please try again later.', 'avia_framework' );
-			}
-
-			$this->errors->add( 'Envato API Error', $message );
 
 			return;
 		}
@@ -380,8 +351,23 @@ if( ! class_exists( 'Avia_Envato_Base_API', false ) )
 				$http_args = $this->set_token_http_header( 'personal_token' );
 				$url = 'https://api.envato.com/v3/market/buyer/list-purchases';
 
+				/**
+				 * Key the cache by a hash of the token, never by the token itself.
+				 *
+				 * The transient name becomes an option NAME in wp_options, so the
+				 * raw personal token used to be readable by any plugin with database
+				 * access, and travelled into every backup and every database export
+				 * a customer sends to support.
+				 *
+				 * Existing caches simply miss once and are rebuilt. That costs one
+				 * extra API call per site, and only where this method actually runs
+				 * - a manual token verification, or the rarely used
+				 * 'avia_envato_purchase_query' theme support.
+				 *
+				 * @since 8.1
+				 */
 				$pt = $this->get_personal_token();
-				$transient = '_purchases_' . $pt;
+				$transient = '_purchases_' . substr( hash( 'sha256', $pt ), 0, 32 );
 
 				$response = $this->envato_remote_get( $url, $http_args, $transient );
 

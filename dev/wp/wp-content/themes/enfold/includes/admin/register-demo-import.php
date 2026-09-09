@@ -97,7 +97,9 @@ if( ! isset( $avia_config['demo_import'] ) )
 	 */
 	$folder = apply_filters( 'avf_demo_import_folder_name', trailingslashit( $dynamic ) .  'avia_demo_files' );
 
-	$avia_config['demo_import']['upload_folders']['main_dir'] = trailingslashit( trailingslashit( $avia_config['demo_import']['upload_folders']['basedir'] ) . $folder );
+	//	main_dir is the single source of truth in avia_demo_import_base_dir() so the ajax download/delete
+	//	handlers derive the exact same path server side (see framework/php/function-set-avia-backend.php).
+	$avia_config['demo_import']['upload_folders']['main_dir'] = avia_demo_import_base_dir();
 	$avia_config['demo_import']['upload_folders']['main_url'] = trailingslashit( trailingslashit( $avia_config['demo_import']['upload_folders']['baseurl'] ) . $folder );
 }
 
@@ -163,7 +165,7 @@ $avia_elements[] =	array(
 
 $avia_elements[] =	array(
 					'slug'		=> 'demo',
-					'name'		=> __( 'Import: Enfold 2017', 'avia_framework' ),
+					'name'		=> __( 'Import: Enfold Modern', 'avia_framework' ),
 					'desc'		=> 	 "<p><strong>{$what_get} <a href='https://kriesi.at/themes/enfold-2017/' target='_blank'>{$online_demo}</a></strong></p>"
 									."<h4 class='av-before-plugins'>" . __( 'Recommended Plugins:', 'avia_framework' ) . '</h4><ul>'
 									."<li><a href='http://woocommerce.com/?ref=84' target='_blank'>WooCommerce</a> " . __( '(for shop functionality)', 'avia_framework' ) . '</li>'
@@ -179,6 +181,39 @@ $avia_elements[] =	array(
 					'demo_img'	=> 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2021/04/enfold-2017.jpg'
 				);
 
+$avia_elements[] =	array(
+	'slug'		=> 'demo',
+	'name'		=> __( 'Import: Enfold Reef Demo', 'avia_framework' ),
+	'desc'		=> 	 "<p><strong>{$what_get} <a href='https://kriesi.at/themes/enfold-reef-shop/' target='_blank'>{$online_demo}</a></strong></p>"
+					."<h4 class='av-before-plugins'>" . __( 'Recommended Plugins:', 'avia_framework' ) . '</h4><ul>'
+					."<li><a href='http://woocommerce.com/?ref=84' target='_blank'>WooCommerce</a> " . __( '(for shop functionality)', 'avia_framework' ) . '</li>'
+					.'</ul>'
+					."<h4 class='av-before-plugins'>" . __( 'Demo Images included:', 'avia_framework' ) . '</h4><ul>'
+					.'<li>' . __( 'All', 'avia_framework' ) . '</li>'
+					.'</ul>',
+	'id'		=> 'import' . ++$demo_id,
+	'type'		=> 'import',
+	'demo_name'	=> 'reef',
+	'download'	=> 545,
+	'demo_img'	=> 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2026/07/reef.jpg'
+);
+
+$avia_elements[] =	array(
+					'slug'		=> 'demo',
+					'name'		=> __( 'Import: Enfold Studio Demo', 'avia_framework' ),
+					'desc'		=> 	 "<p><strong>{$what_get} <a href='https://kriesi.at/themes/enfold-studio/' target='_blank'>{$online_demo}</a></strong></p>"
+									."<h4 class='av-before-plugins'>" . __( 'Recommended Plugins:', 'avia_framework' ) . '</h4><ul>'
+									.'<li>' . __( 'None', 'avia_framework' ) . '</li>'
+									.'</ul>'
+									."<h4 class='av-before-plugins'>" . __( 'Demo Images included:', 'avia_framework' ) . '</h4><ul>'
+									.'<li>' . __( 'All', 'avia_framework' ) . '</li>'
+									.'</ul>',
+					'id'		=> 'import' . ++$demo_id,
+					'type'		=> 'import',
+					'demo_name'	=> 'studio',
+					'download'	=> 533,
+					'demo_img'	=> 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2026/05/studio.jpg'
+				);
 
 $avia_elements[] =	array(
 					'slug'		=> 'demo',
@@ -407,7 +442,7 @@ $avia_elements[] =	array(
 									.'</ul>',
 					'id'		=> 'import' . ++$demo_id,
 					'type'		=> 'import',
-					'exists'	=> array( 'WooCommerce' => __( 'The WooCommerce Plugin is currently not active. Please install and activate it, then reload this page in order to be able to import this demo', 'avia_framework' ) ),
+					'exists'	=> array( 'WooCommerce' => __( 'The WooCommerce Plugin is currently not active. Please make sure it is installed and activated, then reload this page to import this demo. On a multisite network, your network administrator activates plugins', 'avia_framework' ) ),
 					'demo_name'	=> 'shop',
 					'download'  => 285,
 					'demo_img'  => 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2021/04/shop.jpg'
@@ -500,7 +535,7 @@ $avia_elements[] =	array(
 									.'</ul>',
 					'id'		=> 'import' . ++$demo_id,
 					'type'		=> 'import',
-					'exists'	=> array( 'Tribe__Events__Main' => __( 'The Events Calendar Plugin is currently not active. Please install and activate it, then reload this page in order to be able to import this demo', 'avia_framework' ) ),
+					'exists'	=> array( 'Tribe__Events__Main' => __( 'The Events Calendar Plugin is currently not active. Please make sure it is installed and activated, then reload this page to import this demo. On a multisite network, your network administrator activates plugins', 'avia_framework' ) ),
 					'demo_name'	=> 'church',
 					'download'  => 136,
 					'demo_img'  => 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2021/04/church.jpg'
@@ -594,7 +629,7 @@ $avia_elements[] =	array(
 									.'</ul>',
 					'id'		=> 'import' . ++$demo_id,
 					'type'		=> 'import',
-					'exists'	=> array( 'WooCommerce' => __( 'The WooCommerce Plugin is currently not active. Please install and activate it, then reload this page in order to be able to import this demo', 'avia_framework' ) ),
+					'exists'	=> array( 'WooCommerce' => __( 'The WooCommerce Plugin is currently not active. Please make sure it is installed and activated, then reload this page to import this demo. On a multisite network, your network administrator activates plugins', 'avia_framework' ) ),
 					'demo_name'	=> 'travel',
 					'download'  => 305,
 					'demo_img'  => 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2021/04/travel.jpg'
@@ -616,7 +651,7 @@ $avia_elements[] =	array(
 									.'</ul>',
 					'id'		=> 'import' . ++$demo_id,
 					'type'		=> 'import',
-					'exists'	=> array( 'WooCommerce' => __( 'The WooCommerce Plugin is currently not active. Please install and activate it, then reload this page in order to be able to import this demo', 'avia_framework' ) ),
+					'exists'	=> array( 'WooCommerce' => __( 'The WooCommerce Plugin is currently not active. Please make sure it is installed and activated, then reload this page to import this demo. On a multisite network, your network administrator activates plugins', 'avia_framework' ) ),
 					'demo_name'	=> 'hotel',
 					'download'  => 205,
 					'demo_img'  => 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2021/04/hotel.jpg'
@@ -798,7 +833,7 @@ $avia_elements[] =	array(
 									.'</ul>',
 					'id'		=> 'import' . ++$demo_id,
 					'type'		=> 'import',
-					'exists'	=> array( 'WooCommerce' => __( 'The WooCommerce Plugin is currently not active. Please install and activate it, then reload this page in order to be able to import this demo', 'avia_framework' ) ),
+					'exists'	=> array( 'WooCommerce' => __( 'The WooCommerce Plugin is currently not active. Please make sure it is installed and activated, then reload this page to import this demo. On a multisite network, your network administrator activates plugins', 'avia_framework' ) ),
 					'demo_name'	=> 'band',
 					'download'  => 125,
 					'demo_img'  => 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2021/04/band.jpg'
@@ -853,7 +888,7 @@ $avia_elements[] =	array(
 									.'</ul>',
 					'id'		=> 'import' . ++$demo_id,
 					'type'		=> 'import',
-					'exists'	=> array( 'bbPress' => __( 'The bbPress Plugin is currently not active. Please install and activate it, then reload this page in order to be able to import this demo', 'avia_framework' ) ),
+					'exists'	=> array( 'bbPress' => __( 'The bbPress Plugin is currently not active. Please make sure it is installed and activated, then reload this page to import this demo. On a multisite network, your network administrator activates plugins', 'avia_framework' ) ),
 					'demo_name'	=> 'knowledgebase',
 					'download'  => 210,
 					'demo_img'  => 'https://kriesi.at/themes/demo-downloads/wp-content/uploads/sites/85/2021/04/knowledgebase.jpg'

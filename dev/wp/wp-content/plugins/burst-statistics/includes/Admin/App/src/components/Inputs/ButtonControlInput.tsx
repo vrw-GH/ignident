@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import Modal from '@/components/Common/Modal';
-import { toast } from 'react-toastify';
+import { toast } from '@/utils/toast';
 import * as burstApi from '@/utils/api'; // Adjust the import path as needed
 import ButtonInput from '@/components/Inputs/ButtonInput'; // New import
 
@@ -30,6 +30,7 @@ interface ButtonControlInputProps
 	url?: string;
 }
 
+// fallow-ignore-next-line complexity
 const ButtonControlInput: React.FC<ButtonControlInputProps> = ({
 	label,
 	action,
@@ -47,6 +48,7 @@ const ButtonControlInput: React.FC<ButtonControlInputProps> = ({
 
 	const text = buttonText || label;
 
+	// fallow-ignore-next-line complexity
 	const executeAction = async() => {
 		if ( ! action ) {
 			return;

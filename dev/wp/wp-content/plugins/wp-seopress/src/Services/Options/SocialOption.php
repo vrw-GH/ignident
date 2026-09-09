@@ -6,12 +6,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SEOPress\Compose\UseArchivePostType;
 use SEOPress\Constants\Options;
 
 /**
  * SocialOption
  */
 class SocialOption {
+
+	use UseArchivePostType;
 
 	/**
 	 * The getOption function.
@@ -56,6 +59,18 @@ class SocialOption {
 	 */
 	public function getSocialKnowledgeType() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		return $this->searchOptionByKey( 'seopress_social_knowledge_type' );
+	}
+
+	/**
+	 * Get the WordPress user ID linked to the Person knowledge graph.
+	 *
+	 * @since 9.7
+	 *
+	 * @return int
+	 */
+	public function getSocialKnowledgeUserId() {
+		$id = $this->searchOptionByKey( 'seopress_social_knowledge_user_id' );
+		return ! empty( $id ) ? absint( $id ) : 0;
 	}
 
 	/**
@@ -224,6 +239,95 @@ class SocialOption {
 	}
 
 	/**
+	 * The getSocialKnowledgeLegalName function.
+	 *
+	 * @since 9.8.0
+	 *
+	 * @return string
+	 */
+	public function getSocialKnowledgeLegalName() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		return $this->searchOptionByKey( 'seopress_social_knowledge_legal_name' );
+	}
+
+	/**
+	 * The getSocialKnowledgeFoundingDate function.
+	 *
+	 * @since 9.8.0
+	 *
+	 * @return string
+	 */
+	public function getSocialKnowledgeFoundingDate() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		return $this->searchOptionByKey( 'seopress_social_knowledge_founding_date' );
+	}
+
+	/**
+	 * The getSocialKnowledgeEmployees function.
+	 *
+	 * @since 9.8.0
+	 *
+	 * @return string
+	 */
+	public function getSocialKnowledgeEmployees() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		$value = $this->searchOptionByKey( 'seopress_social_knowledge_employees' );
+		return ! empty( $value ) ? (string) absint( $value ) : '';
+	}
+
+	/**
+	 * The getSocialKnowledgeStreet function.
+	 *
+	 * @since 9.8.0
+	 *
+	 * @return string
+	 */
+	public function getSocialKnowledgeStreet() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		return $this->searchOptionByKey( 'seopress_social_knowledge_street' );
+	}
+
+	/**
+	 * The getSocialKnowledgeLocality function.
+	 *
+	 * @since 9.8.0
+	 *
+	 * @return string
+	 */
+	public function getSocialKnowledgeLocality() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		return $this->searchOptionByKey( 'seopress_social_knowledge_locality' );
+	}
+
+	/**
+	 * The getSocialKnowledgeRegion function.
+	 *
+	 * @since 9.8.0
+	 *
+	 * @return string
+	 */
+	public function getSocialKnowledgeRegion() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		return $this->searchOptionByKey( 'seopress_social_knowledge_region' );
+	}
+
+	/**
+	 * The getSocialKnowledgePostalCode function.
+	 *
+	 * @since 9.8.0
+	 *
+	 * @return string
+	 */
+	public function getSocialKnowledgePostalCode() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		return $this->searchOptionByKey( 'seopress_social_knowledge_postal_code' );
+	}
+
+	/**
+	 * The getSocialKnowledgeCountry function.
+	 *
+	 * @since 9.8.0
+	 *
+	 * @return string
+	 */
+	public function getSocialKnowledgeCountry() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		return $this->searchOptionByKey( 'seopress_social_knowledge_country' );
+	}
+
+	/**
 	 * The getSocialTwitterCard function.
 	 *
 	 * @since 5.9.0
@@ -311,22 +415,51 @@ class SocialOption {
 	 * @return string
 	 */
 	public function getSocialFacebookImgCpt( $id = null ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
-		$arg = $id;
+		$current_cpt = '';
 
-		if ( null === $id ) {
-			global $post;
-			if ( ! isset( $post ) ) {
-				return;
+		if ( null !== $id ) {
+			$current_cpt = (string) get_post_type( $id );
+		} else {
+			/*
+			 * On a post type archive the post type is what the query was
+			 * resolved against, so read it from the query rather than from the
+			 * loop. `global $post` holds the first result there, which works
+			 * only for as long as the archive has one: an archive with no
+			 * published post left the option unread and the page fell back to
+			 * the sitewide image with nothing to show for it. Reading it from
+			 * the query also gives the Twitter hook a way to resolve the same
+			 * value without duplicating the branch.
+			 *
+			 * Shared with Titles & Metas > Archives through the trait: the two
+			 * settings are keyed on the same post type, read on the same pages,
+			 * and the queried object is not always the post type there. On a
+			 * WooCommerce shop page a theme or a builder can leave it as the
+			 * shop `WP_Post`, and resolving from the queried object alone would
+			 * have left this getter reading the loop again, back to the archive
+			 * having to hold a post.
+			 */
+			$current_cpt = $this->getCurrentArchivePostType();
+
+			if ( '' === $current_cpt ) {
+				/*
+				 * Not an archive, or one the shared resolution stays out of:
+				 * the shop page served as a page, where the post type is the
+				 * one of the page itself, and the taxonomy archives that are
+				 * post type archives at the same time, where the loop is what
+				 * this image was already resolved from.
+				 */
+				global $post;
+				if ( ! isset( $post ) ) {
+					return;
+				}
+
+				$current_cpt = (string) get_post_type( $post );
 			}
-
-			$arg = $post;
 		}
-
-		$current_cpt = get_post_type( $arg );
 
 		$option = $this->searchOptionByKey( 'seopress_social_facebook_img_cpt' );
 
-		if ( ! isset( $option[ $current_cpt ]['url'] ) ) {
+		if ( '' === $current_cpt || ! isset( $option[ $current_cpt ]['url'] ) ) {
 			return;
 		}
 
@@ -344,16 +477,6 @@ class SocialOption {
 		return $this->searchOptionByKey( 'seopress_social_facebook_link_ownership_id' );
 	}
 
-	/**
-	 * The getSocialFacebookAdminID function.
-	 *
-	 * @since 6.5.0
-	 *
-	 * @return string
-	 */
-	public function getSocialFacebookAdminID() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
-		return $this->searchOptionByKey( 'seopress_social_facebook_admin_id' );
-	}
 
 	/**
 	 * The getSocialFacebookAppID function.
@@ -517,13 +640,27 @@ class SocialOption {
 	}
 
 	/**
+	 * The getSocialFacebookAdminID function.
+	 *
+	 * @deprecated 9.8.0 The "Facebook Admin ID" option was removed.
+	 * @todo       Remove after 2027-04-22 (kept for ~1 year to prevent fatal errors in older Pro releases calling this method).
+	 *
+	 * @return null
+	 */
+	public function getSocialFacebookAdminID() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		return null;
+	}
+
+	/**
 	 * The getSocialFvCreator function.
 	 *
-	 * @since 8.0.0
+	 * @deprecated 9.8.0 The "Fediverse Creator" tag was removed.
+	 * @todo       Remove after 2027-04-22 (kept for ~1 year to prevent fatal errors in older Pro releases calling this method).
 	 *
-	 * @return string
+	 * @return null
 	 */
 	public function getSocialFvCreator() { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
-		return $this->searchOptionByKey( 'seopress_social_fv_creator' );
+		return null;
 	}
+
 }

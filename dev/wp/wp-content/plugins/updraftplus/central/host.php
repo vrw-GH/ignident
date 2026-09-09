@@ -97,13 +97,12 @@ abstract class UpdraftCentral_Host {
 	 */
 	public function updraft_central_ajax_handler() {
 		global $updraftcentral_main;
-
-		$nonce = empty($_REQUEST['nonce']) ? '' : $_REQUEST['nonce'];
-		if (empty($nonce) || !wp_verify_nonce($nonce, 'updraftcentral-request-nonce') || !$this->current_user_can_ajax() || empty($_REQUEST['subaction'])) die('Security check');
+		$nonce = UpdraftPlus_Manipulation_Functions::fetch_superglobal('request', 'nonce', '');
+		$subaction = UpdraftPlus_Manipulation_Functions::fetch_superglobal('request', 'subaction');
+		if (empty($nonce) || !wp_verify_nonce($nonce, 'updraftcentral-request-nonce') || !$this->current_user_can_ajax() || empty($subaction)) die('Security check');
 
 		if (is_a($updraftcentral_main, 'UpdraftCentral_Main')) {
 
-			$subaction = $_REQUEST['subaction'];
 			if ($this->is_action_whitelisted($subaction) && is_callable(array($updraftcentral_main, $subaction))) {
 
 				// Undo WP's slashing of POST data
@@ -303,7 +302,7 @@ abstract class UpdraftCentral_Host {
 	 * @return bool
 	 */
 	public function php_error($errno, $errstr, $errfile, $errline) {
-		if (0 == error_reporting()) return true;
+		if (0 == error_reporting()) return true; // phpcs:ignore WordPress.PHP.DevelopmentFunctions.prevent_path_disclosure_error_reporting -- The error_reporting() function is used to get the current PHP error level.
 		$logline = $this->php_error_to_logline($errno, $errstr, $errfile, $errline);
 		if (false !== $logline) $this->log($logline, 'notice', 'php_event');
 		// Pass it up the chain

@@ -83,13 +83,11 @@ if( ! function_exists( 'avia_nav_menus' ) )
 	 */
 	function avia_nav_menus()
 	{
-		global $avia_config, $wp_customize;
+		global $avia_config;
 
 		foreach( $avia_config['nav_menus'] as $key => $value )
 		{
-			//wp-admin\customize.php does not support html code in the menu description - thus we need to strip it
-			$name = ( ! empty( $value['plain'] ) && ! empty( $wp_customize ) ) ? $value['plain'] : $value['html'];
-			register_nav_menu( $key, THEMENAME . ' ' . $name );
+			register_nav_menu( $key, THEMENAME . ' ' . $value['html'] );
 		}
 	}
 

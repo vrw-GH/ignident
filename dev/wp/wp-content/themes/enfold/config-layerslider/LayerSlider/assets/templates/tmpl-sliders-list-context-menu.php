@@ -11,11 +11,6 @@
 				<?= lsGetSVGIcon('file-export') ?>
 				<span><?= __('Export', 'LayerSlider') ?></span>
 			</li>
-			<li data-action="export-html" class="ls-visible-item">
-				<?= lsGetSVGIcon('code') ?>
-				<span><?= __('Export as HTML', 'LayerSlider') ?></span>
-			</li>
-
 			<li data-action="duplicate" class="ls-visible-item">
 				<?= lsGetSVGIcon('clone') ?>
 				<span><?= __('Duplicate', 'LayerSlider') ?></span>

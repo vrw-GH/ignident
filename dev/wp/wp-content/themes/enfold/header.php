@@ -276,7 +276,7 @@ $body_classes = implode( ' ', array_unique( array_filter( $body_classes ) ) );
 	}
 	?>
 
-	<div id='main' class='all_colors' data-scroll-offset='<?php echo avia_header_setting( 'header_scroll_offset' ); ?>'>
+	<div id='main' role='main' class='all_colors' data-scroll-offset='<?php echo avia_header_setting( 'header_scroll_offset' ); ?>'>
 
 	<?php
 

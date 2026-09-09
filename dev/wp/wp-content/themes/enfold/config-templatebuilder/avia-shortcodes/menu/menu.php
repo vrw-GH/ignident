@@ -61,11 +61,13 @@ if( ! class_exists( 'avia_sc_submenu', false ) )
 
 			$this->config['name']			= __( 'Fullwidth Sub Menu', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-submenu.png';
-			$this->config['order']			= 30;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-submenu.svg';
+			$this->config['order']			= 26;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_submenu';
 			$this->config['shortcode_nested'] = array( 'av_submenu_item' );
+			//	the canvas names the menu entries so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_submenu_item', 'attr' => 'title', 'toggle' => 'which_menu' );
 			$this->config['tooltip'] 	    = __( 'Display a sub menu', 'avia_framework' );
 			$this->config['tinyMCE'] 		= array( 'disable' => 'true' );
 			$this->config['drag-level'] 	= 1;
@@ -88,6 +90,28 @@ if( ! class_exists( 'avia_sc_submenu', false ) )
 
 				//load js
 			wp_enqueue_script( 'avia-module-menu', AviaBuilder::$path['pluginUrlRoot'] . "avia-shortcodes/menu/menu{$min_js}.js", array( 'avia-shortcodes' ), $ver, true );
+		}
+
+		/**
+		 * Both of the things this element can be, with the setting deciding which is seen.
+		 *
+		 * It either lists entries of its own or points at a menu built under Appearance, and the
+		 * canvas should say which - a menu element that only says "List Menu" tells you nothing you
+		 * did not already know from the icon.
+		 *
+		 * @since 8.0
+		 * @param array $params
+		 * @return array
+		 */
+		public function editor_element( $params )
+		{
+			//	list_menus() is keyed by name, and here the id is what is stored - so it is turned around
+			$menus = array_flip( AviaHelper::list_menus() );
+			$named = $this->editor_element_option_label( 'menu', $params, $menus, 'avia-element-items-alt' );
+
+			$params['innerHtml'] = $this->editor_element_items( $params, $named );
+
+			return $params;
 		}
 
 		/**
@@ -212,7 +236,13 @@ if( ! class_exists( 'avia_sc_submenu', false ) )
 							'desc' 	=> __( 'Either use an existing menu, built in Appearance -> Menus or create a simple custom menu here', 'avia_framework' ),
 							'id' 	=> 'which_menu',
 							'type' 	=> 'select',
-							'std' 	=> 'center',
+							/*
+							 * Was 'center', which is not one of the two values below - a leftover from an
+							 * alignment setting. It behaved as "use existing menu" because everything that
+							 * is not 'custom' does, so nothing was visibly wrong, but the dropdown opened
+							 * on a value it did not offer.
+							 */
+							'std' 	=> '',
 							'subtype'	=> array(
 												__( 'Use existing menu', 'avia_framework' )			=> '',
 												__( 'Build simple custom menu', 'avia_framework' )	=> 'custom',
@@ -520,20 +550,6 @@ if( ! class_exists( 'avia_sc_submenu', false ) )
 		 * @param array $params			holds the default values for $content and $args.
 		 * @return array				usually holds an innerHtml key that holds item specific markup.
 		 */
-		public function editor_element( $params )
-		{
-//			$term_args = array(
-//							'taxonomy'		=> 'nav_menu',
-//							'hide_empty'	=> false
-//						);
-//
-//			$menus = AviaHelper::get_terms( $term_args );
-
-
-			$params = parent::editor_element( $params );
-
-			return $params;
-		}
 
 
 		/**

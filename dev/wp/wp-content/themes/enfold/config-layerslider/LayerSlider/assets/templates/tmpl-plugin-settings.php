@@ -89,7 +89,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 							<tr>
 								<td><?php _e('Language:', 'LayerSlider') ?></td>
 								<td>
-									<select name="ls_custom_locale">
+									<select name="ls_custom_locale" data-confirm="<?= __('The selected language has been changed. Reload the page to apply the new language?', 'LayerSlider') ?>">
 										<option value="auto" <?php echo ( $custom_locale === 'auto' ) ? 'selected' : ''?>><?php _e('Site default', 'LayerSlider') ?></option>
 										<option value="en_US" <?php echo ( $custom_locale === 'en_US' ) ? 'selected' : ''?>>English (United States)</option>
 										<option value="fr_FR" <?php echo ( $custom_locale === 'fr_FR' ) ? 'selected' : ''?>>Français</option>
@@ -225,7 +225,12 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 						<tr>
 							<td><?= __('String Translation', 'LayerSlider') ?></td>
 							<td><?= lsGetSwitchOptionField('wpml_string_translation', true ) ?></td>
-							<td><?= sprintf(__('When enabled, LayerSlider will automatically register the strings used in your projects to be translated on multilingual sites. %sPolylang doesn’t support an “untranslated” state for strings.%s If you use Polylang instead of WPML, you should either actively maintain translations or consider disabling this option to avoid issues where your projects’ content doesn’t reflect the changes made in the editor.', 'LayerSlider'), '<br><br><b>', '</b>') ?></td>
+							<td><?= __('When enabled, LayerSlider makes the texts and links used in your projects translatable on multilingual sites. Both WPML and Polylang are fully supported, each with its own first-class, purpose-built integration. Untranslated strings are displayed in their original language.', 'LayerSlider') ?></td>
+						</tr>
+						<tr class="ls-show-if-string-translation-enabled">
+							<td><?= __('Link Translation', 'LayerSlider') ?></td>
+							<td><?= lsGetSwitchOptionField('wpml_link_translation', true ) ?></td>
+							<td><?= __('Allows translating manually entered URLs, so each language can point to its own destination. Links pointing to a selected post or page are not affected: they need no translation, as your multilingual plugin already knows their correct URL in each language.', 'LayerSlider') ?></td>
 						</tr>
 						<tr>
 							<td><?= __('Media Translation', 'LayerSlider') ?></td>
@@ -235,7 +240,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 						<tr>
 							<td><?= __('Auto Translation Cleanup', 'LayerSlider') ?></td>
 							<td><?= lsGetSwitchOptionField('wpml_auto_cleanup', true ) ?></td>
-							<td><?= __('Automatically removes unused translation strings when deleting projects or layers to keep your translation database organized. Consider disabling this option if you wish to retain previously translated content for potential restoration, such as when using the Revisions feature.', 'LayerSlider') ?></td>
+							<td><?= __('WPML only. Automatically removes unused translation strings when deleting projects or layers to keep your translation database organized. Consider disabling this option if you wish to retain previously translated content for potential restoration, such as when using the Revisions feature. Polylang requires no cleanup, as it stores no string registrations.', 'LayerSlider') ?></td>
 						</tr>
 					</table>
 

@@ -61,10 +61,12 @@ if( ! class_exists( 'avia_sc_productslider', false ) )
 
 			$this->config['name']			= __( 'Product Slider', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-postslider.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-product-slider.svg';
 			$this->config['order']			= 30;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_productslider';
+			//	the canvas names which products it shows - either field may hold them, see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => array( 'categories', 'link' ) );
 			$this->config['tooltip']		= __( 'Display a Slideshow of Product Entries', 'avia_framework' );
 			$this->config['drag-level']		= 3;
 			$this->config['disabling_allowed'] = true;

@@ -221,7 +221,7 @@ $pp_title = get_the_title( $pp_id );
 $avia_elements[] =	array(
 			'slug'	=> 'cookie',
 			'name'	=> __( 'Shortcodes you can use in your Privacy Policy','avia_framework' ) . " - <a target='_blank' href='{$pp_url}'>({$pp_title})</a>",
-			'desc'	=> __( 'In order to offer your users a better experience you can use the shortcodes listed here in your privacy policy. These shortcodes allow your users to change certain behavior of your website.', 'avia_framework' ) .
+			'desc'	=> __( 'Use these shortcodes in your privacy policy to let visitors change how your website behaves.', 'avia_framework' ) .
 						'<ul>' .
 						'<li><strong>[av_privacy_allow_cookies]</strong> - '	. __( ' allows a user to refuse cookies and hides message bar (needs 2 cookies for that, others are removed)', 'avia_framework' ) . '</li>' .
 						'<li><strong>[av_privacy_accept_essential_cookies]</strong> - '	. __( ' allows a user to opt out from essential theme and all other cookies (except 2 from av_privacy_allow_cookies)', 'avia_framework' ) . '</li>' .
@@ -318,7 +318,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'cookie',
 			'name'		=> __( 'Default Cookie Behaviour', 'avia_framework' ),
-			'desc'		=> __( 'Select how cookies and privacy options should be loaded by default for new visitors. Please remember that it is the responsibility of the website owner to fulfill the local rules for data privacy.', 'avia_framework' ),
+			'desc'		=> __( 'Choose how cookies and privacy options load for new visitors. You are responsible for meeting your local data-privacy laws.', 'avia_framework' ),
 			'id'		=> 'cookie_default_settings',
 			'type'		=> 'select',
 			'required'	=> array( 'cookie_consent', '{contains_array}cookie_consent;cookie__consent_no_bar' ),
@@ -344,7 +344,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'	=> 'cookie',
 			'name'	=> __( 'Cookie Consent Message Bar', 'avia_framework' ),
-			'desc'	=> __( 'Define content and buttons for your message bar to inform users about the use of cookies and services and depending on your country laws to opt in or opt out for services and cookies. If you make changes to message text or button label the message bar will be show again.', 'avia_framework' ),
+			'desc'	=> __( 'Set the text and buttons for your cookie message bar. Editing the message or button labels shows the bar to visitors again.', 'avia_framework' ),
 			'id'	=> 'consent_msg_bar_headline',
 			'type'	=> 'heading',
 //			'class'	=> 'avia_heading_boxed',
@@ -529,7 +529,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'	=> 'cookie',
 			'name'	=> __( 'Display Modal Popup Actions', 'avia_framework' ),
-			'desc'	=> __( 'Select how to display your modal popup window. Country law regulation might enforce you to show the popup on first page load. If user does not accept cookies he will be prompted every time when opening a new window or tab.', 'avia_framework' ),
+			'desc'	=> __( 'Choose how the cookie popup appears. Some laws require showing it on the first visit. Visitors who decline are asked again in each new tab or window.', 'avia_framework' ),
 			'id'	=> 'modal_popup_window_action',
 			'type'	=> 'select',
 			'std'	=> '',
@@ -848,7 +848,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'	=> 'cookie',
 			'name' 	=> __( 'Refuse Cookie Warning', 'avia_framework' ),
-			'desc' 	=> __( 'Provide a short message for a browser alert when user clicks the &quot;Do not accept and hide notification&quot; button. Inform him that refusing cookies will show the message bar every time he opens a new window or tab. Leave empty if you do not want to show the browser alert.', 'avia_framework' ),
+			'desc' 	=> __( 'Short browser-alert message shown when a visitor clicks "Do not accept and hide notification". Let them know that declining will show the message bar again in each new tab or window. Leave empty to skip the alert.', 'avia_framework' ),
 			'id' 	=> 'cookie_refuse_button_alert',
 			'type' 	=> 'textarea',
 			'std'   => __( 'When refusing all cookies this site might not be able to work as expected. Please check our settings page and opt out for cookies or functions you do not want to use and accept cookies. You will be shown this message every time you open a new window or a new tab.\n\nAre you sure you want to continue?', 'avia_framework' )
@@ -940,7 +940,7 @@ $avia_elements[] =	array(
 									array(
 										'slug'	=> 'cookie',
 										'name'	=> __( 'Compare Action', 'avia_framework' ),
-										'desc'	=> __( 'Select your compare action if you have to remove multiple cookies. Be carefull with contains as this removes all cookies that contain the string (except the disabled cookie).', 'avia_framework' ),
+										'desc'	=> __( 'Choose how to match cookie names when removing several at once. Use "contains" carefully — it removes every cookie whose name includes the text.', 'avia_framework' ),
 										'id'	=> 'cookie_compare_action',
 										'type'	=> 'select',
 										'std'	=> '',

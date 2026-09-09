@@ -1,6 +1,5 @@
 <?php
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 ?>
 <div id="updraft_exclude_modal" title="UpdraftPlus - <?php esc_html_e('Exclude files/directories', 'updraftplus');?>">
 	<input type="hidden" id="updraft_exclude_modal_for" value=""/>

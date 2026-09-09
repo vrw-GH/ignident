@@ -25,8 +25,8 @@ if( ! class_exists( 'avia_sc_notification', false ) )
 
 			$this->config['name']			= __( 'Notification', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-notification.png';
-			$this->config['order']			= 80;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-notification.svg';
+			$this->config['order']			= 88;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_notification';
 			$this->config['tooltip']		= __( 'Creates a notification box to inform visitors', 'avia_framework' );

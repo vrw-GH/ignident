@@ -1,61 +1,91 @@
 import { scaleQuantize, scaleThreshold } from 'd3-scale';
 
-export const quantizeColorScales = {
+const quantizeColorScales = {
 
+	// max 7 scales, so we need to use colours that have the most contrast.
 	// Sequential scheme: good for low-to-high data
-	blues: [
-		'#f7fbff',
-		'#deebf7',
-		'#9ecae1',
-		'#6baed6',
-		'#3182bd',
-		'#08519c',
-		'#08306b'
-	],
+	// blues: [
+	// 	'var(--color-blue-50)',
+	// 	'var(--color-blue-200)',
+	// 	'var(--color-blue-300)',
+	// 	'var(--color-blue-400)',
+	// 	'var(--color-blue-600)',
+	// 	'var(--color-blue-800)',
+	// 	'var(--color-blue-950)',
+	// ],
 
 	// Sequential scheme: good for low-to-high data
 	greens: [
-		'#d5edce',
-		'#c1e2ba',
-		'#a1d99b',
-		'#41ab5d',
-		'#238b45',
-		'#006d2c',
-		'#00441b'
+		'var(--color-green-50)',
+		'var(--color-green-200)',
+		'var(--color-green-300)',
+		'var(--color-green-400)',
+		'var(--color-green-600)',
+		'var(--color-green-800)',
+		'var(--color-green-950)'
 	],
 
-	// A sequential red scheme with a cooler, less orange tone
-	reds: [
-		'#ffebee',
-		'#ffcdd2',
-		'#ef9a9a',
-		'#e53935',
-		'#cb181d',
-		'#a50f15',
-		'#67000d'
-	],
+	// // A sequential red scheme with a cooler, less orange tone
+	// reds: [
+	// 	'var(--color-red-50)',
+	// 	'var(--color-red-200)',
+	// 	'var(--color-red-300)',
+	// 	'var(--color-red-400)',
+	// 	'var(--color-red-600)',
+	// 	'var(--color-red-800)',
+	// 	'var(--color-red-950)'
+	// ],
 
 	// Diverging scheme with a yellow center to avoid white
 	blueRedDiverging: [
-		'#313695',
-		'#74add1',
-		'#e0f3f8',
-		'#ffffbf',
-		'#fee090',
-		'#f46d43',
-		'#a50026'
-	],
-
-	// Diverging scheme from green to red with a yellow center
-	greenRedDiverging: [
-		'#006837',
-		'#66bd63',
-		'#d9ef8b',
-		'#ffffbf',
-		'#fee08b',
-		'#f46d43',
-		'#a50026'
+		'var(--color-blue-600)',
+		'var(--color-blue-400)',
+		'var(--color-blue-200)',
+		'var(--color-yellow-200)',
+		'var(--color-red-200)',
+		'var(--color-red-400)',
+		'var(--color-red-700)'
 	]
+
+	// // Diverging scheme from green to red with a yellow center
+	// greenRedDiverging: [
+	// 	'var(--color-green-500)',
+	// 	'var(--color-green-400)',
+	// 	'var(--color-green-300)',
+	// 	'var(--color-yellow-300)',
+	// 	'var(--color-yellow-400)',
+	// 	'var(--color-yellow-500)',
+	// 	'var(--color-red-600)',
+	// 	'var(--color-red-700)',
+	// 	'var(--color-red-800)',
+	// 	'var(--color-red-900)',
+	// 	'var(--color-red-950)'
+	// ]
+};
+
+const sanitizeNumericValues = ( values ) => {
+	if ( ! values || 0 === values.length ) {
+		return [];
+	}
+	return values
+		.map( ( v ) => Number( v ) )
+		.filter( ( v ) => ! isNaN( v ) && isFinite( v ) );
+};
+
+const removeDuplicateBreaks = ( breaks ) => {
+	const uniqueBreaks = [];
+	const tolerance = 1e-10;
+
+	for ( let i = 0; i < breaks.length; i++ ) {
+		if (
+			0 === i ||
+			Math.abs( breaks[i] - breaks[i - 1]) > tolerance
+		) {
+			uniqueBreaks.push( breaks[i]);
+		}
+	}
+
+	return uniqueBreaks;
 };
 
 /**
@@ -65,7 +95,8 @@ export const quantizeColorScales = {
  * @return {number[]} Array of break points, or empty array if classification fails
  * @throws {Error} When invalid parameters are provided
  */
-export const classifyData = ( values, method = 'quantile' ) => {
+// fallow-ignore-next-line complexity
+const classifyData = ( values, method = 'quantile' ) => {
 	if ( ! values || ! Array.isArray( values ) ) {
 		console.error( 'values parameter must be an array' );
 		return [];
@@ -140,6 +171,7 @@ export const classifyData = ( values, method = 'quantile' ) => {
  * @return {Function} D3 quantize scale function
  * @throws {Error} When invalid parameters are provided
  */
+// fallow-ignore-next-line complexity
 export const createQuantizeColorScale = ( colors ) => {
 
 	// Validate input parameter
@@ -190,6 +222,7 @@ export const createQuantizeColorScale = ( colors ) => {
  * @return {Function|null} Configured color scale, or null if values is null/undefined
  * @throws {Error} When invalid parameters are provided
  */
+// fallow-ignore-next-line complexity
 export const createClassifiedColorScale = (
 	colorScheme,
 	domain = [ 0, 100 ],
@@ -390,15 +423,9 @@ export const normalizeToRate = (
  * @param {number[]} values - Array of numeric values (must be sorted)
  * @return {number[]} Array of break points including min and max
  */
+// fallow-ignore-next-line complexity
 const quantileClassification = ( values ) => {
-	if ( ! values || 0 === values.length ) {
-		return [];
-	}
-
-	// Convert all values to numbers and filter out invalid values
-	const numericValues = values
-		.map( ( v ) => Number( v ) )
-		.filter( ( v ) => ! isNaN( v ) && isFinite( v ) );
+	const numericValues = sanitizeNumericValues( values );
 
 	if ( 0 === numericValues.length ) {
 		return [];
@@ -463,24 +490,8 @@ const quantileClassification = ( values ) => {
 		breaks.push( maxValue );
 	}
 
-	// Remove duplicate breaks with proper floating-point handling
-	// Sort first to ensure proper order
 	const sortedBreaks = breaks.sort( ( a, b ) => a - b );
-
-	// Remove duplicates with floating-point tolerance
-	const uniqueBreaks = [];
-	const tolerance = 1e-10;
-
-	for ( let i = 0; i < sortedBreaks.length; i++ ) {
-		if (
-			0 === i ||
-			Math.abs( sortedBreaks[i] - sortedBreaks[i - 1]) > tolerance
-		) {
-			uniqueBreaks.push( sortedBreaks[i]);
-		}
-	}
-
-	return uniqueBreaks;
+	return removeDuplicateBreaks( sortedBreaks );
 };
 
 /**
@@ -490,14 +501,7 @@ const quantileClassification = ( values ) => {
  * @return {number[]} Array of break points including min and max
  */
 const equalInterval = ( values ) => {
-	if ( ! values || 0 === values.length ) {
-		return [];
-	}
-
-	// Convert all values to numbers and filter out invalid values.
-	const numericValues = values
-		.map( ( v ) => Number( v ) )
-		.filter( ( v ) => ! isNaN( v ) && isFinite( v ) );
+	const numericValues = sanitizeNumericValues( values );
 
 	if ( 0 === numericValues.length ) {
 		return [];
@@ -534,15 +538,9 @@ const equalInterval = ( values ) => {
  * @param {number[]} values - Array of numeric values
  * @return {number[]} Array of break points including min and max
  */
+// fallow-ignore-next-line complexity
 const standardDeviation = ( values ) => {
-	if ( ! values || 0 === values.length ) {
-		return [];
-	}
-
-	// Convert all values to numbers and filter out invalid values
-	const numericValues = values
-		.map( ( v ) => Number( v ) )
-		.filter( ( v ) => ! isNaN( v ) && isFinite( v ) );
+	const numericValues = sanitizeNumericValues( values );
 
 	if ( 0 === numericValues.length ) {
 		return [];
@@ -668,6 +666,7 @@ const standardDeviation = ( values ) => {
  *   length of `numClasses + 1`, including the minimum and maximum values
  *   as the first and last elements. Returns an empty array if inputs are invalid.
  */
+// fallow-ignore-next-line complexity
 function jenksNaturalBreaks( values, numClasses ) {
 
 	// Basic validation
@@ -687,10 +686,7 @@ function jenksNaturalBreaks( values, numClasses ) {
 		return [];
 	}
 
-	// Convert values to numbers and filter out invalid values
-	const numericValues = values
-		.map( ( v ) => Number( v ) )
-		.filter( ( v ) => ! isNaN( v ) && isFinite( v ) );
+	const numericValues = sanitizeNumericValues( values );
 
 	if ( 0 === numericValues.length ) {
 		return [];
@@ -820,21 +816,6 @@ function jenksNaturalBreaks( values, numClasses ) {
 	// The first value is always the minimum.
 	breaks.push( sorted[0]);
 
-	// The breaks were found from end to start, so reverse them.
 	const sortedBreaks = breaks.reverse();
-
-	// Remove duplicates with floating-point tolerance to avoid 0-0 classes.
-	const uniqueBreaks = [];
-	const tolerance = 1e-10;
-
-	for ( let i = 0; i < sortedBreaks.length; i++ ) {
-		if (
-			0 === i ||
-			Math.abs( sortedBreaks[i] - sortedBreaks[i - 1]) > tolerance
-		) {
-			uniqueBreaks.push( sortedBreaks[i]);
-		}
-	}
-
-	return uniqueBreaks;
+	return removeDuplicateBreaks( sortedBreaks );
 }

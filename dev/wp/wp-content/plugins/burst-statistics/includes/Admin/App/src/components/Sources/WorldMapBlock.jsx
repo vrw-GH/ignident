@@ -7,17 +7,26 @@ import WorldMap from '@/components/Sources/WorldMap/WorldMap';
 import WorldMapHeader from '@/components/Sources/WorldMap/WorldMapHeader';
 import ErrorBoundary from '../Common/ErrorBoundary';
 import { useBlockConfig } from '@/hooks/useBlockConfig';
+import { useGeoAnalytics } from '@/hooks/useGeoAnalytics';
+import MetricInfo from '@/components/Common/MetricInfo';
 
 const WorldMapBlock = ( props ) => {
 	const { allowBlockFilters, isReport, index } = useBlockConfig( props );
+	const { isFetching: isGeoFetching } = useGeoAnalytics( props );
+
 	return (
-		<Block className="row-span-2 xl:col-span-6 group/root">
+		<Block className="row-span-2 @xl:col-span-6 group/root">
 			<ErrorBoundary>
 				<BlockHeading
 					className="border-b border-gray-200"
-					title={__( 'World View', 'burst-statistics' )}
+					title={
+						<MetricInfo metricKey="world_view" side="bottom">
+							{__( 'World view', 'burst-statistics' )}
+						</MetricInfo>
+					}
 					isReport={isReport}
 					reportBlockIndex={index}
+					isLoading={isGeoFetching}
 					controls={allowBlockFilters ? <WorldMapHeader /> : undefined}
 				/>
 				<BlockContent className="px-0 py-0">

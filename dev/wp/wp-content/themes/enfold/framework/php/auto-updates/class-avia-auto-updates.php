@@ -17,6 +17,17 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 		//since the avia framework is not included via hook there need to be some static functions since at the time of admin_init those hooks are already executed
 		add_action( 'avf_option_page_init', array( 'avia_auto_updates', 'add_updates_tab' ), 1, 1 );
 		add_action( 'avf_option_page_data_init', array( 'avia_auto_updates', 'option_page_data' ), 10, 1 );
+
+		/**
+		 * The renewal reminder, hooked in the same gated block as everything else
+		 * here. It reads a stored date and never calls an API on a page load.
+		 *
+		 * @since 8.1
+		 */
+		require_once( __DIR__ . '/class-avia-surecart-licence.php' );
+		require_once( __DIR__ . '/class-avia-licence-reminder.php' );
+
+		add_action( 'admin_init', array( 'Avia_Licence_Reminder', 'register' ), 1 );
 	}
 
 	class avia_auto_updates
@@ -63,6 +74,35 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 		 */
 		protected $themename;
 
+		/**
+		 * Content of css/custom.css, read before an update overwrites it.
+		 *
+		 * MUST default to null, never to ''. re_insert_custom_css() guards with
+		 * isset(), so a '' default flips that guard to true and the method starts
+		 * telling every customer we could not restore their custom.css on every
+		 * update. null keeps the guard false exactly as an undeclared property did.
+		 *
+		 * @since 8.1
+		 * @var string|null
+		 */
+		protected $custom_css_content = null;
+
+		/**
+		 * md5 of $custom_css_content. See the note on that property.
+		 *
+		 * @since 8.1
+		 * @var string|null
+		 */
+		protected $custom_css_md5 = null;
+
+		/**
+		 * Absolute path to css/custom.css. See the note on $custom_css_content.
+		 *
+		 * @since 8.1
+		 * @var string|null
+		 */
+		protected $custom_css = null;
+
 
 		/**
 		 * @since < 4.4.3
@@ -104,25 +144,65 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 		protected function includes()
 		{
 			require_once( 'class-avia-theme-updater.php' );
+			require_once( __DIR__ . '/class-avia-update-source-resolver.php' );
+
+			/**
+			 * Which stored credential drives the updater.
+			 *
+			 * This used to read `! empty( $state ) ? $token : ''` inline, with the
+			 * other half of the rule sitting in Avia_Theme_Updater. Both halves now
+			 * live in the resolver, which takes them as arguments and so can be
+			 * exercised without WordPress - the decision is worth that, because a
+			 * credential wrongly judged unusable stops updates silently and nothing
+			 * anywhere reports it.
+			 *
+			 * Only Envato is offered today. A SureCart candidate joins the array
+			 * when that source exists; nothing else here has to change.
+			 *
+			 * @since 8.1
+			 */
+			$resolved = Avia_Update_Source_Resolver::resolve(
+									array(
+										array(
+											'type'			=> 'envato',
+											'credential'	=> $this->personal_token,
+											'verified'		=> $this->envato_token_state
+										)
+									),
+									apply_filters( 'avf_update_source_precedence', array( 'envato' ) )
+								);
 
 			$args = array(
 							'authors'			=> $this->author,
-							'personal_token'	=> ! empty( $this->envato_token_state ) ? $this->personal_token : '',
+							/**
+							 * Kept as 'personal_token' as well as the newer keys: the
+							 * argument name is public surface that child themes and
+							 * the AviaSupport plugins pass.
+							 */
+							'personal_token'	=> $resolved['credential'],
+							'credential'		=> $resolved['credential'],
+							/**
+							 * Deliberately NOT passed. One field accepts either
+							 * service, so the updater classifies the credential
+							 * itself; forcing a type here would pin every customer
+							 * to Envato no matter what they entered. The resolver
+							 * still owns the question this call is really for -
+							 * whether the credential is usable at all.
+							 *
+							 * @since 8.1
+							 */
+							'source_type'		=> ''
 						);
 			AviaThemeUpdater( $args );
 
 			/**
+			 * The pre-4.4.3 username + API key fallback was disabled in 6.0.4 and
+			 * its two classes are gone as of 8.1 - see class-pixelentity-theme-update.php
+			 * and class-envato-protected-api.php in the history.
+			 *
 			 * @since 6.0.4			removed
+			 * @since 8.1			commented out call and both classes deleted
 			 */
-//			if( empty( $this->personal_token ) && ! empty( $this->username ) && ! empty( $this->apikey ) )
-//			{
-//				/**
-//				 * backwards comp. for old API - can be removed in some future
-//				 * support for new API added in 4.4.3
-//				 */
-//				require_once( "class-pixelentity-theme-update.php" );
-//				PixelentityThemeUpdate::init( $this->username , $this->apikey, $this->author );
-//			}
 		}
 
 		/**
@@ -212,7 +292,7 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 		 */
 		public static function add_updates_tab( $avia_pages )
 		{
-			$title = __( 'Theme Update', 'avia_framework' );
+			$title = __( 'Theme Update &amp; News', 'avia_framework' );
 
 			if( false !== self::check_for_theme_update() )
 			{
@@ -294,13 +374,16 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 		 */
 		public static function option_page_data( $avia_elements )
 		{
-			$desc  = __( 'If you want to get update notifications for your theme and if you want to be able to update your theme from your WordPress backend you need to enter your Envato Private Token below.', 'avia_framework' );
-			$desc .= '<br /><br />';
-			$desc .= sprintf( __( 'A detailed description for generating this token can be found %s here %s', 'avia_framework' ), '<a href="https://kriesi.at/documentation/enfold/theme-registration/" target="_blank" rel="noopener noreferrer">', '</a>' );
+			/**
+			 * Two blocks, not one: a single short line above the token field, and
+			 * everything explanatory below it. The reading order is now
+			 * "what to do" -> the field -> "where to read more".
+			 */
+			$desc = __( 'Enter your Envato personal token to get update notifications and to update the theme from your dashboard.', 'avia_framework' );
 
-			$desc .= '<br /><br />';
-			$desc .= '<h3>' . __( 'Envato Market Plugin', 'avia_framework' ) . '</h3>';
-//			$desc .= '<br />';
+			$help = array();
+
+			$help[] = sprintf( __( '%sHow to generate your token%s', 'avia_framework' ), '<a href="https://kriesi.at/documentation/enfold/theme-registration/" target="_blank" rel="noopener noreferrer">', '</a>' );
 
 			/**
 			 * Add info for "Envato Market Plugin" that supports WP_CLI and fixes possible problems with out implementation
@@ -309,7 +392,7 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 			 */
 			if( defined( 'ENVATO_MARKET_VERSION' ) )
 			{
-				$desc .= sprintf( __( 'Envato Market Plugin is activated (version %s). You may now also use WP_CLI or %sEnvato Market Admin Page%s to update the theme.', 'avia_framework' ), ENVATO_MARKET_VERSION, '<a href="' . admin_url( 'admin.php?page=envato-market' ) . '" rel="noopener noreferrer">', '</a>' );
+				$help[] = sprintf( __( 'Envato Market Plugin is active (version %1$s) - you can also update from the %2$sEnvato Market page%3$s', 'avia_framework' ), ENVATO_MARKET_VERSION, '<a href="' . admin_url( 'admin.php?page=envato-market' ) . '" rel="noopener noreferrer">', '</a>' );
 			}
 			else
 			{
@@ -317,15 +400,17 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 
 				if( array_key_exists( 'envato-market/envato-market.php', $all_plugins ) )
 				{
-					$desc .= __( 'Envato Market Plugin is installed but not activated. Please activate it if you want to use it (e.g. to update theme with WP_CLI).', 'avia_framework' );
+					$help[] = __( 'Envato Market Plugin is installed but not activated - activate it to update with WP_CLI', 'avia_framework' );
 				}
 				else
 				{
-					$desc .= sprintf( __( 'If you want to update theme with WP_CLI (or e.g. have problems with our update function) you may download the official %sEnvato Market Plugin%s to manage the updates. Follow the steps there to download and activate the plugin.', 'avia_framework' ), '<a href="https://www.envato.com/lp/market-plugin/" target="_blank" rel="noopener noreferrer">', '</a>' );
+					$help[] = sprintf( __( '%sEnvato Market Plugin%s - an alternative way to manage updates, and needed for WP_CLI', 'avia_framework' ), '<a href="https://www.envato.com/lp/market-plugin/" target="_blank" rel="noopener noreferrer">', '</a>' );
 				}
 			}
 
-			$desc .= ' ' . sprintf( __( 'Starting instructions how to work with WP_CLI you can find in our %s documentation %s.', 'avia_framework' ), '<a href="https://kriesi.at/documentation/enfold/theme-update/#update-via-wpcli" target="_blank" rel="noopener noreferrer">', '</a>' );
+			$help[] = sprintf( __( '%sUpdating with WP_CLI%s', 'avia_framework' ), '<a href="https://kriesi.at/documentation/enfold/theme-update/#update-via-wpcli" target="_blank" rel="noopener noreferrer">', '</a>' );
+
+			$help_desc = '<ul class="av-update-help-links"><li>' . implode( '</li><li>', $help ) . '</li></ul>';
 
 			/**
 			 * Allows to hide Envato private token on options page for specific users
@@ -348,16 +433,31 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 						'nodescription'	=> true
 				);
 
+			/**
+			 * One field, either credential.
+			 *
+			 * The wording is deliberately service-neutral: Enfold is now bought
+			 * either on ThemeForest, which issues an Envato personal token, or
+			 * directly from us, which issues a licence key. Which one a customer
+			 * holds is detected from its shape rather than asked for, so nobody
+			 * has to know the word "Envato" to update their theme.
+			 *
+			 * The option id stays updates_envato_token. It is where every existing
+			 * customer's token already lives, and renaming it would silently empty
+			 * the field for all of them.
+			 *
+			 * @since 8.1
+			 */
 			$avia_elements[] =	array(
 						'slug'				=> 'update',
-						'name'				=> __( 'Enter A Valid Envato Private Token', 'avia_framework' ),
+						'name'				=> __( 'Enter Your Licence Key Or Envato Private Token', 'avia_framework' ),
 						'desc'				=> '',
 						'id'				=> 'updates_envato_token',
 						'type'				=> 'verification_field',
 						'ajax'				=> 'av_envato_token_check',
 						'class'				=> 'av_full_description' . $hide,
-						'button-label'		=> __( 'Check the private token', 'avia_framework' ),
-						'button-relabel'	=> __( 'Revalidate or remove the token', 'avia_framework' ),
+						'button-label'		=> __( 'Check the key', 'avia_framework' ),
+						'button-relabel'	=> __( 'Revalidate or remove the key', 'avia_framework' ),
 						'std'				=> '',
 						'force_callback'	=> true
 					);
@@ -419,6 +519,16 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 //						'readonly'		=> true
 					);
 
+			$avia_elements[] = array(
+						'slug'			=> 'update',
+						'name'			=> __( 'Where to read more', 'avia_framework' ),
+						'desc'			=> $help_desc,
+						'type'			=> 'heading',
+						'std'			=> '',
+						'class'			=> 'av-update-help' . $hide,
+						'nodescription'	=> true
+					);
+
 			$avia_elements[] =	array(
 						'slug'			=> 'update',
 						'std'			=> '',
@@ -427,6 +537,14 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 						'id'			=> 'update_notification',
 						'use_function' 	=> true,
 						'type'			=> 'avia_backend_display_update_notification'
+					);
+
+			//	the switches below belong to a different job than everything above
+			$avia_elements[] = array(
+						'slug'			=> 'update',
+						'id'			=> 'hr_update_notifications',
+						'type'			=> 'hr',
+						'nodescription'	=> true
 					);
 
 			return $avia_elements;
@@ -461,7 +579,7 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 
 			if( ( ! $keys_valid )  && ( ! $old_keys_valid ) )
 			{
-				$output .=	"<div class='avia_backend_theme_updates'>";
+				$output .=	"<div class='avia_backend_theme_updates av-updates-info'>";
 				$output .=		"<h3>" . __( 'Theme Updates', 'avia_framework' ) . "</h3>";
 				$output .=		sprintf( __( "Once you have entered and verified your Envato Personal Token Key WordPress will check for updates every 12 Hours and notify you here, if one is available <br/><br/> Your current %s Version Number is <strong>%s</strong>", 'avia_framework' ), $parent_string, $version );
 
@@ -516,7 +634,7 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 			{
 				$target  	= network_admin_url('update-core.php?force-check=1');
 
-				$output .=	"<div class='avia_backend_theme_updates'>";
+				$output .=	"<div class='avia_backend_theme_updates av-updates-info'>";
 				$output .=		"<h3>" . __( 'Theme Updates', 'avia_framework' ) . "</h3>";
 				$output .=		sprintf( __( "No Updates available. You are running the latest version! (%s)", 'avia_framework' ), $version );
 				$output .=		"<br/><br/> <a href='{$target}'>" . __( 'Check Manually', 'avia_framework' ) . "</a>";
@@ -721,6 +839,24 @@ if( ! class_exists( 'avia_auto_updates', false ) )
 
 			foreach ( $installed_themes as $theme )
 			{
+				/**
+				 * DO NOT make this header optional without reading the note in style.css.
+				 *
+				 * A theme with no Envato_ID is skipped, so it never becomes an update
+				 * candidate. That is the whole update path for BOTH channels, not just
+				 * the Envato one - Avia_Update_Source::get_available_products() takes
+				 * this list as its input, so a copy without the header gets no update,
+				 * no error and no log entry, while the options page keeps reporting
+				 * that everything is up to date.
+				 *
+				 * Once we are no longer selling on ThemeForest the header looks exactly
+				 * like dead vendor metadata, which is precisely when somebody tidies it
+				 * away. It is deliberately kept in every copy, including directly sold
+				 * ones - nothing transmits it unless the Envato source is active, so it
+				 * costs nothing but an inert string.
+				 *
+				 * @since 8.1
+				 */
 				$id = $theme->get( 'Envato_ID' );
 				if( empty( $id ) )
 				{

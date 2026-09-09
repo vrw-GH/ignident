@@ -7,6 +7,7 @@ import DataTable from 'react-data-table-component';
 import useLicenseData from '@/hooks/useLicenseData';
 import { useQuery } from '@tanstack/react-query';
 
+// fallow-ignore-next-line complexity
 const RestoreArchivesField = forwardRef( () => {
 	const [ searchValue, setSearchValue ] = useState( '' );
 	const [ selectedArchives, setSelectedArchives ] = useState([]);
@@ -211,6 +212,7 @@ const RestoreArchivesField = forwardRef( () => {
 		setIndeterminate( false );
 	};
 
+	// fallow-ignore-next-line complexity
 	const onSelectArchive = ( selected, id ) => {
 		let docs = [ ...selectedArchives ];
 		if ( selected ) {
@@ -263,6 +265,7 @@ const RestoreArchivesField = forwardRef( () => {
 		return newArchives;
 	};
 
+	// fallow-ignore-next-line complexity
 	const handleSort = ( rows, selector, direction ) => {
 		if ( 0 === rows.length ) {
 			return rows;
@@ -377,7 +380,7 @@ const RestoreArchivesField = forwardRef( () => {
 	const displayProgress = restoring ? localProgress : 0;
 
 	return (
-		<div className="w-full p-6">
+		<div className="w-full">
 			<div className="flex py-2.5 px-6 justify-between">
 				<input
 					type="text"
@@ -387,14 +390,14 @@ const RestoreArchivesField = forwardRef( () => {
 				/>
 
 				{restoring && (
-					<div className="flex items-center justify-end text-gray-400 w-full gap-1 restore-processing">
+					<div className="flex items-center justify-end text-text-gray-light w-full gap-1 restore-processing">
 						{displayProgress} %<Icon name="loading" color="gray" />
 					</div>
 				)}
 			</div>
 
 			{0 < selectedArchives.length && (
-				<div className="mt-[10px] mb-[10px] items-center bg-blue-light py-2.5 px-6 flex space-y-2">
+				<div className="mt-[10px] mb-[10px] items-center bg-blue-50 py-2.5 px-6 flex flex-col gap-2">
 					<div className="flex mb-4 mt-4 justify-between items-center w-full">
 						<div>
 							{0 < selectedArchives.length &&

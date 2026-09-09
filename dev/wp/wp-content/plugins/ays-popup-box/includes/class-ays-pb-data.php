@@ -71,7 +71,16 @@ class Ays_Pb_Data {
 
     public static function replace_message_variables($content, $data){
         foreach($data as $variable => $value){
-            $content = str_replace("%%".$variable."%%", $value, $content);
+            if (is_array($value)) {
+                $value = implode(', ', $value);
+            } elseif (is_object($value)) {
+                $value = '';
+            }
+            $content = str_replace(
+                "%%".$variable."%%",
+                (string) $value,
+                $content
+            );
         }
         return $content;
     }
@@ -193,12 +202,13 @@ class Ays_Pb_Data {
             $ays_popup_box_flag = intval(get_option('ays_pb_sale_btn'));
             if ($ays_popup_box_flag == 0 ) {
                 if (isset($_GET['page']) && strpos($_GET['page'], AYS_PB_NAME) !== false) {
-                    if($this->get_max_id() > 1){
+                    // if($this->get_max_id() > 1){
                         // $this->ays_pb_new_halloween_bundle_message_2025($ays_popup_box_flag);
                         // $this->ays_pb_black_friday_message($ays_popup_box_flag);
                         // $this->ays_pb_christmas_banner_message_2025($ays_popup_box_flag);
-                        $this->ays_pb_new_mega_bundle_message_2026($ays_popup_box_flag);
-                    }
+                             $this->ays_pb_back_to_school_banner_2026($ays_popup_box_flag);
+                        // $this->ays_pb_footer_sale_banner_2026($ays_popup_box_flag);
+                    // }
                 }
             }
         }
@@ -2885,5 +2895,654 @@ class Ays_Pb_Data {
             $content = implode( '', $content );
             echo ($content);
         }
+    }
+    // Back to School top banner
+    public function ays_pb_back_to_school_banner_2026($ishmar){
+        if($ishmar == 0 ){
+            $content = array();
+            $pb_cta_button_link = esc_url('https://popup-plugin.com/pricing/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=back-to-school-sale-banner-' . AYS_PB_NAME_VERSION);
+            $content[] = '<div id="ays-pb-back-to-school-banner-2026" class="ays-pb-back-to-school-banner-2026 ays-pb-admin-notice notice notice-success is-dismissible ays_pb_dicount_info">';
+                $content[] = '<svg class="ays-pb-bts-decoration ays-pb-bts-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4Z"></path></svg>';
+                $content[] = '<svg class="ays-pb-bts-decoration ays-pb-bts-ruler" viewBox="0 0 36 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1" y="6" width="34" height="9" rx="2"></rect><path d="M8 6v3M14 6v4M20 6v3M26 6v4"></path></svg>';
+                $content[] = '<svg class="ays-pb-bts-decoration ays-pb-bts-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.6 6.6L21.5 9l-5 4.6 1.4 7-5.9-3.5L6.1 20.6l1.4-7L2.5 9l6.9-.4Z"></path></svg>';
+                $content[] = '<svg class="ays-pb-bts-decoration ays-pb-bts-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>';
+                $content[] = '<svg class="ays-pb-bts-decoration ays-pb-bts-wave" viewBox="0 0 96 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 8c8-8 16 8 24 0s16 8 24 0 16 8 24 0 16 8 20 2"></path></svg>';
+                $content[] = '<div class="ays-pb-bts-content">';
+                    $content[] = '<div class="ays-pb-bts-offer">';
+                        $content[] = '<img class="ays-pb-bts-handwritten" src="'. esc_url(AYS_PB_ADMIN_URL . '/images/ays-pb-back-to-school-handwritten.svg') .'" alt="Back to School Sale">';
+                        $content[] = '<span class="ays-pb-bts-dot" aria-hidden="true"></span>';
+                        $content[] = '<span class="ays-pb-bts-discount">'. esc_html__('20% OFF', 'ays-popup-box') .'</span>';
+                    $content[] = '</div>';
+                    $content[] = '<div class="ays-pb-bts-actions">';
+                        $content[] = '<span class="ays-pb-bts-use-code">'. esc_html__('Use code', 'ays-popup-box') .'</span>';
+                        $content[] = '<button type="button" class="ays-pb-bts-coupon" data-coupon="SCHOOL20" aria-label="'. esc_attr__('Copy coupon code SCHOOL20', 'ays-popup-box') .'"><span>SCHOOL20</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 2 2 2"></path></svg></button>';
+                        $content[] = '<a href="'. esc_url($pb_cta_button_link) .'" class="ays-pb-bts-cta" target="_blank" rel="noopener noreferrer">'. esc_html__('Upgrade Now', 'ays-popup-box') .'</a>';
+                    $content[] = '</div>';
+                $content[] = '</div>';
+                $content[] = '<div class="ays-pb-bts-dismiss"><form action="" method="POST"><div id="ays-pb-dismiss-buttons-content">';
+                    if( current_user_can( 'manage_options' ) ){
+                        $content[] = '<button class="btn btn-link ays-button" name="ays_pb_sale_btn">'. esc_html__('Dismiss ad', 'ays-popup-box') .'</button>';
+                        $content[] = wp_nonce_field( AYS_PB_NAME . '-sale-banner', AYS_PB_NAME . '-sale-banner', true, false );
+                    }
+                $content[] = '</div></form></div>';
+            $content[] = '</div>';
+            $content[] = '<style id="ays-pb-back-to-school-banner-2026-inline-css">';
+            $content[] = '#ays-pb-back-to-school-banner-2026{box-sizing:border-box;position:relative;isolation:isolate;width:calc(100% - 20px);max-width:none;min-height:112px;margin:20px 20px 16px 0;padding:0 38px;overflow:hidden;border:1px solid #e8dcc9;border-left-width:1px;border-radius:12px;background-color:#fffdf8;background-image:radial-gradient(circle at 1px 1px,rgba(91,72,45,.09) 1px,transparent 1px),radial-gradient(120% 140% at 0 0,rgba(20,75,220,.07),transparent 55%),radial-gradient(120% 140% at 100% 100%,rgba(126,34,206,.09),transparent 55%);background-size:6px 6px,100% 100%,100% 100%;box-shadow:0 10px 30px -18px rgba(76,45,140,.55);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif}.ays-pb-bts-content{position:relative;z-index:2;display:flex;min-height:110px;align-items:center;justify-content:space-between;gap:28px}.ays-pb-bts-offer,.ays-pb-bts-actions{display:flex;align-items:center}.ays-pb-bts-offer{min-width:0;gap:9px}.ays-pb-bts-handwritten{width:280px;max-width:23vw;height:auto;color:#0755df;overflow:visible;flex:0 1 auto}.ays-pb-bts-dot{width:7px;height:7px;flex:0 0 auto;border-radius:50%;background:#ffc51b;align-self:flex-start;margin-top:27px}.ays-pb-bts-discount{color:#8127df;font-size:38px;font-weight:800;line-height:1;letter-spacing:-1.2px;white-space:nowrap}.ays-pb-bts-actions{flex:0 0 auto;gap:12px}.ays-pb-bts-use-code{color:#5f5b69;font-size:11px;font-weight:600;line-height:1;text-transform:uppercase;letter-spacing:.14em;white-space:nowrap}.ays-pb-bts-coupon{box-sizing:border-box;display:flex;min-height:50px;align-items:center;gap:12px;padding:8px 14px;border:2px dashed rgba(129,39,223,.5);border-radius:10px;background:#fff;color:#1147c8;cursor:pointer;box-shadow:none}.ays-pb-bts-coupon:hover,.ays-pb-bts-coupon:focus{border-color:#8127df;background:rgba(129,39,223,.05);color:#1147c8}.ays-pb-bts-coupon span{font-size:19px;font-weight:700;letter-spacing:.04em}.ays-pb-bts-coupon svg{width:16px;height:16px;color:#8127df}.ays-pb-bts-cta{display:inline-flex;min-height:48px;align-items:center;justify-content:center;padding:0 27px;border-radius:9px;background:linear-gradient(90deg,#1249e7,#8127df);color:#fff!important;font-size:16px;font-weight:700;text-decoration:none!important;white-space:nowrap;box-shadow:0 8px 18px -8px rgba(91,37,194,.9);transition:transform .15s,box-shadow .15s}.ays-pb-bts-cta:hover,.ays-pb-bts-cta:focus{color:#fff;transform:translateY(-1px);box-shadow:0 10px 20px -8px rgba(91,37,194,.95)}.ays-pb-bts-decoration{position:absolute;z-index:1;pointer-events:none}.ays-pb-bts-plane{top:8px;left:12px;width:24px;color:rgba(129,39,223,.55)}.ays-pb-bts-ruler{bottom:7px;left:24px;width:36px;color:rgba(20,73,230,.35)}.ays-pb-bts-star{top:8px;right:14px;width:19px;color:#ffc51b}.ays-pb-bts-pencil{right:31px;bottom:7px;width:21px;color:rgba(129,39,223,.5);transform:rotate(-12deg)}.ays-pb-bts-wave{bottom:3px;left:50%;width:96px;color:rgba(20,73,230,.22);transform:translateX(-50%)}#ays-pb-back-to-school-banner-2026 .notice-dismiss{top:1px;right:1px;color:#756b82}#ays-pb-back-to-school-banner-2026 .notice-dismiss:before{font-size:18px}.ays-pb-bts-dismiss{position:absolute;right:39px;bottom:0;z-index:3}.ays-pb-bts-dismiss form{margin:0}.ays-pb-bts-dismiss #ays-pb-dismiss-buttons-content .ays-button{height:22px!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;color:#777!important;font-size:10px!important;line-height:22px!important;text-decoration:underline;box-shadow:none!important}.ays-pb-bts-copy-notification{position:fixed;top:50%;left:50%;z-index:10000;transform:translate(-50%,-50%);padding:12px 24px;border-radius:8px;background:rgba(0,0,0,.82);color:#fff;font-size:14px;opacity:0;transition:opacity .25s}.ays-pb-bts-copy-notification.ays-pb-bts-show{opacity:1}@media screen and (max-width:1200px){.ays-pb-bts-content{gap:18px}.ays-pb-bts-handwritten{width:225px}.ays-pb-bts-discount{font-size:31px}.ays-pb-bts-actions{gap:8px}.ays-pb-bts-coupon{min-height:44px;padding:7px 10px}.ays-pb-bts-cta{min-height:44px;padding:0 18px;font-size:14px}}@media screen and (max-width:960px){#ays-pb-back-to-school-banner-2026{padding:15px 38px 20px}.ays-pb-bts-content{min-height:90px;flex-wrap:wrap;justify-content:center;gap:12px 24px}.ays-pb-bts-handwritten{max-width:none}.ays-pb-bts-actions{justify-content:center}.ays-pb-bts-dismiss{right:38px}}@media screen and (max-width:600px){#ays-pb-back-to-school-banner-2026{width:calc(100% - 20px);margin-right:10px;padding:18px 30px 23px 18px}.ays-pb-bts-content{flex-direction:column}.ays-pb-bts-offer{flex-wrap:wrap;justify-content:center}.ays-pb-bts-handwritten{width:210px}.ays-pb-bts-discount{font-size:28px}.ays-pb-bts-actions{flex-wrap:wrap}.ays-pb-bts-use-code{width:100%;text-align:center}.ays-pb-bts-coupon{min-height:40px}.ays-pb-bts-coupon span{font-size:16px}.ays-pb-bts-cta{min-height:40px}.ays-pb-bts-plane,.ays-pb-bts-ruler,.ays-pb-bts-pencil,.ays-pb-bts-wave{display:none}.ays-pb-bts-dismiss{right:30px}}';
+            $content[] = '</style>';
+            $content[] = '<script>
+                (function() {
+                    "use strict";
+                    function initBackToSchoolBanner() {
+                        var banner = document.getElementById("ays-pb-back-to-school-banner-2026");
+                        if (!banner) {
+                            return;
+                        }
+                        var couponButton = banner.querySelector(".ays-pb-bts-coupon");
+                        if (!couponButton) {
+                            return;
+                        }
+                        couponButton.addEventListener("click", function() {
+                            var couponCode = couponButton.getAttribute("data-coupon");
+                            var textarea = document.createElement("textarea");
+                            textarea.value = couponCode;
+                            textarea.style.position = "fixed";
+                            textarea.style.opacity = "0";
+                            document.body.appendChild(textarea);
+                            textarea.focus();
+                            textarea.select();
+                            try {
+                                document.execCommand("copy");
+                                showCopyNotification();
+                            } catch (error) {
+                                // Keep the banner usable when clipboard access is unavailable.
+                            }
+                            document.body.removeChild(textarea);
+                        });
+                    }
+                    function showCopyNotification() {
+                        var notification = document.createElement("div");
+                        notification.className = "ays-pb-bts-copy-notification";
+                        notification.textContent = "'. esc_js(__('Coupon code copied', 'ays-popup-box')) .'";
+                        document.body.appendChild(notification);
+                        setTimeout(function() {
+                            notification.classList.add("ays-pb-bts-show");
+                        }, 10);
+                        setTimeout(function() {
+                            notification.classList.remove("ays-pb-bts-show");
+                            setTimeout(function() {
+                                if (notification.parentNode) {
+                                    notification.parentNode.removeChild(notification);
+                                }
+                            }, 250);
+                        }, 2000);
+                    }
+                    if (document.readyState === "loading") {
+                        document.addEventListener("DOMContentLoaded", initBackToSchoolBanner);
+                    } else {
+                        initBackToSchoolBanner();
+                    }
+                })();
+            </script>';
+
+            echo implode('', $content); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static banner markup; dynamic values are escaped above.
+        }
+    }
+
+    // Popup Footer Blue Banner Sale 20%
+    public function ays_pb_footer_sale_banner_2026($ishmar){
+        if($ishmar == 0 ){
+            $content = array();
+
+            $popup_cta_button_link = esc_url('https://popup-plugin.com/pricing/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=private-offer-20-off-' . AYS_PB_NAME_VERSION);
+
+            $content[] = '
+                <div class="ays-pb-footer-banner-bottom-banner-wrapper" style="display: none;">
+                    <div class="ays-pb-footer-banner-bottom-banner-container">
+                        <div class="ays-pb-footer-banner-bottom-banner-content">
+                            <div class="ays-pb-footer-banner-bottom-banner-inner">
+                                <div class="ays-pb-footer-banner-bottom-banner-left">
+                                    <div class="ays-pb-footer-banner-bottom-banner-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M12 7v14"></path>
+                                            <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"></path>
+                                            <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5"></path>
+                                            <rect x="3" y="7" width="18" height="4" rx="1"></rect>
+                                        </svg>
+                                    </div>
+                                    <span class="ays-pb-footer-banner-bottom-banner-title">'. esc_html__('Popup Box Pro', 'ays-popup-box') .'</span>
+                                </div>
+                                <span class="ays-pb-footer-banner-bottom-banner-separator"></span>
+                                <span class="ays-pb-footer-banner-bottom-banner-discount">'. esc_html__('20% Off', 'ays-popup-box') .'</span>
+                                <div class="ays-pb-footer-banner-bottom-banner-code" onclick="aysPbFooterBannerCopyToClipboard()" title="'. esc_html__('Copy Coupon Code', 'ays-popup-box') .'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                                        <path d="M13 5v2"></path>
+                                        <path d="M13 17v2"></path>
+                                        <path d="M13 11v2"></path>
+                                    </svg>
+                                    <span>POPUP20OFF</span>
+                                    <button type="button" class="ays-pb-footer-banner-bottom-banner-copy" aria-label="'. esc_html__('Copy Coupon Code', 'ays-popup-box') .'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <button type="button" class="ays-pb-footer-banner-bottom-banner-cta">
+                                    '. esc_html__('Get Deal', 'ays-popup-box') .'
+                                </button>
+                                <button type="button" class="ays-pb-footer-banner-bottom-banner-close" aria-label="'. esc_html__('Close popup', 'ays-popup-box') .'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M18 6 6 18"></path>
+                                        <path d="m6 6 12 12"></path>
+                                    </svg>
+                                </button>
+                                    </div>
+                        </div>
+                    </div>
+                </div>';
+
+            $content[] = '<style id="ays-pb-progress-banner-styles-inline-css">';
+
+            $content[] = '@keyframes ays-pro-slide-up{0%{opacity:0;transform:translateY(24px)}100%{opacity:1;transform:translateY(0)}}@keyframes ays-pro-slide-down{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(24px)}}.ays-pb-footer-banner-bottom-banner-wrapper{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:0 16px 28px;text-align:center;animation:.45s cubic-bezier(.16,1,.3,1) forwards ays-pro-slide-up}.ays-pb-footer-banner-bottom-banner-wrapper.ays-pro-banner-closing{animation:.32s cubic-bezier(.16,1,.3,1) forwards ays-pro-slide-down}.ays-pb-footer-banner-bottom-banner-container{display:inline-block;max-width:100%;border-radius:16px;background:linear-gradient(90deg,#2f6bff 0,#3e7bff 100%);box-shadow:0 20px 40px -15px rgba(47,107,255,.55),0 8px 20px -10px rgba(47,107,255,.35);overflow:hidden}.ays-pb-footer-banner-bottom-banner-content,.ays-pb-footer-banner-bottom-banner-inner,.ays-pb-footer-banner-bottom-banner-left,.ays-pb-footer-banner-bottom-banner-code{display:flex;align-items:center}.ays-pb-footer-banner-bottom-banner-inner{gap:16px;padding:8px 14px 8px 10px;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}.ays-pb-footer-banner-bottom-banner-left{gap:14px}.ays-pb-footer-banner-bottom-banner-icon{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff}.ays-pb-footer-banner-bottom-banner-icon svg{width:24px;height:24px}.ays-pb-footer-banner-bottom-banner-title,.ays-pb-footer-banner-bottom-banner-discount{font-size:17px;font-weight:600;line-height:1.25;letter-spacing:0;white-space:nowrap;color:#fff}.ays-pb-footer-banner-bottom-banner-separator{display:block;width:1px;height:24px;background:rgba(255,255,255,.4)}.ays-pb-footer-banner-bottom-banner-code{gap:6px;border:1px dashed rgba(255,255,255,.7);border-radius:999px;padding:6px 9px;color:#fff;cursor:pointer;transition:background-color .15s,border-color .15s}.ays-pb-footer-banner-bottom-banner-code:hover{background:rgba(255,255,255,.1);border-color:#fff}.ays-pb-footer-banner-bottom-banner-code>svg,.ays-pb-footer-banner-bottom-banner-code button svg{width:16px;height:16px}.ays-pb-footer-banner-bottom-banner-code span{font-size:14px;font-weight:600;line-height:1;letter-spacing:.05em;color:#fff}.ays-pb-footer-banner-bottom-banner-copy,.ays-pb-footer-banner-bottom-banner-close{display:flex;align-items:center;justify-content:center;margin:0;padding:0;background:transparent;border:0;color:rgba(255,255,255,.9);cursor:pointer;box-shadow:none;transition:color .15s,background-color .15s}.ays-pb-footer-banner-bottom-banner-copy:hover,.ays-pb-footer-banner-bottom-banner-close:hover{color:#fff;background:transparent}.ays-pb-footer-banner-bottom-banner-wrapper .ays-pb-footer-banner-bottom-banner-cta{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 20px;border:0;border-radius:999px;background:#fff;color:#2f6bff;font-size:15px;font-weight:600;line-height:1;white-space:nowrap;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.08);transition:background-color .15s,transform .15s}.ays-pb-footer-banner-bottom-banner-wrapper .ays-pb-footer-banner-bottom-banner-cta:hover{background:rgba(255,255,255,.95);color:#2f6bff;transform:translateY(-1px)}.ays-pb-footer-banner-bottom-banner-close{width:22px;height:22px;margin-left:2px}.ays-pb-footer-banner-bottom-banner-close svg{width:20px;height:20px}.ays-pb-footer-banner-copy-notification{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.8);color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;z-index:10000;opacity:0;transition:opacity .3s}.ays-pb-footer-banner-copy-notification.show{opacity:1}@media (max-width:768px){.ays-pb-footer-banner-bottom-banner-wrapper{display:none}}';
+            $content[] = '</style>';
+
+            $content[] = '<script>';
+
+            $content[] = "
+            /**
+             * Footer Banner JavaScript - ES5 Compatible
+             * With delayed popup and visit tracking
+             */
+            
+            (function() {
+              'use strict';
+              
+              // Configuration
+              var STORAGE_KEY = 'ays_pb_footer_banner_data';
+              var POPUP_RULES = [
+                { visit: 1, delay: 10000 },   // 1st visit: 10 seconds
+                { visit: 2, delay: 10000 },   // 2nd visit: 10 seconds
+                { visit: 3, delay: 15000 },   // 3th visit: 15 seconds
+                { visit: 4, delay: 15000 },   // 4th visit: 15 seconds
+                { visit: 5, delay: 20000 },   // 5th visit: 20 seconds
+                { visit: 7, delay: 20000 },   // 7th visit: 20 seconds
+                { visit: 10, delay: 30000 }   // 10th visit: 30 seconds
+              ];
+              var MAX_SHOWS_PER_DAY = 7;
+              
+              // Wait for DOM to be ready
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initBanner);
+              } else {
+                initBanner();
+              }
+              
+              function initBanner() {
+                var banner = document.querySelector('.ays-pb-footer-banner-bottom-banner-wrapper');
+                var closeButton = document.querySelector('.ays-pb-footer-banner-bottom-banner-close');
+                var ctaButton = document.querySelector('.ays-pb-footer-banner-bottom-banner-cta');
+                
+                if (!banner) {
+                  return;
+                }
+                
+                // Hide banner initially
+                banner.style.display = 'none';
+                
+                // Get or initialize banner data
+                var bannerData = getBannerData();
+                
+                // Check if we need to reset daily data
+                if (shouldResetData(bannerData.lastResetDate)) {
+                  bannerData = resetDailyData();
+                }
+                
+                // Increment visit count
+                bannerData.visitCount++;
+                saveBannerData(bannerData);
+                
+                // Check if banner should be shown
+                var shouldShow = shouldShowBanner(bannerData);
+                
+                if (shouldShow.show) {
+                  // Show banner after delay
+                  setTimeout(function() {
+                    banner.style.display = 'block';
+                    
+                    // Increment show count
+                    bannerData.showCount++;
+                    saveBannerData(bannerData);
+                  }, shouldShow.delay);
+                }
+                
+                // Close button handler
+                if (closeButton) {
+                  closeButton.addEventListener('click', function() {
+                    closeBanner(banner);
+                  });
+                }
+                
+                // CTA button handler
+                if (ctaButton) {
+                  ctaButton.addEventListener('click', function() {
+                    window.open('https://popup-plugin.com/pricing/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=private-offer-20-off-". AYS_PB_NAME_VERSION ."', '_blank');
+                    // Optionally close banner after click
+                    closeBanner(banner);
+                  });
+                }
+              }
+              
+              /**
+               * Get banner data from localStorage
+               */
+              function getBannerData() {
+                try {
+                  var data = localStorage.getItem(STORAGE_KEY);
+                  if (data) {
+                    return JSON.parse(data);
+                  }
+                } catch (e) {
+                  // localStorage not available or parsing error
+                }
+                
+                // Return default data
+                return {
+                  visitCount: 0,
+                  showCount: 0,
+                  lastResetDate: getTodayDate()
+                };
+              }
+              
+              /**
+               * Save banner data to localStorage
+               */
+              function saveBannerData(data) {
+                try {
+                  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                } catch (e) {
+                  // localStorage not available
+                }
+              }
+              
+              /**
+               * Check if data should be reset (new day)
+               */
+              function shouldResetData(lastResetDate) {
+                var today = getTodayDate();
+                return lastResetDate !== today;
+              }
+              
+              /**
+               * Reset daily data
+               */
+              function resetDailyData() {
+                var newData = {
+                  visitCount: 0,
+                  showCount: 0,
+                  lastResetDate: getTodayDate()
+                };
+                saveBannerData(newData);
+                return newData;
+              }
+              
+              /**
+               * Get today's date as string (YYYY-MM-DD)
+               */
+              function getTodayDate() {
+                var date = new Date();
+                var year = date.getFullYear();
+                var month = String(date.getMonth() + 1).padStart(2, '0');
+                var day = String(date.getDate()).padStart(2, '0');
+                return year + '-' + month + '-' + day;
+              }
+              
+              /**
+               * Check if banner should be shown based on rules
+               */
+              function shouldShowBanner(bannerData) {
+                // Check if already shown max times today
+                if (bannerData.showCount >= MAX_SHOWS_PER_DAY) {
+                  return { show: false, delay: 0 };
+                }
+                
+                // Check visit count against rules
+                for (var i = 0; i < POPUP_RULES.length; i++) {
+                  var rule = POPUP_RULES[i];
+                  if (bannerData.visitCount === rule.visit) {
+                    return { show: true, delay: rule.delay };
+                  }
+                }
+                
+                return { show: false, delay: 0 };
+              }
+              
+              /**
+               * Close banner with animation
+               */
+              function closeBanner(banner) {
+                if (!banner) {
+                  return;
+                }
+                
+                // Add closing animation class
+                banner.classList.add('ays-pro-banner-closing');
+                
+                // Wait for animation to complete
+                setTimeout(function() {
+                  banner.style.display = 'none';
+                }, 400);
+              }
+              
+              // Polyfill for String.padStart (for older browsers)
+              if (!String.prototype.padStart) {
+                String.prototype.padStart = function(targetLength, padString) {
+                  targetLength = targetLength >> 0;
+                  padString = String(typeof padString !== 'undefined' ? padString : ' ');
+                  if (this.length >= targetLength) {
+                    return String(this);
+                  } else {
+                    targetLength = targetLength - this.length;
+                    if (targetLength > padString.length) {
+                      padString += padString.repeat(targetLength / padString.length);
+                    }
+                    return padString.slice(0, targetLength) + String(this);
+                  }
+                };
+              }
+            })();
+            
+            function aysPbFooterBannerCopyToClipboard() {
+                var textarea = document.createElement('textarea');
+                textarea.value = 'POPUP20OFF';
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                
+                textarea.select();
+                textarea.setSelectionRange(0, 99999);
+                
+                try {
+                    document.execCommand('copy');
+                    aysPbFooterBannerShowCopyNotification('". esc_html__('Coupon code copied', 'ays-popup-box') ."');
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                }
+                
+                document.body.removeChild(textarea);
+            }
+
+            function aysPbFooterBannerShowCopyNotification(message) {
+                var existingNotification = document.querySelector('.ays-pb-footer-banner-copy-notification');
+                if (existingNotification) {
+                    document.body.removeChild(existingNotification);
+                }
+                
+                var notification = document.createElement('div');
+                notification.className = 'ays-pb-footer-banner-copy-notification';
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(function() {
+                    notification.classList.add('show');
+                }, 10);
+                
+                setTimeout(function() {
+                    notification.classList.remove('show');
+                    setTimeout(function() {
+                        if (notification.parentNode) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 2000);
+            }";
+
+            $content[] = '</script>';
+
+            $content = implode( '', $content );
+            echo ($content);
+        }
+    }
+
+    public static function ays_pb_allowed_html() {
+        $additionalAllowedTags = wp_kses_allowed_html('post');
+        return array_merge(
+            $additionalAllowedTags,
+            array(
+                'div' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'style'                 => true,
+                    'data-*'                => true,
+                    'aria-selected'         => true,
+                ),
+                'svg' => array(
+                    'class'                 => true,
+                    'width'                 => true,
+                    'height'                => true,
+                    'viewBox'               => true,
+                    'viewbox'               => true,
+                    'xmlns'                 => true,
+                    'fill'                  => true,
+                ),
+                'path' => array(
+                    'class'                 => true,
+                    'd'                     => true,
+                    'fill'                  => true,
+                    'fill-rule'             => true,
+                    'clip-rule'             => true,
+                    'stroke-width'          => true,
+                    'stroke-linecap'        => true,
+                ),
+                'circle'                    => array(
+                    'style'                 => true,
+                    'id'                    => true,
+                    'class'                 => true,
+                    'r'                     => true,
+                    'cx'                    => true,
+                    'cy'                    => true,
+                ),
+                'rect' => array(
+                    'class'                 => true,
+                    'x'                     => true,
+                    'y'                     => true,
+                    'width'                 => true,
+                    'height'                => true,
+                    'rx'                    => true,
+                    'fill'                  => true,
+                    'stroke'                => true,
+                    'style'                 => true,
+                    'transform'             => true,
+                ),
+                'defs' => array(
+                    'class'                 => true,
+                    'width'                 => true,
+                    'height'                => true,
+                    'fill'                  => true,
+                    'style'                 => true,
+                ),
+                'pattern' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'width'                 => true,
+                    'height'                => true,
+                    'patternContentUnits'   => true,
+                    'patterncontentunits'   => true,
+                    'style'                 => true,
+                ),
+                'use' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'xlink'                 => true,
+                    'xlink:href'            => true,
+                    'transform'             => true,
+                    'style'                 => true,
+                ),
+                'image' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'xlink'                 => true,
+                    'xlink:href'            => true,
+                    'width'                 => true,
+                    'height'                => true,
+                    'style'                 => true,
+                ),
+                'video' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'controls'              => true,
+                    'style'                 => true,
+                ),
+                'source' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'src'                   => true,
+                    'style'                 => true,
+                ),
+                'form' => array(
+                    'name'                  => true,
+                    'id'                    => true,
+                    'action'                => true,
+                    'method'                => true,
+                    'data-*'                => true,
+                    'style'                 => true,
+                ),
+                'input' => array(
+                    'id'                    => true,
+                    'name'                  => true,
+                    'class'                 => true,
+                    'type'                  => true,
+                    'value'                 => true,
+                    'size'                  => true,
+                    'required'              => true,
+                    'readonly'              => true,
+                    'data-*'                => true,
+                    'style'                 => true,
+                ),
+                'select' => array(
+                    'id'                    => true,
+                    'name'                  => true,
+                    'class'                 => true,
+                    'type'                  => true,
+                    'value'                 => true,
+                    'size'                  => true,
+                    'required'              => true,
+                    'readonly'              => true,
+                    'data-*'                => true,
+                    'style'                 => true,
+                ),
+                'option' => array(
+                    'id'                    => true,
+                    'class'                 => true,
+                    'type'                  => true,
+                    'value'                 => true,
+                    'size'                  => true,
+                    'required'              => true,
+                    'readonly'              => true,
+                    'data-*'                => true,
+                    'style'                 => true,
+                ),
+                'progress' => array(
+                    'id'                    => true,
+                    'class'                 => true,
+                    'max'                   => true,
+                    'value'                 => true,
+                    'data-*'                => true,
+                    'style'                 => true,
+                ),
+                'img' => array(
+                    'id'                    => true,
+                    'class'                 => true,
+                    'loading'               => true,
+                    'decoding'              => true,
+                    'src'                   => true,
+                    'sizes'                 => true,
+                    'srcset'                => true,
+                    'width'                 => true,
+                    'height'                => true,
+                ),
+                'a' => array(
+                    'aria-selected'         => true,
+                    'data-*'                => true,
+                    'style'                 => true,
+                    'target'                => true,
+                ),
+            ),
+            $additionalAllowedTags
+        );
+    }
+
+    public static function ays_pb_custom_allowed_html() {
+        $additionalAllowedTags = self::ays_pb_allowed_html();
+        return array_merge(
+            $additionalAllowedTags,
+            array(
+                'iframe' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'width'                 => true,
+                    'height'                => true,
+                    'src'                   => true,
+                    'title'                 => true,
+                    'frameborder'           => true,
+                    'allow'                 => true,
+                    'allowfullscreen'       => true,
+                    'loading'               => true,
+                    'referrerpolicy'        => true,
+                    'style'                 => true,
+                ),
+                'audio' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'controls'              => true,
+                    'autoplay'              => true,
+                    'loop'                  => true,
+                    'muted'                 => true,
+                    'preload'               => true,
+                    'src'                   => true,
+                    'style'                 => true,
+                ),
+                'source' => array(
+                    'src'                   => true,
+                    'type'                  => true,
+                ),
+                'track' => array(
+                    'kind'                  => true,
+                    'src'                   => true,
+                    'srclang'               => true,
+                    'label'                 => true,
+                    'default'               => true,
+                ),
+                'video' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'width'                 => true,
+                    'height'                => true,
+                    'controls'              => true,
+                    'autoplay'              => true,
+                    'loop'                  => true,
+                    'muted'                 => true,
+                    'poster'                => true,
+                    'preload'               => true,
+                    'src'                   => true,
+                    'style'                 => true,
+                ),
+                'picture' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                ),
+                'figure' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'style'                 => true,
+                ),
+                'figcaption' => array(
+                    'class'                 => true,
+                    'id'                    => true,
+                    'style'                 => true,
+                ),
+            ),
+            $additionalAllowedTags
+        );
     }
 }

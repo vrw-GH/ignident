@@ -24,11 +24,13 @@ if ( ! class_exists( 'avia_sc_blog', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Blog Posts', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-blog.png';
-			$this->config['order']			= 40;
+			$this->config['tab']			= __( 'Post Loops', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-blog.svg';
+			$this->config['order']			= 100;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_blog';
+			//	the canvas names which categories it draws from - see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => 'categories' );
 			$this->config['tooltip']		= __( 'Displays Posts from your Blog', 'avia_framework' );
 			$this->config['preview']		= false;
 			$this->config['disabling_allowed'] = 'manually';

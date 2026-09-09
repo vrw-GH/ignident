@@ -1,6 +1,6 @@
 <?php defined( 'LS_ROOT_FILE' ) || exit; ?>
 <script type="text/html" id="lse-layer-item-template">
-	<lse-li>
+	<lse-li class="lse-has-contextmenu" data-contextmenu-selector="#lse-context-menu-layer">
 		<lse-b class="lse-layer-thumb-wrapper">
 			<lse-b class="lse-layer-thumb lse-it-fix">
 

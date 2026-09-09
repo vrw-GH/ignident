@@ -24,9 +24,9 @@ if ( ! class_exists( 'avia_sc_comments_list', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Comments', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-comments.png';
-			$this->config['order']			= 5;
+			$this->config['tab']			= __( 'Post Loops', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-comments.svg';
+			$this->config['order']			= 20;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_comments_list';
 			$this->config['tinyMCE']		= array( 'disable' => 'true' );

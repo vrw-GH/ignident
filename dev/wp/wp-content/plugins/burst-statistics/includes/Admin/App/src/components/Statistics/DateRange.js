@@ -1,20 +1,24 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
-import { DateRangePicker } from 'react-date-range';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { format, isSameDay, parseISO } from 'date-fns';
 import Icon from '@/utils/Icon';
 import { useDateRange } from '@/hooks/useDateRange';
+import useIsMobile from '@/hooks/useIsMobile';
 import {
 	getDateWithOffset,
 	getAvailableRanges,
 	getDisplayDates,
-	availableRanges
+	getDatePickerLocale,
+	availableRanges,
+	BURST_START_DATE
 } from '@/utils/formatting';
 import * as ReactPopover from '@radix-ui/react-popover';
 import useShareableLinkStore from '@/store/useShareableLinkStore';
 
+import DateRangePicker from '../Statistics/DateRangePicker';
+import { __ } from '@wordpress/i18n';
+
 // Extract configuration
 const DATE_FORMAT = 'yyyy-MM-dd';
-const MIN_DATE = new Date( 2022, 0, 1 ); // This is the first date for a first Burst plugin on a live enviroment.
 const CLICKS_TO_CLOSE = 2;
 
 /**
@@ -30,23 +34,27 @@ const CLICKS_TO_CLOSE = 2;
  */
 const DateRangeTrigger = ({ range, display, isOpen, setIsOpen, disabled }) => (
 	<ReactPopover.Trigger
-		className={`burst-date-button flex min-w-[200px] items-center gap-2 rounded-md border px-3 py-2 shadow-sm transition-all duration-200 ${
-			disabled ?
-				'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-800 opacity-60' :
-				'border-gray-300 bg-white hover:bg-gray-50 hover:[box-shadow:0_0_0_3px_rgba(0,0,0,0.05)]'
-		}`}
+		className={`burst-date-button flex min-w-[200px] items-center gap-2 rounded-md border px-3 py-1 shadow-sm transition-all duration-200 ${disabled ?
+				'cursor-not-allowed border-gray-200 bg-gray-100 text-text-gray opacity-60' :
+				isOpen ?
+					'border-green-300 bg-white shadow-md ring-1 ring-green-300' :
+					'border-gray-300 bg-white hover:bg-gray-50 hover:shadow-ringSubtle'
+			}`}
 		onClick={() => ! disabled && setIsOpen( ! isOpen )}
 		disabled={disabled}
 	>
-		<Icon name="calendar" size="18" />
+		<Icon name="calendar" size="20" className='text-text-gray-light' />
 
-		<span className="w-full text-base">
-			{'custom' === range ?
-				`${display.startDate} - ${display.endDate}` :
-				availableRanges[range].label}
+		<span className='flex flex-col px-2'>
+			<span className='w-full text-xs text-text-gray text-left'>
+				{'custom' === range || ! availableRanges[range] ?  __( 'Custom', 'burst-statistics' ) : availableRanges[range].label}
+			</span>
+			<span className="w-full text-sm text-text-gray font-medium text-left">
+				{display.startDate} - {display.endDate}
+			</span>
 		</span>
 
-		<Icon name="chevron-down" />
+		<Icon name="chevron-down" className='text-text-gray' />
 	</ReactPopover.Trigger>
 );
 
@@ -55,6 +63,7 @@ const DateRange = () => {
 
 	const [ isOpen, setIsOpen ] = useState( false );
 	const { startDate, endDate, setDateRange, range } = useDateRange();
+	const isMobile = useIsMobile();
 
 	const [ selectionRange, setSelectionRange ] = useState({
 		startDate: parseISO( startDate ),
@@ -64,6 +73,20 @@ const DateRange = () => {
 
 	const countClicks = useRef( 0 );
 	const selectedRanges = burst_settings.date_ranges;
+
+	// Lock DOM scrolling when popover is open on mobile
+	useEffect( () => {
+		if ( ! isMobile || ! isOpen || ! userCanFilterDateRange ) {
+			return;
+		}
+
+		const originalOverflow = document.body.style.overflow;
+		document.body.style.overflow = 'hidden';
+
+		return () => {
+			document.body.style.overflow = originalOverflow;
+		};
+	}, [ isMobile, isOpen, userCanFilterDateRange ]);
 
 	// Memoize computed values.
 	const dateRanges = useMemo(
@@ -77,10 +100,12 @@ const DateRange = () => {
 	);
 
 	const updateDateRange = useCallback(
+
+		// fallow-ignore-next-line complexity
 		( ranges ) => {
 			if ( ! userCanFilterDateRange ) {
-return;
-}
+				return;
+			}
 
 			try {
 				countClicks.current++;
@@ -95,16 +120,16 @@ return;
 					key: 'selection'
 				});
 
-			const selectedRangeKey = Object.keys( availableRanges ).find(
-				( key ) => {
-					const rangeObj = availableRanges[key];
-					const definedRange = rangeObj.range();
-					return (
-						isSameDay( ranges.selection.startDate, definedRange.startDate ) &&
-						isSameDay( ranges.selection.endDate, definedRange.endDate )
-					);
-				}
-			);
+				const selectedRangeKey = Object.keys( availableRanges ).find(
+					( key ) => {
+						const rangeObj = availableRanges[key];
+						const definedRange = rangeObj.range();
+						return (
+							isSameDay( ranges.selection.startDate, definedRange.startDate ) &&
+							isSameDay( ranges.selection.endDate, definedRange.endDate )
+						);
+					}
+				);
 				const newRange = selectedRangeKey || 'custom';
 
 				const shouldClose =
@@ -126,8 +151,15 @@ return;
 
 	return (
 		<div className="ml-auto w-auto">
+			{isOpen && userCanFilterDateRange && (
+				<div
+					className="fixed inset-0 bg-black/30"
+					style={{ zIndex: 100000 }}
+				/>
+			)}
+			<div className="relative z-50">
 			<ReactPopover.Root
-				open={isOpen && userCanFilterDateRange }
+				open={isOpen && userCanFilterDateRange}
 				onOpenChange={( open ) => userCanFilterDateRange && setIsOpen( open )}
 			>
 				<DateRangeTrigger
@@ -138,40 +170,40 @@ return;
 					disabled={! userCanFilterDateRange}
 				/>
 
-				<div className="burst-date-range-popover-container relative z-[2]">
-					<ReactPopover.Portal
-						container={document.querySelector(
-							'.burst-date-range-popover-container'
-						)}
+				<ReactPopover.Portal>
+					<ReactPopover.Content
+						align="end"
+						sideOffset={10}
+						arrowPadding={10}
+						collisionPadding={16}
+						avoidCollisions={true}
+						id="burst-statistics"
+						style={{ zIndex: 100001 }}
 					>
-						<ReactPopover.Content
-							align="end"
-							sideOffset={10}
-							arrowPadding={10}
-							id="burst-statistics"
+						<div
+							className="rounded-lg border border-gray-200 bg-white shadow-md max-h-[75vh] lg:max-h-none overflow-y-auto w-full max-w-[calc(100vw-20px)] sm:max-w-none"
+							style={{ WebkitOverflowScrolling: 'touch' }}
 						>
-							<span className="absolute right-4 mt-1 h-4 w-4 -translate-y-2 rotate-45 transform bg-green-light" />
-
-							<div className="z-50 rounded-lg border border-gray-200 bg-white shadow-md">
-								<DateRangePicker
-									ranges={[ selectionRange ]}
-									rangeColors={[ '#2b8133' ]}
-									dateDisplayFormat="dd MMMM yyyy"
-									monthDisplayFormat="MMMM"
-									onChange={updateDateRange}
-									inputRanges={[]}
-									showSelectionPreview={true}
-									months={2}
-									direction="horizontal"
-									minDate={MIN_DATE}
-									maxDate={getDateWithOffset()}
-									staticRanges={dateRanges}
-								/>
-							</div>
-						</ReactPopover.Content>
-					</ReactPopover.Portal>
-				</div>
+							<DateRangePicker
+								ranges={[ selectionRange ]}
+								rangeColors={[ 'var(--color-green)' ]}
+								locale={getDatePickerLocale()}
+								dateDisplayFormat="dd MMMM yyyy"
+								monthDisplayFormat="MMMM"
+								onChange={updateDateRange}
+								inputRanges={[]}
+								showSelectionPreview={true}
+								months={isMobile ? 1 : 2}
+								direction="horizontal"
+								minDate={BURST_START_DATE}
+								maxDate={getDateWithOffset()}
+								staticRanges={dateRanges}
+							/>
+						</div>
+					</ReactPopover.Content>
+				</ReactPopover.Portal>
 			</ReactPopover.Root>
+			</div>
 		</div>
 	);
 };

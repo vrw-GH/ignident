@@ -20,23 +20,50 @@ function seopress_toggle_features() {
 			$feature_value = sanitize_text_field( wp_unslash( $_POST['feature_value'] ) );
 
 			if ( 'toggle-universal-metabox' === $feature ) {
+				// Since 9.8.0 the universal metabox is always-on; the only related
+				// surface that can still be toggled is the frontend SEO beacon.
+				// Tile ON ($feature_value === '1') = beacon visible on frontend
+				// (..._disable_frontend = '0'); tile OFF = beacon hidden ('1').
 				$seopress_advanced_option_name = get_option( 'seopress_advanced_option_name' );
-				if ( '1' === $_POST['feature_value'] ) {
-					$seopress_advanced_option_name['seopress_advanced_appearance_universal_metabox_disable'] = '0';
-				} else {
-					$seopress_advanced_option_name['seopress_advanced_appearance_universal_metabox_disable'] = '1';
+				if ( ! is_array( $seopress_advanced_option_name ) ) {
+					$seopress_advanced_option_name = array();
 				}
+				$seopress_advanced_option_name['seopress_advanced_appearance_universal_metabox_disable_frontend'] = ( '1' === $feature_value ) ? '0' : '1';
 				update_option( 'seopress_advanced_option_name', $seopress_advanced_option_name, false );
 			} else {
-				$seopress_toggle_options             = get_option( 'seopress_toggle' );
+				$seopress_toggle_options = get_option( 'seopress_toggle', array() );
+				if ( ! is_array( $seopress_toggle_options ) ) {
+					$seopress_toggle_options = array();
+				}
 				$seopress_toggle_options[ $feature ] = $feature_value;
 
-				// Flush permalinks for XML sitemaps.
-				if ( 'toggle-xml-sitemap' === $feature_value ) {
+				update_option( 'seopress_toggle', $seopress_toggle_options, false );
+
+				// Flush permalinks when toggling features that register rewrite rules.
+				// flush_rewrite_rules() rebuilds the rules from $wp_rewrite->extra_rules_top,
+				// which was populated at init() based on the OLD toggle value. We must purge
+				// the stale rules and re-register them with the NEW value before flushing,
+				// otherwise the toggle has no effect until the next request triggers another flush.
+				if ( 'toggle-xml-sitemap' === $feature || 'toggle-news' === $feature ) {
+					global $wp_rewrite;
+
+					if ( ! empty( $wp_rewrite->extra_rules_top ) ) {
+						foreach ( $wp_rewrite->extra_rules_top as $pattern => $query ) {
+							if ( false !== strpos( $query, 'seopress_' ) ) {
+								unset( $wp_rewrite->extra_rules_top[ $pattern ] );
+							}
+						}
+					}
+
+					$sitemap_options = get_option( 'seopress_xml_sitemap_option_name' );
+					\SEOPress\Actions\Sitemap\Router::registerRewriteRules( $sitemap_options, $seopress_toggle_options );
+
+					// Let PRO and extensions re-register their sitemap rewrite rules (news, video, ...).
+					do_action( 'seopress_re_register_sitemap_rules', $sitemap_options, $seopress_toggle_options );
+
+					delete_option( 'rewrite_rules' );
 					flush_rewrite_rules( false );
 				}
-
-				update_option( 'seopress_toggle', $seopress_toggle_options, false );
 			}
 		}
 		exit();
@@ -44,53 +71,16 @@ function seopress_toggle_features() {
 }
 add_action( 'wp_ajax_seopress_toggle_features', 'seopress_toggle_features' );
 
-/**
- * Dashboard Display Panel
+/*
+ * The dashboard "Display" panel toggles are now owned by the native React
+ * DisplayPanel and persisted through the
+ * /seopress/v1/dashboard/display-preference REST route (see
+ * SEOPress\Actions\Api\DashboardDisplayPreference). It writes the very
+ * same option keys the legacy wp_ajax_seopress_display handler used
+ * (seopress_advanced_appearance_notifications / _seo_tools), so existing
+ * user choices keep working untouched. The old AJAX handler and its jQuery
+ * caller have been removed.
  */
-function seopress_display() {
-	check_ajax_referer( 'seopress_display_nonce', '_ajax_nonce', true );
-	if ( current_user_can( seopress_capability( 'manage_options', 'dashboard' ) ) && is_admin() ) {
-		// Notifications Center.
-		if ( isset( $_POST['notifications_center'] ) ) {
-			$seopress_advanced_option_name = get_option( 'seopress_advanced_option_name' );
-
-			if ( '1' === $_POST['notifications_center'] ) {
-				$seopress_advanced_option_name['seopress_advanced_appearance_notifications'] = sanitize_text_field( wp_unslash( $_POST['notifications_center'] ) );
-			} else {
-				unset( $seopress_advanced_option_name['seopress_advanced_appearance_notifications'] );
-			}
-
-			update_option( 'seopress_advanced_option_name', $seopress_advanced_option_name, false );
-		}
-
-		// News Panel.
-		if ( isset( $_POST['news_center'] ) ) {
-			$seopress_advanced_option_name = get_option( 'seopress_advanced_option_name' );
-
-			if ( '1' === $_POST['news_center'] ) {
-				$seopress_advanced_option_name['seopress_advanced_appearance_news'] = sanitize_text_field( wp_unslash( $_POST['news_center'] ) );
-			} else {
-				unset( $seopress_advanced_option_name['seopress_advanced_appearance_news'] );
-			}
-
-			update_option( 'seopress_advanced_option_name', $seopress_advanced_option_name, false );
-		}
-		// Tools Panel.
-		if ( isset( $_POST['tools_center'] ) ) {
-			$seopress_advanced_option_name = get_option( 'seopress_advanced_option_name' );
-
-			if ( '1' === $_POST['tools_center'] ) {
-				$seopress_advanced_option_name['seopress_advanced_appearance_seo_tools'] = sanitize_text_field( wp_unslash( $_POST['tools_center'] ) );
-			} else {
-				unset( $seopress_advanced_option_name['seopress_advanced_appearance_seo_tools'] );
-			}
-
-			update_option( 'seopress_advanced_option_name', $seopress_advanced_option_name, false );
-		}
-		exit();
-	}
-}
-add_action( 'wp_ajax_seopress_display', 'seopress_display' );
 
 /**
  * Dashboard hide notices

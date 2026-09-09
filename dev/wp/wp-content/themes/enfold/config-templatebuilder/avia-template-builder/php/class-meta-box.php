@@ -173,15 +173,6 @@ if ( ! class_exists( 'MetaBoxBuilder', false ) )
 					{
 						foreach( $box['page'] as $area )
 						{
-							//class filter for expanded items
-							if( ! empty( $box['expandable'] ) )
-							{
-								if( ! empty( $_GET['avia-expanded'] ) && $_GET['avia-expanded'] === $box['id'] )
-								{
-									add_filter( "postbox_classes_{$area}_{$box['id']}" , array( $this, 'add_meta_box_class' ) ); //postbox class filter
-								}
-							}
-
 							//class filter for hiden items
 							if( ( 'avia_builder' === $box['id'] && isset( $_GET['post'] ) && Avia_Builder()->get_alb_builder_status( $_GET['post'] ) != 'active' ) || ( 'avia_builder' === $box['id'] && empty( $_GET['post'] ) ) )
 							{
@@ -222,14 +213,6 @@ if ( ! class_exists( 'MetaBoxBuilder', false ) )
 			if( ! is_object( $post ) )
 			{
 				return;
-			}
-
-			if( ! empty( $box['expandable'] ) )
-			{
-				$title = __( 'Expand', 'avia_framework' ) . ' ' . $box['title'];
-				$close = __( 'Close', 'avia_framework' );
-
-				$output .= "<a href='#' class='avia-expand-button avia-attach-expand' title='{$title}'>{$close}</a>";
 			}
 
 			//calls the helping function based on value of 'type'
@@ -441,25 +424,8 @@ if ( ! class_exists( 'MetaBoxBuilder', false ) )
 				}
 			}
 
-			//filter the redirect url in case we got a metabox that is expanded. in that case append some POST paramas
-			if( ! empty( $_POST['avia-expanded-hidden'] ) )
-			{
-				add_filter( 'redirect_post_location', array( $this, 'add_expanded_param' ), 10, 2 );
-			}
 		}
 		// end save
-
-		/**
-		 *
-		 * @param array $class
-		 * @return array
-		 */
-		public function add_meta_box_class( $class )
-		{
-			$class[] = 'avia-expanded';
-
-			return $class;
-		}
 
 		/**
 		 *
@@ -471,22 +437,6 @@ if ( ! class_exists( 'MetaBoxBuilder', false ) )
 			$class[] = 'avia-hidden';
 
 			return $class;
-		}
-
-		/**
-		 *
-		 * @param string $location
-		 * @param int $id
-		 * @return string
-		 */
-		public function add_expanded_param( $location, $id )
-		{
-			if( isset( $_POST['avia-expanded-hidden'] ) )
-			{
-				$location .= '&avia-expanded=' . $_POST['avia-expanded-hidden'];
-			}
-
-			return $location;
 		}
 
 	} // end class

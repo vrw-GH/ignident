@@ -68,3 +68,17 @@
 .rtl .avia-table-cell.avia-center-col select{
 	float: none;
 }
+
+
+/*		Element sort handle		*/
+/* the row itself follows the text direction - only the slide has to be mirrored */
+.rtl .avia-col-size{
+	transform: translateX( 20px );
+}
+
+.rtl .av-no-drag-drop .avia-col-size,
+.rtl .avia_layout_column:hover .avia-col-size,
+.rtl .avia_layout_cell > .avia_sorthandle > .avia-col-size,
+.rtl .avia_layout_row .avia_layout_cell:hover > .avia_sorthandle > .avia-col-size{
+	transform: none;
+}

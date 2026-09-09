@@ -53,6 +53,8 @@ if($_POST){
         $xyz_ips_exception_email=sanitize_text_field($_POST['xyz_ips_exception_email']);
         update_option('xyz_ips_exception_email',$xyz_ips_exception_email);
 
+        $xyz_ips_show_snippet_usage=intval($_POST['xyz_ips_show_snippet_usage']);
+		update_option('xyz_ips_show_snippet_usage',$xyz_ips_show_snippet_usage);
         $xyz_ips_sortfield=sanitize_text_field($_POST['xyz_ips_sort_by_field']);
 
         if(($xyz_ips_sortfield=="id")||($xyz_ips_sortfield=="title"))
@@ -107,7 +109,7 @@ if($_POST){
                 <table class="widefat"  style="width:99%;">
                     <tr valign="top">
                         <td scope="row" >
-                            <label for="xyz_ihs_sort">Sorting of snippets</label>
+                            <label for="xyz_ips_sort">Sorting of snippets</label>
                         </td>
                         <td>
                             <select id="xyz_ips_sort_by_field" name="xyz_ips_sort_by_field"  >
@@ -196,6 +198,19 @@ if($_POST){
                             </select>
                         </td>
                     </tr>
+                    <tr valign="top">
+			                        <td scope="row">
+			                            <label for="xyz_ips_show_snippet_usage">Show Snippet Usage Details </label>
+										<img src="<?php echo plugins_url('insert-php-code-snippet/images/support.png')?>"  onmouseover="document.getElementById('xyz_ips_usage_note').style.display = '';" onmouseout="document.getElementById('xyz_ips_usage_note').style.display = 'none';">
+							<div id="xyz_ips_usage_note" class="xyz_ips_informationdiv" style="display: none;">Display where each snippet is used (posts/pages) within the admin panel.<br/>Usage data is maintained automatically after the initial sync.</div>
+			                        </td>
+			                        <td>
+			                            <select name="xyz_ips_show_snippet_usage" id="xyz_ips_show_snippet_usage">
+											<option value="0" <?php selected(get_option('xyz_ips_show_snippet_usage'),0);?>>Disable</option>
+                                			<option value="1" <?php selected(get_option('xyz_ips_show_snippet_usage'),1);?>>Enable</option>
+			                            </select>
+			                	</td>
+			                </tr>
                     <tr valign="top">
                         <td scope="row" class=" settingInput" id="xyz_ips_bottomBorderNone">
                         </td>

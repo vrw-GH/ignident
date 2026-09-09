@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 updraft_try_include_file('methods/s3.php', 'require_once');
 
@@ -13,6 +12,31 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 	protected $provider_can_use_aws_sdk = false;
 	
 	protected $provider_has_regions = true;
+
+	/**
+	 * Input and option field mappings with default values and supported contexts.
+	 *
+	 * @var array
+	 */
+	protected $input_option_field_mappings = array(
+		'accesskey' => array(
+			'default_value' => '',
+			'contexts' => array('option', 'input'),
+		),
+		'secretkey' => array(
+			'default_value' => '',
+			'contexts' => array('option', 'input'),
+		),
+		'path' => array(
+			'default_value' => '',
+			'template_property_input_mapping' => 'location',
+			'contexts' => array('option', 'input'),
+		),
+		'endpoint' => array(
+			'default_value' => '',
+			'contexts' => array('input'),
+		),
+	);
 
 	/**
 	 * Regex for validating custom endpoint in the format `s3.<region>.dream.io`.
@@ -49,8 +73,7 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 		return array(
 			// Endpoint, then the label
 			's3.us-east-005.dream.io'    => 's3.us-east-005.dream.io',
-			'objects-us-east-1.dream.io' => 'objects-us-east-1.dream.io',
-			'objects-us-west-1.dream.io' => 'objects-us-west-1.dream.io ('.__('Closing 1st October 2018', 'updraftplus').')',
+			'objects-us-east-1.dream.io' => 'objects-us-east-1.dream.io ('.__('Permanently unavailable on Nov 12th, 2025', 'updraftplus').')',
 		);
 	}
 	
@@ -71,9 +94,9 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 		if ($updraftplus->backup_time) {
 			$updraftplus->log("Set endpoint (".get_class($obj)."): $endpoint");
 		
-			// Warning for objects-us-west-1 shutdown in Oct 2018
-			if ('objects-us-west-1.dream.io' == $endpoint) {
-				$updraftplus->log("The objects-us-west-1.dream.io endpoint shut down on the 1st October 2018. The upload is expected to fail. Please see the following article for more information https://help.dreamhost.com/hc/en-us/articles/360002135871-Cluster-migration-procedure", 'warning', 'dreamobjects_west_shutdown');
+			// Warning for objects-us-east-1 shutdown in Nov 2025
+			if ('objects-us-east-1.dream.io' == $endpoint) {
+				$updraftplus->log("The objects-us-east-1.dream.io endpoint is permanently unavailable since Nov. 12th, 2025. Please switch to a new endpoint as suggested in: https://help.dreamhost.com/hc/en-us/articles/360001370846-What-DreamObjects-hostname-should-I-use-to-connect", 'warning', 'dreamobjects_east_shutdown');
 			}
 		}
 		
@@ -88,19 +111,6 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 	public function get_supported_features() {
 		// This options format is handled via only accessing options via $this->get_options()
 		return array('multi_options', 'config_templates', 'multi_storage', 'conditional_logic');
-	}
-
-	/**
-	 * Retrieve default options for this remote storage module.
-	 *
-	 * @return Array - an array of options
-	 */
-	public function get_default_options() {
-		return array(
-			'accesskey' => '',
-			'secretkey' => '',
-			'path' => '',
-		);
 	}
 
 	/**
@@ -259,14 +269,18 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 			'configuration_helper_link_text' => __('For more detailed instructions, follow this link.', 'updraftplus'),
 			/* translators: %s: service name */
 			'input_accesskey_label' => sprintf(__('%s access key', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'input_accesskey_placeholder' => __('Paste your access key here', 'updraftplus'),
 			/* translators: %s: service name */
 			'input_secretkey_label' => sprintf(__('%s secret key', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'input_secretkey_placeholder' => __('Paste your secret key here', 'updraftplus'),
 			'input_secretkey_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
 			/* translators: %s: service name */
 			'input_location_label' => sprintf(__('%s location', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'input_location_prefix' => 'dreamobjects://',
 			'input_location_title' => __('Enter only a bucket name or a bucket and path.', 'updraftplus').' '.__('Examples: mybucket, mybucket/mypath', 'updraftplus'),
 			/* translators: %s: service name */
 			'input_endpoint_label' => sprintf(__('%s end-point', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'input_endpoint_option_labels' => self::get_endpoints(),
 			/* translators: %s: service name */
 			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 			/* translators: %s: Desired endpoint format.*/
@@ -332,7 +346,7 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 			) {
 				$msg = sprintf('Custom endpoint "%s" is not in the format "s3.<region>.dream.io".', esc_html($new_storage_options['endpoint']));
 				$this->log($msg, 'error');
-				error_log('UpdraftPlus: DreamObjects: '.$msg);
+				UpdraftPlus_Manipulation_Functions::error_log('UpdraftPlus: DreamObjects: '.$msg);
 			}
 		}
 		return parent::options_filter($new_settings);
@@ -350,5 +364,27 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 		$endpoints = self::get_endpoints();
 		if (isset($endpoints[$endpoint]) || preg_match('/'.self::ENDPOINT_REGEX.'/i', $endpoint)) return true;
 		return false;
+	}
+
+	/**
+	 * Customize generated field data using legacy mapping values.
+	 *
+	 * Used by transform_template_properties_to_fields_structure()
+	 * to allow child classes to adjust the generated field structure
+	 * based on legacy data and field mapping requirements.
+	 *
+	 * @param array  $field               Field data.
+	 * @param array  $template_properties Template properties.
+	 * @param string $field_name          Field name.
+	 * @param array  $option              Field mapping option.
+	 *
+	 * @return array
+	 */
+	public function configure_field_from_legacy($field, $template_properties, $field_name, $option) {
+		$prefix = 'input_'.$option['template_property_input_mapping'].'_';
+
+		if (empty($field['tooltip']) && isset($template_properties[$prefix.'title'])) $field['tooltip'] = array('text' => $template_properties[$prefix.'title']);
+
+		return $field;
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('UPDRAFTCENTRAL_CLIENT_DIR')) die('No access.');
+if (!defined('ABSPATH')) die('No access.');
 
 /**
  * - A container for RPC commands (white label reporting UpdraftCentral commands). Commands map exactly onto method names (and hence this class should not implement anything else, beyond the constructor, and private methods)
@@ -234,7 +234,7 @@ class UpdraftCentral_Reporting_Commands extends UpdraftCentral_Commands {
 		if (empty($report_id)) {
 			// First report timestamp and formatted date.
 			$next_report_timestamp = strtotime("+1 month", time());
-			$next_report_formatted_date = date("j M, g:i a", $next_report_timestamp);
+			$next_report_formatted_date = gmdate("j M, g:i a", $next_report_timestamp);
 
 			$report_id = UpdraftPlus_Manipulation_Functions::generate_random_string(10);
 
@@ -327,7 +327,7 @@ class UpdraftCentral_Reporting_Commands extends UpdraftCentral_Commands {
 			}
 
 			$report_sent_at_timestamp = time();
-			$report_sent_at_formatted_date = date("j M, g:i a", $report_sent_at_timestamp);
+			$report_sent_at_formatted_date = gmdate("j M, g:i a", $report_sent_at_timestamp);
 
 			// Change the last report time of the report.
 			$reports[$report_id]['last_report_timestamp'] = $report_sent_at_timestamp;

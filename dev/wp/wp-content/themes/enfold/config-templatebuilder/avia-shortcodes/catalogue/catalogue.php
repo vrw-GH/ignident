@@ -56,11 +56,13 @@ if ( !class_exists( 'avia_sc_catalogue', false ) )
 
 			$this->config['name']			= __( 'Catalogue', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-catalogue.png';
-			$this->config['order']			= 20;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-catalogue.svg';
+			$this->config['order']			= 52;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_catalogue';
 			$this->config['shortcode_nested'] = array( 'av_catalogue_item' );
+			//	the canvas names the item titles so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_catalogue_item', 'attr' => 'title' );
 			$this->config['tooltip']		= __( 'Creates a pricing list', 'avia_framework' );
 			$this->config['preview']		= true;
 			$this->config['disabling_allowed'] = true;

@@ -104,9 +104,7 @@ div .attachment-preview  .thumbnail{
 
 /*video uploader*/
 div .avia-video-element{
-	background: #333;
-	text-align: center;
-	color:#fff;
+	background: #1e1e1e;
 }
 
 div div .avia-video-element img{
@@ -117,18 +115,21 @@ div div .avia-video-element img{
 	top:0;
 }
 
-div .avia-video-element .avia-element-url{
-	padding-bottom:10px;
-	position: relative;
-	top:-7px;
-}
 
 div .avia-video-element .avia_inner_shortcode{
 	margin: 6px;
 	border: 1px solid #666;
 	overflow: hidden;
 	background: transparent !important;
+	padding:10px;
+	color:#fff !important;
 }
+
+div .avia-video-element .avia-element-label,
+div .avia-video-element .avia-element-icon{
+	color:#fff !important;
+}
+
 
 div .avia-video-element .avia_inner_shortcode .avia-element-label{
 	display:block;
@@ -202,7 +203,7 @@ div div .avia_image img{
 	width: 24px;
 	left: 5px;
 	line-height: 24px;
-	background: white url(../../images/icon-trash.png) top left no-repeat;
+	background-color: #fff;
 	overflow: hidden;
 	text-indent: 214%;
 	z-index: 10;
@@ -214,8 +215,8 @@ div div .avia_image img{
 	border-right: 1px solid #E1E1E1;
 }
 
-.avia-delete-image:hover{
-	background: white url(../../images/icon-trash.png) bottom left no-repeat;
+.avia-delete-image:hover::before{
+	background-color: var( --av-ui-icon-danger, #cb4a1f );
 }
 
 .avia-element-gallery .avia-delete-image,
@@ -259,12 +260,13 @@ div div .attachment-preview .thumbnail{
 }
 
 .avia-element-gallery .avia-builder-prev-img-container img{
-	height:80px;
-	width:80px;
+	height:80px !important;
+	width:80px !important;
 }
 
 .avia-element-image .avia-builder-prev-img-container img{
-	max-height:300px;
+	max-height:300px !important;
+	width: auto !important;
 	background-color: #f8f8f8;
 	background-image: linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
 	background-size: 16px 16px;
@@ -275,7 +277,7 @@ div div .attachment-preview .thumbnail{
 .avia-element-image .button,
 .avia-element-multi_image .button,
 .avia-element-audio_player .button{
-	line-height: 32px;
+	line-height: 36px;
 	height: auto;
 	position: absolute;
 	top: 17px;
@@ -284,8 +286,8 @@ div div .attachment-preview .thumbnail{
 	z-index: 3;
 }
 
-.avia-delete-gallery-button.button,
-.avia-delete-gallery-button.button:hover{
+.avia-delete-gallery-button.button:not(.avia-delete-gallery-button),
+.avia-delete-gallery-button.button:not(.avia-delete-gallery-button):hover{
 	width:auto;
 	margin-left:7px;
 	color: #FFF;
@@ -297,9 +299,21 @@ div div .attachment-preview .thumbnail{
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
-.avia-delete-gallery-button.button:hover{
+.avia-delete-gallery-button.button:not(.avia-delete-gallery-button):hover{
 	background-color: #DD7C5C;
 	background-image: none;
+}
+
+.avia-element-gallery .avia-delete-gallery-button{
+	position: absolute;
+	top: 17px;
+	left: 171px;
+	width: 161px;
+	line-height: 36px;
+	height: auto;
+	text-align: center;
+	z-index: 3;
+	margin-left: 20px;
 }
 
 .avia-style .avia-element-gallery > div,
@@ -309,10 +323,14 @@ div div .attachment-preview .thumbnail{
 	position: static;
 }
 
-.avia-style .avia-element-gallery .avia-name-description,
 .avia-style .avia-element-image .avia-name-description,
 .avia-style .avia-element-multi_image .avia-name-description{
 	margin-left:167px;
+	width: auto;
+}
+
+.avia-style .avia-element-gallery .avia-name-description{
+	margin-left:350px;
 	width: auto;
 }
 
@@ -323,17 +341,6 @@ div div .attachment-preview .thumbnail{
 }
 
 /*slideshow*/
-.av_slideshow .avia_inner_shortcode img,
-.av_slideshow .avia_inner_shortcode .avia-element-label,
-.av_slideshow_full .avia_inner_shortcode img,
-.av_slideshow_full .avia_inner_shortcode .avia-element-label,
-.av_fullscreen .avia_inner_shortcode img,
-.av_fullscreen .avia_inner_shortcode .avia-element-label
-{
-	display:block;
-	margin:0 auto;
-	top:0;
-}
 
 .avia-modal-group-element-inner .avia_slideshow_image{
 	width:40px;
@@ -458,4 +465,24 @@ div .ls-preview .draggable > *{
 
 .avia-media-audio-insert .playlist-settings{
 	display:none;
+}
+
+/*
+ * Removes a chosen image, so it keeps the destructive colour on hover.
+ *
+ * @since 8.0
+ */
+.avia-delete-image{ --av-ui-glyph: url( ../../icons/ui/delete.svg ); }
+.avia-delete-image::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: var( --av-ui-icon, rgba( 0, 0, 0, .35 ) );
+	-webkit-mask: var( --av-ui-glyph ) center / var( --av-ui-icon-size, 20px ) var( --av-ui-icon-size, 20px ) no-repeat;
+	        mask: var( --av-ui-glyph ) center / var( --av-ui-icon-size, 20px ) var( --av-ui-icon-size, 20px ) no-repeat;
+	transition: background-color .15s ease;
+	pointer-events: none;
 }

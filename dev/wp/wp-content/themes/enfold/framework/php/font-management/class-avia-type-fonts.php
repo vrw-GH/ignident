@@ -972,11 +972,11 @@ if( ! class_exists( 'AviaTypeFonts', false ) )
 							$fonts = $this->custom_font_select_list();
 							$optgroup = __( 'Uploaded Fonts (located at Enfold -> Import/Export)', 'avia_framework' );
 							break;
-						case 'websafe';
+						case 'websafe':
 							$fonts = $this->websafe_fonts_select_list();
 							$optgroup = __( 'Web Safe Fonts (* &gt;90% availability)', 'avia_framework' );
 							break;
-						case 'google';
+						case 'google':
 							$fonts = $this->google_fonts_select_list();
 							$optgroup = __( 'Google Fonts', 'avia_framework' );
 							break;

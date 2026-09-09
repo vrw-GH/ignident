@@ -218,6 +218,10 @@ class DB_Upgrade {
 			delete_option( 'burst_db_upgrade_clean_orphaned_session_ids' );
 		}
 
+		if ( 'report_table_types' === $do_upgrade ) {
+			$this->upgrade_report_table_types();
+		}
+
 		if ( 'add_page_ids' === $do_upgrade ) {
 			$this->upgrade_add_page_ids();
 		}
@@ -232,6 +236,14 @@ class DB_Upgrade {
 
 		if ( 'move_reports_to_new_tables' === $do_upgrade ) {
 			$this->move_reports_to_new_tables();
+		}
+
+		if ( 'move_columns_to_sessions' === $do_upgrade ) {
+			$this->upgrade_move_columns_to_sessions();
+		}
+
+		if ( 'clean_spam_browsers' === $do_upgrade ) {
+			$this->clean_spam_browsers();
 		}
 
 		// check free progress, because pro upgrades are hooked to burst_upgrade_iteration.
@@ -373,6 +385,15 @@ class DB_Upgrade {
 				'3.2.0'   => [
 					'move_reports_to_new_tables',
 				],
+				'3.2.3'   => [
+					'move_columns_to_sessions',
+				],
+				'3.5.1'   => [
+					'report_table_types',
+				],
+				'3.6.0'   => [
+					'clean_spam_browsers',
+				],
 			]
 		);
 
@@ -417,6 +438,63 @@ class DB_Upgrade {
 			}
 		}
 		return $version_upgrades;
+	}
+
+	/**
+	 * Align report table column types with the data they store and drop the
+	 * report-index that merely duplicates the PRIMARY KEY. Dates are stored as
+	 * 'Y-m-d', send_time as 'HH:MM'; the oversized varchars become native/fitted
+	 * types. Repairs malformed values before the strict type conversion so the
+	 * ALTER cannot fail on a stray row.
+	 */
+	private function upgrade_report_table_types(): void {
+		if ( ! $this->has_admin_access() ) {
+			return;
+		}
+
+		$option_name = 'burst_db_upgrade_report_table_types';
+		if ( ! get_option( $option_name ) ) {
+			return;
+		}
+
+		global $wpdb;
+
+		$date_regexp = '^[0-9]{4}-[0-9]{2}-[0-9]{2}$';
+
+		if ( $this->table_exists( 'burst_report_logs' ) && $this->column_exists( 'burst_report_logs', 'date' ) ) {
+			// Repair any non-'Y-m-d' value from the row's own timestamp, then
+			// convert the column to a native DATE.
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+			$wpdb->query( "UPDATE {$wpdb->prefix}burst_report_logs SET `date` = FROM_UNIXTIME(`time`, '%Y-%m-%d') WHERE `date` NOT REGEXP '$date_regexp'" );
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}burst_report_logs MODIFY COLUMN `date` DATE NOT NULL" );
+			$this->drop_index( 'burst_report_logs', 'report_id_index' );
+		}
+
+		if ( $this->table_exists( 'burst_reports' ) ) {
+			if ( $this->column_exists( 'burst_reports', 'fixed_end_date' ) ) {
+				// fixed_end_date is empty for non-scheduled reports; move those to
+				// NULL before converting the column to a nullable DATE.
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+				$wpdb->query( "ALTER TABLE {$wpdb->prefix}burst_reports MODIFY COLUMN `fixed_end_date` VARCHAR(16) NULL DEFAULT NULL" );
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+				$wpdb->query( "UPDATE {$wpdb->prefix}burst_reports SET `fixed_end_date` = NULL WHERE `fixed_end_date` NOT REGEXP '$date_regexp'" );
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+				$wpdb->query( "ALTER TABLE {$wpdb->prefix}burst_reports MODIFY COLUMN `fixed_end_date` DATE NULL DEFAULT NULL" );
+			}
+
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}burst_reports MODIFY COLUMN `date_range` VARCHAR(32) NOT NULL" );
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}burst_reports MODIFY COLUMN `day_of_week` VARCHAR(9) DEFAULT NULL" );
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}burst_reports MODIFY COLUMN `send_time` VARCHAR(5) NOT NULL" );
+
+			// ID is the PRIMARY KEY; drop the index that duplicates it.
+			$this->drop_index( 'burst_reports', 'id_index' );
+		}
+
+		delete_option( $option_name );
 	}
 
 	/**
@@ -691,10 +769,10 @@ class DB_Upgrade {
 
 		global $wpdb;
 		$wpdb->query(
-			"UPDATE {$wpdb->prefix}burst_statistics SET 
-                           browser_id = 999999, 
-                           browser_version_id = 999999, 
-                           platform_id = 999999, 
+			"UPDATE {$wpdb->prefix}burst_statistics SET
+                           browser_id = 999999,
+                           browser_version_id = 999999,
+                           platform_id = 999999,
                            device_id = 999999"
 		);
 
@@ -789,7 +867,7 @@ class DB_Upgrade {
 					"UPDATE {$wpdb->prefix}burst_statistics AS t
                     JOIN (
                         SELECT p.{$selected_item}, p.ID, COALESCE(m.ID, 0) as {$selected_item}_id
-                        FROM {$wpdb->prefix}burst_statistics p 
+                        FROM {$wpdb->prefix}burst_statistics p
                         LEFT JOIN {$wpdb->prefix}burst_{$selected_item}s m ON p.{$selected_item} = m.name
                         WHERE p.{$selected_item}_id = 999999
                         LIMIT $batch
@@ -862,11 +940,11 @@ class DB_Upgrade {
 		global $wpdb;
 		$post_types   = array_values( $post_types );
 		$placeholders = implode( ',', array_fill( 0, count( $post_types ), '%s' ) );
-		$sql          = "SELECT COUNT(*) FROM {$wpdb->posts} 
-                 WHERE post_type IN ($placeholders) 
+		$sql          = "SELECT COUNT(*) FROM {$wpdb->posts}
+                 WHERE post_type IN ($placeholders)
                  AND post_status != 'trash'
                  AND ID NOT IN (
-                     SELECT post_id FROM {$wpdb->postmeta} 
+                     SELECT post_id FROM {$wpdb->postmeta}
                      WHERE meta_key = 'burst_page_id_upgraded')";
 		// dynamic placeholder insertion with array_fill.
         //phpcs:ignore
@@ -898,8 +976,8 @@ class DB_Upgrade {
 					$param_key = ( $post_type === 'page' ) ? "page_id=$post_id" : "p=$post_id";
 					$wpdb->query(
 						$wpdb->prepare(
-							"UPDATE {$wpdb->prefix}burst_statistics 
-                             SET page_id = %d, page_type = %s 
+							"UPDATE {$wpdb->prefix}burst_statistics
+                             SET page_id = %d, page_type = %s
                              WHERE page_url='/' AND parameters LIKE %s",
 							$post_id,
 							$post_type,
@@ -909,8 +987,8 @@ class DB_Upgrade {
 				} else {
 					$wpdb->query(
 						$wpdb->prepare(
-							"UPDATE {$wpdb->prefix}burst_statistics 
-                         SET page_id = %d, page_type = %s 
+							"UPDATE {$wpdb->prefix}burst_statistics
+                         SET page_id = %d, page_type = %s
                          WHERE page_url = %s",
 							$post_id,
 							$post_type,
@@ -1078,14 +1156,14 @@ class DB_Upgrade {
 
 		// Count remaining sessions to process (where referrer is NULL = not yet migrated).
 		$remaining_count = (int) $wpdb->get_var(
-			"SELECT COUNT(DISTINCT s.ID) 
+			"SELECT COUNT(DISTINCT s.ID)
         FROM {$wpdb->prefix}burst_sessions s
         INNER JOIN {$wpdb->prefix}burst_statistics st ON st.session_id = s.ID
         WHERE s.referrer IS NULL"
 		);
 
 		$total_count = (int) $wpdb->get_var(
-			"SELECT COUNT(DISTINCT s.ID) 
+			"SELECT COUNT(DISTINCT s.ID)
         FROM {$wpdb->prefix}burst_sessions s
         INNER JOIN {$wpdb->prefix}burst_statistics st ON st.session_id = s.ID"
 		);
@@ -1101,7 +1179,7 @@ class DB_Upgrade {
 			// STEP 1: Get batch of session IDs to process.
 			$session_ids = $wpdb->get_col(
 				$wpdb->prepare(
-					"SELECT DISTINCT s.ID 
+					"SELECT DISTINCT s.ID
                 FROM {$wpdb->prefix}burst_sessions s
                 WHERE s.referrer IS NULL
                 LIMIT %d",
@@ -1120,9 +1198,9 @@ class DB_Upgrade {
 			$sql = $wpdb->prepare(
 				"UPDATE {$wpdb->prefix}burst_sessions s
             INNER JOIN (
-                SELECT 
+                SELECT
                     st.session_id,
-                    CASE 
+                    CASE
                         WHEN st.referrer = '' OR st.referrer IS NULL THEN ''
                         ELSE TRIM(LEADING 'www.' FROM SUBSTRING_INDEX(SUBSTRING_INDEX(st.referrer, '://', -1), '/', 1))
                     END as normalized_referrer
@@ -1179,10 +1257,10 @@ class DB_Upgrade {
 		if ( ! empty( $last_id ) ) {
 			$wpdb->query(
 				$wpdb->prepare(
-					"UPDATE {$wpdb->prefix}burst_sessions 
+					"UPDATE {$wpdb->prefix}burst_sessions
                 SET referrer = TRIM(TRAILING '/' FROM referrer)
                 WHERE ID >= %d
-                  AND referrer IS NOT NULL 
+                  AND referrer IS NOT NULL
                   AND referrer != ''
                   AND referrer LIKE %s",
 					$last_id,
@@ -1192,5 +1270,160 @@ class DB_Upgrade {
 		}
 
 		delete_option( 'burst_db_upgrade_fix_trailing_slash_on_referrers' );
+	}
+
+	/**
+	 * Move browser_id, browser_version_id, platform_id, device_id,
+	 * first_time_visit, bounce from statistics to sessions table.
+	 */
+	private function upgrade_move_columns_to_sessions(): void {
+		if ( ! $this->has_admin_access() ) {
+			return;
+		}
+		global $wpdb;
+
+		if ( ! $this->table_exists( 'burst_statistics' ) || ! $this->table_exists( 'burst_sessions' ) ) {
+			self::error_log( 'Missing tables, delaying move_columns_to_sessions upgrade.' );
+			return;
+		}
+
+		if ( ! $this->column_exists( 'burst_sessions', 'browser_id' ) ) {
+			self::error_log( 'browser_id column missing from sessions table, delaying upgrade.' );
+			return;
+		}
+
+		if ( ! $this->column_exists( 'burst_statistics', 'browser_id' ) ) {
+			delete_option( 'burst_db_upgrade_move_columns_to_sessions' );
+			delete_transient( 'burst_progress_move_columns_to_sessions' );
+			return;
+		}
+
+		if ( ! get_option( 'burst_db_upgrade_move_columns_to_sessions' ) ) {
+			update_option( 'burst_db_upgrade_move_columns_to_sessions', true, false );
+		}
+
+		$batch = $this->batch;
+
+		$remaining_count = (int) $wpdb->get_var(
+			"SELECT COUNT(*)
+			FROM {$wpdb->prefix}burst_statistics
+			WHERE browser_id != 9999"
+		);
+
+		$total_count = (int) $wpdb->get_var(
+			"SELECT COUNT(*)
+        	FROM {$wpdb->prefix}burst_statistics"
+		);
+
+		$done_count = max( 0, $total_count - $remaining_count );
+		$progress   = 0 === $total_count ? 1 : $done_count / $total_count;
+		$progress   = round( $progress, 2 );
+		set_transient( 'burst_progress_move_columns_to_sessions', $progress, HOUR_IN_SECONDS );
+
+		if ( $remaining_count > 0 ) {
+			$wpdb->query(
+				$wpdb->prepare(
+					"CREATE TEMPORARY TABLE IF NOT EXISTS burst_batch_ids AS
+					SELECT ID, session_id
+					FROM {$wpdb->prefix}burst_statistics
+					WHERE browser_id != 9999
+					ORDER BY ID
+					LIMIT %d",
+					$batch
+				)
+			);
+
+			// Step 1: Materialize session aggregates into a temp table.
+			// burst_batch_ids is only referenced once here, avoiding the
+			// "Can't reopen table" MySQL limitation on temporary tables.
+			$wpdb->query(
+				"CREATE TEMPORARY TABLE IF NOT EXISTS burst_session_data AS
+				SELECT
+					st.session_id,
+					MIN(CASE WHEN st.browser_id != 9999 THEN st.browser_id END)                    AS browser_id,
+					MIN(CASE WHEN st.browser_id != 9999 THEN st.browser_version_id END)            AS browser_version_id,
+					MIN(CASE WHEN st.browser_id != 9999 THEN st.platform_id END)                   AS platform_id,
+					MIN(CASE WHEN st.browser_id != 9999 THEN st.device_id END)                     AS device_id,
+					COALESCE(MIN(CASE WHEN st.browser_id != 9999 THEN st.first_time_visit END), 0) AS first_time_visit,
+					CASE WHEN COUNT(st.ID) > 1 THEN 0 ELSE MAX(st.bounce) END                      AS bounce
+				FROM {$wpdb->prefix}burst_statistics st
+				INNER JOIN burst_batch_ids b ON st.session_id = b.session_id
+				GROUP BY st.session_id"
+			);
+
+			// Step 2: Update sessions using the materialized temp table.
+			// burst_session_data is a separate temp table, no double reference.
+			$wpdb->query(
+				"UPDATE {$wpdb->prefix}burst_sessions s
+				INNER JOIN burst_session_data sd ON s.ID = sd.session_id
+				SET
+					s.browser_id         = sd.browser_id,
+					s.browser_version_id = sd.browser_version_id,
+					s.platform_id        = sd.platform_id,
+					s.device_id          = sd.device_id,
+					s.first_time_visit   = sd.first_time_visit,
+					s.bounce             = sd.bounce"
+			);
+
+			// Mark the processed batch as done using sentinel value 9999.
+			$wpdb->query(
+				"UPDATE {$wpdb->prefix}burst_statistics
+				INNER JOIN burst_batch_ids b ON {$wpdb->prefix}burst_statistics.ID = b.ID
+				SET browser_id = 9999"
+			);
+
+			$wpdb->query( 'DROP TEMPORARY TABLE IF EXISTS burst_session_data' );
+			$wpdb->query( 'DROP TEMPORARY TABLE IF EXISTS burst_batch_ids' );
+
+		} elseif ( $this->column_exists( 'burst_statistics', 'browser_id' ) ) {
+			$wpdb->query(
+				"ALTER TABLE {$wpdb->prefix}burst_statistics
+				DROP COLUMN `browser_id`,
+				DROP COLUMN `browser_version_id`,
+				DROP COLUMN `platform_id`,
+				DROP COLUMN `device_id`,
+				DROP COLUMN `first_time_visit`,
+				DROP COLUMN `bounce`"
+			);
+			delete_option( 'burst_db_upgrade_move_columns_to_sessions' );
+			delete_transient( 'burst_progress_move_columns_to_sessions' );
+			self::error_log( 'move_columns_to_sessions upgrade complete.' );
+		}
+	}
+
+	/**
+	 * One-time cleanup of historic spam/invalid browsers and their visit data.
+	 *
+	 * Older installs accumulated junk browser names (e.g.
+	 * "amazon-Quick-on-behalf-of-<hash>" or random tokens) before the user agent
+	 * allowlist was tightened. This removes them in batches over several upgrade
+	 * iterations to avoid timeouts on large tables.
+	 */
+	private function clean_spam_browsers(): void {
+		if ( ! $this->has_admin_access() ) {
+			return;
+		}
+
+		$option_name = 'burst_db_upgrade_clean_spam_browsers';
+		if ( ! get_option( $option_name ) ) {
+			return;
+		}
+
+		if ( ! $this->table_exists( 'burst_browsers' ) || ! $this->column_exists( 'burst_sessions', 'browser_id' ) ) {
+			delete_option( $option_name );
+			return;
+		}
+
+		// Junk browsers are spread across many lookup rows that each carry only a
+		// few sessions, so per-run cost is dominated by the batched row deletes
+		// (LIMIT 5000) inside clear_spam_browsers(), not by this browser count.
+		$batch   = 500;
+		$removed = \Burst\burst_loader()->admin->app->clear_spam_browsers( $batch );
+
+		// Fewer than a full batch removed means the table has been fully scanned.
+		if ( $removed < $batch ) {
+			delete_option( $option_name );
+			self::error_log( 'clean_spam_browsers upgrade complete.' );
+		}
 	}
 }

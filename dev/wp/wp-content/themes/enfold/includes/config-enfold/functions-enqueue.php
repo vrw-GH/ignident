@@ -239,7 +239,7 @@ if( ! function_exists( 'avia_register_frontend_scripts' ) )
 
 	if( ! is_admin() )
 	{
-		add_action( 'wp_enqueue_scripts', 'avia_register_frontend_scripts' );
+		add_action( 'wp_enqueue_scripts', 'avia_register_frontend_scripts', 25 );
 	}
 }
 
