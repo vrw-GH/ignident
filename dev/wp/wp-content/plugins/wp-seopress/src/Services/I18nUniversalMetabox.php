@@ -15,6 +15,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 class I18nUniversalMetabox {
 
 	/**
+	 * Weekday names in the site language, Monday first, matching the day
+	 * order used by the opening hours fields.
+	 *
+	 * @return array<int, string>
+	 */
+	protected function getWeekdays() {
+		global $wp_locale;
+
+		$days = array();
+
+		// get_weekday() is Sunday-indexed; the opening hours start on Monday.
+		foreach ( array( 1, 2, 3, 4, 5, 6, 0 ) as $index ) {
+			$days[] = $wp_locale instanceof \WP_Locale ? $wp_locale->get_weekday( $index ) : '';
+		}
+
+		return $days;
+	}
+
+	/**
 	 * The getTranslations function.
 	 *
 	 * @return array
@@ -26,6 +45,7 @@ class I18nUniversalMetabox {
 				'pixels'                  => __( 'pixels', 'wp-seopress' ),
 				'save'                    => __( 'Save', 'wp-seopress' ),
 				'save_settings'           => __( 'Your settings have been saved.', 'wp-seopress' ),
+				'save_error'              => __( 'We could not save your settings. The REST API may be disabled or unreachable.', 'wp-seopress' ),
 				'yes'                     => __( 'Yes', 'wp-seopress' ),
 				'good'                    => __( 'Good', 'wp-seopress' ),
 				'expand'                  => __( 'Expand', 'wp-seopress' ),
@@ -36,10 +56,24 @@ class I18nUniversalMetabox {
 				'choose_image'            => __( 'Choose an image', 'wp-seopress' ),
 				'opening_hours_morning'   => __( 'Open in the morning?', 'wp-seopress' ),
 				'opening_hours_afternoon' => __( 'Open in the afternoon?', 'wp-seopress' ),
+				'opening_hours_closed'    => __( 'Closed all the day?', 'wp-seopress' ),
+				'opening_hours_days'      => $this->getWeekdays(),
+				// Accessible names for the time dropdowns, which carry no
+				// visible label of their own.
+				'opening_hours_morning_slot'   => __( 'Morning', 'wp-seopress' ),
+				'opening_hours_afternoon_slot' => __( 'Afternoon', 'wp-seopress' ),
+				'opening_hours_opens_hour'     => __( 'Opening hour', 'wp-seopress' ),
+				'opening_hours_opens_minutes'  => __( 'Opening minutes', 'wp-seopress' ),
+				'opening_hours_closes_hour'    => __( 'Closing hour', 'wp-seopress' ),
+				'opening_hours_closes_minutes' => __( 'Closing minutes', 'wp-seopress' ),
+				/* translators: 1: weekday, e.g. Monday. 2: time slot, e.g. Morning. 3: field, e.g. Opening hour. */
+				'opening_hours_field_label'    => __( '%1$s, %2$s: %3$s', 'wp-seopress' ),
 				'thumbnail'               => __( 'Thumbnail', 'wp-seopress' ),
 				'x'                       => __( 'x', 'wp-seopress' ),
 				'search_tag'              => __( 'Search a tag', 'wp-seopress' ),
+				'no_result'               => __( 'No result found.', 'wp-seopress' ),
 				'loading_data'            => __( 'Loading your data', 'wp-seopress' ),
+				'tab_load_error'          => __( 'This section could not be loaded. Please reload the page and try again.', 'wp-seopress' ),
 			),
 			'services'       => array(
 				'social_meta_tags_title' => __( 'Social meta tags', 'wp-seopress' ),
@@ -115,6 +149,11 @@ class I18nUniversalMetabox {
 							'No custom title is set for this post. If the global meta title suits you, you can ignore this recommendation.',
 							'wp-seopress'
 						),
+						/* translators: %s the resolved meta title */
+						'from_global'         => __(
+							'No custom title is set on this post, but one is generated from your global title settings (e.g. a custom field): %s',
+							'wp-seopress'
+						),
 						'meta_title_found'    => __(
 							'Target keywords were found in the Meta Title.',
 							'wp-seopress'
@@ -136,6 +175,11 @@ class I18nUniversalMetabox {
 						'title'                     => __( 'Meta description', 'wp-seopress' ),
 						'no_meta_description'       => __(
 							'No custom meta description is set for this post. If the global meta description suits you, you can ignore this recommendation.',
+							'wp-seopress'
+						),
+						/* translators: %s the resolved meta description */
+						'from_global'               => __(
+							'No custom meta description is set on this post, but one is generated from your global settings (e.g. a custom field): %s',
 							'wp-seopress'
 						),
 						'meta_description_found'    => __(
@@ -334,6 +378,18 @@ class I18nUniversalMetabox {
 						),
 						'title'      => __( 'NoFollow Links', 'wp-seopress' ),
 					),
+					'content_depth'     => array(
+						'title' => __( 'Content depth', 'wp-seopress' ),
+					),
+					'heading_hierarchy' => array(
+						'title' => __( 'Heading structure', 'wp-seopress' ),
+					),
+					'content_media'     => array(
+						'title' => __( 'Media in content', 'wp-seopress' ),
+					),
+					'content_structure' => array(
+						'title' => __( 'Content readability', 'wp-seopress' ),
+					),
 
 				),
 				'canonical_url'          => array(
@@ -382,6 +438,7 @@ class I18nUniversalMetabox {
 					'inspect_url'      => __( 'Inspect with Google', 'wp-seopress' ),
 					'internal_linking' => __( 'Internal Linking', 'wp-seopress' ),
 					'schema_manual'    => __( 'Manual', 'wp-seopress' ),
+					'schema_automatic' => __( 'Automatic', 'wp-seopress' ),
 				),
 			),
 			'seo_bar'        => array(
@@ -467,7 +524,7 @@ class I18nUniversalMetabox {
 			'google_preview' => array(
 				'title'        => __( 'Google Snippet Preview', 'wp-seopress' ),
 				'description'  => __(
-					'This is what your page will look like in Google search results. You have to publish your post to get the Google Snippet Preview. Note that Google may optionally display an image of your article.',
+					'How your page will look in Google search results once published.',
 					'wp-seopress'
 				),
 				'mobile_title' => __( 'Mobile Preview', 'wp-seopress' ),
@@ -495,14 +552,44 @@ class I18nUniversalMetabox {
 				),
 			),
 			'layouts'        => array(
-				'meta_robot'       => array(
+				// Empty state of a metabox emptied by the Advanced, Security
+				// role restrictions. The title and description are shown to
+				// everyone: they only say the screen was emptied on purpose,
+				// which is what the three bug reports were missing. The
+				// "_where" strings name the menu and the settings, so they go
+				// only to users who can open that screen (ADMIN_URL_SECURITY
+				// is empty for the others): pointing an author at a menu they
+				// cannot reach helps nobody, and a white-labelled install may
+				// have renamed or removed it.
+				'main'              => array(
+					'no_access_title'           => __( 'This metabox is restricted', 'wp-seopress' ),
+					'no_access_description'     => __(
+						'Your user role has been prevented from editing SEO data, so there is nothing to show here. This is a setting, not an error.',
+						'wp-seopress'
+					),
+					'no_access_where'           => __(
+						'It comes from the role restrictions in SEO, Advanced, Security: "SEO metaboxes" and "Content Analysis". Unticking your role there brings this panel back.',
+						'wp-seopress'
+					),
+					'no_access_section_title'   => __( 'This section is restricted', 'wp-seopress' ),
+					'no_access_section_where'   => __(
+						'Your role has been prevented from editing this section in SEO, Advanced, Security. The other sections in the menu are still available.',
+						'wp-seopress'
+					),
+					'no_access_cta'             => __( 'Open security settings', 'wp-seopress' ),
+					'no_access_ask_admin'     => __(
+						'This comes from a role restriction set on this site. Contact your site administrator if you need access.',
+						'wp-seopress'
+					),
+				),
+				'meta_robot'        => array(
 					/* translators: %s documentation URL */
 					'title'                                => __(
 						"You cannot uncheck a parameter? This is normal, and it's most likely defined in the <a href='%s'>global settings of the plugin.</a>",
 						'wp-seopress'
 					),
 					'robots_index_description'             => __(
-						'Do not display this page in search engine results / XML - HTML sitemaps',
+						'Do not display this page in search engine results / XML - HTML sitemaps <strong>(noindex)</strong>',
 						'wp-seopress'
 					),
 					'robots_index_tooltip_title'           => __( '"noindex" robots meta tag', 'wp-seopress' ),
@@ -514,7 +601,7 @@ class I18nUniversalMetabox {
 						'Search engines will not index this URL in the search results.',
 						'wp-seopress'
 					),
-					'robots_follow_description'            => __( 'Do not follow links for this page', 'wp-seopress' ),
+					'robots_follow_description'            => __( 'Do not follow links for this page <strong>(nofollow)</strong>', 'wp-seopress' ),
 					'robots_follow_tooltip_title'          => __( '"nofollow" robots meta tag', 'wp-seopress' ),
 					'robots_follow_tooltip_description_1'  => __(
 						'By checking this option, you will add a meta robots tag with the value "nofollow".',
@@ -525,7 +612,7 @@ class I18nUniversalMetabox {
 						'wp-seopress'
 					),
 					'robots_snippet_description'           => __(
-						'Do not display a description in search results for this page',
+						'Do not display a description in search results for this page <strong>(nosnippet)</strong>',
 						'wp-seopress'
 					),
 					'robots_snippet_tooltip_title'         => __( '"nosnippet" robots meta tag', 'wp-seopress' ),
@@ -533,7 +620,7 @@ class I18nUniversalMetabox {
 						'By checking this option, you will add a meta robots tag with the value "nosnippet".',
 						'wp-seopress'
 					),
-					'robots_imageindex_description'        => __( 'Do not index images for this page', 'wp-seopress' ),
+					'robots_imageindex_description'        => __( 'Do not index images for this page <strong>(noimageindex)</strong>', 'wp-seopress' ),
 					'robots_imageindex_tooltip_title'      => __( '"noimageindex" robots meta tag', 'wp-seopress' ),
 					'robots_imageindex_tooltip_description_1' => __(
 						'By checking this option, you will add a meta robots tag with the value "noimageindex".',
@@ -544,7 +631,7 @@ class I18nUniversalMetabox {
 						'wp-seopress'
 					),
 				),
-				'inspect_url'      => array(
+				'inspect_url'       => array(
 					'description'                       => __(
 						'Inspect the current post URL with Google Search Console and get informations about your indexing, crawling, rich snippets and more.',
 						'wp-seopress'
@@ -667,14 +754,14 @@ class I18nUniversalMetabox {
 					),
 					'btn_full_report'                   => __( 'View Full Report', 'wp-seopress' ),
 				),
-				'video_sitemap'    => array(
+				'video_sitemap'     => array(
 					'btn_remove_video' => __(
 						'Remove video',
 						'wp-seopress'
 					),
 					'btn_add_video'    => __( 'Add video', 'wp-seopress' ),
 				),
-				'internal_linking' => array(
+				'internal_linking'  => array(
 					'matching'       => __( 'Matching word:', 'wp-seopress' ),
 					'description_1'  => __(
 						'Internal links are important for SEO and user experience. Always try to link your content together, with quality link anchors.',
@@ -687,6 +774,10 @@ class I18nUniversalMetabox {
 					'no_suggestions' => __( 'No suggestion of internal links.', 'wp-seopress' ),
 					'copied'         => __(
 						'Link copied in the clipboard',
+						'wp-seopress'
+					),
+					'copy_failed'    => __(
+						'Unable to copy the link. Please copy it manually.',
 						'wp-seopress'
 					),
 					/* translators: %s post title */
@@ -702,7 +793,7 @@ class I18nUniversalMetabox {
 					/* translators: %s post title */
 					'edit_link_aria' => __( 'Edit %s link', 'wp-seopress' ),
 				),
-				'content_analysis' => array(
+				'content_analysis'  => array(
 					'description'                    => __(
 						'Enter a few keywords for analysis to help you write optimized content.',
 						'wp-seopress'
@@ -711,6 +802,10 @@ class I18nUniversalMetabox {
 					'target_keywords'                => __( 'Target keywords', 'wp-seopress' ),
 					'target_keywords_description'    => __(
 						'Separate target keywords by pressing Enter.',
+						'wp-seopress'
+					),
+					'target_keywords_edit_hint'      => __(
+						'Double-click a keyword to edit it.',
 						'wp-seopress'
 					),
 					'target_keywords_multiple_usage' => __(
@@ -723,32 +818,51 @@ class I18nUniversalMetabox {
 						'wp-seopress'
 					),
 					'btn_refresh_analysis'           => __( 'Refresh analysis', 'wp-seopress' ),
+					'target_keywords_save_now'       => __( 'Save now', 'wp-seopress' ),
+					'target_keywords_saving'         => __( 'Saving…', 'wp-seopress' ),
 					'help_target_keywords'           => __(
 						'To get the most accurate analysis, save your post first. We analyze all of your source code as a search engine would.',
 						'wp-seopress'
 					),
-					'google_suggestions'             => __( 'Google suggestions', 'wp-seopress' ),
+					'google_suggestions'             => __( 'Get suggestions from Google', 'wp-seopress' ),
 					'google_suggestions_description' => __(
-						'Enter a keyword, or a phrase, to find the top 10 Google suggestions instantly. This is useful if you want to work with the long tail technique.',
+						'Start typing a keyword: Google\'s autocomplete suggestions appear in the dropdown. Pick one to add it to your target keywords.',
 						'wp-seopress'
 					),
-					'google_suggestions_placeholder' => __(
-						'Get suggestions from Google',
-						'wp-seopress'
-					),
-					'get_suggestions'                => __( 'Get suggestions!', 'wp-seopress' ),
 					'should_be_improved'             => __( 'Should be improved', 'wp-seopress' ),
 					'keyword_singular'               => __( 'The keyword:', 'wp-seopress' ),
 					'keyword_plural'                 => __( 'These keywords:', 'wp-seopress' ),
 					'already_used_singular'          => /* translators: %d number of times a target keyword is used, singular form only */ __( 'is already used %d time', 'wp-seopress' ),
 					'already_used_plural'            => /* translators: %d number of times a target keyword is used, plural form only */ __( 'is already used %d times', 'wp-seopress' ),
+					'btn_ignore_issue'               => __( 'Ignore for this page', 'wp-seopress' ),
+					'btn_restore_issue'              => __( 'Restore this check', 'wp-seopress' ),
+					'ignore_hint'                    => __( 'This check stops being verified on this page, future content of the same type included.', 'wp-seopress' ),
+					'ignored_badge'                  => __( 'Ignored', 'wp-seopress' ),
+					'show_ignored'                   => __( 'Show ignored', 'wp-seopress' ),
+					'ignored_count_singular'         => /* translators: %d number of ignored checks, singular */ __( '%d check ignored on this page', 'wp-seopress' ),
+					'ignored_count_plural'           => /* translators: %d number of ignored checks, plural */ __( '%d checks ignored on this page', 'wp-seopress' ),
 				),
-				'schemas_manual'   => array(
-					'description' => __( 'It is recommended to enter as many properties as possible to maximize the chances of getting a rich snippet in Google search results.', 'wp-seopress' ),
-					'remove'      => __( 'Delete schema', 'wp-seopress' ),
-					'add'         => __( 'Add a schema', 'wp-seopress' ),
+				'schemas_manual'    => array(
+					'description'     => __( 'It is recommended to enter as many properties as possible to maximize the chances of getting a rich snippet in Google search results.', 'wp-seopress' ),
+					'remove'          => __( 'Delete schema', 'wp-seopress' ),
+					'add'             => __( 'Add a schema', 'wp-seopress' ),
+					'validate_schema' => __( 'Validate my schema', 'wp-seopress' ),
+					'validate_schema_unpublished' => __( 'Publish this post first to validate its schema. Google can only test a live, public URL.', 'wp-seopress' ),
 				),
-				'social'           => array(
+				'schemas_automatic' => array(
+					'description'     => __( 'These schemas are automatically applied to this post based on rules defined in your Schemas library. You can override values per post here, or disable individual schemas.', 'wp-seopress' ),
+					'count_singular'  => /* translators: %s number of automatic schemas */ __( 'You have %s automatic schema:', 'wp-seopress' ),
+					'count_plural'    => /* translators: %s number of automatic schemas */ __( 'You have %s automatic schemas:', 'wp-seopress' ),
+					'disable_all'     => __( 'Disable all automatic schemas for this post', 'wp-seopress' ),
+					'disable_one'     => __( 'Disable this automatic schema for this post', 'wp-seopress' ),
+					'edit_schema'     => __( 'Edit', 'wp-seopress' ),
+					'no_overrides'    => __( 'This schema has no overridable fields. Mark fields as "Manual single" in the schema editor to expose them per post.', 'wp-seopress' ),
+					'empty_state'     => __( 'No automatic schemas match this post.', 'wp-seopress' ),
+					'type_label'      => __( 'Type:', 'wp-seopress' ),
+					'validate_schema' => __( 'Validate my schema', 'wp-seopress' ),
+					'validate_schema_unpublished' => __( 'Publish this post first to validate its schema. Google can only test a live, public URL.', 'wp-seopress' ),
+				),
+				'social'            => array(
 					'title'          => /* translators: %s post title */ __(
 						'LinkedIn, Instagram, WhatsApp and Pinterest use the same social metadata as Facebook. X does the same if no X Cards tags are defined below. <a href="https://developers.facebook.com/tools/debug/sharing/?q=%s" target="_blank">Ask Facebook to update its cache <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" style="vertical-align:middle;margin-right:4px;"><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg></a>',
 						'wp-seopress'
@@ -762,7 +876,7 @@ class I18nUniversalMetabox {
 						'wp-seopress'
 					),
 				),
-				'social_preview'   => array(
+				'social_preview'    => array(
 					'facebook' => array(
 						'title'                 => __( 'Facebook Preview', 'wp-seopress' ),
 						'description'           => __(
@@ -833,6 +947,7 @@ class I18nUniversalMetabox {
 						'wp-seopress'
 					),
 					'freeze_modified_date_section'                   => __( 'Last modified date', 'wp-seopress' ),
+					'current_modified_date'                          => __( 'Current modified date:', 'wp-seopress' ),
 					'freeze_modified_date_tooltip_title'             => __( 'Freeze last modified date', 'wp-seopress' ),
 					'freeze_modified_date_tooltip_description'       => __(
 						'Enable this option to prevent the last modified date from being updated when you save this post. This is recommended for minor updates like fixing typos, formatting changes, or copyright updates that don\'t constitute significant content changes. Google recommends only updating the lastmod date for significant content updates.',

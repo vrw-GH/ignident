@@ -157,7 +157,7 @@ jQuery(function($) {
 
 				// show simplified activity log next to the component's label
 				if ('files' == restore_data.stage) {
-					$current.find('.updraft_component--progress').html(' — '+updraftlion.restore_files_progress.replace('%s1', '<strong>'+(restore_data.data.fileindex)+'</strong>').replace('%s2', '<strong>'+restore_data.data.total_files+'</strong>'));
+					$current.find('.updraft_component--progress').html(' — '+updraftlion.restore_files_progress.replace('%1$s', '<strong>'+(restore_data.data.fileindex)+'</strong>').replace('%2$s', '<strong>'+restore_data.data.total_files+'</strong>'));
 				}
 
 				if ('db' == restore_data.stage) {

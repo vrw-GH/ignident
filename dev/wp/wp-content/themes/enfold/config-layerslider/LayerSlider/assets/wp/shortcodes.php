@@ -84,6 +84,15 @@ class LS_Shortcode {
 
 			if( $item['data'] ) {
 				$output .= self::processShortcode( $item['data'], $atts );
+
+				if( ! empty( $GLOBALS['lsRemainingPerSlideEmbeds'] ) && is_array( $GLOBALS['lsRemainingPerSlideEmbeds'] ) ) {
+					foreach( $GLOBALS['lsRemainingPerSlideEmbeds'] as $slideKey ) {
+						$altAttrs = $atts;
+						$altAttrs['firstslide'] = $slideKey;
+						$output .= self::processShortcode( $item['data'], $altAttrs );
+					}
+					unset( $GLOBALS['lsRemainingPerSlideEmbeds'], $GLOBALS['lsSceneEmbedsGroup'] );
+				}
 			}
 
 			return $output;
@@ -349,10 +358,10 @@ class LS_Shortcode {
 		}
 
 		// Slider and markup data
-		$id 			= $slider['id'];
-		$sliderID 		= 'layerslider_'.$id;
-		$sliderSlug 	= $slider['slug'];
-		$slides 		= $slider['data'];
+		$projectId 		= $slider['id'];
+		$projectSlug 	= $slider['slug'];
+		$projectInitId 	= 'layerslider_'.$projectId;
+		$projectData 	= &$slider['data'];
 
 		// Store generated output
 		$lsInit 		= [];
@@ -362,7 +371,7 @@ class LS_Shortcode {
 		$lsFonts 		= [];
 
 		// Include slider file
-		if( is_array( $slides ) ) {
+		if( is_array( $projectData ) ) {
 
 			// Get DOM utils
 			if( ! class_exists('\LayerSlider\DOM') ) {

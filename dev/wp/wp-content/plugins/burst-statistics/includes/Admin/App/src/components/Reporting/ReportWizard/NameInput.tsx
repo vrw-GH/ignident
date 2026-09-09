@@ -7,6 +7,7 @@ import { clsx } from 'clsx';
 
 const DEFAULT_NAME = __( 'Untitled report', 'burst-statistics' );
 
+// fallow-ignore-next-line complexity
 export const NameInput = () => {
 	const reportName = useWizardStore( ( state ) => state.wizard.name );
 	const setReportName = useWizardStore( ( state ) => state.setReportName );
@@ -90,7 +91,7 @@ export const NameInput = () => {
 					onChange={handleChange}
 					onBlur={handleBlur}
 					onKeyDown={handleKeyDown}
-					className="w-full text-lg font-semibold rounded-md border border-gray-400 p-2 focus:border-primary-dark focus:outline-none focus:ring disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-200"
+					className="w-full text-lg font-semibold rounded-md border border-gray-400 p-2 focus:border-primary-700 focus:outline-hidden focus:ring-3 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-200"
 					placeholder={__( 'Untitled report', 'burst-statistics' )}
 				/>
 				{errors.reportName?.message && (
@@ -109,7 +110,7 @@ export const NameInput = () => {
 				onClick={handleClick}
 				className={clsx(
 					'flex items-center gap-2 text-lg font-semibold text-left transition-colors group p-2 border border-transparent rounded-md hover:border-gray-400',
-					isDefault ? 'text-gray-500 italic' : 'text-black'
+					isDefault ? 'text-text-gray-light italic' : 'text-text-black'
 				)}
 			>
 				<span className="truncate burst-report-name-input">{displayName}</span>

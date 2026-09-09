@@ -47,14 +47,31 @@ class PrintHeadJsonSchema implements ExecuteHooksFrontend {
 			return;
 		}
 
-		if ( 'none' === seopress_get_service( 'SocialOption' )->getSocialKnowledgeType() ) {
+		/**
+		 * Check if a Knowledge Graph type is set.
+		 *
+		 * The settings page stores an empty string for "None", while the setup
+		 * wizard and older installs use the literal "none". Treat both (and an
+		 * unset option) as "feature disabled" so no schema is printed.
+		 *
+		 * @since 5.3
+		 */
+		$knowledge_type = seopress_get_service( 'SocialOption' )->getSocialKnowledgeType();
+		if ( empty( $knowledge_type ) || 'none' === $knowledge_type ) {
 			return;
 		}
+
+		// Pass the real page context: the Knowledge Graph fields can hold tags,
+		// and without a context they would resolve to nothing. This runs on the
+		// front page only, so the context describes it (the static page set as
+		// front page, or the posts page).
+		$context = seopress_get_service( 'ContextPage' )->getContext();
 
 		$jsons = seopress_get_service( 'JsonSchemaGenerator' )->getJsonsEncoded(
 			array(
 				'organization',
-			)
+			),
+			$context
 		);
 		?><script type="application/ld+json"><?php echo apply_filters( 'seopress_schemas_organization_html', $jsons[0] ); // phpcs:ignore -- TODO: escape properly. ?></script>
 		<?php

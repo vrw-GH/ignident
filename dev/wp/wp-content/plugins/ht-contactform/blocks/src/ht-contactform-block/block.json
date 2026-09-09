@@ -1,0 +1,216 @@
+{
+	"formId": {
+		"type":"string",
+		"default":""
+	},
+	"inputHight":{
+        "type": "object",
+        "default": {
+            "desktop": 40,
+            "laptop": 35,
+            "tablet": 30,
+            "mobile": 30
+        }
+    },
+    "areaMargin": {
+        "type": "object",
+        "default": {
+            "top":"0",
+            "right":"0",
+            "bottom":"0",
+            "left":"0",
+            "unit":"px",
+            "link":"yes"
+        }
+    },
+    "blockUniqId":{
+        "type": "string",
+        "default": ""
+    },
+    "inputTextColor":{
+        "type"    : "string",
+        "default" : "#666"
+    },
+    "inputTextSize":{
+        "type": "object",
+        "default": {
+            "desktop": "16px",
+            "laptop": "14px",
+            "tablet": "14px",
+            "mobile": "14px"
+        }
+    },
+    "inputBackground":{
+        "type"    : "string",
+        "default" : "#fafafa"
+    },
+    "inputPadding": {
+        "type": "object",
+        "default": {
+            "top":"8",
+            "right":"8",
+            "bottom":"8",
+            "left":"8",
+            "unit":"px",
+            "link":"yes"
+        }
+    },
+    "inputMargin": {
+        "type": "object",
+        "default": {
+            "top":"0",
+            "right":"0",
+            "bottom":"0",
+            "left":"0",
+            "unit":"px",
+            "link":"yes"
+        }
+    },
+    "inputBorderRadius": {
+        "type": "object",
+        "default": {
+            "top":"5",
+            "right":"5",
+            "bottom":"5",
+            "left":"5",
+            "unit":"px",
+            "link":"yes"
+        }
+    },
+    "borderType":{
+    	"type":"string",
+    	"default":"solid"
+    },
+    "borderWidth":{
+    	"type":"number",
+    	"default":1
+    },
+    "borderColor":{
+    	"type":"string",
+    	"default":"#c8c9cb"
+    },
+    "textAreaHight":{
+        "type": "object",
+        "default": {
+            "desktop": 175,
+            "laptop": 170,
+            "tablet": 160,
+            "mobile": 160
+        }
+    },
+    "labelFontSize":{
+        "type": "object",
+        "default": {
+            "desktop": "16px",
+            "laptop": "14px",
+            "tablet": "14px",
+            "mobile": "14px"
+        }
+    },
+    "labelColor":{
+        "type"    : "string",
+        "default" : "#3a3a3a"
+    },
+    "buttonPadding": {
+        "type": "object",
+        "default": {
+            "desktop":{
+                "top":"10",
+                "right":"40",
+                "bottom":"10",
+                "left":"40"
+            },
+            "laptop":{
+                "top":"0",
+                "right":"0",
+                "bottom":"0",
+                "left":"0"
+            },
+            "tablet":{
+                "top":"0",
+                "right":"0",
+                "bottom":"0",
+                "left":"0"
+            },
+            "mobile":{
+                "top":"0",
+                "right":"0",
+                "bottom":"0",
+                "left":"0"
+            },
+            "unit":"px",
+            "link":"no"
+        }
+    },
+    "buttonMargin": {
+        "type": "object",
+        "default": {
+            "desktop":{
+                "top":"10",
+                "right":"0",
+                "bottom":"10",
+                "left":"0"
+            },
+            "laptop":{
+                "top":"0",
+                "right":"0",
+                "bottom":"0",
+                "left":"0"
+            },
+            "tablet":{
+                "top":"0",
+                "right":"0",
+                "bottom":"0",
+                "left":"0"
+            },
+            "mobile":{
+                "top":"0",
+                "right":"0",
+                "bottom":"0",
+                "left":"0"
+            },
+            "unit":"px",
+            "link":"no"
+        }
+    },
+    "buttonBorderRadius": {
+        "type": "object",
+        "default": {
+            "top":"5",
+            "right":"5",
+            "bottom":"5",
+            "left":"5",
+            "unit":"px",
+            "link":"yes"
+        }
+    },
+    "btnBorderType":{
+    	"type":"string",
+    	"default":"none"
+    },
+    "btnBorderWidth":{
+    	"type":"number",
+    	"default":1
+    },
+    "btnBorderColor":{
+    	"type":"string",
+    	"default":"#000"
+    },
+    "btnBackgroundColor":{
+    	"type":"string",
+    	"default":"#0170B9"
+    },
+    "btnTextColor":{
+    	"type":"string",
+    	"default":"#fff"
+    },
+    "btnFontSize":{
+    	"type": "object",
+        "default": {
+            "desktop": "16px",
+            "laptop": "14px",
+            "tablet": "14px",
+            "mobile": "14px"
+        }
+    }  
+}

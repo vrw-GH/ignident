@@ -1,4 +1,4 @@
-(function(){
+(function(){if(!(document.currentScript instanceof HTMLScriptElement))return;
     var gt = window.gtranslateSettings || {};
     gt = gt[document.currentScript.getAttribute('data-gt-widget-id')] || gt;
 
@@ -65,6 +65,7 @@
         el_a.href = get_lang_href(lang);
         el_a.title = lang_array[lang];
         el_a.setAttribute('data-gt-lang', lang);
+        el_a.setAttribute('aria-label', lang_array[lang]);
         el_a.classList.add('glink', 'nturl', 'notranslate');
         lang == current_lang && el_a.classList.add('gt-current-lang');
 
@@ -100,7 +101,7 @@
         if(current_lang != default_language)
             load_tlib();
         else
-            document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
+            document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib);e.addEventListener('focusin',load_tlib)});
 
         document.querySelectorAll(u_class + ' a[data-gt-lang]').forEach(function(e){e.addEventListener('click', function(evt) {
             evt.preventDefault();

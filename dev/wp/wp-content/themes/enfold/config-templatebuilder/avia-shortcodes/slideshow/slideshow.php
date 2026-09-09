@@ -54,11 +54,14 @@ if( ! class_exists( 'avia_sc_slider', false ) )
 
 			$this->config['name']			= __( 'Easy Slider', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-slideshow.png';
-			$this->config['order']			= 85;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-slideshow.svg';
+			$this->config['order']			= 80;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_slideshow';
 			$this->config['shortcode_nested'] = array( 'av_slide' );
+			//	the canvas names the slide captions so one is told from the next - see editor_element_items()
+			//	the canvas shows the slides - see editor_element_images()
+			$this->config['alb_items']		= array( 'images' => array( 'tag' => 'av_slide', 'attr' => 'id' ) );
 			$this->config['tooltip'] 	    = __( 'Display a simple slideshow element', 'avia_framework' );
 			$this->config['disabling_allowed'] = true;
 			$this->config['id_name']		= 'id';

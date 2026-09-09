@@ -22,7 +22,17 @@ cursor: pointer;
 	-moz-border-radius: 40px;
 	border-radius: 40px;
 } */
-
+.xyz_ips_informationdiv {
+    background: none repeat scroll 0 0 #9FDAEE;
+    border: 1px solid #209BD4;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+    float: left;
+    padding: 10px;
+    position: absolute;
+    z-index: 1200;
+    width: auto;
+}
 .xyz-ips-buy-button {
 	color:white;
     padding:5px 21px;
@@ -495,6 +505,36 @@ text-decoration: underline;
         background: #e67e22;
         transform: scale(1.1);
     }
+    .xyz-ips-usage {
+        color: #6c757d;   /* WP gray */
+        font-size: 12px;
+        margin-left: 6px;
+    }
+    .ips-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 10px;
+        margin-right: 6px;
+        line-height: 1.4;
+        vertical-align: middle;
+    }
+    td#xyz_ips_vAlign {
+        vertical-align: middle;
+    }
+    .ips-badge-auto {
+        background-color: #e8f1ff;
+        color: #135e96; /* WP blue */
+    }
+    .ips-badge-shortcode {
+        background-color: #e6f6ea;
+        color: #007c3a; /* WP green */
+    }
+    .ips-badge-ondemand {
+        background-color: #e6f6ea;
+        color: #be822f; 
+    }
   @media screen and (max-width: 1351px) {
 
    .xyz_ips_social_media{width:25%;}
@@ -747,7 +787,8 @@ select#xyz_ips_insertionLocation optgroup[label="Categories, Archives, Tags, Tax
 }
 .xyz_ips_img_table
 {
-    float: right;
+    margin-left: 4px;
+    cursor: pointer;
 }
 .xyz_ips_system_notice_area_style1 {
     position: absolute;

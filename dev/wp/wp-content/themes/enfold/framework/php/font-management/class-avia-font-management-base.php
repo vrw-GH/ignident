@@ -264,10 +264,10 @@ if( ! class_exists( 'aviaFontManagementBase', false ) )
 			/**
 			 * check if capability is ok
 			 */
-			$cap = apply_filters( 'avf_file_upload_capability', 'update_plugins', get_class( $this ) );
+			$cap = avia_file_upload_capability( 'iconfont', get_class( $this ) );
 			if( ! current_user_can( $cap ) )
 			{
-				$this->response['error'] .= __( 'Using this feature is reserved for Super Admins. You unfortunately don\'t have the necessary permissions.', 'avia_framework' );
+				$this->response['error'] .= __( 'You do not have the required permissions to use this feature.', 'avia_framework' );
 				echo json_encode( $this->response );
 				exit;
 			}
@@ -332,10 +332,10 @@ if( ! class_exists( 'aviaFontManagementBase', false ) )
 			/**
 			 * check if capability is ok
 			 */
-			$cap = apply_filters( 'avf_file_upload_capability', 'update_plugins', get_class( $this ) );
+			$cap = avia_file_upload_capability( 'iconfont', get_class( $this ) );
 			if( ! current_user_can( $cap ) )
 			{
-				$this->response['error'] .= __( 'Using this feature is reserved for Super Admins. You unfortunately don\'t have the necessary permissions.', 'avia_framework' );
+				$this->response['error'] .= __( 'You do not have the required permissions to use this feature.', 'avia_framework' );
 				echo json_encode( $this->response );
 				exit;
 			}

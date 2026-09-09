@@ -63,7 +63,15 @@ if ( '1' == seopress_get_toggle_option( 'titles' ) ) { // phpcs:ignore -- TODO: 
 				function seopress_titles_single_enable_metabox( $seopress_get_post_types ) {
 					global $post;
 
-					if ( '1' === seopress_get_service( 'TitleOption' )->getSingleCptEnable( $post->post_type ) && isset( $post->post_type ) ) {
+					// The global $post is not set on every context where this
+					// filter runs (init, save_post, REST). Guard before reading
+					// its property, otherwise PHP 8 warns "Attempt to read
+					// property post_type on null".
+					if ( ! $post instanceof WP_Post || empty( $post->post_type ) ) {
+						return $seopress_get_post_types;
+					}
+
+					if ( '1' === seopress_get_service( 'TitleOption' )->getSingleCptEnable( $post->post_type ) ) {
 						unset( $seopress_get_post_types[ $post->post_type ] );
 					}
 
@@ -174,7 +182,7 @@ if ( '1' == seopress_get_toggle_option( 'google-analytics' ) && ! isset( $_GET['
 	 */
 	function seopress_google_analytics_ecommerce_js() {
 		$prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		wp_enqueue_script( 'seopress-analytics', plugins_url( 'assets/js/seopress-analytics' . $prefix . '.js', dirname( __DIR__ ) ), array(), SEOPRESS_VERSION, true );
+		wp_enqueue_script( 'seopress-analytics', plugins_url( 'assets/js/seopress-analytics' . $prefix . '.js', dirname( __DIR__ ) ), array( 'jquery' ), SEOPRESS_VERSION, true );
 
 		$seopress_analytics = array(
 			'seopress_nonce'     => wp_create_nonce( 'seopress_analytics_nonce' ),
@@ -188,6 +196,15 @@ if ( '1' == seopress_get_toggle_option( 'google-analytics' ) && ! isset( $_GET['
 	 */
 	function seopress_after_update_cart() {
 		check_ajax_referer( 'seopress_analytics_nonce' );
+
+		// Bail when WooCommerce is unavailable: the AJAX hook is registered
+		// unconditionally but other carts (Fluent Cart, etc.) can fire the
+		// same jQuery events that trigger this endpoint client-side. Without
+		// this guard, $woocommerce is null and the get_cart() call below
+		// throws a fatal on the JSON response.
+		if ( ! function_exists( 'WC' ) || ! WC() || ! WC()->cart ) {
+			wp_send_json_success( '' );
+		}
 
 		$items_purchased = array();
 		$final           = array();
@@ -387,7 +404,7 @@ if ( '1' == seopress_get_toggle_option( 'advanced' ) ) { // phpcs:ignore -- TODO
 			add_filter( 'get_comment_author_url', '__return_empty_string' );
 		}
 
-		if ( '1' === seopress_get_service( 'AdvancedOption' )->getAdvancedCommentsAuthorURLDisable() ) {
+		if ( '1' === seopress_get_service( 'AdvancedOption' )->getAdvancedCommentsWebsiteDisable() ) {
 			/**
 			 * Advanced comments website hook.
 			 *
@@ -432,19 +449,9 @@ if ( '1' == seopress_get_toggle_option( 'advanced' ) ) { // phpcs:ignore -- TODO
 	 */
 	function seopress_load_advanced_admin_options() {
 		require_once plugin_dir_path( __FILE__ ) . '/options-advanced-admin.php'; // Advanced (admin).
-		// Admin bar.
-		if ( '1' === seopress_get_service( 'AdvancedOption' )->getAppearanceAdminBar() ) {
-			add_action( 'admin_bar_menu', 'seopress_advanced_appearance_adminbar_hook', 999 );
-
-			/**
-			 * Advanced appearance adminbar hook.
-			 *
-			 * @param WP_Admin_Bar $wp_admin_bar The admin bar.
-			 */
-			function seopress_advanced_appearance_adminbar_hook( $wp_admin_bar ) {
-				$wp_admin_bar->remove_node( 'seopress' );
-			}
-		}
+		// The "Remove SEOPress from admin bar" option is handled directly in
+		// seopress_admin_bar_links() so the critical noindex warning can still be
+		// displayed on its own when the rest of the menu is hidden.
 	}
 
 	// primary category.

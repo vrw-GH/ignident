@@ -111,10 +111,12 @@ if( ! class_exists( 'avia_sc_countdown', false ) )
 
 			$this->config['name']			= __( 'Animated Countdown', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-countdown.png';
-			$this->config['order']			= 14;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-countdown.svg';
+			$this->config['order']			= 42;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_countdown';
+			//	the canvas shows the date it counts down to - see editor_element_items()
+			$this->config['alb_items']		= array( 'value' => 'date' );
 			$this->config['tooltip']		= __( 'Display a countdown to a specific date', 'avia_framework' );
 			$this->config['preview']		= 'xlarge';
 			$this->config['disabling_allowed'] = true;

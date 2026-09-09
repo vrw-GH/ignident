@@ -1,10 +1,10 @@
 === Insert PHP Code Snippet ===
 Contributors: f1logic
 Donate link: http://xyzscripts.com/donate/
-Tags: insert PHP, add PHP, insert PHP code, insert PHP tag, insert PHP snippet, insert PHP code snippet , insert PHP snippet, add PHP code, insert PHP tag, add PHP snippet, add PHP code snippet, integrate PHP codes, raw PHP, embed PHP, PHP inserter, PHP code inserter, PHP snippet inserter
+Tags: insert PHP, add PHP, insert PHP code, insert PHP tag, insert PHP snippet, insert PHP code snippet , add PHP code, insert PHP tag, add PHP snippet, add PHP code snippet, integrate PHP codes, raw PHP, embed PHP, PHP inserter, PHP code inserter, PHP snippet inserter
 Requires at least: 5
-Tested up to: 6.8.3
-Stable tag: 1.4.4
+Tested up to: 7.0
+Stable tag: 1.4.7
 License: GPLv2 or later
 
 Add PHP code to your pages and posts easily using shortcodes.
@@ -65,6 +65,20 @@ More questions ? [Drop a mail](http://xyzscripts.com/members/support/ "XYZScript
 
 
 == Changelog ==
+
+= 1.4.7 =
+* PHP 8.3 compatibility improvements.
+* Minor code hardening and stability fixes.
+
+= 1.4.6 =
+* Fixed duplicate "Snippet Preview" pages issue in WordPress Multisite environments
+* Added a setting for manual shortcode usage display and tracking
+* Minor bug fixes
+
+= 1.4.5 =
+* Improved snippet list UI and placement clarity
+* Added usage details for snippets used via shortcode
+* Minor bug fixes
 
 = 1.4.4 =
 * Added snippet description field

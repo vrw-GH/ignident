@@ -38,6 +38,8 @@ $l10n_ls = [
 	'scalable_a' 	=> _x('Scalable (Auto Size)', 'Asset size', 'LayerSlider'),
 	'scalable_o' 	=> _x('Scalable (Original Size)', 'Asset size', 'LayerSlider'),
 
+	'currentColor' 	=> __('Current Text Color', 'LayerSlider'),
+
 	// Notifications
 	'notifyProjectSaved' 			=> __('Project saved as draft', 'LayerSlider'),
 	'notifyProjectPublished' 		=> __('Published & changes are now live', 'LayerSlider'),
@@ -49,7 +51,8 @@ $l10n_ls = [
 	'notifyMissingPopup' 			=> __('This is a Popup project, which requires license registration to use.', 'LayerSlider'),
 	'notifyMissingPopupMT' 			=> __('Register your LayerSlider license to use Popups.', 'LayerSlider'),
 	'notifyMissingScene' 			=> __('This is a Sticky or Scroll Scene project, which requires license registration to use on front-end pages.', 'LayerSlider'),
-	'notifyScrollSceneSlides' 		=> __('This is a Scroll Scene project, which will display and animate the first slide only.', 'LayerSlider'),
+	'notifyScrollSceneSlides' 		=> __('Choose how Scroll Scenes should behave when using multiple slides.', 'LayerSlider'),
+	'notifyScrollSceneSlidesButton' => __('Configure', 'LayerSlider'),
 	'notifyMissingEndingTr' 		=> __('Missing Ending Transitions can lead to overlapping layers.', 'LayerSlider'),
 	'confirmMissingEndingTrFix' 		=> sprintf(__('To avoid overlapping issues, %sEnding Transition%s will be enabled on layers missing both Ending Transition and Ending Text Transition. You should manually save the project after the changes have been applied.', 'LayerSlider'), '<b>', '</b>'),
 	'confirmMissingEndingTrDismiss' 	=> __('Are you sure you want to dismiss this notification without fixing potential issues?', 'LayerSlider'),
@@ -63,6 +66,12 @@ $l10n_ls = [
 	'moduleDLImageEditor' 	=> __('Downloading Image Editor ...', 'LayerSlider'),
 	'moduleDLIcons' 		=> __('Downloading Icons ...', 'LayerSlider'),
 	'moduleDLAssets' 		=> __('Downloading Assets ...', 'LayerSlider'),
+	'moduleDLLottie' 		=> __('Downloading Lottie Module ...', 'LayerSlider'),
+
+	'lottieDLErrorTitle' 	=> __('Download Error', 'LayerSlider'),
+	'lottieDLAsset' 		=> __('Downloading Lottie Animation ...', 'LayerSlider'),
+	'lottieServerErrorTitle'=> __('Something went wrong', 'LayerSlider'),
+	'lottieServerErrorText' => sprintf(__('It seems there is a server issue that prevented LayerSlider from downloading the Lottie animation. Please check %sSystem Status%s for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues, or contact your hosting provider to resolve server configuration problems.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>'),
 
 	'assetsDLErrorTitle' 	=> __('Download Error', 'LayerSlider'),
 	'assetsDLAsset' 		=> __('Downloading Asset ...'),
@@ -198,6 +207,11 @@ $l10n_ls = [
 			'icon' 	=> lsGetSVGIcon('palette')
 		],
 
+		'LAYER_LOTTIE' 			=> [
+			'title' => __('Lottie settings', 'LayerSlider'),
+			'icon' 	=> lsGetSVGIcon('lottie', 'brands')
+		],
+
 		'BUTTON_PRESET' 		=> [
 			'title' => __('Button preset', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('pencil-paintbrush')
@@ -281,7 +295,7 @@ $l10n_ls = [
 		],
 		'MODIFY_OBJECT' 		=> [
 			'title' => __('Modify SVG', 'LayerSlider'),
-			'icon' 	=> lsGetSVGIcon('stars')
+			'icon' 	=> lsGetSVGIcon('splotch')
 		],
 		'LAYER_APPLY_TRANSITION' => [
 			'title' => __('Apply transition', 'LayerSlider'),
@@ -290,6 +304,11 @@ $l10n_ls = [
 		'LAYER_ACTIONS' 		=> [
 			'title' => __('Layer actions', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('bullseye-pointer', 'regular', [ 'class' => 'lse-mirror-h' ])
+		],
+
+		'LAYER_EFFECTS' 		=> [
+			'title' => __('Layer effects', 'LayerSlider'),
+			'icon' 	=> lsGetSVGIcon('sparkles')
 		],
 
 	],
@@ -303,6 +322,7 @@ $l10n_ls = [
 	'SBSlideCopyTitle' 			=> __('Slide #%d copy', 'LayerSlider'),
 	'SBLayerTitle' 				=> __('Layer #%d', 'LayerSlider'),
 	'SBLayerCopyTitle' 			=> __('Layer #%d copy', 'LayerSlider'),
+	'SBMultiSelectLayerCount' 	=> __('(%d layers)', 'LayerSlider'),
 
 	// Search
 	'SBSearchTitle' 			=> __('Search', 'LayerSlider'),
@@ -317,6 +337,7 @@ $l10n_ls = [
 	'SBPreviewMediaPlaceholder'	=> __('Double click to<br> add media', 'LayerSlider'),
 	'SBPreviewIconPlaceholder'	=> __('Double click to<br> add icon', 'LayerSlider'),
 	'SBPreviewShapePlaceholder'	=> __('Double click to<br> add shape', 'LayerSlider'),
+	'SBPreviewLottiePlaceholder'=> __('Double click to<br> add animation', 'LayerSlider'),
 	'SBPreviewTextPlaceholder' 	=> __('Text Layer', 'LayerSlider'),
 	'SBPreviewHTMLPlaceholder' 	=> __('HTML Layer', 'LayerSlider'),
 	'SBPreviewButtonPlaceholder' => __('Button', 'LayerSlider'),
@@ -350,7 +371,14 @@ $l10n_ls = [
 	'SBUploadErrorMessage' 		=> __('Upload error. Please verify that the uploaded items have the correct file extension and they are supported by WordPress. Your server thrown the following error: %s', 'LayerSlider'),
 	'SBInvalidFormat' 			=> __('Invalid format', 'LayerSlider'),
 	'SBEnterImageURL' 			=> __('Enter an image URL', 'LayerSlider'),
+	'SBEnterLottieURL' 			=> __('Enter a Lottie animation URL', 'LayerSlider'),
 	'SBTransitionApplyOthers' 	=> __('Are you sure you want to apply the currently selected transitions and effects on the other slides?', 'LayerSlider'),
+	'SBTransitionCustomPresets' => __('Custom %d', 'LayerSlider'),
+	'SBTransitionRemovePreset' 	=> __('Are you sure you want to delete this custom effect? This action cannot be undone.', 'LayerSlider'),
+	'SBTransitionSelectEffet' 	=> __('Use All Effects in “%s”', 'LayerSlider'),
+	'SBTransitionDeSelectEffet' => __('Use None in “%s”', 'LayerSlider'),
+	'SBConfirmGlobalEnable' 	=> __('Are you sure you want to enable all effects in all categories? This action cannot be undone. If you proceed, you won’t be able to restore your current selection.', 'LayerSlider'),
+	'SBConfirmGlobalDisable' 	=> __('Are you sure you want to disable all effects in all categories? This action cannot be undone. If you proceed, you won’t be able to restore your current selection.', 'LayerSlider'),
 	'SBPostFilterWarning' 		=> __('No posts were found with the current filters.', 'LayerSlider'),
 	'SBPostFilterWarningTT' 	=> __('No post found. Use Configure Post Options to change the current filters.', 'LayerSlider'),
 	'SBPostFieldWarningTT' 		=> __('No data found for this field.', 'LayerSlider'),
@@ -386,6 +414,21 @@ $l10n_ls = [
 	'SBLayerTypeCountdownMinutes' 	=> __('Countdown %d (Mins)', 'LayerSlider'),
 	'SBLayerTypeCountdownSeconds' 	=> __('Countdown %d (Secs)', 'LayerSlider'),
 	'SBLayerTypeCounter' 			=> __('Counter', 'LayerSlider'),
+	'SBLayerTypeLottie' 			=> __('Lottie Animation', 'LayerSlider'),
+
+	'SBPremiumLayerWarnings' 		=> [
+		'countdown' 		=> __('Countdown', 'LayerSlider'),
+		'counter' 			=> __('Counter', 'LayerSlider'),
+		'lottie' 			=> __('Lottie', 'LayerSlider'),
+		'shape' 			=> __('Shape', 'LayerSlider'),
+		'icon' 				=> __('Premium Icon', 'LayerSlider'),
+		'effects' 			=> __('Effects', 'LayerSlider'),
+		'backgroundClip' 	=> __('Background Clip', 'LayerSlider'),
+		'assetImage' 		=> __('Asset Image', 'LayerSlider'),
+		'assetBackground'	=> __('Asset Background', 'LayerSlider'),
+		'assetVideo' 		=> __('Asset Video', 'LayerSlider'),
+		'scrollTransition' => __('Scroll Transition', 'LayerSlider')
+	],
 
 	'SBInvalidSVGSource' 		=> __('The entered SVG code doesn’t seem to be valid.', 'LayerSlider'),
 	'SBInsertObjectTitle' 		=> __('Insert SVG', 'LayerSlider'),
@@ -394,6 +437,8 @@ $l10n_ls = [
 	'SBInsertShapeTitle' 		=> __('Insert Shape', 'LayerSlider'),
 	'SBModifyShapeTitle' 		=> __('Modify Shape', 'LayerSlider'),
 	'SBShapeOptionsTitle' 		=> _x('%s Options', 'Shape Options (e.g. Wave Options, etc.)', 'LayerSlider'),
+
+	'SBLayerEffectTextOnly'	=> __('The selected layer effect cannot be applied because one or more layers in the selection are incompatible.', 'LayerSlider'),
 
 	'SBRevisionsLoading' 		=> __('Loading, please wait...', 'LayerSlider'),
 	'SBRevisionsDeleteTitle' 	=> __('Delete saved revisions?', 'LayerSlider'),

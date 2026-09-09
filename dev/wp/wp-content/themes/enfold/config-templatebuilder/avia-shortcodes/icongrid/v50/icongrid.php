@@ -79,7 +79,7 @@ if( ! class_exists( 'avia_sc_icongrid', false ) )
 
 			$this->config['name']			= __( 'Icon Grid', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-icongrid.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-icongrid.svg';
 			$this->config['order']			= 90;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_icongrid';

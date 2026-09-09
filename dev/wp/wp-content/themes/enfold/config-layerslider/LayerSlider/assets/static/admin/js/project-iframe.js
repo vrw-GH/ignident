@@ -5,7 +5,7 @@ function attachProjectEvent( eventName, funcString ) {
 	let paramName = ( eventName === 'slideTimelineDidUpdate' ) ? 'timeline' : 'slider';
 
 	try {
-		jQuery('#lse-project-preview-content' ).on( eventName, new Function( 'event', paramName, funcString ) );
+		jQuery('.ls-wp-container:last' ).on( eventName, new Function( 'event', paramName, funcString ) );
 	}catch(e){
 		console.error( 'LayerSlider: Error while calling event "' + eventName + '":\n\r\n\r', e );
 	}

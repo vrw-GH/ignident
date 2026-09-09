@@ -44,8 +44,8 @@ if( ! class_exists( 'avia_sc_image_diff', false ) )
 
 			$this->config['name']			= __( 'Before-After Images', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-image-before-after.png';
-			$this->config['order']			= 105;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-image-before-after.svg';
+			$this->config['order']			= 35;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_image_diff';
 //			$this->config['modal_data']     = array( 'modal_class' => 'mediumscreen' );

@@ -98,11 +98,13 @@ if( ! class_exists( 'avia_sc_mailchimp', false ) )
 
 			$this->config['name']			= __( 'Mailchimp Signup', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-contact.png';
-			$this->config['order']			= 10;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-mailchimp-signup.svg';
+			$this->config['order']			= 33;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_mailchimp';
 			$this->config['shortcode_nested'] = array( 'av_mailchimp_field' );
+			//	the canvas names the field labels so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_mailchimp_field', 'attr' => 'label' );
 			$this->config['tooltip']		= __( 'Creates a mailschimp signup form', 'avia_framework' );
 			$this->config['preview']		= false;
 			$this->config['disabling_allowed'] = true;
@@ -805,6 +807,16 @@ if( ! class_exists( 'avia_sc_mailchimp', false ) )
 
 				foreach( $_POST as $key => $value )
 				{
+					//	only process fields that belong to THIS form (suffix _<avia_formID>).
+					//	Other forms on the same page may inject keys into $_POST (e.g. a contact
+					//	form checkbox sets avia_5_1 = 'false' on render); without this guard such a
+					//	key gets mis-stripped to '5' and collides with a merge field id (e.g. BIRTHDAY),
+					//	producing an invalid merge_fields value and a Mailchimp "Invalid Resource" error.
+					if( substr( $key, $suffix_length ) !== $form_suffix )
+					{
+						continue;
+					}
+
 					$key = substr( $key, 0, $suffix_length );
 					$key = str_replace( 'avia_', '', $key );
 

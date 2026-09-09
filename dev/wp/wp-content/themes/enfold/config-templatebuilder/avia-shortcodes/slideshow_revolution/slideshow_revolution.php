@@ -30,7 +30,7 @@ if( ! class_exists( 'avia_sc_revolutionslider', false ) && function_exists( 'rev
 
 			$this->config['name']			= __( 'Fullwidth Revolution Slider', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-slideshow-layer.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-slideshow-layer.svg';
 			$this->config['order']			= 10;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_revolutionslider';
@@ -84,7 +84,8 @@ if( ! class_exists( 'avia_sc_revolutionslider', false ) && function_exists( 'rev
 					);
 
 
-			$inner = "<img src='{$this->config['icon']}' title='{$this->config['name']}' alt='' />";
+			//	icon and name come from the element head now
+			$inner = '';
 
 
 			if( empty( $slides ) )
@@ -93,7 +94,6 @@ if( ! class_exists( 'avia_sc_revolutionslider', false ) && function_exists( 'rev
 			}
 			else
 			{
-				$inner .= "<div class='avia-element-label'>{$this->config['name']}</div>";
 				$inner .= AviaHtmlHelper::render_element( $element );
 				$inner .= '<a target="_blank" href="' . admin_url( 'admin.php?page=revslider' ) . '">' . __( 'Edit Revolution Slider here', 'avia_framework' ) . '</a>';
 			}

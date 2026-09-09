@@ -1,0 +1,225 @@
+
+/*
+	* LayerSlider Add-On: Reveal Layer Effect
+	*
+	* (c) 2011-2026 George Krupa, John Gera & Kreatura Media
+	*
+	* LayerSlider home:		https://layerslider.com/
+	* Licensing:			https://layerslider.com/licensing/
+*/
+
+
+
+/* Common */
+
+ls-reveal-wrapper {
+	position: absolute;
+	display: block;
+	inset: 0;
+	pointer-events: none !important;
+	visibility: visible !important;
+	overflow: hidden;
+}
+
+ls-reveal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+ls-reveal.ls-reveal-1 {
+	left: 0;
+	top: 0;
+	display: block;
+	z-index: 2;
+}
+
+ls-reveal.ls-reveal-2 {
+	right: 0;
+	bottom: 0;
+	display: none;
+	z-index: 1;
+}
+
+ls-reveal.ls-reveal-3 {
+	right: 0;
+	bottom: 0;
+	display: none;
+	z-index: 2;
+}
+
+ls-reveal.ls-reveal-4 {
+	left: 0;
+	bottom: 0;
+	display: none;
+	z-index: 1;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-h"] ls-reveal.ls-reveal-1 {
+	height: calc( 50% + 1px);
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-h"] ls-reveal.ls-reveal-2 {
+	height: 50%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-v"] ls-reveal.ls-reveal-1 {
+	width: calc( 50% + 1px);
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-v"] ls-reveal.ls-reveal-2 {
+	width: 50%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-2 {
+	width: calc( 50% + 1px);
+	height: calc( 50% + 1px);
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-2 {
+	right: 0;
+	top: 0;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-3 {
+	width: calc( 50% + 1px );
+	height: calc( 50% );
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-4 {
+	width: calc( 50% );
+	height: calc( 50% );
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-3 {
+	width: 100%;
+	height: 50%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-1 {
+	height: calc( 50% + 1px );
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-4 {
+	width: 50%;
+	height: 100%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-2 {
+	width: calc( 50% + 1px );
+}
+
+ls-reveal-wrapper[data-reveal-anim*="columns"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="columns"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="columns"] ls-reveal.ls-reveal-3,
+ls-reveal-wrapper[data-reveal-anim*="columns"] ls-reveal.ls-reveal-4 {
+	width: calc( 25% + 1px);
+	height: 100%;
+	top: 0;
+	right: auto
+}
+
+ls-reveal-wrapper[data-reveal-anim*="columns-l"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="columns-r"] ls-reveal.ls-reveal-4 {
+	left: 0;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="columns-l"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="columns-r"] ls-reveal.ls-reveal-3 {
+	left: 25%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="columns-l"] ls-reveal.ls-reveal-3,
+ls-reveal-wrapper[data-reveal-anim*="columns-r"] ls-reveal.ls-reveal-2 {
+	left: 50%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="columns-l"] ls-reveal.ls-reveal-4,
+ls-reveal-wrapper[data-reveal-anim*="columns-r"] ls-reveal.ls-reveal-1 {
+	left: 75%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="rows"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="rows"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="rows"] ls-reveal.ls-reveal-3,
+ls-reveal-wrapper[data-reveal-anim*="rows"] ls-reveal.ls-reveal-4 {
+	width: 100%;
+	height: calc( 25% + 1px);
+	left: 0;
+	bottom: auto;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="rows-t"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="rows-b"] ls-reveal.ls-reveal-4 {
+	top: 0;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="rows-t"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="rows-b"] ls-reveal.ls-reveal-3 {
+	top: 25%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="rows-t"] ls-reveal.ls-reveal-3,
+ls-reveal-wrapper[data-reveal-anim*="rows-b"] ls-reveal.ls-reveal-2 {
+	top: 50%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="rows-t"] ls-reveal.ls-reveal-4,
+ls-reveal-wrapper[data-reveal-anim*="rows-b"] ls-reveal.ls-reveal-1 {
+	top: 75%;
+}
+
+.ls-layer[revealing="1"] {
+	visibility: hidden ;
+}
+
+/* Gradient Backgrounds */
+
+ls-reveal-wrapper[data-reveal-anim*="-h"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="-h"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-3 {
+	background-size: 100% 200%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-3,
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-4 {
+	background-size: 200% 200%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-h"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-4 {
+	background-position: 0px -100%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-v"] ls-reveal.ls-reveal-1,
+ls-reveal-wrapper[data-reveal-anim*="-v"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-2,
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-4 {
+	background-size: 200% 100%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-v"] ls-reveal.ls-reveal-2 {
+	background-position: -100% 0px;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-2 {
+	background-position: -100% 0px;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-q"] ls-reveal.ls-reveal-3 {
+	background-position: -100% -100%;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-2 {
+	background-position: -100% 0px;
+}
+
+ls-reveal-wrapper[data-reveal-anim*="-c"] ls-reveal.ls-reveal-3 {
+	background-position: 0px -100%;
+}

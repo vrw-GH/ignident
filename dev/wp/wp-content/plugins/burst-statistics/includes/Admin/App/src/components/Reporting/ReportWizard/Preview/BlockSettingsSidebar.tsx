@@ -10,6 +10,12 @@ import TextInput from '@/components/Inputs/TextInput';
 import { PageFilter } from '@/components/Filters/PageFilter';
 import clsx from 'clsx';
 
+// Blocks that have no per-block data settings (date range / filters / comment).
+const BLOCKS_WITHOUT_SETTINGS = [ 'logo', 'text_block', 'hero' ];
+
+const hasBlockSettings = ( blockId: string ): boolean =>
+	! BLOCKS_WITHOUT_SETTINGS.includes( blockId );
+
 interface BlockSettingsSidebarProps {
 	reportBlockIndex: number;
 	className?: string;
@@ -19,6 +25,7 @@ interface BlockSettingsSidebarProps {
  * Sidebar component for editing block settings in the report editor.
  * Displays block title, date range, filters, comments, and action buttons.
  */
+// fallow-ignore-next-line complexity
 export const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({ reportBlockIndex, className }) => {
 	const contents = useWizardStore( ( state ) => state.wizard.content );
 	const block = contents[reportBlockIndex];
@@ -91,25 +98,47 @@ export const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({ repo
 			<div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
 				<div className="flex items-center gap-2">
 					{blockConfig?.icon && (
-						<Icon name={blockConfig.icon} size={16} className="text-gray-600" />
+						<Icon name={blockConfig.icon} size={16} className="text-text-gray-light" />
 					)}
-					<span className="font-semibold text-sm text-gray-800">{blockLabel}</span>
+					<span className="font-semibold text-sm text-text-gray">{blockLabel}</span>
 				</div>
-				<span className="text-xs text-gray-500">
+				<span className="text-xs text-text-gray-light">
 					{__( 'Block', 'burst-statistics' )} {blockPosition} {__( 'of', 'burst-statistics' )} {totalBlocks}
 				</span>
 			</div>
 
-			{/* Scrollable content. Controls not needed for logo block.	 */}
-			{'logo' !== block.id &&
-				<div className="flex-1 overflow-y-auto p-4 space-y-6">
+			{/* Hero block shortcode documentation */}
+			{ 'hero' === block.id && (
+				<div className="p-4 flex flex-col gap-3 border-b border-gray-100">
+					<p className="text-sm font-medium text-text-gray">
+						{ __( 'Available shortcodes', 'burst-statistics' ) }
+					</p>
+					<div className="flex flex-col gap-2">
+						{ [
+							[ '{created_by}', __( 'Name of the report creator', 'burst-statistics' ) ],
+							[ '{created_at}', __( 'Date the report was created', 'burst-statistics' ) ]
+						].map( ([ code, desc ]) => (
+							<div key={ code } className="flex items-start gap-2">
+								<code className="text-xs bg-gray-100 px-1.5 py-0.5 rounded font-mono text-text-gray flex-shrink-0">
+									{ code }
+								</code>
+								<span className="text-xs text-text-gray-light">{ desc }</span>
+							</div>
+						) ) }
+					</div>
+				</div>
+			) }
+
+			{/* Scrollable content. Date range / filters / comment only apply to data blocks. */}
+			{ hasBlockSettings( block.id ) &&
+				<div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
 				{/* Date Range Section. */}
-				<div className="space-y-3">
-					<h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+				<div className="flex flex-col gap-3">
+					<h4 className="text-xs font-semibold text-text-gray-light uppercase tracking-wide">
 						{__( 'Date Range', 'burst-statistics' )}
 					</h4>
 					<div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
-						<label className="text-sm text-gray-700">
+						<label className="text-sm text-text-gray">
 							{__( 'Custom date range', 'burst-statistics' )}
 						</label>
 						<SwitchInput
@@ -128,15 +157,15 @@ export const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({ repo
 						</div>
 					)}
 					{! blockDateRangeEnabled( reportBlockIndex ) && (
-						<p className="text-xs text-gray-500">
+						<p className="text-xs text-text-gray-light">
 							{__( 'Using report default date range.', 'burst-statistics' )}
 						</p>
 					)}
 				</div>
 
 				{/* Filters Section. */}
-				<div className="space-y-3">
-					<h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+				<div className="flex flex-col gap-3">
+					<h4 className="text-xs font-semibold text-text-gray-light uppercase tracking-wide">
 						{__( 'Filters', 'burst-statistics' )}
 					</h4>
 					<div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
@@ -145,11 +174,11 @@ export const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({ repo
 				</div>
 
 				{/* Comment Section. */}
-				<div className="space-y-3">
-					<h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+				<div className="flex flex-col gap-3">
+					<h4 className="text-xs font-semibold text-text-gray-light uppercase tracking-wide">
 						{__( 'Comment', 'burst-statistics' )}
 					</h4>
-					<div className="space-y-2">
+					<div className="flex flex-col gap-2">
 						<TextInput
 							value={commentTitle}
 							onChange={( e ) => updateCommentTitle( reportBlockIndex, e.target.value )}
@@ -160,10 +189,10 @@ export const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({ repo
 							value={commentText}
 							onChange={( e ) => updateCommentText( reportBlockIndex, e.target.value )}
 							placeholder={__( 'Add your insights or comments about this data...', 'burst-statistics' )}
-							className="w-full min-h-[80px] p-2 text-sm text-gray-600 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
+							className="w-full min-h-[80px] p-2 text-sm text-text-gray-light border border-gray-200 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
 							rows={3}
 						/>
-						<p className="text-xs text-gray-500">
+						<p className="text-xs text-text-gray-light">
 							{__( 'This comment will appear next to the block in the report.', 'burst-statistics' )}
 						</p>
 					</div>
@@ -178,7 +207,7 @@ export const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({ repo
 						<button
 							type="button"
 							onClick={() => moveContentUp( reportBlockIndex )}
-							className="p-2 rounded-md hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all focus:ring-2 focus:ring-gray-400 focus:ring-inset"
+							className="p-2 rounded-md hover:bg-gray-200 text-text-gray-light hover:text-text-gray transition-all focus:ring-2 focus:ring-gray-400 focus:ring-inset"
 							aria-label={__( 'Move block up', 'burst-statistics' )}
 							title={__( 'Move block up', 'burst-statistics' )}
 						>
@@ -187,7 +216,7 @@ export const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({ repo
 						<button
 							type="button"
 							onClick={() => moveContentDown( reportBlockIndex )}
-							className="p-2 rounded-md hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all focus:ring-2 focus:ring-gray-400 focus:ring-inset"
+							className="p-2 rounded-md hover:bg-gray-200 text-text-gray-light hover:text-text-gray transition-all focus:ring-2 focus:ring-gray-400 focus:ring-inset"
 							aria-label={__( 'Move block down', 'burst-statistics' )}
 							title={__( 'Move block down', 'burst-statistics' )}
 						>
@@ -199,7 +228,7 @@ export const BlockSettingsSidebar: React.FC<BlockSettingsSidebarProps> = ({ repo
 					<button
 						type="button"
 						onClick={handleDelete}
-						className="flex items-center gap-1.5 px-3 py-2 rounded-md text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-all focus:ring-2 focus:ring-red-500 focus:ring-inset"
+						className={'burst-delete-story-block-' + block.id + ' flex items-center gap-1.5 px-3 py-2 rounded-md text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-all focus:ring-2 focus:ring-red-500 focus:ring-inset'}
 						aria-label={__( 'Delete block', 'burst-statistics' )}
 					>
 						<Icon name="trash" size={14} />

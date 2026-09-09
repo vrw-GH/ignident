@@ -149,29 +149,6 @@ div div .avia-video-element img{
 	-moz-box-sizing: border-box;
 }
 
-.avia-expanded .avia-fixed-controls {
-	-webkit-box-shadow: 0 1px 8px 0px rgba(0,0,0,0.2);
-	-moz-box-shadow: 0 1px 8px 0px rgba(0,0,0,0.2);
-}
-
-.avia-expanded .avia-fixed-controls  .avia-expand-button{
-	background-image: -webkit-gradient(linear,left top,left bottom,from(#DD7C5C),to(#D54E21));
-	background-image: -webkit-linear-gradient(top,#DD7C5C,#D54E21);
-	background-image: -moz-linear-gradient(top,#DD7C5C,#D54E21);
-	background-image: -ms-linear-gradient(top,#DD7C5C,#D54E21);
-	background-image: -o-linear-gradient(top,#DD7C5C,#D54E21);
-	-moz-box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.3);
-	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.avia-expanded .avia-fixed-controls .avia-expand-button:active{
-	background-image: -webkit-gradient(linear,left top,left bottom,from(#D54E21),to(#DD7C5C));
-	background-image: -webkit-linear-gradient(top,#D54E21,#DD7C5C);
-	background-image: -moz-linear-gradient(top,#D54E21,#DD7C5C);
-	background-image: -ms-linear-gradient(top,#D54E21,#DD7C5C);
-	background-image: -o-linear-gradient(top,#D54E21,#DD7C5C);
-}
-
 #avia_builder a.open-template-button.button {
     -webkit-transition-property: border,color;
 }
@@ -258,7 +235,6 @@ div .avia_sorthandle{
 
 .avia_sorthandle a,
 .avia_sortable_element .avia_sorthandle,
-.avia-expand-button,
 .avia-element-title,
 .avia_sorthandle a.avia-element-bg-color{
 	-moz-transition: 	opacity 0.2s ease-in-out; /* Firefox 4 */

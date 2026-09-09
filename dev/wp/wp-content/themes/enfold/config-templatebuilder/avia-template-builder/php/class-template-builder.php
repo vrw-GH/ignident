@@ -11,6 +11,20 @@ if( ! class_exists( 'AviaBuilder', false ) )
 		const VERSION = '6.0';
 
 		/**
+		 * Revision of the builder css and js files, appended to the version string of every
+		 * asset the builder enqueues.
+		 *
+		 * The version otherwise only moves with the theme version, while the files are sent
+		 * with a week of browser caching. A fix patched into an existing release therefore
+		 * does not reach anyone who has opened the builder recently - their browser keeps
+		 * serving the copy it already has, because the url did not change.
+		 *
+		 * Bump this whenever a builder asset is changed without a new theme version. It can
+		 * go back to 1 when the theme version itself moves.
+		 */
+		const ASSET_REVISION = 4;
+
+		/**
 		 * Holds the instance of this class
 		 *
 		 * @since 4.2.1
@@ -413,6 +427,17 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			$this->paths['assetsURL'] = trailingslashit( $this->paths['pluginUrl'] ) . 'assets/';
 			$this->paths['assetsPath'] = trailingslashit( $this->paths['pluginPath'] ) . 'assets/';
 			$this->paths['imagesURL'] = trailingslashit( $this->paths['pluginUrl'] ) . 'images/';
+
+			/**
+			 * Element icons live apart from the bitmaps in images/ because they are read from
+			 * disk and inlined into the page, not linked. Both the URL and the path are kept:
+			 * the URL is what an element still stores in config['icon'], so every icon stays
+			 * openable in a browser, and the path is what the loader reads.
+			 *
+			 * @since 8.0
+			 */
+			$this->paths['iconsURL'] = trailingslashit( $this->paths['pluginUrl'] ) . 'icons/';
+			$this->paths['iconsPath'] = trailingslashit( $this->paths['pluginPath'] ) . 'icons/';
 			$this->paths['configPath'] = apply_filters( 'avia_builder_config_path', $this->paths['pluginPath'] . 'config/' );
 			AviaBuilder::$path = $this->paths;
 
@@ -484,7 +509,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 
 				add_action( 'init', array( $this, 'handler_wp_init' ), 5 );
 				add_action( 'admin_init', array( $this, 'handler_wp_admin_init' ), 1 );
-				add_action( 'wp', array( $this, 'frontend_asset_check' ), 5 );
+				add_action( 'wp_enqueue_scripts', array( $this, 'frontend_asset_check' ), 20 );
 
 				add_action( 'wp_head', array( $this, 'handler_wp_head' ), 99999999 );
 				add_action( 'get_sidebar', array( $this, 'handler_get_sidebar' ), 1, 1 );
@@ -506,7 +531,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 
 				add_action( 'init', array( $this, 'handler_wp_init_lazy_load' ), 5 );
 				add_action( 'admin_init', array( $this, 'handler_wp_admin_init_lazy_load' ), 1 );
-				add_action( 'wp', array( $this, 'handler_wp_lazy_load' ), 5 );
+				add_action( 'wp_enqueue_scripts', array( $this, 'handler_wp_lazy_load' ), 20 );
 			}
 		}
 
@@ -820,6 +845,8 @@ if( ! class_exists( 'AviaBuilder', false ) )
 							'class-generic-helper.php',
 							'class-html-helper.php',
 							'class-svg-shapes.php',
+							'class-element-icons.php',
+							'class-builder-notes.php',
 							'class-front-templates.php',
 							'class-meta-box.php',
 							'class-shortcode-template.php',
@@ -1008,6 +1035,15 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			add_action( 'wp_ajax_avia_ajax_text_to_preview', array( $this, 'text_to_preview' ) );
 			add_action( 'wp_ajax_avia_ajax_text_to_preview_svg_dividers', array( $this, 'text_to_preview_svg_dividers' ) );
 			add_action( 'wp_ajax_avia_alb_shortcode_buttons_order', array( $this, 'handler_alb_shortcode_buttons_order' ), 10 );
+
+			/**
+			 * Registers wp_ajax_avia_dismiss_builder_note.
+			 *
+			 * The class is a lazy singleton, and on an ajax request nothing renders a note -
+			 * so without this call its constructor never runs, the action is never added and
+			 * closing a note silently fails to save.
+			 */
+			Avia_Builder_Notes();
 		}
 
 
@@ -1090,7 +1126,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 		{
 			global $wp_version;
 
-			$ver = $wp_version . '-' . Avia_Builder()->get_theme_version();
+			$ver = $wp_version . '-' . Avia_Builder()->get_theme_version() . '.' . AviaBuilder::ASSET_REVISION;
 			$min_js = avia_minify_extension( 'js' );
 			$min_css = avia_minify_extension( 'css' );
 
@@ -1103,6 +1139,18 @@ if( ! class_exists( 'AviaBuilder', false ) )
 
 			wp_enqueue_script( 'avia_history_js', $this->paths['assetsURL'] . "js/avia-history{$min_js}.js" , array( 'avia_element_js' ), $ver, true );
 			wp_enqueue_script( 'avia_tooltip_js', $this->paths['assetsURL'] . "js/avia-tooltip{$min_js}.js" , array( 'avia_element_js' ), $ver, true );
+			wp_enqueue_script( 'avia_panel_resize_js', $this->paths['assetsURL'] . "js/avia-panel-resize{$min_js}.js" , array( 'avia_element_js' ), $ver, true );
+			wp_enqueue_script( 'avia_panel_search_js', $this->paths['assetsURL'] . "js/avia-panel-search{$min_js}.js" , array( 'avia_element_js' ), $ver, true );
+			wp_enqueue_script( 'avia_panel_fullscreen_js', $this->paths['assetsURL'] . "js/avia-panel-fullscreen{$min_js}.js" , array( 'avia_element_js' ), $ver, true );
+
+			wp_localize_script( 'avia_panel_resize_js', 'AviaBuilderPanelL10n', array(
+						'resize_panel'			=> __( 'Resize element panel', 'avia_framework' ),
+						'search_placeholder'	=> __( 'Search elements', 'avia_framework' ),
+						'search_label'			=> __( 'Search elements', 'avia_framework' ),
+						'no_results'			=> __( 'No elements match your search', 'avia_framework' ),
+						'enter_fullscreen'		=> __( 'Fullscreen', 'avia_framework' ),
+						'exit_fullscreen'		=> __( 'Exit fullscreen', 'avia_framework' )
+					) );
 
 			foreach( $this->registered_admin_scripts as $script )
 			{
@@ -1114,6 +1162,8 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			wp_enqueue_style( 'avia-builder-style' , $this->paths['assetsURL'] . "css/avia-builder{$min_css}.css", false, $ver );
 			wp_enqueue_style( 'avia-custom-elements-style' , $this->paths['assetsURL'] . "css/avia-custom-elements{$min_css}.css", false, $ver );
 			wp_enqueue_style( 'wp-color-picker' );
+
+			$this->add_share_defaults_style();
 
 			/**
 			 * @since 4.2.3 we support columns in rtl order (before they were ltr only). To be backward comp. with old sites use this filter.
@@ -1187,7 +1237,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			$child_theme_url = get_stylesheet_directory_uri();
 			$avia_dyn_stylesheet_url = false;
 			$builder_assets_url = trailingslashit( $this->paths['pluginUrlRoot'] ) . 'avia-template-builder/assets';
-			$ver = Avia_Builder()->get_theme_version();
+			$ver = Avia_Builder()->get_theme_version() . '.' . AviaBuilder::ASSET_REVISION;
 			$min_js = avia_minify_extension( 'js' );
 			$min_css = avia_minify_extension( 'css' );
 
@@ -1429,13 +1479,15 @@ if( ! class_exists( 'AviaBuilder', false ) )
 		 * Creates and returns instance of AviaSaveBuilderTemplate
 		 *
 		 * @since 4.6.4
+		 * @since 7.1.5					added  $ignore_scripts
+		 * @param boolean $ignore_scripts
 		 * @return AviaSaveBuilderTemplate
 		 */
-		public function get_AviaSaveBuilderTemplate()
+		public function get_AviaSaveBuilderTemplate( $ignore_scripts = false )
 		{
 			if( ! $this->builderTemplate instanceof AviaSaveBuilderTemplate )
 			{
-				$this->builderTemplate = new AviaSaveBuilderTemplate( $this );
+				$this->builderTemplate = new AviaSaveBuilderTemplate( $this, $ignore_scripts );
 			}
 
 			return $this->builderTemplate;
@@ -2255,6 +2307,17 @@ if( ! class_exists( 'AviaBuilder', false ) )
 				$classes .= ' wp-default-editor-enabled';
 			}
 
+			/**
+			 * Where the element panel is shown in the fullscreen builder - a side panel or the classic top toolbar.
+			 *
+			 * @since 8.0
+			 * @param string $layout			'sidebar' | 'toolbar'
+			 * @return string
+			 */
+			$panel_layout = apply_filters( 'avf_alb_element_panel_layout', avia_get_option( 'alb_element_panel_layout', 'sidebar' ) );
+
+			$classes .= 'toolbar' == $panel_layout ? ' avia-alb-panel-toolbar' : ' avia-alb-panel-sidebar';
+
 			if( version_compare( $wp_version, '5.5', '>=' ) )
 			{
 				$classes .= ' avia-wp55-fix ';
@@ -2374,6 +2437,19 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			}
 
 			unset( $sc );
+
+			/**
+			 * Fires after all ALB shortcode elements have been instantiated and the
+			 * parent/children containment map has been built - i.e. the element registry
+			 * ( $shortcode_class, $shortcode, $shortcode_parents ) is fully populated.
+			 *
+			 * Added as a stable integration point for the optional AI Builder schema
+			 * extractor. Safe no-op when no listener is attached.
+			 *
+			 * @since 7.1.6
+			 * @param AviaBuilder $this
+			 */
+			do_action( 'ava_builder_shortcodes_registered', $this );
 	 	}
 
 		/**
@@ -2842,10 +2918,15 @@ if( ! class_exists( 'AviaBuilder', false ) )
 
 
 
+			/**
+			 * note_key makes a note dismissable. Leave it empty for a note that explains
+			 * why something is disabled - the user must not be able to hide those.
+			 */
 			$params = array(
 							'disabled'		=> false,
 							'note'			=> '',
 							'noteclass'		=> '',
+							'note_key'		=> '',
 							'button_class'	=> '',
 							'visual_label'	=> __( 'Advanced Layout Editor', 'avia_framework' ),
 							'default_label'	=> __( 'Default Editor', 'avia_framework' )
@@ -2890,7 +2971,10 @@ if( ! class_exists( 'AviaBuilder', false ) )
 
 			if( $params['note'] )
 			{
-				echo "<div class='av-builder-note {$params['noteclass']}'>{$params['note']}</div>";
+				//	returns '' when the note carries a key this user has already closed
+				$note_key = isset( $params['note_key'] ) ? $params['note_key'] : '';
+
+				echo Avia_Builder_Notes()->get_note_html( $params['note'], $params['noteclass'], $note_key );
 			}
 
 			if( 'close' == $close_div )
@@ -3038,7 +3122,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			$output .=	'<div id="avia-sort-list-dropdown" class="avia-sort-list-container" data-init_sort="' . $init_sort . '">';
 			$output .=		'<ul class="avia-sort-list-select">';
 			$output .=			'<li class="avia-sort-list-wrap">';
-			$output .=				'<strong>';
+			$output .=				'<strong data-avia-panel-tooltip="' . esc_attr( __( 'Sort elements', 'avia_framework' ) ) . '">';
 			$output .=					"<span class='avia-font-entypo-fontello {$icon_class}' {$icon['attr']}>";
 			$output .=						$icon['svg'];
 			$output .=					'</span> ';
@@ -3062,9 +3146,20 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			$output .=		'</ul>';
 			$output .=	'</div>';
 
+			/**
+			 * Gives the builder the whole screen - see avia-panel-fullscreen.js for what that means in
+			 * each editor. Outside the drag and drop check on purpose: room to work is not a drag feature,
+			 * and the button is as useful to someone who has drag and drop switched off.
+			 */
+			$fullscreen_label = __( 'Fullscreen', 'avia_framework' );
+
+			$output .=	'<a href="#fullscreen" class="avia-alb-fullscreen" role="button" aria-pressed="false" data-avia-panel-tooltip="' . esc_attr( $fullscreen_label ) . '">';
+			$output .=		esc_html( $fullscreen_label );
+			$output .=	'</a>';
+
 			if( $this->disable_drag_drop == false )
 			{
-				$output .= '<a href="#info" class="avia-hotkey-info" data-avia-help-tooltip="' . $hotekey_info . '">' . __( 'Information', 'avia_framework' ) . '</a>';
+				$output .= '<a href="#info" class="avia-hotkey-info" data-avia-help-tooltip="' . $hotekey_info . '" data-avia-panel-tooltip="' . esc_attr( __( 'Keyboard shortcuts', 'avia_framework' ) ) . '">' . __( 'Information', 'avia_framework' ) . '</a>';
 				$output .= $this->builderTemplate->create_save_button();
 			}
 
@@ -3205,7 +3300,7 @@ if( ! class_exists( 'AviaBuilder', false ) )
 			}
 
 
-			$icon = isset( $shortcode['icon'] ) ? '<img src="' . $shortcode['icon'] . '" alt="' . esc_attr( $shortcode['name'] ) . '" />' : '';
+			$icon = isset( $shortcode['icon'] ) ? Avia_Element_Icons()->get_html( $shortcode['icon'], $shortcode['name'] ) : '';
 
 			$data  = ! empty( $shortcode['tooltip'] ) ? ' data-avia-tooltip="' . esc_attr( $shortcode['tooltip'] ) . '" ' : '';
 			$data .= ! empty( $shortcode['drag-level'] ) ? " data-dragdrop-level='{$shortcode['drag-level']}' " : '';
@@ -3592,6 +3687,70 @@ if( ! class_exists( 'AviaBuilder', false ) )
 		}
 
 
+
+		/**
+		 * Tells the canvas which share buttons the site offers by default.
+		 *
+		 * A Social Buttons element set to follow the blog draws whatever is switched on under Blog
+		 * Layout, and that answer is the same for every such element on the page - so it is worked out
+		 * once here rather than by each element in turn, and written as a rule the stylesheet applies.
+		 * Every element then draws one set of icons instead of two, and the page carries one copy of
+		 * the answer instead of one per element.
+		 *
+		 * Nothing is enqueued when the site has no share buttons switched on, which is also the case
+		 * where an element following the blog correctly shows none.
+		 *
+		 * @since 8.0
+		 * @return void
+		 */
+		protected function add_share_defaults_style()
+		{
+			$icons = avia_font_manager::get_icon_shortcuts();
+
+			if( ! is_array( $icons ) )
+			{
+				return;
+			}
+
+			$options = avia_get_option();
+
+			if( ! is_array( $options ) )
+			{
+				return;
+			}
+
+			$selectors = array();
+
+			foreach( $icons as $key => $icon )
+			{
+				if( 0 !== strpos( $key, 'svg__' ) )
+				{
+					continue;
+				}
+
+				/*
+				 * A network counts as offered only if it was saved as such. One that was never saved is
+				 * off, not on - which is the rule the frontend follows when it draws these buttons, and
+				 * reading it the other way would show every network the theme knows on an element whose
+				 * owner had chosen none. See class-social-media-icons.php, which says as much.
+				 */
+				$share_key = 'share_' . $key;
+
+				if( ! isset( $options[ $share_key ] ) || ( 'disabled' == $options[ $share_key ] ) )
+				{
+					continue;
+				}
+
+				$selectors[] = '.avia_inner_shortcode [data-update_class_with="buttons"]:not(.avia-buttons-custom) span[data-update_class_with="share_' . $key . '"]';
+			}
+
+			if( empty( $selectors ) )
+			{
+				return;
+			}
+
+			wp_add_inline_style( 'avia-builder-style', implode( ',', $selectors ) . '{display:block}' );
+		}
 
 		/**
 		 * this helper function tells the tiny_mce_editor to remove any span tags that dont have a classname (list insert on ajax tinymce tend do add them)

@@ -54,11 +54,13 @@ if ( ! class_exists( 'avia_sc_chart', false ) )
 
 			$this->config['name']			= __( 'Chart', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-chart.png';
-			$this->config['order']			= 5;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-chart.svg';
+			$this->config['order']			= 48;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_chart';
 			$this->config['shortcode_nested'] = array( 'av_chart_dataset' );
+			//	the canvas shows the dataset names - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_chart_dataset', 'attr' => 'dataset_label' );
 			$this->config['tooltip']		= __( 'Displays different types of charts based on static user data - or dynamic data with filter', 'avia_framework' );
 //			$this->config['drag-level'] 	= 3;
 			$this->config['preview'] 		= 'large';

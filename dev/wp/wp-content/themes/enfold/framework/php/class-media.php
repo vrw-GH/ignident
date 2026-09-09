@@ -227,7 +227,12 @@ if( ! class_exists( 'avia_media_gallery', false ) )
 
 				if( isset( $_REQUEST['avia_gallery_label'] ) )
 				{
-					$label = $_REQUEST['avia_gallery_label'];
+					/**
+					 * @since 7.1.5
+					 * @link https://github.com/KriesiMedia/wp-themes/issues/4700  Patchstack Cross Site Scripting vulnerability
+					 */
+//					$label = $_REQUEST['avia_gallery_label'];
+					$label = esc_html( sanitize_text_field( $_REQUEST['avia_gallery_label'] ) );
 				}
 
 				$form_fields['avia-send-to-editor'] = array(

@@ -1,0 +1,116 @@
+
+.htcontact-form-banner {
+    --exfcf7: #2bc48a;
+    --white: #ffffff;
+    --black: #222222;
+    padding: 30px;
+    font-size: 14px;
+    line-height: 1.75;
+    background: var(--exfcf7);
+    color: var(--white);
+    border-radius: 8px;
+}
+.htcontact-form-banner h2 {
+	color: var(--white);
+    font-size: 1.25rem;
+    line-height: 1.25;
+    margin-top: 0;
+}
+.htcontact-form-banner ul.htcontact-form-banner-feature-list li {
+    position: relative;
+    padding-left: 22px;
+}
+.htcontact-form-banner ul.htcontact-form-banner-feature-list li::before {
+    content: url(../images/icon/white-check.png);
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+.htcontact-form-banner a.htcontact-form-banner-btn {
+    background-color: var(--white);
+	color: var(--black);
+    padding: 5px 5px 5px 20px;
+    border-radius: 25px;
+    outline: 0;
+    transition: 0.4s;
+    display: inline-flex;
+    text-decoration: none;
+    align-items: center;
+    gap: 15px;
+}
+.htcontact-form-banner a.htcontact-form-banner-btn .htcontact-form-banner-btn-icon {
+    background-color: var(--exfcf7);
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    display: inline-block;
+    text-align: center;
+    line-height: 35px;
+    transition: 0.4s;
+}
+.htcontact-form-banner a.htcontact-form-banner-btn:hover {
+	color: var(--exfcf7);
+    box-shadow: 0 0 28px rgb(0 0 0 / 10%);
+}
+
+/* CookieRay cross-promo banner — distinct dark indigo + amber accent */
+.htcontact-form-cookieray-banner {
+    --cr-bg: #1e1b4b;
+    --cr-bg-2: #312e81;
+    --cr-accent: #fbbf24;
+    --cr-white: #ffffff;
+    --cr-muted: #c7d2fe;
+    position: relative;
+    padding: 28px;
+    font-size: 14px;
+    line-height: 1.7;
+    background: linear-gradient(150deg, var(--cr-bg) 0%, var(--cr-bg-2) 100%);
+    color: var(--cr-white);
+    border-radius: 8px;
+    border: 1px solid rgba(251, 191, 36, 0.25);
+}
+.htcontact-form-cookieray-banner h2 {
+    color: var(--cr-white);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin: 0 0 10px;
+}
+.htcontact-form-cookieray-desc {
+    color: var(--cr-muted);
+    margin: 0 0 16px;
+}
+.htcontact-form-cookieray-banner ul.htcontact-form-cookieray-feature-list {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+}
+.htcontact-form-cookieray-banner ul.htcontact-form-cookieray-feature-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 4px;
+}
+.htcontact-form-cookieray-banner ul.htcontact-form-cookieray-feature-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--cr-accent);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+}
+.htcontact-form-cookieray-banner a.htcontact-form-cookieray-btn {
+    display: inline-block;
+    background: var(--cr-accent);
+    color: var(--cr-bg);
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: 0.4s;
+}
+.htcontact-form-cookieray-banner a.htcontact-form-cookieray-btn:hover {
+    background: var(--cr-white);
+    box-shadow: 0 0 28px rgb(251 191 36 / 25%);
+}

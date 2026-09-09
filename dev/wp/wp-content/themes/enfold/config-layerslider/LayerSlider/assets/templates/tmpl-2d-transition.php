@@ -12,7 +12,7 @@
 				<tr>
 					<td colspan="2">
 						<div class="ls-builder-preview ls-transition-preview">
-							<img src="<?= LS_ROOT_URL ?>/static/admin/img/sample_slide_1.jpg" alt="preview image">
+							<img src="<?= $GLOBALS['lsSlideTransitionImages'][0] ?>" alt="preview image">
 						</div>
 					</td>
 					<td colspan="2">

@@ -41,8 +41,7 @@ $boxes = array(
 				'id'			=>'avia_builder',
 				'page'			=> $alb_post_types,
 				'context'		=> 'normal',
-				'priority'		=> 'high',
-				'expandable'	=> true
+				'priority'		=> 'high'
 			),
 			array(
 				'title'			=> __( 'Enfold Custom Layout Settings', 'avia_framework' ),
@@ -56,8 +55,7 @@ $boxes = array(
 				'id'			=> 'avia_sc_parser',
 				'page'			=> $alb_post_types,
 				'context'		=> 'normal',
-				'priority'		=> 'high',
-				'expandable'	=> false
+				'priority'		=> 'high'
 			),
 			array(
 				'title'			=> __( 'Layout', 'avia_framework' ),
@@ -114,7 +112,17 @@ $elements = array(
 				'name'		=> __( 'Visual layout editor', 'avia_framework' ),
 				'id'		=> 'layout_editor',
 				'type'		=> array( Avia_Builder(), 'visual_editor' ),
-				'tab_order'	=> array( __( 'Layout Elements', 'avia_framework' ), __( 'Content Elements', 'avia_framework' ), __( 'Media Elements', 'avia_framework' ) ),
+				/**
+				 * The order the element sections are shown in. A section named by an element but missing
+				 * here is added after these, which is where Plugin Additions comes from.
+				 */
+				'tab_order'	=> array(
+									__( 'Layout Elements', 'avia_framework' ),
+									__( 'Basic Elements', 'avia_framework' ),
+									__( 'Content Elements', 'avia_framework' ),
+									__( 'Post Loops', 'avia_framework' ),
+									__( 'Media Elements', 'avia_framework' )
+								),
 				'desc'		=> '<h4>'.__( 'Quick Info & Hotkeys', 'avia_framework' ) . '</h4>'.
 								'<strong>'.__( 'General Info', 'avia_framework' ) . '</strong>' .
 								'<ul>' .

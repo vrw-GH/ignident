@@ -93,6 +93,21 @@ final class Report_Content_Block {
 	public const COUNTRIES = 'countries';
 
 	/**
+	 * Text content block.
+	 */
+	public const TEXT = 'text_block';
+
+	/**
+	 * Hero content block.
+	 */
+	public const HERO = 'hero';
+
+	/**
+	 * Footer content block.
+	 */
+	public const FOOTER = 'footer';
+
+	/**
 	 * Default Report Content blocks.
 	 */
 	public const DEFAULT = [ self::COMPARE, self::MOST_VISITED_PAGES, self::TOP_REFERRERS ];
@@ -102,6 +117,7 @@ final class Report_Content_Block {
 	 */
 	private const ALL = [
 		self::LOGO,
+		self::HERO,
 		self::COMPARE,
 		self::MOST_VISITED_PAGES,
 		self::TOP_REFERRERS,
@@ -118,6 +134,8 @@ final class Report_Content_Block {
 		self::FUNNEL,
 		self::TOP_PERFORMERS,
 		self::REFERRERS,
+		self::TEXT,
+		self::FOOTER,
 	];
 
 	/**
@@ -137,7 +155,7 @@ final class Report_Content_Block {
 	 *
 	 * @return array<int, array{
 	 *      id: string,
-	 *      filters: string,
+	 *      filters: string[],
 	 *      content: string,
 	 *      date_range: string,
 	 *      comment_title: string,
@@ -149,7 +167,7 @@ final class Report_Content_Block {
 		return array_map(
 			fn( $id ) => [
 				'id'            => $id,
-				'filters'       => '',
+				'filters'       => [],
 				'content'       => '',
 				'date_range'    => '',
 				'comment_title' => '',

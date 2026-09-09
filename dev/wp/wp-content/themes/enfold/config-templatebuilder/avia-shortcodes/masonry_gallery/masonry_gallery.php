@@ -66,10 +66,12 @@ if( ! class_exists( 'avia_sc_masonry_gallery', false ) )
 
 			$this->config['name']			= __( 'Masonry Gallery', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-masonry-gallery.png';
-			$this->config['order']			= 5;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-masonry-gallery.svg';
+			$this->config['order']			= 95;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_masonry_gallery';
+			//	the canvas shows the pictures it holds - see editor_element_images()
+			$this->config['alb_items']		= array( 'images' => 'ids' );
 			$this->config['tooltip'] 	    = __( 'Display a fullwidth masonry/grid gallery', 'avia_framework' );
 			$this->config['drag-level'] 	= 3;
 			$this->config['preview'] 		= false;
@@ -248,6 +250,8 @@ if( ! class_exists( 'avia_sc_masonry_gallery', false ) )
 							'type'		=> 'gallery',
 							'title'		=> __( 'Add/Edit Gallery', 'avia_framework' ),
 							'button'	=> __( 'Insert Images', 'avia_framework' ),
+							'delete'	=> __( 'Clear Gallery', 'avia_framework' ),
+							'delete_class' => 'avia-delete-gallery-button',
 							'std'		=> '',
 							'modal_class' => 'av-show-image-custom-link',
 							'lockable'	=> true
@@ -724,6 +728,7 @@ if( ! class_exists( 'avia_sc_masonry_gallery', false ) )
 			}
 
 			$masonry = $this->obj_masonry[ $element_id ];
+			$masonry->update_config( array( 'custom_class' => '', 'id' => '' ) );
 			$output = $masonry->html( true );
 
 			Av_Responsive_Images()->force_disable( 'reset' );

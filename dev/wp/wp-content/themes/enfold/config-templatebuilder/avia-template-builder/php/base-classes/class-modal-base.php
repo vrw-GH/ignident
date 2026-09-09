@@ -540,7 +540,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalBase', false ) )
 								$val = ( false !== $sep ) ? substr( $value1, 0, $sep ) : $value1;
 								$return = in_array( $val, explode( ',', $value2 ) );
 								break;
-							case 'parent_not_in_array';		//	$value1 = 'value,id' or 'value'; $value2 = 'val1,val2,....'
+							case 'parent_not_in_array':		//	$value1 = 'value,id' or 'value'; $value2 = 'val1,val2,....'
 								$sep = strpos( $value1, ',' );
 								$val = ( false !== $sep ) ? substr( $value1, 0, $sep ) : $value1;
 								$return = ! in_array( $val, explode( ',', $value2 ) );
@@ -672,6 +672,33 @@ if( ! class_exists( __NAMESPACE__ . '\aviaModalBase', false ) )
 					$script_class .= ' avia-copy-element-template';
 				}
 			}
+
+			/**
+			 * The template is a new item, so it carries nothing of the items already there.
+			 *
+			 * It is built from the first of them on purpose - that is how a new item inherits the element
+			 * template it must not lose, which avia-media.js reads back out of this markup. What it must
+			 * not inherit is that item's content, and it did: everything the first entry held came along,
+			 * so adding an entry produced a copy of one instead of a blank.
+			 *
+			 * So the first entry is reduced to the one value the template is built from it for, and the
+			 * attributes of the last entry - left behind by the loop above - are cleared as well.
+			 *
+			 * @since 8.0
+			 */
+			if( 0 === $std_index )
+			{
+				$keep = array();
+
+				if( isset( $element['std'][0] ) && is_array( $element['std'][0] ) && isset( $element['std'][0]['element_template'] ) )
+				{
+					$keep['element_template'] = $element['std'][0]['element_template'];
+				}
+
+				$element['std'][0] = $keep;
+			}
+
+			$element['shortcode_data'] = array();
 
 			/**
 			 * Go the new wordpress way and instead of ajax-loading new items, prepare an empty js template

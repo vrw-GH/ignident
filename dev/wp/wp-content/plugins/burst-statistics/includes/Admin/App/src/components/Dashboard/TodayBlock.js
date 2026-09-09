@@ -1,16 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import Tooltip from '@/components/Common/Tooltip';
+import MetricInfo from '@/components/Common/MetricInfo';
 import { useQuery } from '@tanstack/react-query';
 import getTodayData from '@//api/getTodayData';
 import Icon from '@//utils/Icon';
-import { endOfDay, format, startOfDay } from 'date-fns';
 import { useRef, useMemo } from 'react';
-import { getDateWithOffset } from '@//utils/formatting';
 import { safeDecodeURI } from '@//utils/lib';
 import { Block } from '@/components/Blocks/Block';
 import { BlockHeading } from '@/components/Blocks/BlockHeading';
 import { BlockContent } from '@/components/Blocks/BlockContent';
 import { useLiveVisitorsData } from '@/hooks/useLiveVisitorsData';
+import useDashboardDateRange from '@/hooks/useDashboardDateRange';
 
 function selectVisitorIcon( value ) {
 	value = parseInt( value );
@@ -22,21 +22,13 @@ function selectVisitorIcon( value ) {
 	return 'visitor';
 }
 
+// fallow-ignore-next-line complexity
 const TodayBlock = () => {
 	const intervalRef = useRef( 5000 );
 	const setInterval = ( value ) => {
 		intervalRef.current = value;
 	};
-
-	const currentDateWithOffset = useMemo( () => getDateWithOffset(), []);
-	const startDate = useMemo(
-		() => format( startOfDay( currentDateWithOffset ), 'yyyy-MM-dd' ),
-		[ currentDateWithOffset ]
-	);
-	const endDate = useMemo(
-		() => format( endOfDay( currentDateWithOffset ), 'yyyy-MM-dd' ),
-		[ currentDateWithOffset ]
-	);
+	const { startDate, endDate } = useDashboardDateRange();
 
 	const placeholderData = useMemo(
 		() => ({
@@ -79,6 +71,7 @@ const TodayBlock = () => {
 	});
 
 	const liveVisitorsQuery = useLiveVisitorsData();
+	const isLoading = todayDataQuery.isFetching || liveVisitorsQuery.isFetching;
 	const live = liveVisitorsQuery.data;
 	let data = todayDataQuery.data;
 	if ([ liveVisitorsQuery, todayDataQuery ].some( ( query ) => query.isError ) ) {
@@ -91,15 +84,16 @@ const TodayBlock = () => {
 	}
 
 	return (
-		<Block className="row-span-2 lg:col-span-6 xl:col-span-3 overflow-hidden">
+		<Block className="row-span-2 @lg:col-span-6 @xl:col-span-3 overflow-hidden">
 			<BlockHeading
 				title={__( 'Today', 'burst-statistics' )}
 				controls={undefined}
 				className="border-b border-gray-200"
+				isLoading={isLoading}
 			/>
 			<BlockContent className="px-0 py-0">
 				<div className="burst-today">
-					<div className="px-2.5 py-6 md:px-5 grid w-full grid-cols-2 gap-4 bg-green-light">
+					<div className="px-2.5 py-6 md:px-5 grid w-full grid-cols-2 gap-4 bg-green-50">
 						<Tooltip content={data.live.tooltip}>
 							<div className="rounded-md flex flex-col justify-center text-center py-4 items-center flex-wrap bg-white burst-tooltip-live">
 								<Icon name={liveIcon} size="26" />
@@ -158,7 +152,9 @@ const TodayBlock = () => {
 							<div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-2 py-2.5 px-2.5 md:px-6 even:bg-gray-100 burst-tooltip-pageviews">
 								<Icon name="pageviews" />
 								<p className="burst-today-list-item-text w-full mr-auto">
-									{data.pageviews.title}
+									<MetricInfo metricKey="pageviews" side="top">
+										{data.pageviews.title}
+									</MetricInfo>
 								</p>
 								<p className="font-semibold">
 									{data.pageviews.value}
@@ -169,7 +165,9 @@ const TodayBlock = () => {
 							<div className="w-full grid justify-items-start grid-cols-auto-1fr-auto gap-2 py-2.5 px-2.5 md:px-6 even:bg-gray-100 burst-tooltip-timeOnPage">
 								<Icon name="time" />
 								<p className="burst-today-list-item-text w-full mr-auto">
-									{data.timeOnPage.title}
+									<MetricInfo metricKey="time_on_page" side="top">
+										{data.timeOnPage.title}
+									</MetricInfo>
 								</p>
 								<p className="font-semibold">
 									{data.timeOnPage.value}

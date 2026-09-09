@@ -1236,8 +1236,7 @@ if( ! class_exists( 'Avia_Gutenberg', false ) )
 							'id'			=> 'avia_alb_actions',
 							'page'			=> Avia_Builder()->get_supported_post_types(),
 							'context'		=> 'side',
-							'priority'		=> 'high',
-							'expandable'	=> false
+							'priority'		=> 'high'
 						);
 
 			return $boxes;
@@ -1452,6 +1451,8 @@ if( ! class_exists( 'Avia_Gutenberg', false ) )
 
 			if ( is_post_type_viewable( $post_type_object ) )
 			{
+				$permalink = get_permalink( $post->ID );
+				
 				$sample_permalink_html = $post_type_object->public ? get_sample_permalink_html( $post->ID ) : '';
 				$sample_permalink_html = str_replace( 'edit-slug', 'av-edit-alb-permalink', $sample_permalink_html );
 

@@ -47,7 +47,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 		 */
 		public function __construct( $atts = array(), ?aviaShortcodeTemplate $sc_context = null )
 		{
-			parent::__construct( $atts, $sc_context, avia_masonry::default_args( $atts ) );
+			parent::__construct( $atts, $sc_context, avia_masonry::default_args() );
 
 			self::$element ++;
 
@@ -55,7 +55,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 			$this->loop = array();
 			$this->current_page = 1;
 
-			$this->config = shortcode_atts( avia_masonry::default_args( $atts ), $atts, 'av_masonry_entries' );
+			$this->config = shortcode_atts( avia_masonry::default_args(), $atts, 'av_masonry_entries' );
 
 		 	if( $this->config['caption_elements'] == 'none' )
 		 	{
@@ -584,7 +584,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 
 			$output  = '';
 			$output .= $style_tag;
-			$output .= "<div id='{$id_el}' class='{$container_class} {$custom_class}' {$data}>";
+			$output .= "<div id='" . esc_attr( $id_el ) . "' class='" . esc_attr( trim( "{$container_class} {$custom_class}" ) ) . "' {$data}>";
 			$output .=		$this->config['sort'] != 'no' ? $this->sort_buttons() : '';
 			$output .=		'<div class="av-masonry-container isotope av-js-disabled">';
 
@@ -858,7 +858,7 @@ if( ! class_exists( 'avia_masonry', false ) )
 			}
 
 			//if its an ajax call return the items only without container
-			if( isset( $this->config['action'] ) && $this->config['action'] == 'avia_ajax_masonry_more' )
+			if( $ajax_callback )
 			{
 				return $items;
 			}

@@ -20,20 +20,21 @@ const RANGE_KEYS = [
 	'month-to-date',
 	'year-to-date',
 	'last-year',
+	'all-time',
 	'custom'
 ] as const;
 
-export type RangeKey = ( typeof RANGE_KEYS )[number];
+type RangeKey = ( typeof RANGE_KEYS )[number];
 
 // Date range search params type.
-export interface DateRangeSearchParams {
+interface DateRangeSearchParams {
 	startDate?: string;
 	endDate?: string;
 	range?: RangeKey;
 }
 
 // Routes where URL date range sync is enabled.
-const DATE_RANGE_ENABLED_ROUTES = [ '/statistics', '/sources', '/sales' ];
+const DATE_RANGE_ENABLED_ROUTES = [ '/statistics', '/engagement', '/sources', '/sales', '/table' ];
 
 /**
  * Check if current route supports URL date range sync.
@@ -80,6 +81,7 @@ const isValidRangeKey = ( rangeKey: string | undefined ): rangeKey is RangeKey =
  * @param searchParams - The current search params from URL.
  * @return True if URL contains valid date range params.
  */
+// fallow-ignore-next-line complexity
 const hasUrlDateRange = ( searchParams: DateRangeSearchParams ): boolean => {
 	const { range, startDate, endDate } = searchParams;
 
@@ -149,6 +151,7 @@ const buildDateSearchParams = (
 	const result: Record<string, string> = {};
 
 	// Copy existing params except date range and trailing param.
+	// fallow-ignore-next-line complexity
 	Object.keys( currentParams ).forEach( ( key ) => {
 		if (
 			key !== TRAILING_PARAM_KEY &&
@@ -185,6 +188,7 @@ const buildDateSearchParams = (
  *
  * @return Date range state and actions.
  */
+// fallow-ignore-next-line complexity
 export const useDateRange = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -206,6 +210,7 @@ export const useDateRange = () => {
 		Record<string, string | undefined>;
 
 	// Compute active date range (from URL or fallback to Zustand).
+	// fallow-ignore-next-line complexity
 	const dateRange = useMemo( () => {
 		if ( isDateRangeRoute && hasUrlDateRange( searchParams ) ) {
 			const { range, startDate, endDate } = searchParams;
@@ -247,6 +252,7 @@ export const useDateRange = () => {
 	]);
 
 	// Initialize: restore from Zustand if URL has no date range (only on enabled routes).
+	// fallow-ignore-next-line complexity
 	useEffect( () => {
 		if ( ! isDateRangeRoute || hasInitialized.current ) {
 			return;
@@ -296,6 +302,7 @@ export const useDateRange = () => {
 	}, [ isDateRangeRoute ]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Sync date range to Zustand whenever it changes from URL.
+	// fallow-ignore-next-line complexity
 	useEffect( () => {
 		if ( ! isDateRangeRoute || ! hasInitialized.current ) {
 			return;
@@ -347,6 +354,8 @@ export const useDateRange = () => {
 	 * @param endDate   - End date (only for custom range).
 	 */
 	const setDateRange = useCallback(
+
+		// fallow-ignore-next-line complexity
 		( range: RangeKey, startDate?: string, endDate?: string ) => {
 
 			// Update Zustand store.

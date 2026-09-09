@@ -4,8 +4,8 @@ Donate link: http://www.dfactory.co/
 Tags: image, images, watermark, watermarking, protection
 Requires at least: 6.0
 Requires PHP: 7.0
-Tested up to: 6.9.1
-Stable tag: 2.0.9
+Tested up to: 7.0.1
+Stable tag: 2.0.12
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -20,8 +20,10 @@ Enhance your WordPress site's image security and branding. Image Watermark allow
 * **Watermark Types**: Choose from image-based or text-based watermarks with full customization.
 * **Flexible Application**: Automatic watermarking on uploads, manual/bulk apply/remove via Media Library.
 * **Advanced Customization**: Position watermarks precisely, adjust sizes, opacity, and more.
+* **Small Image Rules**: Skip watermarking for images below configurable minimum width and height thresholds.
 * **Backup & Restore**: Secure backups for easy watermark removal.
 * **Image Protection**: Prevent copying via right-click, drag-and-drop, and developer tools.
+* **Status & Diagnostics**: Review PHP, image engine, and backup-folder readiness from the built-in Status tab.
 * **Technical Excellence**: Supports JPEG, PNG, WebP; ImageMagick/GD engines; preserves metadata.
 
 Perfect for photographers, bloggers, and businesses looking to safeguard their visual content.
@@ -40,7 +42,8 @@ For more information, check out the [plugin page](http://www.dfactory.co/product
 * Flexible watermark positioning (9 alignment options with pixel or percentage-based offsets)
 * Three watermark size modes: original, custom dimensions, or scaled to image size
 * Adjustable watermark transparency and opacity
-* Watermark image preview for real-time adjustments
+* Watermark preview support for image and text watermark modes
+* Optional skip rules for small images based on minimum width and height thresholds
 * Selective application: Choose specific post types or enable everywhere (including frontend uploads)
 * Image format selection (baseline or progressive JPEG)
 * Configurable image quality settings
@@ -48,6 +51,7 @@ For more information, check out the [plugin page](http://www.dfactory.co/product
 **Backup & Management:**
 * Automatic image backup functionality (stores originals for easy restoration)
 * Option to remove watermarks (restores from backups when available)
+* Optional preservation of file timestamps during backup and restore
 * Secure backup storage with .htaccess protection
 
 **Image Protection:**
@@ -61,6 +65,7 @@ For more information, check out the [plugin page](http://www.dfactory.co/product
 * Dual image processing engines: ImageMagick (preferred) with GD library fallback
 * EXIF and IPTC metadata preservation (where supported)
 * Cache-busting for immediate thumbnail updates after watermark changes
+* Built-in Status tab for PHP, engine, and backup-folder diagnostics
 * Translation-ready with included .pot file
 
 == Installation ==
@@ -83,11 +88,25 @@ For more information, check out the [plugin page](http://www.dfactory.co/product
    - For existing images, go to Media Library > Bulk Select, choose images, and use the "Apply Watermark" bulk action.
    - Preview watermarks in the settings page and test on a sample image to ensure everything works.
 
-**Requirements**: WordPress 6.0+, PHP 7.4+, and either GD or ImageMagick library. If issues arise, check server compatibility in Settings > Watermark > Status tab.
+**Requirements**: WordPress 6.0+, PHP 7.0+ (7.2+ recommended), and either GD or ImageMagick library. If issues arise, check server compatibility in Settings > Watermark > Status tab.
 
 == Frequently Asked Questions ==
 
-No questions yet.
+= Can I remove a watermark later? =
+
+Yes. Watermark removal restores the original file from the plugin backup folder. Keep backups enabled before applying watermarks if you want removal to remain available later.
+
+= Which image formats and libraries are supported? =
+
+Image Watermark supports JPEG, PNG, and WebP uploads. The server needs either ImageMagick or GD available, and the Status tab shows which engine is active.
+
+= Can I skip very small images? =
+
+Yes. Enable the small-image threshold option in the Watermark settings and set a minimum width and/or height. Images below the configured limit are skipped.
+
+= Does frontend image protection fully secure my images? =
+
+No. The right-click, drag-and-drop, and developer-tools protections are browser-side deterrents. They help discourage casual copying but should not be treated as absolute protection.
 
 == Screenshots ==
 
@@ -96,6 +115,18 @@ No questions yet.
 3. screenshot-3.png
 
 == Changelog ==
+
+= 2.0.12 =
+* New: Trust diagnostics for watermark readiness in the Status tab
+* Fix: Imagick detection and text metrics compatibility
+
+= 2.0.11 =
+* Fix: Detect Imagick support correctly on servers exposing camelCase methods
+* Fix: Prevent false-success apply responses when watermarking fails
+* Fix: Read small-image thresholds from the actual image dimensions
+
+= 2.0.10 =
+* New: Add small-image threshold controls for watermark eligibility
 
 = 2.0.9 =
 * Fix: Gutenberg auto-watermarking for admin media uploads
@@ -313,5 +344,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 2.0.9 =
-Fixes Gutenberg auto-watermarking and admin media frame compatibility issues.
+= 2.0.12 =
+Adds trust diagnostics for watermark readiness and fixes Imagick detection compatibility.

@@ -8,16 +8,20 @@ use Burst\Traits\Admin_Helper;
 class Integrations {
 	use Admin_Helper;
 
-	public array $integrations = [];
+	public array $integrations              = [];
+	public ?bool $should_load_ecommerce     = null;
+	public ?bool $should_load_subscriptions = null;
 	/**
 	 * Constructor
 	 */
 	public function init(): void {
-		add_action( 'plugins_loaded', [ $this, 'load_integrations' ] );
-		add_action( 'plugins_loaded', [ $this, 'register_for_consent_api' ] );
+		$this->integrations = apply_filters( 'burst_integrations', $this->default_integrations() );
+
 		add_action( 'init', [ $this, 'load_translations' ] );
 
-		$this->integrations = apply_filters( 'burst_integrations', $this->default_integrations() );
+		// We can load integrations here directly, because our main plugin file instantiating this on plugins_loaded hook with priority 9.
+		$this->load_integrations();
+		$this->register_for_consent_api();
 	}
 
 	/**
@@ -26,15 +30,44 @@ class Integrations {
 	 * @return bool True if any active integration requires ecommerce features.
 	 */
 	public function should_load_ecommerce(): bool {
-		$should_load = false;
+		if ( $this->should_load_ecommerce !== null ) {
+			return $this->should_load_ecommerce;
+		}
+
+		if ( $this->is_mainwp_request() ) {
+			$this->should_load_ecommerce = true;
+			return $this->should_load_ecommerce;
+		}
+
+		$this->should_load_ecommerce = false;
 		foreach ( $this->integrations as $plugin => $details ) {
 			if ( isset( $details['load_ecommerce_integration'] ) && $details['load_ecommerce_integration'] && $this->plugin_is_active( $plugin ) ) {
-				$should_load = true;
+				$this->should_load_ecommerce = true;
 				break;
 			}
 		}
 
-		return apply_filters( 'burst_load_ecommerce_integration', $should_load );
+		$this->should_load_ecommerce = (bool) apply_filters( 'burst_load_ecommerce_integration', $this->should_load_ecommerce );
+		return $this->should_load_ecommerce;
+	}
+
+	/**
+	 * Check if there are any subscriptions
+	 *
+	 * @return bool True if there are subscriptions, false otherwise.
+	 */
+	public function has_subscription_integrations_enabled(): bool {
+		if ( $this->should_load_subscriptions !== null ) {
+			return $this->should_load_subscriptions;
+		}
+
+		if ( $this->is_mainwp_request() ) {
+			$this->should_load_subscriptions = true;
+			return $this->should_load_subscriptions;
+		}
+
+		$this->should_load_subscriptions = (bool) apply_filters( 'burst_subscription_integrations_enabled', false );
+		return $this->should_load_subscriptions;
 	}
 
 	/**
@@ -58,36 +91,174 @@ class Integrations {
 	 * Load the integrations
 	 */
 	public function load_integrations(): void {
-		foreach ( $this->integrations as $plugin => $details ) {
-			if ( $this->plugin_is_active( $plugin ) ) {
+		$non_dependent_integrations = array_filter(
+			$this->integrations,
+			function ( $details ) {
+				return empty( $details['required_plugins'] );
+			}
+		);
 
-				if ( isset( $details['required_plugins'] ) ) {
-					$all_required_active = true;
+		$dependent_integrations = array_filter(
+			$this->integrations,
+			function ( $details ) {
+				return ! empty( $details['required_plugins'] );
+			}
+		);
 
-					foreach ( $details['required_plugins'] as $required_plugin ) {
-						if ( ! $this->plugin_is_active( $required_plugin ) ) {
-							$all_required_active = false;
-							break;
-						}
-					}
+		foreach ( $non_dependent_integrations as $plugin => $details ) {
+			if ( ! $this->plugin_is_active( $plugin ) ) {
+				continue;
+			}
 
-					if ( ! $all_required_active ) {
-						continue;
-					}
-				}
+			if ( empty( $details['php_scripts'] ) ) {
+				continue;
+			}
 
-				$file          = apply_filters( 'burst_integration_path', BURST_PATH . "includes/Integrations/plugins/$plugin.php", $plugin );
-				$is_admin_only = $details['admin_only'] ?? false;
-				$can_load      = ( $is_admin_only && $this->has_admin_access() ) || ! $is_admin_only;
+			$php_scripts_to_load = $this->get_integrations_to_load( $details['php_scripts'], $plugin );
 
-				if ( $can_load && file_exists( $file ) ) {
-					require_once $file;
-				}
+			if ( empty( $php_scripts_to_load ) ) {
+				continue;
+			}
+
+			foreach ( $php_scripts_to_load as $php_script ) {
+				require_once $php_script['file'];
+			}
+		}
+
+		foreach ( $dependent_integrations as $plugin => $details ) {
+			if ( ! $this->plugin_is_active( $plugin ) ) {
+				continue;
+			}
+
+			if ( isset( $details['required_plugins'] ) && ! $this->are_all_required_plugins_active( $details['required_plugins'] ) ) {
+				continue;
+			}
+
+			if ( empty( $details['php_scripts'] ) ) {
+				continue;
+			}
+
+			$php_scripts_to_load = $this->get_integrations_to_load( $details['php_scripts'], $plugin );
+
+			if ( empty( $php_scripts_to_load ) ) {
+				continue;
+			}
+
+			foreach ( $php_scripts_to_load as $php_script ) {
+				require_once $php_script['file'];
 			}
 		}
 	}
+
 	/**
-	 * Check if the plugin is active
+	 * Get the integrations to load
+	 *
+	 * @param array $php_script_lists Integration details.
+	 * @return array List of integrations to load.
+	 */
+	public function get_integrations_to_load( array $php_script_lists, string $plugin ): array {
+		$integrations = [];
+
+		if ( ! empty( $php_script_lists['admin_scripts'] ) && is_array( $php_script_lists['admin_scripts'] ) ) {
+			foreach ( $php_script_lists['admin_scripts'] as $script ) {
+				$file = apply_filters( 'burst_integration_path', BURST_PATH . "includes/Integrations/plugins/{$plugin}/{$script}", $plugin );
+
+				if ( ! file_exists( $file ) || ! $this->has_admin_access() ) {
+					continue;
+				}
+
+				$integrations[] = [
+					'type' => 'admin',
+					'file' => $file,
+				];
+			}
+		}
+
+		if ( ! empty( $php_script_lists['frontend_scripts'] ) && is_array( $php_script_lists['frontend_scripts'] ) ) {
+			foreach ( $php_script_lists['frontend_scripts'] as $script ) {
+				$file = apply_filters( 'burst_integration_path', BURST_PATH . "includes/Integrations/plugins/{$plugin}/{$script}", $plugin );
+
+				if ( ! file_exists( $file ) ) {
+					continue;
+				}
+
+				$integrations[] = [
+					'type' => 'frontend',
+					'file' => $file,
+				];
+			}
+		}
+
+		return $integrations;
+	}
+
+	/**
+	 * Are all required plugins active for a given integration
+	 *
+	 * @param array $required_plugins List of required plugins.
+	 * @return bool True if all required plugins are active, false otherwise.
+	 */
+	public function are_all_required_plugins_active( array $required_plugins ): bool {
+		foreach ( $required_plugins as $plugin ) {
+			if ( ! $this->plugin_is_active( $plugin ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if a plugin file (as passed by the activated_plugin / deactivated_plugin hooks,
+	 * e.g. "woocommerce/woocommerce.php") is one of the ecommerce integrations.
+	 */
+	public function is_ecommerce_integration_plugin( string $plugin_file ): bool {
+		$slug = dirname( $plugin_file );
+		if ( $slug === '.' ) {
+			$slug = basename( $plugin_file, '.php' );
+		}
+		return ! empty( $this->integrations[ $slug ]['load_ecommerce_integration'] );
+	}
+
+	/**
+	 * Check if a specific integration is enabled by the user.
+	 *
+	 * Returns false when the integration itself is toggled off OR when any of its
+	 * required parent integrations are disabled — so disabling WooCommerce
+	 * automatically disables WooCommerce Payments, Subscriptions, and Subscriben
+	 * without a separate cascade-write.
+	 *
+	 * @param string $slug The integration slug.
+	 * @return bool True if enabled (default), false if explicitly disabled.
+	 */
+	public function is_integration_enabled( string $slug ): bool {
+		if ( ! isset( $this->integrations[ $slug ] ) ) {
+			return false;
+		}
+
+		$options = get_option( 'burst_options_settings', [] );
+		$key     = 'enable_integration_' . sanitize_key( $slug );
+
+		// Default is enabled; only treat as disabled when explicitly set to 0/false.
+		$own_enabled = ! isset( $options[ $key ] ) || (bool) $options[ $key ];
+
+		if ( ! $own_enabled ) {
+			return false;
+		}
+
+		// If any required parent is disabled, this integration is also disabled.
+		$required = $this->integrations[ $slug ]['required_plugins'] ?? [];
+		foreach ( $required as $parent_slug ) {
+			if ( ! $this->is_integration_enabled( $parent_slug ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if the plugin is active (installed + detected + user-enabled).
 	 *
 	 * @param string $plugin The plugin slug.
 	 * @return bool True if the plugin is active, false otherwise.
@@ -97,14 +268,28 @@ class Integrations {
 			return false;
 		}
 
-		$details  = $this->integrations[ $plugin ];
+		if ( ! $this->plugin_is_detected( $this->integrations[ $plugin ] ) ) {
+			return false;
+		}
+
+		return $this->is_integration_enabled( $plugin );
+	}
+
+	/**
+	 * Check whether an integration's plugin is installed: its constant, function,
+	 * class or theme name is detected, regardless of the user-facing enabled toggle.
+	 *
+	 * @param array<string, mixed> $details Integration definition.
+	 * @return bool True if the plugin is installed.
+	 */
+	public function plugin_is_detected( array $details ): bool {
 		$constant = $details['constant_or_function'] ?? '';
 		$theme    = wp_get_theme();
 
 		return defined( $constant )
-				|| function_exists( $constant )
-				|| class_exists( $constant )
-				|| ( isset( $theme->name ) && $theme->name === $constant );
+			|| function_exists( $constant )
+			|| class_exists( $constant )
+			|| ( isset( $theme->name ) && $theme->name === $constant );
 	}
 
 	/**

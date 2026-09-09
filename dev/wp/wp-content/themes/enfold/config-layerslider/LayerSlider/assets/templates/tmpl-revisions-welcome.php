@@ -26,7 +26,7 @@
 		</lse-b>
 
 		<lse-b class="lse-tac lse-media-wrapper">
-			<video autoplay loop muted poster="<?= LS_ROOT_URL ?>/static/admin/img/revisions_v7.jpg">
+			<video autoplay loop muted poster="https://layerslider.com/media/revisions_v7.jpg">
 				<source src="https://layerslider.com/media/revisions_v7.mp4" type="video/mp4">
 			</video>
  		</lse-b>

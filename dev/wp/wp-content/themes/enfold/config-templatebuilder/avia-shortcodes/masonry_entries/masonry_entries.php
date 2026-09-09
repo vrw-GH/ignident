@@ -65,11 +65,13 @@ if( ! class_exists( 'avia_sc_masonry_entries', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Masonry', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-masonry.png';
-			$this->config['order']			= 38;
+			$this->config['tab']			= __( 'Post Loops', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-masonry.svg';
+			$this->config['order']			= 70;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_masonry_entries';
+			//	the canvas names which categories it draws from - see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => 'link' );
 			$this->config['tooltip'] 	    = __( 'Display a fullwidth masonry/grid with blog entries', 'avia_framework' );
 			$this->config['drag-level'] 	= 3;
 			$this->config['preview'] 		= false;
@@ -790,6 +792,7 @@ if( ! class_exists( 'avia_sc_masonry_entries', false ) )
 			}
 
 			$masonry = $this->obj_masonry[ $element_id ];
+			$masonry->update_config( array( 'custom_class' => '', 'id' => '' ) );
 			$output = $masonry->html( true );
 
 			Av_Responsive_Images()->force_disable( 'reset' );

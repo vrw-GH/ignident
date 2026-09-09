@@ -243,6 +243,8 @@ class Onboarding {
 
 		// Don't Reopen the wizard if the user skipped the wizard.
 		if ( $skipped || $completed ) {
+			update_option( $prefix . '_telemetry_skipped_onboarding', $skipped, false );
+			update_option( $prefix . '_telemetry_completed_onboarding', $completed, false );
 			delete_option( $prefix . '_skipped_onboarding' );
 			delete_option( $prefix . '_start_onboarding' );
 			delete_option( $prefix . '_completed_onboarding' );
@@ -378,10 +380,12 @@ class Onboarding {
 		switch ( $action ) {
 			case 'user_skipped_wizard':
 				update_option( $this->prefix . '_skipped_onboarding', true, false );
+				update_option( $this->prefix . '_telemetry_skipped_onboarding', true, false );
 				$response = $this->response( true, [], 'User skipped the wizard' );
 				break;
 			case 'user_completed_wizard':
 				update_option( $this->prefix . '_completed_onboarding', true, false );
+				update_option( $this->prefix . '_telemetry_completed_onboarding', true, false );
 				$response = $this->response( true, [], 'User Completed the wizard' );
 				break;
 			case 'activate_license':
@@ -441,10 +445,6 @@ class Onboarding {
 						}
 						if ( ! empty( $mailinglist_signup_field_name ) ) {
 							$include_tips = isset( $data['tips_tricks'] ) && (bool) $data['tips_tricks'];
-							// Using prefixed hook.
-                            // phpcs:ignore
-							do_action( $this->prefix . '_onboarding_update_single_option', 'tips_tricks_mailinglist', $email );
-
 							if ( $include_tips ) {
 								$this->signup_for_mailinglist( $email );
 							}
@@ -581,6 +581,10 @@ class Onboarding {
 			$asset_file['version']
 		);
 
+		// generate random and expiring token to use as a nonce in the burst_test_hit request.
+		$token = wp_generate_password( 10, false );
+		set_transient( $this->prefix . '_onboarding_token', $token, 15 * MINUTE_IN_SECONDS );
+
 		wp_localize_script(
 			'teamupdraft_onboarding',
 			'teamupdraft_onboarding',
@@ -601,6 +605,7 @@ class Onboarding {
 				'is_pro'                => $this->is_pro,
 				'network_link'          => network_site_url( 'plugins.php' ),
 				'reload_on_finish'      => $this->reload_settings_page_on_finish,
+				'track_test_token'      => $token,
 			]
 		);
 		// remember if user has completed the onboarding in the free plugin.

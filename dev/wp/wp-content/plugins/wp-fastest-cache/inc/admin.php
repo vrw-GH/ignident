@@ -2446,7 +2446,11 @@
 
 		            	<?php if (get_locale() === 'tr_TR') { ?>
 		            		<a href="https://apps.apple.com/tr/app/i-ngilizce-kelimeler-%C3%B6%C4%9Fren/id1492827466?l=tr" target="_blank">
-		            			<img class="visual disable-lazy" src="<?php echo plugins_url("wp-fastest-cache/images/ads/" . rand(1, 6) . ".jpg"); ?>" alt="İngilizce Kelime Öğren!" data-pin-no-hover="true">
+		            			<img class="visual disable-lazy" src="<?php echo plugins_url("wp-fastest-cache/images/ads/" . rand(1, 4) . ".jpg"); ?>" alt="İngilizce Kelime Öğren!" data-pin-no-hover="true">
+		            		</a>
+		            	<?php }else if (get_locale() === 'de_DE') { ?>
+		            		<a href="https://apps.apple.com/de/app/englische-w%C3%B6rter-lernen/id1492827466" target="_blank">
+		            			<img class="visual disable-lazy" src="<?php echo plugins_url("wp-fastest-cache/images/ads/" . rand(1, 4) . "-de.jpg"); ?>" alt="Englische Wörter Lernen" data-pin-no-hover="true">
 		            		</a>
 		            	<?php }else{ ?>
 			                <div data-variant="7361" class="sticky-common-banner">

@@ -10,7 +10,7 @@ defined( 'LS_ROOT_FILE' ) || exit;
  * @package LS_ImportUtil
  * @since 5.0.3
  * @author John Gera
- * @copyright Copyright (c) 2025  John Gera, George Krupa, and Kreatura Media Kft.
+ * @copyright Copyright (c) 2026  John Gera, George Krupa, and Kreatura Media Kft.
  */
 
 class LS_ImportUtil {
@@ -33,6 +33,7 @@ class LS_ImportUtil {
 
 	// Imported images
 	private $imported = [];
+	private $importedLottie = [];
 
 	private $isTemplate = false;
 
@@ -99,6 +100,7 @@ class LS_ImportUtil {
 					if( ! isset( $_POST['skip_images'] ) ) {
 						$this->uploadMedia( $dir, 'uploads' );
 						$this->uploadMedia( $dir, 'assets' );
+						$this->uploadLottie( $dir );
 					}
 
 					if( file_exists($dir.'/settings.json') ) {
@@ -248,6 +250,70 @@ class LS_ImportUtil {
 	}
 
 
+	public function uploadLottie( $dir = null ) {
+
+		// Check provided data
+		if ( empty( $dir ) || ! is_string( $dir ) || ! file_exists( $dir ) ) {
+			return false;
+		}
+
+		$baseDir = $this->uploadsDir . '/layerslider/lottiefiles/imported';
+		LS_FileSystem::createUploadDirs();
+
+		// Iterate through directory
+		foreach ( glob( "$dir/lottiefiles/*" ) as $lottiePath ) {
+
+			// Sanitize and extract file information
+			$originalBaseName = basename( $lottiePath );
+			$fileName = sanitize_file_name( $originalBaseName );
+			$fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
+			$fileNameWithoutExt = pathinfo( $fileName, PATHINFO_FILENAME );
+
+			if ( empty( $fileExtension ) || ! in_array( $fileExtension, [ 'lottie', 'json' ] ) ) {
+				continue;
+			}
+
+			$filePath = $baseDir . '/' . $fileName;
+			$isDuplicate = false;
+			$i = 0;
+
+			do {
+
+				// Check if the existing file is identical
+				if( file_exists( $filePath ) ) {
+					if( hash_file( 'md5', $filePath ) === md5_file( $lottiePath ) ) {
+						$this->importedLottie[ $originalBaseName ] = [
+							'url' => 'imported/' . $fileName
+						];
+						$isDuplicate = true;
+						break;
+					}
+
+					// Increment the file name for the next iteration
+					$i++;
+					$fileName = sanitize_file_name( $fileNameWithoutExt . '-' . $i . '.' . $fileExtension );
+					$filePath = $baseDir . '/' . $fileName;
+
+				// No more files to check
+				} else {
+					break;
+				}
+			} while( true );
+
+			// Skip processing if the file is identical
+			if( $isDuplicate ) {
+				continue;
+			}
+
+			// Move item to the unique path
+			rename( $lottiePath, $filePath );
+
+			// Save the imported file's URL
+			$this->importedLottie[ $originalBaseName ] = [
+				'url' => 'imported/' . $fileName
+			];
+		}
+	}
 
 
 	public function addSlider( $file, $groupId = NULL, $addProperties = [] ) {
@@ -325,6 +391,10 @@ class LS_ImportUtil {
 						$layer['mediaAttachments'][$mediaKey]['url'] = $this->attachURLForImage( $media['url'] );
 					}
 				}
+
+				if( ! empty( $layer['lottie']['src'] ) && substr( $layer['lottie']['src'], 0, 4 ) !== 'http' ) {
+					$layer['lottie']['src'] = $this->URLForLottie( $layer['lottie']['src'] );
+				}
 			}}
 		}}
 
@@ -378,6 +448,18 @@ class LS_ImportUtil {
 
 		if( isset($this->imported[ $file ]) ) {
 			return $this->imported[ $file ]['url'];
+		}
+
+		return $file;
+	}
+
+
+	public function URLForLottie($file = '') {
+
+		$file = sanitize_file_name( basename( $file ) );
+
+		if( isset($this->importedLottie[ $file ]) ) {
+			return $this->importedLottie[ $file ]['url'];
 		}
 
 		return $file;

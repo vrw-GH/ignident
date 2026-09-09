@@ -22,10 +22,12 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 
 			$this->config['name']			= __( 'Social Buttons', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-social.png';
-			$this->config['order']			= 7;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-social.svg';
+			$this->config['order']			= 30;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_social_share';
+			//	the canvas shows the heading above the buttons - see editor_element_items()
+			$this->config['alb_items']		= array( 'value' => 'title' );
 			$this->config['tooltip'] 	    = __( 'Create one or more social buttons to share a post or to link to your social profile', 'avia_framework' );
 			$this->config['preview'] 		= true;
 //			$this->config['disabling_allowed'] 	= true;		//	also needed in single pages
@@ -44,6 +46,89 @@ if( ! class_exists( 'avia_sc_social_share', false ) )
 			wp_enqueue_style( 'avia-module-social', AviaBuilder::$path['pluginUrlRoot'] . "avia-shortcodes/social_share/social_share{$min_css}.css", array( 'avia-layout' ), $ver );
 		}
 
+
+		/**
+		 * The buttons themselves, drawn on the canvas.
+		 *
+		 * A title alone does not say much about a share element - what matters is which networks it offers,
+		 * and those are the one thing the element can show without asking the database anything: each is a
+		 * checkbox of its own, and the icons come from the theme's icon set, which is already in memory.
+		 *
+		 * Every network is drawn, not only the ticked ones, and each wears a class taken from its own
+		 * setting - so ticking a box in the element window shows that icon at once instead of at the next
+		 * redraw. The stylesheet hides the ones whose class ends in nothing, which is what an unticked
+		 * checkbox produces. Each span carries that class alone, because updating it replaces the whole
+		 * class attribute and anything else there would be lost the first time a box was ticked.
+		 *
+		 * Only the custom set can work this way. The other choice takes its networks from the theme options
+		 * rather than from this element, so there is nothing here for the browser to follow - those are
+		 * drawn as they stand and change when the options do, which reloads the page in any case.
+		 *
+		 * @since 8.0
+		 * @param array $params
+		 * @return array
+		 */
+		public function editor_element( $params )
+		{
+			$params = parent::editor_element( $params );
+
+			$args = isset( $params['args'] ) && is_array( $params['args'] ) ? $params['args'] : array();
+			$atts = array( 'aria-hidden' => 'true', 'title' => '', 'desc' => '' );
+
+			$custom = '';
+
+			foreach( $args as $key => $value )
+			{
+				if( 0 !== strpos( $key, 'share_svg__' ) )
+				{
+					continue;
+				}
+
+				$icon = avia_font_manager::get_frontend_shortcut_icon( substr( $key, strlen( 'share_' ) ), $atts );
+
+				if( empty( $icon['svg'] ) )
+				{
+					continue;
+				}
+
+				//	the custom set follows this element's own checkbox, and follows it live
+				$class = $this->class_by_arguments( $key, $args );
+
+				$custom .= "<span{$class}>{$icon['svg']}</span>";
+
+			}
+
+			if( '' === $custom )
+			{
+				return $params;
+			}
+
+			/*
+			 * The class that decides between the two sets goes on a wrapper of its own. Putting it on the
+			 * row would have meant two class attributes on one tag, of which a browser keeps the first -
+			 * and it is replaced wholesale whenever the setting changes, taking anything else with it.
+			 */
+			$toggle = $this->class_by_arguments( 'buttons', $args );
+
+			/*
+			 * Where those buttons are chosen, for the element that follows the blog rather than its own
+			 * setting. Without it the row is simply empty on a site that offers none, which reads as the
+			 * element being broken rather than as nothing having been picked yet.
+			 *
+			 * Inside the wrapper that carries the setting, so it goes when the element stops following
+			 * the blog. It opens in a new tab because the page being built here is not finished with.
+			 */
+			$blog_options = admin_url( 'admin.php?page=avia#goto_blog' );
+			$link_text = __( 'Set under Blog Layout', 'avia_framework' );
+
+			$source = "<a class='avia-element-link avia-element-share-source' href='" . esc_url( $blog_options ) . "' target='_blank' rel='noopener noreferrer'>" . esc_html( $link_text ) . '</a>';
+
+			$params['innerHtml'] .= "<div class='avia-element-social'>";
+			$params['innerHtml'] .=		"<span{$toggle}>{$custom}{$source}</span>";
+			$params['innerHtml'] .= '</div>';
+
+			return $params;
+		}
 
 		/**
 		 * Popup Elements

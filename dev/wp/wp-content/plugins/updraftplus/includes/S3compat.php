@@ -31,8 +31,8 @@
  * Amazon S3 is a trademark of Amazon.com, Inc. or its affiliates.
  */
 // @codingStandardsIgnoreEnd
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Using the default PHP fopen() function instead of the WP Filesystem API.
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- using the native PHP fclose() function instead of the WP Filesystem API.
+// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose, WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fgets, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.WP.AlternativeFunctions.file_system_operations_mkdir, WordPress.WP.AlternativeFunctions.file_system_operations_fread, WordPress.WP.AlternativeFunctions.file_system_operations_chmod, WordPress.WP.AlternativeFunctions.file_system_operations_fputs, WordPress.WP.AlternativeFunctions.file_system_operations_is_writeable, WordPress.WP.AlternativeFunctions.file_system_operations_chown, WordPress.WP.AlternativeFunctions.file_system_operations_chgrp, WordPress.WP.AlternativeFunctions.file_system_operations_touch -- Native PHP fileystem function is used for direct control and performance because it can bypass additional layers of abstraction so that no overhead from the WordPress filesystem API's internal handling
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 // SDK requires PHP 5.5+
 use Aws\Common\RulesEndpointProvider;
@@ -815,7 +815,7 @@ class UpdraftPlus_S3_Compat {
 	}
 
 	private function trigger_from_exception($e) {
-		trigger_error(esc_html($e->getMessage().' ('.get_class($e).') (line: '.$e->getLine().', file: '.$e->getFile().')'), E_USER_WARNING);
+		trigger_error(esc_html($e->getMessage().' ('.get_class($e).') (line: '.$e->getLine().', file: '.$e->getFile().')'), E_USER_WARNING); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- The trigger_error() function is intentionally used to generate user-level error messages.
 		return false;
 	}
 

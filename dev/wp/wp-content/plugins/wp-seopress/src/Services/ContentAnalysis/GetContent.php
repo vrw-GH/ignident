@@ -31,6 +31,22 @@ class GetContent {
 	private $seo_issues_database;
 
 	/**
+	 * Request-scoped memo of the post_content-derived heading outline, keyed by
+	 * "post ID:content hash". Both heading checks resolve the same outline, so
+	 * this avoids running do_blocks() + DOM parsing twice on the fallback path.
+	 *
+	 * @var array
+	 */
+	private $heading_outline_cache = array();
+
+	/**
+	 * Request-scoped memo of the page-builder detection, keyed by post ID.
+	 *
+	 * @var array
+	 */
+	private $builder_driven_cache = array();
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -40,7 +56,73 @@ class GetContent {
 	}
 
 	/**
+	 * Persist a single issue row through the Pro database service and
+	 * record its issue_name so cleanupResolvedIssues() can later spare
+	 * it from the orphan sweep.
+	 *
+	 * Issues whose priority resolves to 'good' or 0 are intentionally
+	 * not added to the emitted list: the Pro saveData() short-circuits
+	 * on them, so leaving the legacy row would be a false positive and
+	 * the orphan sweep is the right place to remove it.
+	 *
+	 * @param int   $post_id Post id.
+	 * @param array $issue Issue payload.
+	 * @param array $emitted_names Accumulator passed by reference.
+	 */
+	private function saveIssue( $post_id, $issue, array &$emitted_names ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		if ( ! isset( $issue['issue_name'] ) ) {
+			return;
+		}
+
+		$priority = isset( $issue['issue_priority'] ) ? $issue['issue_priority'] : 0;
+		if ( 0 === $priority || 'good' === $priority ) {
+			return;
+		}
+
+		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
+			$this->seo_issues_database->saveData( $post_id, $issue );
+		}
+
+		$emitted_names[] = $issue['issue_name'];
+	}
+
+	/**
+	 * Remove the seopress_seo_issues rows for ($post_id, $issue_type)
+	 * whose issue_name was not emitted during this analysis pass. Rows
+	 * that survive keep their id (and therefore their issue_ignore flag)
+	 * which is what makes the editor-side ignore stick across re-saves.
+	 *
+	 * Falls back to the legacy wipe when running against an older Pro
+	 * version that doesn't ship deleteOrphans yet — in that case the
+	 * ignore flag is not preserved, matching the pre-9.9 behaviour.
+	 *
+	 * @param int      $post_id       Post id.
+	 * @param string   $issue_type    Issue type bucket.
+	 * @param string[] $emitted_names issue_name values to keep.
+	 */
+	private function cleanupResolvedIssues( $post_id, $issue_type, array $emitted_names ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		if ( ! $this->seo_issues_repository ) {
+			return;
+		}
+
+		if ( method_exists( $this->seo_issues_repository, 'deleteOrphans' ) ) {
+			$this->seo_issues_repository->deleteOrphans( $post_id, $issue_type, $emitted_names );
+			return;
+		}
+
+		if ( empty( $emitted_names ) && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
+			$this->seo_issues_repository->deleteSEOIssue( $post_id, $issue_type );
+		}
+	}
+
+	/**
 	 * The getMatches function.
+	 *
+	 * Both sides go through the same normalization before being compared:
+	 * entities are resolved, the typographic characters WordPress substitutes
+	 * at render time are folded back onto their ASCII form, then accents are
+	 * stripped. Without it a keyword typed with a straight apostrophe could
+	 * never match the typographic one wptexturize() puts on the page.
 	 *
 	 * @param string $content The content.
 	 * @param array  $target_keywords The target keywords.
@@ -54,10 +136,16 @@ class GetContent {
 			return null;
 		}
 
-		foreach ( $target_keywords as $kw ) {
-			$kw = remove_accents( wp_specialchars_decode( $kw ) );
+		$normalized_content = remove_accents( ContentAnalysis::normalizeTypography( $content ) );
 
-			if ( preg_match_all( '@(?<![\w-])' . preg_quote( $kw, '@' ) . '(?![\w-])@is', remove_accents( $content ), $matches ) ) {
+		foreach ( $target_keywords as $kw ) {
+			$kw = remove_accents( ContentAnalysis::normalizeTypography( $kw ) );
+
+			if ( '' === trim( $kw ) ) {
+				continue;
+			}
+
+			if ( preg_match_all( '@(?<![\w-])' . preg_quote( $kw, '@' ) . '(?![\w-])@is', $normalized_content, $matches ) ) {
 				$data[ $kw ][] = $matches[0];
 			}
 		}
@@ -82,10 +170,7 @@ class GetContent {
 	protected function analyzeSchemas( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$issue               = array();
 		$issue['issue_type'] = 'json_schemas';
-
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
+		$emitted_names       = array();
 
 		if ( isset( $data['json_schemas'] ) && is_array( $data['json_schemas'] ) && ( ! empty( $data['json_schemas'] ) || isset( $data['json_schemas'] ) ) ) {
 			$desc = '<p>' . __( 'We found these schemas in the source code of this page:', 'wp-seopress' ) . '</p>';
@@ -118,7 +203,7 @@ class GetContent {
 			}
 		} else {
 			$docs                          = seopress_get_docs_links();
-			$analyzes['schemas']['impact'] = 'medium';
+			$analyzes['schemas']['impact'] = 'low';
 			$analyzes['schemas']['desc']   = '<p>' . __( 'No schemas found in the source code of this page. Get rich snippets in Google Search results and improve your visibility by adding structured data types (schemas) to your page.', 'wp-seopress' ) . '</p>';
 
 			if ( ! is_plugin_active( 'wp-seopress-pro/seopress-pro.php' ) ) {
@@ -132,11 +217,8 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['schemas']['impact'] ? $analyzes['schemas']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'json_schemas', $emitted_names );
 
 		return $analyzes;
 	}
@@ -153,9 +235,8 @@ class GetContent {
 	protected function analyzeOldPost( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$issue               = array();
 		$issue['issue_type'] = 'old_post';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
+		$emitted_names       = array();
+
 		$modified = get_post_datetime( $post, 'modified' );
 
 		$desc = null;
@@ -173,11 +254,8 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['old_post']['impact'] ? $analyzes['old_post']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'old_post', $emitted_names );
 
 		return $analyzes;
 	}
@@ -194,13 +272,23 @@ class GetContent {
 	protected function analyzeKeywordsPermalink( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$issue               = array();
 		$issue['issue_type'] = 'permalink';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
+		$emitted_names       = array();
 
 		$permalink = ! empty( $data['permalink'] ) && is_array( $data['permalink'] ) ? $data['permalink']['value'] : '';
 		$permalink = str_replace( '-', ' ', $permalink );
-		$matches   = $this->getMatches( $permalink, isset( $data['keywords'] ) ? $data['keywords'] : array() );
+		$keywords  = isset( $data['keywords'] ) ? $data['keywords'] : array();
+		$matches   = $this->getMatches( $permalink, $keywords );
+
+		// Fallback: try the slug readings of the keywords against the permalink.
+		// Handles Cyrillic/non-Latin keywords with Latin slugs (e.g. via
+		// Cyr-To-Lat plugin) and keywords whose punctuation the slug dropped.
+		if ( empty( $matches ) && ! empty( $keywords ) ) {
+			$slug_variants = ContentAnalysis::getSlugVariants( $keywords );
+
+			if ( ! empty( $slug_variants ) ) {
+				$matches = $this->getMatches( $permalink, $slug_variants );
+			}
+		}
 
 		if ( ! empty( $matches ) ) {
 			$desc  = '<p><span class="dashicons dashicons-yes"></span>' . __( 'Cool, one of your target keyword is used in your permalink.', 'wp-seopress' ) . '</p>';
@@ -224,11 +312,8 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['keywords_permalink']['impact'] ? $analyzes['keywords_permalink']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'permalink', $emitted_names );
 
 		return $analyzes;
 	}
@@ -243,13 +328,12 @@ class GetContent {
 	 * @return array
 	 */
 	protected function analyzeHeadings( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		$emitted_names = array();
+
 		// H1.
 		$issue               = array();
 		$issue['issue_type'] = 'headings';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
-		$desc = '<h4>' . __( 'H1 (Heading 1)', 'wp-seopress' ) . '</h4>';
+		$desc                = '<h4>' . __( 'H1 (Heading 1)', 'wp-seopress' ) . '</h4>';
 
 		// No headings found.
 		if ( empty( $data['h1'] ) && empty( $data['h2'] ) && empty( $data['h3'] ) ) {
@@ -319,11 +403,7 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['headings']['impact'] ? $analyzes['headings']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
 
 		// H2.
 		$issue               = array();
@@ -363,11 +443,7 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['headings']['impact'] ? $analyzes['headings']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
 
 		// H3.
 		$issue               = array();
@@ -408,13 +484,43 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['headings']['impact'] ? $analyzes['headings']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'headings', $emitted_names );
 
 		return $analyzes;
+	}
+
+	/**
+	 * Resolve the effective meta title or description SEOPress outputs for a
+	 * post: the global template with custom-field and dynamic variables
+	 * resolved, computed without the loop-back page fetch. Uses the same
+	 * TitleMeta / DescriptionMeta services that feed the editor metabox
+	 * placeholder, so the analysis stays in sync with what is actually
+	 * rendered even when the page could not be fetched (CDN, WAF, draft...).
+	 *
+	 * @since 10.0.0
+	 *
+	 * @param WP_Post $post The post.
+	 * @param string  $type Either 'title' or 'description'.
+	 *
+	 * @return string The resolved value, or '' when it cannot be resolved.
+	 */
+	protected function getEffectiveMeta( $post, $type ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		if ( ! $post instanceof \WP_Post ) {
+			return '';
+		}
+
+		$context_service = seopress_get_service( 'ContextPage' );
+		$meta_service    = seopress_get_service( 'description' === $type ? 'DescriptionMeta' : 'TitleMeta' );
+
+		if ( ! is_object( $context_service ) || ! is_object( $meta_service ) ) {
+			return '';
+		}
+
+		$context = $context_service->buildContextWithCurrentId( $post->ID )->getContext();
+		$value   = $meta_service->getValue( $context );
+
+		return is_string( $value ) ? $value : '';
 	}
 
 	/**
@@ -427,12 +533,23 @@ class GetContent {
 	 * @return array
 	 */
 	protected function analyzeMetaTitle( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
-		$issues = array();
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, 'title' );
-		}
+		$issues        = array();
+		$emitted_names = array();
+
 		$seopress_titles_title = ! empty( $data['title'] ) ? $data['title'] : get_post_meta( $post->ID, '_seopress_titles_title', true );
-		$title_length          = mb_strlen( $seopress_titles_title );
+
+		// When neither the analyzed <title> nor a per-post custom title is
+		// available, fall back to the effective title SEOPress outputs (global
+		// template with custom-field / dynamic variables resolved). This keeps
+		// the analysis aligned with the rendered title (and the metabox
+		// placeholder) even when the loop-back page fetch could not capture it,
+		// so a post whose title comes from a global or custom-field template is
+		// analyzed instead of being flagged as having no title.
+		if ( empty( $seopress_titles_title ) ) {
+			$seopress_titles_title = $this->getEffectiveMeta( $post, 'title' );
+		}
+
+		$title_length = mb_strlen( $seopress_titles_title );
 
 		if ( ! empty( $seopress_titles_title ) ) {
 			$desc = null;
@@ -480,13 +597,10 @@ class GetContent {
 		if ( ! empty( $issues ) ) {
 			foreach ( $issues as $issue ) {
 				$issue['issue_type'] = 'title';
-				if ( isset( $issue['issue_name'] ) ) {
-					if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-						$this->seo_issues_database->saveData( $post->ID, $issue );
-					}
-				}
+				$this->saveIssue( $post->ID, $issue, $emitted_names );
 			}
 		}
+		$this->cleanupResolvedIssues( $post->ID, 'title', $emitted_names );
 
 		return $analyzes;
 	}
@@ -501,12 +615,19 @@ class GetContent {
 	 * @return array
 	 */
 	protected function analyzeMetaDescription( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
-		$issues = array();
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, 'description' );
-		}
+		$issues        = array();
+		$emitted_names = array();
+
 		$seopress_titles_desc = ! empty( $data['description'] ) ? $data['description'] : get_post_meta( $post->ID, '_seopress_titles_desc', true );
-		$desc_length          = mb_strlen( $seopress_titles_desc );
+
+		// Same effective-value fallback as the meta title: resolve the
+		// description SEOPress outputs (global template, custom-field / dynamic
+		// variables) when no analyzed or per-post description is available.
+		if ( empty( $seopress_titles_desc ) ) {
+			$seopress_titles_desc = $this->getEffectiveMeta( $post, 'description' );
+		}
+
+		$desc_length = mb_strlen( $seopress_titles_desc );
 
 		if ( ! empty( $seopress_titles_desc ) ) {
 			$desc = null;
@@ -554,13 +675,10 @@ class GetContent {
 		if ( ! empty( $issues ) ) {
 			foreach ( $issues as $issue ) {
 				$issue['issue_type'] = 'description';
-				if ( isset( $issue['issue_name'] ) ) {
-					if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-						$this->seo_issues_database->saveData( $post->ID, $issue );
-					}
-				}
+				$this->saveIssue( $post->ID, $issue, $emitted_names );
 			}
 		}
+		$this->cleanupResolvedIssues( $post->ID, 'description', $emitted_names );
 
 		return $analyzes;
 	}
@@ -575,13 +693,12 @@ class GetContent {
 	 * @return array
 	 */
 	protected function analyzeSocialTags( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
+		$emitted_names = array();
+
 		// og:title.
 		$issues = array();
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, 'social' );
-		}
-		$desc  = null;
-		$desc .= '<h4>' . __( 'Open Graph Title', 'wp-seopress' ) . '</h4>';
+		$desc   = null;
+		$desc  .= '<h4>' . __( 'Open Graph Title', 'wp-seopress' ) . '</h4>';
 
 		if ( isset( $data['og_title'] ) && is_array( $data['og_title'] ) && ! empty( $data['og_title'] ) ) {
 			$count = count( $data['og_title'] );
@@ -629,11 +746,7 @@ class GetContent {
 		if ( ! empty( $issues ) ) {
 			foreach ( $issues as $issue ) {
 				$issue['issue_type'] = 'social';
-				if ( isset( $issue['issue_name'] ) ) {
-					if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-						$this->seo_issues_database->saveData( $post->ID, $issue );
-					}
-				}
+				$this->saveIssue( $post->ID, $issue, $emitted_names );
 			}
 		}
 
@@ -687,11 +800,7 @@ class GetContent {
 		if ( ! empty( $issues ) ) {
 			foreach ( $issues as $issue ) {
 				$issue['issue_type'] = 'social';
-				if ( isset( $issue['issue_name'] ) ) {
-					if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-						$this->seo_issues_database->saveData( $post->ID, $issue );
-					}
-				}
+				$this->saveIssue( $post->ID, $issue, $emitted_names );
 			}
 		}
 
@@ -733,11 +842,7 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['social']['impact'] ? $analyzes['social']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
 
 		// og:url.
 		$issues = array();
@@ -789,11 +894,7 @@ class GetContent {
 		if ( ! empty( $issues ) ) {
 			foreach ( $issues as $issue ) {
 				$issue['issue_type'] = 'social';
-				if ( isset( $issue['issue_name'] ) ) {
-					if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-						$this->seo_issues_database->saveData( $post->ID, $issue );
-					}
-				}
+				$this->saveIssue( $post->ID, $issue, $emitted_names );
 			}
 		}
 
@@ -847,11 +948,7 @@ class GetContent {
 		if ( ! empty( $issues ) ) {
 			foreach ( $issues as $issue ) {
 				$issue['issue_type'] = 'social';
-				if ( isset( $issue['issue_name'] ) ) {
-					if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-						$this->seo_issues_database->saveData( $post->ID, $issue );
-					}
-				}
+				$this->saveIssue( $post->ID, $issue, $emitted_names );
 			}
 		}
 
@@ -905,11 +1002,7 @@ class GetContent {
 		if ( ! empty( $issues ) ) {
 			foreach ( $issues as $issue ) {
 				$issue['issue_type'] = 'social';
-				if ( isset( $issue['issue_name'] ) ) {
-					if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-						$this->seo_issues_database->saveData( $post->ID, $issue );
-					}
-				}
+				$this->saveIssue( $post->ID, $issue, $emitted_names );
 			}
 		}
 
@@ -963,11 +1056,7 @@ class GetContent {
 		if ( ! empty( $issues ) ) {
 			foreach ( $issues as $issue ) {
 				$issue['issue_type'] = 'social';
-				if ( isset( $issue['issue_name'] ) ) {
-					if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-						$this->seo_issues_database->saveData( $post->ID, $issue );
-					}
-				}
+				$this->saveIssue( $post->ID, $issue, $emitted_names );
 			}
 		}
 
@@ -1010,17 +1099,21 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['social']['impact'] ? $analyzes['social']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'social', $emitted_names );
 
 		return $analyzes;
 	}
 
 	/**
 	 * The analyzeRobots function.
+	 *
+	 * A page can carry several robots directives at once, and each one is a
+	 * distinct issue row. They are therefore saved as they are detected
+	 * instead of through a single shared payload: with one payload the last
+	 * matching directive silently overwrote the previous ones, so a
+	 * `noindex, nofollow` page only ever reported nofollow, and the orphan
+	 * sweep below then deleted the noindex row written by an earlier run.
 	 *
 	 * @param array   $analyzes The analyzes.
 	 * @param array   $data The data.
@@ -1029,12 +1122,8 @@ class GetContent {
 	 * @return array
 	 */
 	protected function analyzeRobots( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
-		$issue               = array();
-		$issue['issue_type'] = 'robots';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
-		$desc = null;
+		$emitted_names = array();
+		$desc          = null;
 		if ( isset( $data['meta_robots'] ) && is_array( $data['meta_robots'] ) && ! empty( $data['meta_robots'] ) ) {
 			$meta_robots = $data['meta_robots'];
 
@@ -1045,8 +1134,16 @@ class GetContent {
 
 				$desc .= '<p><span class="dashicons dashicons-no-alt"></span>' . /* translators: %s number of meta robots tags */ sprintf( esc_html__( 'We found %s meta robots in your page. There is probably something wrong with your theme!', 'wp-seopress' ), $count_meta_robots ) . '</p>';
 
-				$issue['issue_name'] = 'meta_robots_duplicated';
-				$issue['issue_desc'] = absint( $count_meta_robots );
+				$this->saveIssue(
+					$post->ID,
+					array(
+						'issue_type'     => 'robots',
+						'issue_name'     => 'meta_robots_duplicated',
+						'issue_desc'     => absint( $count_meta_robots ),
+						'issue_priority' => 'high',
+					),
+					$emitted_names
+				);
 			}
 
 			$encoded = wp_json_encode( $meta_robots );
@@ -1055,7 +1152,15 @@ class GetContent {
 				$analyzes['robots']['impact'] = 'high';
 				$desc                        .= '<p data-robots="noindex"><span class="dashicons dashicons-no-alt"></span>' . __( '<strong>noindex</strong> is on! Search engines can\'t index this page.', 'wp-seopress' ) . '</p>';
 
-				$issue['issue_name'] = 'meta_robots_noindex';
+				$this->saveIssue(
+					$post->ID,
+					array(
+						'issue_type'     => 'robots',
+						'issue_name'     => 'meta_robots_noindex',
+						'issue_priority' => 'high',
+					),
+					$emitted_names
+				);
 			} else {
 				$desc .= '<p data-robots="index"><span class="dashicons dashicons-yes"></span>' . __( '<strong>noindex</strong> is off. Search engines will index this page.', 'wp-seopress' ) . '</p>';
 			}
@@ -1064,7 +1169,15 @@ class GetContent {
 				$analyzes['robots']['impact'] = 'high';
 				$desc                        .= '<p><span class="dashicons dashicons-no-alt"></span>' . __( '<strong>nofollow</strong> is on! Search engines can\'t follow your links on this page.', 'wp-seopress' ) . '</p>';
 
-				$issue['issue_name'] = 'meta_robots_nofollow';
+				$this->saveIssue(
+					$post->ID,
+					array(
+						'issue_type'     => 'robots',
+						'issue_name'     => 'meta_robots_nofollow',
+						'issue_priority' => 'high',
+					),
+					$emitted_names
+				);
 			} else {
 				$desc .= '<p><span class="dashicons dashicons-yes"></span>' . __( '<strong>nofollow</strong> is off. Search engines will follow links on this page.', 'wp-seopress' ) . '</p>';
 			}
@@ -1073,7 +1186,15 @@ class GetContent {
 				$analyzes['robots']['impact'] = 'high';
 				$desc                        .= '<p><span class="dashicons dashicons-no-alt"></span>' . __( '<strong>noimageindex</strong> is on! Google will not index your images on this page (but if someone makes a direct link to one of your image in this page, it will be indexed).', 'wp-seopress' ) . '</p>';
 
-				$issue['issue_name'] = 'meta_robots_noimageindex';
+				$this->saveIssue(
+					$post->ID,
+					array(
+						'issue_type'     => 'robots',
+						'issue_name'     => 'meta_robots_noimageindex',
+						'issue_priority' => 'high',
+					),
+					$emitted_names
+				);
 			} else {
 				$desc .= '<p><span class="dashicons dashicons-yes"></span>' . __( '<strong>noimageindex</strong> is off. Google will index the images on this page.', 'wp-seopress' ) . '</p>';
 			}
@@ -1084,7 +1205,17 @@ class GetContent {
 				}
 				$desc .= '<p><span class="dashicons dashicons-no-alt"></span>' . __( '<strong>nosnippet</strong> is on! Search engines will not display a snippet of this page in search results.', 'wp-seopress' ) . '</p>';
 
-				$issue['issue_name'] = 'meta_robots_nosnippet';
+				// nosnippet stays medium on its own row even when another
+				// directive pushed the whole analysis to high.
+				$this->saveIssue(
+					$post->ID,
+					array(
+						'issue_type'     => 'robots',
+						'issue_name'     => 'meta_robots_nosnippet',
+						'issue_priority' => 'medium',
+					),
+					$emitted_names
+				);
 			} else {
 				$desc .= '<p><span class="dashicons dashicons-yes"></span>' . __( '<strong>nosnippet</strong> is off. Search engines will display a snippet of this page in search results.', 'wp-seopress' ) . '</p>';
 			}
@@ -1094,13 +1225,7 @@ class GetContent {
 
 		$analyzes['robots']['desc'] = $desc;
 
-		$issue['issue_priority'] = $analyzes['robots']['impact'] ? $analyzes['robots']['impact'] : 0;
-
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->cleanupResolvedIssues( $post->ID, 'robots', $emitted_names );
 
 		return $analyzes;
 	}
@@ -1117,9 +1242,7 @@ class GetContent {
 	protected function analyzeImgAlt( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$issue               = array();
 		$issue['issue_type'] = 'img_alt';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
+		$emitted_names       = array();
 
 		$with_alt    = array();
 		$without_alt = array();
@@ -1182,11 +1305,8 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['img_alt']['impact'] ? $analyzes['img_alt']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'img_alt', $emitted_names );
 
 		return $analyzes;
 	}
@@ -1203,9 +1323,7 @@ class GetContent {
 	protected function analyzeNoFollowLinks( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$issue               = array();
 		$issue['issue_type'] = 'nofollow_links';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
+		$emitted_names       = array();
 
 		if ( isset( $data['links_no_follow'] ) && is_array( $data['links_no_follow'] ) && ! empty( $data['links_no_follow'] ) ) {
 			$issue_desc = array();
@@ -1233,11 +1351,8 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['nofollow_links']['impact'] ? $analyzes['nofollow_links']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'nofollow_links', $emitted_names );
 
 		return $analyzes;
 	}
@@ -1254,9 +1369,7 @@ class GetContent {
 	protected function analyzeOutboundLinks( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$issue               = array();
 		$issue['issue_type'] = 'outbound_links';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
+		$emitted_names       = array();
 
 		$desc = '<p>' . __( 'Internet is built on the principle of hyperlink. It is therefore perfectly normal to make links between different websites. However, avoid making links to low quality sites, SPAM... If you are not sure about the quality of a site, add the attribute "nofollow" to your link.', 'wp-seopress' ) . '</p>';
 		if ( isset( $data['outbound_links'] ) && is_array( $data['outbound_links'] ) && ! empty( $data['outbound_links'] ) ) {
@@ -1278,11 +1391,8 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['outbound_links']['impact'] ? $analyzes['outbound_links']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'outbound_links', $emitted_names );
 
 		return $analyzes;
 	}
@@ -1299,9 +1409,7 @@ class GetContent {
 	protected function analyzeInternalLinks( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$issue               = array();
 		$issue['issue_type'] = 'internal_links';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
+		$emitted_names       = array();
 
 		$desc = '<p>' . __( 'Internal links are important for SEO and user experience. Always try to link your content together, with quality link anchors.', 'wp-seopress' ) . '</p>';
 
@@ -1331,11 +1439,8 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['internal_links']['impact'] ? $analyzes['internal_links']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
-			}
-		}
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'internal_links', $emitted_names );
 
 		return $analyzes;
 	}
@@ -1352,9 +1457,7 @@ class GetContent {
 	protected function analyzeCanonical( $analyzes, $data, $post ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$issue               = array();
 		$issue['issue_type'] = 'all_canonical';
-		if ( $this->seo_issues_repository && method_exists( $this->seo_issues_repository, 'deleteSEOIssue' ) ) {
-			$this->seo_issues_repository->deleteSEOIssue( $post->ID, $issue['issue_type'] );
-		}
+		$emitted_names       = array();
 
 		$desc = '<p>' . __( 'A canonical URL is required by search engines to handle duplicate content.', 'wp-seopress' ) . '</p>';
 
@@ -1391,11 +1494,507 @@ class GetContent {
 
 		$issue['issue_priority'] = $analyzes['all_canonical']['impact'] ? $analyzes['all_canonical']['impact'] : 0;
 
-		if ( $this->seo_issues_database && method_exists( $this->seo_issues_database, 'saveData' ) ) {
-			if ( isset( $issue['issue_name'] ) ) {
-				$this->seo_issues_database->saveData( $post->ID, $issue );
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'all_canonical', $emitted_names );
+
+		return $analyzes;
+	}
+
+	/**
+	 * Count the words of the rendered post content (multibyte aware).
+	 * Scanning the post object rather than the full source code keeps
+	 * the header/footer/sidebar out of the depth metrics.
+	 *
+	 * @param WP_Post $post The post.
+	 *
+	 * @return int
+	 */
+	private function getContentWordCount( $post ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		if ( null === $post || empty( $post->post_content ) ) {
+			return 0;
+		}
+
+		$content = $post->post_content;
+
+		if ( function_exists( 'has_blocks' ) && has_blocks( $content ) ) {
+			$content = do_blocks( $content );
+		}
+
+		$content = wp_strip_all_tags( strip_shortcodes( $content ), true );
+		$content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+		if ( '' === trim( $content ) ) {
+			return 0;
+		}
+
+		$words = preg_split( '/[\p{Z}\s]+/u', trim( $content ), -1, PREG_SPLIT_NO_EMPTY );
+
+		return is_array( $words ) ? count( $words ) : 0;
+	}
+
+	/**
+	 * Resolve the heading outline used by the heading-structure and readability
+	 * checks.
+	 *
+	 * The primary outline is parsed from the fetched rendered page
+	 * (\SEOPress\Services\ContentAnalysis\GetContent\ContentStructure). When that
+	 * capture fails — a WAF/CDN challenge interstitial, an unrendered draft /
+	 * preview, a stale full-page cache, a cross-origin fetch — the fetched body
+	 * is empty and the outline comes back empty even though the post is full of
+	 * headings. Falling back to the server-rendered post_content (the same source
+	 * getContentWordCount() already uses) keeps these checks accurate regardless
+	 * of the front-end capture, and consistent with the word count they compare
+	 * against.
+	 *
+	 * @param array   $data The analysis data.
+	 * @param WP_Post $post The post.
+	 *
+	 * @return array Ordered list of heading levels (e.g. array( 2, 3, 3, 2 )).
+	 */
+	private function resolveHeadingOutline( $data, $post ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		$outline = isset( $data['content_structure']['outline'] ) && is_array( $data['content_structure']['outline'] )
+			? $data['content_structure']['outline']
+			: array();
+
+		if ( ! empty( $outline ) ) {
+			return $outline;
+		}
+
+		return $this->getHeadingOutlineFromContent( $post );
+	}
+
+	/**
+	 * Extract the heading outline from the server-rendered post_content.
+	 *
+	 * Renders the block content the same way getContentWordCount() does, then
+	 * reads the heading levels straight from the markup. post_content holds only
+	 * the article body — no theme header/footer/sidebar — so no scoping is
+	 * needed. Headings are matched by tag name, so builder headings that output a
+	 * real <hN> (Kadence Advanced Heading, etc.) are counted like core ones.
+	 *
+	 * @param WP_Post $post The post.
+	 *
+	 * @return array Ordered list of heading levels.
+	 */
+	private function getHeadingOutlineFromContent( $post ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		if ( null === $post || empty( $post->post_content ) || ! class_exists( 'DOMDocument' ) ) {
+			return array();
+		}
+
+		// Both heading checks resolve the same outline within one analysis run;
+		// memoize on the content hash so do_blocks() + DOM parsing runs once and
+		// the cache is never served stale after an edit.
+		$cache_key = $post->ID . ':' . md5( $post->post_content );
+		if ( isset( $this->heading_outline_cache[ $cache_key ] ) ) {
+			return $this->heading_outline_cache[ $cache_key ];
+		}
+
+		$content = $post->post_content;
+
+		if ( function_exists( 'has_blocks' ) && has_blocks( $content ) ) {
+			$content = do_blocks( $content );
+		}
+
+		if ( '' === trim( wp_strip_all_tags( $content ) ) ) {
+			$this->heading_outline_cache[ $cache_key ] = array();
+			return array();
+		}
+
+		$dom             = new \DOMDocument();
+		$internal_errors = libxml_use_internal_errors( true );
+
+		// The XML prolog forces UTF-8 decoding; the wrapper div gives loadHTML a
+		// single root so it does not inject its own <p> around loose text.
+		$dom->loadHTML( '<?xml encoding="utf-8" ?><div>' . $content . '</div>' );
+
+		libxml_clear_errors();
+		libxml_use_internal_errors( $internal_errors );
+
+		$xpath    = new \DOMXPath( $dom );
+		$headings = $xpath->query( '//h1|//h2|//h3|//h4|//h5|//h6' );
+
+		$outline = array();
+		if ( $headings ) {
+			foreach ( $headings as $heading ) {
+				if ( '' === trim( (string) $heading->nodeValue ) ) { // phpcs:ignore -- DOM property.
+					continue;
+				}
+
+				$outline[] = (int) substr( $heading->nodeName, 1 ); // phpcs:ignore -- DOM property.
 			}
 		}
+
+		$this->heading_outline_cache[ $cache_key ] = $outline;
+
+		return $outline;
+	}
+
+	/**
+	 * Whether the post is managed by a known page builder (Elementor, Bricks,
+	 * Beaver Builder, Oxygen, Zion, Breakdance, Divi, Avada, WPBakery,
+	 * Cornerstone...).
+	 *
+	 * The builder set mirrors \SEOPress\Services\EnqueueModuleMetabox, but is
+	 * detected here by storage signal (meta / post_content marker) rather than
+	 * by edit-context query args, since analysis runs on the saved post. Whether
+	 * the content is actually readable is decided separately by
+	 * aiContentChecksUnreliable() via the word-count gate, so both meta-based
+	 * builders (empty post_content) and shortcode-based ones (Divi, WPBakery)
+	 * are handled: they degrade only when post_content is genuinely too thin.
+	 *
+	 * @param WP_Post $post The post.
+	 *
+	 * @return bool
+	 */
+	private function isBuilderDriven( $post ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		if ( null === $post || empty( $post->ID ) ) {
+			return false;
+		}
+
+		if ( isset( $this->builder_driven_cache[ $post->ID ] ) ) {
+			return $this->builder_driven_cache[ $post->ID ];
+		}
+
+		$is_builder = false;
+
+		// Known page builders, aligned with the edit-context detection in
+		// \SEOPress\Services\EnqueueModuleMetabox::canEnqueue() (which keys off
+		// the builder preview query args). Content analysis runs on the saved
+		// post (REST / cron), outside any builder iframe, so we need a *storage*
+		// signal instead: a meta the builder writes, or a marker it leaves in
+		// post_content. A non-empty meta is enough; value semantics differ per
+		// builder (Elementor stores 'builder', Beaver '1', others a structure).
+		//
+		// It is safe to over-match here: aiContentChecksUnreliable() only
+		// degrades when post_content is *also* too thin to analyse, so a builder
+		// post that still exposes readable text in post_content is evaluated
+		// normally.
+		$meta_flags = array(
+			'_elementor_edit_mode',       // Elementor.
+			'_bricks_page_content_2',     // Bricks.
+			'_fl_builder_enabled',        // Beaver Builder.
+			'ct_builder_shortcodes',      // Oxygen.
+			'_zionbuilder_page_elements', // Zion Builder.
+			'_breakdance_data',           // Breakdance.
+			'_et_pb_use_builder',         // Divi.
+			'_cornerstone_data',          // Themeco Cornerstone / Pro.
+		);
+
+		foreach ( $meta_flags as $key ) {
+			if ( ! empty( get_post_meta( $post->ID, $key, true ) ) ) {
+				$is_builder = true;
+				break;
+			}
+		}
+
+		// Builders that leave a placeholder block or a wrapper shortcode in
+		// post_content while keeping the real layout elsewhere. These markers are
+		// reliable and survive meta-key changes across builder versions.
+		if ( ! $is_builder && ! empty( $post->post_content ) ) {
+			$content_markers = array(
+				'wp:breakdance/',            // Breakdance launcher block.
+				'[et_pb_section',            // Divi.
+				'[fusion_builder_container', // Avada / Fusion Builder.
+				'[vc_row',                   // WPBakery Page Builder.
+				'[cs_content',               // Themeco Cornerstone / Pro.
+			);
+
+			foreach ( $content_markers as $marker ) {
+				if ( false !== strpos( $post->post_content, $marker ) ) {
+					$is_builder = true;
+					break;
+				}
+			}
+		}
+
+		/**
+		 * Filter whether a post is considered managed by a page builder that
+		 * stores its content outside post_content. Return true to make the AI
+		 * content checks degrade to a "not evaluated" state instead of
+		 * analysing the (empty) post_content.
+		 *
+		 * @since 10.1
+		 *
+		 * @param bool    $is_builder Detected builder state.
+		 * @param WP_Post $post       The analysed post.
+		 */
+		$is_builder = (bool) apply_filters( 'seopress_content_analysis_builder_driven', $is_builder, $post );
+
+		$this->builder_driven_cache[ $post->ID ] = $is_builder;
+
+		return $is_builder;
+	}
+
+	/**
+	 * Whether the post_content-based AI content checks cannot be trusted for
+	 * this post.
+	 *
+	 * True only when a page builder holds the content outside post_content AND
+	 * post_content is itself too thin to analyse — so a hybrid post that still
+	 * keeps real text in post_content is evaluated normally.
+	 *
+	 * @param WP_Post $post The post.
+	 *
+	 * @return bool
+	 */
+	private function aiContentChecksUnreliable( $post ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		if ( ! $this->isBuilderDriven( $post ) ) {
+			return false;
+		}
+
+		$min_words = (int) apply_filters( 'seopress_content_analysis_min_words', 300, $post );
+
+		return $this->getContentWordCount( $post ) < $min_words;
+	}
+
+	/**
+	 * Put an AI content check into a neutral "not evaluated" state: no alert, no
+	 * unearned green pass, an explanatory note, and any stale issue for that
+	 * check cleared. Used when the content lives in a page builder and cannot be
+	 * read from post_content.
+	 *
+	 * @param array   $analyzes The analyzes.
+	 * @param string  $key      Analyze key, which is also the issue-type bucket
+	 *                          (content_depth, heading_hierarchy...).
+	 * @param WP_Post $post     The post.
+	 *
+	 * @return array
+	 */
+	private function markCheckNotEvaluated( $analyzes, $key, $post ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+		// 'good' keeps the check out of the alert buckets and the aggregate
+		// score; the note makes clear it was skipped rather than passed.
+		$analyzes[ $key ]['impact'] = 'good';
+		$analyzes[ $key ]['desc']   = '<p>' . __( 'This content is built with a page builder that stores its layout outside the post content, so these checks could not read it and were skipped. Please verify these aspects directly on the published page.', 'wp-seopress' ) . '</p>';
+
+		// Drop any verdict emitted on a previous pass so a stale alert clears.
+		$this->cleanupResolvedIssues( $post->ID, $key, array() );
+
+		return $analyzes;
+	}
+
+	/**
+	 * The analyzeContentDepth function.
+	 *
+	 * @param array   $analyzes The analyzes.
+	 * @param array   $data The data.
+	 * @param WP_Post $post The post.
+	 *
+	 * @return array
+	 */
+	protected function analyzeContentDepth( $analyzes, $data, $post ) {
+		if ( $this->aiContentChecksUnreliable( $post ) ) {
+			return $this->markCheckNotEvaluated( $analyzes, 'content_depth', $post );
+		}
+
+		$issue               = array();
+		$issue['issue_type'] = 'content_depth';
+		$emitted_names       = array();
+
+		$word_count = $this->getContentWordCount( $post );
+		$min_words  = (int) apply_filters( 'seopress_content_analysis_min_words', 300, $post );
+
+		$desc = '<p>' . __( 'Google\'s AI features and search rank in-depth content with a unique point of view higher than thin, commodity content. Make sure your content covers the topic thoroughly.', 'wp-seopress' ) . '</p>';
+
+		if ( $word_count < $min_words ) {
+			$analyzes['content_depth']['impact'] = 'medium';
+			$desc                               .= '<p><span class="dashicons dashicons-no-alt sp-dashicons-not"></span>' . /* translators: %1$d current word count, %2$d recommended minimum word count */ sprintf( esc_html__( 'Your content is quite thin (%1$d words). Aim for at least %2$d words to cover the topic in depth.', 'wp-seopress' ), $word_count, $min_words ) . '</p>';
+
+			$issue['issue_name'] = 'content_too_thin';
+			$issue['issue_desc'] = array( $word_count );
+		} else {
+			$desc .= '<p><span class="dashicons dashicons-yes sp-dashicons-ok"></span>' . /* translators: %d word count */ sprintf( esc_html__( 'Your content has %d words. Good job!', 'wp-seopress' ), $word_count ) . '</p>';
+		}
+
+		$analyzes['content_depth']['desc'] = $desc;
+
+		$issue['issue_priority'] = $analyzes['content_depth']['impact'] ? $analyzes['content_depth']['impact'] : 0;
+
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'content_depth', $emitted_names );
+
+		return $analyzes;
+	}
+
+	/**
+	 * The analyzeHeadingHierarchy function.
+	 *
+	 * @param array   $analyzes The analyzes.
+	 * @param array   $data The data.
+	 * @param WP_Post $post The post.
+	 *
+	 * @return array
+	 */
+	protected function analyzeHeadingHierarchy( $analyzes, $data, $post ) {
+		if ( $this->aiContentChecksUnreliable( $post ) ) {
+			return $this->markCheckNotEvaluated( $analyzes, 'heading_hierarchy', $post );
+		}
+
+		$issue               = array();
+		$issue['issue_type'] = 'heading_hierarchy';
+		$emitted_names       = array();
+
+		$outline = $this->resolveHeadingOutline( $data, $post );
+
+		$desc = '<p>' . __( 'Organize your content into clear sections with a coherent heading hierarchy. This helps both readers and AI systems understand the structure of your page.', 'wp-seopress' ) . '</p>';
+
+		$skips = array();
+		$prev  = 0;
+		foreach ( $outline as $level ) {
+			if ( $prev > 0 && $level > $prev + 1 ) {
+				$skips[] = sprintf( 'H%1$d &rarr; H%2$d', $prev, $level );
+			}
+			$prev = $level;
+		}
+
+		$subheadings = 0;
+		foreach ( $outline as $level ) {
+			if ( $level >= 2 ) {
+				$subheadings++;
+			}
+		}
+
+		$word_count       = $this->getContentWordCount( $post );
+		$long_content     = (int) apply_filters( 'seopress_content_analysis_long_content_words', 900, $post );
+		$min_subheadings  = (int) apply_filters( 'seopress_content_analysis_min_subheadings', 2, $post );
+		$is_long          = $word_count >= $long_content;
+
+		if ( ! empty( $skips ) ) {
+			$analyzes['heading_hierarchy']['impact'] = 'low';
+			$desc                                   .= '<p><span class="dashicons dashicons-no-alt sp-dashicons-not"></span>' . __( 'Your heading levels are not sequential (a level is skipped). Don\'t jump from H2 to H4 without an H3 in between.', 'wp-seopress' ) . '</p>';
+			$desc                                   .= '<ul>';
+			foreach ( $skips as $skip ) {
+				$desc .= '<li><span class="dashicons dashicons-minus"></span>' . wp_kses_post( $skip ) . '</li>';
+			}
+			$desc .= '</ul>';
+
+			$issue['issue_name'] = 'heading_hierarchy_skipped';
+			$issue['issue_desc'] = array_map( 'wp_strip_all_tags', $skips );
+
+			$issue['issue_priority'] = $analyzes['heading_hierarchy']['impact'];
+			$this->saveIssue( $post->ID, $issue, $emitted_names );
+		}
+
+		if ( $is_long && $subheadings < $min_subheadings ) {
+			$issue                                   = array();
+			$issue['issue_type']                     = 'heading_hierarchy';
+			$analyzes['heading_hierarchy']['impact'] = 'medium';
+			$desc                                   .= '<p><span class="dashicons dashicons-no-alt sp-dashicons-not"></span>' . /* translators: %1$d word count, %2$d recommended minimum number of subheadings */ sprintf( esc_html__( 'Your content is long (%1$d words) but uses only %2$d subheadings. Break it into more sections with H2/H3 headings.', 'wp-seopress' ), $word_count, $subheadings ) . '</p>';
+
+			$issue['issue_name']     = 'heading_hierarchy_too_few';
+			$issue['issue_desc']     = array( $subheadings );
+			$issue['issue_priority'] = $analyzes['heading_hierarchy']['impact'];
+			$this->saveIssue( $post->ID, $issue, $emitted_names );
+		}
+
+		if ( 'good' === $analyzes['heading_hierarchy']['impact'] ) {
+			$desc .= '<p><span class="dashicons dashicons-yes sp-dashicons-ok"></span>' . __( 'Your heading structure looks coherent. Good job!', 'wp-seopress' ) . '</p>';
+		}
+
+		$analyzes['heading_hierarchy']['desc'] = $desc;
+
+		$this->cleanupResolvedIssues( $post->ID, 'heading_hierarchy', $emitted_names );
+
+		return $analyzes;
+	}
+
+	/**
+	 * The analyzeContentMedia function.
+	 *
+	 * @param array   $analyzes The analyzes.
+	 * @param array   $data The data.
+	 * @param WP_Post $post The post.
+	 *
+	 * @return array
+	 */
+	protected function analyzeContentMedia( $analyzes, $data, $post ) {
+		if ( $this->aiContentChecksUnreliable( $post ) ) {
+			return $this->markCheckNotEvaluated( $analyzes, 'content_media', $post );
+		}
+
+		$issue               = array();
+		$issue['issue_type'] = 'content_media';
+		$emitted_names       = array();
+
+		$images = isset( $data['images'] ) && is_array( $data['images'] ) ? count( $data['images'] ) : 0;
+		$videos = isset( $data['content_structure']['videos'] ) ? (int) $data['content_structure']['videos'] : 0;
+		$media  = $images + $videos;
+
+		$word_count   = $this->getContentWordCount( $post );
+		$long_content = (int) apply_filters( 'seopress_content_analysis_long_content_words', 900, $post );
+
+		$desc = '<p>' . __( 'Google recommends including relevant, high-quality images and videos in your content. Rich media improves engagement and eligibility for AI experiences.', 'wp-seopress' ) . '</p>';
+
+		if ( $word_count >= $long_content && 0 === $media ) {
+			$analyzes['content_media']['impact'] = 'medium';
+			$desc                               .= '<p><span class="dashicons dashicons-no-alt sp-dashicons-not"></span>' . /* translators: %d word count */ sprintf( esc_html__( 'Your content is long (%d words) but does not contain any image or video. Add relevant media to enrich it.', 'wp-seopress' ), $word_count ) . '</p>';
+
+			$issue['issue_name'] = 'content_media_missing';
+			$issue['issue_desc'] = array( $word_count );
+		} else {
+			$desc .= '<p><span class="dashicons dashicons-yes sp-dashicons-ok"></span>' . /* translators: %1$d number of images, %2$d number of videos */ sprintf( esc_html__( 'We found %1$d image(s) and %2$d video(s) in your content.', 'wp-seopress' ), $images, $videos ) . '</p>';
+		}
+
+		$analyzes['content_media']['desc'] = $desc;
+
+		$issue['issue_priority'] = $analyzes['content_media']['impact'] ? $analyzes['content_media']['impact'] : 0;
+
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'content_media', $emitted_names );
+
+		return $analyzes;
+	}
+
+	/**
+	 * The analyzeContentStructure function.
+	 *
+	 * @param array   $analyzes The analyzes.
+	 * @param array   $data The data.
+	 * @param WP_Post $post The post.
+	 *
+	 * @return array
+	 */
+	protected function analyzeContentStructure( $analyzes, $data, $post ) {
+		if ( $this->aiContentChecksUnreliable( $post ) ) {
+			return $this->markCheckNotEvaluated( $analyzes, 'content_structure', $post );
+		}
+
+		$issue               = array();
+		$issue['issue_type'] = 'content_structure';
+		$emitted_names       = array();
+
+		$outline = $this->resolveHeadingOutline( $data, $post );
+
+		$subheadings = 0;
+		foreach ( $outline as $level ) {
+			if ( $level >= 2 ) {
+				$subheadings++;
+			}
+		}
+
+		$word_count        = $this->getContentWordCount( $post );
+		$long_content      = (int) apply_filters( 'seopress_content_analysis_long_content_words', 900, $post );
+		$words_per_section = (int) apply_filters( 'seopress_content_analysis_words_per_section', 300, $post );
+		$sections          = $subheadings + 1;
+		$ratio             = $sections > 0 ? (int) round( $word_count / $sections ) : $word_count;
+
+		$desc = '<p>' . __( 'Avoid walls of text. Splitting long content into well-titled sections makes it easier to read and to surface in AI answers.', 'wp-seopress' ) . '</p>';
+
+		if ( $word_count >= $long_content && $ratio > $words_per_section ) {
+			$analyzes['content_structure']['impact'] = 'low';
+			$desc                                   .= '<p><span class="dashicons dashicons-no-alt sp-dashicons-not"></span>' . /* translators: %1$d average words per section, %2$d recommended maximum words per section */ sprintf( esc_html__( 'Your sections average %1$d words. Add more subheadings to keep sections under ~%2$d words.', 'wp-seopress' ), $ratio, $words_per_section ) . '</p>';
+
+			$issue['issue_name'] = 'content_wall_of_text';
+			$issue['issue_desc'] = array( $ratio );
+		} else {
+			$desc .= '<p><span class="dashicons dashicons-yes sp-dashicons-ok"></span>' . __( 'Your content is well structured into sections. Good job!', 'wp-seopress' ) . '</p>';
+		}
+
+		$analyzes['content_structure']['desc'] = $desc;
+
+		$issue['issue_priority'] = $analyzes['content_structure']['impact'] ? $analyzes['content_structure']['impact'] : 0;
+
+		$this->saveIssue( $post->ID, $issue, $emitted_names );
+		$this->cleanupResolvedIssues( $post->ID, 'content_structure', $emitted_names );
 
 		return $analyzes;
 	}
@@ -1456,6 +2055,18 @@ class GetContent {
 			case 'canonical_url':
 				$analyzes = $this->analyzeCanonical( $analyzes, $data, $post );
 				break;
+			case 'content_depth':
+				$analyzes = $this->analyzeContentDepth( $analyzes, $data, $post );
+				break;
+			case 'heading_hierarchy':
+				$analyzes = $this->analyzeHeadingHierarchy( $analyzes, $data, $post );
+				break;
+			case 'content_media':
+				$analyzes = $this->analyzeContentMedia( $analyzes, $data, $post );
+				break;
+			case 'content_structure':
+				$analyzes = $this->analyzeContentStructure( $analyzes, $data, $post );
+				break;
 			default:
 				$analyzes = $this->analyzeSchemas( $analyzes, $data, $post );
 				$analyzes = $this->analyzeOldPost( $analyzes, $data, $post );
@@ -1470,6 +2081,10 @@ class GetContent {
 				$analyzes = $this->analyzeOutboundLinks( $analyzes, $data, $post );
 				$analyzes = $this->analyzeInternalLinks( $analyzes, $data, $post );
 				$analyzes = $this->analyzeCanonical( $analyzes, $data, $post );
+				$analyzes = $this->analyzeContentDepth( $analyzes, $data, $post );
+				$analyzes = $this->analyzeHeadingHierarchy( $analyzes, $data, $post );
+				$analyzes = $this->analyzeContentMedia( $analyzes, $data, $post );
+				$analyzes = $this->analyzeContentStructure( $analyzes, $data, $post );
 				break;
 		}
 

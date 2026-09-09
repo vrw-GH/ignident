@@ -25,11 +25,13 @@ if ( ! class_exists( 'avia_sc_contact', false ) )
 
 			$this->config['name']			= __( 'Contact Form', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-contact.png';
-			$this->config['order']			= 43;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-contact.svg';
+			$this->config['order']			= 36;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_contact';
 			$this->config['shortcode_nested'] = array( 'av_contact_field' );
+			//	the canvas names the field labels so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_contact_field', 'attr' => 'label' );
 			$this->config['tooltip']		= __( 'Creates a customizable contact form', 'avia_framework' );
 			$this->config['preview']		= 'large';
 			$this->config['disabling_allowed'] = true;
@@ -335,7 +337,8 @@ if ( ! class_exists( 'avia_sc_contact', false ) )
 												__( 'Don\'t display Captcha', 'avia_framework' )								=> '',
 												__( 'Use Enfold Numeric Captcha', 'avia_framework' )							=> 'active',
 												__( 'Use Google reCAPTCHA V2 if activated', 'avia_framework' )					=> 'recaptcha_v2',
-												__( 'Use Google reCAPTCHA V3 if activated (fallback is V2)', 'avia_framework' )	=> 'recaptcha_v3'
+												__( 'Use Google reCAPTCHA V3 if activated (fallback is V2)', 'avia_framework' )	=> 'recaptcha_v3',
+												__( 'Use Cloudflare Turnstile if activated', 'avia_framework' )					=> 'turnstile'
 											)
 							),
 
@@ -986,7 +989,9 @@ if ( ! class_exists( 'avia_sc_contact', false ) )
 
 			//captcha field for the user to verify that he is real
 			$google = in_array( $captcha, array( 'recaptcha_v2', 'recaptcha_v3' ) );
-			if( 'active' == $captcha || ( $google && Avia_Google_reCAPTCHA()->is_loading_prohibited() ) )
+			$turnstile = ( 'turnstile' == $captcha );
+
+			if( 'active' == $captcha || ( $google && Avia_Google_reCAPTCHA()->is_loading_prohibited() ) || ( $turnstile && Avia_Turnstile()->is_loading_prohibited() ) )
 			{
 				$form_args['captcha'] = 'active';
 				$elements['avia_age'] = array(
@@ -1009,6 +1014,17 @@ if ( ! class_exists( 'avia_sc_contact', false ) )
 											'size'				=> $captcha_size,
 											'score'				=> $captcha_score,
 											'text_to_preview'	=> Avia_Builder()->in_text_to_preview_mode()
+										);
+			}
+			else if( $turnstile )
+			{
+				$form_args['captcha'] = $captcha;
+				$elements['avia_age'] = array(
+											'type'				=> 'turnstile',
+											'container_class'	=> '',
+											'custom_class'		=> '',
+											'context'			=> 'av_contact_form',
+											'token_input'		=> 'cf-turnstile-response'
 										);
 			}
 

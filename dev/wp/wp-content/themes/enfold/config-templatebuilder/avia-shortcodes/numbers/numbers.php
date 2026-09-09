@@ -24,8 +24,8 @@ if( ! class_exists( 'avia_sc_animated_numbers', false ) )
 
 			$this->config['name']			= __( 'Animated Numbers', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-numbers.png';
-			$this->config['order']			= 15;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-numbers.svg';
+			$this->config['order']			= 44;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_animated_numbers';
 			$this->config['tooltip']		= __( 'Display an animated Number with subtitle', 'avia_framework' );

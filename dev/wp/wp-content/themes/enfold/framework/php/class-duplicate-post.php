@@ -219,6 +219,11 @@ if( ! class_exists( 'aviaDuplicatePost', false ) )
 				wp_die( sprintf( esc_html__( 'Post creation failed, could not find original post: %s', 'avia_framework' ), esc_html( $post_id ) ) );
 			}
 
+			if( in_array( $post->post_type, $this->ignore_post_types ) )
+			{
+				wp_die( esc_html__( 'Post creation failed, this post type is not allowed to be duplicated.', 'avia_framework' ) );
+			}
+
 			$current_user = wp_get_current_user();
 
 			/**

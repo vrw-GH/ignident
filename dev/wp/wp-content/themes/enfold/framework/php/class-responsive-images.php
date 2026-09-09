@@ -115,6 +115,17 @@ if( ! class_exists( 'av_responsive_images', false ) )
 		protected $temporary_disabled;
 
 		/**
+		 * `fetchpriority="high"` must only be added to a single image per page - the browser's best guess at
+		 * the LCP element. WP core enforces this with a one-shot flag (@see wp_high_priority_element_flag());
+		 * we mirror that here since we add the attribute directly to the HTML instead of going through WP's
+		 * attribute array.
+		 *
+		 * @since 8.0
+		 * @var boolean
+		 */
+		protected $fetchpriority_high_used;
+
+		/**
 		 * Return the instance of this class
 		 *
 		 * @since 4.7.5.1
@@ -164,6 +175,7 @@ if( ! class_exists( 'av_responsive_images', false ) )
 			$this->no_lazy_loading_ids = array();
 			$this->opt_key_attachment_urls = avia_backend_safe_string( $avia->base_data['prefix'] ) . '-attachment_urls';
 			$this->temporary_disabled = false;
+			$this->fetchpriority_high_used = false;
 
 
 			add_action( 'init', array( $this, 'handler_wp_init'), 999999 );
@@ -681,9 +693,15 @@ if( ! class_exists( 'av_responsive_images', false ) )
 		 * @param string $html
 		 * @param int $attachment_id
 		 * @param string $lazy_loading					'' | 'enabled' | 'disabled'
+		 * @param bool $defer_to_wp_core				true if caller will subsequently pass the html through
+		 *												wp_filter_content_tags() (@see make_image_responsive()) -
+		 *												in that case we must not also inject our own fetchpriority
+		 *												since WP core's own one-shot high-priority flag would then
+		 *												conflict with ours, potentially causing an image to lose
+		 *												both attributes
 		 * @return string
 		 */
-		public function prepare_single_image( $html, $attachment_id, $lazy_loading = 'disabled' )
+		public function prepare_single_image( $html, $attachment_id, $lazy_loading = 'disabled', $defer_to_wp_core = false )
 		{
 			$lazy_loading = $this->validate_lazy_loading_alb_option( $lazy_loading );
 
@@ -700,7 +718,7 @@ if( ! class_exists( 'av_responsive_images', false ) )
 
 			foreach ( $matches[0] as $image )
 			{
-				$new_img = $this->add_lazy_loading_to_img( $image, $attachment_id, $lazy_loading );
+				$new_img = $this->add_lazy_loading_to_img( $image, $attachment_id, $lazy_loading, $defer_to_wp_core );
 
 				if( is_numeric( $attachment_id ) || 0 != $attachment_id )
 				{
@@ -764,7 +782,9 @@ if( ! class_exists( 'av_responsive_images', false ) )
 		 */
 		public function make_image_responsive( $html, $attachment_id, $lazy_loading = '' )
 		{
-			$img = $this->prepare_single_image( $html, $attachment_id, $lazy_loading );
+			//	the html is passed through wp_filter_content_tags() below - let WP core's own,
+			//	already-coordinated one-shot fetchpriority logic decide instead of injecting our own
+			$img = $this->prepare_single_image( $html, $attachment_id, $lazy_loading, true );
 			return $this->make_content_images_responsive( $img );
 		}
 
@@ -1024,9 +1044,10 @@ if( ! class_exists( 'av_responsive_images', false ) )
 		 * @param string $image
 		 * @param int $attachment_id
 		 * @param string $lazy_loading				'enabled' | 'disabled'
+		 * @param bool $defer_to_wp_core			@see prepare_single_image()
 		 * @return string
 		 */
-		protected function add_lazy_loading_to_img( $image, $attachment_id, $lazy_loading )
+		protected function add_lazy_loading_to_img( $image, $attachment_id, $lazy_loading, $defer_to_wp_core = false )
 		{
 			if( 'disabled' == $lazy_loading )
 			{
@@ -1049,7 +1070,7 @@ if( ! class_exists( 'av_responsive_images', false ) )
 			$class .= $attachment_id;
 
 			$image = $this->add_class_to_img_tag( $image, $class );
-			$image = $this->add_lazy_loading_attr_to_img_tag( $image, $lazy_loading );
+			$image = $this->add_lazy_loading_attr_to_img_tag( $image, $lazy_loading, $defer_to_wp_core );
 
 			return $image;
 		}
@@ -1082,12 +1103,24 @@ if( ! class_exists( 'av_responsive_images', false ) )
 		 * WP changed logic to handle attribute loading with 6.3.0
 		 * Use filter 'wp_omit_loading_attr_threshold' (defauts to 3 by WP) to change number of first images skipped from lazy load
 		 *
+		 * `fetchpriority="high"` is only ever added to the first image that requests it during the current
+		 * request (@see $this->fetchpriority_high_used) - mirrors WP core's own one-shot behaviour so it isn't
+		 * applied to every non-lazy image on the page (avoids fetchpriority="high" on below-the-fold images).
+		 *
+		 * When $defer_to_wp_core is true, the caller is going to run this html through
+		 * wp_filter_content_tags() right afterwards (@see make_image_responsive()). In that case we must not
+		 * inject our own fetchpriority - WP core's own one-shot flag has no knowledge of ours, so both could
+		 * independently decide "not me, someone else already claimed it" and the image ends up with neither
+		 * attribute. Instead we mark the image loading="eager" so WP core's own (size-threshold aware,
+		 * correctly one-shot) logic can grant fetchpriority itself.
+		 *
 		 * @since 5.6.7
 		 * @param string $image
 		 * @param string $lazy_loading				'enabled' | 'disabled'
+		 * @param bool $defer_to_wp_core			@see prepare_single_image()
 		 * @return string
 		 */
-		protected function add_lazy_loading_attr_to_img_tag( $image, $lazy_loading )
+		protected function add_lazy_loading_attr_to_img_tag( $image, $lazy_loading, $defer_to_wp_core = false )
 		{
 			global $wp_version;
 
@@ -1131,9 +1164,17 @@ if( ! class_exists( 'av_responsive_images', false ) )
 					$image = str_replace( $match_loading[0], '', $image );
 				}
 
-				if( empty( $fetchpriority_val ) )
+				if( $defer_to_wp_core )
+				{
+					if( empty( $loading_val ) )
+					{
+						$image = str_replace( '<img ', '<img loading="eager" ', $image );
+					}
+				}
+				else if( empty( $fetchpriority_val ) && ! $this->fetchpriority_high_used )
 				{
 					$image = str_replace( '<img ', '<img fetchpriority="high" ', $image );
+					$this->fetchpriority_high_used = true;
 				}
 			}
 

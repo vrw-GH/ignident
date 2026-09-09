@@ -166,3 +166,411 @@ Gallery
 	}
 }
 
+
+/* ======================================================================================================================================================
+Plain frame style — no border, no padding, 2px gap
+====================================================================================================================================================== */
+
+#top div .avia-gallery.avia-gallery-plain img{
+	padding: 0;
+	border: none;
+}
+
+#top div .avia-gallery.avia-gallery-plain .avia-gallery-big{
+	padding: 0;
+	border: none;
+	margin-bottom: 2px;
+}
+
+
+
+/* ======================================================================================================================================================
+Mosaic layout — CSS Grid, every 3rd item (nth-child 3n+1) spans 2 columns. Repeats infinitely.
+Portrait galleries switch to an even grid with a 2x2 lead tile.
+====================================================================================================================================================== */
+
+#top div .avia-gallery.avia-gallery-mosaic .avia-gallery-thumb{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-flow: dense;
+	gap: 4px;
+}
+
+#top div .avia-gallery.avia-gallery-plain.avia-gallery-mosaic .avia-gallery-thumb{
+	gap: 2px;
+}
+
+#top div .avia-gallery.avia-gallery-mosaic .avia-gallery-thumb a{
+	width: 100%;
+	min-width: 0;
+	overflow: hidden;
+	display: block;
+}
+
+#top #wrap_all .avia-gallery.avia-gallery-mosaic .avia-gallery-thumb a{
+	display: block;
+	width: 100%;
+	overflow: hidden;
+}
+
+#top div .avia-gallery.avia-gallery-mosaic .avia-gallery-thumb a:nth-child(3n+1){
+	grid-column: span 2;
+}
+
+#top div .avia-gallery.avia-gallery-mosaic .avia-gallery-thumb a img{
+	float: none;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	aspect-ratio: 1/1;
+	padding: 0;
+	border: none;
+	display: block;
+}
+
+#top div .avia-gallery.avia-gallery-mosaic .avia-gallery-thumb a:nth-child(3n+1) img{
+	aspect-ratio: 2/1;
+}
+
+#top div .avia-gallery.avia-gallery-mosaic.av-orient-portrait .avia-gallery-thumb a img{
+	aspect-ratio: 3/4;
+}
+
+#top div .avia-gallery.avia-gallery-mosaic.av-orient-portrait .avia-gallery-thumb a:nth-child(3n+1){
+	grid-column: auto;
+}
+
+#top div .avia-gallery.avia-gallery-mosaic.av-orient-portrait .avia-gallery-thumb a:first-child{
+	grid-column: span 2;
+	grid-row: span 2;
+}
+
+#top div .avia-gallery.avia-gallery-mosaic.av-orient-portrait .avia-gallery-thumb a:first-child img{
+	aspect-ratio: 3/4;
+	height: 100%;
+}
+
+@media only screen and (max-width: 479px){
+	#top div .avia-gallery.avia-gallery-mosaic .avia-gallery-thumb{
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+
+/* ======================================================================================================================================================
+Filmstrip layout — single horizontal scrollable row, fixed height, scroll-snap.
+Uses thumb_size aspect ratio via object-fit cover.
+====================================================================================================================================================== */
+
+#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb{
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	gap: 4px;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	cursor: grab;
+}
+
+#top div .avia-gallery.avia-gallery-plain.avia-gallery-filmstrip .avia-gallery-thumb{
+	gap: 2px;
+}
+
+#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb::-webkit-scrollbar{
+	display: none;
+}
+
+#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb.av-dragging{
+	cursor: grabbing;
+	scroll-snap-type: none;
+}
+
+#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a{
+	flex: 0 0 auto;
+	width: 320px;
+	height: 320px;
+	scroll-snap-align: start;
+	overflow: hidden;
+	display: block;
+}
+
+#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a.av-item-landscape{
+	width: 460px;
+}
+
+#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a.av-item-portrait{
+	width: 230px;
+}
+
+#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a.av-item-square{
+	width: 320px;
+}
+
+/* a portrait gallery sizes all items alike and overrules the per image orientation above */
+#top div .avia-gallery.avia-gallery-filmstrip.av-orient-portrait .avia-gallery-thumb a{
+	width: 270px;
+	height: 360px;
+}
+
+#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a img{
+	float: none;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center top;
+	padding: 0;
+	border: none;
+	display: block;
+}
+
+@media only screen and (max-width: 767px)
+{
+	#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a{
+		width: 220px;
+		height: 240px;
+	}
+
+	#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a.av-item-landscape{
+		width: 340px;
+	}
+
+	#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a.av-item-portrait{
+		width: 170px;
+	}
+
+	#top div .avia-gallery.avia-gallery-filmstrip .avia-gallery-thumb a.av-item-square{
+		width: 220px;
+	}
+
+	#top div .avia-gallery.avia-gallery-filmstrip.av-orient-portrait .avia-gallery-thumb a{
+		width: 190px;
+		height: 253px;
+	}
+}
+
+
+/* ======================================================================================================================================================
+Editorial layout — 2-column split with a full-width first image. Cells adapt to each image's orientation.
+====================================================================================================================================================== */
+
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-auto-flow: dense;
+	gap: 4px;
+}
+
+#top div .avia-gallery.avia-gallery-plain.avia-gallery-editorial .avia-gallery-thumb{
+	gap: 2px;
+}
+
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a{
+	width: 100%;
+	display: block;
+	overflow: hidden;
+}
+
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a:first-child{
+	grid-column: span 2;
+}
+
+/* every 3rd item opens a new full width row */
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a:nth-child(3n+1){
+	grid-column: span 2;
+}
+
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a img{
+	float: none;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center top;
+	padding: 0;
+	border: none;
+	display: block;
+}
+
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a.av-item-landscape img{
+	aspect-ratio: 3/2;
+}
+
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a.av-item-portrait img{
+	aspect-ratio: 3/4;
+}
+
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a.av-item-square img{
+	aspect-ratio: 1/1;
+}
+
+/* the position in the row overrules the orientation of the single image */
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a:nth-child(3n+1) img{
+	aspect-ratio: 21/9;
+}
+
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a:not(:nth-child(3n+1)) img{
+	aspect-ratio: 4/3;
+}
+
+/* full-width feature lead */
+#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a:first-child img{
+	aspect-ratio: 16/9;
+}
+
+/* a portrait gallery overrules all of the above */
+#top div .avia-gallery.avia-gallery-editorial.av-orient-portrait .avia-gallery-thumb a:not(:nth-child(3n+1)) img{
+	aspect-ratio: 3/4;
+}
+
+#top div .avia-gallery.avia-gallery-editorial.av-orient-portrait .avia-gallery-thumb a:nth-child(3n+1) img{
+	aspect-ratio: 16/9;
+}
+
+@media only screen and (max-width: 767px)
+{
+	#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb{
+		grid-template-columns: 1fr;
+	}
+
+	#top div .avia-gallery.avia-gallery-editorial .avia-gallery-thumb a:first-child{
+		grid-column: span 1;
+	}
+}
+
+
+/* ======================================================================================================================================================
+Spotlight layout — first image fills left 60%, images 2-4 stack vertically on right 40%.
+Images 5+ fall into an overflow thumbnail strip below. Uses existing big_prev hover swap JS.
+====================================================================================================================================================== */
+
+#top div .avia-gallery.avia-gallery-spotlight{
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+#top div .avia-gallery.avia-gallery-plain.avia-gallery-spotlight{
+	gap: 2px;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-main-wrap{
+	display: grid;
+	grid-template-columns: 3fr 2fr;
+	align-items: stretch;
+	gap: 4px;
+}
+
+#top div .avia-gallery.avia-gallery-plain.avia-gallery-spotlight .av-spotlight-main-wrap{
+	gap: 2px;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-main{
+	overflow: hidden;
+	display: block;
+	min-height: 0;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-main .avia-gallery-big{
+	display: block;
+	aspect-ratio: 2/3;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-main .avia-gallery-big-inner{
+	height: 100%;
+	display: block;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-main img{
+	float: none;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center top;
+	padding: 0;
+	border: none;
+	display: block;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-stack{
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	height: 0;
+	min-height: 100%;
+	overflow: hidden;
+}
+
+#top div .avia-gallery.avia-gallery-plain.avia-gallery-spotlight .av-spotlight-stack{
+	gap: 2px;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-stack a{
+	flex: 1;
+	min-height: 0;
+	overflow: hidden;
+	display: block;
+	width: 100%;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-stack a img{
+	float: none;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	padding: 0;
+	border: none;
+	display: block;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-stack a:hover{
+	opacity: 0.8;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .avia-gallery-thumb{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+#top div .avia-gallery.avia-gallery-plain.avia-gallery-spotlight .avia-gallery-thumb{
+	gap: 2px;
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .avia-gallery-thumb a{
+	flex: 0 0 auto;
+	width: calc(20% - 4px);
+	overflow: hidden;
+	display: block;
+}
+
+#top div .avia-gallery.avia-gallery-plain.avia-gallery-spotlight .avia-gallery-thumb a{
+	width: calc(20% - 2px);
+}
+
+#top div .avia-gallery.avia-gallery-spotlight .avia-gallery-thumb a img{
+	float: none;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	padding: 0;
+	border: none;
+	display: block;
+}
+
+@media only screen and (max-width: 767px)
+{
+	#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-main-wrap{
+		grid-template-columns: 1fr;
+	}
+
+	#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-stack{
+		flex-direction: row;
+		overflow-x: auto;
+	}
+
+	#top div .avia-gallery.avia-gallery-spotlight .av-spotlight-stack a{
+		flex: 0 0 120px;
+		height: 90px;
+	}
+}
+

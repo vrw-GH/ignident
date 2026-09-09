@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "items": [
+    {
+      "id": "enfold-80-demos",
+      "category": "Demos",
+      "date": "2026-08-13",
+      "headline": "Two new demos: Reef and Studio",
+      "teaser": "8.0: Reef and Studio are here",
+      "description": "A shop demo and a portfolio demo, both installable from your theme options.",
+      "link_label": "Browse the demos",
+      "link_url": "admin:admin.php?page=avia#goto_demo",
+      "image": "https://news.kriesi.at/img/demos.jpg",
+      "thumb": "https://news.kriesi.at/img/demos.jpg"
+    },
+    {
+      "id": "enfold-80-release",
+      "category": "Release",
+      "date": "2026-08-10",
+      "headline": "Enfold 8.0 is out",
+      "teaser": "Enfold 8.0 is out",
+      "description": "New gallery layouts, Cloudflare Turnstile support and a long list of fixes.",
+      "link_label": "Read the changelog",
+      "link_url": "https://kriesi.at/documentation/enfold/changelog/",
+      "image": "https://news.kriesi.at/img/8-0.jpg",
+      "thumb": "https://news.kriesi.at/img/8-0.jpg"
+    }
+  ]
+}

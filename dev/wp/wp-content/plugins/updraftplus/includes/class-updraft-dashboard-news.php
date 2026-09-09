@@ -146,8 +146,9 @@ class Updraft_Dashboard_News {
 	 * @return Boolean True if an ajax for the WP dashboard news
 	 */
 	protected function do_ajax_dashboard_news() {
-		$ajax_callback_page = !empty($_GET['pagenow']) ? $_GET['pagenow'] : '';
-		return (in_array($ajax_callback_page, $this->valid_callback_pages) && !empty($_GET['widget']) && 'dashboard_primary' == $_GET['widget']);
+		$ajax_callback_page = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'pagenow', '');
+		$widget = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'widget', '');
+		return (in_array($ajax_callback_page, $this->valid_callback_pages) && !empty($widget) && 'dashboard_primary' == $widget);
 	}
 	
 	/**
@@ -228,7 +229,7 @@ class Updraft_Dashboard_News {
 	 * Dismiss dashboard news
 	 */
 	public function dismiss_dashboard_news() {
-		$nonce = empty($_REQUEST['nonce']) ? '' : $_REQUEST['nonce'];
+		$nonce = UpdraftPlus_Manipulation_Functions::fetch_superglobal('request', 'nonce', '');
 		if (!wp_verify_nonce($nonce, $this->slug.'-dismiss-news-nonce')) die('Security check.');
 		
 		update_user_meta(get_current_user_id(), $this->slug.'_dismiss_dashboard_news', true);

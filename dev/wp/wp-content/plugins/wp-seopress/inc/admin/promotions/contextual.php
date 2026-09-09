@@ -142,7 +142,15 @@ function seopress_render_pro_upsell( $feature_name, $feature_slug = '' ) {
 	}
 	if ( ! $cta_url ) {
 		$utm_campaign = $feature_slug ? 'upsell-' . $feature_slug : 'upsell';
-		$cta_url      = 'https://www.seopress.org/pricing/?utm_source=plugin&utm_medium=contextual&utm_campaign=' . $utm_campaign;
+		$docs_links   = function_exists( 'seopress_get_docs_links' ) ? seopress_get_docs_links() : array();
+		$cta_url      = add_query_arg(
+			array(
+				'utm_source'   => 'plugin',
+				'utm_medium'   => 'contextual',
+				'utm_campaign' => $utm_campaign,
+			),
+			isset( $docs_links['pricing'] ) ? $docs_links['pricing'] : ''
+		);
 	}
 	?>
 	<div class="seopress-pro-upsell">
@@ -164,7 +172,7 @@ function seopress_render_pro_upsell( $feature_name, $feature_slug = '' ) {
 	</div>
 	<style>
 		.seopress-pro-upsell {
-			background: linear-gradient(135deg, #4E21E7 0%, #6B3CE7 100%);
+			background: linear-gradient(135deg, var(--wp-admin-theme-color) 0%, var(--wp-admin-theme-color-darker-20) 100%);
 			border-radius: 8px;
 			padding: 20px;
 			margin: 20px 0;
@@ -211,7 +219,7 @@ function seopress_render_pro_upsell( $feature_name, $feature_slug = '' ) {
 		.seopress-pro-upsell .upsell-cta {
 			flex-shrink: 0;
 			background: #fff;
-			color: #4E21E7;
+			color: var(--wp-admin-theme-color);
 			border: none;
 			padding: 10px 20px;
 			font-weight: 600;

@@ -16,10 +16,6 @@ body.block-editor-page .edit-post-meta-boxes-area #avia_alb_actions {
 
 body.block-editor-page .edit-post-header__settings .avia-builder-button {
 	margin: 0 10px 0 3px;
-	padding: 0 12px 2px;
-	font-size: 13px;
-	height: 33px;
-	line-height: 32px;
 }
 
 body.block-editor-page #avia_alb_actions h2:hover {
@@ -60,101 +56,37 @@ body.block-editor-page.avia-advanced-editor-enabled #avia_builder .avia-builder-
 	width: 100%;
 }
 
-body.block-editor-page.avia-advanced-editor-enabled .avia-expanded .avia-builder-main-wrap {
-	padding: 70px 0 0 0;
-}
-
-body.block-editor-page.avia-advanced-editor-enabled .avia-expand-button {
-	display: none;
-	right: 30px;
-	bottom: 19px;
-}
-
 body.block-editor-page.avia-advanced-editor-enabled .avia-template-save-button-container {
 	bottom: 16px;
 	right: 25px;
 }
 
+body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand.avia-alb-panel-toolbar .avia-template-save-button-container {
+    bottom: 36px;
+    right: 24px;
+}
+
+/*
+ * The metabox area is a scroll container that the block editor lays out with no height of its own,
+ * so the builder inside it would be clipped to nothing. Taking it out of the flow lets it size to
+ * the builder instead. Nothing to do with fullscreen - avia-block-editor-expand is on every block
+ * editor page.
+ */
 body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .edit-post-layout__metaboxes {
 	position: absolute;
 	width: 100%;
 }
 
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded #titlediv {
-	z-index: 1000;
-	width: calc(100% + 28px);
-	left: -13px;
-	top: -10px;
-}
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded #titlediv:before {
-	content: '';
-	width: calc(100% + 30px);
-	height: 79px;
-	display: block;
-	position: absolute;
-	left: -20px;
-	top: -20px;
-	z-index: -1;
-	background: #F8F8F8;
-}
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded .avia-fixed-controls {
-	top: 110px;
-	padding-top: 80px;
-	width: calc(100% - 20px);
-	box-shadow: 0 4px 4px 0px rgb(0 0 0 / 10%)
-}
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded #avia-sort-list-dropdown {
-	top: 191px;
-	right: 50px;
-	left: auto;
-	z-index: 1000;
-	position: fixed;
-}
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded .avia-hotkey-info {
-	top: 198px;
-	right: 20px;
-	z-index: 500;
-	position: fixed;
-}
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded #avia-sort-list-dropdown, body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded .avia-fixed-controls,
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded .avia-hotkey-info {
-	transition: top 0.2s ease-in-out;
-}
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded.avia-sticky-fixed-controls #avia-sort-list-dropdown {
-	top: 71px;
-}
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded.avia-sticky-fixed-controls .avia-hotkey-info {
-	top: 77px;
-}
-
-body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-expanded.avia-sticky-fixed-controls .avia-fixed-controls {
-	top: 60px;
-	padding-top: 10px;
-}
-
-/*  https://kriesi.at/support/topic/enfold-5-6-8-block-editor-cannot-open-sidebar-settings-with-avia-active/  */
-@media only screen and (min-width: 782px){
-
-	body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand.is-fullscreen-mode .is-sidebar-opened .avia-expanded .avia-fixed-controls {
-		width: calc(100% - 336px);
-	}
-	body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand.is-fullscreen-mode .is-sidebar-opened .avia-expanded #avia-sort-list-dropdown {
-		right: 350px;
-	}
-	body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand.is-fullscreen-mode .is-sidebar-opened .avia-expanded .avia-hotkey-info {
-		right: 320px;
-	}
-}
+/*
+ * The sidebar used to be compensated for here with a hardcoded width. It no longer has to be:
+ * the bar is positioned against .edit-post-meta-boxes-main, whose own width already excludes the
+ * settings sidebar. The rules that did it keyed off .is-sidebar-opened, a class current WordPress
+ * no longer renders, so they had stopped applying anyway.
+ * https://kriesi.at/support/topic/enfold-5-6-8-block-editor-cannot-open-sidebar-settings-with-avia-active/
+ */
 
 body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .avia-template-save-button-container {
-	right: 24px;
+	right: -12px;
 }
 
 body.block-editor-page.avia-advanced-editor-enabled.avia-block-editor-expand .edit-post-text-editor {
@@ -165,7 +97,7 @@ body.block-editor-page #avia_builder #post-body-content {
 	height: 40px;
 }
 
-body.block-editor-page #avia_builder:not(.avia-expanded) #post-body-content {
+body.block-editor-page #avia_builder #post-body-content {
 	position: relative;
 	z-index: 100;
 }
@@ -244,12 +176,12 @@ body.block-editor-page.avia-advanced-editor-enabled div#titlewrap+.inside #edit-
 
 body.block-editor-page.avia-advanced-editor-enabled .avia-hotkey-info {
 	top: 68px;
-	right: 25px;
+	right: 57px;
 }
 
 body.block-editor-page.avia-advanced-editor-enabled #avia-sort-list-dropdown {
 	top: 61px;
-	right: 55px;
+	right: 90px;
 }
 
 body.block-editor-page.avia-advanced-editor-enabled .edit-post-sidebar__panel-tab[data-label="Block"] {
@@ -293,10 +225,6 @@ body.block-editor-page.avia-advanced-editor-enabled .postbox-header .handle-orde
 
 body.block-editor-page.avia-advanced-editor-enabled .postbox-header .handlediv:focus {
 	box-shadow: none;
-}
-
-body.block-editor-page .postbox.avia-expanded {
-	position: relative;
 }
 
 .components-editor-notices__dismissible, .components-editor-notices__pinned {

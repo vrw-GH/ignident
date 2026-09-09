@@ -1,0 +1,10 @@
+<!--
+	Select arrow for the layout builder modal.
+
+	The same double chevron as framework/images/layout/svg/select.svg, which the theme options
+	screens use - identical geometry, only the colour differs. That one is tinted by the rule that
+	draws it, which a background image on a select cannot be, so the grey is baked in here.
+
+	The two halves sit 3.2 units apart in a 24 unit box, which is 2px once the rule scales it to 15.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9.0369L7.4142 10.4511L11.6569 6.2084L15.8995 10.4511L17.3137 9.0369L11.6569 3.38L6 9.0369Z" fill="#9b9b9b"/><path d="M6 15.0633L7.4142 13.6491L11.6569 17.8917L15.8995 13.6491L17.3137 15.0633L11.6569 20.7201L6 15.0633Z" fill="#9b9b9b"/></svg>

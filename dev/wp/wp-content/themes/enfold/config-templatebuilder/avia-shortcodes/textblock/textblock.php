@@ -38,8 +38,8 @@ if( ! class_exists( 'avia_sc_text', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Text Block', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-text_block.png';
+			$this->config['tab']			= __( 'Basic Elements', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-text_block.svg';
 			$this->config['order']			= 100;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_textblock';

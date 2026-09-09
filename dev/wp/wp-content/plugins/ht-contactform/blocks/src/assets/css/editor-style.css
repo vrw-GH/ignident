@@ -1,0 +1,125 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+
+.wp-block-cgb-block-ht-contactform-block  {
+  
+}
+
+h2.ht-contactform-blocks-section-title{
+  margin: 0;
+  padding: 10px 0 10px 10px;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  background-color: #eee;
+}
+
+.wpcf7 p{
+  margin-top: 0px;
+  margin-bottom: 1.2em !important;
+}
+
+.wpcf7 input[type=text], .wpcf7 textarea,input[type=email], .wpcf7 input[type=password], .wpcf7 input[type=search], .wpcf7 input[type=tel],.wpcf7 input[type=url],.wpcf7 select{
+  width:100%;
+  padding: .75em;
+  height: auto;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #eaeaea;
+  border-radius: 2px;
+  box-shadow: none;
+  box-sizing: border-box;
+  transition: all .2s linear;
+}
+
+.wpcf7 input[type=checkbox]{
+  margin-right: 10px;
+}
+
+.wpcf7 input[type=submit]{
+  border-radius: 2px;
+  border-color: #0170B9;
+  background: #0170B9;
+  color: #fff;
+  padding-right: 40px;
+  padding-bottom: 8px;
+}
+
+.wpcf7 label span{
+  margin-top: 10px;
+  display: block;
+}
+
+.wp-block-selector-ht-contactform-dimensions-control{
+  margin: 15px 0;
+}
+
+.wp-block-selector-ht-contactform-dimensions-control .components-panel__row{
+  align-items: flex-start;
+}
+
+.wp-block-selector-ht-contactform-dimensions-control .ht-contactform-dimensions-btn-group button{
+  padding: 1px 7px;
+  height: auto;
+}
+
+.wp-block-selector-ht-contactform-dimensions-control button.components-button.has-icon {
+  height: 100%;
+  width: auto;
+  padding: 4px 3px;
+  border-radius: 0;
+  border: 1px solid #222;
+}
+
+.wp-block-selector-ht-contactform-dimensions-control h3{
+  margin: 0 0 5px 0;
+}
+
+.wp-block-selector-ht-contactform-dimensions-control .components-input-control{
+  align-items: center;
+}
+
+.wp-block-selector-ht-contactform-dimensions-control .components-input-control__backdrop{
+    border-right: 0 !important;
+    border-radius: 0 !important;
+}
+
+.ht-contactform-panel-row-height-auto {
+    min-height: inherit;
+}
+
+.components-panel__row.ht-contactform-device-row {
+  justify-content: start;
+}
+
+.ht-contactform-device-button button.components-button {
+  padding: 0 !important;
+  min-width: inherit;
+  height: inherit;
+  box-shadow: none !important;
+  border: none !important;
+  color: #222 !important;
+  background-color: transparent !important;
+}
+
+.ht-contactform-device-button button.components-button span.dashicon {
+  font-size: 13px;
+  width: inherit;
+  height: inherit;
+}
+
+.ht-contactform-device-button button.components-button.is-primary {
+  color: #007cba !important;
+}
+
+.wp-block-block-ht-contactform p.ht-contactform-initial{
+  padding: 16px 10px;
+  background: #eee;
+}

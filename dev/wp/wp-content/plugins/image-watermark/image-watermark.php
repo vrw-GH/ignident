@@ -2,7 +2,7 @@
 /*
 Plugin Name: Image Watermark
 Description: Secure and brand your images with automatic watermarks. Apply image or text overlays to new uploads and bulk process existing Media Library images with ease.
-Version: 2.0.9
+Version: 2.0.12
 Author: dFactory
 Author URI: http://www.dfactory.co/
 Plugin URI: http://www.dfactory.co/products/image-watermark/
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) )
  * Image Watermark class.
  *
  * @class Image_Watermark
- * @version	2.0.9
+ * @version	2.0.12
  */
 final class Image_Watermark {
 
@@ -37,6 +37,7 @@ final class Image_Watermark {
 	private $extension = false;
 	private $upload_handler;
 	private $watermark_controller;
+	private $diagnostics;
 	private $allowed_mime_types = [
 		'image/webp',
 		'image/jpeg',
@@ -73,6 +74,9 @@ final class Image_Watermark {
 				'plugin_off'			 => 0,
 				'frontend_active'		 => false,
 				'manual_watermarking'	 => 0,
+				'skip_small_images'	 => 0,
+				'min_image_width'		 => 0,
+				'min_image_height'		 => 0,
 				'position'				 => 'bottom_right',
 				'watermark_size_type'	 => 2,
 				'offset_unit'			 => 'pixels',
@@ -100,7 +104,7 @@ final class Image_Watermark {
 				'preserve_timestamps' => false
 			]
 		],
-		'version'	 => '2.0.9'
+		'version'	 => '2.0.12'
 	];
 	public $options = [];
 
@@ -152,11 +156,13 @@ final class Image_Watermark {
 		include_once( IMAGE_WATERMARK_PATH . 'includes/class-settings.php' );
 		include_once( IMAGE_WATERMARK_PATH . 'includes/class-upload-handler.php' );
 		include_once( IMAGE_WATERMARK_PATH . 'includes/class-actions-controller.php' );
+		include_once( IMAGE_WATERMARK_PATH . 'includes/class-diagnostics.php' );
 
 		new Image_Watermark_Settings( $this );
 
 		$this->upload_handler = new Image_Watermark_Upload_Handler( $this );
 		$this->watermark_controller = new Image_Watermark_Actions_Controller( $this, $this->upload_handler );
+		$this->diagnostics = new Image_Watermark_Diagnostics( $this );
 
 		// actions
 		add_action( 'init', [ $this, 'load_textdomain' ] );
@@ -171,6 +177,7 @@ final class Image_Watermark {
 		add_action( 'admin_notices', [ $this, 'bulk_admin_notices' ] );
 		add_action( 'delete_attachment', [ $this->upload_handler, 'delete_attachment' ] );
 		add_action( 'wp_ajax_iw_watermark_bulk_action', [ $this->watermark_controller, 'watermark_action_ajax' ] );
+		add_action( 'wp_ajax_iw_diagnose_attachment', [ $this->watermark_controller, 'diagnose_attachment_ajax' ] );
 		add_action( 'wp_ajax_iw_text_preview', [ $this, 'text_preview_ajax' ] );
 		add_action( 'wp_ajax_iw_dismiss_notice', [ $this, 'dismiss_review_notice' ] );
 		add_action( 'attachment_submitbox_misc_actions', [ $this, 'render_attachment_editor_actions' ], 20 );
@@ -392,15 +399,17 @@ final class Image_Watermark {
 
 			// prepare script data
 			$script_data = [
-				'resetToDefaults' => __( 'Are you sure you want to reset all settings to their default values?', 'image-watermark' ),
-				'generatePreview' => __( 'Generate Preview', 'image-watermark' ),
-				'generatingPreview' => __( 'Generating...', 'image-watermark' ),
-				'previewNonce' => wp_create_nonce( 'iw_text_preview' ),
-				'originImageLabel' => __( 'Original watermark image:', 'image-watermark' ),
+				'resetToDefaults'    => __( 'Are you sure you want to reset all settings to their default values?', 'image-watermark' ),
+				'generatePreview'    => __( 'Generate Preview', 'image-watermark' ),
+				'generatingPreview'  => __( 'Generating...', 'image-watermark' ),
+				'previewNonce'       => wp_create_nonce( 'iw_text_preview' ),
+				'originImageLabel'   => __( 'Original watermark image:', 'image-watermark' ),
 				'originImageMissing' => __( 'No watermark image selected.', 'image-watermark' ),
 				'originImageLoading' => __( 'Loading…', 'image-watermark' ),
-				'originTextLabel' => __( 'Original text size:', 'image-watermark' ),
-				'originTextEmpty' => __( 'Enter text to preview.', 'image-watermark' ),
+				'originTextLabel'    => __( 'Original text size:', 'image-watermark' ),
+				'originTextEmpty'    => __( 'Enter text to preview.', 'image-watermark' ),
+				'copyReportSuccess'  => __( 'Copied!', 'image-watermark' ),
+				'copyReportFailed'   => __( 'Copy failed — please select and copy manually.', 'image-watermark' ),
 			];
 
 			wp_add_inline_script( 'image-watermark-admin-settings', 'var iwArgsSettings = ' . wp_json_encode( $script_data ) . ";\n", 'before' );
@@ -432,6 +441,7 @@ final class Image_Watermark {
 			$script_data = [
 				'backup_image'		=> (bool) $this->options['backup']['backup_image'],
 				'_nonce'			=> wp_create_nonce( 'image-watermark' ),
+				'diagnose_nonce'	=> wp_create_nonce( 'iw_diagnose_attachment' ),
 				'allowed_mimes'		=> $this->get_allowed_mime_types(),
 				'apply_label'		=> __( 'Apply watermark', 'image-watermark' ),
 				'remove_label'		=> __( 'Remove watermark', 'image-watermark' ),
@@ -449,7 +459,15 @@ final class Image_Watermark {
 				'__removed_multi'	=> __( 'Watermark was successfully removed from %s images.', 'image-watermark' ),
 				'__skipped'			=> __( 'Skipped images', 'image-watermark' ),
 				'__running'			=> __( 'A bulk action is currently running. Please wait…', 'image-watermark' ),
-				'__dismiss'			=> __( 'Dismiss this notice.' ) // WordPress default string
+				'__dismiss'			=> __( 'Dismiss this notice.' ), // WordPress default string
+				'diag_checking'		=> __( 'Checking…', 'image-watermark' ),
+				'diag_ready'		=> __( 'Ready', 'image-watermark' ),
+				'diag_already'		=> __( 'Already watermarked', 'image-watermark' ),
+				'diag_blocked'		=> __( 'Cannot apply', 'image-watermark' ),
+				'diag_no_backup'	=> __( 'No backup - cannot remove', 'image-watermark' ),
+				'diag_not_applicable'	=> __( 'Not watermarked', 'image-watermark' ),
+				'diag_details'		=> __( 'Details', 'image-watermark' ),
+				'diag_hide'			=> __( 'Hide', 'image-watermark' ),
 			];
 
 			wp_add_inline_script( 'image-watermark-admin-image-actions', 'var iwArgsImageActions = ' . wp_json_encode( $script_data ) . ";\n", 'before' );
@@ -466,18 +484,27 @@ final class Image_Watermark {
 					wp_enqueue_script( 'image-watermark-admin-classic', IMAGE_WATERMARK_URL . '/js/admin-classic-editor.js', [], $this->defaults['version'], true );
 
 					$script_data = [
-						'postId'       => $post_id,
-						'attachmentId' => $post_id,
-						'backupImage'  => (bool) $this->options['backup']['backup_image'],
-						'nonce'        => wp_create_nonce( 'image-watermark' ),
-						'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
-						'strings'      => [
-							'apply'   => __( 'Apply watermark', 'image-watermark' ),
-							'remove'  => __( 'Remove watermark', 'image-watermark' ),
-							'applied' => __( 'Watermark applied.', 'image-watermark' ),
-							'removed' => __( 'Watermark removed.', 'image-watermark' ),
-							'error'   => __( 'Action failed.', 'image-watermark' ),
-							'running' => __( 'Working…', 'image-watermark' ),
+						'postId'        => $post_id,
+						'attachmentId'  => $post_id,
+						'backupImage'   => (bool) $this->options['backup']['backup_image'],
+						'nonce'         => wp_create_nonce( 'image-watermark' ),
+						'diagnoseNonce' => wp_create_nonce( 'iw_diagnose_attachment' ),
+						'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+						'strings'       => [
+							'apply'        => __( 'Apply watermark', 'image-watermark' ),
+							'remove'       => __( 'Remove watermark', 'image-watermark' ),
+							'applied'      => __( 'Watermark applied.', 'image-watermark' ),
+							'removed'      => __( 'Watermark removed.', 'image-watermark' ),
+							'error'        => __( 'Action failed.', 'image-watermark' ),
+							'running'      => __( 'Working\xe2\x80\xa6', 'image-watermark' ),
+							'diagChecking' => __( 'Checking\xe2\x80\xa6', 'image-watermark' ),
+							'diagReady'    => __( 'Ready', 'image-watermark' ),
+							'diagAlready'  => __( 'Already watermarked', 'image-watermark' ),
+							'diagBlocked'       => __( 'Cannot apply', 'image-watermark' ),
+							'diagNoBackup'      => __( 'No backup \xe2\x80\x94 cannot remove', 'image-watermark' ),
+							'diagNotApplicable' => __( 'Not watermarked', 'image-watermark' ),
+							'diagDetails'       => __( 'Details', 'image-watermark' ),
+							'diagHide'     => __( 'Hide', 'image-watermark' ),
 						],
 					];
 
@@ -984,7 +1011,7 @@ final class Image_Watermark {
 	 */
 	public function check_imagick() {
 		// check Imagick's extension and classes
-		if ( ! extension_loaded( 'imagick' ) || ! class_exists( 'Imagick', false ) || ! class_exists( 'ImagickPixel', false ) )
+		if ( ! extension_loaded( 'imagick' ) || ! class_exists( 'Imagick', false ) || ! class_exists( 'ImagickPixel', false ) || ! class_exists( 'ImagickDraw', false ) )
 			return false;
 
 		// check version
@@ -992,12 +1019,69 @@ final class Image_Watermark {
 			return false;
 
 		// check for deep requirements within Imagick
-		if ( ! defined( 'imagick::COMPRESSION_JPEG' ) || ! defined( 'imagick::COMPOSITE_OVERLAY' ) || ! defined( 'Imagick::INTERLACE_PLANE' ) || ! defined( 'imagick::FILTER_CATROM' ) || ! defined( 'Imagick::CHANNEL_ALL' ) )
+		if ( ! defined( 'Imagick::COMPRESSION_JPEG' ) || ! defined( 'Imagick::COMPOSITE_DEFAULT' ) || ! defined( 'Imagick::INTERLACE_PLANE' ) || ! defined( 'Imagick::FILTER_CATROM' ) || ! defined( 'Imagick::CHANNEL_ALL' ) || ! defined( 'Imagick::CHANNEL_ALPHA' ) || ! defined( 'Imagick::EVALUATE_MULTIPLY' ) )
 			return false;
 
 		// check methods
-		if ( array_diff( [ 'clear', 'destroy', 'valid', 'getimage', 'writeimage', 'getimagegeometry', 'getimageformat', 'setimageformat', 'setimagecompression', 'setimagecompressionquality', 'scaleimage' ], get_class_methods( 'Imagick' ) ) )
+		if ( ! $this->has_required_methods(
+			'Imagick',
+			[
+				'clear',
+				'destroy',
+				'newImage',
+				'writeImage',
+				'getImageGeometry',
+				'setImageFormat',
+				'setImageCompression',
+				'setImageCompressionQuality',
+				'setImageInterlaceScheme',
+				'getImageAlphaChannel',
+				'evaluateImage',
+				'queryFontMetrics',
+				'resizeImage',
+				'compositeImage',
+				'annotateImage',
+				'drawImage',
+			]
+		) )
 			return false;
+
+		// require at least one usable whole-image alpha method (setImageAlpha replaces the deprecated setImageOpacity)
+		if ( ! method_exists( 'Imagick', 'setImageAlpha' ) && ! method_exists( 'Imagick', 'setImageOpacity' ) )
+			return false;
+
+		if ( ! $this->has_required_methods(
+			'ImagickDraw',
+			[
+				'clear',
+				'destroy',
+				'setFont',
+				'setFontSize',
+				'setFillColor',
+				'setFillOpacity',
+				'setStrokeColor',
+				'setStrokeWidth',
+				'rectangle',
+			]
+		) )
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * Check whether a class provides all required methods.
+	 *
+	 * @param string $class_name Class name.
+	 * @param array  $methods Required method names.
+	 * @return bool
+	 */
+	private function has_required_methods( $class_name, $methods ) {
+		foreach ( $methods as $method ) {
+			if ( ! method_exists( $class_name, $method ) ) {
+				return false;
+			}
+		}
 
 		return true;
 	}
@@ -1076,6 +1160,15 @@ final class Image_Watermark {
 	 */
 	public function get_watermark_controller() {
 		return $this->watermark_controller;
+	}
+
+	/**
+	 * Get diagnostics service.
+	 *
+	 * @return Image_Watermark_Diagnostics
+	 */
+	public function get_diagnostics() {
+		return $this->diagnostics;
 	}
 
 	/**

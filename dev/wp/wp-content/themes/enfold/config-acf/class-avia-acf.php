@@ -234,7 +234,7 @@ if( ! class_exists( 'avia_ACF', false ) )
 
 					$data['acf_fields'] = $fields;
 					break;
-				case 'shortcodes';
+				case 'shortcodes':
 					$data['acf_field_shortcode'] = '{av_dynamic_el src="acf" key="%metakey%"}';
 					break;
 			}

@@ -210,7 +210,15 @@ if( ! function_exists( 'avia_force_clear_caches' ) )
 		}
 
 		// WP Super Cache: Clear Supercache + Standard-Cache, no message
-		if( function_exists( 'wp_cache_clear_cache' ) )
+		// @since 7.1.5  added check for 'get_blog_option' - causes fatal error when updating plugins
+
+		/**
+		 * WP Super Cache: Clear Supercache + Standard-Cache, no message
+		 * 
+		 * @since 7.1.5		added check for 'get_blog_option' - causes fatal error when updating plugins
+		 *					https://kriesi.at/support/topic/fatal-error-when-updating-plugins-with-enfold-wp-super-cache/#post-1496617
+		 */
+		if( function_exists( 'wp_cache_clear_cache' ) && function_exists( 'get_blog_option' ) )
 		{
 			wp_cache_clear_cache( 'all', false );
 		}

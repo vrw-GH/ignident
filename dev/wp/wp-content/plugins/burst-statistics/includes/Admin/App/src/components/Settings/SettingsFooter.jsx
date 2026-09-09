@@ -3,6 +3,7 @@ import ButtonInput from '@/components/Inputs/ButtonInput';
 import { __ } from '@wordpress/i18n';
 import { useFormState } from 'react-hook-form';
 
+// fallow-ignore-next-line complexity
 function SettingsFooter({ onSubmit, control }) {
 	const { isDirty, isSubmitting, isValidating } = useFormState({
 		control
@@ -29,7 +30,7 @@ function SettingsFooter({ onSubmit, control }) {
 	const currentState = formStates.find( ( state ) => state.condition );
 
 	return (
-		<div className="sticky bottom-0 start-0 z-10 rounded-b-md border-b border-r border-l border-gray-300 bg-gray-100 shadow-[0_-8px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.05)]">
+		<div className="sticky bottom-0 start-0 z-10 rounded-b-md border-b border-r border-l border-gray-300 bg-gray-100 shadow-stickyFooter">
 			<SettingsScrollProgressLine />
 			<div className="flex flex-row items-center justify-end gap-2 p-5">
 				{currentState?.message && (
@@ -40,7 +41,7 @@ function SettingsFooter({ onSubmit, control }) {
 								' opacity-100' :
 								' opacity-0' ) +
 							( 'red' === currentState?.color ?
-								' bg-red-light border border-red' :
+								' bg-red-100 border border-red' :
 								'' )
 						}
 					>
@@ -49,14 +50,18 @@ function SettingsFooter({ onSubmit, control }) {
 								'text-sm' +
 								( 'red' === currentState?.color ?
 									' font-semibold text-red' :
-									' italic text-gray-900' )
+									' italic text-text-gray' )
 							}
 						>
 							{currentState?.message}
 						</span>
 					</div>
 				)}
-				<ButtonInput className="burst-save" onClick={onSubmit}>
+				<ButtonInput
+					className="burst-save"
+					onClick={onSubmit}
+					disabled={isSubmitting}
+				>
 					{__( 'Save', 'burst-statistics' )}
 				</ButtonInput>
 			</div>

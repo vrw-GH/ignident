@@ -797,7 +797,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'	=> 'styling',
 			'name'	=> __( 'Quick CSS', 'avia_framework' ),
-			'desc'	=> __( 'Just want to do some quick CSS changes? Enter them here, they will be applied to the theme. If you need to change major portions of the theme please use the custom.css file', 'avia_framework' ) .
+			'desc'	=> __( 'Add quick CSS tweaks here and they are applied to your theme. For larger changes, use the custom.css file instead.', 'avia_framework' ) .
 							" <a target='_blank' href='https://kriesi.at/documentation/enfold/using-a-child-theme/' rel='noopener noreferrer'>" .
 							__( 'or the Enfold Child theme.', 'avia_framework' ) .
 							'</a>',

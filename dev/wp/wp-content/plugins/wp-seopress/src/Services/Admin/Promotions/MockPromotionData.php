@@ -33,6 +33,28 @@ class MockPromotionData {
 	}
 
 	/**
+	 * Build the PRO pricing URL with UTM parameters from the centralized docs links.
+	 *
+	 * @since 10.1
+	 *
+	 * @param string $utm_medium UTM medium value.
+	 *
+	 * @return string
+	 */
+	protected static function getPricingUrl( string $utm_medium ): string {
+		$docs_links = function_exists( 'seopress_get_docs_links' ) ? seopress_get_docs_links() : array();
+
+		return add_query_arg(
+			array(
+				'utm_source'   => 'plugin',
+				'utm_medium'   => $utm_medium,
+				'utm_campaign' => 'pro',
+			),
+			isset( $docs_links['pricing'] ) ? $docs_links['pricing'] : ''
+		);
+	}
+
+	/**
 	 * Get mock promotions.
 	 *
 	 * @since 9.6.0
@@ -51,7 +73,7 @@ class MockPromotionData {
 					'title'     => 'Unlock the Full Power of SEO',
 					'body'      => 'Get redirections, schemas, WooCommerce SEO, local SEO, and more with SEOPress PRO.',
 					'cta_text'  => 'Discover PRO',
-					'cta_url'   => 'https://www.seopress.org/pricing/?utm_source=plugin&utm_medium=dashboard&utm_campaign=pro',
+					'cta_url'   => self::getPricingUrl( 'dashboard' ),
 					'image_url' => '',
 					'icon'      => 'awards',
 				),
@@ -76,11 +98,11 @@ class MockPromotionData {
 					'title'    => 'Boost Your SEO',
 					'body'     => 'Get advanced schemas, AI content analysis, and more with PRO.',
 					'cta_text' => 'Upgrade Now',
-					'cta_url'  => 'https://www.seopress.org/pricing/?utm_source=plugin&utm_medium=metabox&utm_campaign=pro',
+					'cta_url'  => self::getPricingUrl( 'metabox' ),
 					'icon'     => 'star-filled',
 				),
 				'styling'  => array(
-					'background_color' => '#4E21E7',
+					'background_color' => 'var(--wp-admin-theme-color)',
 					'text_color'       => '#FFFFFF',
 				),
 				'conditions' => array(
@@ -95,6 +117,10 @@ class MockPromotionData {
 
 	/**
 	 * Get mock affiliate partners.
+	 *
+	 * Fallback partners shown when the API returns no data.
+	 * No restrictive conditions here: this is a safety net that must always
+	 * produce at least one visible partner regardless of the site context.
 	 *
 	 * @since 9.6.0
 	 *
@@ -114,9 +140,7 @@ class MockPromotionData {
 					'Subscriber management',
 				),
 				'context'     => 'marketing',
-				'conditions'  => array(
-					'plugins_inactive' => array( 'mailerpress/mailerpress.php' ),
-				),
+				'conditions'  => array(),
 			),
 		);
 	}

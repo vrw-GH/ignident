@@ -53,12 +53,14 @@ if ( ! class_exists( 'avia_sc_leaflet_map', false ) )
 //			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'OSM - Leaflet Map', 'avia_framework' );
-			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-leaflet-maps.png';
-			$this->config['order']			= 5;
+			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-leaflet-maps.svg';
+			$this->config['order']			= 34;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_leaflet_map';
 			$this->config['shortcode_nested'] = array( 'av_leaflet_marker_item' );
+			//	the canvas shows the marker locations - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_leaflet_marker_item', 'attr' => 'geo_city' );
 			$this->config['tooltip']		= __( 'Displays a map based on OpenStreetMaps and Leaflet Map plugin', 'avia_framework' );
 			$this->config['drag-level'] 	= 3;
 			$this->config['preview'] 		= false;

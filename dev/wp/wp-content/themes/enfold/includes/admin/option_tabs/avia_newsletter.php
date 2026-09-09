@@ -14,7 +14,7 @@ global $avia_config, $avia_pages, $avia_elements;
 $avia_elements[] = array(
 			'slug'		=> 'newsletter',
 			'name'		=> 	__( 'Newsletter Via Mailchimp', 'avia_framework' ),
-			'desc'		=> __( 'Mailchimp allows you to easily use newsletter functionality with this theme. In order to use the Newsletter features you need to create a Mailchimp account and enter your API key into the field below.', 'avia_framework' ) . "<br/><br/><a href='https://admin.mailchimp.com/account/api' target='_blank' rel='noopener noreferrer'>" . __( 'You can find your API key here', 'avia_framework' ) . '</a>',
+			'desc'		=> __( 'To use newsletter features, create a Mailchimp account and enter your API key below.', 'avia_framework' ) . "<br/><br/><a href='https://admin.mailchimp.com/account/api' target='_blank' rel='noopener noreferrer'>" . __( 'You can find your API key here', 'avia_framework' ) . '</a>',
 			'type'		=> 'heading',
 			'std'		=> '',
 			'nodescription'	=> true

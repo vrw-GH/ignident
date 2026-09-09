@@ -87,11 +87,13 @@ if ( ! class_exists( 'avia_sc_buttonrow', false ) )
 
 			$this->config['name']			= __( 'Button Row', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-buttonrow.png';
-			$this->config['order']			= 84;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-buttonrow.svg';
+			$this->config['order']			= 100;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_buttonrow';
 			$this->config['shortcode_nested'] = array( 'av_buttonrow_item' );
+			//	the canvas names the button labels so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_buttonrow_item', 'attr' => 'label' );
 			$this->config['tooltip']		= __( 'Displays multiple buttons beside each other', 'avia_framework' );
 			$this->config['preview']		= true;
 			$this->config['disabling_allowed'] = true;

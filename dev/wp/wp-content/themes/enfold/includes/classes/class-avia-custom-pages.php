@@ -101,7 +101,7 @@ if( ! class_exists( 'Avia_Custom_Pages', false ) )
 					exit;
 				}
 
-				return template;
+				return $template;
 			}
 
 			return $this->modify_page_query( $error404->ID, '404' );

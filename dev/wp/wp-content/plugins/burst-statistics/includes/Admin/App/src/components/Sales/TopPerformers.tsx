@@ -78,6 +78,8 @@ const TopPerformers = ( props:BlockComponentProps ): JSX.Element => {
 	});
 
 	const topPerformers = useMemo(
+
+		// fallow-ignore-next-line complexity
 		() => {
 
 			// If loading or no data, use placeholder data.
@@ -101,6 +103,7 @@ const TopPerformers = ( props:BlockComponentProps ): JSX.Element => {
 		title: __( 'Top performers', 'burst-statistics' ),
 		isReport: props.isReport,
 		reportBlockIndex: index,
+		isLoading,
 		controls: allowBlockFilters ? (
 			<div className="flex items-center gap-2.5">
 				<SelectInput
@@ -113,7 +116,7 @@ const TopPerformers = ( props:BlockComponentProps ): JSX.Element => {
 	};
 
 	return (
-		<Block className="row-span-2 lg:col-span-6 xl:col-span-3 block-top-performers">
+		<Block className="row-span-2 @lg:col-span-6 @xl:col-span-3 block-top-performers">
 			<BlockHeading {...blockHeadingProps} />
 
 			<BlockContent>

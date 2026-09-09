@@ -107,10 +107,12 @@ if( ! class_exists( 'avia_sc_tab_section', false ) )
 			$this->config['layout_children']	= array( 'av_tab_sub_section' );
 
 			$this->config['name']				= __( 'Tab Section', 'avia_framework' );
-			$this->config['icon']				= AviaBuilder::$path['imagesURL'] . 'sc-tabsection.png';
+			$this->config['icon']				= AviaBuilder::$path['iconsURL'] . 'sc-tabsection.svg';
 			$this->config['tab']				= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']				= 13;
 			$this->config['shortcode']			= 'av_tab_section';
+			//	the frame around other elements, so no icon and name of its own - see prepare_editor_element()
+			$this->config['alb_head']		= false;
 			$this->config['html_renderer']		= false;
 			$this->config['tinyMCE']			= array( 'disable' => 'true' );
 			$this->config['tooltip']			= __( 'Add a fullwidth section with tabs that can contain columns and other elements', 'avia_framework' );

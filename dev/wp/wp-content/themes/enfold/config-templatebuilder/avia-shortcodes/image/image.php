@@ -21,9 +21,9 @@ if( ! class_exists( 'avia_sc_image', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Image', 'avia_framework' );
-			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-image.png';
-			$this->config['order']			= 100;
+			$this->config['tab']			= __( 'Basic Elements', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-image.svg';
+			$this->config['order']			= 75;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_image';
 //			$this->config['modal_data']     = array( 'modal_class' => 'mediumscreen' );
@@ -1028,7 +1028,7 @@ if( ! class_exists( 'avia_sc_image', false ) )
 							$element_styling->add_classes( 'container-img', 'fade-basic' );
 						}
 						break;
-					case 'av-hover-blur';
+					case 'av-hover-blur':
 						$element_styling->add_callback_styles( 'container-img-hover', array( 'blur_image' ) );
 						break;
 					case 'av-hover-grayscale':

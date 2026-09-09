@@ -6,6 +6,7 @@ import debounce from 'lodash/debounce';
 import usePostsStore from '../../store/usePostsStore';
 import AsyncSelectInput from '@/components/Inputs/AsyncSelectInput';
 import FieldWrapper from '@/components/Fields/FieldWrapper';
+import { __ } from '@wordpress/i18n';
 
 /**
  * SelectField component
@@ -20,6 +21,8 @@ import FieldWrapper from '@/components/Fields/FieldWrapper';
  * @return {JSX.Element}
  */
 const SelectPageField =
+
+	// fallow-ignore-next-line complexity
 	({ field, fieldState, label, help, context, className, ...props }) => {
 		const inputId = props.id || field?.name;
 
@@ -38,6 +41,8 @@ const SelectPageField =
 			const data = await fetchPosts( input );
 			callback( data );
 		}, 500 );
+
+		const selectValue = field?.value || '';
 
 		return (
 			<FieldWrapper
@@ -67,13 +72,18 @@ const SelectPageField =
 					}}
 					isLoading={posts.isFetching}
 					name="selectPage"
-					value={field?.value}
+					value={selectValue}
 					maxSelections={maxSelections}
-					defaultInputValue={field?.value}
+					defaultInputValue={selectValue}
 					defaultOptions={posts.data || []}
 					loadOptions={loadOptions}
 					components={{ Option: OptionLayout }}
 				/>
+				{props.goal && props.goal.is_draft && (
+					<p className="mt-1.5 text-xs text-text-gray-light">
+						{__( 'The post is in draft, once it is published the url will be updated here.', 'burst-statistics' )}
+					</p>
+				)}
 			</FieldWrapper>
 		);
 	};
@@ -92,16 +102,16 @@ const OptionLayout = ({ innerProps, innerRef, data }) => {
 			className="flex items-center justify-between p-2 hover:bg-gray-100 cursor-pointer transition-colors duration-200"
 		>
 			<div className="flex items-center">
-				<h6 className="text-sm font-medium text-black">{r.label}</h6>
+				<h6 className="text-sm font-medium text-text-black">{r.label}</h6>
 				{'Untitled' !== r.post_title && (
 					<>
-						<span className="mx-2 text-gray-500"> - </span>
-						<p className="text-sm text-gray-600">{r.post_title}</p>
+						<span className="mx-2 text-text-gray-light"> - </span>
+						<p className="text-sm text-text-gray-light">{r.post_title}</p>
 					</>
 				)}
 			</div>
 			{0 < r.pageviews && (
-				<div className="flex items-center gap-1 text-xs text-gray-500">
+				<div className="flex items-center gap-1 text-xs text-text-gray-light">
 					<Icon name={'eye'} size={12} />
 					<span>{formatNumber( r.pageviews )}</span>
 				</div>

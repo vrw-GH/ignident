@@ -152,7 +152,7 @@ class Ays_Pb_Admin {
             'editVideo' => esc_html__( "Edit Video", "ays-popup-box" ),
             'addImage' => esc_html__( "Add Image", "ays-popup-box" ),
             'editImage' => esc_html__( "Edit Image", "ays-popup-box" ),
-            'pleaseEnterMore' => esc_html__( "Please select more", "ays-popup-box" ),
+            'pleaseEnterMore' => esc_html__( "Please enter 1 or more characters", "ays-popup-box" ),
             'loadResource' => esc_html__( "Can't load resource.", "ays-popup-box" ),
             'errorMsg' => esc_html__( "Error", "ays-popup-box" ),
             'somethingWentWrong' => esc_html__( "Maybe something went wrong.", "ays-popup-box" ),
@@ -162,8 +162,16 @@ class Ays_Pb_Admin {
             'settingsTabDoc' => esc_html__( "How to Configure Settings Tab?", "ays-popup-box" ),
             'limitationUsersTabDoc' => esc_html__( "How to Configure Limitation Users Tab?", "ays-popup-box" ),
             'stylesTabDoc' => esc_html__( "How to Configure Styles Tab?", "ays-popup-box" ),
+            "copied"                            => esc_html__( "Copied!", 'ays-popup-box' ),
             "successCopyCoupon"                 => __( "Coupon code copied!", 'ays-popup-box' ),
             "failedCopyCoupon"                  => __( "Failed to copy coupon code", 'ays-popup-box' ),
+            "createdPopupClose"                 => esc_html__( "Close", 'ays-popup-box' ),
+            "createdPopupTitle"                 => esc_html__( "Your popup is ready", 'ays-popup-box' ),
+            "createdPopupDescription"           => esc_html__( "Your popup has been created successfully.", 'ays-popup-box' ),
+            "createdPopupNotice"                => sprintf( esc_html__( "To see your popup in action, visit your %s.", 'ays-popup-box' ), '<strong>' . esc_html__( "website homepage", 'ays-popup-box' ) . '</strong>' ),
+            "createdPopupId"                    => esc_html__( "Popup ID", 'ays-popup-box' ),
+            "createdPopupView"                  => esc_html__( "View the popup", 'ays-popup-box' ),
+            "createdPopupOkay"                  => esc_html__( "Okay", 'ays-popup-box' ),
         );
 
         $color_picker_strings = array(
@@ -200,6 +208,20 @@ class Ays_Pb_Admin {
             wp_enqueue_script( $this->plugin_name . '-wp-load-scripts', plugin_dir_url(__FILE__) . 'js/ays-wp-load-scripts.js', array(), $this->version, true );
         }
 	}
+
+    public function ays_pb_add_body_class( $classes ) {
+        global $pagenow;
+
+        if ( $pagenow === 'admin.php' ) {
+            $page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : '';
+            
+            if ( strpos( $page, $this->plugin_name ) === 0 ) {
+                $classes .= ' ays-popup-plugin-admin';
+            }
+        }
+
+        return $classes;
+    }
 
     public static function ays_pb_update_banner_time() {
         $date = time() + ( 3 * 24 * 60 * 60 ) + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS);
@@ -533,6 +555,15 @@ class Ays_Pb_Admin {
         include_once('partials/dashboard/ays-pb-dashboard-display.php');
     }
 
+    public function hide_popupbox_screen_options($show_screen, $screen) {        
+
+        if ( $screen->id === 'toplevel_page_ays-pb' || $screen->id === 'popup-box_page_ays-pb-categories' ) {
+            return false;
+        }
+
+        return $show_screen;
+    }
+
     public function screen_option_popupbox() {
 		$option = 'per_page';
 		$args = array(
@@ -541,7 +572,12 @@ class Ays_Pb_Admin {
 			'option'  => 'popupboxes_per_page'
 		);
 
-		add_screen_option($option, $args);
+        if( ! ( isset( $_GET['action'] ) && ( $_GET['action'] == 'add' || $_GET['action'] == 'edit' ) ) ){
+            add_screen_option($option, $args);
+        }else{
+            add_filter('screen_options_show_screen', array($this, 'hide_popupbox_screen_options'), 10, 2);            
+        }
+
 		$this->popupbox_obj = new Ays_PopupBox_List_Table($this->plugin_name);
         $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
 	}
@@ -554,7 +590,12 @@ class Ays_Pb_Admin {
             'option'  => 'popup_categories_per_page'
         );
 
-        add_screen_option($option, $args);
+        if( ! ( isset( $_GET['action'] ) && ( $_GET['action'] == 'add' || $_GET['action'] == 'edit' ) ) ){
+            add_screen_option($option, $args);
+        }else{            
+            add_filter('screen_options_show_screen', array($this, 'hide_popupbox_screen_options'), 10, 2);            
+        }
+
         $this->popup_categories_obj = new Popup_Categories_List_Table($this->plugin_name);
         $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
     }
@@ -902,6 +943,45 @@ class Ays_Pb_Admin {
             <?php
             }
         }
+    }
+
+    public function ays_popup_generate_message_vars_html( $popup_message_vars ) {
+        $content = array();
+        $var_counter = 0; 
+
+        $content[] = '<div class="ays-pb-message-vars-box">';
+            $content[] = '<div class="ays-pb-message-vars-icon">';
+                // $content[] = '<div>';
+                    // $content[] = '<svg width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M451.5 160C434.9 160 418.8 164.5 404.7 172.7C388.9 156.7 370.5 143.3 350.2 133.2C378.4 109.2 414.3 96 451.5 96C537.9 96 608 166 608 252.5C608 294 591.5 333.8 562.2 363.1L491.1 434.2C461.8 463.5 422 480 380.5 480C294.1 480 224 410 224 323.5C224 322 224 320.5 224.1 319C224.6 301.3 239.3 287.4 257 287.9C274.7 288.4 288.6 303.1 288.1 320.8C288.1 321.7 288.1 322.6 288.1 323.4C288.1 374.5 329.5 415.9 380.6 415.9C405.1 415.9 428.6 406.2 446 388.8L517.1 317.7C534.4 300.4 544.2 276.8 544.2 252.3C544.2 201.2 502.8 159.8 451.7 159.8zM307.2 237.3C305.3 236.5 303.4 235.4 301.7 234.2C289.1 227.7 274.7 224 259.6 224C235.1 224 211.6 233.7 194.2 251.1L123.1 322.2C105.8 339.5 96 363.1 96 387.6C96 438.7 137.4 480.1 188.5 480.1C205 480.1 221.1 475.7 235.2 467.5C251 483.5 269.4 496.9 289.8 507C261.6 530.9 225.8 544.2 188.5 544.2C102.1 544.2 32 474.2 32 387.7C32 346.2 48.5 306.4 77.8 277.1L148.9 206C178.2 176.7 218 160.2 259.5 160.2C346.1 160.2 416 230.8 416 317.1C416 318.4 416 319.7 416 321C415.6 338.7 400.9 352.6 383.2 352.2C365.5 351.8 351.6 337.1 352 319.4C352 318.6 352 317.9 352 317.1C352 283.4 334 253.8 307.2 237.5z"/></svg>';
+                // $content[] = '</div>';
+                // $content[] = '<div>';
+                    // $content[] = '<span>'. __("Message Variables" , 'ays-popup-box') .'</span>';
+                    // $content[] = '<a class="ays_help" data-toggle="tooltip" data-html="true" title="'. __("Insert your preferred message variable into the editor by clicking." , 'ays-popup-box') .'">';
+                        // $content[] = '<img src="'. esc_url( AYS_PB_ADMIN_URL."/images/icons/info-circle.svg") .'">';
+                    // $content[] = '</a>';
+                // $content[] = '</div>';
+                $content[] = '<span class="ays-pb-message-vars-braces" aria-hidden="true">{ }</span>';
+                $content[] = '<span>'. esc_html__( "Message Variables" , 'ays-popup-box') .'</span>';
+                $content[] = '<span class="ays-pb-message-vars-chevron" aria-hidden="true"></span>';
+            $content[] = '</div>';
+            $content[] = '<div class="ays-pb-message-vars-data">';
+                foreach( $popup_message_vars as $var => $var_name ){
+                    $var_counter++;
+                    $content[] = '<label class="ays-pb-message-vars-each-data-label">';
+                        // $content[] = '<input type="radio" class="ays-pb-message-vars-each-data-checker" hidden id="ays_pb_message_var_count_'. $var_counter .'" name="ays_pb_message_var_count">';
+                        $content[] = '<div class="ays-pb-message-vars-each-data">';
+                            // $content[] = '<input type="hidden" class="ays-pb-message-vars-each-var" value="'. $var .'">';
+                            $content[] = '<input type="hidden" class="ays-pb-message-vars-each-var" value="'. esc_attr( $var ) .'">';
+                            $content[] = '<span>'. esc_html( $var_name ) .'</span>';
+                        $content[] = '</div>';
+                    $content[] = '</label>';
+                }
+            $content[] = '</div>';
+        $content[] = '</div>';
+
+        $content = implode( '', $content );
+
+        return $content;
     }
 
     public function ays_pb_dismiss_button(){

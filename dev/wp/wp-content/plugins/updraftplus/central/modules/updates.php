@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('UPDRAFTCENTRAL_CLIENT_DIR')) die('No access.');
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 
@@ -468,7 +468,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 			}
 			
 		} else {
-			$theme_data = get_theme_data(WP_CONTENT_DIR . '/themes/'.$theme.'/style.css');
+			$theme_data = get_theme_data(WP_CONTENT_DIR . '/themes/'.$theme.'/style.css');// phpcs:ignore WordPress.WP.DeprecatedFunctions.get_theme_dataFound -- This function was only intended for backward compatibility with versions below 3.4.0.
 			
 			if (isset($theme_data['Version'])) {
 				return $theme_data['Version'];
@@ -527,7 +527,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 						}
 					}
 				} else {
-					$all_items = get_themes();
+					$all_items = get_themes();// phpcs:ignore WordPress.WP.DeprecatedFunctions.get_themesFound -- This function was only intended for backward compatibility with versions below 3.4.0.
 				}
 				break;
 			default:
@@ -594,7 +594,7 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 				return $theme;
 			}
 		} else {
-			$theme_data = get_theme_data(WP_CONTENT_DIR.'/themes/'.$theme.'/style.css');
+			$theme_data = get_theme_data(WP_CONTENT_DIR.'/themes/'.$theme.'/style.css');// phpcs:ignore WordPress.WP.DeprecatedFunctions.get_theme_dataFound -- This function was only intended for backward compatibility with versions below 3.4.0.
 			if (isset($theme_data['Version'])) {
 				if (!isset($theme_data['ThemeURI'])) $theme_data['ThemeURI'] = $theme_data['URI'];
 				return (object) $theme_data;
@@ -684,14 +684,14 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 				if (version_compare($wp_version, $info['update']['requires'], '<')) {
 					$is_compatible = false;
 
-					/* translators: %s: Plugin/theme type */
 					$message1 = sprintf(
+						/* translators: %s: Plugin/theme type */
 						__('The latest update for this %s is not compatible with the WordPress version installed on the remote site.', 'updraftplus'),
 						$type
 					);
 
-					/* translators: 1: Plugin/theme type, 2: Required WordPress version */
 					$message2 = sprintf(
+						/* translators: 1: Plugin/theme type, 2: Required WordPress version */
 						__('The minimum WordPress version supported by this %1$s is %2$s.', 'updraftplus'),
 						$type,
 						$info['update']['requires']
@@ -708,14 +708,14 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 				if (version_compare(PHP_VERSION, $info['update']['requires_php'], '<')) {
 					$is_compatible = false;
 
-					/* translators: %s: Plugin/theme type */
 					$message1 = sprintf(
+						/* translators: %s: Plugin/theme type */
 						__('The latest update for this %s is not compatible with the PHP version installed on the remote site.', 'updraftplus'),
 						$type
 					);
 
-					/* translators: 1: Plugin/theme type, 2: Required PHP version */
 					$message2 = sprintf(
+						/* translators: 1: Plugin/theme type, 2: Required PHP version */
 						__('The minimum PHP version supported by this %1$s is %2$s.', 'updraftplus'),
 						$type,
 						$info['update']['requires_php']

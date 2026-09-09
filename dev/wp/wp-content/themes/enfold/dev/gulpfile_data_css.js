@@ -101,6 +101,7 @@ const modulesCSS = {
 			'image':					[ 'image' ],
 			'image_diff':				[ 'image_diff' ],
 			'image_hotspots':			[ 'image_hotspots' ],
+			'list_menu':				[ 'list_menu' ],
 			'lottie_animation':			[ 'lottie_animation' ],
 			'magazine':					[ 'magazine' ],
 			'masonry_entries':			[ 'masonry_entries' ],

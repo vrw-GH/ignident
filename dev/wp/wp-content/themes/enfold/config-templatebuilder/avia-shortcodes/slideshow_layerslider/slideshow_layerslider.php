@@ -34,8 +34,8 @@ if( ! class_exists( 'avia_sc_layerslider', false ) )
 
 			$this->config['name']				= __( 'Advanced Layerslider', 'avia_framework' );
 			$this->config['tab']				= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']				= AviaBuilder::$path['imagesURL'] . 'sc-slideshow-layer.png';
-			$this->config['order']				= 10;
+			$this->config['icon']				= AviaBuilder::$path['iconsURL'] . 'sc-advanced-layerslider.svg';
+			$this->config['order']				= 50;
 			$this->config['target']				= 'avia-target-insert';
 			$this->config['shortcode']			= 'av_layerslider';
 			$this->config['tooltip']			= __( 'Display a Layerslider Slideshow', 'avia_framework' );
@@ -88,7 +88,8 @@ if( ! class_exists( 'avia_sc_layerslider', false ) )
 				'data'		=> array( 'attr' => 'id' )
 			);
 
-			$inner = "<img src='{$this->config['icon']}' title='{$this->config['name']}' alt='' />";
+			//	icon and name come from the element head now
+			$inner = '';
 
 
 			if( empty( $slides ) )
@@ -97,7 +98,6 @@ if( ! class_exists( 'avia_sc_layerslider', false ) )
 			}
 			else
 			{
-				$inner .= "<div class='avia-element-label'>{$this->config['name']}</div>";
 				$inner .= AviaHtmlHelper::render_element( $element );
 				$inner .= "<a target='_blank' href='" . admin_url( 'admin.php?page=layerslider' ) . "'>" . __( 'Edit Layer Slider here', 'avia_framework' ) . '</a>';
 			}

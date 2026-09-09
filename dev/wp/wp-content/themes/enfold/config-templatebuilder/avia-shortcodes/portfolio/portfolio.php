@@ -33,11 +33,13 @@ if( ! class_exists( 'avia_sc_portfolio', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Portfolio Grid', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-portfolio.png';
-			$this->config['order']			= 38;
+			$this->config['tab']			= __( 'Post Loops', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-portfolio.svg';
+			$this->config['order']			= 80;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_portfolio';
+			//	the canvas names which categories it draws from - see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => 'categories' );
 			$this->config['tooltip']		= __( 'Creates a grid of portfolio excerpts', 'avia_framework' );
 			$this->config['disabling_allowed'] = true;
 			$this->config['id_name']		= 'id';
@@ -1319,7 +1321,18 @@ if ( ! class_exists( 'avia_post_grid', false ) )
 			$sort_classes = '';
 			$item_categories = get_the_terms( $the_id, $params['taxonomy'] );
 
-			if( is_object( $item_categories ) || is_array( $item_categories ) )
+			/**
+			 * Terms only, and nothing else that get_the_terms() can hand back.
+			 *
+			 * It returns a WP_Error when the taxonomy is not registered - which is what a page
+			 * imported from another site runs into, when it names a taxonomy that only exists
+			 * there. A WP_Error is an object, so the check this replaced let it through, and
+			 * iterating it yields its properties: arrays, whose 'slug' cannot be assigned.
+			 * PHP 7 warned about it, PHP 8 raises an Error and the page dies.
+			 *
+			 * @since 8.1
+			 */
+			if( is_array( $item_categories ) )
 			{
 				foreach( $item_categories as $cat )
 				{

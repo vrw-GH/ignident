@@ -95,7 +95,7 @@ if( ! class_exists( 'avia_sc_custom_layout', false ) )
 
 			$this->config['name']					= __( 'Custom Layout', 'avia_framework' );
 			$this->config['tab']					= __( 'Layout Elements', 'avia_framework' );
-			$this->config['icon']					= AviaBuilder::$path['imagesURL'] . 'sc-custom-layout.png';
+			$this->config['icon']					= AviaBuilder::$path['iconsURL'] . 'sc-custom-layout.svg';
 			$this->config['order']					= 2;
 			$this->config['target']					= 'avia-target-insert';
 			$this->config['shortcode']				= 'av_custom_layout';
@@ -281,7 +281,29 @@ if( ! class_exists( 'avia_sc_custom_layout', false ) )
 			$title = '';
 			if( $entry instanceof WP_Post )
 			{
-				$title = esc_html( avia_wp_get_the_title( $entry ) ) . " ({$entry->post_type}, {$entry->ID} )";
+				/**
+				 * The name of the entry, and what kind of entry it is - the registered name of the post
+				 * type rather than its slug, which is what this said before: "(alb_custom_layout, 302 )"
+				 * described the value that was stored rather than what was chosen. The label is already
+				 * in memory once the post type is registered, so naming it properly costs nothing.
+				 */
+				$title = esc_html( avia_wp_get_the_title( $entry ) ) . ' ' . $this->editor_entry_type( $entry->post_type );
+
+				/**
+				 * The name is the one part of this element that points somewhere, so it opens there -
+				 * in a new tab, because the layout being edited here is not finished with.
+				 *
+				 * get_edit_post_link() returns nothing when the user may not edit that entry, or when
+				 * its post type has no editor, and the name simply stays plain text in that case.
+				 */
+				$edit_link = get_edit_post_link( $entry->ID );
+
+				if( ! empty( $edit_link ) )
+				{
+					$open_title = esc_attr( sprintf( __( 'Edit %s in a new tab', 'avia_framework' ), avia_wp_get_the_title( $entry ) ) );
+
+					$title = "<a class='av-postcontent-edit' href='{$edit_link}' target='_blank' rel='noopener noreferrer' title='{$open_title}'>{$title}</a>";
+				}
 			}
 
 			$update_template =	'<span class="av-postcontent-headline">{{link}}</span>';
@@ -297,11 +319,79 @@ if( ! class_exists( 'avia_sc_custom_layout', false ) )
 				$params['innerHtml'].= "<div class='avia-element-description'>" . __( 'Display a predefined Custom Layout - or the content of a different entry', 'avia_framework' ) . '</div>';
 			}
 
-			$params['innerHtml'].=	'<div class="av-postcontent" data-update_object="all-elements" ' . $update . '>';
+			/**
+			 * Choosing a different entry rewrites this from the browser, which is handed the stored value
+			 * and nothing else - "alb_custom_layout,302". Left to the plain template that is what would be
+			 * written onto the canvas, name and link gone until the page was loaded again.
+			 *
+			 * So the browser is told where to look instead: the names are in the picker the choice was
+			 * just made in, and the two attributes below say how to turn an id into an edit link and a
+			 * post type into its registered name - see avia_entry_update_html() in avia-builder.js.
+			 */
+			$params['innerHtml'].=	'<div class="av-postcontent" data-update_object="all-elements" ' . $update;
+			$params['innerHtml'].=		" data-update_entry='link'";
+			$params['innerHtml'].=		" data-update_edit_url='" . esc_attr( $this->editor_entry_edit_url() ) . "'";
+			$params['innerHtml'].=		" data-update_type_labels='" . esc_attr( $this->editor_entry_type_labels() ) . "'";
+			$params['innerHtml'].=		'>';
 			$params['innerHtml'].=		$template;
 			$params['innerHtml'].=	'</div>';
 
 			return $params;
+		}
+
+		/**
+		 * The registered name of a post type, in brackets, as the canvas shows it beside the entry name.
+		 *
+		 * @since 8.0
+		 * @param string $post_type
+		 * @return string
+		 */
+		protected function editor_entry_type( $post_type )
+		{
+			$object = get_post_type_object( $post_type );
+			$label = ( $object instanceof WP_Post_Type ) && ! empty( $object->labels->singular_name ) ? $object->labels->singular_name : $post_type;
+
+			return "<span class='av-postcontent-type'>(" . esc_html( $label ) . ')</span>';
+		}
+
+		/**
+		 * Where an entry is edited, with the id left as %d for the browser to fill in.
+		 *
+		 * Built from the same admin url WordPress would, rather than assembled in javascript, so a site
+		 * that lives in a subdirectory or answers on a different admin url is followed without knowing
+		 * anything about it.
+		 *
+		 * @since 8.0
+		 * @return string
+		 */
+		protected function editor_entry_edit_url()
+		{
+			return admin_url( 'post.php?post=%d&action=edit' );
+		}
+
+		/**
+		 * The registered names of the post types this element can point at, keyed by slug, so the browser
+		 * can name a newly chosen entry the same way this file does. Only the types already allowed here,
+		 * and every one of them is in memory - nothing is looked up.
+		 *
+		 * @since 8.0
+		 * @return string			json
+		 */
+		protected function editor_entry_type_labels()
+		{
+			$labels = array();
+
+			foreach( (array) $this->post_types as $post_type )
+			{
+				$object = get_post_type_object( $post_type );
+
+				if( $object instanceof WP_Post_Type )
+				{
+					$labels[ $post_type ] = ! empty( $object->labels->singular_name ) ? $object->labels->singular_name : $post_type;
+				}
+			}
+
+			return wp_json_encode( $labels );
 		}
 
 		/**

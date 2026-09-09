@@ -26,9 +26,9 @@ if( ! class_exists( 'avia_sc_hr', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Separator / Whitespace', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-hr.png';
-			$this->config['order']			= 94;
+			$this->config['tab']			= __( 'Basic Elements', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-hr.svg';
+			$this->config['order']			= 90;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']	 	= 'av_hr';
 			$this->config['modal_data']		= array( 'modal_class' => 'highscreen' );

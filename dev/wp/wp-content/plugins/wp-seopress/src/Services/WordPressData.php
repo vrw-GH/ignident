@@ -23,8 +23,7 @@ class WordPressData {
 		global $wp_post_types;
 
 		$default_args = array(
-			'public'             => true,
-			'publicly_queryable' => true,
+			'public' => true,
 		);
 
 		$args = wp_parse_args( $args, $default_args );
@@ -33,7 +32,10 @@ class WordPressData {
 			unset( $args['public'] );
 		}
 
-		$post_types = get_post_types( $args, 'objects', 'or' );
+		$post_types = get_post_types( $args, 'objects' );
+
+		// Filter to only include viewable post types (matches WordPress core conventions).
+		$post_types = array_filter( $post_types, 'is_post_type_viewable' );
 
 		if ( ! $return_all ) {
 			unset(
@@ -50,6 +52,13 @@ class WordPressData {
 			);
 		}
 
+		$post_types = apply_filters_deprecated(
+			'seopress_get_post_types_args',
+			array( $post_types ),
+			'9.8.0',
+			'seopress_post_types'
+		);
+
 		$post_types = apply_filters( 'seopress_post_types', $post_types, $return_all, $args );
 
 		return $post_types;
@@ -65,14 +74,14 @@ class WordPressData {
 	 */
 	public function getTaxonomies( $with_terms = false, $return_all = false ) { // phpcs:ignore -- TODO: check if method is outside this class before renaming.
 		$args = array(
-			'public'             => true,
-			'publicly_queryable' => true,
+			'public' => true,
 		);
 		$args = apply_filters( 'seopress_get_taxonomies_args', $args );
 
-		$output     = 'objects'; // or objects.
-		$operator   = 'or'; // 'and' or 'or'.
-		$taxonomies = get_taxonomies( $args, $output, $operator );
+		$taxonomies = get_taxonomies( $args, 'objects' );
+
+		// Filter to only include viewable taxonomies (matches WordPress core conventions).
+		$taxonomies = array_filter( $taxonomies, 'is_taxonomy_viewable' );
 
 		if ( ! $return_all ) {
 			unset(

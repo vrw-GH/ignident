@@ -68,12 +68,17 @@ function ls_apply_affix_properties( $layerProps, &$innerAttributes, $properties 
 
 	if( ! empty( $layerProps['affixBefore'] ) ) {
 
-		if( $properties['wpml']['useStringTranslation'] ) {
-			if( $properties['wpml']['useStringPackages'] ) {
-				$layerProps['affixBefore'] = apply_filters( 'wpml_translate_string', $layerProps['affixBefore'], $layerProps['uuid'].'-affix-before', $properties['wpml']['package'] );
+		// Affix text — WPML
+		if( $properties['translation']['engine'] === 'wpml' ) {
+			if( $properties['translation']['useStringPackages'] ) {
+				$layerProps['affixBefore'] = apply_filters( 'wpml_translate_string', $layerProps['affixBefore'], $layerProps['uuid'].'-affix-before', $properties['translation']['package'] );
 			} else {
 				$layerProps['affixBefore'] = apply_filters( 'wpml_translate_single_string', $layerProps['affixBefore'], 'LayerSlider Sliders', $wpml_string_base.'-affix-before' );
 			}
+
+		// Affix text — Polylang, resolved by the string value
+		} elseif( $properties['translation']['engine'] === 'polylang' ) {
+			$layerProps['affixBefore'] = pll__( $layerProps['affixBefore'] );
 		}
 
 		$innerAttributes['data-prefix'] = do_shortcode( __( stripslashes( $layerProps['affixBefore'] ) ) );
@@ -81,12 +86,17 @@ function ls_apply_affix_properties( $layerProps, &$innerAttributes, $properties 
 
 	if( ! empty( $layerProps['affixAfter'] ) ) {
 
-		if( $properties['wpml']['useStringTranslation'] ) {
-			if( $properties['wpml']['useStringPackages'] ) {
-				$layerProps['affixAfter'] = apply_filters( 'wpml_translate_string', $layerProps['affixAfter'], $layerProps['uuid'].'-affix-after', $properties['wpml']['package'] );
+		// Affix text — WPML
+		if( $properties['translation']['engine'] === 'wpml' ) {
+			if( $properties['translation']['useStringPackages'] ) {
+				$layerProps['affixAfter'] = apply_filters( 'wpml_translate_string', $layerProps['affixAfter'], $layerProps['uuid'].'-affix-after', $properties['translation']['package'] );
 			} else {
 				$layerProps['affixAfter'] = apply_filters( 'wpml_translate_single_string', $layerProps['affixAfter'], 'LayerSlider Sliders', $wpml_string_base.'-affix-after' );
 			}
+
+		// Affix text — Polylang, resolved by the string value
+		} elseif( $properties['translation']['engine'] === 'polylang' ) {
+			$layerProps['affixAfter'] = pll__( $layerProps['affixAfter'] );
 		}
 
 		$innerAttributes['data-suffix'] = do_shortcode( __( stripslashes( $layerProps['affixAfter'] ) ) );

@@ -61,11 +61,14 @@ if( ! class_exists( 'avia_sc_slider_accordion', false ) )
 
 			$this->config['name']			= __( 'Accordion Slider', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-accordion-slider.png';
-			$this->config['order']			= 20;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-accordion-slider.svg';
+			$this->config['order']			= 60;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_slideshow_accordion';
 			$this->config['shortcode_nested'] = array( 'av_slide_accordion' );
+			//	the canvas names the slide titles so one is told from the next - see editor_element_items()
+			//	the canvas shows the slides - see editor_element_images()
+			$this->config['alb_items']		= array( 'images' => array( 'tag' => 'av_slide_accordion', 'attr' => 'id' ) );
 			$this->config['tooltip'] 	    = __( 'Display an accordion slider with images or post entries', 'avia_framework' );
 			$this->config['drag-level'] 	= 3;
 			$this->config['preview'] 		= false;

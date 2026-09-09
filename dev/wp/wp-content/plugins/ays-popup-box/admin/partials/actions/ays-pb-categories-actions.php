@@ -43,7 +43,7 @@ $pb_wp_editor_height = (isset($gen_options['pb_wp_editor_height']) && $gen_optio
 $categoty_title = (isset($popup_category['title']) && $popup_category['title'] != '') ? stripslashes( esc_attr($popup_category['title']) ) : '';
 
 //Category description
-$category_description = (isset($popup_category['description']) && $popup_category['description'] != '') ? stripslashes($popup_category['description']) : '';
+$category_description = (isset($popup_category['description']) && $popup_category['description'] != '') ? stripslashes( wpautop( $popup_category['description'] ) ) : '';
 
 //Published Category
 $published_category = (isset($popup_category['published']) && $popup_category['published'] != '') ? stripslashes($popup_category['published'] ) : '1';
@@ -94,19 +94,23 @@ if (isset($id) && !is_null($id)) {
             </div>
 
             <hr/>
-            <div class='ays-field'>
-                <label for='ays-description'>
-                    <?php echo esc_html__('Description', "ays-popup-box"); ?>
-                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Write category description if necessary.',"ays-popup-box")?>">
-                        <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
-                    </a>
-                </label>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label for='ays-description'>
+                        <?php echo esc_html__('Description', "ays-popup-box"); ?>
+                        <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_html__('Write category description if necessary.',"ays-popup-box")?>">
+                            <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . "/images/icons/info-circle.svg"?>">
+                        </a>
+                    </label>
+                </div>
+                <div class="col-sm-10">
                 <?php
-                $content = $category_description;
-                $editor_id = 'ays-description';
-                $settings = array('editor_height'=>$pb_wp_editor_height,'textarea_name'=>'ays_description','editor_class'=>'ays-textarea');
-                wp_editor($content, $editor_id, $settings);
+                    $content = $category_description;
+                    $editor_id = 'ays-description';
+                    $settings = array('editor_height'=>$pb_wp_editor_height,'textarea_name'=>'ays_description','editor_class'=>'ays-textarea');
+                    wp_editor($content, $editor_id, $settings);
                 ?>
+                </div>
             </div>
             <hr>
             <div class="col-sm-12 ays-pro-features-v2-main-box">

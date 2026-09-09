@@ -79,11 +79,13 @@ if( ! class_exists( 'avia_sc_iconlist', false ) )
 
 			$this->config['name']			= __( 'Icon List', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-iconlist.png';
-			$this->config['order']			= 90;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-iconlist.svg';
+			$this->config['order']			= 80;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_iconlist';
 			$this->config['shortcode_nested'] = array( 'av_iconlist_item' );
+			//	the canvas names the list entries so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_iconlist_item', 'attr' => 'title' );
 			$this->config['tooltip']		= __( 'Creates a list with nice icons beside', 'avia_framework' );
 			$this->config['preview']		= true;
 			$this->config['disabling_allowed'] = true;

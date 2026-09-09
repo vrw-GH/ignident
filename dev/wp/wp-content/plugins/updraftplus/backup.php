@@ -1,8 +1,10 @@
 <?php
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fopen, PHPCompatibility.Classes.NewClasses.errorFound, WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.rename_rename -- Using the default PHP fopen() function instead of the WP Filesystem API, the Error class does not exist in PHP below 5.6., false positive; it's actually safe to use native PHP's fwrite(), rename() usage is intentional and safe within this context
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- using the native PHP fclose() functions instead of the WP Filesystem API
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- we try to reduce overhead by bypassing WP APIs and other extra layers; Some custom complex queries tailored specifically to our needs, giving us full control over the SQL commands and data manipulation
+// phpcs:disable WordPress.WP.AlternativeFunctions.rename_rename -- rename() usage is intentional and safe within this context
+// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose, WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fgets, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.WP.AlternativeFunctions.file_system_operations_mkdir, WordPress.WP.AlternativeFunctions.file_system_operations_fread, WordPress.WP.AlternativeFunctions.file_system_operations_chmod, WordPress.WP.AlternativeFunctions.file_system_operations_fputs, WordPress.WP.AlternativeFunctions.file_system_operations_is_writeable, WordPress.WP.AlternativeFunctions.file_system_operations_chown, WordPress.WP.AlternativeFunctions.file_system_operations_chgrp, WordPress.WP.AlternativeFunctions.file_system_operations_touch, WordPress.WP.AlternativeFunctions.file_system_operations_rmdir, WordPress.WP.AlternativeFunctions.file_system_operations_readfile -- Native PHP fileystem function is used for direct control and performance because it can bypass additional layers of abstraction so that no overhead from the WordPress filesystem API's internal handling
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- some query operations need to always receive the most up-to-date or actual data directly from the database, reducing the risk of serving stale information.
+// phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged -- some functions, like set_time_limit() and ini_set(), are used to temporarily change PHP configuration values based on the script's needs (e.g., processing large datasets or performing long operations).
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 if (!class_exists('UpdraftPlus_PclZip')) updraft_try_include_file('includes/class-zip.php', 'require_once');
 
@@ -614,14 +616,13 @@ class UpdraftPlus_Backup {
 			} catch (Exception $e) {
 				$log_message = 'Exception ('.get_class($e).') occurred during backup uploads to the '.$service.'. Exception Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				$updraftplus->log($log_message);
-				error_log($log_message);
+				UpdraftPlus_Manipulation_Functions::error_log($log_message);
 				/* translators: 1: Exception class, 2: Exception message */
 				$updraftplus->log(sprintf(__('A PHP exception (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
-				// @codingStandardsIgnoreLine
-			} catch (Error $e) {
+			} catch (Error $e) {// phpcs:ignore PHPCompatibility.Classes.NewClasses.errorFound -- This Error class will only get triggered during runtime but we don't explicitly throw this class in our code; so we only catch it when PHP throws it.
 				$log_message = 'PHP Fatal error ('.get_class($e).') has occurred during backup uploads to the '.$service.'. Error Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				$updraftplus->log($log_message);
-				error_log($log_message);
+				UpdraftPlus_Manipulation_Functions::error_log($log_message);
 				/* translators: 1: Exception class, 2: Exception message */
 				$updraftplus->log(sprintf(__('A PHP fatal error (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
 			}
@@ -2180,7 +2181,7 @@ class UpdraftPlus_Backup {
 		// Can't get binary mysqldump to make this transformation
 		// $dump_as_table = ($this->duplicate_tables_exist == false && stripos($table, $this->table_prefix) === 0 && strpos($table, $this->table_prefix) !== 0) ? $this->table_prefix.substr($table, strlen($this->table_prefix)) : $table;
 
-		$pfile = md5(time().rand()).'.tmp';
+		$pfile = md5(time().wp_rand()).'.tmp';
 		file_put_contents($this->updraft_dir.'/'.$pfile, "[mysqldump]\npassword=\"".addslashes($this->dbinfo['pass'])."\"\n");
 
 		$where_array = apply_filters('updraftplus_backup_table_sql_where', array(), $table_name, $this);
@@ -2720,8 +2721,8 @@ class UpdraftPlus_Backup {
 					if ($oversized_changes) $updraftplus->jobdata_set('oversized_rows_'.$table, $oversized_rows);
 					continue;
 				}
-				$insert_selected_fields = $invisible_field_exists ? ' (' . implode(', ', $insert_selected_fields) . ')' : '';
-				$entries = 'INSERT INTO '.UpdraftPlus_Manipulation_Functions::backquote($dump_as_table).$insert_selected_fields.' VALUES ';
+				$insert_columns_sql = $invisible_field_exists ? ' (' . implode(', ', $insert_selected_fields) . ')' : '';
+				$entries = 'INSERT INTO '.UpdraftPlus_Manipulation_Functions::backquote($dump_as_table).$insert_columns_sql.' VALUES ';
 
 				// \x08\\x09, not required
 
@@ -2902,17 +2903,16 @@ class UpdraftPlus_Backup {
 				$result = apply_filters('updraft_encrypt_file', null, $file, $encryption, $this->whichdb, $this->whichdb_suffix);
 			} catch (Exception $e) {
 				$log_message = 'Exception ('.get_class($e).') occurred during encryption: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
-				error_log($log_message);
+				UpdraftPlus_Manipulation_Functions::error_log($log_message);
 				// @codingStandardsIgnoreLine
 				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$updraftplus->log($log_message);
 				/* translators: 1: Exception class, 2: Exception message */
 				$updraftplus->log(sprintf(__('A PHP exception (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage()), 'error');
 				die();
-			// @codingStandardsIgnoreLine
-			} catch (Error $e) {
+			} catch (Error $e) {// phpcs:ignore PHPCompatibility.Classes.NewClasses.errorFound -- This Error class will only get triggered during runtime but we don't explicitly throw this class in our code; so we only catch it when PHP throws it.
 				$log_message = 'PHP Fatal error ('.get_class($e).') has occurred during encryption. Error Message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
-				error_log($log_message);
+				UpdraftPlus_Manipulation_Functions::error_log($log_message);
 				// @codingStandardsIgnoreLine
 				$log_message .= ' Backtrace: '.str_replace(array(ABSPATH, "\n"), array('', ', '), $e->getTraceAsString());
 				$updraftplus->log($log_message);
@@ -2994,12 +2994,13 @@ class UpdraftPlus_Backup {
 		$wp_version = $updraftplus->get_wordpress_version();
 		$mysql_version = $this->wpdb_obj->get_var('SELECT VERSION()');
 		if ('' == $mysql_version) $mysql_version = $this->wpdb_obj->db_version();
+		$server_software = UpdraftPlus_Manipulation_Functions::fetch_superglobal('server', 'SERVER_SOFTWARE', '');
 
 		if ('wp' == $this->whichdb) {
 			$wp_upload_dir = wp_upload_dir();
 			$this->stow("# WordPress MySQL database backup\n");
 			$this->stow("# Created by UpdraftPlus version ".$updraftplus->version." (https://updraftplus.com)\n");
-			$this->stow("# WordPress Version: $wp_version, running on PHP ".phpversion()." (".$_SERVER["SERVER_SOFTWARE"]."), MySQL $mysql_version\n");
+			$this->stow("# WordPress Version: $wp_version, running on PHP ".phpversion()." (".$server_software."), MySQL $mysql_version\n");
 			$this->stow("# Backup of: ".untrailingslashit(site_url())."\n");
 			$this->stow("# Home URL: ".untrailingslashit(home_url())."\n");
 			$this->stow("# Content URL: ".untrailingslashit(content_url())."\n");
@@ -3015,7 +3016,7 @@ class UpdraftPlus_Backup {
 				if (function_exists('get_sites') && class_exists('WP_Site_Query')) {
 					$network_sites = get_sites();
 				} elseif (function_exists('wp_get_sites')) {
-					$network_sites = wp_get_sites();
+					$network_sites = wp_get_sites();// phpcs:ignore WordPress.WP.DeprecatedFunctions.wp_get_sitesFound -- This function was only intended for backward compatibility with versions below 4.6.
 				}
 
 				if ($network_sites) {
@@ -3056,7 +3057,7 @@ class UpdraftPlus_Backup {
 		} else {
 			$this->stow("# MySQL database backup (supplementary database ".$this->whichdb.")\n");
 			$this->stow("# Created by UpdraftPlus version ".$updraftplus->version." (https://updraftplus.com)\n");
-			$this->stow("# WordPress Version: $wp_version, running on PHP ".phpversion()." (".$_SERVER["SERVER_SOFTWARE"]."), MySQL $mysql_version\n");
+			$this->stow("# WordPress Version: $wp_version, running on PHP ".phpversion()." (".$server_software."), MySQL $mysql_version\n");
 			$this->stow("# ".sprintf('External database: (%s)', $this->dbinfo['user'].'@'.$this->dbinfo['host'].'/'.$this->dbinfo['name'])."\n");
 			$this->stow("# Backup created by: ".untrailingslashit(site_url())."\n");
 			$this->stow("# Table prefix: ".$this->table_prefix_raw."\n");
@@ -3066,7 +3067,7 @@ class UpdraftPlus_Backup {
 		$label = $updraftplus->jobdata_get('label');
 		if (!empty($label)) $this->stow("# Label: $label\n");
 
-		$this->stow("\n# Generated: ".date("l j. F Y H:i T")."\n");
+		$this->stow("\n# Generated: ".gmdate("l j. F Y H:i T")."\n");
 		$this->stow("# Hostname: ".$this->dbinfo['host']."\n");
 		$this->stow("# Database: ".UpdraftPlus_Manipulation_Functions::backquote($this->dbinfo['name'])."\n");
 

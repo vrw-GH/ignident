@@ -1,6 +1,10 @@
 <?php
-
-if (!defined('UPDRAFTPLUS_DIR')) die('No access.');
+//phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- we try to reduce overhead by bypassing WP APIs and other extra layers; Some custom complex queries tailored specifically to our needs, giving us full control over the SQL commands and data manipulation
+// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_print_r -- print_r is intentionally used to convert an array into a readable string or for controlled logging purposes.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- some query operations need to always receive the most up-to-date or actual data directly from the database, reducing the risk of serving stale information.
+// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler -- we use the set_error_handler() function to provide a flexible way of handling PHP errors according to our needs; we centralises error handling in one place and customises certain errors based on their severity and context.
+// phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged -- some functions, like set_time_limit() and ini_set(), are used to temporarily change PHP configuration values based on the script's needs (e.g., processing large datasets or performing long operations).
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 /*
 	See class-commands.php for explanation about how these classes work.
@@ -402,7 +406,7 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 	
 		ob_start();
 	
-		if (function_exists('phpinfo')) phpinfo(INFO_ALL ^ (INFO_CREDITS | INFO_LICENSE));
+		if (function_exists('phpinfo')) phpinfo(INFO_ALL ^ (INFO_CREDITS | INFO_LICENSE)); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.prevent_path_disclosure_phpinfo -- we call the phpinfo() function to display PHP information in the advanced tools.
 
 		echo '<h3 id="ud-debuginfo-constants">'.esc_html__('Constants', 'updraftplus').'</h3>';
 		$opts = @get_defined_constants();// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- Silenced to suppress errors that may arise because of the function.
@@ -854,14 +858,16 @@ class UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands {
 				if (false === $rows_count) {
 					// If not found, try search primary key first
 					$table_name = UpdraftPlus_Manipulation_Functions::backquote($row['Name']);
-					$primary_key = $wpdb->get_row("SHOW COLUMNS FROM $table_name WHERE $key_field_name = 'PRI'", ARRAY_A);
-
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $table_name and $key_field_name are SQL identifiers; identifiers cannot be parameterized with $wpdb->prepare(), $table_name and $key_field_name are safe.
+					$primary_key = $wpdb->get_row($wpdb->prepare("SHOW COLUMNS FROM $table_name WHERE $key_field_name = %s", 'PRI'), ARRAY_A);
 					if ($primary_key) {
 						// Count rows by primary key
 						$primary_key_field = UpdraftPlus_Manipulation_Functions::backquote($primary_key['Field']);
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $table_name and $primary_key_field are SQL identifiers; identifiers cannot be parameterized with $wpdb->prepare(), $table_name and $primary_key_field are safe.
 						$rows_count = $wpdb->get_var("SELECT COUNT($primary_key_field) FROM ".$table_name);
 					}
 
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $table_name is SQL identifiers; identifiers cannot be parameterized with $wpdb->prepare(), $table_name is are safe.
 					if (is_null($rows_count) || false === $rows_count) $rows_count = $wpdb->get_var("SELECT COUNT(*) FROM ".$table_name);
 				}
 

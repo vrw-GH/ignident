@@ -1,0 +1,88 @@
+/*
+ * List Menu
+ *
+ * A plain list of links, either from a WordPress menu or from the custom entries of
+ * the element. Everything here is layout only - colours, font sizes and hover states
+ * are left to the theme so the list inherits whatever the column around it uses.
+ *
+ * The link padding of the element is written into an inline style tag carrying the
+ * element id, so it always outranks the rules in this file.
+ *
+ * @since 8.0
+ */
+
+/*
+ * Clears preceding floats.
+ *
+ * Elements like the separator float left across the whole column. A horizontal list
+ * makes its <ul> a flex container, and a flex container establishes a block formatting
+ * context - which by definition will not overlap a float, so it shrank to the zero
+ * space left beside one and stacked its entries. Clearing is what every other element
+ * after a separator does.
+ */
+.av-list-menu-wrap{
+	clear: both;
+}
+
+.av-list-menu-wrap .av-list-menu-list,
+.av-list-menu-wrap .av-list-menu-list ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.av-list-menu-wrap .av-list-menu-list li{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/*
+ * The link is a block so the padding of the element turns into click target rather
+ * than into space beside the text.
+ */
+.av-list-menu-wrap .av-list-menu-list a,
+.av-list-menu-wrap .av-list-menu-list .av-list-menu-no-link{
+	display: block;
+	text-decoration: none;
+}
+
+/* ----------------------------------------------------------------------------
+   vertical
+   ---------------------------------------------------------------------------- */
+/* sub levels of a WordPress menu step in, so the hierarchy stays readable */
+.av-list-menu-vertical .av-list-menu-list ul{
+	padding-left: 1em;
+}
+
+/* ----------------------------------------------------------------------------
+   horizontal
+
+   The list, the entries and any sub level are all flex, which lets the children of
+   a sub level flow on in the same row instead of dropping into a block of their own.
+   ---------------------------------------------------------------------------- */
+.av-list-menu-horizontal .av-list-menu-list,
+.av-list-menu-horizontal .av-list-menu-list ul,
+.av-list-menu-horizontal .av-list-menu-list li{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+/* ----------------------------------------------------------------------------
+   alignment
+
+   text-align does the work in the vertical list, justify-content in the horizontal
+   one. Each is inert in the other direction, so both can be set unconditionally.
+   ---------------------------------------------------------------------------- */
+.av-list-menu-align-left .av-list-menu-list{
+	text-align: left;
+	justify-content: flex-start;
+}
+.av-list-menu-align-center .av-list-menu-list{
+	text-align: center;
+	justify-content: center;
+}
+.av-list-menu-align-right .av-list-menu-list{
+	text-align: right;
+	justify-content: flex-end;
+}

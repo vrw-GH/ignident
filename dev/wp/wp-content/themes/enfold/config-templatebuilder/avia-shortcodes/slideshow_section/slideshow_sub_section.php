@@ -42,7 +42,7 @@ if( ! class_exists( 'avia_sc_slide_sub_section' ) )
 
 			$this->config['invisible']		= true;
 			$this->config['name']			= 'Single Slide';
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-full.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-single-slide.svg';
 			$this->config['tab']			= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']			= 100;
 			$this->config['target']			= 'avia-section-drop';

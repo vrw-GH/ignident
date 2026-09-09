@@ -159,7 +159,14 @@ if( ! class_exists( __NAMESPACE__ . '\Avia_Theme_Data_Updater', false ) )
 				 */
 				do_action( 'ava_after_theme_update' );
 
-				if( true === $this->show_default_notice_flag && ! \aviaFramework\avia_AdminNotices()->exists_current_notice( 'welcome_update' ) )
+				/**
+				 * Only when nothing else is queued.
+				 *
+				 * Adding a notice now replaces whatever was there, so on a point release
+				 * (8.0 -> 8.1, where no version handler runs and the flag stays true)
+				 * this generic notice would wipe a welcome notice that is still running.
+				 */
+				if( true === $this->show_default_notice_flag && empty( \aviaFramework\avia_AdminNotices()->get_current_notices() ) )
 				{
 					\aviaFramework\avia_AdminNotices()->add_notice( 'welcome_update', \aviaFramework\avia_AdminNotices()->get_default_expire_time( 'welcome_update' )  );
 				}

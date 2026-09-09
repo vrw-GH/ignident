@@ -6,18 +6,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Burst\Admin\App\App;
+use Burst\Admin\Abilities_Api\Abilities_Api;
 use Burst\Admin\Archive\Archive;
 use Burst\Admin\Burst_Wp_Cli\Burst_Wp_Cli;
-use Burst\Admin\Capability\Capability;
 use Burst\Admin\Cron\Cron;
 use Burst\Admin\Dashboard_Widget\Dashboard_Widget;
 use Burst\Admin\Data_Sharing\Data_Sharing;
+use Burst\Admin\Diagnostics\Tracking_Diagnostics;
+use Burst\Admin\Diagnostics\Tracking_Health_Email;
 use Burst\Admin\DB_Upgrade\DB_Upgrade;
 use Burst\Admin\Debug\Debug;
+use Burst\Admin\Plugins\Plugin_Updates;
 use Burst\Admin\Posts\Posts;
 use Burst\Admin\Reports\Report_Logs;
 use Burst\Admin\Reports\Reports;
+use Burst\Admin\Search\Search;
+use Burst\Admin\Errors\Errors;
+use Burst\Admin\Integrations\Integrations_Settings;
+use Burst\Admin\Search_Console\Search_Console;
+use Burst\Admin\Engagement\Reading_Engagement;
 use Burst\Admin\Share\Share;
+use Burst\Admin\Geo_Ip\Geo_Ip;
+use Burst\Admin\Statistics\Geo_Statistics;
 use Burst\Admin\Statistics\Goal_Statistics;
 use Burst\Admin\Statistics\Statistics;
 use Burst\Frontend\Goals\Goal;
@@ -36,109 +46,164 @@ class Admin {
 	public Tasks $tasks;
 	public Statistics $statistics;
 	public App $app;
+	public Share $share;
 
 	/**
 	 * Initialize the admin class
 	 */
 	public function init(): void {
-		/**
-		 * Tell the consent API we're following the api
-		 */
-		$plugin = BURST_PLUGIN;
-		add_filter( "wp_consent_api_registered_$plugin", '__return_true' );
-		add_filter( "plugin_action_links_$plugin", [ $this, 'plugin_settings_link' ] );
-		add_filter( "network_admin_plugin_action_links_$plugin", [ $this, 'plugin_settings_link' ] );
-
-		// deactivating.
-		add_action( 'admin_footer', [ $this, 'deactivate_popup' ], 40 );
-		add_action( 'admin_init', [ $this, 'listen_for_deactivation' ], 40 );
-		add_action( 'admin_init', [ $this, 'add_privacy_info' ], 10 );
-
-		// remove tables on multisite uninstall.
-		add_filter( 'wpmu_drop_tables', [ $this, 'ms_remove_tables' ], 10, 2 );
-		add_filter( 'burst_do_action', [ $this, 'maybe_delete_all_data' ], 10, 3 );
-		add_action( 'burst_after_updated_goals', [ $this, 'create_js_file' ], 10, 1 );
-		add_action( 'burst_after_saved_fields', [ $this, 'create_js_file' ], 10, 1 );
-		add_action( 'burst_daily', [ $this, 'create_js_file' ] );
-		add_action( 'burst_daily', [ $this, 'detect_malicious_data' ] );
-		add_action( 'burst_dismiss_task', [ $this, 'dismiss_malicious_data_notice' ], 10, 1 );
-		add_action( 'burst_dismiss_task', [ $this, 'dismiss_php_error_notice' ], 10, 1 );
-		add_action( 'wp_initialize_site', [ $this, 'create_js_file' ], 10, 1 );
-		add_action( 'admin_init', [ $this, 'activation' ] );
-		add_action( 'burst_activation', [ $this, 'setup_defaults' ], 20, 1 );
-
-		add_action( 'burst_activation', [ $this, 'run_table_init_hook' ], 10, 1 );
-		add_action( 'after_reset_stats', [ $this, 'run_table_init_hook' ], 10, 1 );
-		add_action( 'wp_initialize_site', [ $this, 'run_table_init_hook' ], 10, 1 );
-		add_action( 'burst_upgrade_before', [ $this, 'run_table_init_hook' ], 10, 1 );
-		add_action( 'burst_cron_table_upgrade', [ $this, 'run_table_init_hook' ], 10, 1 );
-		add_action( 'burst_daily', [ $this, 'validate_tasks' ] );
-		add_action( 'burst_validate_tasks', [ $this, 'validate_tasks' ] );
-		add_action( 'plugins_loaded', [ $this, 'init_wpcli' ] );
-		add_action( 'burst_scheduled_task_fix_malicious_data_removal', [ $this, 'clean_malicious_data' ] );
-		add_action( 'burst_daily', [ $this, 'test_database_tables' ] );
-		add_action( 'burst_attempt_database_fix', [ $this, 'test_database_tables' ] );
-		add_action( 'burst_weekly', [ $this, 'long_term_user_deal' ] );
-		add_action( 'burst_weekly', [ $this, 'cleanup_bf_dismissed_tasks' ] );
-		add_action( 'burst_daily', [ $this, 'cleanup_php_error_notices' ] );
 		$recalculate_cron_interval = apply_filters( 'burst_recalculate_cron_interval', 'burst_every_ten_minutes' );
 		add_action( $recalculate_cron_interval, [ $this, 'update_last_statistic_data' ] );
 		add_action( 'burst_recalculate_known_uids_cron', [ $this, 'update_known_uids_table' ] );
 		add_action( 'burst_recalculate_bounces_cron', [ $this, 'recalculate_bounces' ] );
 		add_action( 'burst_recalculate_first_time_visits_cron', [ $this, 'recalculate_first_time_visits' ] );
 
-		add_filter( 'burst_menu', [ $this, 'add_ecommerce_menu_item' ] );
+		if ( ! BURST_TRACK_ONLY ) {
+			/**
+			 * Tell the consent API we're following the api
+			 */
+			$plugin = BURST_PLUGIN;
+			add_filter( "wp_consent_api_registered_$plugin", '__return_true' );
+			add_filter( "plugin_action_links_$plugin", [ $this, 'plugin_settings_link' ] );
+			add_filter( "network_admin_plugin_action_links_$plugin", [ $this, 'plugin_settings_link' ] );
 
-		$this->maybe_update_site_scheme();
+			// deactivating.
+			add_action( 'admin_footer', [ $this, 'deactivate_popup' ], 40 );
+			add_action( 'admin_init', [ $this, 'listen_for_deactivation' ], 40 );
+			add_action( 'admin_init', [ $this, 'add_privacy_info' ], 10 );
 
-		$upgrade = new Upgrade();
-		$upgrade->init();
-		$db_upgrade = new DB_Upgrade();
-		$db_upgrade->init();
-		$cron = new Cron();
-		$cron->init();
+			// remove tables on multisite uninstall.
+			add_filter( 'wpmu_drop_tables', [ $this, 'ms_remove_tables' ], 10, 2 );
+			add_filter( 'burst_do_action', [ $this, 'maybe_delete_all_data' ], 10, 3 );
+			add_action( 'burst_after_updated_goals', [ $this, 'create_js_file' ], 10, 1 );
+			add_action( 'burst_after_saved_fields', [ $this, 'create_js_file' ], 10, 1 );
+			add_action( 'burst_daily', [ $this, 'create_js_file' ] );
+			// The baked should_load_ecommerce tracking option depends on which ecommerce
+			// plugin is active, so the combined js file must be refreshed on (de)activation.
+			add_action( 'activated_plugin', [ $this, 'schedule_js_file_refresh_on_plugin_change' ] );
+			add_action( 'deactivated_plugin', [ $this, 'schedule_js_file_refresh_on_plugin_change' ] );
+			add_action( 'burst_create_js_file', [ $this, 'create_js_file' ] );
+			add_action( 'burst_daily', [ $this, 'schedule_detect_malicious_data_cron' ] );
+			add_action( 'burst_detect_malicious_data', [ $this, 'detect_malicious_data' ] );
+			add_action( 'burst_dismiss_task', [ $this, 'dismiss_malicious_data_notice' ], 10, 1 );
+			add_action( 'burst_dismiss_task', [ $this, 'dismiss_php_error_notice' ], 10, 1 );
+			// After run_table_init_hook (priority 10), so the goals table exists when the file is baked.
+			add_action( 'wp_initialize_site', [ $this, 'create_js_file_for_new_site' ], 20, 1 );
+			add_action( 'admin_init', [ $this, 'activation' ], 3, 1 );
+			add_action( 'burst_activation', [ $this, 'setup_defaults' ], 20, 1 );
+			add_action( 'burst_activation', [ $this, 'run_table_init_hook' ], 10, 1 );
+			add_action( 'after_reset_stats', [ $this, 'run_table_init_hook' ], 10, 1 );
+			add_action( 'wp_initialize_site', [ $this, 'run_table_init_hook' ], 10, 1 );
+			add_action( 'burst_upgrade_before', [ $this, 'run_table_init_hook' ], 10, 1 );
+			add_action( 'burst_cron_table_upgrade', [ $this, 'run_table_init_hook' ], 10, 1 );
+			add_action( 'burst_daily', [ $this, 'validate_tasks' ] );
+			add_action( 'burst_validate_tasks', [ $this, 'validate_tasks' ] );
+			add_action( 'plugins_loaded', [ $this, 'init_wpcli' ] );
+			add_action( 'burst_scheduled_task_fix_malicious_data_removal', [ $this, 'clean_malicious_data' ] );
+			add_action( 'burst_daily', [ $this, 'test_database_tables' ] );
+			add_action( 'burst_attempt_database_fix', [ $this, 'test_database_tables' ] );
+			add_action( 'burst_weekly', [ $this, 'cleanup_bf_dismissed_tasks' ] );
+			add_action( 'burst_daily', [ $this, 'cleanup_php_error_notices' ] );
+			add_action( 'burst_daily', [ $this, 'cleanup_orphaned_block_goals' ] );
+			add_filter( 'burst_menu', [ $this, 'add_ecommerce_menu_item' ] );
 
-		$archive = new Archive();
-		$archive->init();
+			$this->maybe_update_site_scheme();
+			$upgrade = new Upgrade();
+			$upgrade->init();
+			$db_upgrade = new DB_Upgrade();
+			$db_upgrade->init();
+			$cron = new Cron();
+			$cron->init();
 
-		$goal_statistics = new Goal_Statistics();
-		$goal_statistics->init();
-		$this->statistics = new Statistics();
-		$this->statistics->init();
-		$reports = new Reports();
-		$reports->init();
-		$reports_logs = Report_Logs::instance();
-		$reports_logs->init();
-		$this->app = new App();
-		$this->app->init();
+			$this->init_tracking_health();
 
-		$posts = new Posts();
-		$posts->init();
+			$archive = new Archive();
+			$archive->init();
 
-		$review = new Review();
-		$review->init();
-		$this->tasks = new Tasks();
-		$widget      = new Dashboard_Widget();
-		$widget->init();
+			$goal_statistics = new Goal_Statistics();
+			$goal_statistics->init();
+			$this->statistics = new Statistics();
+			$this->statistics->init();
+			$geo_statistics = new Geo_Statistics();
+			$geo_statistics->init();
+			// The Country GeoIP database manager ships in free. Pro replaces it with
+			// its City variant (Geo_Ip_Pro), so only load the core manager when Pro
+			// is not active.
+			if ( ! defined( 'BURST_PRO_FILE' ) ) {
+				$geo_ip = new Geo_Ip();
+				$geo_ip->init();
+			}
+			$search = new Search();
+			$search->init();
+			$errors = new Errors();
+			$errors->init();
+			$integrations_settings = new Integrations_Settings();
+			$integrations_settings->init();
+			$search_console = new Search_Console();
+			$search_console->init();
+			$reading_engagement = new Reading_Engagement();
+			$reading_engagement->init();
+			$reports = new Reports();
+			$reports->init();
+			$reports_logs = Report_Logs::instance();
+			$reports_logs->init();
+			$this->app = new App();
+			$this->app->init();
+			$abilities_api = new Abilities_Api();
+			$abilities_api->init();
 
-		$debug = new Debug();
-		$debug->init();
+			$posts = new Posts();
+			$posts->init();
 
-		$milestones = new Milestones();
-		$milestones->init();
+			$review = new Review();
+			$review->init();
 
-		if ( $this->get_option_bool( 'anonymous_usage_data' ) ) {
-			$data_sharing = new Data_Sharing();
-			$data_sharing->init();
+			// Smart update timing (Features > Smart update timing). Hooks
+			// register unconditionally and gate themselves on the settings
+			// toggles and stored opt-ins, so cron events keep a handler, stored
+			// per-plugin opt-ins keep updating inside the window and enabling a
+			// toggle takes effect in the request that saves it.
+			$plugin_updates = new Plugin_Updates();
+			$plugin_updates->init();
+
+			$this->tasks = new Tasks();
+			$widget      = new Dashboard_Widget();
+			$widget->init();
+
+			$debug = new Debug();
+			$debug->init();
+
+			$milestones = new Milestones();
+			$milestones->init();
+
+			if ( $this->get_option_bool( 'anonymous_usage_data' ) ) {
+				$data_sharing = new Data_Sharing();
+				$data_sharing->init();
+			}
+
+			if ( defined( 'BURST_BLUEPRINT' ) && ! get_option( 'burst_demo_data_installed' ) ) {
+				add_action( 'init', [ $this, 'install_demo_data' ] );
+				update_option( 'burst_demo_data_installed', true, false );
+			}
+
+			$this->share = new Share();
+			$this->share->init();
 		}
+	}
 
-		if ( defined( 'BURST_BLUEPRINT' ) && ! get_option( 'burst_demo_data_installed' ) ) {
-			add_action( 'init', [ $this, 'install_demo_data' ] );
-			update_option( 'burst_demo_data_installed', true, false );
-		}
+	/**
+	 * Initialize the tracking health stack: the detector, the diagnostic
+	 * collectors that run when it reports an issue, and the diagnostic email.
+	 */
+	private function init_tracking_health(): void {
+		$tracking_health = new Tracking_Health();
+		$tracking_health->init();
 
-		$share = new Share();
-		$share->init();
+		$tracking_diagnostics = new Tracking_Diagnostics();
+		$tracking_diagnostics->init();
+
+		$tracking_health_email = new Tracking_Health_Email();
+		$tracking_health_email->init();
 	}
 
 	/**
@@ -188,27 +253,22 @@ class Admin {
 		$default_cutoff = time() - apply_filters( 'burst_cron_update_range_seconds', 15 * MINUTE_IN_SECONDS );
 		$time_cutoff    = ( $last_update < $default_cutoff ) ? $last_update : $default_cutoff;
 
-		// Mark as first-time visit if:
-		// 1. UID is NOT in known_uids, OR.
-		// 2. UID's first_seen timestamp is >= time_cutoff (meaning they're new in this batch).
+		// Mark session as first_time_visit = 1 only if the session's earliest statistic
+		// matches the UID's first_seen in known_uids — meaning this is genuinely their first visit.
 		$wpdb->query(
 			$wpdb->prepare(
-				"
-        UPDATE {$wpdb->prefix}burst_statistics bs
-        INNER JOIN (
-            SELECT curr.uid, MIN(curr.time) AS first_time
-            FROM {$wpdb->prefix}burst_statistics curr
-            LEFT JOIN {$wpdb->prefix}burst_known_uids known ON curr.uid = known.uid
-            WHERE curr.time >= %d
-              AND curr.first_time_visit = 0
-              AND (known.uid IS NULL OR known.first_seen >= %d)
-            GROUP BY curr.uid
-        ) first_visits ON bs.uid = first_visits.uid 
-                       AND bs.time = first_visits.first_time
-        SET bs.first_time_visit = 1
-        WHERE bs.first_time_visit = 0
-    ",
-				$time_cutoff,
+				"UPDATE {$wpdb->prefix}burst_sessions sess
+				INNER JOIN (
+					SELECT session_id, MIN(time) AS first_time, uid
+					FROM {$wpdb->prefix}burst_statistics
+					WHERE time >= %d
+					GROUP BY session_id, uid
+				) st ON st.session_id = sess.ID
+				INNER JOIN {$wpdb->prefix}burst_known_uids known ON st.uid = known.uid
+				SET sess.first_time_visit = 1
+				WHERE sess.first_time_visit = 0
+				AND known.first_seen >= st.first_time - 1
+				AND known.first_seen <= st.first_time + 1",
 				$time_cutoff
 			)
 		);
@@ -238,7 +298,7 @@ class Admin {
         FROM {$wpdb->prefix}burst_statistics
         WHERE time >= %d
         GROUP BY uid
-        ON DUPLICATE KEY UPDATE 
+        ON DUPLICATE KEY UPDATE
             first_seen = LEAST(first_seen, VALUES(first_seen)),
             last_seen = GREATEST(last_seen, VALUES(last_seen))
     ",
@@ -267,67 +327,30 @@ class Admin {
 		$last_update    = get_option( 'burst_last_bounces_update', time() - 15 * MINUTE_IN_SECONDS );
 		$default_cutoff = time() - apply_filters( 'burst_cron_update_range_seconds', 15 * MINUTE_IN_SECONDS );
 		$time_cutoff    = ( $last_update < $default_cutoff ) ? $last_update : $default_cutoff;
+
 		global $wpdb;
+
+		$bounce_time_milliseconds = apply_filters( 'burst_bounce_time', 5000 );
+		// Find sessions with >1 pageview or long time_on_page (engaged), then mark them as not bounced.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE {$wpdb->prefix}burst_statistics bs
-        INNER JOIN (
-            SELECT session_id
-            FROM {$wpdb->prefix}burst_statistics
-            WHERE time > %d
-            GROUP BY session_id
-            HAVING COUNT(*) > 1
-                OR MAX(time_on_page) > 5000 -- long page time means engaged
-        ) nb ON bs.session_id = nb.session_id
-        SET bs.bounce = 0
-        WHERE bs.bounce = 1",
-				$time_cutoff
+				"UPDATE {$wpdb->prefix}burst_sessions sess
+            INNER JOIN (
+                SELECT session_id
+                FROM {$wpdb->prefix}burst_statistics
+                WHERE time > %d
+                GROUP BY session_id
+                HAVING COUNT(*) > 1
+                    OR MAX(time_on_page) > %d
+            ) nb ON sess.ID = nb.session_id
+            SET sess.bounce = 0
+            WHERE sess.bounce = 1",
+				$time_cutoff,
+				$bounce_time_milliseconds
 			)
 		);
+
 		update_option( 'burst_last_bounces_update', time(), false );
-	}
-
-	/**
-	 * Add ecommerce menu item to the admin menu
-	 *
-	 * @param array $menu_items The existing menu items.
-	 * @return array The modified menu items including the ecommerce menu item.
-	 */
-	public function add_ecommerce_menu_item( array $menu_items ): array {
-		$should_load_ecommerce = \Burst\burst_loader()->integrations->should_load_ecommerce();
-
-		if ( ! $should_load_ecommerce || ! $this->has_admin_access() || ! $this->user_can_view_sales() ) {
-			return $menu_items;
-		}
-
-		$ecommerce_menu_item = [
-			'id'             => 'sales',
-			'title'          => __( 'Sales', 'burst-statistics' ),
-			'default_hidden' => false,
-			'menu_items'     => [],
-			'capabilities'   => 'view_sales_burst_statistics',
-			'menu_slug'      => 'burst#/sales',
-			'show_in_admin'  => true,
-			'pro'            => true,
-			'shareable'      => true,
-		];
-
-		// Put ecommerce menu item before the id: settings menu item.
-		$settings_index = null;
-		foreach ( $menu_items as $index => $item ) {
-			if ( isset( $item['id'] ) && 'reporting' === $item['id'] ) {
-				$settings_index = $index;
-				break;
-			}
-		}
-
-		if ( null !== $settings_index ) {
-			array_splice( $menu_items, $settings_index, 0, [ $ecommerce_menu_item ] );
-		} else {
-			$menu_items[] = $ecommerce_menu_item;
-		}
-
-		return $menu_items;
 	}
 
 	/**
@@ -376,26 +399,6 @@ class Admin {
 	}
 
 	/**
-	 * Users who are using the plugin for at least a year get a one time trial offer.
-	 */
-	public function long_term_user_deal(): void {
-		if ( ! defined( 'BURST_FREE' ) ) {
-			return;
-		}
-
-		$activated = get_option( 'burst_activation_time', 0 );
-		if ( $activated === 0 ) {
-			return;
-		}
-
-		$one_year_ago = time() - YEAR_IN_SECONDS;
-		if ( $activated > $one_year_ago && ! get_option( 'burst_trial_offered' ) ) {
-			\Burst\burst_loader()->admin->tasks->add_task( 'trial_offer_loyal_users' );
-			update_option( 'burst_trial_offered', true, false );
-		}
-	}
-
-	/**
 	 * Initialize WP CLI
 	 *
 	 * @throws \Exception //exception.
@@ -409,6 +412,15 @@ class Admin {
 		\WP_CLI::add_command( 'burst', Burst_Wp_Cli::class );
 	}
 
+	/**
+	 * Offload the malicious data detection two minutes later in the future.
+	 * This also resolves a missing table error right after deactivating, and activating the plugin again with data reset.
+	 */
+	public function schedule_detect_malicious_data_cron(): void {
+		if ( ! wp_next_scheduled( 'burst_detect_malicious_data' ) ) {
+			wp_schedule_single_event( time() + 2 * MINUTE_IN_SECONDS, 'burst_detect_malicious_data' );
+		}
+	}
 	/**
 	 * Check if there is anomalous data in the past 24 hours, over 1000 requests from one visitor.
 	 */
@@ -601,10 +613,9 @@ class Admin {
 		global $wpdb;
 		$table = "{$wpdb->prefix}burst_$table";
 		foreach ( $rows as $row ) {
-			$wpdb->insert(
-				$table,
-				$row
-			);
+			// Use INSERT IGNORE so re-running (e.g. demo data via WP-CLI) does not log duplicate-key errors on the UNIQUE name column.
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name is safe.
+			$wpdb->query( $wpdb->prepare( "INSERT IGNORE INTO $table (name) VALUES (%s)", $row['name'] ) );
 		}
 	}
 
@@ -740,24 +751,24 @@ class Admin {
 							'referrer'          => $referrer,
 							'first_visited_url' => '/',
 							'last_visited_url'  => '/',
+							'browser_id'        => $browser_id,
+							'device_id'         => $device_id,
+							'platform_id'       => $platform_id,
+							'bounce'            => $bounce,
+							'first_time_visit'  => 1,
 						],
-						[ '%s', '%s', '%s' ]
+						[ '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%d' ]
 					);
 
 					$session_id = $wpdb->insert_id;
 
-					$placeholders[] = '(%d, %s, %d, %d, %d, %d, %d, %d, %d, %d)';
+					$placeholders[] = '(%d, %s, %d, %d, %d)';
 					$values         = array_merge(
 						$values,
 						[
 							$stats_date_unix,
 							$page_url,
 							$uid,
-							1,
-							$bounce,
-							$browser_id,
-							$device_id,
-							$platform_id,
 							$time_on_page,
 							$session_id,
 						]
@@ -765,9 +776,9 @@ class Admin {
 				}
 
 				$query = "
-                    INSERT INTO {$wpdb->prefix}burst_statistics
-                    (time, page_url, uid, first_time_visit, bounce, browser_id, device_id, platform_id, time_on_page, session_id)
-                    VALUES " . implode( ', ', $placeholders );
+					INSERT INTO {$wpdb->prefix}burst_statistics
+					(time, page_url, uid, time_on_page, session_id)
+					VALUES " . implode( ', ', $placeholders );
                 // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- values are prepared.
 				$wpdb->query( $wpdb->prepare( $query, ...$values ) );
 			}
@@ -783,8 +794,6 @@ class Admin {
 		}
 
 		if ( get_option( 'burst_run_activation' ) ) {
-			Capability::add_capability( 'view', [ 'administrator', 'editor' ] );
-			Capability::add_capability( 'manage' );
 			do_action( 'burst_activation' );
 			update_option( 'burst_run_activation', false );
 		}
@@ -798,7 +807,8 @@ class Admin {
 			return;
 		}
 
-		$cookieless      = $this->get_option_bool( 'enable_cookieless_tracking' );
+		$privacy_level   = $this->get_option( 'privacy_level', 'cookie' );
+		$cookieless      = ( $privacy_level === 'fingerprint' );
 		$cookieless_text = $cookieless ? '-cookieless' : '';
 		$localize_args   = \Burst\burst_loader()->frontend->tracking->get_options();
 
@@ -806,30 +816,108 @@ class Admin {
 
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$js                .= file_get_contents( BURST_PATH . "assets/js/build/burst$cookieless_text.min.js" );
-		$filename           = $this->get_frontend_js_filename();
 		$ghost_mode_enabled = apply_filters( 'burst_obfuscate_filename', $this->get_option_bool( 'ghost_mode' ) );
+		$filename           = $this->get_frontend_js_filename( $ghost_mode_enabled );
 		$upload_dir         = $this->upload_dir( 'js', $ghost_mode_enabled );
 		$file               = $upload_dir . $filename;
 
 		// copy timeme script to uploads dir if ghost mode is enabled.
+		$timeme_copy_failed = false;
 		if ( $ghost_mode_enabled ) {
 			$js                      = $this->strip_window_exports( $js );
 			$timeme_original_file    = BURST_PATH . 'assets/js/timeme/timeme.min.js';
 			$timeme_obfustcated_file = $upload_dir . 'timeme.min.js';
-			if ( ! file_exists( $timeme_obfustcated_file ) ) {
-				copy( $timeme_original_file, $timeme_obfustcated_file );
+			// also refresh an existing copy when the bundled file is newer, e.g. after a plugin update.
+			if ( ! file_exists( $timeme_obfustcated_file ) || filemtime( $timeme_original_file ) > filemtime( $timeme_obfustcated_file ) ) {
+				$timeme_copy_failed = ! copy( $timeme_original_file, $timeme_obfustcated_file );
 			}
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		global $wp_filesystem;
-		if ( WP_Filesystem() ) {
-			if ( $wp_filesystem->is_dir( $upload_dir ) && $wp_filesystem->is_writable( $upload_dir ) ) {
-				delete_option( 'burst_js_write_error' );
-				$wp_filesystem->put_contents( $file, $js, FS_CHMOD_FILE );
-			} else {
-				update_option( 'burst_js_write_error', true, false );
+		$written = false;
+		if ( WP_Filesystem() && $wp_filesystem->is_dir( $upload_dir ) && $wp_filesystem->is_writable( $upload_dir ) ) {
+			// Write to a temp file and rename it into place, so a request served
+			// mid-write never loads a truncated script. The temp name is unique per
+			// call: concurrent runs (e.g. parallel requests during an upgrade) would
+			// otherwise rename each other's temp file away mid-write.
+			$temp_file = $file . '.' . uniqid( '', true ) . '.tmp';
+			$written   = (bool) $wp_filesystem->put_contents( $temp_file, $js, FS_CHMOD_FILE );
+			if ( $written ) {
+				$written = $wp_filesystem->move( $temp_file, $file, true );
 			}
+			if ( ! $written && $wp_filesystem->exists( $temp_file ) ) {
+				$wp_filesystem->delete( $temp_file );
+			}
+		}
+
+		// Only clear the error flag once everything is actually on disk: put_contents()
+		// can fail with a writable directory (e.g. an unwritable existing file), and
+		// WP_Filesystem() itself can fail (e.g. FS_METHOD ftpext without credentials).
+		if ( $written && ! $timeme_copy_failed ) {
+			delete_option( 'burst_js_write_error' );
+			$this->delete_js_files( $ghost_mode_enabled );
+		} else {
+			update_option( 'burst_js_write_error', true, false );
+		}
+	}
+
+	/**
+	 * Delete generated tracking JS files from the uploads directory.
+	 *
+	 * @param bool|null $keep_ghost_mode When a mode is passed, that mode's files are kept and
+	 *                                   only the other mode's files are removed, so toggling
+	 *                                   ghost mode does not leave orphaned public files behind.
+	 *                                   Null removes the files of both modes.
+	 */
+	public function delete_js_files( ?bool $keep_ghost_mode = null ): void {
+		if ( ! $this->user_can_manage() ) {
+			return;
+		}
+
+		$files = [];
+		if ( $keep_ghost_mode !== true ) {
+			$files[] = $this->upload_dir( 'js', true ) . $this->get_frontend_js_filename( true );
+			$files[] = $this->upload_dir( 'js', true ) . 'timeme.min.js';
+		}
+		if ( $keep_ghost_mode !== false ) {
+			$files[] = $this->upload_dir( 'js' ) . $this->get_frontend_js_filename( false );
+		}
+		foreach ( $files as $file ) {
+			if ( file_exists( $file ) ) {
+				wp_delete_file( $file );
+			}
+		}
+	}
+
+	/**
+	 * Create the js file for a newly created multisite site, in the context of that site.
+	 *
+	 * @param \WP_Site $new_site The site being initialized.
+	 */
+	public function create_js_file_for_new_site( \WP_Site $new_site ): void {
+		switch_to_blog( (int) $new_site->blog_id );
+		$this->create_js_file();
+		restore_current_blog();
+	}
+
+	/**
+	 * Schedule a combined js file refresh when an ecommerce integration plugin is (de)activated.
+	 *
+	 * Deferred to a single cron event on purpose: during the (de)activation request itself the
+	 * baked should_load_ecommerce value would be stale — the ecommerce tracking filter was
+	 * registered from the pre-change plugin state, and plugin_is_active() checks constants
+	 * that are still loaded while a plugin is being deactivated.
+	 *
+	 * @param string $plugin Plugin file as passed by the (de)activated_plugin hooks.
+	 */
+	public function schedule_js_file_refresh_on_plugin_change( string $plugin ): void {
+		if ( ! \Burst\burst_loader()->integrations->is_ecommerce_integration_plugin( $plugin ) ) {
+			return;
+		}
+
+		if ( ! wp_next_scheduled( 'burst_create_js_file' ) ) {
+			wp_schedule_single_event( time() + 10, 'burst_create_js_file' );
 		}
 	}
 
@@ -856,15 +944,15 @@ class Admin {
 
 		define( 'BURST_INSTALL_TABLES_RUNNING', true );
 
-		if ( get_transient( 'burst_running_upgrade_process' ) ) {
-			return;
-		}
-
 		// don't run on uninstall.
 		if ( defined( 'BURST_UNINSTALLING' ) ) {
 			return;
 		}
-		set_transient( 'burst_running_upgrade_process', true, 30 );
+
+		if ( ! $this->acquire_upgrade_lock() ) {
+			return;
+		}
+
 		do_action( 'burst_install_tables' );
 		// we need to run table creation across subsites as well.
 		if ( is_multisite() ) {
@@ -877,7 +965,7 @@ class Admin {
 				}
 			}
 		}
-		delete_transient( 'burst_running_upgrade_process' );
+		$this->release_upgrade_lock();
 	}
 
 	/**
@@ -904,11 +992,16 @@ class Admin {
 	 */
 	public function setup_defaults(): void {
 		if ( get_option( 'burst_set_defaults' ) ) {
-			set_transient( 'burst_redirect_to_settings_page', true, 5 * MINUTE_IN_SECONDS );
 			update_option( 'burst_activation_time', time(), false );
 			update_option( 'burst_last_cron_hit', time(), false );
+			// Fresh install: download the GeoIP database (the burst_locations country
+			// lookup is seeded by install_locations_table). No "available from" notice
+			// is shown on a fresh install — only on an upgrade from an existing site.
+			update_option( 'burst_import_geo_ip_on_activation', true, false );
 			$this->update_option( 'combine_vars_and_script', true );
 			$this->update_option( 'enable_turbo_mode', true );
+			$this->update_option( 'privacy_level', 'cookie' );
+			$this->update_option( 'plugin_update_suggestions', true );
 			$this->create_js_file();
 
 			$this->tasks->add_initial_tasks();
@@ -1246,12 +1339,16 @@ class Admin {
 					foreach ( $sites as $site ) {
 						switch_to_blog( (int) $site->blog_id );
 						$this->delete_all_burst_data();
+						// Before delete_all_burst_configuration(), which removes the capability its guard checks.
+						$this->delete_js_files();
 						$this->delete_all_burst_configuration();
 						restore_current_blog();
 					}
 				}
 			}
 			$this->delete_all_burst_data();
+			// Before delete_all_burst_configuration(), which removes the capability its guard checks.
+			$this->delete_js_files();
 			$this->delete_all_burst_configuration();
 			\Burst\burst_clear_scheduled_hooks();
 			$this->delete_all_burst_cron_events();
@@ -1325,7 +1422,7 @@ class Admin {
 		$this->setup_defaults();
 
 		// ensure the tables are created.
-		delete_transient( 'burst_running_upgrade' );
+		$this->release_upgrade_lock();
 		$this->run_table_init_hook();
 	}
 
@@ -1344,6 +1441,10 @@ class Admin {
 
 		// delete tables.
 		foreach ( $table_names as $table_name ) {
+			// guard against deleting tables from other plugins, as these can be added using the tables filter.
+			if ( ! str_starts_with( $table_name, 'burst_' ) ) {
+				continue;
+			}
 			$sql = "DROP TABLE IF EXISTS {$wpdb->prefix}$table_name";
             // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- table name is from a predefined list.
 			$wpdb->query( $sql );
@@ -1415,13 +1516,136 @@ class Admin {
 	): array {
 		global $wpdb;
 
-		$tables[] = $wpdb->get_blog_prefix( $blog_id ) . 'burst_sessions';
-		$tables[] = $wpdb->get_blog_prefix( $blog_id ) . 'burst_statistics';
-		$tables[] = $wpdb->get_blog_prefix( $blog_id ) . 'burst_goals';
-		$tables[] = $wpdb->get_blog_prefix( $blog_id ) . 'burst_archived_months';
-		$tables[] = $wpdb->get_blog_prefix( $blog_id ) . 'burst_goal_statistics';
-		$tables[] = $wpdb->get_blog_prefix( $blog_id ) . 'burst_summary';
+		$table_names = $this->get_table_list();
+		foreach ( $table_names as $table_name ) {
+			if ( ! str_starts_with( $table_name, 'burst_' ) ) {
+				continue;
+			}
+			$tables[] = $wpdb->get_blog_prefix( $blog_id ) . $table_name;
+		}
 
 		return $tables;
+	}
+
+	/**
+	 * Add ecommerce menu item to the admin menu
+	 *
+	 * @param array $menu_items The existing menu items.
+	 * @return array The modified menu items including the ecommerce menu item.
+	 */
+	public function add_ecommerce_menu_item( array $menu_items ): array {
+		if ( ! $this->has_admin_access() ) {
+			return $menu_items;
+		}
+
+		$should_load_ecommerce = \Burst\burst_loader()->integrations->should_load_ecommerce();
+		if ( ! $should_load_ecommerce ) {
+			return $menu_items;
+		}
+
+		$ecommerce_menu_item = [
+			'id'             => 'sales',
+			'title'          => __( 'Sales', 'burst-statistics' ),
+			'default_hidden' => false,
+			'menu_items'     => [],
+			'capabilities'   => 'view_sales_burst_statistics',
+			'menu_slug'      => 'burst#/sales',
+			'show_in_admin'  => true,
+			'pro'            => true,
+			'shareable'      => true,
+		];
+
+		// Put ecommerce menu item before the id: settings menu item.
+		$settings_index = null;
+		foreach ( $menu_items as $index => $item ) {
+			if ( isset( $item['id'] ) && 'reporting' === $item['id'] ) {
+				$settings_index = $index;
+				break;
+			}
+		}
+
+		if ( null !== $settings_index ) {
+			array_splice( $menu_items, $settings_index, 0, [ $ecommerce_menu_item ] );
+		} else {
+			$menu_items[] = $ecommerce_menu_item;
+		}
+
+		return $menu_items;
+	}
+
+	/**
+	 * Clean up orphaned block goals that were created but never saved (or deleted without trace).
+	 */
+	public function cleanup_orphaned_block_goals(): void {
+		global $wpdb;
+		$table_name   = $wpdb->prefix . 'burst_goals';
+		$table_exists = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name;
+		if ( ! $table_exists ) {
+			return;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$block_goals = $wpdb->get_results( "SELECT * FROM {$table_name} WHERE block_goal = 1", ARRAY_A );
+		if ( empty( $block_goals ) ) {
+			return;
+		}
+
+		// Query only post_content from non-trash, non-revision posts/pages.
+		$post_statuses_escaped = [];
+		foreach ( [ 'publish', 'draft', 'pending', 'private', 'future' ] as $status ) {
+			$post_statuses_escaped[] = (string) esc_sql( $status );
+		}
+		$post_statuses_str = "'" . implode( "', '", $post_statuses_escaped ) . "'";
+
+		$post_types = get_post_types( [ 'public' => true ] );
+		if ( empty( $post_types ) || ! is_array( $post_types ) ) {
+			$post_types = [ 'post', 'page' ];
+		}
+		$post_types_escaped = [];
+		foreach ( $post_types as $type ) {
+			if ( is_string( $type ) ) {
+				$post_types_escaped[] = (string) esc_sql( $type );
+			}
+		}
+		$post_types_str = "'" . implode( "', '", $post_types_escaped ) . "'";
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$posts          = $wpdb->get_col( "SELECT post_content FROM {$wpdb->posts} WHERE post_status IN ($post_statuses_str) AND post_type IN ($post_types_str) AND post_content LIKE '%data-burst-goal=%'" );
+		$merged_content = is_array( $posts ) ? implode( ' ', $posts ) : '';
+
+		foreach ( $block_goals as $goal ) {
+			// Skip goals created within the last 3 hours to avoid race conditions while editing.
+			if ( time() - (int) $goal['date_created'] < 3 * HOUR_IN_SECONDS ) {
+				continue;
+			}
+
+			$goal_id = (int) $goal['ID'];
+			$uid     = '';
+			if ( preg_match( '/data-burst-goal="([^"]+)"/', $goal['selector'], $matches ) ) {
+				$uid = $matches[1];
+			}
+			if ( empty( $uid ) ) {
+				continue;
+			}
+
+			if ( strpos( $merged_content, $uid ) === false ) {
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+				$has_data = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}burst_goal_statistics WHERE goal_id = %d", $goal_id ) ) > 0;
+
+				if ( ! $has_data ) {
+					// Delete goal completely if it has no stats.
+					$goal_obj = new \Burst\Frontend\Goals\Goal( $goal_id );
+					$goal_obj->delete();
+				} elseif ( $goal['status'] !== 'inactive' ) {
+					// Otherwise deactivate it to preserve stats.
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+					$wpdb->update( $table_name, [ 'status' => 'inactive' ], [ 'ID' => $goal_id ], [ '%s' ], [ '%d' ] );
+					wp_cache_delete( 'burst_goal_' . $goal_id, 'burst' );
+				}
+			}
+		}
+
+		// Ensure updates are synchronized.
+		do_action( 'burst_after_updated_goals' );
 	}
 }

@@ -131,7 +131,18 @@
 				}
 			}
 
-			this.aviaBuilder.builder_drag_drop_container = $('body.block-editor-page .block-editor #avia_builder').closest('.edit-post-layout__metaboxes');
+			/**
+			 * The dragged element is deliberately left on <body>.
+			 *
+			 * It used to be put inside the editor's metabox area so that it would travel with the
+			 * content while that scrolled. The cost was hidden but severe: an element painted inside
+			 * that subtree can never rise above anything outside it, whatever z-index it carries, so
+			 * the element being dragged disappeared behind the element panel and reappeared only once
+			 * it was pulled clear of it. Its position went stale on scroll for the same reason.
+			 *
+			 * On <body> it competes with the panel on equal terms and is positioned against the page,
+			 * which is what the classic editor has always done.
+			 */
 
 			/**
 			 * Make sure we have only a single shortcode block when an ALB page
@@ -357,8 +368,6 @@
 
 		attach_handlers: function()
 		{
-			var self = this;
-
 			this.body_container.on( 'AviaBuilder_after_switch_layout_mode', this.layout_mode_changed.bind( this ) );
 			this.body_container.find( '.avia_meta_box_visual_editor #titlewrap input' ).on( 'keyup', this.alb_title_key_up.bind( this ) );
 			this.attach_gutenberg_title_event_handler();
@@ -373,11 +382,6 @@
 
 			this.attach_edit_permalink_event_handler();
 			this.attach_alb_permalink_href_handler();
-
-			setTimeout(function()
-            {
-                self.attach_alb_sticky_element_tab_handler();
-            }, 500);
 		},
 
 		/**
@@ -449,37 +453,6 @@
 			{
 				this.body_container.addClass( 'av-block-lt-v3' );
 			}
-		},
-
-		attach_alb_sticky_element_tab_handler: function()
-		{
-			var builder = $('#avia_builder');
-
-			function debounce(method, delay)
-			{
-				clearTimeout(method._tId);
-				method._tId = setTimeout(function ()
-				{
-					method();
-				}, delay);
-			}
-
-			document.querySelector('.interface-interface-skeleton__content').addEventListener('scroll', function (e)
-			{
-				var scrollpos = $(this).scrollTop();
-
-				debounce(function ()
-				{
-					if(scrollpos > 110)
-					{
-						builder.addClass('avia-sticky-fixed-controls');
-					}
-					else
-					{
-						builder.removeClass('avia-sticky-fixed-controls');
-					}
-				});
-			});
 		},
 
 		alb_edit_permalink: function(e)

@@ -33,7 +33,7 @@ if( ! class_exists( 'avia_sc_video_old', false ) )
 
 			$this->config['name']			= __( 'Video', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-video.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-video.svg';
 			$this->config['order']			= 90;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_video';

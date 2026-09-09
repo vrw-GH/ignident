@@ -83,6 +83,7 @@ if( ! class_exists( __NAMESPACE__ . '\helperCompatUpdate', false ) )
 			add_action( 'ava_trigger_updates', [ $this, 'handler_update_6_0' ], 25, 2 );
 			add_action( 'ava_trigger_updates', [ $this, 'handler_update_6_0_1' ], 26, 2 );
 			add_action( 'ava_trigger_updates', [ $this, 'handler_update_7_0' ], 27, 2 );
+			add_action( 'ava_trigger_updates', [ $this, 'handler_update_8_0' ], 28, 2 );
 			
 		}
 
@@ -360,6 +361,35 @@ if( ! class_exists( __NAMESPACE__ . '\helperCompatUpdate', false ) )
 			}
 
 			\aviaFramework\avia_AdminNotices()->add_notice( 'enfold_70_welcome', time() + \aviaFramework\avia_AdminNotices()->get_default_expire_time( 'handler_update_7_0' ) );
+			\aviaFramework\updates\aviaThemeDataUpdater()->show_default_notice( false );
+		}
+
+		/**
+		 * Welcome notice for 8.0 - new demos and the Omnalingo beta campaign.
+		 * Campaign runs longer than the default notice lifetime.
+		 *
+		 * @since 8.0
+		 * @param string $prev_version
+		 * @param string $new_version
+		 */
+		public function handler_update_8_0( $prev_version, $new_version )
+		{
+			//if the previous theme version is equal or bigger to 8.0 we don't need to update
+			if( version_compare( $prev_version, '8.0', ">=" ) )
+			{
+				return;
+			}
+
+			/**
+			 * Lifetime of the welcome notice of 8.0 in seconds
+			 *
+			 * @since 8.0
+			 * @param int $expire
+			 * @return int
+			 */
+			$expire = apply_filters( 'avf_enfold_80_welcome_expire', 60 * DAY_IN_SECONDS );
+
+			\aviaFramework\avia_AdminNotices()->add_notice( 'enfold_80_welcome', time() + $expire );
 			\aviaFramework\updates\aviaThemeDataUpdater()->show_default_notice( false );
 		}
 	}

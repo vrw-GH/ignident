@@ -8,7 +8,7 @@
 	--dialog-bg: #FFF;
 	--disabled-button: #FDD1A5;
 	--button-color: #C4511C;
-	--dialog-radius: 24px;
+	--dialog-radius: 16px;
 	--button-radius: 32px;
 	--overlay-bg: rgba(51, 51, 51, 0.95);
 	--close-icon: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjkwOCAxMy4zMDlMNy4wMDgwMSAxOC4yMDlDNi44MjQ2NyAxOC4zOTIzIDYuNTkxMzQgMTguNDg0IDYuMzA4MDEgMTguNDg0QzYuMDI0NjcgMTguNDg0IDUuNzkxMzQgMTguMzkyMyA1LjYwODAxIDE4LjIwOUM1LjQyNDY3IDE4LjAyNTcgNS4zMzMwMSAxNy43OTIzIDUuMzMzMDEgMTcuNTA5QzUuMzMzMDEgMTcuMjI1NyA1LjQyNDY3IDE2Ljk5MjMgNS42MDgwMSAxNi44MDlMMTAuNTA4IDExLjkwOUw1LjYwODAxIDcuMDA4OThDNS40MjQ2NyA2LjgyNTY1IDUuMzMzMDEgNi41OTIzMiA1LjMzMzAxIDYuMzA4OThDNS4zMzMwMSA2LjAyNTY1IDUuNDI0NjcgNS43OTIzMiA1LjYwODAxIDUuNjA4OThDNS43OTEzNCA1LjQyNTY1IDYuMDI0NjcgNS4zMzM5OCA2LjMwODAxIDUuMzMzOThDNi41OTEzNCA1LjMzMzk4IDYuODI0NjcgNS40MjU2NSA3LjAwODAxIDUuNjA4OThMMTEuOTA4IDEwLjUwOUwxNi44MDggNS42MDg5OEMxNi45OTEzIDUuNDI1NjUgMTcuMjI0NyA1LjMzMzk4IDE3LjUwOCA1LjMzMzk4QzE3Ljc5MTMgNS4zMzM5OCAxOC4wMjQ3IDUuNDI1NjUgMTguMjA4IDUuNjA4OThDMTguMzkxMyA1Ljc5MjMyIDE4LjQ4MyA2LjAyNTY1IDE4LjQ4MyA2LjMwODk4QzE4LjQ4MyA2LjU5MjMyIDE4LjM5MTMgNi44MjU2NSAxOC4yMDggNy4wMDg5OEwxMy4zMDggMTEuOTA5TDE4LjIwOCAxNi44MDlDMTguMzkxMyAxNi45OTIzIDE4LjQ4MyAxNy4yMjU3IDE4LjQ4MyAxNy41MDlDMTguNDgzIDE3Ljc5MjMgMTguMzkxMyAxOC4wMjU3IDE4LjIwOCAxOC4yMDlDMTguMDI0NyAxOC4zOTIzIDE3Ljc5MTMgMTguNDg0IDE3LjUwOCAxOC40ODRDMTcuMjI0NyAxOC40ODQgMTYuOTkxMyAxOC4zOTIzIDE2LjgwOCAxOC4yMDlMMTEuOTA4IDEzLjMwOVoiIGZpbGw9IiM4ODhEOTEiLz4KPC9zdmc+Cg==");
@@ -25,7 +25,7 @@ body.udp-no-scroll {
 	        transform: translate(-50%, -50%) !important;
 	max-width: 660px !important;
 	width: 90% !important;
-	border-radius: 24px;
+	border-radius: 16px;
 	border-radius: var(--dialog-radius);
 	margin: auto;
 }
@@ -44,9 +44,9 @@ body.udp-no-scroll {
 	background: #F8FBFC;
 	background: var(--header-bg);
 	border: none;
-	border-top-left-radius: 24px;
+	border-top-left-radius: 16px;
 	border-top-left-radius: var(--dialog-radius);
-	border-top-right-radius: 24px;
+	border-top-right-radius: 16px;
 	border-top-right-radius: var(--dialog-radius);
 }
 
@@ -59,7 +59,7 @@ body.udp-no-scroll {
 }
 
 .updraftplus-ui-deinstall-dialog .ui-dialog-titlebar {
-	padding: 0.5rem 1.5rem 0rem 1.5rem;
+	padding: 1rem 1.5rem 0rem 1.5rem;
 }
 
 .updraftplus-ui-deinstall-dialog .udp-dialog-intro {
@@ -72,7 +72,7 @@ body.udp-no-scroll {
 	background: #F8FBFC;
 	background: var(--header-bg);
 	border-bottom: 1px solid #E5E7E9;
-	padding: 0rem 1.5rem 0.5rem 1.5rem;
+	padding: 0rem 1.5rem 1rem 1.5rem;
 }
 
 .updraftplus-ui-deinstall-dialog .ui-dialog-content {
@@ -110,11 +110,11 @@ body.udp-no-scroll {
 }
 
 .updraftplus-ui-deinstall-dialog .ui-dialog-buttonpane {
-	border-bottom-left-radius: 24px;
+	border-bottom-left-radius: 16px;
 	border-bottom-left-radius: var(--dialog-radius);
-	border-bottom-right-radius: 24px;
+	border-bottom-right-radius: 16px;
 	border-bottom-right-radius: var(--dialog-radius);
-	padding: 0rem 1.5rem 1rem 1.5rem;
+	padding: 0rem 1.5rem 1.5rem 1.5rem;
 	margin-top: 0px;
 }
 
@@ -137,7 +137,7 @@ body.udp-no-scroll {
 	font-weight: 600;
 	line-height: 16.8px;
 	letter-spacing: 0.15px;
-	width: 48%;
+	width: 48.5%;
 	padding: 0.8rem;
 	margin: 0 0.3rem 0 0;
 	border: 1px solid #CED1D3;
@@ -148,6 +148,7 @@ body.udp-no-scroll {
 	background: #FFF;
 	background: var(--dialog-bg);
 	cursor: pointer;
+	height: auto;
 }
 
 .updraftplus-ui-deinstall-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button:hover {
@@ -179,10 +180,9 @@ body.udp-no-scroll {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	background-size: contain;
 	position: absolute;
-	right: 15px;
-	top: 9px;
+	right: 17px;
+	top: 17px;
 	cursor: pointer;
 }
 
@@ -265,4 +265,54 @@ body.udp-no-scroll {
 
 .updraftplus-ui-deinstall-dialog .ui-dialog-titlebar-close {
 	font-size: 0 !important;
+}
+
+/* Deactivate button: loading / spinner state */
+
+@-webkit-keyframes udp-spin {
+	
+	to {
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+	}
+	
+}
+
+@keyframes udp-spin {
+	
+	to {
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+	}
+	
+}
+
+.updraftplus-ui-deinstall-dialog .ui-dialog-buttonset button:first-child.udp-loading {
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	grid-gap: 8px;
+	gap: 8px;
+	opacity: 0.8;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.updraftplus-ui-deinstall-dialog .ui-dialog-buttonset button:first-child .udp-spinner {
+	display: inline-block;
+	-ms-flex-negative: 0;
+	    flex-shrink: 0;
+	width: 14px;
+	height: 14px;
+	border: 2px solid rgba(255, 255, 255, 0.35);
+	border-top-color: #FFF;
+	border-radius: 50%;
+	-webkit-animation: udp-spin 0.7s linear infinite;
+	        animation: udp-spin 0.7s linear infinite;
 }

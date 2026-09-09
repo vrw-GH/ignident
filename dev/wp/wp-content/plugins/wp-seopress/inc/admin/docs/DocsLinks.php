@@ -67,6 +67,7 @@ function seopress_get_docs_links() {
 		),
 		'universal'            => array(
 			'introduction' => 'https://www.seopress.org/features/page-builders-integration/',
+			'video'        => 'https://www.youtube.com/watch?v=sf0ocG7vQMM',
 		),
 		'ai'                   => array(
 			'introduction' => 'https://www.seopress.org/features/openai/',
@@ -80,9 +81,33 @@ function seopress_get_docs_links() {
 			'llms' => array(
 				'file' => 'https://www.seopress.org/support/guides/edit-your-llmstxt-file/',
 			),
+			'credits'      => 'https://www.seopress.org/ai-credits/',
+			'providers'    => array(
+				'openai'   => array(
+					'api_keys' => 'https://platform.openai.com/account/api-keys',
+					'usage'    => 'https://platform.openai.com/usage',
+				),
+				'deepseek' => array(
+					'api_keys' => 'https://platform.deepseek.com/api_keys',
+					'usage'    => 'https://platform.deepseek.com/usage',
+				),
+				'gemini'   => array(
+					'api_keys' => 'https://aistudio.google.com/apikey',
+					'billing'  => 'https://console.cloud.google.com/billing',
+				),
+				'mistral'  => array(
+					'api_keys' => 'https://console.mistral.ai/api-keys',
+					'console'  => 'https://console.mistral.ai/',
+					'usage'    => 'https://console.mistral.ai/usage',
+				),
+				'claude'   => array(
+					'api_keys' => 'https://platform.claude.com/settings/keys',
+					'console'  => 'https://console.anthropic.com/',
+					'billing'  => 'https://platform.claude.com/settings/billing',
+				),
+			),
 		),
 		'titles'               => array(
-			'thumbnail'         => 'https://support.google.com/programmable-search/answer/1626955?hl=en',
 			'wrong_meta'        => 'https://www.seopress.org/support/guides/google-uses-the-wrong-meta-title-meta-description-in-search-results/',
 			'alt_title'         => 'https://developers.google.com/search/docs/appearance/site-names#content-guidelines',
 			'manage'            => 'https://www.seopress.org/support/guides/manage-titles-meta-descriptions/',
@@ -101,7 +126,12 @@ function seopress_get_docs_links() {
 			'hooks' => 'https://www.seopress.org/support/hooks/#topic-77',
 		),
 		'social'               => array(
-			'og' => 'https://www.seopress.org/support/guides/manage-facebook-open-graph-and-twitter-cards-metas/',
+			'og'              => 'https://www.seopress.org/support/guides/manage-facebook-open-graph-and-twitter-cards-metas/',
+			'knowledge_graph' => 'https://developers.google.com/search/docs/guides/enhance-site',
+			'facebook_app'    => array(
+				'dashboard' => 'https://developers.facebook.com/apps/redirect/dashboard',
+				'register'  => 'https://developers.facebook.com/docs/apps/register',
+			),
 		),
 		'analytics'            => array(
 			'quick_start'     => 'https://www.seopress.org/support/guides/google-analytics/',
@@ -126,6 +156,16 @@ function seopress_get_docs_links() {
 			),
 			'clarity'         => array(
 				'project' => 'https://www.seopress.org/support/guides/find-my-microsoft-clarity-project-id/',
+				'website' => 'https://clarity.microsoft.com/',
+				'consent' => 'https://learn.microsoft.com/en-us/clarity/setup-and-installation/cookie-consent',
+			),
+			'ga4_measurement' => 'https://support.google.com/analytics/answer/9539598?hl=en&ref_topic=9303319',
+			'google_cloud'    => array(
+				'console'       => 'https://console.cloud.google.com/',
+				'data_api'      => 'https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com',
+				'admin_api'     => 'https://console.cloud.google.com/apis/library/analyticsadmin.googleapis.com',
+				'auth_audience' => 'https://console.cloud.google.com/auth/audience',
+				'auth_clients'  => 'https://console.cloud.google.com/auth/clients',
 			),
 		),
 		'advanced'             => array(
@@ -144,8 +184,11 @@ function seopress_get_docs_links() {
 		),
 		'bot'                  => 'https://www.seopress.org/support/guides/detect-broken-links/',
 		'lb'                   => array(
-			'eat'   => 'https://www.seopress.org/newsroom/featured-stories/optimizing-wordpress-sites-for-google-eat/',
-			'ebook' => 'https://www.seopress.org/support/ebooks/improving-your-local-seo-using-wordpress/',
+			'eat'      => 'https://www.seopress.org/newsroom/featured-stories/optimizing-wordpress-sites-for-google-eat/',
+			'ebook'    => 'https://www.seopress.org/support/ebooks/improving-your-local-seo-using-wordpress/',
+			// Google retired /places/web-service/place-id; that address only
+			// still resolves through a redirect.
+			'place_id' => 'https://developers.google.com/maps/documentation/places/web-service/place-id',
 		),
 		'robots'               => array(
 			'file' => 'https://www.seopress.org/support/guides/edit-robots-txt-file/',
@@ -156,9 +199,10 @@ function seopress_get_docs_links() {
 			'i18n'        => 'https://www.seopress.org/support/guides/translate-seopress-options-with-wpml-polylang/',
 		),
 		'redirects'            => array(
-			'enable' => 'https://www.seopress.org/support/guides/redirections/',
-			'query'  => 'https://www.seopress.org/support/guides/delete-your-404-errors-with-a-mysql-query/',
-			'regex'  => 'https://www.seopress.org/support/guides/redirections/#regular-expressions',
+			'enable'      => 'https://www.seopress.org/support/guides/redirections/',
+			'query'       => 'https://www.seopress.org/support/guides/delete-your-404-errors-with-a-mysql-query/',
+			'regex'       => 'https://www.seopress.org/support/guides/redirections/#regular-expressions',
+			'csv_example' => 'https://www.seopress.org/wp-content/uploads/csv/seopress-redirections-example.csv',
 		),
 		'woocommerce'          => array(
 			'ebook' => 'https://www.seopress.org/support/ebooks/woocommerce-seo-ultimate-guide/',
@@ -172,6 +216,21 @@ function seopress_get_docs_links() {
 			'custom_fields' => 'https://www.seopress.org/support/hooks/filter-custom-fields-list-in-schemas/',
 			'feature'       => 'https://www.seopress.org/features/structured-data-types/',
 			'carousel'      => 'https://developers.google.com/search/docs/appearance/structured-data/carousel',
+			'google'        => array(
+				'articles'      => 'https://developers.google.com/search/docs/appearance/structured-data/article',
+				'faq'           => 'https://developers.google.com/search/docs/appearance/structured-data/faqpage',
+				'recipes'       => 'https://developers.google.com/search/docs/appearance/structured-data/recipe',
+				'videos'        => 'https://developers.google.com/search/docs/appearance/structured-data/video',
+				'products'      => 'https://developers.google.com/search/docs/appearance/structured-data/product',
+				'review'        => 'https://developers.google.com/search/docs/appearance/structured-data/review-snippet',
+				'softwareapp'   => 'https://developers.google.com/search/docs/appearance/structured-data/software-app',
+				'localbusiness' => 'https://developers.google.com/search/docs/appearance/structured-data/local-business',
+				'services'      => 'https://schema.org/Service',
+				'jobs'          => 'https://developers.google.com/search/docs/appearance/structured-data/job-posting',
+				'events'        => 'https://developers.google.com/search/docs/appearance/structured-data/event',
+				'courses'       => 'https://developers.google.com/search/docs/appearance/structured-data/course',
+				'custom'        => 'https://developers.google.com/search/docs/appearance/structured-data/search-gallery',
+			),
 		),
 		'page_speed'           => array(
 			'cwv'    => 'https://www.seopress.org/newsroom/featured-stories/core-web-vitals-and-wordpress-seo/',
@@ -199,6 +258,7 @@ function seopress_get_docs_links() {
 		'alerts'               => array(
 			'introduction'  => 'https://www.seopress.org/features/seo-alerts/',
 			'slack_webhook' => 'https://www.seopress.org/support/guides/how-to-configure-seo-alerts-in-sack-with-seopress-pro/',
+			'rest_api'      => 'https://www.seopress.org/support/guides/get-started-with-the-seopress-rest-api/#request-seo-alerts',
 		),
 		'tools'                => array(
 			'csv_import' => 'https://www.seopress.org/support/guides/import-metadata-from-a-csv-file-with-seopress-pro/',
@@ -206,6 +266,7 @@ function seopress_get_docs_links() {
 		),
 		'license'              => array(
 			'account'        => 'https://www.seopress.org/account/',
+			'subscriptions'  => 'https://www.seopress.org/account/my-subscriptions/',
 			'license_errors' => 'https://www.seopress.org/support/guides/activate-seopress-pro-license/#i-still-cant-activate-my-license-key',
 			'license_define' => 'https://www.seopress.org/support/guides/activate-seopress-pro-license/#add-my-license-key-to-wp-config-php',
 		),
@@ -224,6 +285,12 @@ function seopress_get_docs_links() {
 			'litespeed' => array(
 				'compatibility' => 'https://www.seopress.org/support/guides/fix-compatibility-issue-with-litespeed-caching-plugin/',
 			),
+		),
+		'privacy'              => 'https://www.seopress.org/privacy-policy/',
+		'wizard'               => array(
+			'pro'         => 'https://www.seopress.org/seopress-pro/',
+			'ebook'       => 'https://www.seopress.org/support/ebooks/seo-success-for-wordpress-with-a-two-hours-a-week-routine/',
+			'video_id'    => '1nUkjCBpIts',
 		),
 	);
 
@@ -257,15 +324,16 @@ function seopress_get_docs_links() {
 
 		$docs['universal']['introduction'] = 'https://www.seopress.org/fr/fonctionnalites/integration-constructeurs-de-page/';
 
+		$docs['ai']['credits'] = 'https://www.seopress.org/fr/tarifs/?tab=ai';
+
 		$docs['ai']['introduction']       = 'https://www.seopress.org/fr/fonctionnalites/openai/';
 		$docs['ai']['errors']             = 'https://www.seopress.org/fr/support/guides/generez-vos-metadonnees-seo-avec-openai/#erreurs-et-solutions';
 		$docs['ai']['openai']['errors']   = 'https://www.seopress.org/fr/support/guides/generez-vos-metadonnees-seo-avec-openai/';
 		$docs['ai']['deepseek']['errors'] = 'https://www.seopress.org/fr/support/guides/generez-des-metadonnees-seo-avec-deepseek-ai/';
 		$docs['ai']['llms']['file']       = 'https://www.seopress.org/fr/support/guides/editer-votre-fichier-llms-txt/';
 
-		$docs['titles']['thumbnail']         = 'https://support.google.com/programmable-search/answer/1626955?hl=fr';
 		$docs['titles']['wrong_meta']        = 'https://www.seopress.org/fr/support/guides/google-utilise-une-balise-titre-meta-description-incorrecte-dans-les-resultats-de-recherche/';
-		$docs['titles']['alt_title']         = 'https://developers.google.com/search/docs/appearance/site-names#content-guidelines';
+		$docs['titles']['alt_title']         = 'https://developers.google.com/search/docs/appearance/site-names?hl=fr#content-guidelines';
 		$docs['titles']['manage']            = 'https://www.seopress.org/fr/support/guides/gerez-vos-balises-titres-et-metas/';
 		$docs['titles']['add_theme_support'] = 'https://www.seopress.org/fr/support/guides/resoudre-add_theme_support-manquant-dans-votre-theme/';
 
@@ -278,7 +346,8 @@ function seopress_get_docs_links() {
 		$docs['sitemaps']['video']          = 'https://www.seopress.org/fr/support/guides/activer-le-sitemap-xml-pour-les-videos/';
 		$docs['sitemaps']['hooks']          = 'https://www.seopress.org/fr/support/hooks/#topic-69';
 
-		$docs['social']['og'] = 'https://www.seopress.org/fr/support/guides/gerer-les-metas-facebook-open-graph-et-twitter-cards/';
+		$docs['social']['og']              = 'https://www.seopress.org/fr/support/guides/gerer-les-metas-facebook-open-graph-et-twitter-cards/';
+		$docs['social']['knowledge_graph'] = 'https://developers.google.com/search/docs/guides/enhance-site?hl=fr';
 
 		$docs['analytics']['quick_start']                 = 'https://www.seopress.org/fr/support/guides/debutez-avec-google-analytics/';
 		$docs['analytics']['connect']                     = 'https://www.seopress.org/fr/support/guides/connectez-votre-site-wordpress-a-google-analytics/';
@@ -295,6 +364,16 @@ function seopress_get_docs_links() {
 		$docs['analytics']['matomo']['on_premise']        = 'https://www.seopress.org/fr/support/guides/comment-utiliser-matomo-en-auto-heberge-avec-seopress-free/';
 		$docs['analytics']['matomo']['token']             = 'https://www.seopress.org/fr/support/guides/connectez-votre-site-wordpress-avec-matomo-analytics/';
 		$docs['analytics']['clarity']['project']          = 'https://www.seopress.org/fr/support/guides/trouver-mon-id-de-project-microsoft-clarity/';
+		$docs['analytics']['ga4_measurement']             = 'https://support.google.com/analytics/answer/9539598?hl=fr&ref_topic=9303319';
+		$docs['analytics']['clarity']['website']          = 'https://clarity.microsoft.com/fr-fr';
+		$docs['analytics']['clarity']['consent']          = 'https://learn.microsoft.com/fr-fr/clarity/setup-and-installation/cookie-consent';
+		$docs['analytics']['google_cloud']                = array(
+			'console'       => 'https://console.cloud.google.com/?hl=fr',
+			'data_api'      => 'https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com?hl=fr',
+			'admin_api'     => 'https://console.cloud.google.com/apis/library/analyticsadmin.googleapis.com?hl=fr',
+			'auth_audience' => 'https://console.cloud.google.com/auth/audience?hl=fr',
+			'auth_clients'  => 'https://console.cloud.google.com/auth/clients?hl=fr',
+		);
 		$docs['advanced']['imageseo']                     = 'https://www.seopress.org/fr/support/guides/optimiser-une-image-pour-le-referencement/';
 
 		$docs['security']['metaboxe_seo']        = 'https://www.seopress.org/fr/support/hooks/filtrer-lappel-de-la-metaboxe-seo-par-types-de-contenu/';
@@ -306,9 +385,10 @@ function seopress_get_docs_links() {
 
 		$docs['google_preview']['authentification'] = 'https://www.seopress.org/fr/support/hooks/filtrer-la-requete-distante-google-snippet-preview/';
 
-		$docs['bot']         = 'https://www.seopress.org/fr/support/guides/detecter-les-liens-casses-dans-vos-contenus/';
-		$docs['lb']['eat']   = 'https://www.seopress.org/fr/newsroom/reportage/optimiser-votre-site-wordpress-pour-google-eat/';
-		$docs['lb']['ebook'] = 'https://www.seopress.org/fr/support/ebooks/ameliorer-le-positionnement-de-votre-site-wordpress-grace-au-seo-local/';
+		$docs['bot']            = 'https://www.seopress.org/fr/support/guides/detecter-les-liens-casses-dans-vos-contenus/';
+		$docs['lb']['place_id'] = 'https://developers.google.com/maps/documentation/places/web-service/place-id?hl=fr';
+		$docs['lb']['eat']      = 'https://www.seopress.org/fr/newsroom/reportage/optimiser-votre-site-wordpress-pour-google-eat/';
+		$docs['lb']['ebook']    = 'https://www.seopress.org/fr/support/ebooks/ameliorer-le-positionnement-de-votre-site-wordpress-grace-au-seo-local/';
 
 		$docs['robots']['file'] = 'https://www.seopress.org/fr/support/guides/editer-votre-fichier-robots-txt/';
 
@@ -329,6 +409,22 @@ function seopress_get_docs_links() {
 		$docs['schemas']['variables']     = 'https://www.seopress.org/fr/support/hooks/filtrer-la-liste-des-variables-dynamiques-predefinies-pour-les-schemas-automatiques/';
 		$docs['schemas']['custom_fields'] = 'https://www.seopress.org/fr/support/hooks/filtrer-la-liste-des-champs-personnalises-dans-les-schemas/';
 		$docs['schemas']['feature']       = 'https://www.seopress.org/fr/fonctionnalites/types-de-donnees-structurees-google-schemas/';
+		$docs['schemas']['carousel']      = 'https://developers.google.com/search/docs/appearance/structured-data/carousel?hl=fr';
+		$docs['schemas']['google']        = array(
+			'articles'      => 'https://developers.google.com/search/docs/appearance/structured-data/article?hl=fr',
+			'faq'           => 'https://developers.google.com/search/docs/appearance/structured-data/faqpage?hl=fr',
+			'recipes'       => 'https://developers.google.com/search/docs/appearance/structured-data/recipe?hl=fr',
+			'videos'        => 'https://developers.google.com/search/docs/appearance/structured-data/video?hl=fr',
+			'products'      => 'https://developers.google.com/search/docs/appearance/structured-data/product?hl=fr',
+			'review'        => 'https://developers.google.com/search/docs/appearance/structured-data/review-snippet?hl=fr',
+			'softwareapp'   => 'https://developers.google.com/search/docs/appearance/structured-data/software-app?hl=fr',
+			'localbusiness' => 'https://developers.google.com/search/docs/appearance/structured-data/local-business?hl=fr',
+			'services'      => 'https://schema.org/Service',
+			'jobs'          => 'https://developers.google.com/search/docs/appearance/structured-data/job-posting?hl=fr',
+			'events'        => 'https://developers.google.com/search/docs/appearance/structured-data/event?hl=fr',
+			'courses'       => 'https://developers.google.com/search/docs/appearance/structured-data/course?hl=fr',
+			'custom'        => 'https://developers.google.com/search/docs/appearance/structured-data/search-gallery?hl=fr',
+		);
 
 		$docs['page_speed']['cwv']    = 'https://www.seopress.org/fr/newsroom/reportage/les-core-web-vitals-et-leurs-effets-sur-le-seo-des-sites-wordpress/';
 		$docs['page_speed']['api']    = 'https://www.seopress.org/fr/support/guides/ajouter-cle-api-google-page-speed-insights-seopress/';
@@ -351,6 +447,7 @@ function seopress_get_docs_links() {
 		$docs['rss']['get_started'] = 'https://www.seopress.org/fr/support/guides/gerez-vos-flux-rss-wordpress/';
 
 		$docs['license']['account']        = 'https://www.seopress.org/fr/mon-compte/';
+		$docs['license']['subscriptions']  = 'https://www.seopress.org/fr/mon-compte/mes-abonnements/';
 		$docs['license']['license_errors'] = 'https://www.seopress.org/fr/support/guides/activer-votre-licence-seopress-pro-insights/#je-ne-peux-toujours-pas-activer-ma-cle-de-licence';
 		$docs['license']['license_define'] = 'https://www.seopress.org/fr/support/guides/activer-votre-licence-seopress-pro-insights/#ajouter-ma-cle-de-licence-dans-wp-config-php';
 
@@ -360,10 +457,15 @@ function seopress_get_docs_links() {
 
 		$docs['alerts']['introduction']  = 'https://www.seopress.org/fr/fonctionnalites/alertes-seo/';
 		$docs['alerts']['slack_webhook'] = 'https://www.seopress.org/fr/support/guides/configurer-alertes-seo-slack-seopress-pro/';
+		$docs['alerts']['rest_api']      = 'https://www.seopress.org/fr/support/guides/debuter-avec-lapi-rest-seopress/#obtenir-les-alertes-seo';
 
 		$docs['integrations']['all']                        = 'https://www.seopress.org/fr/integrations/';
 		$docs['integrations']['wpml']['translate']          = 'https://www.seopress.org/fr/support/guides/traduire-les-options-de-seopress-avec-wpml-polylang/';
 		$docs['integrations']['litespeed']['compatibility'] = 'https://www.seopress.org/fr/support/guides/corriger-le-probleme-de-compatibilite-extension-cache-litespeed/';
+
+		$docs['privacy']           = 'https://www.seopress.org/fr/politique-de-confidentialite/';
+		$docs['wizard']['pro']     = 'https://www.seopress.org/fr/extensions-seo-wordpress/seopress-pro/';
+		$docs['wizard']['ebook']   = 'https://www.seopress.org/fr/support/ebooks/reussir-son-seo-sur-wordpress-avec-deux-heures-de-travail-semaine/';
 	}
 
 	$docs['external'] = array(
@@ -371,6 +473,7 @@ function seopress_get_docs_links() {
 		'facebook_gr' => 'https://www.facebook.com/groups/seopress/',
 		'youtube'     => 'https://www.youtube.com/seopress',
 		'twitter'     => 'https://x.com/wp_seopress',
+		'review'      => 'https://wordpress.org/support/plugin/wp-seopress/reviews/?filter=5#new-post',
 	);
 
 	return $docs;

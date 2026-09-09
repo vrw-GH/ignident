@@ -7,8 +7,10 @@
  */
 if( ! defined( 'ABSPATH' ) ) {  exit;  }    // Exit if accessed directly
 
-?>
-	<div class="container avia-welcome-new">
-		<h2>Welcome</h2>
-		<p>Thank you for using Enfold. Enjoy the many features when building your site.</p>
-	</div>
+$name = avia_get_theme_name();
+
+
+echo	'<div class="container avia-welcome-new">';
+echo		'<h2>' . sprintf( __( 'Welcome to %1$s', 'avia_framework' ), $name ) . '</h2>';
+echo		'<p>' . sprintf( __( 'Thanks for choosing %1$s - we hope you enjoy building with it.', 'avia_framework' ), $name ) . '</p>';
+echo	'</div>';

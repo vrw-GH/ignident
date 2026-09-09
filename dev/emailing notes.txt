@@ -1,0 +1,33 @@
+🛠️ Method 1: The Recommended Way (Microsoft Graph API)
+Using a plugin like Post SMTP or WP Mail SMTP configured with the Microsoft OAuth / Graph API mailer ensures your emails don't get blocked.
+Install an SMTP Plugin: 
+Go to your WordPress dashboard, install, and activate a plugin like WP Mail SMTP or Post SMTP.
+Select Microsoft Mailer: 
+Inside the plugin settings, choose Microsoft (or Microsoft 365 / Outlook) as your mailer.Create an App Registration in Azure:Log into the Microsoft Entra Admin Center.Navigate to Identity > Applications > App registrations > New registration.Name your app (e.g., "WordPress Mail"), set the supported account types to Accounts in this organizational directory only, and copy the Redirect URI provided by your WordPress SMTP plugin into the Redirect URI field.
+Generate Credentials:
+Copy the Application (client) ID and Directory (tenant) ID from the Azure App Overview page.
+Go to Certificates & secrets > New client secret to generate a secret key. Copy the Value immediately.
+Authenticate in WordPress: 
+Paste the Client ID, Tenant ID, and Client Secret Value into your WordPress plugin settings, click Allow plugin to send emails, and log in with your Microsoft 365 admin account to grant permission.
+
+✉️ Method 2: The Traditional Way (SMTP Auth)
+If your plugin or specific setup requires classic SMTP, you can use Microsoft's SMTP AUTH protocol. Note that you must explicitly enable SMTP AUTH in your Microsoft 365 Admin Portal first.
+1. Enable SMTP AUTH in Microsoft 365
+Go to the Microsoft 365 Admin Center.
+Navigate to Users > Active users and click on the mailbox user you want to use (e.g., info@ignident.com).
+Go to the Mail tab and click Manage email apps.
+Check the box for Authenticated SMTP and save changes.
+2. Enter SMTP Settings in WordPress
+Use these exact connection credentials in your WordPress SMTP settings:
+SettingValueSMTP Host://office365.com
+EncryptionSTARTTLS (or TLS)
+SMTP Port587
+Authentication
+Yes / Enabled
+SMTP UsernameYour full M365 email address (e.g., name@ignident.com)
+SMTP PasswordYour M365 email password (If Multi-Factor Authentication is enabled, you must generate and use an App Password instead)
+⚠️ Crucial Step: 
+Check Your DNS Settings (IONOS vs. Microsoft)
+Because your website is hosted on IONOS but emails are handled by Microsoft 365, ensure your SPF record in your DNS zone (wherever your nameservers point) includes both services. This prevents contact form notifications from dropping into the spam folder.
+Your SPF TXT record should look like this:
+v=spf1 include:://outlook.com include:_://ionos.com ~all

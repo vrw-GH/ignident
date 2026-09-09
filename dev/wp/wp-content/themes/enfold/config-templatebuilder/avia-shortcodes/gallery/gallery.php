@@ -60,10 +60,12 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 
 			$this->config['name']			= __( 'Gallery', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-gallery.png';
-			$this->config['order']			= 6;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-gallery.svg';
+			$this->config['order']			= 100;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_gallery';
+			//	the canvas shows the pictures it holds - see editor_element_images()
+			$this->config['alb_items']		= array( 'images' => 'ids' );
 			$this->config['modal_data']     = array( 'modal_class' => 'mediumscreen' );
 			$this->config['tooltip']        = __( 'Creates a custom gallery', 'avia_framework' );
 			$this->config['preview'] 		= 1;
@@ -227,6 +229,8 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 							'type'		=> 'gallery',
 							'title'		=> __( 'Add/Edit Gallery', 'avia_framework' ),
 							'button'	=> __( 'Insert Images', 'avia_framework' ),
+							'delete'	=> __( 'Clear Gallery', 'avia_framework' ),
+							'delete_class' => 'avia-delete-gallery-button',
 							'std'		=> '',
 							'modal_class' => 'av-show-image-custom-link',
 							'lockable'	=> true
@@ -240,6 +244,77 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 						)
 
 				);
+
+			$edit_post_type = '';
+			if( isset( $_GET['post'] ) )
+			{
+				$edit_post_type = get_post_type( (int) $_GET['post'] );
+			}
+			else if( isset( $_POST['post_id'] ) )
+			{
+				$edit_post_type = get_post_type( (int) $_POST['post_id'] );
+			}
+			else if( isset( $_GET['post_type'] ) )
+			{
+				$edit_post_type = sanitize_key( $_GET['post_type'] );
+			}
+
+			$show_woo_fields = class_exists( 'WooCommerce' ) && in_array( $edit_post_type, array( 'product', 'alb_custom_layout' ), true );
+
+			if( $show_woo_fields )
+			{
+				$c[] = array(
+					'name'		=> __( 'Use WooCommerce Product Images', 'avia_framework' ),
+					'desc'		=> __( 'On a product page, automatically uses the product\'s WooCommerce gallery images instead of the selection above. Falls back to the manual gallery if no product images are found.', 'avia_framework' ),
+					'id'		=> 'woo_product_gallery',
+					'type'		=> 'checkbox',
+					'std'		=> '',
+					'lockable'	=> true
+				);
+
+				$c[] = array(
+					'name'		=> __( 'Exclude Featured Image', 'avia_framework' ),
+					'desc'		=> __( 'By default the product\'s featured image is shown first. Check this to use only the WooCommerce gallery images.', 'avia_framework' ),
+					'id'		=> 'woo_exclude_featured',
+					'type'		=> 'checkbox',
+					'std'		=> '',
+					'lockable'	=> true,
+					'required'	=> array( 'woo_product_gallery', 'not', '' )
+				);
+
+				$c[] = array(
+					'name'		=> __( 'Product Images To Show', 'avia_framework' ),
+					'desc'		=> __( 'How many of the product images to display. Choose &quot;All images&quot; to show every gallery image.', 'avia_framework' ),
+					'id'		=> 'woo_image_count',
+					'type'		=> 'select',
+					'std'		=> 'all',
+					'lockable'	=> true,
+					'required'	=> array( 'woo_product_gallery', 'not', '' ),
+					'subtype'	=> array_merge(
+										array( __( 'All images', 'avia_framework' ) => 'all' ),
+										AviaHtmlHelper::number_array( 1, 12, 1 )
+									)
+				);
+
+				$c[] = array(
+					'name'		=> __( 'Product Images Order', 'avia_framework' ),
+					'desc'		=> __( 'The order the product images are displayed in.', 'avia_framework' ),
+					'id'		=> 'woo_image_order',
+					'type'		=> 'select',
+					'std'		=> 'gallery',
+					'lockable'	=> true,
+					'required'	=> array( 'woo_product_gallery', 'not', '' ),
+					'subtype'	=> array(
+										__( 'Product gallery order (default)', 'avia_framework' )	=> 'gallery',
+										__( 'Reversed', 'avia_framework' )							=> 'reverse',
+										__( 'Random', 'avia_framework' )							=> 'random',
+										__( 'Newest first', 'avia_framework' )						=> 'date_desc',
+										__( 'Oldest first', 'avia_framework' )						=> 'date',
+										__( 'Title A to Z', 'avia_framework' )						=> 'title',
+										__( 'Title Z to A', 'avia_framework' )						=> 'title_desc'
+									)
+				);
+			}
 
 			AviaPopupTemplates()->register_dynamic_template( $this->popup_key( 'content_entries' ), $c );
 
@@ -260,6 +335,36 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 												__( 'Small Thumbnails', 'avia_framework' )					=> 'thumbnails',
 												__( 'Big image with thumbnails below', 'avia_framework' )	=> 'big_thumb',
 												__( 'Big image only, other images can be accessed via lightbox', 'avia_framework' ) => 'big_thumb lightbox_gallery',
+												__( 'Mosaic Grid', 'avia_framework' )						=> 'mosaic',
+												__( 'Filmstrip', 'avia_framework' )							=> 'filmstrip',
+												__( 'Editorial Split', 'avia_framework' )					=> 'editorial',
+												__( 'Spotlight', 'avia_framework' )							=> 'spotlight',
+											)
+						),
+
+						array(
+							'name'		=> __( 'Frame Style', 'avia_framework' ),
+							'desc'		=> __( 'Default adds a border and padding around each image. Plain removes all decoration — images sit with a 2px gap only.', 'avia_framework' ),
+							'id'		=> 'frame',
+							'type'		=> 'select',
+							'std'		=> 'default',
+							'lockable'	=> true,
+							'subtype'	=> array(
+												__( 'Default (bordered)', 'avia_framework' )	=> 'default',
+												__( 'Plain (frameless)', 'avia_framework' )		=> 'plain',
+											)
+						),
+
+						array(
+							'name'		=> __( 'Layout Orientation', 'avia_framework' ),
+							'desc'		=> __( 'Applies to Mosaic, Editorial and Filmstrip. Landscape uses wide cells; Portrait uses tall (3:4) cells that suit clothing/product images.', 'avia_framework' ),
+							'id'		=> 'layout_orientation',
+							'type'		=> 'select',
+							'std'		=> 'landscape',
+							'lockable'	=> true,
+							'subtype'	=> array(
+												__( 'Landscape cells', 'avia_framework' )		=> 'landscape',
+												__( 'Portrait cells (3:4)', 'avia_framework' )	=> 'portrait',
 											)
 						),
 
@@ -301,12 +406,12 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 
 						array(
 							'name'		=> __('Thumbnail Columns', 'avia_framework' ),
-							'desc'		=> __('Choose the column count of your Gallery', 'avia_framework' ),
+							'desc'		=> __('Number of columns for the Small Thumbnails layout (and the thumbnail strip beneath the Big-image layout). The Mosaic, Filmstrip, Editorial and Spotlight layouts ignore this — they use their own fixed grid/scroll structure.', 'avia_framework' ),
 							'id'		=> 'columns',
 							'type'		=> 'select',
 							'std'		=> '5',
 							'lockable'	=> true,
-							'required'	=> array( 'style', 'not', 'big_thumb lightbox_gallery' ),
+							'required'	=> array( 'style', 'contains', 'thumb' ),
 							'subtype'	=> AviaHtmlHelper::number_array( 1, 12, 1 )
 						),
 
@@ -539,16 +644,21 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 						'link_dest'		=> '',
 						'lightbox_text'	=> 'caption',
 						'style'			=> 'thumbnails',
+						'frame'			=> 'default',
+						'layout_orientation'	=> 'landscape',
 						'columns'		=> 5,
 						'lazyload'      => 'avia_lazyload',
 						'html_lazy_loading'				=> 'disabled',
 						'crop_big_preview_thumbnail'	=> 'avia-gallery-big-crop-thumb',
+						'woo_product_gallery'			=> '',
+						'woo_exclude_featured'			=> '',
+						'woo_image_count'				=> 'all',
+						'woo_image_order'				=> 'gallery',
 
 						'ajax_request'	=> false
 					);
 
 			$default = $this->sync_sc_defaults_array( $default );
-
 
 			$locked = array();
 			Avia_Element_Templates()->set_locked_attributes( $atts, $this, $shortcodename, $default, $locked, $content );
@@ -560,7 +670,77 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 
 			$atts['ids'] = Avia_Dynamic_Content()->check_id_list( $atts['ids_dynamic'], $atts['ids'] );
 
+			if( ! empty( $atts['woo_product_gallery'] ) && class_exists( 'WooCommerce' ) )
+			{
+				$post_id = 0;
 
+				if( is_product() )
+				{
+					$post_id = get_the_ID();
+				}
+				else if( is_admin() )
+				{
+					$post_id = $this->woo_sample_product_id();
+				}
+			}
+
+			if( ! empty( $post_id ) )
+			{
+				$featured_id  = get_post_thumbnail_id( $post_id );
+				$gallery_meta = get_post_meta( $post_id, '_product_image_gallery', true );
+				$gallery_ids  = ! empty( $gallery_meta ) ? explode( ',', $gallery_meta ) : array();
+
+				if( ! empty( $featured_id ) && empty( $atts['woo_exclude_featured'] ) )
+				{
+					array_unshift( $gallery_ids, $featured_id );
+				}
+
+				if( ! empty( $gallery_ids ) )
+				{
+					$gallery_ids = array_map( 'absint', $gallery_ids );
+
+					switch( $atts['woo_image_order'] )
+					{
+						case 'reverse':
+							$gallery_ids = array_reverse( $gallery_ids );
+							break;
+						case 'random':
+							shuffle( $gallery_ids );
+							break;
+						case 'date':
+						case 'date_desc':
+						case 'title':
+						case 'title_desc':
+							$orderby = ( false !== strpos( $atts['woo_image_order'], 'title' ) ) ? 'title' : 'date';
+							$order = ( false !== strpos( $atts['woo_image_order'], 'desc' ) ) ? 'DESC' : 'ASC';
+							$sorted = get_posts( array(
+											'post_type'		=> 'attachment',
+											'post__in'		=> $gallery_ids,
+											'orderby'		=> $orderby,
+											'order'			=> $order,
+											'numberposts'	=> -1,
+											'fields'		=> 'ids',
+											'post_status'	=> 'inherit'
+										) );
+							if( ! empty( $sorted ) )
+							{
+								$gallery_ids = $sorted;
+							}
+							break;
+					}
+
+					if( 'all' !== $atts['woo_image_count'] )
+					{
+						$limit = (int) $atts['woo_image_count'];
+						if( $limit > 0 )
+						{
+							$gallery_ids = array_slice( $gallery_ids, 0, $limit );
+						}
+					}
+
+					$atts['ids'] = implode( ',', $gallery_ids );
+				}
+			}
 
 			$this->attachments = get_posts( array(
 									'include'		=> $atts['ids'],
@@ -603,11 +783,29 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 			 */
 			$class_animation = apply_filters( 'avf_alb_element_animation', 'avia_animate_when_visible', $atts, $this, $shortcodename );
 
+			$new_layout_styles = array( 'mosaic', 'filmstrip', 'editorial', 'spotlight' );
+			$is_new_layout = in_array( $atts['style'], $new_layout_styles );
+
 			$classes = array(
 						'avia-gallery',
 						$element_id,
 						$class_animation
 					);
+
+			if( $is_new_layout )
+			{
+				$classes[] = 'avia-gallery-' . $atts['style'];
+			}
+
+			if( 'plain' === $atts['frame'] )
+			{
+				$classes[] = 'avia-gallery-plain';
+			}
+
+			if( 'portrait' === $atts['layout_orientation'] && in_array( $atts['style'], array( 'mosaic', 'filmstrip', 'editorial' ) ) )
+			{
+				$classes[] = 'av-orient-portrait';
+			}
 
 			$element_styling->add_classes( 'container', $classes );
 			$element_styling->add_classes_from_array( 'container', $meta, 'el_class' );
@@ -667,14 +865,17 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 				}
 			}
 
-			// animation
-			if( $atts['lazyload'] != 'animations_off' )
+			// animation — skip the fade/scale-in for the grid/scroll layouts, render immediately
+			if( $atts['lazyload'] != 'animations_off' && ! $is_new_layout )
 			{
 				$element_styling->add_classes( 'container', 'avia-gallery-animate' );
 			}
 
-			$thumb_width = round( 100 / $atts['columns'], 4 );
-			$element_styling->add_styles( 'thumb-link', array( 'width' => $thumb_width . '%' ) );
+			if( ! $is_new_layout )
+			{
+				$thumb_width = round( 100 / $atts['columns'], 4 );
+				$element_styling->add_styles( 'thumb-link', array( 'width' => $thumb_width . '%' ) );
+			}
 
 			$selectors = array(
 						'container'			=> ".avia-gallery.{$element_id}",
@@ -728,9 +929,12 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 				$rel .= 'rel="noopener noreferrer" target="_blank"';
 			}
 
-			$big_thumb = '';
-			$thumbs = '';
-			$counter = 0;
+			$big_thumb       = '';
+			$thumbs          = '';
+			$stack_thumbs    = '';
+			$overflow_thumbs = '';
+			$counter         = 0;
+			$is_spotlight    = ( 'spotlight' === $style );
 
 			/**
 			 * @since 4.8.2
@@ -769,7 +973,33 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 				$lightbox_img_src = apply_filters( 'avf_avia_builder_gallery_image_link', $lightbox_img_src, $attachment, $atts, $meta );
 
 				$custom_link_class = ! empty( $lightbox_img_src['custom_link_class'] ) ? $lightbox_img_src['custom_link_class'] : '';
-				$class = $counter++ % $columns ? "class='$imagelink $custom_link_class'" : "class='first_thumb $imagelink $custom_link_class'";
+
+				$orient_class = '';
+
+				if( in_array( $atts['style'], array( 'mosaic', 'filmstrip', 'editorial', 'spotlight' ), true ) )
+				{
+					$dims = wp_get_attachment_metadata( $attachment->ID );
+
+					if( ! empty( $dims['width'] ) && ! empty( $dims['height'] ) )
+					{
+						$ratio = $dims['width'] / $dims['height'];
+
+						if( $ratio > 1.2 )
+						{
+							$orient_class = 'av-item-landscape';
+						}
+						else if( $ratio < 0.833 )
+						{
+							$orient_class = 'av-item-portrait';
+						}
+						else
+						{
+							$orient_class = 'av-item-square';
+						}
+					}
+				}
+
+				$class = $counter++ % $columns ? "class='$imagelink $custom_link_class $orient_class'" : "class='first_thumb $imagelink $custom_link_class $orient_class'";
 
 				$img = wp_get_attachment_image_src( $attachment->ID, $thumb_size );
 				$prev = wp_get_attachment_image_src( $attachment->ID, $preview_size );
@@ -817,6 +1047,19 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 					$big_thumb .= '</a>';
 				}
 
+				if( $is_spotlight && 1 == $counter )
+				{
+					$img_tag = "<img width='{$prev[1]}' height='{$prev[2]}' src='{$prev[0]}' title='{$title}' alt='{$alt}' />";
+					$img_tag = Av_Responsive_Images()->prepare_single_image( $img_tag, $attachment->ID, $html_lazy_loading );
+					$lightbox_attr = Av_Responsive_Images()->html_attr_image_src( $lightbox_img_src, false );
+
+					$big_thumb  = "<a class='avia-gallery-big fakeLightbox {$imagelink} {$custom_link_class}' {$lightbox_attr} data-onclick='1' title='{$lightbox_title}' {$rel}>";
+					$big_thumb .=		"<span class='avia-gallery-big-inner' {$markup_url}>";
+					$big_thumb .=			$img_tag;
+					$big_thumb .=		'</span>';
+					$big_thumb .= '</a>';
+				}
+
 				$img_tag = "<img {$tooltip} src='{$img[0]}' width='{$img[1]}' height='{$img[2]}'  title='{$title}' alt='{$alt}' />";
 				$img_tag = Av_Responsive_Images()->prepare_single_image( $img_tag, $attachment->ID, $html_lazy_loading );
 				$lightbox_attr = Av_Responsive_Images()->html_attr_image_src( $lightbox_img_src, false );
@@ -825,10 +1068,26 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 				$prev_img_tag = "<img width='{$prev[1]}' height='{$prev[2]}' src='{$prev[0]}' title='{$title}' alt='{$alt}' />";
 				$prev_img_tag = Av_Responsive_Images()->prepare_single_image( $prev_img_tag, $attachment->ID, 'enabled' );
 
-				$thumbs .= "<a {$lightbox_attr} data-rel='gallery-" . self::$gallery . "' data-prev-img='{$prev[0]}' {$class} data-onclick='{$counter}' title='{$lightbox_title}' {$markup_url} {$rel}>";
-				$thumbs .=		$img_tag;
-				$thumbs .=		"<div class='big-prev-fake'>{$prev_img_tag}</div>";
-				$thumbs .= '</a>';
+				$thumb_html  = "<a {$lightbox_attr} data-rel='gallery-" . self::$gallery . "' data-prev-img='{$prev[0]}' {$class} data-onclick='{$counter}' title='{$lightbox_title}' {$markup_url} {$rel}>";
+				$thumb_html .=		$img_tag;
+				$thumb_html .=		"<div class='big-prev-fake'>{$prev_img_tag}</div>";
+				$thumb_html .= '</a>';
+
+				if( $is_spotlight )
+				{
+					if( $counter > 1 && $counter <= 4 )
+					{
+						$stack_thumbs .= $thumb_html;
+					}
+					else if( $counter > 4 )
+					{
+						$overflow_thumbs .= $thumb_html;
+					}
+				}
+				else
+				{
+					$thumbs .= $thumb_html;
+				}
 			}
 
 			$markup_gallery = avia_markup_helper( array( 'context' => 'image', 'echo' => false, 'custom_markup' => $meta['custom_markup'] ) );
@@ -848,7 +1107,20 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 			$output .= $style_tag;
 			$output .= "<div {$meta['custom_el_id']} class='{$container_class} avia-gallery-" . self::$gallery . "' {$markup_gallery}>";
 			$output .=     $markup_meta;
-			if ( 'thumbnails' !== $style ) {
+
+			if( $is_spotlight )
+			{
+				$output .= "<div class='av-spotlight-main-wrap'>";
+				$output .=		"<div class='av-spotlight-main'>{$big_thumb}</div>";
+				$output .=		"<div class='av-spotlight-stack'>{$stack_thumbs}</div>";
+				$output .= "</div>";
+
+				if( ! empty( $overflow_thumbs ) )
+				{
+					$output .= "<div class='avia-gallery-thumb av-spotlight-overflow'>{$overflow_thumbs}</div>";
+				}
+			}
+			else if ( 'thumbnails' !== $style ) {
 			    $output .= "<div class='avia-gallery-big-wrapper'>";
 			    $output .=     $big_thumb;
 			    if ( $control_layout !== 'av-control-hidden' ) {
@@ -856,11 +1128,12 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 			    }
 
 			    $output .= "</div>";
+			    $output .= "<div class='avia-gallery-thumb'>{$thumbs}</div>";
 			} else {
 			    $output .= $big_thumb;
+			    $output .= "<div class='avia-gallery-thumb'>{$thumbs}</div>";
 			}
 
-			$output .= "<div class='avia-gallery-thumb'>{$thumbs}</div>";
 			$output .= '</div>';
 
 
@@ -869,6 +1142,41 @@ if ( ! class_exists( 'avia_sc_gallery', false ) )
 			Av_Responsive_Images()->force_disable( 'reset' );
 
 			return $html;
+		}
+
+		/**
+		 * Sample product to source images from in the builder preview / admin, where there is no
+		 * current product. Prefers a published product that actually has gallery images.
+		 *
+		 * @return int
+		 */
+		protected function woo_sample_product_id()
+		{
+			$sample = get_posts( array(
+							'post_type'			=> 'product',
+							'post_status'		=> 'publish',
+							'posts_per_page'	=> 1,
+							'fields'			=> 'ids',
+							'meta_query'		=> array(
+													array(
+														'key'		=> '_product_image_gallery',
+														'value'		=> '',
+														'compare'	=> '!='
+													)
+												)
+						) );
+
+			if( empty( $sample ) )
+			{
+				$sample = get_posts( array(
+								'post_type'			=> 'product',
+								'post_status'		=> 'publish',
+								'posts_per_page'	=> 1,
+								'fields'			=> 'ids'
+							) );
+			}
+
+			return ! empty( $sample ) ? (int) $sample[0] : 0;
 		}
 
 		/**

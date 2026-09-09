@@ -172,6 +172,39 @@ function central_parse_json(json_mix_str, analyse) {
 	throw uclion.plugin_name+": could not parse the JSON";
 	
 }
+/**
+ * Updates the UpdraftCentral keys table, sets the wizard button label,
+ * and shows a notice if no dashboards exist.
+ *
+ * @param {string} keysTableHtml - The HTML string containing the keys table.
+ * @param {boolean} replaceContent - If true, replaces the existing content; otherwise appends it.
+ */
+function updraftcentralUpdateKeys(keysTableHtml, replaceContent) {
+	var $content = jQuery(keysTableHtml);
+	var $div = $content.filter('#updraftcentral_keys_content');
+	var $inner = $div.contents();
+
+	if (replaceContent) {
+		jQuery('#updraftcentral_keys_content').html($inner);
+	} else {
+		jQuery('#updraftcentral_keys_content').append($inner);
+	}
+
+	var hasKeys = jQuery('#updraftcentral_keys_content table#updraftcentral_keys_table tbody tr').length > 0;
+
+	if (hasKeys) {
+		jQuery('#updraftcentral_keys > em').remove();
+		jQuery('#updraftcentral_wizard_go').text(uclion.create_another_key);
+	} else {
+		jQuery('#updraftcentral_wizard_go').text(uclion.create_key);
+
+		if (jQuery('#updraftcentral_keys > em').length === 0) {
+			jQuery('#updraftcentral_keys_content').before(
+				'<em>' + uclion.no_updraftcentral_dashboards + '</em>'
+			);
+		}
+	}
+}
 
 jQuery(function($) {
 	$('#updraftcentral_keys').on('click', 'a.updraftcentral_keys_show', function(e) {
@@ -349,7 +382,7 @@ jQuery(function($) {
 					}
 
 					if (resp.hasOwnProperty('keys_table')) {
-						jQuery('#updraftcentral_keys_content').append(resp.keys_table);
+						updraftcentralUpdateKeys(resp.keys_table, false);
 					}
 					
 					jQuery('#updraftcentral_wizard_go').show();
@@ -417,7 +450,7 @@ jQuery(function($) {
 		updraftcentral_send_command('delete_key', { key_id: key_id }, function(response) {
 			jQuery('#updraftcentral_keys').unblock();
 			if (response.hasOwnProperty('keys_table')) {
-				jQuery('#updraftcentral_keys_content').html(response.keys_table);
+				updraftcentralUpdateKeys(response.keys_table, true);
 			}
 		}, { error_callback: function(response, status, error_code, resp) {
 				jQuery('#updraftcentral_keys').unblock();

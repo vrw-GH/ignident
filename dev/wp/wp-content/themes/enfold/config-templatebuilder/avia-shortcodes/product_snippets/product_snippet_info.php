@@ -26,7 +26,7 @@ if( ! class_exists( 'avia_sc_produc_info', false ) )
 
 			$this->config['name']			= __( 'Product Info', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-table.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-product-info.svg';
 			$this->config['order']			= 9;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_product_info';

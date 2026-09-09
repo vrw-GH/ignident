@@ -1,7 +1,8 @@
 <?php
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fwrite -- false positive; it's actually safe to use native PHP's fwrite()
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose, WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fgets, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.WP.AlternativeFunctions.file_system_operations_mkdir, WordPress.WP.AlternativeFunctions.file_system_operations_fread, WordPress.WP.AlternativeFunctions.file_system_operations_chmod, WordPress.WP.AlternativeFunctions.file_system_operations_fputs, WordPress.WP.AlternativeFunctions.file_system_operations_is_writeable, WordPress.WP.AlternativeFunctions.file_system_operations_chown, WordPress.WP.AlternativeFunctions.file_system_operations_chgrp, WordPress.WP.AlternativeFunctions.file_system_operations_touch -- Native PHP fileystem function is used for direct control and performance because it can bypass additional layers of abstraction so that no overhead from the WordPress filesystem API's internal handling
+// phpcs:disable WordPress.WP.AlternativeFunctions.curl_curl_setopt_array, WordPress.WP.AlternativeFunctions.curl_curl_setopt, WordPress.WP.AlternativeFunctions.curl_curl_init, WordPress.WP.AlternativeFunctions.curl_curl_exec, WordPress.WP.AlternativeFunctions.curl_curl_getinfo, WordPress.WP.AlternativeFunctions.curl_curl_multi_init, WordPress.WP.AlternativeFunctions.curl_curl_multi_add_handle, WordPress.WP.AlternativeFunctions.curl_curl_multi_exec, WordPress.WP.AlternativeFunctions.curl_curl_multi_select, WordPress.WP.AlternativeFunctions.curl_curl_multi_getcontent, WordPress.WP.AlternativeFunctions.curl_curl_multi_remove_handle, WordPress.WP.AlternativeFunctions.curl_curl_multi_close, WordPress.WP.AlternativeFunctions.curl_curl_error, WordPress.WP.AlternativeFunctions.curl_curl_close, WordPress.WP.AlternativeFunctions.curl_curl_errno -- Direct cURL usage is intentional to leverage specific low-level options not available via the WordPress HTTP API.
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- This is a third-party library file; naming conventions are not applicable.
+if (!defined('ABSPATH')) die('No direct access allowed');
 /**
  * This is an HTTP client class for Cloud Files.  It uses PHP's cURL module
  * to handle the actual HTTP request/response.  This is NOT a generic HTTP
@@ -266,7 +267,11 @@ class UpdraftPlus_CF_Http
         curl_setopt($curl_ch, CURLOPT_CONNECTTIMEOUT, 10);
         curl_setopt($curl_ch, CURLOPT_URL, $url);
         curl_exec($curl_ch);
-        curl_close($curl_ch);
+        if (version_compare(PHP_VERSION, '8.0', '<')) {
+            curl_close($curl_ch);
+        } else {
+            unset($curl_ch); // On PHP 8+, curl_close() is a no-op (deprecated in 8.5); unset the handle instead.
+        }
 
         return array($this->response_status, $this->response_reason,
             $this->storage_url, $this->cdnm_url, $this->auth_token);
@@ -1560,7 +1565,11 @@ class UpdraftPlus_CF_Http
     {
         foreach ($this->connections as $cnx) {
             if (isset($cnx)) {
-                curl_close($cnx);
+                if (version_compare(PHP_VERSION, '8.0', '<')) {
+                    curl_close($cnx);
+                } else {
+                    unset($cnx); // On PHP 8+, curl_close() is a no-op (deprecated in 8.5); unset the handle instead.
+                }
                 $this->connections[$cnx] = NULL;
             }
         }

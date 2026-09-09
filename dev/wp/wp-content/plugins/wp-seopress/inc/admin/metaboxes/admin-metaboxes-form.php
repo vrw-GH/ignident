@@ -28,7 +28,10 @@ $data_attr['data_tax'] = '';
 $data_attr['termId']   = '';
 
 if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
-	$data_attr['current_id'] = get_the_id();
+	// Prefer the post object passed to the metabox callback over the global
+	// $post: page builders (e.g. Elementor Pro Theme Builder) can swap the
+	// global $post for one of their templates while the edit screen renders.
+	$data_attr['current_id'] = ( isset( $post ) && $post instanceof WP_Post ) ? $post->ID : get_the_id();
 	$data_attr['origin']     = 'post';
 	$data_attr['title']      = get_the_title( $data_attr['current_id'] );
 } elseif ( 'term.php' === $pagenow || 'edit-tags.php' === $pagenow ) {
@@ -68,7 +71,8 @@ if ( 'term.php' === $pagenow || 'edit-tags.php' === $pagenow ) { ?>
 						$seo_tabs['social-tab']   = '<li><a href="#tabs-2">' . __( 'Social', 'wp-seopress' ) . '</a></li>';
 						$seo_tabs['advanced-tab'] = '<li><a href="#tabs-3">' . __( 'Advanced', 'wp-seopress' ) . '<span id="sp-advanced-alert"></span></a></li>';
 					}
-					$seo_tabs['redirect-tab'] = '<li><a href="#tabs-4">' . __( 'Redirection', 'wp-seopress' ) . '</a></li>';
+					$redirect_alert           = 'yes' === $seopress_redirections_enabled ? '<span class="impact high" aria-hidden="true"></span>' : '';
+					$seo_tabs['redirect-tab'] = '<li><a href="#tabs-4">' . __( 'Redirection', 'wp-seopress' ) . '<span id="sp-redirect-alert">' . $redirect_alert . '</span></a></li>';
 
 					$seo_tabs = apply_filters( 'seopress_metabox_seo_tabs', $seo_tabs, $typenow, $pagenow );
 
@@ -226,11 +230,11 @@ if ( 'term.php' === $pagenow || 'edit-tags.php' === $pagenow ) { ?>
 
 								if ( get_the_title() ) {
 									$gp_title     = '<div class="snippet-title-default" style="display:none">' . get_the_title() . ' - ' . get_bloginfo( 'name' ) . '</div>';
-									$gp_permalink = '<div class="snippet-permalink"><span class="snippet-sitename">' . $alt_site_title . '</span>' . htmlspecialchars( urldecode( get_permalink() ) ) . '</div>';
+									$gp_permalink = '<div class="snippet-permalink"><span class="snippet-sitename">' . $alt_site_title . '</span>' . htmlspecialchars( urldecode( get_permalink() ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) . '</div>';
 								} elseif ( $tag ) {
 									if ( false === is_wp_error( get_term_link( $tag ) ) ) {
 										$gp_title     = '<div class="snippet-title-default" style="display:none">' . $tag->name . ' - ' . get_bloginfo( 'name' ) . '</div>';
-										$gp_permalink = '<div class="snippet-permalink"><span class="snippet-sitename">' . $alt_site_title . '</span>' . htmlspecialchars( urldecode( get_term_link( $tag ) ) ) . '</div>';
+										$gp_permalink = '<div class="snippet-permalink"><span class="snippet-sitename">' . $alt_site_title . '</span>' . htmlspecialchars( urldecode( get_term_link( $tag ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) . '</div>';
 									}
 								}
 
@@ -327,7 +331,7 @@ if ( 'term.php' === $pagenow || 'edit-tags.php' === $pagenow ) { ?>
 							</label>
 							<input id="seopress_robots_canonical_meta" type="text" name="seopress_robots_canonical"
 								class="components-text-control__input"
-								placeholder="<?php esc_html_e( 'Default value: ', 'wp-seopress' ) . htmlspecialchars( urldecode( get_permalink() ) ); ?>"
+								placeholder="<?php esc_html_e( 'Default value: ', 'wp-seopress' ) . htmlspecialchars( urldecode( get_permalink() ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ); ?>"
 								aria-label="<?php esc_attr_e( 'Canonical URL', 'wp-seopress' ); ?>"
 								value="<?php echo esc_url( $seopress_robots_canonical ); ?>" />
 						</p>
@@ -338,17 +342,42 @@ if ( 'term.php' === $pagenow || 'edit-tags.php' === $pagenow ) { ?>
 							}
 							?>
 
-						<span class="sp-section"><?php esc_html_e( 'Last modified date', 'wp-seopress' ); ?></span>
-						<p>
-							<label for="seopress_robots_freeze_modified_date_meta">
-								<input type="checkbox" name="seopress_robots_freeze_modified_date" id="seopress_robots_freeze_modified_date_meta"
-									value="yes" <?php echo checked( $seopress_robots_freeze_modified_date, 'yes', false ); ?> />
+							<?php if ( 'term.php' !== $pagenow && 'edit-tags.php' !== $pagenow ) { ?>
+							<span class="sp-section"><?php esc_html_e( 'Last modified date', 'wp-seopress' ); ?></span>
+							<p class="description">
 								<?php
-									echo wp_kses_post( __( 'Freeze the last modified date <strong>(recommended for minor updates)</strong>', 'wp-seopress' ) );
-									echo seopress_tooltip( esc_html__( 'Freeze last modified date', 'wp-seopress' ), wp_kses_post( __( 'Enable this option to prevent the last modified date from being updated when you save this post. <br>This is recommended for minor updates like fixing typos, formatting changes, or copyright updates that don\'t constitute significant content changes. <br>Google recommends only updating the lastmod date for significant content updates.', 'wp-seopress' ) ), '' );
+								$wp_date_format            = get_option( 'date_format' );
+								$wp_time_format            = get_option( 'time_format' );
+								$seopress_modified_post_id = ( isset( $post ) && $post instanceof WP_Post ) ? $post->ID : get_the_ID();
+								printf(
+									/* translators: %s current post modified date */
+									esc_html__( 'Current modified date: %s', 'wp-seopress' ),
+									'<strong>' . esc_html( get_the_modified_date( $wp_date_format . ' ' . $wp_time_format, $seopress_modified_post_id ) ) . '</strong>'
+								);
 								?>
-							</label>
-						</p>
+							</p>
+							<p>
+								<label for="seopress_robots_freeze_modified_date_meta">
+									<input type="checkbox" name="seopress_robots_freeze_modified_date" id="seopress_robots_freeze_modified_date_meta"
+										value="yes" <?php echo checked( $seopress_robots_freeze_modified_date, 'yes', false ); ?> />
+									<?php
+										echo wp_kses_post( __( 'Freeze the last modified date <strong>(recommended for minor updates)</strong>', 'wp-seopress' ) );
+										echo seopress_tooltip( esc_html__( 'Freeze last modified date', 'wp-seopress' ), wp_kses_post( __( 'Enable this option to prevent the last modified date from being updated when you save this post. <br>This is recommended for minor updates like fixing typos, formatting changes, or copyright updates that don\'t constitute significant content changes. <br>Google recommends only updating the lastmod date for significant content updates.', 'wp-seopress' ) ), '' );
+									?>
+								</label>
+							</p>
+							<p>
+								<label for="seopress_robots_custom_modified_date_meta">
+									<?php esc_attr_e( 'Set a custom last modified date', 'wp-seopress' ); ?>
+								</label>
+								<input type="text" name="seopress_robots_custom_modified_date"
+									id="seopress_robots_custom_modified_date_meta"
+									class="components-text-control__input"
+									placeholder="YYYY-MM-DD"
+									value="<?php echo esc_attr( $seopress_robots_custom_modified_date ); ?>" />
+								<span class="description"><?php esc_html_e( 'Override the last modified date with a custom value. Leave empty to use the current post modified date.', 'wp-seopress' ); ?></span>
+							</p>
+							<?php } ?>
 							<?php
 
 							do_action( 'seopress_titles_title_tab_after', $pagenow, $data_attr );
@@ -729,10 +758,13 @@ if ( 'term.php' === $pagenow || 'edit-tags.php' === $pagenow ) { ?>
 											return;
 										}
 
-										const dataResponse = await fetch("<?php echo esc_url( rest_url() ); ?>seopress/v1/search-url?url=" + term)
+										const dataResponse = await fetch(
+											"<?php echo esc_url( rest_url() ); ?>seopress/v1/search-url?url=" + encodeURIComponent( term ),
+											{ headers: { 'X-WP-Nonce': '<?php echo esc_js( wp_create_nonce( 'wp_rest' ) ); ?>' } }
+										);
 										const data = await dataResponse.json();
 
-										cache[ term ] = data.map(item => {
+										cache[ term ] = ( Array.isArray( data ) ? data : [] ).map(item => {
 											return {
 												label: item.post_title + " (" + item.guid + ")",
 												value: item.guid
@@ -765,37 +797,35 @@ if ( 'term.php' === $pagenow || 'edit-tags.php' === $pagenow ) { ?>
 						<?php } ?>
 						<p>
 							<?php
-							if ( 'yes' === $seopress_redirections_enabled ) {
-								$status_code = array( '410', '451' );
-								if ( '' !== $seopress_redirections_value || in_array( $seopress_redirections_type, $status_code, true ) ) {
-									if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
-										if ( 'seopress_404' === $typenow ) {
-											$parse_url = wp_parse_url( get_home_url() );
+							$status_code = array( '410', '451' );
+							if ( '' !== $seopress_redirections_value || in_array( $seopress_redirections_type, $status_code, true ) ) {
+								if ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) {
+									if ( 'seopress_404' === $typenow ) {
+										$parse_url = wp_parse_url( get_home_url() );
 
-											$home_url = get_home_url();
-											if ( ! empty( $parse_url['scheme'] ) && ! empty( $parse_url['host'] ) ) {
-												$home_url = $parse_url['scheme'] . '://' . $parse_url['host'];
-											}
-
-											$href = $home_url . '/' . get_the_title();
-										} else {
-											$href = get_the_permalink();
+										$home_url = get_home_url();
+										if ( ! empty( $parse_url['scheme'] ) && ! empty( $parse_url['host'] ) ) {
+											$home_url = $parse_url['scheme'] . '://' . $parse_url['host'];
 										}
-									} elseif ( 'term.php' === $pagenow ) {
-										$href = get_term_link( $term );
+
+										$href = $home_url . '/' . get_the_title();
 									} else {
 										$href = get_the_permalink();
 									}
-									if ( isset( $seopress_redirections_enabled_regex ) && 'yes' !== $seopress_redirections_enabled_regex ) {
-										?>
+								} elseif ( 'term.php' === $pagenow ) {
+									$href = get_term_link( $term );
+								} else {
+									$href = get_the_permalink();
+								}
+								if ( ! isset( $seopress_redirections_enabled_regex ) || 'yes' !== $seopress_redirections_enabled_regex ) {
+									?>
 							<a href="<?php echo esc_url( $href ); ?>"
 								id="seopress_redirections_value_default"
 								class="<?php echo esc_attr( seopress_btn_secondary_classes() ); ?>"
 								target="_blank">
 										<?php esc_html_e( 'Test your URL', 'wp-seopress' ); ?>
 							</a>
-										<?php
-									}
+									<?php
 								}
 							}
 
@@ -825,4 +855,4 @@ if ( 'term.php' === $pagenow || 'edit-tags.php' === $pagenow ) { ?>
 </tr>
 <?php } ?>
 <input type="hidden" id="seo_tabs" name="seo_tabs"
-	value="<?php echo htmlspecialchars( wp_json_encode( array_keys( $seo_tabs ) ) ); ?>">
+	value="<?php echo htmlspecialchars( wp_json_encode( array_keys( $seo_tabs ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ); ?>">

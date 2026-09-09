@@ -71,8 +71,8 @@ export const LS_tourData = {
 		},
 
 		intro: {
-			title: 'Welcome to LayerSlider 7',
-			content: 'This 3-minute tour breifly highlights key areas of the LayerSlider 7 project editor. Whether you’re new to LayerSlider or coming from an older version, this guide can be helpful to get familiar with the all-new editor interface.',
+			title: 'Welcome to LayerSlider 8',
+			content: 'This 3-minute tour breifly highlights key areas of the LayerSlider 8 Project Editor. Whether you’re new to LayerSlider or coming from an older version, this guide can be helpful to get familiar with the all-new editor interface.',
 			cover: 'https://layerslider.com/media/guides/welcome/intro-effected-2.png',
 			width: 760
 		},
@@ -115,7 +115,7 @@ export const LS_tourData = {
 			{
 				target: '#lse-toolbar-sidebar-tabs',
 				title: 'Slide and Layer Settings',
-				content: 'You can access slide and layer settings from the right sidebar. You can choose which one you would like to edit with the tabs at the top. <br><br> In the sidebar, you find the individual slide or layer options. Many have a <b>+</b> sign attached to them when you move your mouse cursor over their field. Clicking on the <b>+</b> sign will open a panel where you find helpful information describing what that option does, examples, as well as additional features. For instance, the <b>+</b> sign of the Font Family field lets you choose from more than a thousand beautiful typefaces provided by Google Fonts.',
+				content: 'You can access slide and layer settings from the right sidebar. You can choose which one you would like to edit with the tabs at the top. <br><br> In the sidebar, you find the individual slide or layer options. Many have a '+LS_InterfaceIcons.other['ellipsis-v']+' sign attached to them when you move your mouse cursor over their field. Clicking on the '+LS_InterfaceIcons.other['ellipsis-v']+' sign will open a panel where you find helpful information describing what that option does, examples, as well as additional features. For instance, the '+LS_InterfaceIcons.other['ellipsis-v']+' sign of the Font Family field lets you choose from more than a thousand beautiful typefaces provided by Google Fonts.',
 				spacing: 1,
 				before: function(){
 					window.lseTourIntervals[0] = setInterval(function(){
@@ -136,7 +136,7 @@ export const LS_tourData = {
 			{
 				target: 'lse-action-buttons',
 				title: 'Save & Publish Buttons',
-				content: 'In LayerSlider 7, you can now save drafts without making them public on front-end pages. The save button creates a draft that’s only accessible in the editor. This enables you to freely edit and experiment on projects and publish the changes only when your work is ready.<br><br><b>REMEMBER</b>: Once you want to make your changes visible on front-end pages, you need to press the PUBLISH button.',
+				content: 'In LayerSlider 8, you can save drafts without making them public on front-end pages. The save button creates a draft that’s only accessible in the editor. This enables you to freely edit and experiment on projects and publish the changes only when your work is ready.<br><br><b>REMEMBER</b>: Once you want to make your changes visible on front-end pages, you need to press the PUBLISH button.',
 				spacing: 1
 			},
 			{
@@ -166,7 +166,7 @@ export const LS_tourData = {
 			{
 				target: '#lse-brand',
 				title: 'Exit to WordPress Dashboard',
-				content: 'Once you’d like to exit the editor, just click on the LAYERSLIDER7 button to return to your WordPress dashboard.',
+				content: 'Once you’d like to exit the editor, just click on the LAYERSLIDER8 button to return to your WordPress dashboard.',
 				spacing: 1
 			}
 		]

@@ -8,6 +8,160 @@
 }
 /* Plugin menu icon styles end */
 
+body.ays-popup-plugin-admin input[type=checkbox], 
+body.ays-popup-plugin-admin input[type=radio] {
+    accent-color: #005AE0;
+    background-color: #fff;
+    box-shadow: unset;
+    border: 1px solid #8c8f94;
+}
+
+body.ays-popup-plugin-admin input[type=checkbox]:focus, 
+body.ays-popup-plugin-admin input[type=radio]:focus {
+    accent-color: #005AE0;
+    background-color: #fff;
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: 2px solid transparent;
+}
+
+body.ays-popup-plugin-admin input[type=checkbox]:checked::before {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(6593%) hue-rotate(211deg) brightness(98%) contrast(103%);
+}
+
+body.ays-popup-plugin-admin input[type=radio]:checked::before {
+    background-color: #005ae0;
+}
+
+body.ays-popup-plugin-admin input[type="text"], 
+body.ays-popup-plugin-admin input[type="password"], 
+body.ays-popup-plugin-admin input[type="date"], 
+body.ays-popup-plugin-admin input[type="datetime"], 
+body.ays-popup-plugin-admin input[type="datetime-local"], 
+body.ays-popup-plugin-admin input[type="email"], 
+body.ays-popup-plugin-admin input[type="month"], 
+body.ays-popup-plugin-admin input[type="number"], 
+body.ays-popup-plugin-admin input[type="search"], 
+body.ays-popup-plugin-admin input[type="tel"], 
+body.ays-popup-plugin-admin input[type="time"], 
+body.ays-popup-plugin-admin input[type="url"], 
+body.ays-popup-plugin-admin input[type="week"] {
+    padding: 0 8px;
+    line-height: 2;
+    min-height: 30px;    
+}
+
+body.ays-popup-plugin-admin input[type="text"]:focus, 
+body.ays-popup-plugin-admin input[type="password"]:focus, 
+body.ays-popup-plugin-admin input[type="date"]:focus, 
+body.ays-popup-plugin-admin input[type="datetime"]:focus, 
+body.ays-popup-plugin-admin input[type="datetime-local"]:focus, 
+body.ays-popup-plugin-admin input[type="email"]:focus, 
+body.ays-popup-plugin-admin input[type="month"]:focus, 
+body.ays-popup-plugin-admin input[type="number"]:focus, 
+body.ays-popup-plugin-admin input[type="search"]:focus, 
+body.ays-popup-plugin-admin input[type="tel"]:focus, 
+body.ays-popup-plugin-admin input[type="time"]:focus, 
+body.ays-popup-plugin-admin input[type="url"]:focus, 
+body.ays-popup-plugin-admin input[type="week"]:focus {
+    border-color: #005ae0;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: transparent solid 2px;
+}
+
+body.ays-popup-plugin-admin input[type=color]:focus, 
+body.ays-popup-plugin-admin input[type=date]:focus, 
+body.ays-popup-plugin-admin input[type=datetime-local]:focus, 
+body.ays-popup-plugin-admin input[type=datetime]:focus, 
+body.ays-popup-plugin-admin input[type=email]:focus, 
+body.ays-popup-plugin-admin input[type=month]:focus, 
+body.ays-popup-plugin-admin input[type=number]:focus, 
+body.ays-popup-plugin-admin input[type=password]:focus, 
+body.ays-popup-plugin-admin input[type=search]:focus, 
+body.ays-popup-plugin-admin input[type=tel]:focus, 
+body.ays-popup-plugin-admin input[type=text]:focus, 
+body.ays-popup-plugin-admin input[type=time]:focus, 
+body.ays-popup-plugin-admin input[type=url]:focus, 
+body.ays-popup-plugin-admin input[type=week]:focus, 
+body.ays-popup-plugin-admin select:focus, 
+body.ays-popup-plugin-admin textarea:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+body.ays-popup-plugin-admin .button, 
+body.ays-popup-plugin-admin .button-primary, 
+body.ays-popup-plugin-admin .button-secondary {
+    padding: 0 10px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    font-weight: 400;
+}
+
+body.ays-popup-plugin-admin .button.hover, 
+body.ays-popup-plugin-admin .button:hover {
+    background: #135e96;
+    border-color: #135e96;
+    color: #fff;
+}
+
+body.ays-popup-plugin-admin .button.add_new_block_content, 
+body.ays-popup-plugin-admin .button.wp-picker-default, 
+body.ays-popup-plugin-admin .button.action, 
+body.ays-popup-plugin-admin #search-submit.button, 
+body.ays-popup-plugin-admin #ays-cat-button-apply.button, 
+body.ays-popup-plugin-admin .button.insert-media, 
+body.ays-popup-plugin-admin .button.action-button:not(.button-primary), 
+body.ays-popup-plugin-admin .button-secondary {
+    background: #f6f7f7;
+    border-color: #2271b1;
+    color: #2271b1;
+}
+
+body.ays-popup-plugin-admin .button.add_new_block_content:focus, 
+body.ays-popup-plugin-admin .button.wp-picker-default:focus,  
+body.ays-popup-plugin-admin .button.action:focus, 
+body.ays-popup-plugin-admin #search-submit.button:focus, 
+body.ays-popup-plugin-admin #ays-cat-button-apply.button:focus, 
+body.ays-popup-plugin-admin .button.insert-media:focus, 
+body.ays-popup-plugin-admin .button.action-button:not(.button-primary):focus, 
+body.ays-popup-plugin-admin .button-secondary:focus, 
+body.ays-popup-plugin-admin .button.add_new_block_content:hover,
+body.ays-popup-plugin-admin .button.wp-picker-default:hover,
+body.ays-popup-plugin-admin .button.action:hover,
+body.ays-popup-plugin-admin #search-submit.button:hover,
+body.ays-popup-plugin-admin #ays-cat-button-apply.button:hover,
+body.ays-popup-plugin-admin .button.insert-media:hover,
+body.ays-popup-plugin-admin .button.action-button:not(.button-primary):hover,
+body.ays-popup-plugin-admin .button-secondary:hover {
+    background: #f0f0f1;
+    border-color: #135e96;
+    color: #135e96;
+    box-shadow: 0 0 0 1px #3582c4;
+}
+
+body.ays-popup-plugin-admin a:focus {    
+    box-shadow: 0 0 0 1px #3582c4;
+}
+
+body.ays-popup-plugin-admin .button:focus, 
+body.ays-popup-plugin-admin .button-primary:focus {
+    background: #135e96;
+    border-color: #135e96;
+    color: #fff;    
+    box-shadow: 0 0 0 1px #3582c4,inset 0 0 0 1px #fff;
+}
+
+body.ays-popup-plugin-admin .button-primary {
+    background: #2271b1;
+    border-color: #2271b1;
+}
+
+body.ays-popup-plugin-admin select {
+    line-height: 2;
+    min-height: 30px;
+}
+
 /* Plugin Pro Features submenu item styles start */
 #adminmenu li.toplevel_page_ays-pb ul.wp-submenu.wp-submenu-wrap li a[href*="features"] {
     color: #68A615;
@@ -305,7 +459,9 @@ span.ays-dashicons-star-filled:before {
 body.custom-html {
     background-color: #fff !important;
 }
-
+.ays_pb_height_by_percentage_px_box {
+    margin-bottom: 15px;
+}
 @media screen and (max-width: 782px) {
     div#ays-pb-deactivate-feedback-modal .ays-pb-deactivate-feedback-dialog-input {
         min-width: 25px;

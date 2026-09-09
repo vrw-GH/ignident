@@ -689,6 +689,46 @@ var aviaJS = aviaJS || {};
 
 	};
 
+	/**
+	 * Turns a deferred icon set into real DOM.
+	 *
+	 * The server hands large SVG icon sets over inside an inert <script type="text/html">
+	 * so that opening a modal does not build and style a few thousand nodes the user may
+	 * never look at. This puts them in place the first time the picker is actually shown,
+	 * and is safe to call as often as you like - the template is removed once used.
+	 *
+	 * @param {jQuery} container	one or more .avia_icon_select_container
+	 * @return {boolean}			true if anything was filled in
+	 */
+	$.AviaModal.fill_deferred_icons = function( container )
+	{
+		var filled = false;
+
+		container.each( function()
+		{
+			var scope = $( this ),
+				tpl = scope.children( 'script.avia-icon-set-deferred' );
+
+			if( ! tpl.length )
+			{
+				return;
+			}
+
+			var markup = tpl.html();
+
+			tpl.remove();
+
+			//	icons belong in front of the hidden inputs that carry the value
+			scope.prepend( markup );
+			filled = true;
+
+			//	let the filter rebuild its cached collections
+			scope.trigger( 'avia-icon-set-filled' );
+		});
+
+		return filled;
+	};
+
 	$.AviaModal.register_callback.modal_load_iconfont_filter = function()
 	{
 		let scope = this.modal,
@@ -702,6 +742,36 @@ var aviaJS = aviaJS || {};
 				iconsContainer = container.closest( '.avia-form-element ' ).find( '.avia_icon_select_container' ),
 				headings = iconsContainer.find('.av-iconselect-heading'),
 				icons = iconsContainer.find( '.avia_icon_preview' );
+
+			/*
+			 * headings and icons are cached for the filter handlers below. A deferred icon set
+			 * arrives after this callback has run, so the cache has to be refreshed once it does
+			 * - otherwise filtering would silently operate on an empty collection.
+			 */
+			iconsContainer.on( 'avia-icon-set-filled', function()
+			{
+				headings = iconsContainer.find( '.av-iconselect-heading' );
+				icons = iconsContainer.find( '.avia_icon_preview' );
+			});
+
+			/*
+			 * Fill straight away when the picker is already on screen: either it sits in the
+			 * toggle that opens first, or the options are set to show every toggle at once.
+			 * Pickers inside a closed toggle are filled when that toggle opens - see
+			 * modal_load_toggles. Deferred by a tick because the on load callbacks run in a
+			 * server defined order and the one setting toggle visibility may come later.
+			 */
+			setTimeout( function()
+			{
+				if( iconsContainer.is( ':visible' ) )
+				{
+					$.AviaModal.fill_deferred_icons( iconsContainer );
+				}
+			}, 0 );
+
+			//	last line of defence - never let a filter run against an unfilled picker
+			select.on( 'mousedown', function(){ $.AviaModal.fill_deferred_icons( iconsContainer ); });
+			input.on( 'focus', function(){ $.AviaModal.fill_deferred_icons( iconsContainer ); });
 
 			select.on( 'change', function( e )
 			{
@@ -774,6 +844,61 @@ var aviaJS = aviaJS || {};
 			});
 
 		});
+
+		/*
+		 * A picker becomes visible through more than one mechanism: the toggle it sits in is
+		 * opened, the tab it sits on is selected, or a field group is revealed because another
+		 * option changed value - the separator icon appears once the style is set to icon.
+		 * Each of those is a different piece of code and none of them share an event.
+		 *
+		 * Watching for the attribute changes they all end up making is therefore more robust
+		 * than hooking each one, and it needs no cooperation from them. It also solves the
+		 * timing problem for free: a group is revealed with slideDown, so :visible stays false
+		 * until the animation has some height - and the animation mutates style on every frame,
+		 * which re-runs this check until it succeeds.
+		 *
+		 * The observer stops itself once every picker in the modal has been filled.
+		 */
+		if( scope.find( 'script.avia-icon-set-deferred' ).length && window.MutationObserver )
+		{
+			var scheduled = false,
+				observer = new MutationObserver( function()
+			{
+				if( scheduled )
+				{
+					return;
+				}
+
+				scheduled = true;
+
+				//	one pass per frame at most - a slideDown mutates style constantly
+				window.requestAnimationFrame( function()
+				{
+					scheduled = false;
+
+					scope.find( '.avia_icon_select_container' ).each( function()
+					{
+						var picker = $( this );
+
+						if( picker.is( ':visible' ) )
+						{
+							$.AviaModal.fill_deferred_icons( picker );
+						}
+					});
+
+					if( ! scope.find( 'script.avia-icon-set-deferred' ).length )
+					{
+						observer.disconnect();
+					}
+				});
+			});
+
+			observer.observe( scope.get( 0 ), {
+				attributes: true,
+				subtree: true,
+				attributeFilter: [ 'class', 'style' ]
+			});
+		}
 	};
 
    	$.AviaModal.register_callback.modal_load_colorpicker = function()
@@ -797,56 +922,140 @@ var aviaJS = aviaJS || {};
 			},
 			self = this,
 			scope = this.modal,
-			colorpicker = scope.find('.av-colorpicker').avia_wpColorPicker(picerOpts),
-			picker_button = scope.find('.wp-color-result');
-			//picker_button.off();
+			//	only the pickers that have actually been built - the close handler must not
+			//	call iris() on a field that never got one
+			started = $();
 
-			//
+		var open_picker = function(e)
+		{
+			var picker  = $(this),
+				parent 	= $(this).parents('.wp-picker-container').eq( 0 ),
+				button 	= parent.find('.wp-color-result'),
+				iris	= parent.find('.wp-picker-holder .iris-picker');
+
+			if(!button.hasClass('wp-picker-open')) button.addClass('wp-picker-open');
+			if(iris.css('display') != "block") iris.css({display:'block'});
+			scope.find('.wp-picker-open').not(button).trigger('click');
+
+			$( 'body' ).one( 'click', function(e)
+			{
+				if(iris.css('display') == "block") iris.css({display:'none'});
+				if(button.hasClass('wp-picker-open')) button.removeClass('wp-picker-open');
+			} );
+		};
+
+		var button_click = function(e)
+		{
+			if(typeof e.originalEvent != "undefined")
+			{
+				var open = scope.find('.wp-picker-open').not(this).trigger('click');
+			}
+		};
+
+		/**
+		 * Builds the wpColorPicker widgets for a set of fields.
+		 *
+		 * Deliberately not called for every picker when the modal opens. Building one is
+		 * expensive in a way that does not show up as script time: iris reads element
+		 * dimensions while it lays itself out, and every read forces the browser to restyle
+		 * the whole modal again. A modal with a dozen colour fields therefore spends seconds
+		 * restyling before the user sees anything - for widgets that mostly sit in closed
+		 * toggles and may never be looked at.
+		 */
+		var init_pickers = function( pickers )
+		{
+			pickers = pickers.not( '.av-colorpicker-ready' );
+
+			if( ! pickers.length )
+			{
+				return false;
+			}
+
+			pickers.addClass( 'av-colorpicker-ready' ).avia_wpColorPicker( picerOpts );
 
 			if( 'undefined' != typeof avia_globals.color_palettes_class )
 			{
-				scope.find('.av-colorpicker').closest('.avia-element-colorpicker').addClass( avia_globals.color_palettes_class );
+				pickers.closest('.avia-element-colorpicker').addClass( avia_globals.color_palettes_class );
 			}
 
-			colorpicker.on('click', function(e)
+			pickers.on( 'click', open_picker );
+			pickers.parents( '.wp-picker-container' ).eq( 0 ).find( '.wp-color-result' ).on( 'click', button_click );
+
+			started = started.add( pickers );
+
+			return true;
+		};
+
+		var init_visible = function()
+		{
+			scope.find( '.av-colorpicker' ).not( '.av-colorpicker-ready' ).each( function()
 			{
-				var picker  = $(this),
-					parent 	= $(this).parents('.wp-picker-container').eq( 0 ),
-					button 	= parent.find('.wp-color-result'),
-					iris	= parent.find('.wp-picker-holder .iris-picker');
+				var field = $( this );
 
-				if(!button.hasClass('wp-picker-open')) button.addClass('wp-picker-open');
-				if(iris.css('display') != "block") iris.css({display:'block'});
-				scope.find('.wp-picker-open').not(button).trigger('click');
-
-				$( 'body' ).one( 'click', function(e)
+				if( field.is( ':visible' ) )
 				{
-					if(iris.css('display') == "block") iris.css({display:'none'});
-					if(button.hasClass('wp-picker-open')) button.removeClass('wp-picker-open');
-				} );
-
-			});
-
-			picker_button.on('click', function(e)
-			{
-				//var parent 	= $(this).parents('.wp-picker-container').eq( 0 ),
-				//	picker  = parent.find('.av-colorpicker').trigger('click');
-
-
-				if(typeof e.originalEvent != "undefined")
-				{
-					var open = scope.find('.wp-picker-open').not(this).trigger('click');
+					init_pickers( field );
 				}
+			});
+		};
 
+		/*
+		 * Same reveal problem as the deferred icon sets: a field group is opened by a toggle,
+		 * a tab, or because another option changed value, and none of those share an event.
+		 * Watching the attribute changes they all make covers every case, and the animation
+		 * they use keeps re-running the check until the field really has a size.
+		 */
+		setTimeout( init_visible, 0 );
+
+		if( window.MutationObserver )
+		{
+			var scheduled = false,
+				observer = new MutationObserver( function()
+				{
+					if( scheduled )
+					{
+						return;
+					}
+
+					scheduled = true;
+
+					window.requestAnimationFrame( function()
+					{
+						scheduled = false;
+
+						init_visible();
+
+						if( ! scope.find( '.av-colorpicker' ).not( '.av-colorpicker-ready' ).length )
+						{
+							observer.disconnect();
+						}
+					});
+				});
+
+			observer.observe( scope.get( 0 ), {
+				attributes: true,
+				subtree: true,
+				attributeFilter: [ 'class', 'style' ]
 			});
 
-			//fixes the error caused by removing the modal window from the dom. unbinding the events and recalling the iris function both seems to be necessary
 			$(document).one('avia_modal_before_close_instance'+self.namespace, function()
 			{
-				picker_button.off().remove();
-				colorpicker.off().remove();
-				colorpicker.iris();
+				observer.disconnect();
 			});
+		}
+
+		//fixes the error caused by removing the modal window from the dom. unbinding the events and recalling the iris function both seems to be necessary
+		$(document).one('avia_modal_before_close_instance'+self.namespace, function()
+		{
+			if( ! started.length )
+			{
+				return;
+			}
+
+			started.parents( '.wp-picker-container' ).find( '.wp-color-result' ).off().remove();
+			started.off().remove();
+			started.iris();
+		});
 
 	};
 
@@ -1173,6 +1382,9 @@ var aviaJS = aviaJS || {};
 							//show current
 							clicked.addClass(active);
 							current.css({display:"block"});
+
+							//	build the icon set now that this toggle is on screen
+							$.AviaModal.fill_deferred_icons( current.find( '.avia_icon_select_container' ) );
 						}
 
 					});
@@ -2426,7 +2638,27 @@ var aviaJS = aviaJS || {};
                 $alpha_text   = $alpha_wrap.find('.av-alpha-text'),
                 $alpha_offset = $alpha_wrap.find('.av-alpha-slider-offset');
 
-			$irisP.height( $irisP.height() + 37 );
+			/*
+			 * The alpha slider needs 37px of extra room in the picker.
+			 *
+			 * Reading the height back is not free: the picker is still hidden at this point,
+			 * so jQuery briefly makes it visible to measure it, and that forces the browser to
+			 * restyle the whole modal. Once per colour field, in a modal that can hold a dozen
+			 * of them, this was a measurable part of the time a settings window took to open.
+			 *
+			 * Every rgba picker in a modal is built from the same options and ends up the same
+			 * size, so the measurement is taken once and reused. A height at or below the 37px
+			 * we add means the read returned nothing useful, and it is simply measured again.
+			 */
+			var rgba_height = $.fn.avia_wpColorPicker.rgba_height || 0;
+
+			if( rgba_height <= 37 )
+			{
+				rgba_height = $irisP.height() + 37;
+				$.fn.avia_wpColorPicker.rgba_height = rgba_height;
+			}
+
+			$irisP.height( rgba_height );
 
             // alpha slider
             $alpha_slider.slider({

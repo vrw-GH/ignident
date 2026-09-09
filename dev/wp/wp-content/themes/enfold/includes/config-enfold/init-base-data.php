@@ -93,6 +93,8 @@ $avia_config['imgSize']['magazine'] 		 	= array( 'width' => 710, 'height' => 375
 $avia_config['imgSize']['masonry'] 		 		= array( 'width' => 705, 'height' => 705 , 'crop' => false );	// images for fullscreen masonry
 $avia_config['imgSize']['entry_with_sidebar'] 	= array( 'width' => 845, 'height' => 321 );		            	// big images for blog and page entries
 $avia_config['imgSize']['entry_without_sidebar']= array( 'width' => 1210, 'height' => 423 );					// images for fullsize pages and fullsize slider
+$avia_config['imgSize']['portrait_large'] 		= array( 'width' => 1067, 'height' => 1600 );					// tall product images
+$avia_config['imgSize']['portrait_small'] 		= array( 'width' => 600,  'height' => 900 );					// tall product thumbnails
 
 /**
  *
@@ -351,19 +353,17 @@ $avia_config['font_icons'] = apply_filters( 'avf_default_icons', array(
 /**
  * will be registered in function avia_nav_menus()
  *
- * 'plain' was added, because WP customizer does not support HTML
+ * HTML tags were removed, because WP customizer and Menus do not support HTML
  */
 $avia_config['nav_menus'] = array(
 							'avia'	=> array(
 										'html'	=> __( 'Main Menu', 'avia_framework' )
 										),
 							'avia2'	=> array(
-										'html'	=> __( 'Secondary Menu', 'avia_framework' ) . ' <br/><small>(' . __( 'Will be displayed if you selected a header layout that supports a submenu', 'avia_framework' ) . ' <a target="_blank" href="' . admin_url( '?page=avia#goto_header' ) . '">' . __( 'here', 'avia_framework' ) . '</a>)</small>',
-										'plain'	=> __( 'Secondary Menu - will be displayed if you selected a header layout that supports a submenu', 'avia_framework')
+										'html'	=> __( 'Secondary Menu - will be displayed if you selected a header layout that supports a submenu', 'avia_framework')
 										),
 							'avia3'	=> array(
-										'html'	=> __( 'Footer Menu <br/><small>(no dropdowns)</small>', 'avia_framework' ),
-										'plain'	=> __( 'Footer Menu (no dropdowns)', 'avia_framework' )
+										'html'	=> __( 'Footer Menu (no dropdowns)', 'avia_framework' )
 										)
 									);
 

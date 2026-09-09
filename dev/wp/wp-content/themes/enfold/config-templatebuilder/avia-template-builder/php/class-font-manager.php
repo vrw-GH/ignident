@@ -225,10 +225,10 @@ if( ! class_exists( 'avia_font_manager', false ) )
 			check_ajax_referer( 'avia_nonce_save_backend' );
 
 			//check if capability is ok
-			$cap = apply_filters( 'avf_file_upload_capability', 'update_plugins' );
+			$cap = avia_file_upload_capability( 'typefont' );
 			if( ! current_user_can( $cap) )
 			{
-				exit( __( "Using this feature is reserved for Super Admins. You unfortunately don't have the necessary permissions.", 'avia_framework' ) );
+				exit( __( "You do not have the required permissions to use this feature.", 'avia_framework' ) );
 			}
 
 			//get the file path of the zip file
@@ -270,10 +270,10 @@ if( ! class_exists( 'avia_font_manager', false ) )
 			check_ajax_referer( 'avia_nonce_save_backend' );
 
 			//check if capability is ok
-			$cap = apply_filters( 'avf_file_upload_capability', 'update_plugins' );
+			$cap = avia_file_upload_capability( 'typefont' );
 			if( ! current_user_can( $cap) )
 			{
-				exit( __( "Using this feature is reserved for Super Admins. You unfortunately don't have the necessary permissions.", 'avia_framework' ) );
+				exit( __( "You do not have the required permissions to use this feature.", 'avia_framework' ) );
 			}
 
 			//get the file path of the zip file

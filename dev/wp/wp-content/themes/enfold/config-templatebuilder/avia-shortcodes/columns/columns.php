@@ -150,11 +150,13 @@ if( ! class_exists( 'avia_sc_columns', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']			= '1/1';
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-full.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-full.svg';
 			$this->config['tab']			= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']			= 100;
 			$this->config['target']			= 'avia-section-drop';
 			$this->config['shortcode']		= 'av_one_full';
+			//	the frame around other elements, so no icon and name of its own - see prepare_editor_element()
+			$this->config['alb_head']		= false;
 			$this->config['html_renderer']	= false;
 			$this->config['tooltip']		= __( 'Creates a single full width column', 'avia_framework' );
 			$this->config['drag-level']		= 2;
@@ -1294,7 +1296,7 @@ if( ! class_exists( 'avia_sc_columns', false ) )
 				switch( avia_sc_columns::$first_atts['mobile_column_order'] )
 				{
 					case 'reverse':
-					case 'individual';
+					case 'individual':
 						$classes = array( 'av-mobile-columns-flex', 'av-columns-' . avia_sc_columns::$first_atts['mobile_column_order'] );
 						$element_styling->add_classes( 'flex-column-table', $classes );
 						$element_styling->add_classes( 'flex-column-wrapper', $classes );
@@ -2269,7 +2271,7 @@ if ( ! class_exists( 'avia_sc_columns_one_half', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '1/2';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-half.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-half.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 90;
 			$this->config['target']		= 'avia-section-drop';
@@ -2301,7 +2303,7 @@ if ( ! class_exists( 'avia_sc_columns_one_third', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '1/3';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-third.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-third.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 80;
 			$this->config['target']		= 'avia-section-drop';
@@ -2332,7 +2334,7 @@ if ( ! class_exists( 'avia_sc_columns_two_third', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '2/3';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-two_third.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-two_third.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 70;
 			$this->config['target']		= 'avia-section-drop';
@@ -2363,7 +2365,7 @@ if ( ! class_exists( 'avia_sc_columns_one_fourth', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '1/4';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-fourth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-fourth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 60;
 			$this->config['target']		= 'avia-section-drop';
@@ -2394,7 +2396,7 @@ if ( ! class_exists( 'avia_sc_columns_three_fourth', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '3/4';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-three_fourth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-three_fourth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 50;
 			$this->config['target']		= 'avia-section-drop';
@@ -2425,7 +2427,7 @@ if ( ! class_exists( 'avia_sc_columns_one_fifth', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '1/5';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-fifth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-fifth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 40;
 			$this->config['target']		= 'avia-section-drop';
@@ -2456,7 +2458,7 @@ if ( ! class_exists( 'avia_sc_columns_two_fifth', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '2/5';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-two_fifth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-two_fifth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 39;
 			$this->config['target']		= 'avia-section-drop';
@@ -2487,7 +2489,7 @@ if ( ! class_exists( 'avia_sc_columns_three_fifth', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '3/5';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-three_fifth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-three_fifth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 38;
 			$this->config['target']		= 'avia-section-drop';
@@ -2518,7 +2520,7 @@ if ( ! class_exists( 'avia_sc_columns_four_fifth', false ) )
 		protected function shortcode_insert_button()
 		{
 			$this->config['name']		= '4/5';
-			$this->config['icon']		= AviaBuilder::$path['imagesURL'] . 'sc-four_fifth.png';
+			$this->config['icon']		= AviaBuilder::$path['iconsURL'] . 'sc-four_fifth.svg';
 			$this->config['tab']		= __( 'Layout Elements', 'avia_framework' );
 			$this->config['order']		= 37;
 			$this->config['target']		= 'avia-section-drop';

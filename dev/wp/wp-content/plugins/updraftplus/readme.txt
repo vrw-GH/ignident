@@ -2,8 +2,8 @@
 Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, aporter, bcrodua
 Tags: backup, database backup, wordpress backup, cloud backup, migration
 Requires at least: 3.2
-Tested up to: 6.9
-Stable tag: 1.26.2
+Tested up to: 7.1
+Stable tag: 1.26.7
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -178,6 +178,56 @@ This problem is probably caused by your account being starved of resources by yo
 The [UpdraftPlus backup blog](https://updraftplus.com/news/) is the best place to learn in more detail about any important changes.
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
+
+= 1.26.7 - 21/Aug/2026 =
+
+* SECURITY: Restoration now requires provision of a nonce, and not only the epoch-second timestamp of a backup. This prevents an insider threat in which a previous administrator who has been removed from a site could seek to persuade a logged-in current administrator to follow a link to restore a backup which he had previous knowledge of. Thanks to Jashid Sany for raising this issue (via WPScan).
+* TWEAK: In UpdraftPlus Premium, for scheduled monthly backups, change the behaviour to backup on the chosen day every month (better matching user expectation).
+* TWEAK: UpdraftClone no longer supports clones launched with PHP 5.4 or 5.5.
+
+= 1.26.6 - 23/Jul/2026 =
+
+* FEATURE: Upon plugin deactivation, a popup will appear with data removal options, enabling users to opt-in to deleting saved data.
+* FIX: "Unattached" media filter lists attached images when no unattached items exist
+* TWEAK: Added Burst Statistics to TeamUpdraft family admin notices.
+* TWEAK: Create a better UX for free users around premium remote storage locations
+* TWEAK: Prefer http_get_last_response_headers() (PHP 8.4+) to avoid PHP 8.5 deprecation warnings for $http_response_header.
+* TWEAK: Replace the calls to the native PHP 'unserialize()' function in the Google Drive and HTTP_Request2 libraries.
+
+= 1.26.5 - 05/Jun/2026 =
+
+* SECURITY: Previous versions contained a defect allowing sites with an active Migrator key (paid versions only) or UpdraftCentral key (free and paid versions) to have unauthorised operations carried out on them. All users should update immediately.
+* TWEAK: Added explicit HTTP timeout of 60 seconds to pCloud chunk upload requests to prevent cURL error 28 on slow server connections 
+* TWEAK: Guard curl_close(), finfo_close() and xml_parser_free() calls with a PHP version check to prevent deprecation warnings on PHP 8.5+
+* TWEAK: Update the bundled common-libs version
+* TWEAK: Replace all usages of wpdb::esc_like() with UpdraftPlus_Database_Utility::esc_like() across the codebase to maintain consistency.
+* TWEAK: Add "auto-backup before update" tour guide
+
+= 1.26.4 - 07/May/2026 =
+
+* FIX: In version 1.26.2, a regression prevented the backup schedule, including the day name or number, as well as backup entity exclusion rules, from being saved.
+* TWEAK: Alert users who wrongly enter URLs instead of an actual hostname for SFTP and FTP remote storage.
+* TWEAK: Updated DreamObjects endpoints by removing the deprecated objects-us-west-1, marking objects-us-east-1.dream.io as unavailable (Nov. 12th, 2025), and adding admin notices to inform users of this change.
+* TWEAK: get_structured_data() now accepts params to avoid timeouts.
+
+= 1.26.3 - 23/Apr/2026 =
+
+* FEATURE: Implemented enhanced streaming extraction for large files during restoration to handle cases where the file size exceeds the PHP memory limit.
+* FIX: Fix users role filter empty state shows generic “Failed to Fetch Data” error.
+* FIX: Fixed backup failures on tables with invisible columns and large data volumes.
+* FIX: Unable to uncheck all categories on post in UDC dashboard
+* TWEAK: Added a new internal command to get given plugins' installation info.
+* TWEAK: Ensure autobackup notice is always a string to prevent PHP 8.1+ deprecation in wp_kses()
+* TWEAK: Fix the JS errors that occur when deleting the last generated UDC keys.
+* TWEAK: Implemented adjustments for UI misalignment issues caused by the WordPress 7 visual design refresh across the admin dashboard. The plugin's interface now aligns correctly with the updated design standards.
+* TWEAK: Prevent broken settings pages in other plugins in multisite when UpdraftPlus is active due to modified menu URLs.
+* TWEAK: Update all links in the addons folder to use teamupdraft.com instead of updraftplus.com.
+* TWEAK: Replaced esc_html_e() with esc_html__() where string concatenation was silently discarding the colon separator in SFTP connection failure message and noscript JavaScript warning notice
+* TWEAK: Switched to native phpseclib API/function for Dropbox token decryption, replacing deprecated mcrypt_decrypt since PHP 7.1 and removed in PHP 7.2.
+* TWEAK: Clear out PHP "Undefined offset" notice that occurred while restoring a backup of single site to multisite. It happened during the search-replace operation due to the absence of the users and usermeta tables.
+* TWEAK: Enhance the unzip file function to handle more folder inclusion/exclusion
+* TWEAK: Update all links in the methods folder to use teamupdraft.com instead of updraftplus.com.
+* TWEAK: Add post status and date fields to get_posts API response for UDC
 
 = 1.26.2 - 03/Mar/2026 =
 
@@ -2131,4 +2181,4 @@ Non-English translators are provided by volunteers, and wordpress.org does not g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.26.2: PHP 8.5 support for UpdraftClone, various fixes and small tweaks for PHP 8.0+ - see the changelog for details. A recommended update for all.
+* 1.26.7: Hardened backup restoration against misuse, plus various fixes and small tweaks - see the changelog for details. A recommended update for all; please update immediately.

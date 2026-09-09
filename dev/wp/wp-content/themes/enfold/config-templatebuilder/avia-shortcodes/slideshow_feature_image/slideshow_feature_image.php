@@ -66,10 +66,12 @@ if( ! class_exists( 'avia_sc_featureimage_slider', false ) )
 
 			$this->config['name']			= __( 'Featured Image Slider', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-postslider.png';
-			$this->config['order']			= 30;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-featured-image-slider.svg';
+			$this->config['order']			= 65;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_feature_image_slider';
+			//	the canvas names which categories it draws from - see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => 'link' );
 			$this->config['tooltip']		= __( 'Display a Slideshow of featured images from various posts', 'avia_framework' );
 			$this->config['drag-level']		= 3;
 			$this->config['preview']		= 0;

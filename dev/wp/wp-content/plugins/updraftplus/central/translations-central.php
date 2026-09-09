@@ -1,8 +1,7 @@
 <?php
 // phpcs:disable WordPress.WP.I18n.NonSingularStringLiteralDomain 
 
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 // Translations for UpdraftCentral
 return array(
@@ -120,4 +119,5 @@ return array(
 	'command_not_allowed' => __('You are not allowed to run this command.', 'updraftplus'),
 	'command_not_found' => __('The command is either not found or not allowed.', 'updraftplus'),
 	'network_admin_only' => __('The command can only be executed by a network admin.', 'updraftplus'),
+	'create_key'            => __('Create key', 'updraftplus'),
 );

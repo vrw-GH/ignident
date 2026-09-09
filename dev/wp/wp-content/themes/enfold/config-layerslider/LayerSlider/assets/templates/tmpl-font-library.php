@@ -90,7 +90,7 @@
 				<?= lsGetSVGIcon( 'face-monocle', 'duotone' ) ?>
 			</div>
 			<div class="not-found-main-text">
-				<?= __('Can’t find any fonts.', 'LayerSlider') ?>
+				<?= __('Can’t Find Any Fonts', 'LayerSlider') ?>
 			</div>
 			<div class="not-found-sub-text">
 				<?= __('Try a different search term.', 'LayerSlider') ?>

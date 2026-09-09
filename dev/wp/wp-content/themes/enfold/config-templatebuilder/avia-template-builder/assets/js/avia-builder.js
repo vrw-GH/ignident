@@ -37,6 +37,452 @@ function avia_log( text, type )
 		console.log("["+type+"] " +text);
 	}
 }
+/**
+ * Redraws the list of items an element holds, from the element's own content.
+ *
+ * The names belong to the items, and the items are nested shortcodes inside the content - so this
+ * reads them out of it rather than out of a field. Which tag to look for, which of its attributes
+ * carries the name, how many to show and the wording for an unnamed item and for the rest all come
+ * from the markup, written there by editor_element_items() in PHP. That is what keeps this and the
+ * page load drawing the same thing, and leaves the two bits of wording where they are translated.
+ *
+ * Returns null when it can make nothing of the content, so the caller can leave the list alone
+ * instead of replacing it with something worse.
+ *
+ * @since 8.0
+ */
+function avia_repeat_update_html( el, content )
+{
+	try
+	{
+		var tag = el.data( 'update_tag' ),
+			attribute = el.data( 'update_attr' ),
+			template = el.data( 'update_repeat' ) + '',
+			limit = parseInt( el.data( 'update_limit' ), 10 ) || 0,
+			empty_label = el.data( 'update_empty' ) || '',
+			rest_label = el.data( 'update_rest' ) || '';
+
+		if( ! tag || ! attribute || ! content )
+		{
+			return null;
+		}
+
+		/*
+		 * Only the opening tags are of interest, and only what stands between the brackets. The builder
+		 * writes attribute values in single quotes and turns any quote inside one into a curly quote
+		 * before it ever gets here, so nothing in a value can close it early.
+		 */
+		var opening = new RegExp( '\\[' + tag + '(\\s[^\\]]*)?\\]' ),
+			reader = new RegExp( '\\b' + attribute + "\\s*=\\s*(?:'([^']*)'|\"([^\"]*)\")" ),
+			escape = jQuery( '<i></i>' ),
+			blobs = [],
+			html = '',
+			total = 0,
+			shown = 0;
+
+		/*
+		 * The value arrives one way when the element keeps its items as one run of content, and another
+		 * when they come from a modal group, which hands over one entry per item. Both are reduced to a
+		 * list of attribute strings here so the rest of this does not need to know which it was.
+		 */
+		if( 'string' == typeof content )
+		{
+			var walker = new RegExp( opening.source, 'g' ),
+				found;
+
+			while( null !== ( found = walker.exec( content ) ) )
+			{
+				blobs.push( found[1] || '' );
+			}
+		}
+		else
+		{
+			jQuery.each( content, function( index, one )
+			{
+				var found = opening.exec( one + '' );
+				blobs.push( found ? ( found[1] || '' ) : '' );
+			});
+		}
+
+		for( var i = 0; i < blobs.length; i++ )
+		{
+			total ++;
+
+			if( limit && ( shown >= limit ) )
+			{
+				continue;
+			}
+
+			var value = reader.exec( blobs[i] ),
+				label = value ? ( ( value[1] || value[2] || '' ) + '' ).replace( /^\s+|\s+$/g, '' ) : '';
+
+			//	an unnamed item is still an item - it is counted and shown, with a number for a name
+			if( '' === label )
+			{
+				label = ( empty_label + '' ).replace( '%d', total );
+			}
+			else if( el.data( 'update_humanize' ) )
+			{
+				//	'post_date' is what the setting stores, "Post Date" is what a reader wants - see the same in PHP
+				label = label.replace( /[_-]+/g, ' ' ).replace( /(^|\s)([a-z])/g, function( m, sp, ch ){ return sp + ch.toUpperCase(); } );
+			}
+
+			if( label.length > 42 )
+			{
+				label = label.substring( 0, 41 ) + '\u2026';
+			}
+
+			html += template.replace( '{{' + attribute + '}}', escape.text( label ).html() );
+			shown ++;
+		}
+
+		if( 0 === shown )
+		{
+			return null;
+		}
+
+		var rest = total - shown;
+
+		if( ( rest > 0 ) && ( '' !== rest_label ) )
+		{
+			html += '<span class="avia-element-items-rest">' + escape.text( ( rest_label + '' ).replace( '%d', rest ) ).html() + '</span>';
+		}
+
+		return html;
+	}
+	catch( err )
+	{
+		return null;
+	}
+}
+
+/**
+ * Names the categories an element draws from, read out of the dropdown they were chosen in.
+ *
+ * The value is a list of ids, and on its own it says nothing - but the element window that produced it
+ * is still on screen, with every name in it. So the names are taken from there. Nothing is fetched, and
+ * the page carries no list of every category on the site for the sake of a line of text.
+ *
+ * Two shapes arrive here, as in PHP: bare ids, or a link picker's taxonomy followed by them. A leading
+ * part that is not a number is that taxonomy, and is dropped.
+ *
+ * Returns null when the dropdown cannot be found, so the caller leaves what is on the canvas alone
+ * rather than replacing names with numbers.
+ *
+ * @since 8.0
+ */
+/**
+ * Names the entry an element points at, and links to where it is edited.
+ *
+ * The stored value is the post type and the id - "alb_custom_layout,302" - which is what would otherwise
+ * land on the canvas the moment a different entry is picked, name and link gone until the page was
+ * loaded again. The name is read from the picker the choice was just made in, exactly as the categories
+ * are, so nothing is fetched.
+ *
+ * The picker writes its own marker after the name of an entry built with the layout builder. It belongs
+ * in the dropdown, where it says which entries carry a layout, and not on the canvas - so it is dropped.
+ *
+ * Returns null when the picker or the name cannot be found, leaving what is on the canvas alone rather
+ * than replacing a name with the value behind it.
+ *
+ * @since 8.0
+ */
+function avia_entry_update_html( el, value )
+{
+	try
+	{
+		var key = el.data( 'update_entry' ),
+			url_pattern = el.data( 'update_edit_url' ) || '',
+			type_labels = el.data( 'update_type_labels' ) || {},
+			escape = jQuery( '<i></i>' );
+
+		if( ! key )
+		{
+			return null;
+		}
+
+		var parts = ( value + '' ).split( ',' ),
+			post_type = ( parts[0] + '' ).replace( /^\s+|\s+$/g, '' ),
+			id = parts.length > 1 ? ( parts[1] + '' ).replace( /^\s+|\s+$/g, '' ) : '';
+
+		//	nothing chosen, or set to a manual link rather than an entry - the element says so itself
+		if( '' === id || isNaN( id ) )
+		{
+			return '';
+		}
+
+		var field = jQuery( '.avia-modal' ).find( 'select[name="aviaTB' + key + '"]' ).last(),
+			option = field.length ? field.find( 'option[value="' + id + '"]' ) : jQuery();
+
+		if( ! option.length )
+		{
+			return null;
+		}
+
+		//	"Some layout -- (Layout Builder content)" - the marker is for the dropdown, not for the canvas
+		var name = option.text().replace( /\s+--\s+\([^)]*\)\s*$/, '' ).replace( /^\s+|\s+$/g, '' );
+
+		if( '' === name )
+		{
+			return null;
+		}
+
+		var label = type_labels[ post_type ] || post_type,
+			html = escape.text( name ).html() + " <span class='av-postcontent-type'>(" + escape.text( label ).html() + ')</span>';
+
+		if( url_pattern )
+		{
+			var url = ( url_pattern + '' ).replace( '%d', id );
+
+			html = "<a class='av-postcontent-edit' href='" + url + "' target='_blank' rel='noopener noreferrer'>" + html + '</a>';
+		}
+
+		return "<span class='av-postcontent-headline'>" + html + '</span>';
+	}
+	catch( e )
+	{
+		return null;
+	}
+}
+
+function avia_terms_update_html( el, value )
+{
+	try
+	{
+		var key = el.data( 'update_terms' ),
+			template = el.data( 'update_repeat' ) + '',
+			limit = parseInt( el.data( 'update_limit' ), 10 ) || 0,
+			rest_label = el.data( 'update_rest' ) || '',
+			escape = jQuery( '<i></i>' );
+
+		if( ! key )
+		{
+			return null;
+		}
+
+		var field = jQuery( '.avia-modal' ).find( '[name="aviaTB' + key + '"], [name="aviaTB' + key + '[]"], #aviaTB' + key );
+
+		if( ! field.length )
+		{
+			return null;
+		}
+
+		var raw = ( 'object' == typeof value && null !== value ) ? value : ( value + '' ).split( ',' ),
+			ids = [];
+
+		jQuery.each( raw, function( index, one )
+		{
+			one = ( one + '' ).replace( /^\s+|\s+$/g, '' );
+
+			if( '' !== one && ! isNaN( one ) )
+			{
+				ids.push( one );
+			}
+		});
+
+		var html = '',
+			shown = 0,
+			named = 0;
+
+		jQuery.each( ids, function( index, id )
+		{
+			//	the picker may hold the taxonomy in front of the id, so an exact match is tried first
+			var option = field.find( 'option[value="' + id + '"]' );
+
+			if( ! option.length )
+			{
+				option = field.find( 'option[value$=",' + id + '"]' );
+			}
+
+			if( ! option.length )
+			{
+				return;
+			}
+
+			named ++;
+
+			if( limit && ( shown >= limit ) )
+			{
+				return;
+			}
+
+			var label = jQuery.trim( option.first().text() );
+
+			if( label.length > 42 )
+			{
+				label = label.substring( 0, 41 ) + '\u2026';
+			}
+
+			html += template.replace( '{{' + key + '}}', escape.text( label ).html() );
+			shown ++;
+		});
+
+		var rest = named - shown;
+
+		if( ( rest > 0 ) && ( '' !== rest_label ) )
+		{
+			html += '<span class="avia-element-items-rest">' + escape.text( ( rest_label + '' ).replace( '%d', rest ) ).html() + '</span>';
+		}
+
+		return html;
+	}
+	catch( err )
+	{
+		return null;
+	}
+}
+
+/**
+ * Redraws the thumbnails of an element made of pictures.
+ *
+ * What arrives is a list of attachment ids, which say nothing on their own. Two places are asked for
+ * the picture behind each one, and neither is the server:
+ *
+ *		- the media library's own store, which keeps every attachment picked during this visit, so an
+ *		  image chosen a moment ago is already there in every size it has
+ *		- the row itself, which still holds the thumbnails drawn when the page was loaded, and is the
+ *		  answer for pictures that were there all along and were never picked again
+ *
+ * An id neither knows is left out rather than drawn as a broken frame. If none of them can be found
+ * the row is left exactly as it was, which is worse than right but better than empty - except when the
+ * element genuinely holds nothing now, where empty is the truth.
+ *
+ * @since 8.0
+ */
+function avia_images_update_html( el, value )
+{
+	try
+	{
+		var limit = parseInt( el.data( 'update_limit' ), 10 ) || 0,
+			rest_label = el.data( 'update_rest' ) || '',
+			tag = el.data( 'update_tag' ),
+			attribute = el.data( 'update_attr' ),
+			escape = jQuery( '<i></i>' ),
+			ids = [];
+
+		if( tag && attribute )
+		{
+			/*
+			 * One picture per nested shortcode. The value arrives either as one run of content or as an
+			 * entry per item, the same two shapes the item names arrive in.
+			 */
+			var opening = new RegExp( '\\[' + tag + '(\\s[^\\]]*)?\\]' ),
+				reader = new RegExp( '\\b' + attribute + "\\s*=\\s*(?:'([^']*)'|\"([^\"]*)\")" ),
+				chunks = ( 'string' == typeof value ) ? ( value + '' ).split( opening.source ) : value;
+
+			if( 'string' == typeof value )
+			{
+				var walker = new RegExp( opening.source, 'g' ),
+					found;
+
+				while( null !== ( found = walker.exec( value ) ) )
+				{
+					var hit = reader.exec( found[1] || '' );
+
+					if( hit )
+					{
+						ids.push( ( hit[1] || hit[2] || '' ) + '' );
+					}
+				}
+			}
+			else
+			{
+				jQuery.each( value, function( index, one )
+				{
+					var open = opening.exec( one + '' );
+
+					if( ! open )
+					{
+						return;
+					}
+
+					var hit = reader.exec( open[1] || '' );
+
+					if( hit )
+					{
+						ids.push( ( hit[1] || hit[2] || '' ) + '' );
+					}
+				});
+			}
+		}
+		else
+		{
+			var raw = ( 'object' == typeof value && null !== value ) ? value : ( value + '' ).split( ',' );
+
+			jQuery.each( raw, function( index, one )
+			{
+				ids.push( ( one + '' ).replace( /^\s+|\s+$/g, '' ) );
+			});
+		}
+
+		//	ids only - anything else is not a picture
+		ids = jQuery.grep( ids, function( one ){ return '' !== one && ! isNaN( one ); } );
+
+		var known = {};
+
+		el.find( 'img[data-id]' ).each( function()
+		{
+			known[ jQuery( this ).data( 'id' ) + '' ] = this.getAttribute( 'src' );
+		});
+
+		var html = '',
+			shown = 0,
+			resolved = 0;
+
+		jQuery.each( ids, function( index, id )
+		{
+			if( limit && ( shown >= limit ) )
+			{
+				return;
+			}
+
+			var src = known[ id ] || null;
+
+			if( ! src && ( 'undefined' != typeof wp ) && wp.media && wp.media.attachment )
+			{
+				var sizes = wp.media.attachment( id ).get( 'sizes' );
+
+				if( sizes && sizes.thumbnail && sizes.thumbnail.url )
+				{
+					src = sizes.thumbnail.url;
+				}
+				else
+				{
+					src = wp.media.attachment( id ).get( 'url' ) || null;
+				}
+			}
+
+			if( ! src )
+			{
+				return;
+			}
+
+			resolved ++;
+			shown ++;
+			html += '<img src="' + escape.text( src ).html() + '" data-id="' + escape.text( id ).html() + '" alt="" />';
+		});
+
+		//	nothing recognised out of something - keep what is on screen rather than emptying the row
+		if( ids.length && ! resolved )
+		{
+			return null;
+		}
+
+		var rest = ids.length - shown;
+
+		if( ( rest > 0 ) && ( '' !== rest_label ) )
+		{
+			html += '<span class="avia-element-items-rest">' + escape.text( ( rest_label + '' ).replace( '%d', rest ) ).html() + '</span>';
+		}
+
+		return html;
+	}
+	catch( err )
+	{
+		return null;
+	}
+}
+
 //global newline helper
 function avia_nl2br (str, is_xhtml)
 {
@@ -277,20 +723,17 @@ function avia_isNumeric( obj )
 					init_trigger = obj.sort_button_wrap.data( 'init_sort' ),
 					sort_link = current.find( 'a' ),
 					sorting = sort_link.data( 'sorting' ),
-					sorting_title = sort_link.attr( 'title' ),
 					sort_list_label = obj.sort_button_wrap.find( '.avia-sort-list-label' ),
-                    block_expand_support = $('body').is('.avia-block-editor-expand.block-editor-page'),
-                    builder_expanded = $('.avia-expanded').length,
-                    shortcode_wrap = block_expand_support && builder_expanded ? $('.avia-fixed-controls .shortcode_button_wrap') : obj.shortcode_wrap,
-					shortcode_buttons = shortcode_wrap.find('.shortcode_insert_button');
+					shortcode_buttons = obj.shortcode_wrap.find('.shortcode_insert_button');
 
                 // the class has to be removed in order reactive dragging, check ~ line 1074 ~
                 shortcode_buttons.removeClass('ui-draggable');
 
-				if( 'string' == typeof sorting_title )
-				{
-					obj.sort_button_wrap.attr( 'title', sorting_title );
-				}
+				/*
+				 * No title on the trigger. It described the sorting back when the trigger was a wide
+				 * dropdown with no hint of its own - now the trigger is an icon that carries one, and a
+				 * title beside it means the browser draws its own tooltip next to ours on every hover.
+				 */
 
 				if( sort_link.hasClass( 'sort_active' ) && sorting == init_trigger )
 				{
@@ -308,8 +751,8 @@ function avia_isNumeric( obj )
 					return false;
 				}
 
-				obj.activate_element_dragging( shortcode_wrap, '' );
-				shortcode_wrap.trigger( 'avia_shortcode_buttons_sorted' );
+				obj.activate_element_dragging( obj.shortcode_wrap, '' );
+				obj.shortcode_wrap.trigger( 'avia_shortcode_buttons_sorted' );
 
 				var senddata = {
 							action: 'avia_alb_shortcode_buttons_order',
@@ -395,6 +838,21 @@ function avia_isNumeric( obj )
 			{
 				obj.shortcodes.setCellSize(this, obj);
 				return false;
+			});
+
+			/*
+			 * A link inside an element opens what it points at, and nothing else.
+			 *
+			 * The body of an element on the canvas carries avia-edit-element, which is what opens the
+			 * modal when it is clicked - so a link within it would follow itself and open the element
+			 * for editing in the same breath. Bound on the canvas rather than on the body, because the
+			 * handler that opens the modal is on the body: this one has to see the click first.
+			 *
+			 * @since 8.0
+			 */
+			this.canvas.on( 'click', 'a.av-postcontent-edit, a.avia-element-link', function( e )
+			{
+				e.stopPropagation();
 			});
 
 
@@ -832,10 +1290,7 @@ function avia_isNumeric( obj )
 
 		sort_shortcode_buttons: function( sort_order )
 		{
-			var block_expand_support = $('body').is('.avia-block-editor-expand.block-editor-page'),
-                builder_expanded = $('.avia-expanded').length,
-                shortcode_wrap = block_expand_support && builder_expanded ? $('.avia-fixed-controls .shortcode_button_wrap') : this.shortcode_wrap,
-                tabs = shortcode_wrap.find( '.avia-tab' );
+			var tabs = this.shortcode_wrap.find( '.avia-tab' );
 
 			tabs.each( function( i ) {
 						var tab = $(this);
@@ -1043,6 +1498,20 @@ function avia_isNumeric( obj )
 		// main interface drag and drop implementation
 		// ------------------------------------------------------------------------------------------------------------
 
+		/**
+		 * Where draggable things are looked for when no scope is passed in.
+		 *
+		 * The element buttons used to sit inside the metabox and were reached along with the canvas.
+		 * The sidebar layout takes the panel out to <body> so it can be pinned to the viewport, which
+		 * puts the buttons out of that reach and leaves them with no drag behaviour at all. Naming the
+		 * panel here covers both layouts - in the toolbar layout it is still inside the metabox, and
+		 * adding it changes nothing.
+		 */
+		default_drag_scope: function()
+		{
+			return this.canvasParent.add( this.shortcode_wrap );
+		},
+
 		activate_element_dragging: function(passed_scope, exclude)
 		{
 			// temp fix for ui.draggable version 1.10.3 which positions element wrong. 1.11 contains the fix
@@ -1057,19 +1526,35 @@ function avia_isNumeric( obj )
 
 			//drag
 			var obj		= this,
-				scope  	= passed_scope || this.canvasParent,
+				scope  	= passed_scope || this.default_drag_scope(),
 				params 	=
 				{
 					appendTo: this.builder_drag_drop_container,
 					handle: '>.menu-item-handle:not( .av-no-drag-drop .menu-item-handle )',
 					helper: "clone",
-					scroll: true,
+					/*
+					 * jQuery UI scrolls the scroll parent of the element being dragged. For an element
+					 * button that is the side panel, so holding one against the bottom of the screen
+					 * scrolled the panel and never the page. autoscroll_* below drives the box the
+					 * canvas actually sits in instead.
+					 */
+					scroll: false,
 					cancel: '#aviaLayoutBuilder .avia_sorthandle a, input, textarea, button, select, option',
 					zIndex: 20000, /*must be bigger than fullscreen overlay in fixed pos*/
 					cursorAt: { left: 20 },
 					start: function( event, ui )
 					{
-						var current = $(event.target);
+						/**
+						 * The dragged element itself, not whatever was under the cursor.
+						 *
+						 * event.target is the deepest node the press landed on. The element buttons draw
+						 * their icon with an inline svg, so that is a shape inside the icon rather than
+						 * the button - and the drag level, which decides where the element may be
+						 * dropped, is an attribute of the button. Reading it from the shape gives
+						 * undefined, the canvas is then marked for a level that has no rules, and no drop
+						 * zone lights up anywhere.
+						 */
+						var current = $(this);
 
 						//	Do not allow drag drop when editing custom elements or item element
 						var container = current.closest( '.shortcode_button_wrap' );
@@ -1087,18 +1572,39 @@ function avia_isNumeric( obj )
 						//add a class to the container element that highlights all possible drop targets
 						obj.canvas.addClass('avia-select-target-' + current.data('dragdrop-level'));
 
+						var instance = current.draggable( 'instance' );
 
+						/**
+						 * Make jQuery UI re-read where the helper's container is on every move.
+						 *
+						 * It measures that once when the drag begins and then trusts it. On <body> that
+						 * holds, but the block editor parents the helper into its own metabox area
+						 * instead (see avia_gutenberg.js), and that box travels with the region as it
+						 * scrolls - so the measurement goes stale and the helper ends up exactly the
+						 * scrolled distance away from the cursor. This flag is jQuery UI's own way of
+						 * saying "the container moves", so it re-reads it as it goes.
+						 */
+						if( instance && instance.helper && instance.helper.parent()[0] !== document.body )
+						{
+							instance.hasFixedAncestor = true;
+						}
+
+						obj.autoscroll_start( instance );
 					},
 
 					drag: function(event,ui)
 					{
       					if(fix_active) ui.position.top -=  parseInt($win.scrollTop());
+
+						obj.autoscroll_track( event );
 					},
 
 					stop: function(event, ui )
 					{
-						//return opacity of element to normal
-						$(event.target).css({opacity:1});
+						obj.autoscroll_stop();
+
+						//return opacity of element to normal - same element that was dimmed in start
+						$(this).css({opacity:1});
 
 						//remove hover class from all elements
 						$('.avia-hover-active').removeClass('avia-hover-active');
@@ -1115,6 +1621,196 @@ function avia_isNumeric( obj )
 			params.cursorAt = { left: 33, top:33 };
 			params.handle   = false;
 			scope.find('.shortcode_insert_button').not('.ui-draggable, .av-shortcode-disabled').draggable(params);
+		},
+
+
+		// ------------------------------------------------------------------------------------------------------------
+		// scrolling the canvas while an element is dragged towards the edge of it
+		// ------------------------------------------------------------------------------------------------------------
+
+		//	how far from the edge scrolling begins, and how fast it goes right at the edge
+		autoscroll_band: 70,
+		autoscroll_max_speed: 24,
+
+		/**
+		 * The box the canvas scrolls in.
+		 *
+		 * Which element that is depends on the editor - the block editor scrolls a region of its
+		 * own, the classic editor scrolls the page - and the block editor has renamed it more than
+		 * once. Walking up from the canvas finds whichever it currently is without naming any of
+		 * them, and starting at the canvas rather than at the dragged element is the whole point:
+		 * the element may well be a button in the side panel, which scrolls too and is never what
+		 * should move.
+		 *
+		 * @returns {HTMLElement}
+		 */
+		find_canvas_scroll_container: function()
+		{
+			var canvas = this.canvas.length ? this.canvas.get(0) : null;
+
+			if( ! canvas )
+			{
+				return document.scrollingElement || document.documentElement;
+			}
+
+			var canvas_height = canvas.scrollHeight,
+				node = canvas.parentElement;
+
+			while( node && node !== document.body && node !== document.documentElement )
+			{
+				var style = window.getComputedStyle( node );
+
+				/**
+				 * Room to scroll is not enough on its own to be the right box.
+				 *
+				 * The editor wraps the metaboxes in a box laid out around the whole canvas, which is
+				 * as tall as its contents and so has nowhere to scroll to - but a stray pixel of
+				 * overflow still makes it look scrollable, and driving it moves nothing at all. The
+				 * box worth scrolling is the one the canvas does not fit inside.
+				 */
+				if( /(auto|scroll)/.test( style.overflowY ) &&
+					node.scrollHeight > node.clientHeight + 1 &&
+					node.clientHeight < canvas_height )
+				{
+					return node;
+				}
+
+				node = node.parentElement;
+			}
+
+			return document.scrollingElement || document.documentElement;
+		},
+
+		autoscroll_start: function( draggable )
+		{
+			this.autoscroll = {
+						container:	this.find_canvas_scroll_container(),
+						draggable:	draggable,
+						event:		null,
+						redrawing:	false,
+						pointer:	null,
+						frame:		null
+					};
+		},
+
+		/**
+		 * Remembers where the pointer is and makes sure the loop is running.
+		 *
+		 * Only the position is taken from the event - the scrolling itself is driven by animation
+		 * frames, because a pointer held still against the edge sends no more events and the page
+		 * has to keep moving anyway.
+		 */
+		autoscroll_track: function( event )
+		{
+			var state = this.autoscroll;
+
+			//	this drag step came from the scroll loop itself - it is already scheduling the next one
+			if( ! state || state.redrawing )
+			{
+				return;
+			}
+
+			state.pointer = event.clientY;
+			state.event = event;
+
+			if( null === state.frame )
+			{
+				state.frame = window.requestAnimationFrame( this.autoscroll_step.bind( this ) );
+			}
+		},
+
+		autoscroll_step: function()
+		{
+			var state = this.autoscroll;
+
+			if( ! state || null === state.pointer )
+			{
+				return;
+			}
+
+			state.frame = null;
+
+			var container = state.container,
+				scrolls_page = container === document.scrollingElement || container === document.documentElement,
+				//	the page has no box of its own to read - it is the viewport
+				rect = scrolls_page ? { top: 0, bottom: window.innerHeight } : container.getBoundingClientRect(),
+				/**
+				 * Only the part of the box that is on screen can have an edge dragged to. A scrolling
+				 * region often runs past the bottom of the window, and measuring the band from an edge
+				 * the pointer can never reach means it never starts scrolling.
+				 */
+				box = {
+						top:	Math.max( rect.top, 0 ),
+						bottom:	Math.min( rect.bottom, window.innerHeight )
+					},
+				band = this.autoscroll_band,
+				//	how deep into the edge band the pointer is, so a small overshoot creeps and a
+				//	deliberate one moves - a flat speed either overshoots or feels stuck
+				into_top = band - ( state.pointer - box.top ),
+				into_bottom = band - ( box.bottom - state.pointer ),
+				step = 0;
+
+			if( into_top > 0 )
+			{
+				step = - Math.min( into_top, band ) / band * this.autoscroll_max_speed;
+			}
+			else if( into_bottom > 0 )
+			{
+				step = Math.min( into_bottom, band ) / band * this.autoscroll_max_speed;
+			}
+
+			//	out of both bands - stop, and let the next drag event start it again
+			if( 0 === step )
+			{
+				return;
+			}
+
+			var before = container.scrollTop;
+
+			container.scrollTop = before + step;
+
+			//	nothing moved, so the end is reached and there is no point rearming
+			if( container.scrollTop === before )
+			{
+				return;
+			}
+
+			/**
+			 * The drop targets were measured before this scrolled, so their cached positions are now
+			 * wrong by however far the box moved and the wrong one would light up. Reading them again
+			 * is cheap while the layout is clean, which it is at this point in the frame.
+			 */
+			if( state.draggable && $.ui && $.ui.ddmanager )
+			{
+				$.ui.ddmanager.prepareOffsets( state.draggable, state.event );
+			}
+
+			/**
+			 * Redraw the drag itself against the page in its new position.
+			 *
+			 * Nothing is moving the mouse while it is held at the edge, so jQuery UI gets no events
+			 * and would leave the helper and the highlighted drop target where they were before the
+			 * page moved underneath them. The guard is because this asks jQuery UI to run a drag step,
+			 * which comes back through the drag callback and would otherwise start a second loop.
+			 */
+			if( state.draggable && state.event && ! state.redrawing )
+			{
+				state.redrawing = true;
+				state.draggable._mouseDrag( state.event );
+				state.redrawing = false;
+			}
+
+			state.frame = window.requestAnimationFrame( this.autoscroll_step.bind( this ) );
+		},
+
+		autoscroll_stop: function()
+		{
+			if( this.autoscroll && null !== this.autoscroll.frame )
+			{
+				window.cancelAnimationFrame( this.autoscroll.frame );
+			}
+
+			this.autoscroll = null;
 		},
 
 
@@ -2264,8 +2960,89 @@ function avia_isNumeric( obj )
 								{
 									replace_val = values[visual_key];
 
-									//apply autop to content
-									if(visual_key === "content")
+									/*
+									 * An element that lists the items it holds redraws that list here, from
+									 * the raw value before anything below has touched it - see
+									 * editor_element_items() in class-shortcode-template.php, which draws
+									 * the same markup when the page is loaded.
+									 *
+									 * It reads the content rather than a field of its own, because the names
+									 * belong to the items and the items are the content. Returning null means
+									 * it could make nothing of it, and then the list is left showing what it
+									 * showed before - which is last known good, rather than a row of empty
+									 * boxes or the whole content spilled into it.
+									 */
+									/*
+									 * Categories name themselves from the dropdown they were just chosen
+									 * in - see avia_terms_update_html(). Nothing is fetched: the names are
+									 * already on screen in the element window, so the canvas reads them
+									 * there rather than asking the server what the numbers mean.
+									 */
+									/*
+									 * Pictures come back as numbers, and a number is not a picture - see
+									 * avia_images_update_html(), which turns them back into thumbnails from
+									 * what the media library already knows.
+									 */
+									if( visual_el.data( 'update_images' ) )
+									{
+										var images_html = avia_images_update_html( visual_el, values[visual_key] );
+
+										if( null !== images_html )
+										{
+											visual_el.html( images_html );
+										}
+
+										return;
+									}
+
+									/*
+									 * An entry is stored as its post type and its id, which on its own
+									 * would take the name and the link to it off the canvas - see
+									 * avia_entry_update_html().
+									 */
+									if( visual_el.data( 'update_entry' ) )
+									{
+										var entry_html = avia_entry_update_html( visual_el, values[visual_key] );
+
+										if( null !== entry_html )
+										{
+											visual_el.html( entry_html );
+										}
+
+										return;
+									}
+
+									if( visual_el.data( 'update_terms' ) )
+									{
+										var terms_html = avia_terms_update_html( visual_el, values[visual_key] );
+
+										if( null !== terms_html )
+										{
+											visual_el.html( terms_html );
+										}
+
+										return;
+									}
+
+									if( visual_el.data( 'update_repeat' ) )
+									{
+										var repeat_html = avia_repeat_update_html( visual_el, values[visual_key] );
+
+										if( null !== repeat_html )
+										{
+											visual_el.html( repeat_html );
+										}
+
+										return;
+									}
+
+									/*
+									 * Paragraphs are put back into content on its way to the canvas, because most
+									 * elements show it as the text it will become. An element that shows content
+									 * as it was written wants none of that - a code block asked for a literal
+									 * copy, and running it through autop first hands it back tags it never had.
+									 */
+									if( ( visual_key === "content" ) && ! visual_el.data( 'update_escape' ) )
 									{
 										if(typeof window.switchEditors != 'undefined')
 										{
@@ -2308,6 +3085,17 @@ function avia_isNumeric( obj )
 										if( 'undefined' != typeof data && 'undefined' != typeof data[ replace_val ] )
 										{
 											tmpl_replace_val = data[ replace_val ];
+										}
+
+										/*
+										 * Some values are content, not markup - the Code Block holds whatever the
+										 * user is writing, tags and all. Written straight into the canvas it would
+										 * be parsed as part of the builder, and an unclosed tag there takes the
+										 * page with it. This puts it back to being text.
+										 */
+										if( visual_el.data( 'update_escape' ) )
+										{
+											tmpl_replace_val = $( '<i></i>' ).text( tmpl_replace_val ).html();
 										}
 
 										update_html = visual_template.replace( "{{" + visual_key + "}}", tmpl_replace_val );
@@ -3069,5 +3857,47 @@ function avia_isNumeric( obj )
 		}
 
 	};
+
+
+	/**
+	 * Closing a dismissable note above the builder.
+	 *
+	 * The note is hidden straight away and the request is sent afterwards: the note is
+	 * advice, so a failed save is not worth interrupting the user for - it simply comes
+	 * back on the next page load.
+	 */
+	$( document ).on( 'click', '.av-builder-note-dismiss', function( e )
+	{
+		e.preventDefault();
+
+		var button = $( this ),
+			note = button.closest( '.av-builder-note' ),
+			key = note.data( 'av-note-key' );
+
+		note.slideUp( 200, function()
+		{
+			note.remove();
+		});
+
+		if( ! key )
+		{
+			return;
+		}
+
+		$.ajax(
+		{
+			type: 'POST',
+			url: ajaxurl,
+			data:
+			{
+				action: 'avia_dismiss_builder_note',
+				note_key: key,
+				//	without this the builder returns early on an ajax request and never
+				//	registers its admin hooks, so the handler for this action is missing
+				avia_request: true,
+				_ajax_nonce: $( '#avia-loader-nonce' ).val()
+			}
+		});
+	});
 
 })(jQuery);

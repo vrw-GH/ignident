@@ -56,11 +56,13 @@ if( ! class_exists( 'avia_sc_headline_rotator', false ) )
 
 			$this->config['name']			= __( 'Headline Rotator', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-heading.png';
-			$this->config['order']			= 83;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-headline-rotator.svg';
+			$this->config['order']			= 96;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_headline_rotator';
 			$this->config['shortcode_nested'] = array( 'av_rotator_item' );
+			//	the canvas names the phrases it rotates through so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_rotator_item', 'attr' => 'title', 'before' => 'before_rotating', 'after' => 'after_rotating' );
 			$this->config['tooltip']		= __( 'Creates a text rotator for dynamic headings', 'avia_framework' );
 			$this->config['preview']		= 'large';
 			$this->config['disabling_allowed'] = true;

@@ -296,6 +296,11 @@
 					return 0;
 				}
 
+                // Block requests containing null byte injection attempts (%00 encoded or actual \0 character)
+                if (strpos($_SERVER["REQUEST_URI"], '%00') !== false || strpos($_SERVER["REQUEST_URI"], "\0") !== false) {
+                    return 0;
+                }
+
 				// to check logged-in user
 				if(isset($this->options->wpFastestCacheLoggedInUser) && $this->options->wpFastestCacheLoggedInUser == "on"){
 					foreach ((array)$_COOKIE as $cookie_key => $cookie_value){
@@ -341,7 +346,9 @@
 					if(preg_match("/\?amp(\=1)?/i", $_SERVER["REQUEST_URI"])){
 						//
 					}else if(defined('WPFC_CACHE_QUERYSTRING') && WPFC_CACHE_QUERYSTRING){
-						//
+
+                        return 0;
+                        
 					}else if(isset($_GET["wc-api"]) && $_GET["wc-api"]){
 						//
 					}else{
@@ -676,10 +683,21 @@
 						}
 					}else if($value->type == "cookie"){
 						if(isset($_SERVER['HTTP_COOKIE'])){
-							if(preg_match("/".preg_quote($value->content, "/")."/i", $_SERVER['HTTP_COOKIE'])){
-								return true;
+
+							if($value->prefix == "regex"){
+								if(preg_match("/".$value->content."/i", $_SERVER['HTTP_COOKIE'])){
+									return true;
+								}
 							}
+
+							if($value->prefix == "contain"){
+								if(preg_match("/".preg_quote($value->content, "/")."/i", $_SERVER['HTTP_COOKIE'])){
+									return true;
+								}
+							}
+
 						}
+						
 					}
 				}
 				

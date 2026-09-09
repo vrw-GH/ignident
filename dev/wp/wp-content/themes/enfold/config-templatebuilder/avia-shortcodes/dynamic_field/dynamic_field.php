@@ -43,10 +43,12 @@ if( ! class_exists( 'avia_sc_dynamic_field', false ) )
 
 			$this->config['name']			= __( 'Dynamic Data', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-dynamic-field.png';
-			$this->config['order']			= 90;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-dynamic-field.svg';
+			$this->config['order']			= 10;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_dynamic_field';
+			//	the canvas shows the field it pulls in - see editor_element_items()
+			$this->config['alb_items']		= array( 'value' => 'dynamic_content' );
 			$this->config['tooltip']		= __( 'Displays formatted content of a custom field or post data', 'avia_framework' );
 			$this->config['tinyMCE']		= array( 'disable' => 'true' );
 			$this->config['preview']		= true;

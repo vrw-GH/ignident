@@ -126,20 +126,20 @@ function seopress_redirections_term_type() {
 function seopress_redirections_value() {
 	global $post;
 	if ( is_singular() && get_post_meta( $post->ID, '_seopress_redirections_value', true ) ) {
-		$seopress_redirections_value = html_entity_decode( esc_url( get_post_meta( $post->ID, '_seopress_redirections_value', true ) ) );
+		$seopress_redirections_value = html_entity_decode( esc_url( get_post_meta( $post->ID, '_seopress_redirections_value', true ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
 		return $seopress_redirections_value;
 	} elseif ( is_home() && get_option( 'page_for_posts' ) !== '' && get_post_meta( get_option( 'page_for_posts' ), '_seopress_redirections_value', true ) ) {
-		$seopress_redirections_value = html_entity_decode( esc_url( get_post_meta( get_option( 'page_for_posts' ), '_seopress_redirections_value', true ) ) );
+		$seopress_redirections_value = html_entity_decode( esc_url( get_post_meta( get_option( 'page_for_posts' ), '_seopress_redirections_value', true ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
 		return $seopress_redirections_value;
 	} elseif ( ( is_tax() || is_category() || is_tag() ) && get_term_meta( get_queried_object_id(), '_seopress_redirections_value', true ) !== '' ) {
-		$seopress_redirections_value = html_entity_decode( esc_url( get_term_meta( get_queried_object_id(), '_seopress_redirections_value', true ) ) );
+		$seopress_redirections_value = html_entity_decode( esc_url( get_term_meta( get_queried_object_id(), '_seopress_redirections_value', true ) ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
 		return $seopress_redirections_value;
 	} else {
 		$request_uri = '';
 		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 			$request_uri = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 		}
-		$seopress_redirections_value = basename( wp_parse_url( $request_uri, PHP_URL_PATH ) );
+		$seopress_redirections_value = basename( (string) wp_parse_url( $request_uri, PHP_URL_PATH ) );
 		$seopress_redirections_query = new WP_Query(
 			array(
 				'post_type'              => 'seopress_404',

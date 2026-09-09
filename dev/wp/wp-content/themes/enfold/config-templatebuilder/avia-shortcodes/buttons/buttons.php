@@ -48,8 +48,8 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Button', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-button.png';
+			$this->config['tab']			= __( 'Basic Elements', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-button.svg';
 			$this->config['order']			= 85;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_button';
@@ -540,7 +540,7 @@ if ( ! class_exists( 'avia_sc_button', false ) )
 							'lockable'		=> true,
 							'std_none'		=> '',
 							'name'			=> __( 'Button Animation', 'avia_framework' ),
-							'desc'			=> __( 'Add a small animation to the button when the user first scrolls to the button position. This is only to add some &quot;spice&quot; to the site and only works in modern browsers and only on desktop computers to keep page rendering as fast as possible.', 'avia_framework' ),
+							'desc'			=> __( 'Animate the button when it first scrolls into view (desktop only).', 'avia_framework' ),
 							'groups'		=> array( 'fade', 'slide', 'rotate', 'fade-adv', 'special' )
 						)
 				);

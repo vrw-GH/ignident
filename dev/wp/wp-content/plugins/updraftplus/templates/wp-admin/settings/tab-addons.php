@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 global $updraftplus, $updraftplus_checkout_embed;
 $tick = UPDRAFTPLUS_URL.'/images/updraft_tick.png';
@@ -33,7 +32,9 @@ if ($updraftplus_checkout_embed) {
 				</div>
 				<div class="updraft_premium_cta__action">
 					<?php
-					$user_bought_udp = isset($_REQUEST['updraftplus_product']) && 'updraftpremium' === $_REQUEST['updraftplus_product'] && isset($_REQUEST['status']) && 'complete' === $_REQUEST['status'];
+					$updraftplus_product = UpdraftPlus_Manipulation_Functions::fetch_superglobal('request', 'updraftplus_product');
+					$status = UpdraftPlus_Manipulation_Functions::fetch_superglobal('request', 'status');
+					$user_bought_udp = isset($updraftplus_product) && 'updraftpremium' === $updraftplus_product && isset($status) && 'complete' === $status;
 					if (!$user_bought_udp) {
 						$aria_label = sprintf(
 							/* translators: %s: UpdraftPlus product name */

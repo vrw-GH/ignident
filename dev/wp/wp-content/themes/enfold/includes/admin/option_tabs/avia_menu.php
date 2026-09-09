@@ -96,10 +96,6 @@ $avia_elements[] =	array(
 							<div id='pr-content-area'> Content / Slideshows / etc
 							<div class='inner-content'><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
 
-							<p>Donec quam felis, ultricies nec, pellentesque eu, pretium sem.Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium sem.</p>
-
-							<p>Donec quam felis, ultricies nec, pellentesque eu, pretium sem.Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium sem.</p>
-
 							</div>
 							</div>
 						</div>
@@ -132,7 +128,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'menu',
 			'name'		=> __( 'Menu Items For Desktop', 'avia_framework' ),
-			'desc'		=> __( 'Choose how you want to display the menu items on desktop computers. If you choose to display the &quot;burger&quot; icon on desktop computers it will also be used on tablets and mobile devices ', 'avia_framework' ),
+			'desc'		=> __( 'Choose how menu items appear on desktop. If you pick the burger icon, it is also used on tablets and mobile.', 'avia_framework' ),
 			'id'		=> 'menu_display',
 			'type'		=> 'select',
 			'std'		=> '',
@@ -180,7 +176,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'menu',
 			'name'		=> __( 'Menu Handling For Mobile Devices In Landscape Mode', 'avia_framework' ),
-			'desc'		=> __( 'Select portrait mode if you want to keep mobile menu also if device is used in landscape mode (e.g. high resolution screens might switch back to normal menu in landscape mode)', 'avia_framework' ),
+			'desc'		=> __( 'Keep the mobile menu in landscape mode too. Useful on high-resolution screens that would otherwise switch back to the desktop menu.', 'avia_framework' ),
 			'id'		=> 'header_mobile_device_handling',
 			'type'		=> 'select',
 			'std'		=> '',
@@ -214,7 +210,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'menu',
 			'name'		=> __( 'Append Search Icon To Main Menu', 'avia_framework' ),
-			'desc'		=> __( 'If enabled a search Icon will be appended to the main menu that allows the users to perform an &quot;AJAX&quot; Search.<br>Available only when General Layout > Logo And Main Menu > Top Header option is selected.', 'avia_framework' ),
+			'desc'		=> __( 'Add a search icon to the main menu for live search results.<br>Available only with General Layout > Logo And Main Menu > Top Header selected.', 'avia_framework' ),
 			'id'		=> 'header_searchicon',
 			'type'		=> 'checkbox',
 			'std'		=> 'true',
@@ -262,7 +258,7 @@ $avia_elements[] = array(
 $avia_elements[] = array(
 			'slug'		=> 'menu',
 			'name'		=> __( 'Clone Title Menu Items To Submenu', 'avia_framework' ),
-			'desc'		=> __( 'Since you selected to display submenu items on click or on hover, the parent menu item does no longer navigate to the URL it contains, but toggles the visibility of its submenu items. If you want users to be able to open the parent menu URL the theme can create a clone of that item in the submenu', 'avia_framework' ),
+			'desc'		=> __( 'Because submenus open on click or hover, the parent item now toggles its submenu instead of opening its own link. Turn this on to add a copy of the parent link inside the submenu.', 'avia_framework' ),
 			'id'		=> 'submenu_clone',
 			'type'		=> 'select',
 			'std'		=> '',

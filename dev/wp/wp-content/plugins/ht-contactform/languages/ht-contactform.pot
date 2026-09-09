@@ -1,0 +1,3361 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: HT Contact Form – Drag & Drop Form Builder for "
+"WordPress\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-27 09:19+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.8; wp-7.1; php-8.4.18\n"
+"X-Domain: ht-contactform"
+
+#: admin/Includes/Config/Field.php:428
+msgid "$999.99"
+msgstr ""
+
+#. 1: sub-field label, 2: row number
+#: admin/Includes/Api/Endpoints/Submission.php:805
+#, php-format
+msgid "%1$s is required in row %2$d."
+msgstr ""
+
+#. 1: sub-field label, 2: row number
+#: admin/Includes/Api/Endpoints/Submission.php:818
+#, php-format
+msgid "%1$s must be a valid email address in row %2$d."
+msgstr ""
+
+#. %1$s: Site Name, %2$s: Year
+#: templates/email/email-3.php:190
+#, php-format
+msgid "%1$s • %2$s"
+msgstr ""
+
+#. %s: Number of installations.
+#: include/recommended-plugins/class.recommended-plugins.php:329
+#, php-format
+msgid "%s Active Installations"
+msgstr ""
+
+#. %s: field label
+#: admin/Includes/Api/Endpoints/Submission.php:718
+#: admin/Includes/Api/Endpoints/Submission.php:737
+#: admin/Includes/Api/Endpoints/Submission.php:750
+#: admin/Includes/Api/Endpoints/Submission.php:761
+#, php-format
+msgid "%s is required."
+msgstr ""
+
+#. %s: field label
+#: admin/Includes/Api/Endpoints/Submission.php:772
+#, php-format
+msgid "%s must be a valid email address."
+msgstr ""
+
+#. %1$s: Year, %2$s: Site Name, %3$s: Plugin Name
+#: templates/email/email-5.php:216 templates/email/email-4.php:210
+#: templates/email/email-2.php:202 templates/email/email-1.php:197
+#, php-format
+msgid "&copy; %1$s %2$s. All rights reserved. Powered by %3$s"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:404
+msgid "(999) 999-9999"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:101 admin/Includes/Config/Styler.php:177
+#: admin/Includes/Config/Styler.php:269 admin/Includes/Config/Styler.php:395
+#: admin/Includes/Config/Styler.php:561 admin/Includes/Config/Styler.php:765
+#: admin/Includes/Config/Styler.php:1000 admin/Includes/Config/Styler.php:1143
+#: admin/Includes/Config/Styler.php:1347 admin/Includes/Config/Styler.php:1621
+#: admin/Includes/Config/Styler.php:1908
+msgid "100"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:105 admin/Includes/Config/Styler.php:181
+#: admin/Includes/Config/Styler.php:273 admin/Includes/Config/Styler.php:399
+#: admin/Includes/Config/Styler.php:565 admin/Includes/Config/Styler.php:769
+#: admin/Includes/Config/Styler.php:1004 admin/Includes/Config/Styler.php:1147
+#: admin/Includes/Config/Styler.php:1351 admin/Includes/Config/Styler.php:1625
+#: admin/Includes/Config/Styler.php:1912
+msgid "200"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:109 admin/Includes/Config/Styler.php:185
+#: admin/Includes/Config/Styler.php:277 admin/Includes/Config/Styler.php:403
+#: admin/Includes/Config/Styler.php:569 admin/Includes/Config/Styler.php:773
+#: admin/Includes/Config/Styler.php:1008 admin/Includes/Config/Styler.php:1151
+#: admin/Includes/Config/Styler.php:1355 admin/Includes/Config/Styler.php:1629
+#: admin/Includes/Config/Styler.php:1916
+msgid "300"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:113 admin/Includes/Config/Styler.php:189
+#: admin/Includes/Config/Styler.php:281 admin/Includes/Config/Styler.php:407
+#: admin/Includes/Config/Styler.php:573 admin/Includes/Config/Styler.php:777
+#: admin/Includes/Config/Styler.php:1012 admin/Includes/Config/Styler.php:1155
+#: admin/Includes/Config/Styler.php:1359 admin/Includes/Config/Styler.php:1633
+#: admin/Includes/Config/Styler.php:1920
+msgid "400"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:117 admin/Includes/Config/Styler.php:193
+#: admin/Includes/Config/Styler.php:285 admin/Includes/Config/Styler.php:411
+#: admin/Includes/Config/Styler.php:577 admin/Includes/Config/Styler.php:781
+#: admin/Includes/Config/Styler.php:1016 admin/Includes/Config/Styler.php:1159
+#: admin/Includes/Config/Styler.php:1363 admin/Includes/Config/Styler.php:1637
+#: admin/Includes/Config/Styler.php:1924
+msgid "500"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:121 admin/Includes/Config/Styler.php:197
+#: admin/Includes/Config/Styler.php:289 admin/Includes/Config/Styler.php:415
+#: admin/Includes/Config/Styler.php:581 admin/Includes/Config/Styler.php:785
+#: admin/Includes/Config/Styler.php:1020 admin/Includes/Config/Styler.php:1163
+#: admin/Includes/Config/Styler.php:1367 admin/Includes/Config/Styler.php:1641
+#: admin/Includes/Config/Styler.php:1928
+msgid "600"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:125 admin/Includes/Config/Styler.php:201
+#: admin/Includes/Config/Styler.php:293 admin/Includes/Config/Styler.php:419
+#: admin/Includes/Config/Styler.php:585 admin/Includes/Config/Styler.php:789
+#: admin/Includes/Config/Styler.php:1024 admin/Includes/Config/Styler.php:1167
+#: admin/Includes/Config/Styler.php:1371 admin/Includes/Config/Styler.php:1645
+#: admin/Includes/Config/Styler.php:1932
+msgid "700"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:129 admin/Includes/Config/Styler.php:205
+#: admin/Includes/Config/Styler.php:297 admin/Includes/Config/Styler.php:423
+#: admin/Includes/Config/Styler.php:589 admin/Includes/Config/Styler.php:793
+#: admin/Includes/Config/Styler.php:1028 admin/Includes/Config/Styler.php:1171
+#: admin/Includes/Config/Styler.php:1375 admin/Includes/Config/Styler.php:1649
+#: admin/Includes/Config/Styler.php:1936
+msgid "800"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:133 admin/Includes/Config/Styler.php:209
+#: admin/Includes/Config/Styler.php:301 admin/Includes/Config/Styler.php:427
+#: admin/Includes/Config/Styler.php:593 admin/Includes/Config/Styler.php:797
+#: admin/Includes/Config/Styler.php:1032 admin/Includes/Config/Styler.php:1175
+#: admin/Includes/Config/Styler.php:1379 admin/Includes/Config/Styler.php:1653
+#: admin/Includes/Config/Styler.php:1940
+msgid "900"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:412
+msgid "999-99-9999"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:416
+msgid "9999 9999 9999 9999"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:420
+msgid "99999-9999"
+msgstr ""
+
+#. %s: Site name
+#: admin/Includes/Models/Drafts.php:523
+#, php-format
+msgid "[%s] Your Form Progress Has Been Saved"
+msgstr ""
+
+#: templates/email/email-5.php:38
+msgid "A new form submission has been received with the following details:"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:110
+msgid "Acceptance Field"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:485
+msgid "Access token is required for HubSpot integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/HubSpot.php:142
+msgid "Access token is required."
+msgstr ""
+
+#: include/Integrations/iContact.php:289 include/Integrations/iContact.php:308
+msgid "Account ID and Client Folder ID are required"
+msgstr ""
+
+#: include/Integrations/iContact.php:269 include/Integrations/Drip.php:205
+#: include/Integrations/Drip.php:226
+msgid "Account ID is required"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/OnepageCRM.php:321
+msgid "Action"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:462
+msgid "Action Date"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:456
+msgid "Action Details"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:442
+msgid "Action Status"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:274
+msgid "Activate"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:627
+msgid ""
+"Activate email validation to verify the format and integrity of the provided "
+"address."
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:145
+#: include/recommended-plugins/class.recommended-plugins.php:285
+msgid "Activated"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:144
+msgid "Activating.."
+msgstr ""
+
+#. %s: Number of millions.
+#: include/recommended-plugins/class.recommended-plugins.php:441
+#, php-format
+msgctxt "Active plugin installations"
+msgid "%s+ Million"
+msgid_plural "%s+ Million"
+msgstr[0] ""
+msgstr[1] ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:445
+msgctxt "Active plugin installations"
+msgid "Less Than 10"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:284
+msgid "ActiveCampaign connection successful."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:484
+msgid "Actual Close Date"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:857
+msgid "Add Button Text"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:81
+msgid ""
+"Add CookieRay — a free cookie consent plugin to keep your site GDPR "
+"compliant."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:860
+msgid "Add Row"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:425
+msgid "Admin Email"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:47
+msgid "Admin Label"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:48
+msgid "Admin label is field title which will be used for admin field title."
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:109
+msgid "Advanced Telephone"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:273
+msgid "Advertisement"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:289
+msgid "Affiliate"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:107
+msgid "Alignment"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:781
+msgid "All"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/iContact.php:193
+msgid "All credentials (App ID, Username, Password) are required."
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:106
+msgid "Already Submitted Notice"
+msgstr ""
+
+#: include/UI/ShortCode.php:701
+msgid "An error occurred while processing your submission. Please try again."
+msgstr ""
+
+#: include/UI/ShortCode.php:674
+msgid "An error occurred while storing your submission."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:785 admin/Includes/Config/Field.php:950
+msgid "Any"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:158
+msgid "API key & API URL are required for ActiveCampaign integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:467
+msgid "API key and API token are required for Trello integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Trello.php:162
+msgid "API key and token are required."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:391
+msgid "API key is required for Drip integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:373
+msgid "API key is required for GetResponse integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:306
+msgid "API key is required for Mailchimp integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/MailerLite.php:121
+#: admin/Includes/Api/Endpoints/Integrations/MailerLite.php:158
+#: admin/Includes/Api/Endpoints/Integrations/MailerLite.php:189
+msgid "API key is required for MailerLite integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:409
+msgid "API key is required for Moosend integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:449
+msgid "API key is required for Notion integration."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Notion.php:157
+#: admin/Includes/Api/Endpoints/Integrations/Notion.php:191
+#: admin/Includes/Api/Endpoints/Integrations/Moosend.php:156
+#: admin/Includes/Api/Endpoints/Integrations/Moosend.php:190
+#: admin/Includes/Api/Endpoints/Integrations/Drip.php:163
+#: admin/Includes/Api/Endpoints/Integrations/Drip.php:196
+#: admin/Includes/Api/Endpoints/Integrations/GetResponse.php:128
+msgid "API key is required."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:427
+msgid "App ID, Username, and Password are required for iContact integration."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:447
+msgid "ASAP"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:217
+msgid "Assistant Name"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:223
+msgid "Assistant Phone"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:544
+msgid "Author Email"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:530
+msgid "Author ID"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:537
+msgid "Author Name"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:98
+#: admin/Includes/Config/Styler.php:239 admin/Includes/Config/Styler.php:347
+#: admin/Includes/Config/Styler.php:701 admin/Includes/Config/Styler.php:905
+#: admin/Includes/Config/Styler.php:930 admin/Includes/Config/Styler.php:1566
+#: admin/Includes/Config/Styler.php:1727 admin/Includes/Config/Styler.php:2004
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:571
+msgid "Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:708 admin/Includes/Config/Styler.php:912
+#: admin/Includes/Config/Styler.php:2011
+msgid "Background (Active)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1573
+msgid "Background (Hover)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:937
+msgid "Background (Selected)"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:174
+#: include/Widgets/elementor_widgets.php:340
+#: include/Widgets/elementor_widgets.php:441
+#: include/Widgets/elementor_widgets.php:576
+#: include/Widgets/elementor_widgets.php:664
+msgid "Background Color"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:286
+msgid "Below Input Element"
+msgstr ""
+
+#. 1: Site name, 2: Resume URL, 3: Expiry date
+#: admin/Includes/Models/Drafts.php:530
+#, php-format
+msgid ""
+"Best regards,\n"
+"%3$s"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:503
+msgid "Bid Amount"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:497
+msgid "Bid Currency"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:509
+msgid "Bid Type"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:253
+msgid "Billing"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:602
+msgid "Billing City"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:620
+msgid "Billing Country"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:614
+msgid "Billing Postal Code"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:608
+msgid "Billing State"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:596
+msgid "Billing Street"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:321
+msgid "Birthday"
+msgstr ""
+
+#: include/Admin/templates/dashboard-widget.php:91
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:161
+msgid "Blog"
+msgstr ""
+
+#: include/Integrations/Trello.php:237 include/Integrations/Trello.php:275
+msgid "Board ID is required"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Trello.php:229
+#: admin/Includes/Api/Endpoints/Integrations/Trello.php:265
+msgid "Board ID is required."
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:246
+#: include/Widgets/elementor_widgets.php:384
+#: include/Widgets/elementor_widgets.php:472
+#: include/Widgets/elementor_widgets.php:614
+#: include/Widgets/elementor_widgets.php:676
+msgid "Border"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:475 admin/Includes/Config/Styler.php:687
+#: admin/Includes/Config/Styler.php:891 admin/Includes/Config/Styler.php:1701
+#: admin/Includes/Config/Styler.php:1720
+msgid "Border Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:694 admin/Includes/Config/Styler.php:898
+msgid "Border Color (Active)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:482
+msgid "Border Color (Focus)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1708
+msgid "Border Color (Hover)"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:254
+#: include/Widgets/elementor_widgets.php:392
+#: include/Widgets/elementor_widgets.php:480
+#: include/Widgets/elementor_widgets.php:622
+msgid "Border Radius"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:454 admin/Includes/Config/Styler.php:666
+#: admin/Includes/Config/Styler.php:870 admin/Includes/Config/Styler.php:1680
+msgid "Border Style"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:445 admin/Includes/Config/Styler.php:657
+#: admin/Includes/Config/Styler.php:861 admin/Includes/Config/Styler.php:1671
+msgid "Border Width"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:115
+msgid "Bottom"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:635
+msgid "Box Shadow"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:48
+msgid "Build forms with ease using our intuitive form builder."
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:85
+msgid "Built-in Cookie Scanner"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:521
+msgid "Button"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1866
+msgid "Button Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1859
+msgid "Button Color"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:541
+msgid "Button Type Layout"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:141
+#: include/recommended-plugins/class.recommended-plugins.php:262
+#: include/recommended-plugins/class.recommended-plugins.php:316
+msgid "Buy Now"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:302
+msgid "By "
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:727
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:778
+msgid "Category"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:115
+msgid "Center"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:714 admin/Includes/Config/Styler.php:918
+msgid "Check Icon Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:647
+msgid "Checkbox & Label Gap"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1273 admin/Includes/Config/Styler.php:1491
+msgid "Checkbox Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1280 admin/Includes/Config/Styler.php:1498
+msgid "Checkbox Background (Active)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1259 admin/Includes/Config/Styler.php:1477
+msgid "Checkbox Border Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1266 admin/Includes/Config/Styler.php:1484
+msgid "Checkbox Border Color (Active)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1238 admin/Includes/Config/Styler.php:1456
+msgid "Checkbox Border Style"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1229 admin/Includes/Config/Styler.php:1447
+msgid "Checkbox Border Width"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1287 admin/Includes/Config/Styler.php:1505
+msgid "Checkbox Check Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1294 admin/Includes/Config/Styler.php:1512
+msgid "Checkbox Radius"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:611 admin/Includes/Config/Styler.php:1193
+#: admin/Includes/Config/Styler.php:1397
+msgid "Checkbox Size"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:629 admin/Includes/Config/Styler.php:1211
+#: admin/Includes/Config/Styler.php:1415
+msgid "Checkbox Size (Large)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:620 admin/Includes/Config/Styler.php:1202
+#: admin/Includes/Config/Styler.php:1406
+msgid "Checkbox Size (Small)"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:396
+msgid "Choose an input mask to format user input consistently."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:193
+msgid "Choose the display size for the form field."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:235
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:412
+msgid "City"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1748
+msgid "Clear Button Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1741
+msgid "Clear Button Color"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:503
+msgid "Client ID and Client Secret are required for Zoho CRM integration."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:364
+msgid "Close Date"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:62 admin/Includes/Config/Styler.php:156
+#: admin/Includes/Config/Styler.php:232 admin/Includes/Config/Styler.php:340
+#: admin/Includes/Config/Styler.php:522 admin/Includes/Config/Styler.php:726
+#: admin/Includes/Config/Styler.php:1552
+msgid "Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1559
+msgid "Color (Hover)"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:379
+msgid "Columns"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:149
+msgid "Company Name"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:774
+msgid "Conditional Match"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/OnepageCRM.php:309
+msgid "Contact"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:43
+#: include/Widgets/ht_form_widgets.php:57
+msgid "Contact Form"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:419
+msgid "Contact ID and tag IDs are required."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:390
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:423
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:469
+msgid "Contact Name"
+msgstr ""
+
+#: include/Integrations/HubSpot.php:363
+msgid "Contact not found"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:64
+msgid "Contacts"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:69
+#: include/recommended-plugins/recommended-plugins.php:122
+msgid "CookieRay – Cookie Banner for Cookie Consent (GDPR/CCPA Compliant)"
+msgstr ""
+
+#: admin/Includes/DiagnosticData.php:706
+msgid "Count Me In"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:253
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:430
+msgid "Country"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:137
+msgid "CourseGlade LMS – Online Course & eLearning Platform"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:25
+msgid "Create Your First Form"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:371
+msgid "Creation Date"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Utilities.php:168
+msgid "CSV must have at least 2 columns"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Utilities.php:155
+msgid "CSV must have at least a header row and one data row"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:84
+msgid "Customizable Consent Banner"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:464 admin/Includes/Config/Styler.php:676
+#: admin/Includes/Config/Styler.php:880 admin/Includes/Config/Styler.php:1248
+#: admin/Includes/Config/Styler.php:1466 admin/Includes/Config/Styler.php:1690
+#: admin/Includes/Config/Styler.php:1841 admin/Includes/Config/Styler.php:1974
+msgid "Dashed"
+msgstr ""
+
+#: include/Integrations/Notion.php:221
+msgid "Database ID is required"
+msgstr ""
+
+#: templates/email/email-5.php:192 admin/Includes/Services/Helper.php:467
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:416
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:448
+msgid "Date"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:181
+msgid "Date of Birth"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1533
+msgid "Date/Time Selected Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1540
+msgid "Date/Time Selected Border Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1526
+msgid "Date/Time Selected Color"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/OnepageCRM.php:313
+msgid "Deal"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:345
+msgid "Deal Details"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:338
+msgid "Deal Name"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:103 admin/Includes/Config/Field.php:278
+msgid "Default"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:222
+msgid "Default Value"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:225
+msgid "Define a default value to pre-populate the field upon form load."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:446
+msgid "Define selectable options with visual cues for default selection."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:350
+msgid "Define the maximum number of characters allowed for the text input."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:577
+msgid "Define the maximum value for numerical input."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:560
+msgid "Define the minimum value for numerical input."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:254
+msgid "Delivery"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:860
+msgid "Details"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:184
+msgid "Direct"
+msgstr ""
+
+#: include/Integrations/Discord.php:116
+#, php-format
+msgid "Discord webhook error: %s"
+msgstr ""
+
+#: include/Integrations/Discord.php:126
+#, php-format
+msgid "Discord webhook returned error code: %s"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1948
+msgid "Divider Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1964
+msgid "Divider Style"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1955
+msgid "Divider Width"
+msgstr ""
+
+#: include/Admin/templates/dashboard-widget.php:97
+msgid "Documentation"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:451
+msgid "Done"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:468 admin/Includes/Config/Styler.php:680
+#: admin/Includes/Config/Styler.php:884 admin/Includes/Config/Styler.php:1252
+#: admin/Includes/Config/Styler.php:1470 admin/Includes/Config/Styler.php:1694
+#: admin/Includes/Config/Styler.php:1845 admin/Includes/Config/Styler.php:1978
+msgid "Dotted"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:948
+msgid "Draft"
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:314
+msgid "Draft not found"
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:286
+msgid "Draft not found or has expired"
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:363
+msgid "Draft not found or no changes made"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:111
+msgid "Drag & Drop File Upload"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:37
+msgid "Drag and Drop"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Drip.php:181
+#: admin/Includes/Api/Endpoints/Integrations/Drip.php:214
+msgid "Drip API connection successful."
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/Drip.php:147
+#, php-format
+msgid "Drip API error [%1$d]: %2$s"
+msgstr ""
+
+#: include/Integrations/Drip.php:89
+msgid "Drip API key is required"
+msgstr ""
+
+#. %d: Number of seconds to wait
+#: include/Integrations/Drip.php:132
+msgid "Drip API rate limit exceeded. Please retry after %d seconds."
+msgstr ""
+
+#: include/Integrations/Drip.php:341 include/Integrations/Drip.php:344
+msgid "Drip subscription successful"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1852
+msgid "Dropzone Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1824
+msgid "Dropzone Border Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1831
+msgid "Dropzone Border Style"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:792
+msgid "Due Date"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:38
+msgid "Easily drag and drop form fields to create your perfect form."
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:63
+msgid "Edit your form at any time to make changes or updates."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:352
+msgid "Email"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:123
+msgid "Email Address"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:384
+msgid "Email is required for contact sync."
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:52
+msgid "Email Notifications"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:277
+msgid "Email or Web"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:460
+msgid "Embedded Post/Page ID"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:446
+msgid "Embedded Post/Page Title"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:453
+msgid "Embedded Post/Page URL"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:400
+msgid "Employee Count"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:757
+msgid "Enable Condition"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:759
+msgid ""
+"Enable condition to control field visibility based on other field values."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:608
+msgid "Enable Email Confirmation"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:610
+msgid ""
+"Enable email confirmation by requiring the email address to be entered twice."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:41
+msgid "Enable Insightly"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:71
+msgid "Enable OnepageCRM"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:33
+msgid "Enable Styler"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:644
+msgid ""
+"Ensure the email address is unique by comparing against previous submissions"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:49
+msgid "Enter a unique name for the you to identify it."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:79
+msgid "Enter a unique name to identify this integration."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:217
+msgid "Enter Address"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:247
+msgid "Enter Address Type"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:223
+msgid "Enter City"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:241
+msgid "Enter Country Code"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:210
+msgid "Enter Email"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:192
+msgid "Enter Phone"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:229
+msgid "Enter State"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:170
+msgid "Enter URL"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:235
+msgid "Enter Zip Code"
+msgstr ""
+
+#: admin/Admin.php:108
+msgid "Entries"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Entry.php:312
+#: admin/Includes/Api/Endpoints/Entry.php:337
+msgid "Entry IDs are required"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:42
+msgid "Entry Management"
+msgstr ""
+
+#: admin/Includes/Models/Entries.php:256
+msgid "Entry not found"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:496
+msgid "Error Border Color"
+msgstr ""
+
+#: include/Integrations/Brevo.php:96
+#, php-format
+msgid "Error from Brevo API: %s"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ConstantContact.php:424
+#, php-format
+msgid "Error from Constant Contact API: %s"
+msgstr ""
+
+#: include/Integrations/Insightly.php:95
+#, php-format
+msgid "Error from Insightly API: %s"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:489
+msgid "Error Text Color"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:357
+msgid "Expected Close Date"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:163
+msgid "Facebook"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:169
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:664
+msgid "Facebook URL"
+msgstr ""
+
+#. %s: error message
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:215
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:231
+#, php-format
+msgid "Failed to connect to ActiveCampaign: %s"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Settings.php:291
+msgid "Failed to connect to captcha API"
+msgstr ""
+
+#: include/UI/ShortCode.php:689 admin/Includes/Services/Helper.php:397
+msgid "Failed to connect to hCaptcha server."
+msgstr ""
+
+#. %s: error message
+#: admin/Includes/Api/Endpoints/Integrations/Mailchimp.php:167
+#, php-format
+msgid "Failed to connect to Mailchimp: %s"
+msgstr ""
+
+#. %s: error message
+#: admin/Includes/Api/Endpoints/Integrations/MailerLite.php:135
+#, php-format
+msgid "Failed to connect to MailerLite: %s"
+msgstr ""
+
+#. %s: error message
+#: admin/Includes/Api/Endpoints/Integrations/OnepageCRM.php:232
+#, php-format
+msgid "Failed to connect to OnepageCRM: %s"
+msgstr ""
+
+#: include/UI/ShortCode.php:680 admin/Includes/Services/Helper.php:325
+msgid "Failed to connect to reCAPTCHA server."
+msgstr ""
+
+#: include/Integrations/iContact.php:407
+msgid "Failed to create contact in iContact"
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:394
+msgid "Failed to delete draft"
+msgstr ""
+
+#: admin/Includes/Models/Entries.php:408
+msgid "Failed to delete entry"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Utilities.php:115
+msgid "Failed to fetch CSV file. Server returned status code: %d"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Utilities.php:106
+msgid "Failed to fetch CSV file: "
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ConstantContact.php:307
+#, php-format
+msgid "Failed to get access token. Response: %s"
+msgstr ""
+
+#. %s: Error message
+#: include/Integrations/MailPoet.php:143
+#, php-format
+msgid "Failed to get MailPoet fields: %s"
+msgstr ""
+
+#. %s: Error message
+#: include/Integrations/MailPoet.php:116
+#, php-format
+msgid "Failed to get MailPoet lists: %s"
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:253
+msgid "Failed to save form draft"
+msgstr ""
+
+#: admin/Includes/Models/Entries.php:317
+msgid "Failed to save form submission"
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:550
+msgid "Failed to send email. Please try again."
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:355
+msgid "Failed to update draft"
+msgstr ""
+
+#: admin/Includes/Models/Entries.php:373
+msgid "Failed to update entry"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:358
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:583
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:185
+msgid "Fax"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:211
+msgid "Fax Phone"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:239
+msgid "Field Class"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:63
+msgid "Field Label"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:191
+msgid "Field Size"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:944
+msgid "Filter posts by status."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:687
+msgid "First and Last Name"
+msgstr ""
+
+#: include/Templates/TemplateRegistry.php:1045
+#: include/Templates/TemplateRegistry.php:1046
+#: admin/Includes/Config/Field.php:720
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:137
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:304
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:118
+msgid "First Name"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:691
+msgid "First, Middle, and Last Name"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:515
+msgid "Fixed Bid"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:69 admin/Includes/Config/Styler.php:163
+#: admin/Includes/Config/Styler.php:255 admin/Includes/Config/Styler.php:363
+#: admin/Includes/Config/Styler.php:529 admin/Includes/Config/Styler.php:733
+#: admin/Includes/Config/Styler.php:1589
+msgid "Font Size"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:87 admin/Includes/Config/Styler.php:381
+#: admin/Includes/Config/Styler.php:547 admin/Includes/Config/Styler.php:751
+#: admin/Includes/Config/Styler.php:1607
+msgid "Font Size (Large)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:78 admin/Includes/Config/Styler.php:372
+#: admin/Includes/Config/Styler.php:538 admin/Includes/Config/Styler.php:742
+#: admin/Includes/Config/Styler.php:1598
+msgid "Font Size (Small)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:96 admin/Includes/Config/Styler.php:172
+#: admin/Includes/Config/Styler.php:264 admin/Includes/Config/Styler.php:390
+#: admin/Includes/Config/Styler.php:556 admin/Includes/Config/Styler.php:760
+#: admin/Includes/Config/Styler.php:1616
+msgid "Font Weight"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1084 admin/Includes/Config/Styler.php:1092
+msgid "For Multiselect Only"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:478
+msgid "Forecast Close Date"
+msgstr ""
+
+#: admin/Includes/PostTypes/FormPostType.php:23
+msgid "Form"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Form.php:278
+msgid "Form and its entries deleted successfully"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:47
+msgid "Form Builder"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Form.php:242
+#: admin/Includes/Api/Endpoints/Draft.php:243
+#: admin/Includes/Api/Endpoints/Draft.php:363
+msgid "Form data is required"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Submission.php:237
+msgid "Form data or form ID is missing"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:62
+msgid "Form Editor"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:432
+msgid "Form ID"
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:223 admin/Includes/Models/Entries.php:290
+msgid "Form ID and form data are required"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Entry.php:386
+#: admin/Includes/Api/Endpoints/Draft.php:224
+msgid "Form ID is required"
+msgstr ""
+
+#: include/UI/ShortCode.php:133
+msgid "Form ID is required."
+msgstr ""
+
+#: include/UI/ShortCode.php:659
+msgid "Form is missing. Please try again."
+msgstr ""
+
+#: include/class/Api.php:84 include/class/Api.php:107
+#: include/Widgets/elementor_widgets.php:33
+#: include/Widgets/ht_form_widgets.php:47
+msgid "Form not found"
+msgstr ""
+
+#: include/UI/ShortCode.php:665
+msgid "Form not found. Please try again."
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:57
+msgid "Form Preview"
+msgstr ""
+
+#. %s: Form name
+#: include/Integrations/Trello.php:328
+#, php-format
+msgid "Form Submission: %s"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:439
+msgid "Form Title"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Submission.php:256
+msgid "Form validation failed"
+msgstr ""
+
+#: include/UI/ShortCode.php:662
+msgid "Form validation failed. Please try again."
+msgstr ""
+
+#: include/Integrations/Slack.php:170 include/Integrations/Discord.php:170
+#, php-format
+msgid "Form: %s"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:676
+msgid "Format"
+msgstr ""
+
+#: admin/Admin.php:93 admin/Includes/PostTypes/FormPostType.php:22
+msgid "Forms"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:533
+msgid "Four Columns"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1220 admin/Includes/Config/Styler.php:1438
+msgid "Gap Between Checkbox & Text"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1810
+msgid "Gap Between Stars"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:86
+msgid "GDPR & CCPA Ready"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:91
+msgid "Get CookieRay Free"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:117 admin/Includes/Config/Welcome.php:118
+msgid "Get Pro Now"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/GetResponse.php:146
+msgid "GetResponse API connection successful."
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/GetResponse.php:131
+#, php-format
+msgid "GetResponse API error [%1$d]: %2$s"
+msgstr ""
+
+#: include/Integrations/GetResponse.php:87
+msgid "GetResponse API key is required"
+msgstr ""
+
+#: include/Integrations/GetResponse.php:287
+#: include/Integrations/GetResponse.php:290
+msgid "GetResponse subscription successful"
+msgstr ""
+
+#: admin/Admin.php:113
+msgid "Global Settings"
+msgstr ""
+
+#: admin/Includes/Models/Entries.php:223 admin/Includes/Models/Entries.php:225
+#: admin/Includes/Models/Entries.php:267 admin/Includes/Models/Entries.php:269
+msgid "Guest"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:57
+msgid "HashBar – Announcement, Notification Bar & Popup Campaign"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:259
+msgid "HasTheme"
+msgstr ""
+
+#: include/Admin/class-dashboard-widget.php:29
+msgid "HasThemes Stories"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:369
+msgid "hCaptcha is not configured."
+msgstr ""
+
+#: include/UI/ShortCode.php:692 admin/Includes/Services/Helper.php:408
+msgid "hCaptcha verification failed. Please try again."
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1887
+msgid "Heading Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1894
+msgid "Heading Font Size"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1903
+msgid "Heading Font Weight"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:148
+#: include/Widgets/elementor_widgets.php:320
+#: include/Widgets/elementor_widgets.php:538
+msgid "Height"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:254
+msgid "Help Message"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:424
+msgid "HH:MM"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:79
+msgid "Hide Label"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:183
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:204
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:251
+msgid "Home"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:646
+msgid "Hover"
+msgstr ""
+
+#: admin/Admin.php:78 admin/Admin.php:79
+msgid "HT Contact Form"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:13
+msgid "HT Contact Form 7"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:22
+msgid ""
+"HT Contact Form empowers you to create beautiful, functional forms without "
+"any coding knowledge. Whether you need contact forms, surveys, lead "
+"generation forms, or feedback collectors, our intuitive drag-and-drop "
+"builder makes it simple. Start creating powerful forms in minutes and watch "
+"your conversion rates soar!"
+msgstr ""
+
+#. Name of the plugin
+msgid "HT Contact Form – Drag & Drop Form Builder for WordPress"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:117
+msgid "HT Easy GA4 – Google Analytics WordPress Plugin"
+msgstr ""
+
+#: include/Widgets/ht_form_widgets.php:13
+msgid "HT Form"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:107
+msgid "HT Mega Addons for Elementor – Elementor Widgets & Template Builder"
+msgstr ""
+
+#. Author of the plugin
+msgid "HT Plugins"
+msgstr ""
+
+#. %s: Error message
+#: include/Integrations/Notion.php:124 include/Integrations/Mailchimp.php:158
+#: include/Integrations/iContact.php:169 include/Integrations/HubSpot.php:116
+#: include/Integrations/Moosend.php:126 include/Integrations/Trello.php:133
+#: include/Integrations/OnepageCRM.php:183 include/Integrations/Drip.php:116
+#: include/Integrations/GetResponse.php:114
+#, php-format
+msgid "HTTP request failed: %s"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://profiles.wordpress.org/htplugins/#content-plugins"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://theplugindemo.com/ht-contactform/"
+msgstr ""
+
+#: include/Integrations/HubSpot.php:89
+msgid "HubSpot Access Token is required"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/HubSpot.php:160
+msgid "HubSpot API connection successful."
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/HubSpot.php:147
+#, php-format
+msgid "HubSpot API error [%1$d]: %2$s"
+msgstr ""
+
+#. %d: Number of seconds to wait
+#: include/Integrations/HubSpot.php:132
+msgid "HubSpot API rate limit exceeded. Please retry after %d seconds."
+msgstr ""
+
+#: include/Integrations/HubSpot.php:328 include/Integrations/HubSpot.php:331
+msgid "HubSpot contact created/updated successfully"
+msgstr ""
+
+#: include/Integrations/HubSpot.php:187
+msgid "HubSpot credentials verified successfully"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:319
+msgid "Icon Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:326
+msgid "Icon Size"
+msgstr ""
+
+#: include/Integrations/iContact.php:348
+msgid "iContact account is not configured"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/iContact.php:211
+msgid "iContact API connection successful."
+msgstr ""
+
+#: include/Integrations/iContact.php:140
+msgid "iContact API credentials are required"
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/iContact.php:200
+#, php-format
+msgid "iContact API error [%1$d]: %2$s"
+msgstr ""
+
+#. %d: Number of seconds to wait
+#: include/Integrations/iContact.php:185
+msgid "iContact API rate limit exceeded. Please retry after %d seconds."
+msgstr ""
+
+#: include/Integrations/iContact.php:430 include/Integrations/iContact.php:433
+msgid "iContact subscription successful"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:364
+msgid "Industry"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:537
+msgid "Inline Layout"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:141
+msgid "Input"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:127
+msgid "Insert Headers and Footers Code – HT Script"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:32
+msgid "Insightly"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:50
+msgid "Insightly Integration Feed"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:56
+msgid "Insightly Service"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:280
+msgid "Install Now"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:143
+msgid "Installing.."
+msgstr ""
+
+#: include/Integrations/Notion.php:268 include/Integrations/iContact.php:344
+#: include/Integrations/HubSpot.php:271 include/Integrations/Moosend.php:270
+#: include/Integrations/Drip.php:257 include/Integrations/GetResponse.php:207
+#: include/Integrations/MailPoet.php:166
+msgid "Integration is not enabled for this form"
+msgstr ""
+
+#: include/Integrations/Trello.php:314
+msgid "Integration is not enabled or list not selected"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:48
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:78
+msgid "Integration Name"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:294
+#, php-format
+msgid "Integration type \"%s\" is not supported."
+msgstr ""
+
+#: admin/Admin.php:118
+msgid "Integrations"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Mailchimp.php:143
+msgid ""
+"Invalid API key format. Mailchimp API keys should be in the format \"key-"
+"datacenter\"."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:167
+msgid "Invalid API URL format."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Settings.php:275
+msgid "Invalid captcha type"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Draft.php:414
+#: admin/Includes/Api/Endpoints/Draft.php:496
+msgid "Invalid draft key"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Draft.php:505
+msgid "Invalid file IDs"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Draft.php:234
+msgid "Invalid form ID"
+msgstr ""
+
+#: include/UI/ShortCode.php:656
+msgid "Invalid form ID. Please try again."
+msgstr ""
+
+#: include/UI/ShortCode.php:650
+msgid "Invalid form request. Please try again."
+msgstr ""
+
+#: include/Integrations/Notion.php:264 include/Integrations/iContact.php:340
+#: include/Integrations/HubSpot.php:267 include/Integrations/Moosend.php:266
+#: include/Integrations/Trello.php:310 include/Integrations/Drip.php:253
+#: include/Integrations/MailPoet.php:162
+msgid "Invalid integration configuration"
+msgstr ""
+
+#: include/Integrations/Brevo.php:107
+msgid "Invalid JSON response from Brevo"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ConstantContact.php:317
+#: admin/Includes/Api/Endpoints/Integrations/ConstantContact.php:435
+msgid "Invalid JSON response from Constant Contact"
+msgstr ""
+
+#: include/Integrations/Drip.php:164
+msgid "Invalid JSON response from Drip API"
+msgstr ""
+
+#: include/Integrations/GetResponse.php:143
+msgid "Invalid JSON response from GetResponse API"
+msgstr ""
+
+#: include/Integrations/HubSpot.php:164
+msgid "Invalid JSON response from HubSpot API"
+msgstr ""
+
+#: include/Integrations/iContact.php:217
+msgid "Invalid JSON response from iContact API"
+msgstr ""
+
+#: include/Integrations/Insightly.php:106
+msgid "Invalid JSON response from Insightly"
+msgstr ""
+
+#: include/Integrations/Mailchimp.php:194
+msgid "Invalid JSON response from Mailchimp API"
+msgstr ""
+
+#: include/Integrations/Moosend.php:169
+msgid "Invalid JSON response from Moosend API"
+msgstr ""
+
+#: include/Integrations/Notion.php:167
+msgid "Invalid JSON response from Notion API"
+msgstr ""
+
+#: include/Integrations/OnepageCRM.php:223
+msgid "Invalid JSON response from OnepageCRM API"
+msgstr ""
+
+#: include/Integrations/Trello.php:168
+msgid "Invalid JSON response from Trello API"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Draft.php:207
+msgid "Invalid page URL"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:275
+msgid "Invalid response from ActiveCampaign API. User data not found."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:245
+msgid "Invalid response received from ActiveCampaign API."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Settings.php:303
+msgid "Invalid secret key"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/OnepageCRM.php:356
+msgid "Invalid service type."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Utilities.php:92
+msgid "Invalid URL format"
+msgstr ""
+
+#: templates/email/email-5.php:198 templates/email/email-4.php:192
+#: templates/email/email-3.php:174 templates/email/email-2.php:184
+#: templates/email/email-1.php:179
+msgid "IP Address"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:132
+msgid "Job Title"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:123
+msgid "Justified"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:75
+msgid ""
+"Kelune CRM – Contact Management, Email Marketing, Newsletter & Marketing "
+"Automation"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:433
+msgid "Label"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:96
+msgid "Label Position"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:891
+msgid ""
+"Label template for each row. Use {n} for row number. Example: \"Item {n}\""
+msgstr ""
+
+#: admin/Includes/Config/Field.php:207
+msgid "Large"
+msgstr ""
+
+#: include/Templates/TemplateRegistry.php:1061
+#: include/Templates/TemplateRegistry.php:1062
+#: admin/Includes/Config/Field.php:736
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:144
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:311
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:125
+msgid "Last Name"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:514
+msgid "Layout"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:370
+msgid "Lead Description"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:376
+msgid "Lead Rating"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:325
+msgid "Lead Source"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:317
+msgid "Lead Status"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:72
+msgid "Leads"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:111
+#: admin/Includes/Config/Field.php:119
+msgid "Left"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:500
+msgid "Limit the number of selectable options to prevent excessive choices."
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:141 admin/Includes/Config/Styler.php:217
+#: admin/Includes/Config/Styler.php:309 admin/Includes/Config/Styler.php:435
+#: admin/Includes/Config/Styler.php:601 admin/Includes/Config/Styler.php:805
+#: admin/Includes/Config/Styler.php:1040 admin/Includes/Config/Styler.php:1661
+msgid "Line Height"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1424
+msgid "Link Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1431
+msgid "Link Hover Color"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:162
+msgid "LinkedIn"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:163
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:658
+msgid "LinkedIn URL"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:281
+msgid "List Generation"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:558
+msgid "Login URL"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:565
+msgid "Logout URL"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:385
+msgid "Lost"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:579
+msgid "Lost Password URL"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Mailchimp.php:182
+msgid "Mailchimp API connection successful."
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/Mailchimp.php:180
+#, php-format
+msgid "Mailchimp API error [%1$d]: %2$s"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/MailerLite.php:144
+msgid "MailerLite API connection successful."
+msgstr ""
+
+#: include/Integrations/Moosend.php:215
+msgid "Mailing list ID is required"
+msgstr ""
+
+#. %s: Error message
+#: include/Integrations/MailPoet.php:89
+#, php-format
+msgid "MailPoet API error: %s"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:546
+msgid "MailPoet is active and ready to use."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/MailPoet.php:123
+msgid "MailPoet is active and ready."
+msgstr ""
+
+#: include/Integrations/MailPoet.php:78
+#: admin/Includes/Api/Endpoints/Integrations.php:539
+#: admin/Includes/Api/Endpoints/Integrations/MailPoet.php:124
+#: admin/Includes/Api/Endpoints/Integrations/MailPoet.php:137
+#: admin/Includes/Api/Endpoints/Integrations/MailPoet.php:164
+msgid "MailPoet plugin is not installed or activated."
+msgstr ""
+
+#. %s: Error message
+#: include/Integrations/MailPoet.php:261
+#, php-format
+msgid "MailPoet subscription failed: %s"
+msgstr ""
+
+#: include/Integrations/MailPoet.php:223 include/Integrations/MailPoet.php:226
+msgid "MailPoet subscription successful"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:84
+#: include/Widgets/elementor_widgets.php:291
+#: include/Widgets/elementor_widgets.php:417
+#: include/Widgets/elementor_widgets.php:505
+#: include/Widgets/elementor_widgets.php:600
+msgid "Margin"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:394
+msgid "Mask"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:499
+msgid "Max Selection"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:349
+msgid "Max text length"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:574
+msgid "Max Value"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:966
+msgid "Maximum number of posts to show. Default: 100"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:203
+msgid "Medium"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:271
+msgid "Message Position"
+msgstr ""
+
+#: include/Templates/TemplateRegistry.php:1053
+#: include/Templates/TemplateRegistry.php:1054
+#: admin/Includes/Config/Field.php:728
+msgid "Middle Name"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:557
+msgid "Min Value"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:408
+msgid "MM/DD/YYYY"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:382
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:182
+msgid "Mobile"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Moosend.php:174
+#: admin/Includes/Api/Endpoints/Integrations/Moosend.php:208
+msgid "Moosend API connection successful."
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/Moosend.php:157
+#, php-format
+msgid "Moosend API error [%1$d]: %2$s"
+msgstr ""
+
+#: include/Integrations/Moosend.php:89
+msgid "Moosend API key is required"
+msgstr ""
+
+#. %d: Number of seconds to wait
+#: include/Integrations/Moosend.php:142
+msgid "Moosend API rate limit exceeded. Please retry after %d seconds."
+msgstr ""
+
+#: include/Integrations/Moosend.php:337 include/Integrations/Moosend.php:340
+msgid "Moosend subscription successful"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:324
+msgid "More Details"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:111
+msgid "Mr"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:112
+msgid "Mrs"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:113
+msgid "Ms"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:482
+msgid "Multiple"
+msgstr ""
+
+#: include/Templates/TemplateRegistry.php:1037
+#: admin/Includes/Config/Field.php:712
+msgid "Name"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:332
+msgid "Name Attribute"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:707
+msgid "Names"
+msgstr ""
+
+#: include/Integrations/Slack.php:152 include/Integrations/Discord.php:152
+#, php-format
+msgid "New entry submitted on %s"
+msgstr ""
+
+#: admin/Admin.php:98
+msgid "New Form"
+msgstr ""
+
+#. %s: form title
+#: admin/Includes/Services/Mailer.php:95
+#, php-format
+msgid "New Form Entry - %s"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:282
+msgid "Next to Label as Tooltip"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:144
+msgid "No"
+msgstr ""
+
+#: include/Integrations/Notion.php:308
+msgid "No properties to add to the page"
+msgstr ""
+
+#: admin/Includes/DiagnosticData.php:709
+msgid "No thanks"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:400
+msgid "None"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:531
+msgid "Normal"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ConstantContact.php:399
+msgid "Not connected to Constant Contact. Please connect first."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/OnepageCRM.php:317
+msgid "Note"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:409
+msgid "Note Details"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Notion.php:175
+#: admin/Includes/Api/Endpoints/Integrations/Notion.php:209
+msgid "Notion API connection successful."
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/Notion.php:155
+#, php-format
+msgid "Notion API error [%1$d]: %2$s"
+msgstr ""
+
+#: include/Integrations/Notion.php:96
+msgid "Notion API key is required"
+msgstr ""
+
+#. %d: Number of seconds to wait
+#: include/Integrations/Notion.php:140
+msgid "Notion API rate limit exceeded. Please retry after %d seconds."
+msgstr ""
+
+#: include/Integrations/Notion.php:327 include/Integrations/Notion.php:330
+msgid "Notion page created successfully"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1990
+msgid "Number Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1997
+msgid "Number Color (Active)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:2018
+msgid "Number Size"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:521
+msgid "One Column"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:62
+msgid "OnepageCRM"
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/OnepageCRM.php:207
+#, php-format
+msgid "OnepageCRM API error [%1$d]: %2$s"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/OnepageCRM.php:295
+msgid "OnepageCRM credentials verified successfully."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:80
+msgid "OnepageCRM Integration Feed"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:86
+msgid "OnepageCRM Services"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:76
+msgid "Opportunities"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:734
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:866
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:873
+msgid "Opportunity"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:452
+msgid "Opportunity Details"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:445
+msgid "Opportunity Name"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1076
+msgid "Option Highlighted Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1069
+msgid "Option Highlighted Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1062
+msgid "Option Selected Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1055
+msgid "Option Selected Color"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:444
+msgid "Options"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:150
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:458
+msgid "Organization"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:346
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:564
+msgid "Organization Name"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:157
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:340
+msgid "Organization Title"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:68
+msgid "Organizations"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:165
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:187
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:205
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:255
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:309
+msgid "Other"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:265
+msgid "Other City"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:283
+msgid "Other Country"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:277
+msgid "Other Postcode"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:271
+msgid "Other State"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:259
+msgid "Other Street"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:71
+#: include/Widgets/elementor_widgets.php:272
+#: include/Widgets/elementor_widgets.php:404
+#: include/Widgets/elementor_widgets.php:492
+#: include/Widgets/elementor_widgets.php:587
+msgid "Padding"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:285
+msgid "Partner"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1734
+msgid "Pen Color"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:383
+msgid "Pending"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:949
+msgid "Pending Review"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:523
+msgid "Per Day"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:519
+msgid "Per Hour"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:531
+msgid "Per Month"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:527
+msgid "Per Week"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:535
+msgid "Per Year"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:187
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:388
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:577
+msgid "Phone"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:193
+msgid "Phone Home"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:199
+msgid "Phone Mobile"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:205
+msgid "Phone Other"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1091
+msgid "Pill Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1083
+msgid "Pill Color"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:541
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:741
+msgid "Pipeline"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:548
+msgid "Pipeline Stage"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:132
+msgid "Pixelavo – Server Side Tracking & Pixel + AI Ads Tools"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:216
+#: include/Widgets/elementor_widgets.php:370
+msgid "Placeholder Color"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:135
+msgid "Placeholder Text"
+msgstr ""
+
+#: include/UI/ShortCode.php:686 admin/Includes/Services/Helper.php:380
+msgid "Please complete the hCaptcha challenge."
+msgstr ""
+
+#: include/UI/ShortCode.php:677 admin/Includes/Services/Helper.php:306
+msgid "Please complete the reCAPTCHA challenge."
+msgstr ""
+
+#: include/UI/ShortCode.php:751
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: include/UI/ShortCode.php:756
+msgid "Please enter a valid number."
+msgstr ""
+
+#: include/UI/ShortCode.php:753
+msgid "Please enter a valid phone number."
+msgstr ""
+
+#: include/UI/ShortCode.php:759
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: include/UI/ShortCode.php:752
+msgid "Please enter a valid {format} format."
+msgstr ""
+
+#: include/UI/ShortCode.php:417
+msgid "Please leave this field empty"
+msgstr ""
+
+#: admin/Includes/Models/Drafts.php:502
+#: admin/Includes/Api/Endpoints/Draft.php:423
+msgid "Please provide a valid email address"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Utilities.php:83
+msgid "Please provide a valid URL"
+msgstr ""
+
+#: blocks/block-init.php:294 blocks/block-init.php:309
+msgid "Please Select a contact form."
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:706
+#: include/Widgets/ht_form_widgets.php:185
+msgid "Please Select contact form."
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:465
+msgid "Plugin Not Found"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:485
+msgid "Plugin Successfully Activated"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:102
+msgid "Popular"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:108
+msgid "Popup Form Response"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:942
+msgid "Post Status"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:925
+msgid "Post Type"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:247
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:424
+msgid "Postcode"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:964
+msgid "Posts Limit"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:302
+msgid "Prefix Label"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:510
+msgid "Prefix/Suffix Background Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:503
+msgid "Prefix/Suffix Color"
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:142
+msgid "Preview"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:58
+msgid "Preview your form to ensure it looks and functions as expected."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:816
+msgid "Priority"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:472
+msgid "Probability of Winning"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:810
+msgid "Progress"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:880
+msgid "Project"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:465
+msgid "Project Category"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:721
+msgid "Project Details"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:685
+msgid "Project Name"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:80
+msgid "Projects"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:256
+msgid ""
+"Provide additional guidance that is displayed as a tooltip or below the "
+"field."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:136
+msgid "Provide placeholder text that is visible when the field is empty."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:947
+msgid "Published"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:103
+msgid "Purchase CF7 Pro Extensions"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:474
+msgid "Query String Variable"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:450
+msgid "Queued"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:851
+msgid "Radio & Label Gap"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:815
+msgid "Radio Size"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:833
+msgid "Radio Size (Large)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:824
+msgid "Radio Size (Small)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:246 admin/Includes/Config/Styler.php:354
+#: admin/Includes/Config/Styler.php:638 admin/Includes/Config/Styler.php:842
+#: admin/Includes/Config/Styler.php:1580 admin/Includes/Config/Styler.php:1755
+#: admin/Includes/Config/Styler.php:1873 admin/Includes/Config/Styler.php:2027
+msgid "Radius"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:29
+msgid "Read the Full Guide"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:287
+#: admin/Includes/Services/Helper.php:295
+msgid "reCAPTCHA is not configured."
+msgstr ""
+
+#: include/UI/ShortCode.php:683 admin/Includes/Services/Helper.php:340
+#: admin/Includes/Services/Helper.php:349
+msgid "reCAPTCHA verification failed. Please try again."
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:53
+msgid "Receive email notifications when form submissions are received."
+msgstr ""
+
+#: include/recommended-plugins/class.recommended-plugins.php:75
+msgid "Recommendations"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:43
+msgid "Recommended Plugins"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:95
+msgid "Recurio – Ultimate Subscription for WooCommerce"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:525
+msgid "Redirecting to Zoho for authorization..."
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:551
+msgid "Referrer URL"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:572
+msgid "Register URL"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:804
+msgid "Reminder Date"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:876
+msgid "Remove"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:873
+msgid "Remove Button Text"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:107
+msgid "Repeater Field"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:150
+msgid "Required"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:166
+msgid "Required Error Message"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:333
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:490
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:755
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:785
+msgid "Responsible User"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Draft.php:451
+msgid "Resume link has been sent to your email"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:119
+#: admin/Includes/Config/Field.php:111
+msgid "Right"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:889
+msgid "Row Label"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:892
+msgid "Row {n}"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:364
+msgid "Rows"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:131
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:298
+msgid "Salutation"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:465
+msgid "Searchable"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Settings.php:262
+msgid "Secret key is required"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Settings.php:311
+msgid "Secret key is valid"
+msgstr ""
+
+#: include/UI/ShortCode.php:653
+msgid "Security check failed. Please try again."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Draft.php:164
+msgid "Security verification failed. Please refresh the page and try again."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:198
+msgid "Select Email"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:49
+#: include/Widgets/ht_form_widgets.php:63
+msgid "Select Form"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:678 admin/Includes/Config/Field.php:709
+msgid "Select format to use for the name form field."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:267
+msgid "Select Lead Source"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:176
+msgid "Select Phone Type"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:260
+msgid "Select Status"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:57
+msgid "Select the insightly service you like to add your contact to."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:776
+msgid "Select the type of match to apply for conditional logic."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:87
+msgid "Select the type of service you want to create."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:391
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:424
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:470
+msgid "Select the user from your contact list."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:155
+msgid "Select URL Type"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:843
+msgid "Select which fields to include in each repeater row."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:927
+msgid "Select which post type to query."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:297
+msgid "Seminar"
+msgstr ""
+
+#: admin/Includes/DiagnosticData.php:704
+#, php-format
+msgid ""
+"Server information (Web server, PHP version, MySQL version), WordPress "
+"information, site name, site URL, number of plugins, number of users, your "
+"name, and email address. You can rest assured that no sensitive data will be "
+"collected or tracked. %1$sPrivacy Policy%2$s"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:333
+msgid ""
+"Set a unique name attribute for the field to be used during form submission."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:365
+msgid "Set the number of rows for the textarea element to control its height."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:594
+msgid "Set the step increment for numerical input control."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Settings.php:235
+#: admin/Includes/Api/Endpoints/Integrations.php:256
+#: admin/Includes/Api/Endpoints/Integrations.php:284
+msgid "Settings must be an object."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:633
+msgid "Shipping City"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:651
+msgid "Shipping Country"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:645
+msgid "Shipping Postal Code"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:639
+msgid "Shipping State"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:627
+msgid "Shipping Street"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:38
+msgid "ShopLentor – All-in-One WooCommerce Growth & Store Enhancement Plugin"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:661
+msgid "Show the current slider value in real-time beneath the slider control."
+msgstr ""
+
+#: templates/email/email-5.php:132 templates/email/email-4.php:131
+#: templates/email/email-3.php:117 templates/email/email-2.php:122
+#: templates/email/email-1.php:116
+msgid "Signature"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:683
+msgid "Simple"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:586
+msgid "Site Title"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:593
+msgid "Site URL"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:186
+msgid "Skype"
+msgstr ""
+
+#: include/Integrations/Slack.php:116
+#, php-format
+msgid "Slack webhook error: %s"
+msgstr ""
+
+#: include/Integrations/Slack.php:126
+#, php-format
+msgid "Slack webhook returned error code: %s"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:199
+msgid "Small"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:293
+msgid "Social"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:460 admin/Includes/Config/Styler.php:672
+#: admin/Includes/Config/Styler.php:876 admin/Includes/Config/Styler.php:1244
+#: admin/Includes/Config/Styler.php:1462 admin/Includes/Config/Styler.php:1686
+#: admin/Includes/Config/Styler.php:1837 admin/Includes/Config/Styler.php:1970
+msgid "Solid"
+msgstr ""
+
+#: include/UI/ShortCode.php:671 admin/Includes/Api/Endpoints/Submission.php:161
+msgid "Spam detected. Please try again."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:240
+msgid "Specify a CSS class for custom styling of the field element."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:516
+msgid "Specify the layout style for arranging the field options or appearance."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:380
+msgid ""
+"Specify the number of columns for the textarea element to determine its "
+"width."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:273
+msgid "Specify the position for the field help message."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:98
+msgid "Specify the position for the field label relative to the input area."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:748
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:887
+msgid "Stage"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:351
+msgid "Stage Number"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1776
+msgid "Star Color (Active)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1769
+msgid "Star Color (Inactive)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1783
+msgid "Star Size"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1801
+msgid "Star Size (Large)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1792
+msgid "Star Size (Small)"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:138
+msgid "Starred"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:798
+msgid "Start Date"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:241
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:418
+msgid "State"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:692
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:836
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:378
+msgid "Status"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:80
+msgid "Stay Cookie & GDPR Compliant"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:591
+msgid "Step"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:229
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:406
+msgid "Street Address"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:63
+msgid "Style"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:841
+msgid "Sub Fields"
+msgstr ""
+
+#: templates/email/email-5.php:187
+msgid "Submission Details"
+msgstr ""
+
+#: include/UI/ShortCode.php:668 admin/Includes/Api/Endpoints/Submission.php:186
+msgid "Submission was too quick. Please wait a moment and try again."
+msgstr ""
+
+#: templates/email/email-4.php:186 templates/email/email-3.php:171
+#: templates/email/email-2.php:178 templates/email/email-1.php:173
+msgid "Submitted on"
+msgstr ""
+
+#: include/Integrations/MailPoet.php:244
+msgid "Subscriber added to list"
+msgstr ""
+
+#: include/Integrations/MailPoet.php:241
+msgid "Subscriber updated and added to list"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:317
+msgid "Suffix Label"
+msgstr ""
+
+#: include/Admin/templates/dashboard-widget.php:103
+msgid "Support"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:51
+msgid ""
+"Support Genix – Helpdesk, AI Chatbot, Knowledge Base & Customer Support "
+"Ticketing System"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/ActiveCampaign.php:465
+msgid "Tags added successfully."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:84
+msgid "Tasks"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Templates.php:96
+msgid "Template not found."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Templates.php:89
+msgid "template_id is required."
+msgstr ""
+
+#: admin/Admin.php:103
+msgid "Templates"
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:199
+#: include/Widgets/elementor_widgets.php:359
+#: include/Widgets/elementor_widgets.php:452
+#: include/Widgets/elementor_widgets.php:565
+#: include/Widgets/elementor_widgets.php:653
+#: admin/Includes/Config/Styler.php:961 admin/Includes/Config/Styler.php:1104
+#: admin/Includes/Config/Styler.php:1308
+msgid "Text Color"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:968 admin/Includes/Config/Styler.php:1111
+#: admin/Includes/Config/Styler.php:1315
+msgid "Text Font Size"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:986 admin/Includes/Config/Styler.php:1129
+#: admin/Includes/Config/Styler.php:1333
+msgid "Text Font Size (Large)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:977 admin/Includes/Config/Styler.php:1120
+#: admin/Includes/Config/Styler.php:1324
+msgid "Text Font Size (Small)"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:995 admin/Includes/Config/Styler.php:1138
+#: admin/Includes/Config/Styler.php:1342
+msgid "Text Font Weight"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:859
+msgid "Text for the \"Add Row\" button."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:875
+msgid "Text for the \"Remove Row\" button."
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:1183 admin/Includes/Config/Styler.php:1387
+msgid "Text Line Height"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:318
+msgid "Text to display after the field input, serving as a suffix."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:303
+msgid "Text to display before the field input, serving as a prefix."
+msgstr ""
+
+#: include/Widgets/elementor_widgets.php:313
+msgid "Textarea"
+msgstr ""
+
+#. %1$s: project name
+#. %2$s: strong start tag
+#. %3$s: strong end tag
+#: admin/Includes/DiagnosticData.php:732
+#, php-format
+msgid "Thank you very much for supporting %2$s%1$s%3$s."
+msgstr ""
+
+#: include/UI/ShortCode.php:633
+msgid "Thanks for contacting us! We will be in touch with you shortly."
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"The Contact Form Widget is a elementor addons and Gutenberg blocks for "
+"WordPress."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Utilities.php:125
+msgid "The CSV file is empty"
+msgstr ""
+
+#: include/Templates/TemplateRegistry.php:1033
+#: admin/Includes/Config/Field.php:168 admin/Includes/Config/Field.php:717
+#: admin/Includes/Config/Field.php:725 admin/Includes/Config/Field.php:733
+#: admin/Includes/Config/Field.php:741
+msgid "This field is required"
+msgstr ""
+
+#: include/UI/ShortCode.php:757
+msgid "This field is required."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:64
+msgid "This is the field title the user will see when filling out the form."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:167
+msgid ""
+"This message will be shown if validation fails for Required. Leave empty to "
+"use global message. Configure Global Message from: Global settings > "
+"Validation Messages"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:529
+msgid "Three Columns"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:944
+msgid "Thumb Background"
+msgstr ""
+
+#: admin/Includes/Config/Styler.php:951
+msgid "Thumb Radius"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:771
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:107
+msgid "Title"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:81
+msgid "Toggle this switch to hide the field label from display."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:484
+msgid "Toggle to allow multiple selections within the field."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:467
+msgid "Toggle to enable search functionality within this field."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:152
+msgid "Toggle to mark the field as mandatory for form submission."
+msgstr ""
+
+#: admin/Includes/Config/Field.php:107
+msgid "Top"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:43
+msgid "Track and manage all form submissions in one convenient dashboard."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:301
+msgid "Tradeshow"
+msgstr ""
+
+#. %1$d: HTTP status code, %2$s: Error message
+#: include/Integrations/Trello.php:156
+#, php-format
+msgid "Trello API error [%1$d]: %2$s"
+msgstr ""
+
+#: include/Integrations/Trello.php:99
+msgid "Trello API key and token are required"
+msgstr ""
+
+#: include/Integrations/Trello.php:146
+msgid "Trello API rate limit exceeded. Please try again later."
+msgstr ""
+
+#: include/Integrations/Trello.php:367 include/Integrations/Trello.php:370
+msgid "Trello card created successfully"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Trello.php:193
+#: admin/Includes/Api/Endpoints/Integrations/Trello.php:221
+#: admin/Includes/Api/Endpoints/Integrations/Trello.php:257
+msgid "Trello credentials not configured."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Trello.php:176
+msgid "Trello credentials verified successfully."
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:164
+msgid "Twitter"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:175
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:670
+msgid "Twitter URL"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:525
+msgid "Two Columns"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Mailchimp.php:185
+#: admin/Includes/Api/Endpoints/Integrations/OnepageCRM.php:246
+msgid "Unknown error occurred."
+msgstr ""
+
+#: include/Integrations/Slack.php:151 include/Integrations/Discord.php:151
+msgid "Unknown Form"
+msgstr ""
+
+#: include/Integrations/Notion.php:204
+msgid "Untitled"
+msgstr ""
+
+#: admin/Includes/Models/Form.php:170 admin/Includes/Api/Endpoints/Form.php:215
+msgid "Untitled Form"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:488
+msgid "User Display Name"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:516
+msgid "User Email"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:502
+msgid "User First Name"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:495
+msgid "User Full Name"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:481
+msgid "User ID"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:355
+msgid "User ID and API key are required for OnepageCRM integration."
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:509
+msgid "User Last Name"
+msgstr ""
+
+#: admin/Includes/Services/Helper.php:523
+msgid "User Meta"
+msgstr ""
+
+#: include/Integrations/iContact.php:382 include/Integrations/HubSpot.php:296
+#: include/Integrations/Moosend.php:298 include/Integrations/Drip.php:291
+#: include/Integrations/GetResponse.php:245
+#: include/Integrations/MailPoet.php:195
+msgid "Valid email address is required"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:642
+msgid "Validate as unique"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:625
+msgid "Validate Email"
+msgstr ""
+
+#: admin/Includes/Config/Field.php:659
+msgid "Value Display"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:449
+msgid "Waiting"
+msgstr ""
+
+#: admin/Includes/DiagnosticData.php:713
+#, php-format
+msgid ""
+"Want to help make %2$s%1$s%3$s even more awesome? Allow %1$s to collect "
+"diagnostic data and usage information. (%4$swhat we collect%5$s)"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:394
+#: admin/Includes/Config/Editor/Integrations/Insightly.php:589
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:160
+msgid "Website"
+msgstr ""
+
+#: admin/Admin.php:88
+msgid "Welcome"
+msgstr ""
+
+#: admin/Includes/Config/Welcome.php:21
+msgid "Welcome to HT Contact Form"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:90
+msgid "Whols – Wholesale Prices and B2B Store Solution for WooCommerce"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:384
+msgid "Won"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:83
+msgid "WooCommerce"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:305
+msgid "Word of mouth"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:181
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:203
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:252
+msgid "Work"
+msgstr ""
+
+#: include/recommended-plugins/recommended-plugins.php:63
+#: include/recommended-plugins/recommended-plugins.php:112
+msgid "WP Plugin Manager – Deactivate plugins per page"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:315
+msgid "Write Background"
+msgstr ""
+
+#: admin/Includes/Config/Editor/Integrations/OnepageCRM.php:143
+msgid "Yes"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Draft.php:331
+#: admin/Includes/Api/Endpoints/Draft.php:437
+msgid "You are not authorized to access this draft."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Draft.php:376
+#: admin/Includes/Api/Endpoints/Draft.php:520
+msgid "You are not authorized to modify this draft."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations/Trello.php:122
+msgid "You do not have permission to access this endpoint."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:218
+msgid "You do not have permission to manage integrations."
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Settings.php:119
+msgid "You do not have permission to manage settings."
+msgstr ""
+
+#: include/UI/ShortCode.php:750
+msgid "You have exceeded the number of allowed characters."
+msgstr ""
+
+#: include/UI/ShortCode.php:754
+msgid "You have exceeded the number of allowed maximum."
+msgstr ""
+
+#: include/UI/ShortCode.php:755
+msgid "You have exceeded the number of allowed minimum."
+msgstr ""
+
+#: include/UI/ShortCode.php:758
+msgid "You have exceeded the number of allowed selections."
+msgstr ""
+
+#: templates/email/email-4.php:47
+msgid "You've received a new message from your website contact form."
+msgstr ""
+
+#: include/UI/ShortCode.php:698
+msgid "Your country is restricted. Please try again."
+msgstr ""
+
+#: include/UI/ShortCode.php:695
+msgid "Your IP address is restricted. Please try again."
+msgstr ""
+
+#: include/Templates/TemplateRegistry.php:1038
+msgid "Your Name"
+msgstr ""
+
+#: include/Integrations/Zapier.php:116
+#, php-format
+msgid "Zapier webhook error: %s"
+msgstr ""
+
+#: include/Integrations/Zapier.php:126
+#, php-format
+msgid "Zapier webhook returned error code: %s"
+msgstr ""
+
+#: admin/Includes/Api/Endpoints/Integrations.php:518
+msgid "Zoho CRM is connected."
+msgstr ""

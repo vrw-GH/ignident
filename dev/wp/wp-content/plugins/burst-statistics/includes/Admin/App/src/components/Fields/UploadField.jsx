@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import FieldWrapper from '@/components/Fields/FieldWrapper';
 import Icon from '@/utils/Icon';
-import { toast } from 'react-toastify';
+import { toast } from '@/utils/toast';
 import useSettingsData from '@/hooks/useSettingsData';
 import ButtonInput from '@/components/Inputs/ButtonInput';
 import { clsx } from 'clsx';
@@ -15,7 +15,7 @@ const EXCLUDED_FIELDS = [
 	'burst_tour_shown_once',
 	'license',
 	'review_notice_shown',
-	'burst_update_to_city_geo_database_time',
+	'update_to_city_geo_database_time',
 	'filtering_by_domain',
 	'goals',
 	'import_settings',
@@ -41,6 +41,8 @@ const EXCLUDED_FIELDS = [
  * @return {JSX.Element}
  */
 	const UploadField = (
+
+	// fallow-ignore-next-line complexity
 	({ field, fieldState, label, help, context, className, ...props }) => {
 		const { settings, saveSettings, isSavingSettings } = useSettingsData();
 		const [ file, setFile ] = useState( false );
@@ -251,7 +253,7 @@ const EXCLUDED_FIELDS = [
 								'flex-1 text-sm font-medium',
 								'success' === importStatus && 'text-green-700',
 								'error' === importStatus && 'text-red-700',
-								! importStatus && 'text-gray-700'
+								! importStatus && 'text-text-gray'
 							)}>
 								{file.name}
 							</span>

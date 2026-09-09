@@ -11,7 +11,7 @@
 .avia-style select {
 	-webkit-appearance: none;
 	border: 1px solid #e1e1e1;
-	padding: 6px 4px;
+	padding: 6px 12px;
 	outline: none;
 	font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #777;
@@ -35,7 +35,7 @@
 .avia-style textarea{
 	box-sizing: border-box;
 	width:95%;
-	padding:15px;
+	padding:12px;
 	height:150px;
 }
 
@@ -50,12 +50,26 @@
 }
 
 
+/*
+ * The arrow is the same double chevron the theme options screens use
+ * (framework/images/layout/svg/select.svg), drawn rather than pixels so it stays sharp on high
+ * resolution screens. The offset is in the rule rather than baked into the image as transparent
+ * padding, which is what the png it replaces did.
+ */
 .avia-style select,
 .avia-style select:disabled{
-	padding: 6px 35px 6px 4px;
-	background-image: url(../../images/select.png);
-	background-position: center right;
+	padding-block: 6px;
+	padding-inline: 12px 35px;
+	background-image: url(../../images/select.svg);
+	background-position: right 9px center;
+	background-size: 15px 15px;
 	background-repeat: no-repeat;
+}
+
+/*	no logical form for background-position, so the one right to left case is turned round here */
+html[dir="rtl"] .avia-style select,
+html[dir="rtl"] .avia-style select:disabled{
+	background-position: left 9px center;
 }
 
 /*firefox hack*/
@@ -104,7 +118,7 @@ div .avia_advanced_textarea.avia_tinymce.wp-editor-area{
 .avia-form-element.avia-has-critical-character input,
 .avia-form-element.avia-has-critical-character input:focus,
 .avia-form-element.avia-has-critical-character textarea{
-	border-color: red;
+	border-color: #D54E21;
 }
 
 .avia-form-element .avia-critical-char-msg{
@@ -113,8 +127,12 @@ div .avia_advanced_textarea.avia_tinymce.wp-editor-area{
 
 .avia-form-element.avia-has-critical-character .avia-critical-char-msg{
 	display: block;
-	color: red;
-	font-weight: 700;
+	color: #D54E21;
+	font-weight: 500;
+}
+
+.avia-form-element.avia-has-critical-character .avia-critical-char-msg a{
+	color: #D54E21;
 }
 
 /*Icon Selector*/
@@ -518,9 +536,9 @@ body.avia-noscroll{
 
 div.avia-modal .avia-modal-inner-footer .button-large {
 	position: absolute;
-	right: 12px;
-	top: 10px;
-	padding: 0 35px 2px;
+	right: 8px;
+	top: 5px;
+	padding: 0 35px;
 }
 
 .avia-modal-inner-content {
@@ -540,13 +558,12 @@ div.avia-modal .avia-modal-inner-footer .button-large {
 	position: absolute;
 	top:14px;
 	right:14px;
-	background: transparent url(../../images/icon-trash.png) top left no-repeat;
 	overflow: hidden;
 	text-indent: 200%;
 }
 
-.avia-modal-close:hover{
-	background: transparent url(../../images/icon-trash.png) bottom left no-repeat;
+.avia-modal-close:hover::before{
+	background-color: var( --av-ui-icon-hover, #278ab7 );
 }
 
 .avia-modal-title {
@@ -1006,7 +1023,7 @@ Checkbox Toggles
 	clear: both;
 	vertical-align: bottom;
 	float: left;
-	transition: all .4s ease-in;
+	transition: all .1s ease-in;
 }
 
 .avia-modal .av-toggle-switch .toggle-track:before{
@@ -1017,9 +1034,9 @@ Checkbox Toggles
 	background: #fff;
 	border-radius: 100px;
 	position: absolute;
-	top: 0;
-	right: 27px;
-	transition: right .4s ease-in;
+	top: 1px;
+	right: 28px;
+	transition: right .1s ease-in;
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 1px;
 }
 
@@ -1660,12 +1677,12 @@ body .avia-hidden{
 .avia-modal .avia-form-element .avia-dynamic-char{
 	position: relative;
 	float: right;
-	right: 1%;
+	right: 0;
 	font-size: 17px;
 	color: #D54E21;
 	width: auto;
 	height: auto;
-	margin: 5px 0 0 0;
+	margin: 10px 0 0 0;
 	transition: all 0.4s ease-in-out;
 	z-index: 40;
 }
@@ -1749,4 +1766,23 @@ body .avia-hidden{
 	margin-bottom: 0;
 }
 
-
+/*
+ * The close button wore the same sprite as delete - which is an X, not a bin - so it
+ * read as "discard" rather than "close". It gets a real close glyph now.
+ *
+ * @since 8.0
+ */
+.avia-modal-close{ --av-ui-glyph: url( ../../icons/ui/close.svg ); }
+.avia-modal-close::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: var( --av-ui-icon, rgba( 0, 0, 0, .35 ) );
+	-webkit-mask: var( --av-ui-glyph ) center / var( --av-ui-icon-size, 20px ) var( --av-ui-icon-size, 20px ) no-repeat;
+	        mask: var( --av-ui-glyph ) center / var( --av-ui-icon-size, 20px ) var( --av-ui-icon-size, 20px ) no-repeat;
+	transition: background-color .15s ease;
+	pointer-events: none;
+}

@@ -23,9 +23,9 @@ if( ! class_exists( 'av_font_icon', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Icon', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-icon.png';
-			$this->config['order']			= 90;
+			$this->config['tab']			= __( 'Basic Elements', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-icon.svg';
+			$this->config['order']			= 80;
 			$this->config['shortcode']		= 'av_font_icon';
 			$this->config['tooltip'] 	    = __( 'Display an icon with optional hover effect', 'avia_framework' );
 			$this->config['target']			= 'avia-target-insert';

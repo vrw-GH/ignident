@@ -36,12 +36,14 @@ if( ! class_exists( 'avia_sc_gmaps', false ) )
 			$this->config['self_closing']	= 'no';
 
 			$this->config['name']			= __( 'Google Map', 'avia_framework' );
-			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-maps.png';
-			$this->config['order']			= 5;
+			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-maps.svg';
+			$this->config['order']			= 35;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_google_map';
 			$this->config['shortcode_nested'] = array( 'av_gmap_location' );
+			//	the canvas names the locations so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_gmap_location', 'attr' => 'address' );
 			$this->config['tooltip'] 	    = __( 'Display a google map with one or multiple locations', 'avia_framework' );
 			$this->config['drag-level'] 	= 3;
 			$this->config['disabling_allowed'] = true;
@@ -607,8 +609,15 @@ if( ! class_exists( 'avia_sc_gmaps', false ) )
 				$info = ' -  <span ' . $update . '>' . $template . '</span>';
 			}
 
-			$params['innerHtml']  =	"<img src='{$this->config['icon']}' title='{$this->config['name']}' />";
-			$params['innerHtml'] .=	"<div class='avia-element-label av-google-maps'>{$this->config['name']} {$info}</div>";
+			/**
+			 * Built by hand rather than through the parent because the name carries the chosen map
+			 * service after it - but the icon and the name are wrapped the same way everything else is,
+			 * so the canvas lines this element up with its neighbours.
+			 */
+			$params['innerHtml']  =	"<div class='avia-element-head'>";
+			$params['innerHtml'] .=		Avia_Element_Icons()->get_html( $this->config['icon'], $this->config['name'] );
+			$params['innerHtml'] .=		"<div class='avia-element-label av-google-maps'>{$this->config['name']} {$info}</div>";
+			$params['innerHtml'] .=	'</div>';
 			$params['innerHtml'] .=	AviaPopupTemplates()->get_html_template( 'alb_element_fullwidth_stretch' );
 
 			return $params;

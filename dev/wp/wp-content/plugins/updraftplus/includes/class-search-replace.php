@@ -1,7 +1,7 @@
 <?php
-
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- Direct $wpdb query is required for this operation.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- some query operations need to always receive the most up-to-date or actual data directly from the database, reducing the risk of serving stale information.
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 class UpdraftPlus_Search_Replace {
 
@@ -100,6 +100,7 @@ class UpdraftPlus_Search_Replace {
 			$updraftplus->check_db_connection($this->wpdb_obj, true);
 
 			// Get a list of columns in this table
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- DESCRIBE is a DDL command that cannot be parameterized; $table is a SQL identifier sanitized using backquote().
 			$fields = $wpdb->get_results('DESCRIBE '.UpdraftPlus_Manipulation_Functions::backquote($table), ARRAY_A);
 
 			$prikey_field = false;
@@ -127,12 +128,16 @@ class UpdraftPlus_Search_Replace {
 			if ($prikey_field) $count_rows_sql .= " USE INDEX (PRIMARY)";
 			$count_rows_sql .= $where;
 
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $count_rows_sql is constructed from safe table identifiers; SQL identifiers cannot be parameterized with $wpdb->prepare().
 			$row_countr = $wpdb->get_results($count_rows_sql, ARRAY_N);
 
 			// If that failed, try this
 			if (false !== $prikey_field && $wpdb->last_error) {
-				$row_countr = $wpdb->get_results("SELECT COUNT(*) FROM $table USE INDEX ($prikey_field)".$where, ARRAY_N);
-				if ($wpdb->last_error) $row_countr = $wpdb->get_results("SELECT COUNT(*) FROM $table", ARRAY_N);
+				$escaped_table_name = UpdraftPlus_Database_Utility::escape_table_name($table);
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $escaped_table_name and $prikey_field are SQL identifiers; identifiers cannot be parameterized with $wpdb->prepare(), table name is safely escaped via escape_table_name().
+				$row_countr = $wpdb->get_results("SELECT COUNT(*) FROM $escaped_table_name USE INDEX ($prikey_field)".$where, ARRAY_N);
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is safely escaped via escape_table_name().
+				if ($wpdb->last_error) $row_countr = $wpdb->get_results("SELECT COUNT(*) FROM $escaped_table_name", ARRAY_N);
 			}
 
 			$row_count = $row_countr[0][0];
@@ -175,16 +180,16 @@ class UpdraftPlus_Search_Replace {
 						$report['errors'][] = $this->print_error($sql_line);
 					} elseif (true !== $data && null !== $data) {
 						if ($this->use_mysqli) {
-							while ($row = mysqli_fetch_array($data)) {
+							while ($row = mysqli_fetch_array($data)) { // phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_fetch_array -- Using mysqli directly for streaming large result sets during restore to avoid high memory usage with $wpdb
 								$rowrep = $this->process_row($table, $row, $search, $replace, $stripped_table);
 								$report['rows']++;
 								$report['updates'] += $rowrep['updates'];
 								$report['change'] += $rowrep['change'];
 								foreach ($rowrep['errors'] as $err) $report['errors'][] = $err;
 							}
-							mysqli_free_result($data);
+							mysqli_free_result($data); // phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_free_result -- Using mysqli directly for streaming large result sets during restore to avoid high memory usage with $wpdb
 						} else {
-							// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved -- Ignore removed extension compatibility.
+							// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved, WordPress.DB.RestrictedFunctions.mysql_mysql_fetch_array -- Ignore removed extension compatibility, direct mysql function used for low-level database operations outside of $wpdb.
 							while ($row = mysql_fetch_array($data)) {
 								$rowrep = $this->process_row($table, $row, $search, $replace, $stripped_table);
 								$report['rows']++;
@@ -192,7 +197,7 @@ class UpdraftPlus_Search_Replace {
 								$report['change'] += $rowrep['change'];
 								foreach ($rowrep['errors'] as $err) $report['errors'][] = $err;
 							}
-							@mysql_free_result($data); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved -- If an error occurs during mysql free result and it fails to free result, it will not impact anything at all. mysql_* function used in the scenario in which the mysqli extension doesn't exist.
+							@mysql_free_result($data); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged, PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved, WordPress.DB.RestrictedFunctions.mysql_mysql_free_result -- If an error occurs during mysql free result and it fails to free result, it will not impact anything at all. mysql_* function used in the scenario in which the mysqli extension doesn't exist.
 						}
 					}
 				}
@@ -225,13 +230,15 @@ class UpdraftPlus_Search_Replace {
 
 		if ($this->use_wpdb) {
 			global $wpdb;
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $sql_line is a SELECT query built from safe table identifiers and paginated offsets; SQL identifiers and LIMIT/OFFSET values cannot be parameterized with $wpdb->prepare().
 			$data = $wpdb->get_results($sql_line, ARRAY_A);
 			if (!$wpdb->last_error) return array($data, $page_size);
 		} else {
 			if ($this->use_mysqli) {
+				// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_query -- Direct mysqli call required; this uses a dedicated low-level database handle ($this->mysql_dbh) outside $wpdb for search-replace operations.
 				$data = mysqli_query($this->mysql_dbh, $sql_line);
 			} else {
-				// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved -- Ignore removed extension compatibility.
+				// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved, WordPress.DB.RestrictedFunctions.mysql_mysql_query -- Ignore removed extension compatibility, direct mysql function used for low-level database operations outside of $wpdb.
 				$data = mysql_query($sql_line, $this->mysql_dbh);
 			}
 			if (false !== $data) return array($data, $page_size);
@@ -286,15 +293,14 @@ class UpdraftPlus_Search_Replace {
 			} catch (Exception $e) {
 				$log_message = 'An Exception ('.get_class($e).') occurred during the recursive search/replace. Exception message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				$report['errors'][] = $log_message;
-				error_log($log_message);
+				UpdraftPlus_Manipulation_Functions::error_log($log_message);
 				$updraftplus->log($log_message);
 				/* translators: 1: Exception class, 2: Exception message. */
 				$updraftplus->log(sprintf(__('A PHP exception (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage()), 'warning-restore');
-				// @codingStandardsIgnoreLine
-			} catch (Error $e) {
+			} catch (Error $e) {// phpcs:ignore PHPCompatibility.Classes.NewClasses.errorFound -- The Error class does not exist in PHP below 5.6.
 				$log_message = 'A PHP Fatal error (recoverable, '.get_class($e).') occurred during the recursive search/replace. Exception message: Error message: '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().')';
 				$report['errors'][] = $log_message;
-				error_log($log_message);
+				UpdraftPlus_Manipulation_Functions::error_log($log_message);
 				$updraftplus->log($log_message);
 				/* translators: 1: Fatal error class, 2: Error message. */
 				$updraftplus->log(sprintf(__('A PHP fatal error (%1$s) has occurred: %2$s', 'updraftplus'), get_class($e), $e->getMessage()), 'warning-restore');
@@ -470,7 +476,7 @@ class UpdraftPlus_Search_Replace {
 		if ($this->use_wpdb) {
 			$last_error = $wpdb->last_error;
 		} else {
-			// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved -- Ignore removed extension compatibility.
+			// phpcs:ignore PHPCompatibility.Extensions.RemovedExtensions.mysql_DeprecatedRemoved, WordPress.DB.RestrictedFunctions.mysql_mysql_error, WordPress.DB.RestrictedFunctions.mysql_mysqli_error -- Ignore removed extension compatibility, direct mysql/mysqli function used for low-level database operations outside of $wpdb.
 			$last_error = ($this->use_mysqli) ? mysqli_error($this->mysql_dbh) : mysql_error($this->mysql_dbh);
 		}
 		$updraftplus->log(__('Error:', 'updraftplus')." ".$last_error." - ".__('the database query being run was:', 'updraftplus').' '.$sql_line, 'warning-restore');

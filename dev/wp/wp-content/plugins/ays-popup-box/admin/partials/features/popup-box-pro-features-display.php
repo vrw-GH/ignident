@@ -74,7 +74,7 @@
                             </div>
                             <div class="price-now features-lifetime display_none"><span>$69</span></div>
                             <div class="price-now features-annual"><span>$29</span></div>
-                            <a href="https://popup-plugin.com/pricing/" class="price-buy">
+                            <a href="https://popup-plugin.com/pricing/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=popup-pro-features-buy-now-button-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>" class="price-buy">
                                 <?php echo esc_html__('Buy now', "ays-popup-box"); ?><span class="hide-mobile"></span>
                             </a>
                             <div style="font-size:12px;" class="features-lifetime display_none"> (<?php echo esc_html__('One-time payment', "ays-popup-box"); ?>)</div>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="price-now features-lifetime display_none"><span>$149</span></div>
                             <div class="price-now features-annual"><span>$59</span></div>
-                            <a href="https://popup-plugin.com/pricing/" class="price-buy">
+                            <a href="https://popup-plugin.com/pricing/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=popup-pro-features-buy-now-button-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>" class="price-buy">
                                 <?php echo esc_html__('Buy now', "ays-popup-box"); ?><span class="hide-mobile"></span>
                             </a>
                             <div style="font-size:12px;" class="features-lifetime display_none"> (<?php echo esc_html__('One-time payment', "ays-popup-box"); ?>)</div>
@@ -993,13 +993,13 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <a href="https://popup-plugin.com/pricing/" class="price-buy">
+                            <a href="https://popup-plugin.com/pricing/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=popup-pro-features-buy-now-button-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>" class="price-buy">
                                 <?php echo esc_html__('Buy now', "ays-popup-box"); ?><span class="hide-mobile"></span>
                             </a>
                             <div style="font-size:12px;" class="features-lifetime display_none"> (<?php echo esc_html__('One-time payment', "ays-popup-box"); ?>)</div>
                         </td>
                         <td>
-                            <a href="https://popup-plugin.com/pricing/" class="price-buy">
+                            <a href="https://popup-plugin.com/pricing/?utm_source=dashboard&utm_medium=popup-free&utm_campaign=popup-pro-features-buy-now-button-<?php echo esc_attr( AYS_PB_NAME_VERSION ); ?>" class="price-buy">
                                 <?php echo esc_html__('Buy now', "ays-popup-box"); ?><span class="hide-mobile"></span>
                             </a>
                             <div style="font-size:12px;" class="features-lifetime display_none"> (<?php echo esc_html__('One-time payment', "ays-popup-box"); ?>)</div>

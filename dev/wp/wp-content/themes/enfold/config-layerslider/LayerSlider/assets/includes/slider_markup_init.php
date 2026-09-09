@@ -3,18 +3,8 @@
 // Prevent direct file access
 defined( 'LS_ROOT_FILE' ) || exit;
 
-// Override popup triggers for layer action
-if( ! empty( $GLOBALS['lsAjaxOverridePopupSettings'] ) ) {
-	$slides['properties']['attrs']['popupShowOnTimeout'] = 0;
-	$slides['properties']['attrs']['popupShowOnce'] = false;
-
-	if( ! empty( $_GET['slide'] ) ) {
-		$slides['properties']['attrs']['firstSlide'] = (int) $_GET['slide'];
-	}
-}
-
 // Get init code
-foreach($slides['properties']['attrs'] as $key => $val) {
+foreach($projectAttrs as $key => $val) {
 
 	if(is_bool($val)) {
 		$val = $val ? 'true' : 'false';
@@ -24,12 +14,12 @@ foreach($slides['properties']['attrs'] as $key => $val) {
 }
 
 // Full-size sliders
-if( ( !empty($slides['properties']['attrs']['type']) && $slides['properties']['attrs']['type'] === 'fullsize' ) && ( empty($slides['properties']['attrs']['fullSizeMode']) || $slides['properties']['attrs']['fullSizeMode'] !== 'fitheight' ) ) {
-	$init[] = 'height: '.$slides['properties']['props']['height'].'';
+if( $projectLayout === 'fullsize' && ( empty($projectAttrs['fullSizeMode']) || $projectAttrs['fullSizeMode'] !== 'fitheight' ) ) {
+	$init[] = 'height: '.$projectProps['height'].'';
 }
 
 // Popup
-if( !empty($slides['properties']['attrs']['type']) && $slides['properties']['attrs']['type'] === 'popup' ) {
+if( $projectLayout === 'popup' ) {
 	$lsPlugins[] = 'popup';
 }
 
@@ -37,6 +27,35 @@ if( !empty($slides['properties']['attrs']['type']) && $slides['properties']['att
 if( ! empty( $lsPlugins ) ) {
 	$lsPlugins = array_unique( $lsPlugins );
 	sort( $lsPlugins );
+
+	// openPopup layer action, we need to pass plugin deps with URLs
+	if( ! empty( $GLOBALS['lsAjaxOverridePopupSettings'] ) ) {
+		$plugins = [];
+		foreach( $lsPlugins as $item ) {
+
+			if( $item === 'popup' ) {
+				$plugins[] = 'popup';
+				continue;
+			}
+
+			$handle = 'layerslider-' . $item;
+
+			$js_src  = isset( wp_scripts()->registered[ $handle ] ) ? wp_scripts()->registered[ $handle ]->src : null;
+			$css_src = isset( wp_styles()->registered[ $handle ] )  ? wp_styles()->registered[ $handle ]->src  : null;
+
+			if( $js_src || $css_src ) {
+				$entry = [ 'namespace' => $item ];
+				if( $js_src )  $entry['js']  = $js_src;
+				if( $css_src ) $entry['css'] = $css_src;
+				$plugins[] = $entry;
+			}
+		}
+
+		$lsPlugins = $plugins;
+	}
+
+
+
 	$init[] = 'plugins: ' . json_encode( $lsPlugins );
 }
 
@@ -51,8 +70,8 @@ if( ! empty( $GLOBALS['lsInitAjaxURL'] ) ) {
 
 $callbacks = [];
 
-if( ! empty( $slides['callbacks'] ) && is_array( $slides['callbacks'] ) ) {
-	foreach( $slides['callbacks'] as $event => $function ) {
+if( ! empty( $projectData['callbacks'] ) && is_array( $projectData['callbacks'] ) ) {
+	foreach( $projectData['callbacks'] as $event => $function ) {
 		$callbacks[] = $event.': '.stripslashes( $function );
 	}
 }
@@ -61,12 +80,12 @@ $separator = apply_filters( 'layerslider_init_props_separator', ', ');
 $initObj = implode( $separator, $init );
 $eventsObj = ! empty( $callbacks ) ? ', {'.implode( $separator, $callbacks ).'}' : '';
 
-if( ! empty( $slides['properties']['props']['loadOrder'] ) ) {
-	$loadOrder = $slides['properties']['props']['loadOrder'];
+if( ! empty( $projectProps['loadOrder'] ) ) {
+	$loadOrder = $projectProps['loadOrder'];
 
 	$lsInit[] = 'window._layerSlidersOrder = window._layerSlidersOrder || [];';
 	$lsInit[] = 'window._layerSlidersOrder['.$loadOrder.'] = window._layerSlidersOrder['.$loadOrder.'] || [];';
-	$lsInit[] = 'window._layerSlidersOrder['.$loadOrder.'].push( \'#'.$sliderID.'\' );';
+	$lsInit[] = 'window._layerSlidersOrder['.$loadOrder.'].push( \'#'.$projectInitId.'\' );';
 }
 
-$lsInit[] = 'jQuery(function() { _initLayerSlider( \'#'.$sliderID.'\', {'.$initObj.'}'.$eventsObj.'); });';
+$lsInit[] = 'jQuery(function() { _initLayerSlider( \'#'.$projectInitId.'\', {'.$initObj.'}'.$eventsObj.'); });';

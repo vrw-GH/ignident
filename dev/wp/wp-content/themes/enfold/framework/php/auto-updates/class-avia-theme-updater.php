@@ -9,6 +9,29 @@
  */
 if( ! defined( 'ABSPATH' ) ) {  exit;  }    // Exit if accessed directly
 
+/**
+ * Must be loaded before the class_exists guard below, not inside it.
+ *
+ * Avia_Envato_Exception extends Avia_Update_Source_Exception, and there is no
+ * autoloader - so if this file is ever reached before the interface file, the
+ * extends is a fatal on every admin page. class-avia-envato-base-api.php throws
+ * Avia_Envato_Exception without requiring anything itself, relying on having
+ * been loaded from here, which makes this the one place that has to be right.
+ *
+ * @since 8.1
+ */
+require_once( __DIR__ . '/class-avia-update-source.php' );
+
+/**
+ * The renewal reminder is used from the verification path below, and reads a
+ * licence status constant from Avia_SureCart_Licence, so both are loaded here
+ * for the same reason as above - there is no autoloader.
+ *
+ * @since 8.1
+ */
+require_once( __DIR__ . '/class-avia-surecart-licence.php' );
+require_once( __DIR__ . '/class-avia-licence-reminder.php' );
+
 
 if( ! class_exists( 'Avia_Theme_Updater', false ) )
 {
@@ -30,19 +53,29 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 		protected $authors;
 
 		/**
-		 * Envato Personal Token Key
+		 * The credential the update source authenticates with - an Envato personal
+		 * token today, a SureCart licence key once that source exists.
 		 *
 		 * @since 4.4.3
+		 * @since 8.1				renamed from $personal_token
 		 * @var string
 		 */
-		protected $personal_token;
+		protected $credential;
 
 		/**
+		 * Which kind of credential $credential is, in the resolver's terms.
 		 *
-		 * @since 4.4.3
-		 * @var Avia_Envato_Base_API
+		 * @since 8.1
+		 * @var string				'envato' | 'surecart'
 		 */
-		protected $envato_api;
+		protected $source_type;
+
+		/**
+		 * @since 4.4.3
+		 * @since 8.1				an Avia_Update_Source rather than the Envato API directly
+		 * @var Avia_Update_Source|null
+		 */
+		protected $update_source;
 
 		/**
 		 * function wp_update_themes calls filter pre_set_site_transient_update_themes twice during theme version check.
@@ -93,8 +126,9 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 		protected function __construct( array $args )
 		{
 			$this->authors = array();
-			$this->personal_token = '';
-			$this->envato_api = null;
+			$this->credential = '';
+			$this->source_type = '';
+			$this->update_source = null;
 			$this->envato_results_cache = null;
 			$this->transient_logfile_name = '';
 			$this->transient_cache_name = '';
@@ -103,7 +137,6 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 			add_filter( 'pre_set_site_transient_update_themes', array( $this, 'handler_pre_set_site_transient_update_themes' ), 10, 1 );
 			add_filter( 'upgrader_package_options', array( $this, 'handler_upgrader_package_options' ), 1000, 1 );
-//			add_filter( 'upgrader_post_install', array( $this, 'handler_upgrader_post_install' ), 1000, 3 );
 		}
 
 		/**
@@ -112,7 +145,7 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 		public function __destruct()
 		{
 			unset( $this->authors );
-			unset( $this->envato_api );
+			unset( $this->update_source );
 			unset( $this->envato_results_cache );
 		}
 
@@ -134,52 +167,120 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 				}
 			}
 
-			$old_token = $this->personal_token;
+			$old_token = $this->credential;
 
-			if( isset( $args['personal_token'] ) )
+			/**
+			 * 'personal_token' is kept as the argument name alongside the newer
+			 * 'credential'. It is part of the public surface - child themes and the
+			 * AviaSupport plugins call AviaThemeUpdater() with it - so renaming it
+			 * outright would silently stop their updates.
+			 *
+			 * @since 8.1
+			 */
+			if( isset( $args['credential'] ) )
 			{
-				$this->personal_token = $args['personal_token'];
+				$this->credential = $args['credential'];
+			}
+			else if( isset( $args['personal_token'] ) )
+			{
+				$this->credential = $args['personal_token'];
 			}
 
-			if( $old_token != $this->personal_token )
+			if( isset( $args['source_type'] ) && '' !== $args['source_type'] )
 			{
-				unset( $this->envato_api );
-				$this->envato_api = null;
+				$this->source_type = $args['source_type'];
+			}
+
+			if( $old_token != $this->credential )
+			{
+				unset( $this->update_source );
+				$this->update_source = null;
 			}
 		}
 
 
 		/**
+		 * The update source for the stored credential, or false when there is none.
+		 *
+		 * Returning false rather than an unconfigured object is load-bearing:
+		 * handler_pre_set_site_transient_update_themes() reads that false as "this
+		 * site has no credential" and clears the updater log and the results cache.
+		 * An object that merely reports itself unconfigured would make that branch
+		 * unreachable and leave stale data behind on every site without a token.
 		 *
 		 * @since 4.4.3
+		 * @since 8.1				returns an Avia_Update_Source, built by the factory
 		 * @param string $new_token
-		 * @return Avia_Envato_Base_API|false
+		 * @return Avia_Update_Source|false
 		 */
-		protected function get_envato_api( $new_token = '' )
+		protected function get_update_source( $new_token = '' )
 		{
-			$token = ( empty( $new_token ) ) ? $this->personal_token : $new_token;
+			/**
+			 * "Was a token handed in?" is a question about the argument being
+			 * absent, not about it being falsy - and empty( '0' ) is true.
+			 *
+			 * With empty() here, a customer pasting 0 into the token field had
+			 * their PREVIOUS token verified instead, was told the check succeeded,
+			 * and was then never offered another update, because the stored '0'
+			 * fails this same test on every later request. The option page kept
+			 * reporting the site up to date throughout.
+			 *
+			 * @since 8.1
+			 */
+			$supplied = '' !== (string) $new_token;
+			$token = $supplied ? $new_token : $this->credential;
 
-			if( empty( $token ) )
+			if( '' === (string) $token )
 			{
 				return false;
 			}
 
-			if( ! class_exists( 'Avia_Envato_Base_API', false ) )
+			if( ! class_exists( 'Avia_Update_Source_Factory', false ) )
 			{
-				require_once( 'class-avia-envato-base-api.php' );
+				require_once( __DIR__ . '/class-avia-update-source-factory.php' );
 			}
 
-			if( ! empty( $new_token ) )
+			/**
+			 * One field accepts either an Envato token or a SureCart licence key,
+			 * so the service follows the credential rather than being fixed when
+			 * the updater is built - a customer who swaps one for the other must
+			 * not have to change a setting they cannot see.
+			 *
+			 * classify_or_default() never answers "unknown" for a credential that
+			 * exists: anything unrecognised is tried against Envato, which is the
+			 * status quo for every existing customer and fails visibly rather than
+			 * silently. $source_type remains an explicit override for filters.
+			 *
+			 * @since 8.1
+			 */
+			$type = $this->source_type;
+
+			if( '' === (string) $type )
 			{
-				return new Avia_Envato_Base_API( $new_token, avia_auto_updates::get_theme_name(), avia_auto_updates::get_version() );
+				if( ! class_exists( 'Avia_Credential_Classifier', false ) )
+				{
+					require_once( __DIR__ . '/class-avia-credential-classifier.php' );
+				}
+
+				$type = Avia_Credential_Classifier::classify_or_default( $token );
 			}
 
-			if( empty( $this->envato_api ) )
+			/**
+			 * A token passed in explicitly is being verified, not used - it must not
+			 * replace the source we already hold, or a failed verification would
+			 * leave the site authenticating with the rejected credential.
+			 */
+			if( $supplied )
 			{
-				$this->envato_api = new Avia_Envato_Base_API( $this->personal_token, avia_auto_updates::get_theme_name(), avia_auto_updates::get_version() );
+				return Avia_Update_Source_Factory::create( $type, $new_token );
 			}
 
-			return $this->envato_api;
+			if( empty( $this->update_source ) )
+			{
+				$this->update_source = Avia_Update_Source_Factory::create( $type, $this->credential );
+			}
+
+			return $this->update_source;
 		}
 
 
@@ -201,10 +302,10 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 			}
 
 			$this->authors = apply_filters( 'avf_theme_updater_authors', $this->authors );
-			$this->personal_token = apply_filters( 'avf_theme_updater_personal_token', $this->personal_token );
+			$this->credential = apply_filters( 'avf_theme_updater_personal_token', $this->credential );
 
-			$api = $this->get_envato_api();
-			if( ! $api instanceof Avia_Envato_Base_API )
+			$api = $this->get_update_source();
+			if( ! $api instanceof Avia_Update_Source )
 			{
 				/**
 				 * We have no Envato token -> clear all saved log data and cache
@@ -217,7 +318,7 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 			if( current_theme_supports( 'avia_envato_extended_log' ) )
 			{
-				$this->add_to_updater_log( new Avia_Envato_Exception( __( 'Theme update check started', 'avia_framework' ) ) );
+				$this->add_info_to_updater_log( __( 'Theme update check started', 'avia_framework' )  );
 			}
 
 			/**
@@ -273,7 +374,7 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 				if( current_theme_supports( 'avia_envato_extended_log' ) )
 				{
-					$this->add_to_updater_log( new Avia_Envato_Exception( __( 'Cache used', 'avia_framework' ) ) );
+					$this->add_info_to_updater_log( __( 'Cache used', 'avia_framework' )  );
 				}
 
 				return $updates;
@@ -281,25 +382,20 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 			if( current_theme_supports( 'avia_envato_extended_log' ) )
 			{
-				$this->add_to_updater_log( new Avia_Envato_Exception( __( 'No cache, Envato API request started', 'avia_framework' ) ) );
+				$this->add_info_to_updater_log( __( 'No cache, Envato API request started', 'avia_framework' )  );
 			}
 
 			try
 			{
-				$purchases = avia_auto_updates::get_theme_keys();
-
 				/**
-				 * Backwards comp. for WP - keep existing code in case we need a fallback
+				 * Which of the two Envato endpoints answers this moved into the
+				 * Envato source: asking a marketplace what an account purchased is
+				 * not a question a licence server can be asked.
+				 *
 				 * @since 4.5.3
+				 * @since 8.1				delegated to the update source
 				 */
-				if( current_theme_supports( 'avia_envato_purchase_query' ) || ! function_exists( 'wp_get_themes' ) )
-				{
-					$purchases = $api->get_purchases();
-				}
-				else
-				{
-					$purchases = $api->get_product_infos( $purchases );
-				}
+				$purchases = $api->get_available_products( avia_auto_updates::get_theme_keys() );
 
 				$installed = function_exists( 'wp_get_themes' ) ? wp_get_themes() : get_themes();
 				$filtered = array();
@@ -319,7 +415,7 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 					$filtered[ $theme->Name ] = $theme;
 				}
 			}
-			catch ( Avia_Envato_Exception $ex )
+			catch ( Avia_Update_Source_Exception $ex )
 			{
 				$this->add_to_updater_log( $api );
 				return $updates;
@@ -353,10 +449,10 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 							if( current_theme_supports( 'avia_envato_extended_log' ) )
 							{
-								$this->add_to_updater_log( new Avia_Envato_Exception( sprintf( __( 'Existing download package found for %s - %s', 'avia_framework' ), $current->Name, $update['new_version'] ) ) );
+								$this->add_info_to_updater_log( sprintf( __( 'Existing download package found for %s - %s', 'avia_framework' ), $current->Name, $update['new_version'] )  );
 							}
 						}
-						catch( Avia_Envato_Exception $ex )
+						catch( Avia_Update_Source_Exception $ex )
 						{
 							$errors_occured = true;
 							$package_errors[] = $current->Name . ' - ' . $purchase['item']['wordpress_theme_metadata']['version'];
@@ -401,8 +497,8 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 			}
 
 
-			$api = $this->get_envato_api();
-			if( ! $api instanceof Avia_Envato_Base_API )
+			$api = $this->get_update_source();
+			if( ! $api instanceof Avia_Update_Source )
 			{
 				return $options;
 			}
@@ -436,7 +532,7 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 			if( current_theme_supports( 'avia_envato_extended_log' ) )
 			{
-				$this->add_to_updater_log( new Avia_Envato_Exception( $purchase['item']['wordpress_theme_metadata']['theme_name'] . ': ' . __( 'Envato API request for download URL started', 'avia_framework' ) ) );
+				$this->add_info_to_updater_log( $purchase['item']['wordpress_theme_metadata']['theme_name'] . ': ' . __( 'Envato API request for download URL started', 'avia_framework' )  );
 			}
 
 			$errors_occured = false;
@@ -444,9 +540,9 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 			try
 			{
-				$options['package'] = $api->get_wp_download_url( $product['item']['id'] );
+				$options['package'] = $api->get_download_url( $product );
 			}
-			catch( Avia_Envato_Exception $ex )
+			catch( Avia_Update_Source_Exception $ex )
 			{
 				$options['package'] = '';
 				$errors_occured = true;
@@ -460,48 +556,12 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 			if( current_theme_supports( 'avia_envato_extended_log' ) )
 			{
-				$this->add_to_updater_log( new Avia_Envato_Exception( $purchase['item']['wordpress_theme_metadata']['theme_name'] . ': ' . __( 'Envato API request for download URL finished', 'avia_framework' ) ) );
+				$this->add_info_to_updater_log( $purchase['item']['wordpress_theme_metadata']['theme_name'] . ': ' . __( 'Envato API request for download URL finished', 'avia_framework' )  );
 			}
 
 			return $options;
 		}
 
-
-		/**
-		 * Not needed - only kept for reference in case we might need it
-		 *
-		 * @since 4.5.4
-		 * @param bool  $response   Installation response.
-		 * @param array $hook_extra Extra arguments passed to hooked filters.
-		 * @param array $result     Installation result data.
-		 * @return boolean
-		 */
-		public function handler_upgrader_post_install( $response, array $hook_extra, array $result )
-		{
-//			if( true !== $response )
-//			{
-//				return $response;
-//			}
-
-//			$cache = $this->get_cache();
-//			if( false === $cache )
-//			{
-//				return $response;
-//			}
-//
-//			if( empty( $hook_extra['theme'] ) )
-//			{
-//				return $response;
-//			}
-//
-//			if( isset( $this->envato_results_cache[ $hook_extra['theme'] ] ) )
-//			{
-//				unset( $this->envato_results_cache[ $hook_extra['theme'] ] );
-//				$this->update_cache();
-//			}
-
-			return $response;
-		}
 
 		/**
 		 * Output the HTML below the verify input field
@@ -587,28 +647,70 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 						$warning .=		'</div>' ;
 					}
 
+					/**
+					 * Two credentials, two screens.
+					 *
+					 * The bullets below are Envato concepts. A direct customer has
+					 * no purchase list, no marketplace username and no marketplace
+					 * e-mail, so showing them the Envato block reports two failures
+					 * on a perfectly healthy licence. They get their licence state
+					 * instead, which is information Envato could never give them.
+					 *
+					 * Seat usage is deliberately absent: SureCart does not enforce
+					 * the activation limit and its counter reads zero even with
+					 * activations present, so any number here would be false. See
+					 * the tracker issue on activation limits.
+					 *
+					 * @since 8.1
+					 */
 					$notice .=	'<div class="av-text-notice">';
 					$notice .=		$warning;
-					$notice .=		'<p>';
-					$notice .=			sprintf( __( 'We checked the token on %s and we were able to connect to Envato and could access the following information:', 'avia_framework' ), $data['updates_envato_token_state'] );
-					$notice .=		'</p>';
-					$notice .=		'<ul>';
-					$notice .=			'<li>' . $purchases . '</li>';
-					$notice .=			'<li>' . $username . '</li>';
-					$notice .=			'<li>' . $email . '</li>';
-					$notice .=		'</ul>';
+
+					if( isset( $arr_info['licence_status'] ) )
+					{
+						/**
+						 * Remember the end date so the renewal reminder never has to ask
+						 * for it. revokes_at is a fixed date rather than a moving state,
+						 * so storing it here means no API call on an admin page load.
+						 *
+						 * @since 8.1
+						 */
+						Avia_Licence_Reminder::remember( $arr_info );
+
+						$notice .=	$this->licence_notice_html( $arr_info, $data['updates_envato_token_state'] );
+					}
+					else
+					{
+						$notice .=		'<p>';
+						$notice .=			sprintf( __( 'We checked the token on %s and we were able to connect to Envato and could access the following information:', 'avia_framework' ), $data['updates_envato_token_state'] );
+						$notice .=		'</p>';
+						$notice .=		'<ul>';
+						$notice .=			'<li>' . $purchases . '</li>';
+						$notice .=			'<li>' . $username . '</li>';
+						$notice .=			'<li>' . $email . '</li>';
+						$notice .=		'</ul>';
+					}
+
 					$notice .=		$error_msg;
 					$notice .=	'</div>';
 
-					$notice .=	'<div class="av-verification-cell av-privacy-token-notice">';
-					$notice .=		__( 'If you ever edit the restrictions of your personal token please re-validate it again to test if it works properly', 'avia_framework' );
-					$notice .=	'</div>';
+					if( ! isset( $arr_info['licence_status'] ) )
+					{
+						$notice .=	'<div class="av-verification-cell av-privacy-token-notice">';
+						$notice .=		__( 'If you ever edit the restrictions of your personal token please re-validate it again to test if it works properly', 'avia_framework' );
+						$notice .=	'</div>';
+					}
 				}
 				else
 				{
 					$notice .=	'<div class="av-text-notice av-notice-error">';
 					$notice .=		'<p>';
-					$notice .=			sprintf( __( 'Last time we checked the token we were not able to connected to Envato:', 'avia_framework' ), $data['updates_envato_token_state'] );
+					/**
+					 * The string carries no placeholder - dropping the unused
+					 * argument rather than adding a %s, because changing the msgid
+					 * would silently fall back to English for every translated site.
+					 */
+					$notice .=			__( 'Last time we checked the token we were not able to connected to Envato:', 'avia_framework' );
 					$notice .=		'</p>';
 					$notice .=		'<ul>';
 					$notice .=			'<li>' . $purchases . '</li>';
@@ -718,37 +820,17 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 			$this->clear_cache();
 			set_site_transient( 'update_themes', null );
 
-			$api = $this->get_envato_api( $new_token );
+			$api = $this->get_update_source( $new_token );
 
-			$info = array();
-
-			try
-			{
-				$purchases = $api->get_purchases();
-				$info['purchases'] = 'success';
-			}
-			catch ( Avia_Envato_Exception $ex )
-			{
-				$info['purchases'] = '';
-			}
-
-			try
-			{
-				$info['username'] = $api->get_userdata( 'username' );
-			}
-			catch ( Avia_Envato_Exception $ex )
-			{
-				$info['username'] = '';
-			}
-
-			try
-			{
-				$info['email'] = $api->get_userdata( 'email' );
-			}
-			catch ( Avia_Envato_Exception $ex )
-			{
-				$info['email'] = '';
-			}
+			/**
+			 * The probing moved into the source, which knows what its own service
+			 * can be asked. The order it probes in is load-bearing - errors
+			 * accumulate in that order and are listed in that order on the option
+			 * page - so it is documented there rather than reproduced here.
+			 *
+			 * @since 8.1
+			 */
+			$info = $api->verify_credential();
 
 			$errors = $api->get_errors();
 			if( $errors instanceof WP_Error )
@@ -945,10 +1027,137 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 
 
 		/**
+		 * A link to renew, pointed at whichever place can actually help.
+		 *
+		 * A lapsed licence and a soon-to-lapse one need different destinations -
+		 * one can restore and keep its key, the other can only buy a new one. The
+		 * level decides; see Avia_Licence_Reminder's two URL constants.
+		 *
+		 * @since 8.1
+		 * @param string $level			an Avia_Licence_Reminder LEVEL_* constant
+		 * @return string
+		 */
+		protected function renew_link_html( $level = '' )
+		{
+			$url = Avia_Licence_Reminder::renew_url( $level );
+
+			if( '' === $url )
+			{
+				return '';
+			}
+
+			return ' <a href="' . esc_url( $url ) . '" target="_blank" rel="noopener">' . __( 'Renew your licence', 'avia_framework' ) . '</a>';
+		}
+
+		/**
+		 * What a direct customer sees after checking their licence key.
+		 *
+		 * Says what their licence actually is - valid, expired or revoked - and
+		 * when the update period ends, which is information a ThemeForest buyer
+		 * never had. Nothing here disables anything: an expired licence stops
+		 * updates, the theme keeps working, and the copy says so, because the
+		 * moment a customer believes their site is at risk we have lost them
+		 * whether or not it is true.
+		 *
+		 * Seat usage is deliberately not shown - see the note at the call site.
+		 *
+		 * @since 8.1
+		 * @param array $info				as returned by verify_credential()
+		 * @param string $checked_on		timestamp of the last verification
+		 * @return string
+		 */
+		protected function licence_notice_html( array $info, $checked_on )
+		{
+			$status = $info['licence_status'] ?? '';
+			$revokes_at = $info['revokes_at'] ?? null;
+			$days = $info['days_remaining'] ?? null;
+
+			$date = is_null( $revokes_at ) ? '' : date_i18n( get_option( 'date_format' ), (int) $revokes_at );
+
+			$html = '<p>';
+
+			if( 'valid' === $status )
+			{
+				$html .= sprintf( __( 'We checked your licence on %s and it is active.', 'avia_framework' ), $checked_on );
+			}
+			else if( 'expired' === $status )
+			{
+				/**
+				 * An expired licence cannot be restored, so renewing means a new
+				 * purchase and a new key. Said here rather than discovered after
+				 * paying, and pointed at somewhere they can actually buy.
+				 */
+				$html .= __( 'Your update period has ended. Enfold keeps working, and you can renew for another year of updates and support. You will receive a new licence key to enter.', 'avia_framework' );
+				$html .= $this->renew_link_html( Avia_Licence_Reminder::LEVEL_ENDED );
+			}
+			else if( 'revoked' === $status )
+			{
+				/**
+				 * Revoked is a refund or a chargeback rather than a lapse, so no
+				 * renewal link - somebody who asked for their money back should not
+				 * be invited to buy again in the same breath.
+				 */
+				$html .= __( 'This licence is no longer active. Enfold keeps working, but it will not receive updates.', 'avia_framework' );
+			}
+			else
+			{
+				$html .= __( 'We could not read the state of this licence.', 'avia_framework' );
+			}
+
+			$html .= '</p>';
+
+			if( 'valid' === $status && '' !== $date )
+			{
+				$html .= '<ul>';
+				$html .= '<li>' . sprintf( __( 'Updates and support until %s', 'avia_framework' ), $date ) . '</li>';
+
+				/**
+				 * Only mentioned once it is close enough to act on. A year of
+				 * runway does not need a countdown, and showing one turns a
+				 * reassuring screen into a nagging one.
+				 */
+				if( ! is_null( $days ) && $days <= 30 )
+				{
+					$html .= '<li>' . sprintf( _n( '%s day remaining', '%s days remaining', (int) max( 0, $days ), 'avia_framework' ), number_format_i18n( max( 0, $days ) ) ) . '</li>';
+				}
+
+				$html .= '</ul>';
+			}
+			else if( 'expired' === $status && '' !== $date )
+			{
+				$html .= '<ul><li>' . sprintf( __( 'Your update period ended on %s', 'avia_framework' ), $date ) . '</li></ul>';
+			}
+
+			return $html;
+		}
+
+		/**
+		 * Note a plain progress message in the updater log.
+		 *
+		 * Six call sites used to instantiate an Avia_Envato_Exception purely to
+		 * carry a string into the log, which read as an error being thrown when
+		 * nothing had gone wrong.
+		 *
+		 * It routes through add_to_updater_log() rather than appending directly, so
+		 * that it cannot miss the trimming below - the extended log keeps 500
+		 * entries, and a path that skipped the cap would grow the transient without
+		 * bound on exactly the sites that switched extended logging on.
+		 *
+		 * @since 8.1
+		 * @param string $message
+		 * @return boolean
+		 */
+		protected function add_info_to_updater_log( $message )
+		{
+			return $this->add_to_updater_log( (string) $message );
+		}
+
+		/**
 		 * Adds an update message to the queue and removes the oldest if necessary
 		 *
 		 * @since 4.4.3
-		 * @param Avia_Envato_Base_API|Avia_Envato_Exception  $info
+		 * @since 8.1				accepts an Avia_Update_Source, and a plain string
+		 * @param Avia_Update_Source|Avia_Envato_Exception|string  $info
 		 * @param array $package_errors
 		 * @param string $clear_errors									'clear_errors' | 'no_clear_errors'
 		 * @return boolean
@@ -965,7 +1174,7 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 				$log = array_slice( $log, count( $log ) - $max_entries + 1 );
 			}
 
-			if( $info instanceof Avia_Envato_Base_API )
+			if( $info instanceof Avia_Update_Source )
 			{
 				$entry = array(
 								'time'		=> date( 'Y/m/d H:i' ),
@@ -995,6 +1204,19 @@ if( ! class_exists( 'Avia_Theme_Updater', false ) )
 				$log[] = array(
 							'time'		=> date( 'Y/m/d H:i' ),
 							'info'		=> $info->getMessage()
+						);
+			}
+			else if( is_string( $info ) )
+			{
+				/**
+				 * Byte identical to the exception branch above - the entry shape is
+				 * what backend_html() renders, and it must not change.
+				 *
+				 * @since 8.1
+				 */
+				$log[] = array(
+							'time'		=> date( 'Y/m/d H:i' ),
+							'info'		=> $info
 						);
 			}
 
@@ -1033,8 +1255,11 @@ if( ! class_exists( 'Avia_Envato_Exception', false ) )
 	 * Simple base class to allow use of try / catch blocks
 	 *
 	 * @since 4.4.3
+	 * @since 8.1				extends Avia_Update_Source_Exception, so the updater
+	 *							can catch failures from any source while every
+	 *							existing catch of this class keeps working
 	 */
-	class Avia_Envato_Exception extends Exception
+	class Avia_Envato_Exception extends Avia_Update_Source_Exception
 	{
 
 		/**

@@ -69,11 +69,13 @@ if( ! class_exists( 'avia_sc_tab', false ) )
 
 			$this->config['name']			= __( 'Tabs', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-tabs.png';
-			$this->config['order']			= 75;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-tabs.svg';
+			$this->config['order']			= 70;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_tab_container';
 			$this->config['shortcode_nested'] = array( 'av_tab' );
+			//	the canvas names the tab titles so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_tab', 'attr' => 'title' );
 			$this->config['tooltip']		= __( 'Creates a tabbed content area', 'avia_framework' );
 			$this->config['disabling_allowed'] = true;
 			$this->config['id_name']		= 'id';

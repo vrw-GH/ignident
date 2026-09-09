@@ -81,7 +81,74 @@ if( ! class_exists( 'avia_wp_export', false ) )
 			$this->options  = apply_filters( 'avia_filter_global_options_export', $avia_superobject->options );
 			$this->db_prefix = $avia_superobject->option_prefix;
 
+			/**
+			 * Never ship API keys and secrets in an exported settings/demo file - they end up in a
+			 * downloadable ( and, after import, publicly stored ) file. Opt back in with the filter
+			 * if you knowingly want a personal backup that keeps your credentials.
+			 *
+			 * @since 8.1
+			 * @param bool $include_secrets
+			 * @return bool
+			 */
+			if( false === apply_filters( 'avf_export_include_secrets', false ) )
+			{
+				$this->options = $this->redact_secret_options( $this->options );
+			}
+
 			add_action( 'admin_init', array( $this, 'initiate' ), 200 );
+		}
+
+
+		/**
+		 * Blanks credential option values ( API keys, secret keys, verified-key caches, tracking code )
+		 * anywhere in the options array so they are never written to an exported file.
+		 *
+		 * @since 8.1
+		 * @param array $options
+		 * @param array|null $secret_ids		internal - the id lookup, built on the first call
+		 * @return array
+		 */
+		protected function redact_secret_options( $options, $secret_ids = null )
+		{
+			if( null === $secret_ids )
+			{
+				/**
+				 * Option ids whose values are removed from any export.
+				 *
+				 * @since 8.1
+				 * @param string[] $ids
+				 * @return string[]
+				 */
+				$ids = apply_filters( 'avf_export_secret_option_ids', array(
+							'mailchimp_api', 'mailchimp_verified_key',
+							'gmap_api', 'gmap_verified_key',
+							'avia_recaptcha_pkey_v2', 'avia_recaptcha_skey_v2', 'recaptcha_verified_keys_v2',
+							'avia_recaptcha_pkey_v3', 'avia_recaptcha_skey_v3', 'recaptcha_verified_keys_v3',
+							'avia_turnstile_pkey', 'avia_turnstile_skey', 'avia_turnstile_verify_state',
+							'analytics'
+						) );
+
+				$secret_ids = array_flip( $ids );
+			}
+
+			if( ! is_array( $options ) )
+			{
+				return $options;
+			}
+
+			foreach( $options as $key => $value )
+			{
+				if( is_array( $value ) )
+				{
+					$options[ $key ] = $this->redact_secret_options( $value, $secret_ids );
+				}
+				else if( isset( $secret_ids[ $key ] ) && '' !== (string) $value )
+				{
+					$options[ $key ] = '';
+				}
+			}
+
+			return $options;
 		}
 
 
@@ -156,6 +223,8 @@ if( ! class_exists( 'avia_wp_export', false ) )
 
 			$fonts = $this->export_option( 'avia_builder_fonts' );
 
+			$nav_menu_locations = $this->export_nav_menu_locations();
+
 			$info = sprintf( __( 'this is a base64 encoded option set created for the demo %s. If you choose to import the demo files with the help of the framework importer these options will also be imported', '' ), THEMENAME );
 
 			$content = '';
@@ -187,6 +256,14 @@ if( ! class_exists( 'avia_wp_export', false ) )
 				$content .= "\n";
 				$content .= '$fonts = "';
 				$content .=			$fonts;
+				$content .= '";' . "\n";
+			}
+
+			if( ! empty( $nav_menu_locations ) )
+			{
+				$content .= "\n";
+				$content .= '$nav_menu_locations = "';
+				$content .=			$nav_menu_locations;
 				$content .= '";' . "\n";
 			}
 
@@ -228,6 +305,53 @@ if( ! class_exists( 'avia_wp_export', false ) )
 			print $export_data;
 
 			die();
+		}
+
+		/**
+		 * Exports the menus assigned to the theme locations.
+		 *
+		 * Allows a demo to use any menu name - prior to 8.0 a demo had to name the menus
+		 * like the theme locations (e.g. "Main Menu") to get them assigned on import.
+		 *
+		 * Term ids are not stable when the demo is imported, therefore we add slug and name
+		 * of the menu to be able to identify it on the users site.
+		 *
+		 * @since 8.0
+		 * @return string					base64 encoded, empty string if no menu is assigned
+		 */
+		protected function export_nav_menu_locations()
+		{
+			$locations = get_theme_mod( 'nav_menu_locations' );
+
+			if( empty( $locations ) || ! is_array( $locations ) )
+			{
+				return '';
+			}
+
+			$export = array();
+
+			foreach( $locations as $location => $term_id )
+			{
+				$menu = wp_get_nav_menu_object( $term_id );
+
+				if( empty( $menu->term_id ) )
+				{
+					continue;
+				}
+
+				$export[ $location ] = array(
+									'term_id'	=> (int) $menu->term_id,
+									'slug'		=> $menu->slug,
+									'name'		=> $menu->name
+								);
+			}
+
+			if( empty( $export ) )
+			{
+				return '';
+			}
+
+			return base64_encode( serialize( $export ) );
 		}
 
 		/**

@@ -228,6 +228,11 @@ require( AVIA_PHP . 'class-gmaps.php' );
 require( AVIA_PHP . 'class-grecaptcha.php' );
 
 /**
+* The Cloudflare Turnstile api source
+*/
+require( AVIA_PHP . 'class-turnstile.php' );
+
+/**
  * This file holds the class that manages framework specific widgets
  *
  * @since 4.9 - prior logic with all widgets in one file was removed

@@ -1,6 +1,5 @@
 <?php
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+if (!defined('ABSPATH')) die('No direct access allowed');
 ?>
 
 <div id="updraft-upload-modal" title="UpdraftPlus - <?php esc_attr_e('Upload backup', 'updraftplus');?>">

@@ -74,7 +74,7 @@ if( ! class_exists( 'avia_sc_postcontent', false ) )
 
 			$this->config['name']					= __( 'Page Content', 'avia_framework' );
 			$this->config['tab']					= __( 'Layout Elements', 'avia_framework' );
-			$this->config['icon']					= AviaBuilder::$path['imagesURL'] . 'sc-postcontent.png';
+			$this->config['icon']					= AviaBuilder::$path['iconsURL'] . 'sc-postcontent.svg';
 			$this->config['order']					= 2;
 			$this->config['target']					= 'avia-target-insert';
 			$this->config['shortcode']				= 'av_postcontent';

@@ -66,6 +66,7 @@ class LS_Uninstaller {
 			'ls_enhanced_lazy_load',
 			'ls_enable_play_by_scroll',
 			'ls_wpml_string_translation',
+			'ls_wpml_link_translation',
 			'ls_wpml_media_translation',
 			'ls_wpml_auto_cleanup',
 

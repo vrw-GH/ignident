@@ -29,8 +29,8 @@ if( ! class_exists( 'avia_sc_image_hotspots', false ) )
 
 			$this->config['name']			= __( 'Image with Hotspots', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-image-hotspot.png';
-			$this->config['order']			= 95;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-image-hotspot.svg';
+			$this->config['order']			= 40;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_image_hotspot';
 			$this->config['shortcode_nested'] = array( 'av_image_spot' );

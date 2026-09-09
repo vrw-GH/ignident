@@ -6,7 +6,7 @@ import { useDate } from '@/store/useDateStore';
 import HelpTooltip from '@/components/Common/HelpTooltip';
 import Icon from '@/utils/Icon';
 import { __ } from '@wordpress/i18n';
-import { toast } from 'react-toastify';
+import { toast } from '@/utils/toast';
 import { isValidDate } from '@/utils/formatting';
 import useSettingsData from '@/hooks/useSettingsData';
 
@@ -20,8 +20,11 @@ import useSettingsData from '@/hooks/useSettingsData';
  * @param {string}          startDate   - Optional start date to set when filtering.
  * @param {string}          endDate     - Optional end date to set when filtering.
  * @param {Object}          row         - Optional end date to set when filtering.
+ * @param {boolean}         useContainerForFilter - Make wrapped content clickable for filtering.
+ * @param {React.ReactNode} afterChildren - Optional content shown in the hover overlay.
  * @return {React.ReactElement}
  */
+// fallow-ignore-next-line complexity
 const ClickToFilter = ({
 	filter,
 	filterValue,
@@ -29,11 +32,13 @@ const ClickToFilter = ({
 	children,
 	startDate,
 	endDate,
-	row
+	row,
+	useContainerForFilter = false,
+	afterChildren = null
 }) => {
 
 	// Filter actions from TanStack Router-based hook.
-	const { setFilters, filtersConf, getActiveFilters } = useFilters(  );
+	const { setFilters, filtersConf, getActiveFilters } = useFilters();
 	const { getGoal } = useGoalsData();
 	const setInsightsMetrics = useInsightsStore( ( state ) => state.setMetrics );
 	const insightsMetrics = useInsightsStore( ( state ) => state.getMetrics() );
@@ -76,6 +81,8 @@ const ClickToFilter = ({
 
 	// Handle external link clicks
 	const handleExternalLinkClick = useCallback(
+
+		// fallow-ignore-next-line complexity
 		( e ) => {
 			e.stopPropagation();
 
@@ -90,14 +97,17 @@ const ClickToFilter = ({
 				// If filterBydomain is active, check if we have the domain in the row dataset. If not, we try the domain filter, if used.
 				if ( filterByDomain ) {
 					const activeFilters = getActiveFilters();
-					const protocol = -1 !== siteUrl.indexOf( 'https:' ) ?
-						'https://' :
-						'http://';
+					const protocol =
+						-1 !== siteUrl.indexOf( 'https:' ) ? 'https://' : 'http://';
 
 					if ( Object.prototype.hasOwnProperty.call( row, 'host' ) ) {
 						siteUrl = `${protocol}${row.host}`;
-					} else if ( Object.prototype.hasOwnProperty.call( activeFilters, 'host' ) ) {
-						siteUrl = `${protocol}${activeFilters.host}`;
+					} else if (
+						Object.prototype.hasOwnProperty.call( activeFilters, 'host' )
+					) {
+						const hostValue =
+							activeFilters.host?.replace?.( /^!/, '' ) ?? activeFilters.host;
+						siteUrl = `${protocol}${hostValue}`;
 					}
 				}
 				url = `${siteUrl}${filterValue.startsWith( '/' ) ? '' : '/'}${filterValue}`;
@@ -127,6 +137,7 @@ const ClickToFilter = ({
 	}, []);
 
 	// Handle date range updates
+	// fallow-ignore-next-line complexity
 	const handleDateRange = useCallback( () => {
 		if ( ! startDate ) {
 			return;
@@ -140,9 +151,7 @@ const ClickToFilter = ({
 
 			// Unix timestamp (10 digits) or Unix in milliseconds (13 digits)
 			const unixTime =
-				10 === startDate.toString().length ?
-					startDate * 1000 :
-					startDate;
+				10 === startDate.toString().length ? startDate * 1000 : startDate;
 			formattedStartDate = new Date( unixTime ).toISOString().split( 'T' )[0];
 		} else if ( /\d{4}-\d{2}-\d{2}/.test( startDate ) ) {
 
@@ -178,10 +187,7 @@ const ClickToFilter = ({
 				setFilters( 'page_url', goal.goal_specific_page );
 				setFilters( 'goal_id', goalId );
 				toast.info(
-					__(
-						'Filtering by goal & goal specific page',
-						'burst-statistics'
-					)
+					__( 'Filtering by goal & goal specific page', 'burst-statistics' )
 				);
 			} else {
 				setFilters( 'goal_id', goalId );
@@ -196,37 +202,52 @@ const ClickToFilter = ({
 		[ getGoal, setFilters, insightsMetrics, setInsightsMetrics ]
 	);
 
+	const applyFilter = useCallback( () => {
+
+		// Validate filter before processing
+		if ( ! isValidFilter ) {
+			console.warn(
+				`ClickToFilter: Invalid filter "${filter}" - not found in filter configuration`
+			);
+			return;
+		}
+
+		// Apply the appropriate filter
+		if ( 'goal_id' === filter ) {
+			handleGoalFilter( filterValue );
+		} else {
+			setFilters( filter, filterValue );
+		}
+
+		// Apply date range if provided
+		handleDateRange();
+	}, [
+		filter,
+		filterValue,
+		isValidFilter,
+		handleGoalFilter,
+		setFilters,
+		handleDateRange
+	]);
+
 	// Main filter click handler
 	const handleFilterClick = useCallback(
 		( e ) => {
 			e.stopPropagation();
-
-			// Validate filter before processing
-			if ( ! isValidFilter ) {
-				console.warn(
-					`ClickToFilter: Invalid filter "${filter}" - not found in filter configuration`
-				);
-				return;
-			}
-
-			// Apply the appropriate filter
-			if ( 'goal_id' === filter ) {
-				handleGoalFilter( filterValue );
-			} else {
-				setFilters( filter, filterValue );
-			}
-
-			// Apply date range if provided
-			handleDateRange();
+			applyFilter();
 		},
-		[
-			filter,
-			filterValue,
-			isValidFilter,
-			handleGoalFilter,
-			setFilters,
-			handleDateRange
-		]
+		[ applyFilter ]
+	);
+
+	const handleContainerKeyDown = useCallback(
+		( e ) => {
+			if ( 'Enter' === e.key || ' ' === e.key ) {
+				e.preventDefault();
+				e.stopPropagation();
+				applyFilter();
+			}
+		},
+		[ applyFilter ]
 	);
 
 	// Early return if no filter configuration or invalid filter
@@ -245,34 +266,58 @@ const ClickToFilter = ({
 	}
 
 	return (
-		<div className="group flex items-center gap-2">
-			{/* Main content */}
-			<div className="flex-1">{children}</div>
-
-			{/* Icons that appear on hover to the right */}
-			<div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-				{/* Filter icon - always show when hoverable */}
-				<HelpTooltip content={filterTooltip}>
+		<div className="group relative @md:min-w-36 min-w-0 w-full">
+			{/* Main content. */}
+			{useContainerForFilter ? (
+				<HelpTooltip content={filterTooltip} asChild>
 					<div
+						className="min-w-0 cursor-pointer"
 						onClick={handleFilterClick}
-						className="flex items-center justify-center w-6 h-6 bg-white/90 hover:bg-white border border-gray-200 rounded shadow-sm hover:shadow-md transition-all duration-150 cursor-pointer"
+						onKeyDown={handleContainerKeyDown}
+						role="button"
+						tabIndex={0}
 					>
-						<Icon name="filter" size={14} color="black" />
+						{children}
 					</div>
 				</HelpTooltip>
+			) : (
+				<div className="w-full group-hover:bg-gray-50 p-2 rounded-md">{children}</div>
+			)}
 
-				{/* External link icon - only show for URLs */}
-				{isExternalLinkable && (
-					<HelpTooltip content={externalLinkTooltip}>
-						<div
-							onClick={handleExternalLinkClick}
-							className="flex items-center justify-center w-6 h-6 bg-white/90 hover:bg-white border border-gray-200 rounded shadow-sm hover:shadow-md transition-all duration-150 cursor-pointer"
-						>
-							<Icon name="referrers" size={14} color="black" />
-						</div>
-					</HelpTooltip>
-				)}
-			</div>
+			{( afterChildren || ( ! useContainerForFilter || isExternalLinkable ) ) && (
+				<div
+					className="pointer-events-none absolute right-1 top-1/2 z-interactive flex -translate-y-1/2 p-1 items-center gap-1 pl-5 pr-1 opacity-0 transition-opacity duration-150 group-hover:pointer-events-auto group-hover:opacity-100"
+					style={{
+						background: 'linear-gradient(to right, transparent, var(--color-gray-50) 20px)'
+					}}
+				>
+					{afterChildren}
+
+					{/* Filter icon - show unless container click mode is enabled. */}
+					{! useContainerForFilter && (
+						<HelpTooltip content={filterTooltip}>
+							<div
+								onClick={handleFilterClick}
+								className="flex items-center justify-center w-6 h-6 bg-gray-100 hover:bg-white border border-gray-200 rounded shadow-sm hover:shadow-md transition-all duration-150 cursor-pointer"
+							>
+								<Icon name="filter" size={14} color="black" />
+							</div>
+						</HelpTooltip>
+					)}
+
+					{/* External link icon - only show for URLs. */}
+					{isExternalLinkable && (
+						<HelpTooltip content={externalLinkTooltip}>
+							<div
+								onClick={handleExternalLinkClick}
+								className="flex items-center justify-center w-6 h-6 bg-gray-100 hover:bg-white border border-gray-200 rounded shadow-sm hover:shadow-md transition-all duration-150 cursor-pointer"
+							>
+								<Icon name="referrers" size={14} color="black" />
+							</div>
+						</HelpTooltip>
+					)}
+				</div>
+			)}
 		</div>
 	);
 };

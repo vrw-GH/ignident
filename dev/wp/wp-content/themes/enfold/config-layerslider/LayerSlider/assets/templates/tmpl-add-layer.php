@@ -35,7 +35,7 @@
 					<lse-text><?= __('Icon', 'LayerSlider') ?></lse-text>
 				</lse-b>
 				<lse-b data-type="svg-modal">
-					<?= lsGetSVGIcon('stars') ?>
+					<?= lsGetSVGIcon('splotch') ?>
 					<lse-text><?= __('SVG', 'LayerSlider') ?></lse-text>
 				</lse-b>
 
@@ -48,14 +48,16 @@
 					<lse-text><?= __('Dynamic Layer', 'LayerSlider') ?></lse-text>
 				</lse-b>
 				<lse-b data-type="countdown">
-					<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<?= lsGetSVGIcon('timer') ?>
 					<lse-text><?= __('Countdown', 'LayerSlider') ?></lse-text>
  				</lse-b>
-				 <lse-b data-type="counter">
-					<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
+				<lse-b data-type="counter">
 					<?= lsGetSVGIcon('arrow-up-9-1') ?>
 					<lse-text><?= __('Counter', 'LayerSlider') ?></lse-text>
+ 				</lse-b>
+				 <lse-b data-type="lottie">
+					<?= lsGetSVGIcon('lottie', 'brands') ?>
+					<lse-text><?= __('Lottie', 'LayerSlider') ?></lse-text>
  				</lse-b>
 			</lse-row>
 		</lse-grid>

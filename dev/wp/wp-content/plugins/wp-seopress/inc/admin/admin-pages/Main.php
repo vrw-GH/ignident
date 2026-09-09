@@ -19,34 +19,22 @@ if ( function_exists( 'seopress_admin_header' ) ) {
 ?>
 
 <div id="seopress-content" class="seopress-option">
-	<!--Get started-->
 	<?php
-		require_once dirname( __DIR__ ) . '/blocks/intro.php';
-		require_once dirname( __DIR__ ) . '/blocks/notifications.php';
+		// Unified Settings React shell. ModuleSettings enqueues
+		// admin/settings.js on seopress-option and the bundle reads
+		// PAGE_TYPE = 'dashboard' from the localized
+		// SEOPRESS_SETTINGS_DATA to render the Dashboard as one of
+		// its lazy sections.
 	?>
-
-	<div class="seopress-dashboard-cards">
-		<?php
-			// Card 1: Wizard or SEO Checklist.
-			require_once dirname( __DIR__ ) . '/blocks/get-started.php';
-			// Card 2: SEOPress Suite.
-			require_once dirname( __DIR__ ) . '/blocks/tasks.php';
-			// Card 3: Recommended Partners (from promotions).
-			require_once dirname( __DIR__ ) . '/blocks/promotions.php';
-		?>
-	</div>
-
+	<div class="seopress-php-header"></div>
+	<?php seopress_admin_notices_anchor(); ?>
+	<div id="seopress-admin-settings-root"></div>
 	<?php
-		// Site Overview (PRO) - full width below the cards.
-		require_once dirname( __DIR__ ) . '/blocks/insights.php';
-	?>
-	<?php
-		require_once dirname( __DIR__ ) . '/blocks/features-list.php';
-		require_once dirname( __DIR__ ) . '/blocks/ebooks.php';
-		require_once dirname( __DIR__ ) . '/blocks/integrations.php';
-		require_once dirname( __DIR__ ) . '/blocks/news.php';
-		$this->feature_save();
+		// "Settings saved" snackbar — must stay inside #seopress-content
+		// so it doesn't leave an orphan block in #wpbody-content after
+		// the floated content (which collapses the body height and
+		// drops the WP footer credits into the middle of the page).
+		echo $this->feature_save(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- markup built and escaped in feature_save().
 	?>
 </div>
-<?php echo $this->feature_save(); ?>
 <?php

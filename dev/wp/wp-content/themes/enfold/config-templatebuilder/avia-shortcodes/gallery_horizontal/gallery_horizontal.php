@@ -32,10 +32,12 @@ if( ! class_exists( 'avia_sc_gallery_horizontal', false ) )
 
 			$this->config['name']			= __( 'Horizontal Gallery', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-accordion-slider.png';
-			$this->config['order']			= 6;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-horizontal-gallery.svg';
+			$this->config['order']			= 90;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_horizontal_gallery';
+			//	the canvas shows the pictures it holds - see editor_element_images()
+			$this->config['alb_items']		= array( 'images' => 'ids' );
 			$this->config['tooltip']        = __( 'Creates a horizontal scrollable gallery', 'avia_framework' );
 			$this->config['preview'] 		= false;
 			$this->config['drag-level'] 	= 3;
@@ -207,6 +209,8 @@ if( ! class_exists( 'avia_sc_gallery_horizontal', false ) )
 							'type'		=> 'gallery',
 							'title'		=> __( 'Add/Edit Gallery', 'avia_framework' ),
 							'button'	=> __( 'Insert Images', 'avia_framework' ),
+							'delete'	=> __( 'Clear Gallery', 'avia_framework' ),
+							'delete_class' => 'avia-delete-gallery-button',
 							'std'		=> '',
 							'modal_class' => 'av-show-image-custom-link',
 							'lockable'	=> true

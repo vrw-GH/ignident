@@ -5,6 +5,7 @@
 namespace Burst;
 
 use Burst\Frontend\Tracking\Tracking;
+use Burst\Pro\Frontend\Tracking\Tracking_Pro;
 
 // disable loading of most WP core files.
 define( 'SHORTINIT', true );
@@ -17,9 +18,21 @@ if ( ! file_exists( BASE_PATH . 'wp-load.php' ) ) {
 }
 require_once BASE_PATH . 'wp-load.php';
 
-if ( defined( 'BURST_ALLOWED_ORIGINS' ) ) {
-	$burst_allowed_origins = explode( ',', BURST_ALLOWED_ORIGINS );
-	$burst_origin          = isset( $_SERVER['HTTP_ORIGIN'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_ORIGIN'] ) ) : '';
+if ( defined( 'BURST_ALLOWED_ORIGINS' ) || defined( 'BURST_HEADLESS_DOMAIN' ) ) {
+	$burst_allowed_origins = defined( 'BURST_ALLOWED_ORIGINS' ) ? explode( ',', BURST_ALLOWED_ORIGINS ) : [];
+
+	if ( defined( 'BURST_HEADLESS_DOMAIN' ) ) {
+		$burst_allowed_origins[] = BURST_HEADLESS_DOMAIN;
+	}
+
+	// Strip protocol from all entries, so both 'https://example.com' and 'example.com' are accepted.
+	$burst_allowed_origins = array_map(
+        // phpcs:ignore
+        fn( $origin ) => parse_url( trim( $origin ), PHP_URL_HOST ) ?: trim( $origin ),
+		$burst_allowed_origins
+	);
+
+	$burst_origin = isset( $_SERVER['HTTP_ORIGIN'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_ORIGIN'] ) ) : '';
     // phpcs:ignore
 	$burst_origin_host     = parse_url( $burst_origin, PHP_URL_HOST );
 	if ( in_array( $burst_origin_host, $burst_allowed_origins, true ) ) {
@@ -60,10 +73,17 @@ if ( isset( $burst_plugins[ $burst_dir ] ) && ! in_array( $burst_plugins[ $burst
 }
 
 require_once __DIR__ . '/includes/autoload.php';
-if ( file_exists( __DIR__ . '/includes/Pro/Frontend/Tracking/tracking.php' ) ) {
-	require_once __DIR__ . '/includes/Pro/Frontend/Tracking/tracking.php';
+// Pro adds the City reader (via the burst_geoip_handler filter), external link
+// clicks and campaign parameters. The Tracking_Pro class only exists in the Pro
+// build, so guard on its file before autoloading it (Pro::init() handles the
+// normal load path). The core Country enrichment is registered by the Tracking
+// constructor below.
+if ( file_exists( __DIR__ . '/includes/Pro/Frontend/Tracking/class-tracking-pro.php' ) ) {
+	( new Tracking_Pro() )->init();
 }
 
+// Constructing Tracking registers the GeoIP enrichment on burst_before_track_hit,
+// even on this SHORTINIT path where init() is never called.
 ( new Tracking() )->beacon_track_hit();
 /**
  * Find the base path of WordPress

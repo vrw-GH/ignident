@@ -86,6 +86,51 @@ return [
 		],
 	],
 	[
+		'id'             => 'privacy_level',
+		'type'           => 'settings',
+		'first_run_only' => true,
+		'title'          => __( 'How Burst recognizes visitors', 'burst-statistics' ),
+		'subtitle'       => __( 'Stronger privacy means less accurate returning-visitor data', 'burst-statistics' ),
+		'fields'         => [
+			[
+				'id'      => 'privacy_level',
+				'type'    => 'radio',
+				'label'   => '',
+				'default' => 'cookie',
+				'options' => [
+					'private_mode' => [
+						'label'       => __( 'Cookieless', 'burst-statistics' ),
+						'icon'        => 'shield',
+						'returning'   => __( 'Not recognized across days or sessions', 'burst-statistics' ),
+						'description' => __( 'Anonymous daily hash. No cookie, no fingerprint.', 'burst-statistics' ),
+						'meter'       => 3,
+						'level'       => __( 'Strongest', 'burst-statistics' ),
+					],
+					'fingerprint'  => [
+						'label'       => __( 'Cookieless fingerprint', 'burst-statistics' ),
+						'icon'        => 'fingerprint',
+						'returning'   => __( 'Recognized across days, no cookie stored', 'burst-statistics' ),
+						'description' => __( 'Recognizes devices from browser and device info.', 'burst-statistics' ),
+						'meter'       => 2,
+						'level'       => __( 'Strong', 'burst-statistics' ),
+					],
+					'cookie'       => [
+						'label'       => __( 'Cookie', 'burst-statistics' ),
+						'icon'        => 'cookie',
+						'returning'   => __( 'Recognized across days — most accurate', 'burst-statistics' ),
+						'description' => __( 'First-party cookie stores an anonymous ID.', 'burst-statistics' ),
+						'meter'       => 2,
+						'level'       => __( 'Strong', 'burst-statistics' ),
+					],
+				],
+			],
+		],
+		'button'         => [
+			'id'    => 'save',
+			'label' => __( 'Save and continue', 'burst-statistics' ),
+		],
+	],
+	[
 		'id'             => 'email',
 		'type'           => 'email',
 		'first_run_only' => true,

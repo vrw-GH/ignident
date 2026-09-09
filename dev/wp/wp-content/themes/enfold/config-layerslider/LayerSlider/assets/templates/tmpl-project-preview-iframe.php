@@ -35,9 +35,24 @@
 	<link rel="stylesheet" href="<?= LS_ROOT_URL.'/static/layerslider/plugins/popup/layerslider.popup.css?ver='.LS_PLUGIN_VERSION ?>">
 	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/popup/layerslider.popup.js?ver='.LS_PLUGIN_VERSION ?>"></script>
 
-	<!-- LayerSlider Origami plugin -->
-	<link rel="stylesheet" href="<?= LS_ROOT_URL.'/static/layerslider/plugins/origami/layerslider.origami.css?ver='.LS_PLUGIN_VERSION ?>">
-	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/origami/layerslider.origami.js?ver='.LS_PLUGIN_VERSION ?>"></script>
+	<!-- LayerSlider special slide transitions plugin -->
+	<link rel="stylesheet" href="<?= LS_ROOT_URL.'/static/layerslider/plugins/slidefxtr/layerslider.slidefxtr.css?ver='.LS_PLUGIN_VERSION ?>">
+	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/slidefxtr/layerslider.slidefxtr.js?ver='.LS_PLUGIN_VERSION ?>"></script>
+
+	<!-- LayerSlider Layer Effects plugins -->
+	 <link rel="stylesheet" href="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.borderize.css?ver='.LS_PLUGIN_VERSION ?>">
+	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.borderize.js?ver='.LS_PLUGIN_VERSION ?>"></script>
+	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.liquify.js?ver='.LS_PLUGIN_VERSION ?>"></script>
+	<link rel="stylesheet" href="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.typewriter.css?ver='.LS_PLUGIN_VERSION ?>">
+	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.typewriter.js?ver='.LS_PLUGIN_VERSION ?>"></script>
+	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.replicator.js?ver='.LS_PLUGIN_VERSION ?>"></script>
+	<link rel="stylesheet" href="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.reveal.css?ver='.LS_PLUGIN_VERSION ?>">
+	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.reveal.js?ver='.LS_PLUGIN_VERSION ?>"></script>
+	<link rel="stylesheet" href="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.slicer.css?ver='.LS_PLUGIN_VERSION ?>">
+	<script src="<?= LS_ROOT_URL.'/static/layerslider/plugins/layereffects/layerslider.slicer.js?ver='.LS_PLUGIN_VERSION ?>"></script>
+
+	<!-- dotLottie Web Player -->
+	<script src="<?= LS_ROOT_URL ?>/static/dotlottie-web/dotlottie-web.global.js?ver=0.58.0" type="module"></script>
 
 	<!-- Font Awesome 4 -->
 	<link rel="stylesheet" href="<?= LS_ROOT_URL.'/static/font-awesome-4/css/font-awesome.min.css?ver='.LS_PLUGIN_VERSION ?>">

@@ -54,11 +54,13 @@ if( ! class_exists( 'avia_sc_icon_circles', false ) )
 
 			$this->config['name']			= __( 'Icon Circles', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-icon_circles.png';
-			$this->config['order']			= 90;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-icon_circles.svg';
+			$this->config['order']			= 76;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_icon_circles';
 			$this->config['shortcode_nested'] = array( 'av_icon_circle_item' );
+			//	the canvas names the item titles so one is told from the next - see editor_element_items()
+			$this->config['alb_items']		= array( 'tag' => 'av_icon_circle_item', 'attr' => 'title' );
 			$this->config['tooltip']		= __( 'Display a big circle with several icons displaying an info note on hover in center', 'avia_framework' );
 			$this->config['tinyMCE']		= array( 'tiny_always' => true );
 			$this->config['preview']		= 'large';

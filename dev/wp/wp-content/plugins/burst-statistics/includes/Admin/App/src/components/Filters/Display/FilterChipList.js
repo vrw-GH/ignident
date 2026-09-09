@@ -2,17 +2,23 @@ import FilterChip from './FilterChip';
 import useShareableLinkStore from '@/store/useShareableLinkStore';
 
 /**
- * Reusable FilterChipList component for displaying a list of filter chips
+ * Reusable FilterChipList component for displaying a list of filter chips.
  *
- * @param {Object}   props                  - Component props
- * @param {Array}    props.filters          - Array of filter objects
- * @param {Function} props.onRemove         - Callback function when a filter is removed
- * @param {Function} props.onClick          - Callback function when a filter chip is clicked to edit
- * @param {string}   props.className        - Additional CSS classes for the container
- * @param {boolean}  props.showRemoveButton - Whether to show remove buttons on chips
- * @param {string}   props.emptyMessage     - Message to show when no filters are active
- * @return {JSX.Element} FilterChipList component
+ * Filters with 2+ values still render as a single chip (collapsed into a
+ * count badge inside FilterChip); clicking any chip opens the edit wizard,
+ * same as a single-value filter.
+ *
+ * @param {Object}   props                  - Component props.
+ * @param {Array}    props.filters          - Array of filter objects.
+ * @param {Function} props.onRemove         - Callback function when a filter is removed.
+ * @param {Function} props.onClick          - Callback function when a filter chip is clicked to edit.
+ * @param {string}   props.className        - Additional CSS classes for the container.
+ * @param {boolean}  props.showRemoveButton - Whether to show remove buttons on chips.
+ * @param {string}   props.emptyMessage     - Message to show when no filters are active.
+ * @param {boolean}  props.isHighlighted    - Whether to highlight all chips (popover-open state).
+ * @return {JSX.Element} FilterChipList component.
  */
+// fallow-ignore-next-line complexity
 const FilterChipList = ({
 	filters = [],
 	onRemove,
@@ -20,8 +26,9 @@ const FilterChipList = ({
 	className = 'flex flex-wrap gap-2',
 	showRemoveButton = true,
 	emptyMessage = null,
-    isReport	= false,
-    smallLabels = false
+	isReport = false,
+	smallLabels = false,
+	isHighlighted = false
 }) => {
 	const userCanFilter = useShareableLinkStore( ( state ) => state.userCanFilter );
 
@@ -33,21 +40,24 @@ const FilterChipList = ({
 
 	// If no filters but there's an empty message, show it
 	if ( 0 === filters.length && emptyMessage ) {
-		return <div className="text-gray-500 text-sm">{emptyMessage}</div>;
+		return <div className="text-text-gray-light text-sm">{emptyMessage}</div>;
 	}
 	return (
 		<div className={className}>
-			{filters.map( ( filter ) => (
-				<FilterChip
-					disabled={ isReport || ! userCanFilter }
-					key={'filterchip' + filter.key}
-					filter={filter}
-					onRemove={onRemove}
-					onClick={onClick}
-					showRemoveButton={showRemoveButton}
-					smallLabels={smallLabels}
-				/>
-			) )}
+			{
+				filters.map( ( filter ) => (
+					<FilterChip
+						disabled={ isReport || ! userCanFilter }
+						key={'filterchip' + filter.key}
+						filter={filter}
+						onRemove={onRemove}
+						onClick={onClick}
+						showRemoveButton={showRemoveButton}
+						smallLabels={smallLabels}
+						isHighlighted={isHighlighted}
+					/>
+				) )
+			}
 		</div>
 	);
 };

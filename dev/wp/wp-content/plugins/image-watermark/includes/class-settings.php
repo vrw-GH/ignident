@@ -276,6 +276,36 @@ class Image_Watermark_Settings {
 						'skip_saving' => true,
 						'description' => wp_kses_post( __( 'Select the image sizes watermark will be applied to.', 'image-watermark' ) ),
 					],
+					'skip_small_images' => [
+						'title'   => __( 'Skip Small Images', 'image-watermark' ),
+						'section' => 'image_watermark_general',
+						'type'    => 'boolean',
+						'parent'  => 'watermark_image',
+						'label'   => __( 'Skip watermarking for small image sizes.', 'image-watermark' ),
+					],
+					'small_image_threshold' => [
+						'title'       => '',
+						'section'     => 'image_watermark_general',
+						'type'        => 'custom',
+						'callback'    => [ $this, 'render_small_image_threshold' ],
+						'description' => __( 'Skip watermarking when the original uploaded image is smaller than the minimum width or height in pixels.', 'image-watermark' ),
+						'callback_args' => [
+							'width' => [
+								'name'  => 'image_watermark_options[watermark_image][min_image_width]',
+								'value' => $this->plugin->options['watermark_image']['min_image_width'],
+							],
+							'height' => [
+								'name'  => 'image_watermark_options[watermark_image][min_image_height]',
+								'value' => $this->plugin->options['watermark_image']['min_image_height'],
+							],
+						],
+						'condition'   => [
+							'field'    => 'skip_small_images',
+							'operator' => 'is',
+							'value'    => 'true',
+						],
+						'animation'   => 'slide',
+					],
 					'watermark_apply_on' => [
 						'title'    => __( 'Apply Watermark To', 'image-watermark' ),
 						'section'  => 'image_watermark_general',
@@ -874,6 +904,15 @@ class Image_Watermark_Settings {
 					$output['watermark_image']['text_size'] = max( 6, min( 400, (int) $_POST['image_watermark_options']['watermark_image']['text_size'] ) );
 				}
 
+				// Small image threshold
+				if ( isset( $_POST['image_watermark_options']['watermark_image']['min_image_width'] ) ) {
+					$output['watermark_image']['min_image_width'] = max( 0, (int) $_POST['image_watermark_options']['watermark_image']['min_image_width'] );
+				}
+
+				if ( isset( $_POST['image_watermark_options']['watermark_image']['min_image_height'] ) ) {
+					$output['watermark_image']['min_image_height'] = max( 0, (int) $_POST['image_watermark_options']['watermark_image']['min_image_height'] );
+				}
+
 				// Watermark Size Type
 				if ( isset( $_POST['image_watermark_options']['watermark_image']['watermark_size_type'] ) && in_array( (int) $_POST['image_watermark_options']['watermark_image']['watermark_size_type'], [ 0, 1, 2 ], true ) ) {
 					$output['watermark_image']['watermark_size_type'] = (int) $_POST['image_watermark_options']['watermark_image']['watermark_size_type'];
@@ -977,92 +1016,98 @@ class Image_Watermark_Settings {
 	}
 
 	/**
-	 * Render Status field.
+	 * Render small image threshold field.
+	 */
+	public function render_small_image_threshold( $args ) {
+		$base_id = ! empty( $args['html_id'] ) ? $args['html_id'] : 'iw-small-image-threshold';
+		$width_id = $base_id . '-width';
+		$height_id = $base_id . '-height';
+		?>
+		<div class="iw-field-group iw-offset-group">
+			<label for="<?php echo esc_attr( $width_id ); ?>"><?php esc_html_e( 'w:', 'image-watermark' ); ?> <input type="number" id="<?php echo esc_attr( $width_id ); ?>" name="<?php echo esc_attr( $args['callback_args']['width']['name'] ); ?>" value="<?php echo esc_attr( $args['callback_args']['width']['value'] ); ?>" min="0" /></label>
+
+			<label for="<?php echo esc_attr( $height_id ); ?>"><?php esc_html_e( 'h:', 'image-watermark' ); ?> <input type="number" id="<?php echo esc_attr( $height_id ); ?>" name="<?php echo esc_attr( $args['callback_args']['height']['name'] ); ?>" value="<?php echo esc_attr( $args['callback_args']['height']['value'] ); ?>" min="0" /></label>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render Status field using the shared diagnostics service.
 	 */
 	public function render_status( $args ) {
-		$gd_available = $this->plugin->check_gd();
-		$imagick_available = $this->plugin->check_imagick();
-		$active_engine = $this->plugin->get_extension();
-		$backup_enabled = ! empty( $this->plugin->options['backup']['backup_image'] );
-		$backup_dir = defined( 'IMAGE_WATERMARK_BACKUP_DIR' ) ? IMAGE_WATERMARK_BACKUP_DIR : '';
-		$backup_exists = $backup_dir ? is_dir( $backup_dir ) : false;
-		$backup_writable = $backup_dir ? is_writable( $backup_dir ) : false;
-		$engine_labels = [
-			'gd'      => $this->plugin->extensions['gd'] ?? 'GD',
-			'imagick' => $this->plugin->extensions['imagick'] ?? 'ImageMagick',
-		];
+		$diagnostics = $this->plugin->get_diagnostics();
 
-		// PHP version check
-		$php_version = phpversion();
-		$php_ok = version_compare( $php_version, '7.2', '>=' );
-
-		$statuses = [
-			'version' => [
-				'label'   => __( 'Plugin version', 'image-watermark' ),
-				'status'  => 'info',
-				'message' => sprintf( __( 'Image Watermark %s', 'image-watermark' ), $this->plugin->defaults['version'] ),
-			],
-			'php' => [
-				'label'   => __( 'PHP version', 'image-watermark' ),
-				'status'  => $php_ok ? 'ok' : 'error',
-				'message' => sprintf( __( 'PHP %s', 'image-watermark' ), $php_version ) . ( ! $php_ok ? ' ' . __( '(7.2+ recommended)', 'image-watermark' ) : '' ),
-			],
-			'gd' => [
-				'label'   => $engine_labels['gd'],
-				'status'  => $gd_available ? 'ok' : 'error',
-				'message' => $gd_available ? __( 'Available', 'image-watermark' ) : __( 'Not available', 'image-watermark' ),
-			],
-			'imagick' => [
-				'label'   => $engine_labels['imagick'],
-				'status'  => $imagick_available ? 'ok' : 'error',
-				'message' => $imagick_available ? __( 'Available', 'image-watermark' ) : __( 'Not available', 'image-watermark' ),
-			],
-			'active' => [
-				'label'   => __( 'Active engine', 'image-watermark' ),
-				'status'  => $active_engine ? 'ok' : 'error',
-				'message' => $active_engine && isset( $engine_labels[$active_engine] )
-					? $engine_labels[$active_engine]
-					: __( 'None selected', 'image-watermark' ),
-			],
-		];
-
-		// Backup status
-		$backup_message = '';
-		$backup_status = 'error';
-
-		if ( $backup_dir ) {
-			if ( $backup_exists && $backup_writable ) {
-				$backup_status = 'ok';
-				$backup_message = __( 'Ready and writable.', 'image-watermark' );
-			} elseif ( ! $backup_enabled ) {
-				$backup_status = 'info';
-				$backup_message = __( 'Backups disabled.', 'image-watermark' );
-			} elseif ( ! $backup_exists ) {
-				$backup_message = __( 'Not created.', 'image-watermark' );
-			} else {
-				$backup_message = __( 'Exists but not writable.', 'image-watermark' );
-			}
-		} else {
-			$backup_status = 'info';
-			$backup_message = __( 'Path not defined.', 'image-watermark' );
+		if ( ! $diagnostics ) {
+			echo '<p>' . esc_html__( 'Diagnostics service unavailable.', 'image-watermark' ) . '</p>';
+			return;
 		}
 
-		$statuses['backup'] = [
-			'label'   => __( 'Backup folder', 'image-watermark' ),
-			'status'  => $backup_status,
-			'message' => $backup_message,
+		$report    = $diagnostics->system_report();
+		$readiness = $diagnostics->readiness( $report );
+		$labels    = $diagnostics->section_labels();
+		$plain_txt = $diagnostics->plain_text_report( $report, $readiness );
+
+		$banner_map = [
+			'ready'       => [
+				'label' => __( 'Ready', 'image-watermark' ),
+				'class' => 'notice-success',
+				'desc'  => __( 'Watermark is configured and ready to apply.', 'image-watermark' ),
+			],
+			'needs_setup' => [
+				'label' => __( 'Needs Setup', 'image-watermark' ),
+				'class' => 'notice-warning',
+				'desc'  => __( 'Some settings need attention before watermarking will work.', 'image-watermark' ),
+			],
+			'degraded'    => [
+				'label' => __( 'Degraded', 'image-watermark' ),
+				'class' => 'notice-error',
+				'desc'  => __( 'Critical issues are preventing watermarking from working correctly.', 'image-watermark' ),
+			],
 		];
+
+		$banner = isset( $banner_map[ $readiness ] ) ? $banner_map[ $readiness ] : $banner_map['degraded'];
 		?>
-		<ul class="iw-status-list">
-			<?php foreach ( $statuses as $status ) : ?>
-				<li class="iw-status-item">
-					<span class="iw-status-dot <?php echo esc_attr( $status['status'] ); ?>"></span>
-					<span class="iw-status-text">
-						<strong><?php echo esc_html( $status['label'] ); ?>:</strong> <?php echo wp_kses_post( $status['message'] ); ?>
-					</span>
-				</li>
-			<?php endforeach; ?>
-		</ul>
+		<div class="iw-readiness-banner notice inline <?php echo esc_attr( $banner['class'] ); ?>">
+			<p>
+				<strong><?php echo esc_html( $banner['label'] ); ?>:</strong>
+				<?php echo esc_html( $banner['desc'] ); ?>
+			</p>
+		</div>
+
+		<div class="iw-status-sections">
+		<?php foreach ( $report as $section_key => $items ) :
+			if ( empty( $items ) ) {
+				continue;
+			}
+			$section_label = isset( $labels[ $section_key ] ) ? $labels[ $section_key ] : $section_key;
+		?>
+			<div class="iw-status-section">
+				<h3 class="iw-status-section-heading"><?php echo esc_html( $section_label ); ?></h3>
+				<ul class="iw-status-list">
+				<?php foreach ( $items as $item ) : ?>
+					<li class="iw-status-item">
+						<span class="iw-status-dot <?php echo esc_attr( $item['status'] ); ?>"></span>
+						<span class="iw-status-text">
+							<strong><?php echo esc_html( $item['label'] ); ?>:</strong>
+							<?php echo wp_kses_post( $item['message'] ); ?>
+							<?php if ( ! empty( $item['hint'] ) ) : ?>
+								<p class="description"><?php echo wp_kses_post( $item['hint'] ); ?></p>
+							<?php endif; ?>
+						</span>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+			</div>
+		<?php endforeach; ?>
+		</div>
+
+		<div class="iw-copy-report-wrap">
+			<textarea id="iw-copy-report-text" class="screen-reader-text" readonly aria-hidden="true"><?php echo esc_textarea( $plain_txt ); ?></textarea>
+			<button type="button" class="button button-primary iw-copy-report" data-target="iw-copy-report-text">
+				<?php esc_html_e( 'Copy Status Report', 'image-watermark' ); ?>
+			</button>
+			<span class="iw-copy-report-notice" aria-live="polite"></span>
+		</div>
 		<?php
 	}
 

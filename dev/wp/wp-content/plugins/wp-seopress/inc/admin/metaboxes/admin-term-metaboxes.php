@@ -63,24 +63,7 @@ function seopress_display_seo_term_metaboxe() {
 		$seopress_get_taxonomies = apply_filters( 'seopress_metaboxe_term_seo', $seopress_get_taxonomies );
 
 		if ( ! empty( $seopress_get_taxonomies ) ) {
-			if ( ! empty( seopress_get_service( 'AdvancedOption' )->getAppearanceMetaboxePosition() ) ) {
-				switch ( seopress_get_service( 'AdvancedOption' )->getAppearanceMetaboxePosition() ) {
-					case 'high':
-						$priority = 1;
-						break;
-					case 'default':
-						$priority = 10;
-						break;
-					case 'low':
-						$priority = 100;
-						break;
-					default:
-						$priority = 10;
-						break;
-				}
-			} else {
-				$priority = 10;
-			}
+			$priority = 10;
 
 			$priority = apply_filters( 'seopress_metaboxe_term_seo_priority', $priority );
 
@@ -112,6 +95,13 @@ function seopress_display_seo_term_metaboxe() {
 			wp_enqueue_script( 'seopress-tagify', SEOPRESS_ASSETS_DIR . '/js/tagify' . $prefix . '.js', array( 'jquery' ), SEOPRESS_VERSION, true );
 			wp_register_style( 'seopress-tagify', SEOPRESS_ASSETS_DIR . '/css/tagify' . $prefix . '.css', array(), SEOPRESS_VERSION );
 			wp_enqueue_style( 'seopress-tagify' );
+
+			// Metabox styles. The term screens share the metabox form template
+			// with the post editor, but only the post path enqueued metaboxe.css
+			// (see ModuleMetabox). Without it the AI buttons and their spinner
+			// render unstyled on taxonomy term screens, so enqueue it here too.
+			wp_enqueue_style( 'wp-components' );
+			wp_enqueue_style( 'seopress-metabox', SEOPRESS_URL_PUBLIC . '/metaboxe.css', array( 'wp-components' ), SEOPRESS_VERSION );
 
 			// Register Google Snippet Preview / Content Analysis JS.
 			wp_enqueue_script(
@@ -175,6 +165,8 @@ function seopress_display_seo_term_metaboxe() {
 		}
 
 		$seopress_robots_canonical                 = get_term_meta( $term->term_id, '_seopress_robots_canonical', true );
+		$seopress_robots_freeze_modified_date      = '';
+		$seopress_robots_custom_modified_date      = '';
 		$seopress_social_fb_title                  = get_term_meta( $term->term_id, '_seopress_social_fb_title', true );
 		$seopress_social_fb_desc                   = get_term_meta( $term->term_id, '_seopress_social_fb_desc', true );
 		$seopress_social_fb_img                    = get_term_meta( $term->term_id, '_seopress_social_fb_img', true );
@@ -216,7 +208,7 @@ function seopress_display_seo_term_metaboxe() {
 		}
 
 		$seo_tabs = array();
-		$seo_tabs = json_decode( stripslashes( htmlspecialchars_decode( $_POST['seo_tabs'] ) ) );
+		$seo_tabs = json_decode( stripslashes( htmlspecialchars_decode( $_POST['seo_tabs'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) ) );
 
 		if ( in_array( 'title-tab', $seo_tabs, true ) ) {
 			if ( ! empty( $_POST['seopress_titles_title'] ) ) {

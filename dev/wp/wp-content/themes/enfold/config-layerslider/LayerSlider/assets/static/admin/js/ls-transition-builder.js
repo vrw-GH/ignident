@@ -308,7 +308,9 @@ var lsTrBuilder = {
 
 				jQuery('.transitionpreview', $parent).layerSlider( 'destroy', true );
 				$parent.append(
-					jQuery('<img>', { 'src' : lsTrImgPath + 'sample_slide_1.jpg' })
+					jQuery('<img>', {
+						src: 'https://layerslider.com/media/slide-transitions/1.jpg'
+					})
 				);
 			}
 		});
@@ -455,7 +457,6 @@ var LS_TransitionGallery = {
 		var settings = $.extend( true, {}, {
 			width: 300,
 			height: 150,
-			delay: 100,
 			imgPath: '../assets/img/',
 			skinPath: '../layerslider/skins/',
 			transitionType: '2d',
@@ -473,14 +474,17 @@ var LS_TransitionGallery = {
 		};
 
 		// Add slider HTML markup
-		$('<div class="transitionpreview" style="width: '+settings.width+'px; height: '+settings.height+'px;"> \
-				<div class="ls-slide" data-ls="slidedelay: '+settings.delay+';"> \
-					<img src="'+settings.imgPath+'sample_slide_1.jpg" class="ls-bg"> \
-				</div> \
-				<div class="ls-slide" data-ls="slidedelay: '+settings.delay+';"> \
-					<img src="'+settings.imgPath+'sample_slide_2.jpg" class="ls-bg"> \
-				</div> \
-			</div>').appendTo(el);
+		$(`<div class="transitionpreview" style="width: ${settings.width}px; height: ${settings.height}px;">
+				<div class="ls-slide" data-ls="slidedelay: ${settings.slidedelay};">
+					<img src="${LS_slideTransitionImages[0]}" class="ls-bg">
+				</div>
+				<div class="ls-slide" data-ls="slidedelay: ${settings.slidedelay};">
+					<img src="${LS_slideTransitionImages[1]}" class="ls-bg">
+				</div>
+				<div class="ls-slide" data-ls="slidedelay: ${settings.slidedelay};">
+					<img src="${LS_slideTransitionImages[2]}" class="ls-bg">
+				</div>
+			</div>`).appendTo(el);
 
 
 

@@ -1,8 +1,6 @@
 <?php
 namespace Burst\Traits;
 
-use Burst\Admin\Statistics\Query_Data;
-
 /**
  * Trait containing sanitization methods for consistent data cleaning throughout the application.
  */
@@ -97,6 +95,8 @@ trait Sanitize {
 		switch ( $type ) {
 			case 'checkbox':
 			case 'anonymous_usage_data':
+			case 'integration_row':
+			case 'number':
 			case 'hidden':
 				return (int) $value;
 			case 'checkbox_group':
@@ -107,19 +107,92 @@ trait Sanitize {
 				return array_map( 'sanitize_text_field', $value );
 			case 'email':
 				return sanitize_email( $value );
-			case 'number':
-				return (int) $value;
+			case 'color_picker':
+				return sanitize_hex_color( $value );
 			case 'ip_blocklist':
 				return $this->sanitize_ip_field( $value );
 			case 'email_reports':
 				return $this->sanitize_email_reports( $value );
 			case 'license':
 				return defined( 'BURST_PRO' ) && class_exists( '\\Burst\\Pro\\Admin\\Licensing\\Licensing' ) ? ( new \Burst\Pro\Admin\Licensing\Licensing() )->sanitize_license( $value ) : '';
+			case 'wysiwyg':
 			case 'textarea':
 				return wp_kses_post( $value );
+			case 'css':
+				return $this->sanitize_css( (string) $value );
 			default:
 				return sanitize_text_field( $value );
 		}
+	}
+
+	/**
+	 * Strictly sanitize a Custom CSS value.
+	 *
+	 * Allows CSS variables and standard CSS, but removes anything that could load
+	 * external resources or break out of the inline <style> element it is rendered in.
+	 *
+	 * @param string $css The raw CSS.
+	 * @return string The sanitized CSS.
+	 */
+	public function sanitize_css( string $css ): string {
+		// Strip CSS comments first so split-token obfuscation (e.g. "@imp/**/ort") cannot bypass the checks below.
+		$css = (string) preg_replace( '#/\*.*?\*/#s', '', $css );
+
+		// Strip HTML tag starts (e.g. "</style>", "<script>", "<!--") so the value cannot break out of, or inject markup
+		// into, the <style> element it is rendered in. A "<" is only removed when it begins a tag ("<" + letter / "!" / "/"),
+		// which preserves the CSS child combinator ">" and range media queries such as "@media (width < 600px)".
+		$css = (string) preg_replace( '#<(?=[!/a-z])#i', '', $css );
+
+		$denylist = [
+			'#@\s*import#i',
+			'#@\s*charset#i',
+			'#expression\s*\(#i',
+			'#javascript\s*:#i',
+			'#vbscript\s*:#i',
+			'#behaviou?r\s*:#i',
+			'#-moz-binding#i',
+		];
+
+		// Strip plain url(...) and the denylisted at-rules/tokens (the common, non-evasive case). \s* guards against
+		// whitespace-based evasion. A publicly shared report must never load external resources.
+		$css = (string) preg_replace( '#url\s*\([^)]*\)?#i', '', $css );
+		$css = (string) preg_replace( $denylist, '', $css );
+
+		// Backstop against CSS escape-sequence evasion: the browser decodes "\75rl(" to "url(" and "@\69mport" to
+		// "@import", but the literal token never appears in the raw source, so the strip above misses it. Decode the
+		// escapes into a detection-only copy; if any denylisted token or markup reappears, the value is hostile -> drop it.
+		$decoded  = $this->decode_css_escapes( $css );
+		$patterns = array_merge( $denylist, [ '#url\s*\(#i', '#<\s*[a-z!/]#i' ] );
+		foreach ( $patterns as $pattern ) {
+			if ( preg_match( $pattern, $decoded ) ) {
+				return '';
+			}
+		}
+
+		return trim( $css );
+	}
+
+	/**
+	 * Decode CSS escape sequences for detection purposes only.
+	 *
+	 * @param string $css The CSS to decode.
+	 * @return string The CSS with escape sequences resolved.
+	 */
+	private function decode_css_escapes( string $css ): string {
+		// Unicode escape: "\" + 1-6 hex digits + optional single trailing whitespace -> the code point.
+		$css = (string) preg_replace_callback(
+			'/\\\\([0-9A-Fa-f]{1,6})\s?/',
+			static function ( array $m ): string {
+				$code = hexdec( $m[1] );
+				if ( $code < 128 ) {
+					return chr( $code );
+				}
+				return function_exists( 'mb_chr' ) ? (string) mb_chr( $code, 'UTF-8' ) : '';
+			},
+			$css
+		);
+		// Simple escape: "\" + any other character -> that character (e.g. "\@" -> "@").
+		return (string) preg_replace( '/\\\\(.)/s', '$1', $css );
 	}
 
 	/**
@@ -391,7 +464,6 @@ trait Sanitize {
 		return (int) $time_on_page;
 	}
 
-
 	/**
 	 * Configuration file for validation rules
 	 * These values define valid options for various fields throughout the application
@@ -448,6 +520,9 @@ trait Sanitize {
 				'checkbox_group',
 				'license',
 				'anonymous_usage_data',
+				'css',
+				'integration_row',
+				'integrations_intro',
 			]
 		);
 	}
@@ -606,15 +681,6 @@ trait Sanitize {
 	}
 
 	/**
-	 * Default metric (fallback when an invalid metric is provided)
-	 *
-	 * @return string Default metric name
-	 */
-	public function default_metric(): string {
-		return apply_filters( 'burst_default_metric', 'pageviews' );
-	}
-
-	/**
 	 * Sanitize device filter value
 	 *
 	 * @param string $device Device value to sanitize.
@@ -705,7 +771,7 @@ trait Sanitize {
 	 * @return array<int, string> List of available arguments for the specified data type
 	 */
 	public function get_data_available_args( string $type ): array {
-		$default_args = [ 'filters', 'metrics', 'group_by', 'goal_id', 'date_start', 'date_end' ];
+		$default_args = [ 'filters', 'metrics', 'group_by', 'goal_id', 'date_start', 'date_end', 'compare_mode', 'compare_date_start', 'compare_date_end' ];
 
 		// Allow filtering of available args by type.
 		return apply_filters( 'burst_get_data_available_args', $default_args, $type );
@@ -726,7 +792,7 @@ trait Sanitize {
 		$date = trim( sanitize_text_field( $date ) );
 
 		// Try to create DateTime object from Y-m-d format.
-		$datetime = \DateTime::createFromFormat( 'Y-m-d H:i:s', $date );
+		$datetime = \DateTime::createFromFormat( 'Y-m-d H:i:s', $date, wp_timezone() );
 		// Check if the date was parsed successfully and matches the input exactly.
 		if ( ! $datetime || $datetime->format( 'Y-m-d H:i:s' ) !== $date ) {
 			return '';

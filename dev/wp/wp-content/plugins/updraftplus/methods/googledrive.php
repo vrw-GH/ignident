@@ -1,8 +1,6 @@
 <?php
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fopen, PHPCompatibility.ParameterValues.NewIconvMbstringCharsetDefault.NotSet -- Using the default PHP fopen() function instead of the WP Filesystem API, using the default encoding for the mb_strpos() function.
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- using the native PHP fclose() function instead of the WP Filesystem API
-if (!defined('ABSPATH')) exit;
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fclose, WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fgets, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.WP.AlternativeFunctions.file_system_operations_mkdir, WordPress.WP.AlternativeFunctions.file_system_operations_fread, WordPress.WP.AlternativeFunctions.file_system_operations_chmod, WordPress.WP.AlternativeFunctions.file_system_operations_fputs, WordPress.WP.AlternativeFunctions.file_system_operations_is_writeable, WordPress.WP.AlternativeFunctions.file_system_operations_chown, WordPress.WP.AlternativeFunctions.file_system_operations_chgrp, WordPress.WP.AlternativeFunctions.file_system_operations_touch -- Native PHP fileystem function is used for direct control and performance because it can bypass additional layers of abstraction so that no overhead from the WordPress filesystem API's internal handling
+if (!defined('ABSPATH')) die('No direct access allowed');
 
 // Converted to multi-options (Feb 2017-) and previous options conversion removed: Yes
 
@@ -23,6 +21,35 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	private $registered_prune = array();
 
 	/**
+	 * Input and option field mappings with default values and supported contexts.
+	 *
+	 * "parentid" is deprecated since April 2014; it should not be in the default options
+	 * (its presence is used to detect an upgraded-from-previous-SDK situation).
+	 * For the same reason, 'folder' is also unset;
+	 * which enables us to know whether new-style settings have ever been set.
+	 *
+	 * @var array
+	 */
+	protected $input_option_field_mappings = array(
+		'clientid' => array(
+			'default_value' => '',
+			'contexts' => array('option'),
+		),
+		'secret' => array(
+			'default_value' => '',
+			'contexts' => array('option'),
+		),
+		'token' => array(
+			'default_value' => '',
+			'contexts' => array('option'),
+		),
+		'folder' => array(
+			'default_value' => 'UpdraftPlus',
+			'contexts' => array('input'),
+		),
+	);
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -39,21 +66,26 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	}
 
 	public function action_auth() {
-		if (isset($_GET['state'])) {
+		$state = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'state');
+		$updraftplus_googledriveauth = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'updraftplus_googledriveauth');
+		if (isset($state)) {
 
-			$parts = explode(':', $_GET['state']);
+			$parts = explode(':', $state);
 			$state = $parts[0];
 
 			if ('success' == $state) {
-
-				if (isset($_GET['user_id']) && isset($_GET['access_token'])) {
+				$user_id = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'user_id');
+				$access_token = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'access_token');
+				
+				if (isset($user_id) && isset($access_token)) {
 					$code = array(
-						'user_id' => $_GET['user_id'],
-						'access_token' => $_GET['access_token']
+						'user_id' => $user_id,
+						'access_token' => $access_token
 					);
 					
-					if (isset($_GET['scope'])) {
-						$scope = $_GET['scope'];
+					$scope = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'scope');
+					if (isset($scope)) {
+						$scope = $scope;
 						$code['scope'] = explode(' ', $scope);
 					}
 				} else {
@@ -67,10 +99,10 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			} elseif ('revoke' == $state) {
 				$this->gdrive_auth_revoke();
 			}
-		} elseif (isset($_GET['updraftplus_googledriveauth'])) {
-			if ('doit' == $_GET['updraftplus_googledriveauth']) {
+		} elseif (isset($updraftplus_googledriveauth)) {
+			if ('doit' == $updraftplus_googledriveauth) {
 				$this->action_authenticate_storage();
-			} elseif ('deauth' == $_GET['updraftplus_googledriveauth']) {
+			} elseif ('deauth' == $updraftplus_googledriveauth) {
 				$this->action_deauthenticate_storage();
 			}
 		}
@@ -84,20 +116,6 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	public function get_supported_features() {
 		// This options format is handled via only accessing options via $this->get_options()
 		return array('multi_options', 'config_templates', 'multi_storage', 'conditional_logic', 'manual_authentication');
-	}
-
-	/**
-	 * Retrieve default options for this remote storage module.
-	 *
-	 * @return Array - an array of options
-	 */
-	public function get_default_options() {
-		// parentid is deprecated since April 2014; it should not be in the default options (its presence is used to detect an upgraded-from-previous-SDK situation). For the same reason, 'folder' is also unset; which enables us to know whether new-style settings have ever been set.
-		return array(
-			'clientid' => '',
-			'secret' => '',
-			'token' => '',
-		);
 	}
 
 	/**
@@ -197,7 +215,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 				// Aug 2015: saw a case where the gzip-encoding was not removed from the result
 				// https://stackoverflow.com/questions/10975775/how-to-determine-if-a-string-was-compressed
 				// @codingStandardsIgnoreLine
-				$is_gzip = (false !== mb_strpos($msg, "\x1f\x8b\x08"));
+				$is_gzip = (false !== mb_strpos($msg, "\x1f\x8b\x08")); // phpcs:ignore PHPCompatibility.ParameterValues.NewIconvMbstringCharsetDefault.NotSet -- using the default encoding for the mb_strpos() function.
 				if ($is_gzip) $this->log("Error: Response appears to be gzip-encoded still; something is broken in the client HTTP stack, and you should define UPDRAFTPLUS_GOOGLEDRIVE_DISABLEGZIP as true in your wp-config.php to overcome this.");
 			}
 			$retry_count--;
@@ -582,9 +600,10 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	 */
 	public function gdrive_auth_token() {
 		$opts = $this->get_options();
-		if (isset($_GET['code'])) {
+		$code = UpdraftPlus_Manipulation_Functions::fetch_superglobal('get', 'code');
+		if (isset($code)) {
 			$post_vars = array(
-				'code' => $_GET['code'],
+				'code' => $code,
 				'client_id' => $opts['clientid'],
 				'client_secret' => $opts['secret'],
 				'redirect_uri' => UpdraftPlus_Options::admin_page_url().'?action=updraftmethod-googledrive-auth',
@@ -1136,7 +1155,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			if ('recursion' !== $opts->get_error_code()) {
 				$msg = "(".$opts->get_error_code()."): ".$opts->get_error_message();
 				$this->log($msg);
-				error_log("UpdraftPlus: Google Drive: $msg");
+				UpdraftPlus_Manipulation_Functions::error_log("UpdraftPlus: Google Drive: $msg");
 			}
 			// The saved options had a problem; so, return the new ones
 			return $google;
@@ -1601,7 +1620,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			'input_secret_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
 			'input_folder_label' => __('Google Drive', 'updraftplus').' '.__('Folder', 'updraftplus'),
 			'clientid_and_secret_instruction_label1' => __('For longer help, including screenshots, follow this link.', 'updraftplus').' '.__('The description below is sufficient for more expert users.', 'updraftplus'),
-			'updraftplus_com_link' => apply_filters('updraftplus_com_link', 'https://updraftplus.com/support/configuring-google-drive-api-access-in-updraftplus/'),
+			'updraftplus_com_link' => apply_filters('updraftplus_com_link', 'https://teamupdraft.com/documentation/updraftplus/topics/cloud-storage/google-drive/faqs/how-do-i-use-the-updraftplus-google-drive-app/'),
 			'clientid_and_secret_instruction_label2' => __('Follow this link to your Google API Console, and there activate the Drive API and create a Client ID in the API Access section.', 'updraftplus'),
 			'clientid_and_secret_instruction_label3' => __("Select 'Web Application' as the application type.", 'updraftplus'),
 			'clientid_and_secret_instruction_label4' => __('You must add the following as the authorised redirect URI (under "More Options") when asked', 'updraftplus'),
@@ -1612,7 +1631,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			'privacy_policy_label' => wp_kses(sprintf(
 				/* translators: 1: Privacy policy link, 2: Storage provider name */
 				__('Please read %1$s for use of our %2$s authorization app (none of your backup data is sent to us).', 'updraftplus'),
-				'<a target="_blank" href="https://updraftplus.com/faqs/privacy-policy-use-google-drive-app/">'.__('this privacy policy', 'updraftplus').'</a>',
+				'<a target="_blank" href="https://teamupdraft.com/privacy/">'.__('this privacy policy', 'updraftplus').'</a>',
 				'Google Drive'
 			), $this->allowed_html_for_content_sanitisation()),
 			'updraftplus_premium_url' => $updraftplus->get_url('premium'),
@@ -1627,6 +1646,8 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			'deauthentication_link_text' => sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 			'deauthorise_use_master_label' => __('To de-authorize UpdraftPlus (all sites) from accessing your Google Drive, follow this link to your Google account settings.', 'updraftplus'),
 			'account_name_label' => __("Account holder's name", 'updraftplus'),
+			'input_folder_placeholder' => __('Enter your folder name', 'updraftplus'),
+			'input_folder_title' => __('The folder in your Google Drive where the backups will be stored.', 'updraftplus'),
 		);
 		if (preg_match('#^(https?://(\d+)\.(\d+)\.(\d+)\.(\d+))/#i', apply_filters('updraftplus_gdrive_admin_page_url', UpdraftPlus_Options::admin_page_url()), $matches)) $properties['ip_address'] = $matches[1];
 		if (isset($properties['ip_address'])) {
@@ -1811,5 +1832,29 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 
 		/* translators: %s: Service name */
 		return '<p>'. $text .'</p><br><a data-pretext="'.$text.'" class="button-ud-google updraft_authlink" href="'.UpdraftPlus_Options::admin_page_url().'?&action=updraftmethod-'.$id.'-auth&page=updraftplus&updraftplus_'.$id.'auth=doit&nonce='.wp_create_nonce('storage_auth_nonce').'&updraftplus_instance='.esc_attr($instance_id).'" data-instance_id="'.esc_attr($instance_id).'" data-remote_method="'.$id.'">'.sprintf(__('Sign in with %s', 'updraftplus'), 'Google').'</a>';
+	}
+
+	/**
+	 * Customize generated field data using legacy mapping values.
+	 *
+	 * Used by transform_template_properties_to_fields_structure()
+	 * to allow child classes to adjust the generated field structure
+	 * based on legacy data and field mapping requirements.
+	 *
+	 * @param array  $field               Field data.
+	 * @param array  $template_properties Template properties.
+	 * @param string $field_name          Field name.
+	 * @param array  $option              Field mapping option.
+	 *
+	 * @return array
+	 */
+	public function configure_field_from_legacy($field, $template_properties, $field_name, $option) {
+		if (!class_exists('UpdraftPlus_Addon_Google_Enhanced') && 'folder' === $field_name) return array();
+
+		$prefix = 'input_'.$option['template_property_input_mapping'].'_';
+
+		if (empty($field['tooltip']) && isset($template_properties[$prefix.'title'])) $field['tooltip'] = array('text' => $template_properties[$prefix.'title']);
+
+		return $field;
 	}
 }

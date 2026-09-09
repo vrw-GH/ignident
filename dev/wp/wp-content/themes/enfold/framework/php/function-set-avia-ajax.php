@@ -603,7 +603,7 @@ if( ! function_exists( 'avia_ajax_import_data' ) )
 			exit;
 		}
 
-		$demo_full_name = ! empty( $_REQUEST['demo_full_name'] ) ? stripslashes( $_REQUEST['demo_full_name'] ) : $_REQUEST['import_dir'];
+		$demo_full_name = ! empty( $_REQUEST['demo_full_name'] ) ? stripslashes( $_REQUEST['demo_full_name'] ) : sanitize_file_name( (string) ( $_REQUEST['demo_name'] ?? '' ) );
 
 		if( 'download_demos' == $_REQUEST['subaction'] )
 		{
@@ -650,17 +650,20 @@ if( ! function_exists( 'avia_ajax_delete_demo_files' ) )
 			die( -1 );
 		}
 
-		if( empty( $_REQUEST['delete_demo'] ) )
+		//	The folder to delete is always derived from the ( sanitized ) demo name on the server and
+		//	is confined to the demo folder, so a delete can never target an arbitrary path.
+		$demo_name = ! empty( $_REQUEST['demo_name'] ) ? sanitize_file_name( (string) $_REQUEST['demo_name'] ) : '';
+		$demo_full_name = ! empty( $_REQUEST['demo_full_name'] ) ? stripslashes( $_REQUEST['demo_full_name'] ) : $demo_name;
+
+		$delete_dir = avia_demo_import_dir( $demo_name );
+		if( '' === $delete_dir )
 		{
 			exit;
 		}
 
-		$demo_name = ! empty( $_REQUEST['demo_name'] ) ? $_REQUEST['demo_name'] : $_REQUEST['delete_demo'];
-		$demo_full_name = ! empty( $_REQUEST['demo_full_name'] ) ? stripslashes( $_REQUEST['demo_full_name'] ) : $_REQUEST['delete_demo'];
+		avia_backend_delete_folder( $delete_dir );
 
-		avia_backend_delete_folder( $_REQUEST['delete_demo'] );
-
-		if( is_dir( $_REQUEST['delete_demo'] ) )
+		if( is_dir( $delete_dir ) )
 		{
 			$msg = 'avia_error-' . sprintf( __( 'Downloaded files for demo %s could not be deleted.', 'avia_framework' ), $demo_full_name );
 		}
@@ -803,10 +806,10 @@ if( ! function_exists( 'avia_ajax_import_alb_templates_file' ) )
 		$response['success'] = false;
 
 		//check if capability is ok
-        $cap = apply_filters( 'avf_file_upload_capability', 'update_plugins' );
+        $cap = avia_file_upload_capability( 'alb_templates' );
         if( ! current_user_can( $cap ) )
         {
-			$response['msg'] = __( "Using this feature is reserved for Super Admins. You unfortunately don't have the necessary permissions.", 'avia_framework' );
+			$response['msg'] = __( "You do not have the required permissions to use this feature.", 'avia_framework' );
 			echo json_encode( $response );
 			exit;
 		}
@@ -862,12 +865,12 @@ if( ! function_exists( 'avia_ajax_import_config_file' ) )
 
 
         //check if capability is ok
-        $cap = apply_filters( 'avf_file_upload_capability', 'update_plugins' );
+        $cap = avia_file_upload_capability( 'theme_settings' );
 
 
         if( ! current_user_can( $cap ) )
         {
-            exit( __( "Using this feature is reserved for Super Admins. You unfortunately don't have the necessary permissions.", 'avia_framework' ) );
+            exit( __( "You do not have the required permissions to use this feature.", 'avia_framework' ) );
         }
 
 		$button_id = isset( $_POST['avia_id'] ) ? $_POST['avia_id'] : '';
@@ -887,7 +890,8 @@ if( ! function_exists( 'avia_ajax_import_config_file' ) )
 
 			if( $avia_import instanceof avia_wp_import )
 			{
-				$options = unserialize( base64_decode( $options ) );
+				//	Imported settings are plain option data - never allow objects to be instantiated.
+				$options = unserialize( base64_decode( $options ), array( 'allowed_classes' => false ) );
 				$database_option = array();
 				$filter = ! empty( $_POST['avia_filter'] ) ? (array) $_POST['avia_filter'] : array();
 

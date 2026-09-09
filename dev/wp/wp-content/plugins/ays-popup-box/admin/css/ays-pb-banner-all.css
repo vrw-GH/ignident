@@ -2077,7 +2077,7 @@ div#ays-pb-new-mega-bundle-2025-dicount-month-main button.notice-dismiss:hover:b
 
 
 @media all and (max-width: 768px) {
-    div#ays-pb-new-mega-bundle-2025-dicount-month-main.ays_quiz_dicount_info.notice {
+    div#ays-pb-new-mega-bundle-2025-dicount-month-main.ays_pb_dicount_info.notice {
         display: none !important;
     }
 
@@ -2265,4 +2265,555 @@ div#ays-pb-new-mega-bundle-2025-dicount-month-main button.notice-dismiss:hover:b
 
 /* New Mega Bundle 2025 Banner pb | End */
 
+/* Popup Footer Blue Banner Sale 20% - 2026 | Start */
 
+@keyframes ays-pro-slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes ays-pro-slide-down {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+}
+.ays-pb-footer-banner-bottom-banner-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 0 16px 28px;
+    text-align: center;
+    animation: 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards ays-pro-slide-up;
+}
+.ays-pb-footer-banner-bottom-banner-wrapper.ays-pro-banner-closing {
+    animation: 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards ays-pro-slide-down;
+}
+.ays-pb-footer-banner-bottom-banner-container {
+    display: inline-block;
+    max-width: 100%;
+    border-radius: 16px;
+    background: linear-gradient(90deg, #2f6bff 0, #3e7bff 100%);
+    box-shadow:
+        0 20px 40px -15px rgba(47, 107, 255, 0.55),
+        0 8px 20px -10px rgba(47, 107, 255, 0.35);
+    overflow: hidden;
+}
+.ays-pb-footer-banner-bottom-banner-content,
+.ays-pb-footer-banner-bottom-banner-inner,
+.ays-pb-footer-banner-bottom-banner-left,
+.ays-pb-footer-banner-bottom-banner-code {
+    display: flex;
+    align-items: center;
+}
+.ays-pb-footer-banner-bottom-banner-inner {
+    gap: 16px;
+    padding: 8px 14px 8px 10px;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+.ays-pb-footer-banner-bottom-banner-left {
+    gap: 14px;
+}
+.ays-pb-footer-banner-bottom-banner-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+.ays-pb-footer-banner-bottom-banner-icon svg {
+    width: 24px;
+    height: 24px;
+}
+.ays-pb-footer-banner-bottom-banner-title,
+.ays-pb-footer-banner-bottom-banner-discount {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0;
+    white-space: nowrap;
+    color: #fff;
+}
+.ays-pb-footer-banner-bottom-banner-separator {
+    display: block;
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.4);
+}
+.ays-pb-footer-banner-bottom-banner-code {
+    gap: 6px;
+    border: 1px dashed rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+    padding: 6px 9px;
+    color: #fff;
+    cursor: pointer;
+    transition:
+        background-color 0.15s,
+        border-color 0.15s;
+}
+.ays-pb-footer-banner-bottom-banner-code:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+}
+.ays-pb-footer-banner-bottom-banner-code > svg,
+.ays-pb-footer-banner-bottom-banner-code button svg {
+    width: 16px;
+    height: 16px;
+}
+.ays-pb-footer-banner-bottom-banner-code span {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    color: #fff;
+}
+.ays-pb-footer-banner-bottom-banner-copy,
+.ays-pb-footer-banner-bottom-banner-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    box-shadow: none;
+    transition:
+        color 0.15s,
+        background-color 0.15s;
+}
+.ays-pb-footer-banner-bottom-banner-copy:hover,
+.ays-pb-footer-banner-bottom-banner-close:hover {
+    color: #fff;
+    background: transparent;
+}
+.ays-pb-footer-banner-bottom-banner-wrapper .ays-pb-footer-banner-bottom-banner-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 20px;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    color: #2f6bff;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    transition:
+        background-color 0.15s,
+        transform 0.15s;
+}
+.ays-pb-footer-banner-bottom-banner-wrapper .ays-pb-footer-banner-bottom-banner-cta:hover {
+    background: rgba(255, 255, 255, 0.95);
+    color: #2f6bff;
+    transform: translateY(-1px);
+}
+.ays-pb-footer-banner-bottom-banner-close {
+    width: 22px;
+    height: 22px;
+    margin-left: 2px;
+}
+.ays-pb-footer-banner-bottom-banner-close svg {
+    width: 20px;
+    height: 20px;
+}
+.ays-pb-footer-banner-copy-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.ays-pb-footer-banner-copy-notification.show {
+    opacity: 1;
+}
+@media (max-width: 768px) {
+    .ays-pb-footer-banner-bottom-banner-wrapper {
+        display: none;
+    }
+}
+
+/* Popup Footer Blue Banner Sale 20% - 2026 | End */
+
+
+
+
+
+/* Back to School Sale Banner 2026 | Start */
+
+#ays-pb-back-to-school-banner-2026 {
+    box-sizing:border-box;
+    position:relative;
+    isolation:isolate;
+    width:calc(100% - 20px);
+    max-width:none;
+    min-height:112px;
+    margin:20px 20px 16px 0;
+    padding:0 38px;
+    overflow:hidden;
+    border:1px solid #e8dcc9;
+    border-left-width:1px;
+    border-radius:12px;
+    background-color:#fffdf8;
+    background-image:radial-gradient(circle at 1px 1px,rgba(91,72,45,.09) 1px,transparent 1px),radial-gradient(120% 140% at 0 0,rgba(20,75,220,.07),transparent 55%),radial-gradient(120% 140% at 100% 100%,rgba(126,34,206,.09),transparent 55%);
+    background-size:6px 6px,100% 100%,100% 100%;
+    box-shadow:0 10px 30px -18px rgba(76,45,140,.55);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif
+}
+
+.ays-pb-bts-content {
+    position:relative;
+    z-index:2;
+    display:flex;
+    min-height:110px;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px
+}
+
+.ays-pb-bts-offer,.ays-pb-bts-actions {
+    display:flex;
+    align-items:center
+}
+
+.ays-pb-bts-offer {
+    min-width:0;
+    gap:9px
+}
+
+.ays-pb-bts-handwritten {
+    width:280px;
+    max-width:23vw;
+    height:auto;
+    color:#0755df;
+    overflow:visible;
+    flex:0 1 auto
+}
+
+.ays-pb-bts-dot {
+    width:7px;
+    height:7px;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:#ffc51b;
+    align-self:flex-start;
+    margin-top:27px
+}
+
+.ays-pb-bts-discount {
+    color:#8127df;
+    font-size:38px;
+    font-weight:800;
+    line-height:1;
+    letter-spacing:-1.2px;
+    white-space:nowrap
+}
+
+.ays-pb-bts-actions {
+    flex:0 0 auto;
+    gap:12px
+}
+
+.ays-pb-bts-use-code {
+    color:#5f5b69;
+    font-size:11px;
+    font-weight:600;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    white-space:nowrap
+}
+
+.ays-pb-bts-coupon {
+    box-sizing:border-box;
+    display:flex;
+    min-height:50px;
+    align-items:center;
+    gap:12px;
+    padding:8px 14px;
+    border:2px dashed rgba(129,39,223,.5);
+    border-radius:10px;
+    background:#fff;
+    color:#1147c8;
+    cursor:pointer;
+    box-shadow:none
+}
+
+.ays-pb-bts-coupon:hover,.ays-pb-bts-coupon:focus {
+    border-color:#8127df;
+    background:rgba(129,39,223,.05);
+    color:#1147c8
+}
+
+.ays-pb-bts-coupon span {
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:.04em
+}
+
+.ays-pb-bts-coupon svg {
+    width:16px;
+    height:16px;
+    color:#8127df
+}
+
+.ays-pb-bts-cta {
+    display:inline-flex;
+    min-height:48px;
+    align-items:center;
+    justify-content:center;
+    padding:0 27px;
+    border-radius:9px;
+    background:linear-gradient(90deg,#1249e7,#8127df);
+    color:#fff!important;
+    font-size:16px;
+    font-weight:700;
+    text-decoration:none!important;
+    white-space:nowrap;
+    box-shadow:0 8px 18px -8px rgba(91,37,194,.9);
+    transition:transform .15s,box-shadow .15s
+}
+
+.ays-pb-bts-cta:hover,.ays-pb-bts-cta:focus {
+    color:#fff;
+    transform:translateY(-1px);
+    box-shadow:0 10px 20px -8px rgba(91,37,194,.95)
+}
+
+.ays-pb-bts-decoration {
+    position:absolute;
+    z-index:1;
+    pointer-events:none
+}
+
+.ays-pb-bts-plane {
+    top:8px;
+    left:12px;
+    width:24px;
+    color:rgba(129,39,223,.55)
+}
+
+.ays-pb-bts-ruler {
+    bottom:7px;
+    left:24px;
+    width:36px;
+    color:rgba(20,73,230,.35)
+}
+
+.ays-pb-bts-star {
+    top:8px;
+    right:14px;
+    width:19px;
+    color:#ffc51b
+}
+
+.ays-pb-bts-pencil {
+    right:31px;
+    bottom:7px;
+    width:21px;
+    color:rgba(129,39,223,.5);
+    transform:rotate(-12deg)
+}
+
+.ays-pb-bts-wave {
+    bottom:3px;
+    left:50%;
+    width:96px;
+    color:rgba(20,73,230,.22);
+    transform:translateX(-50%)
+}
+
+#ays-pb-back-to-school-banner-2026 .notice-dismiss {
+    top:1px;
+    right:1px;
+    color:#756b82
+}
+
+#ays-pb-back-to-school-banner-2026 .notice-dismiss:before {
+    font-size:18px
+}
+
+.ays-pb-bts-dismiss {
+    position:absolute;
+    right:39px;
+    bottom:0;
+    z-index:3
+}
+
+.ays-pb-bts-dismiss form {
+    margin:0
+}
+
+.ays-pb-bts-dismiss #ays-pb-dismiss-buttons-content .ays-button {
+    height:22px!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+    color:#777!important;
+    font-size:10px!important;
+    line-height:22px!important;
+    text-decoration:underline;
+    box-shadow:none!important
+}
+
+.ays-pb-bts-copy-notification {
+    position:fixed;
+    top:50%;
+    left:50%;
+    z-index:10000;
+    transform:translate(-50%,-50%);
+    padding:12px 24px;
+    border-radius:8px;
+    background:rgba(0,0,0,.82);
+    color:#fff;
+    font-size:14px;
+    opacity:0;
+    transition:opacity .25s
+}
+
+.ays-pb-bts-copy-notification.ays-pb-bts-show {
+    opacity:1
+}
+
+@media screen and (max-width:1200px) {
+    .ays-pb-bts-content {
+        gap:18px
+    }
+
+    .ays-pb-bts-handwritten {
+        width:225px
+    }
+
+    .ays-pb-bts-discount {
+        font-size:31px
+    }
+
+    .ays-pb-bts-actions {
+        gap:8px
+    }
+
+    .ays-pb-bts-coupon {
+        min-height:44px;
+        padding:7px 10px
+    }
+
+    .ays-pb-bts-cta {
+        min-height:44px;
+        padding:0 18px;
+        font-size:14px
+    }
+
+}
+
+@media screen and (max-width:960px) {
+    #ays-pb-back-to-school-banner-2026 {
+        padding:15px 38px 20px
+    }
+
+    .ays-pb-bts-content {
+        min-height:90px;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:12px 24px
+    }
+
+    .ays-pb-bts-handwritten {
+        max-width:none
+    }
+
+    .ays-pb-bts-actions {
+        justify-content:center
+    }
+
+    .ays-pb-bts-dismiss {
+        right:38px
+    }
+
+}
+
+@media screen and (max-width:600px) {
+    #ays-pb-back-to-school-banner-2026 {
+        width:calc(100% - 20px);
+        margin-right:10px;
+        padding:18px 30px 23px 18px
+    }
+
+    .ays-pb-bts-content {
+        flex-direction:column
+    }
+
+    .ays-pb-bts-offer {
+        flex-wrap:wrap;
+        justify-content:center
+    }
+
+    .ays-pb-bts-handwritten {
+        width:210px
+    }
+
+    .ays-pb-bts-discount {
+        font-size:28px
+    }
+
+    .ays-pb-bts-actions {
+        flex-wrap:wrap
+    }
+
+    .ays-pb-bts-use-code {
+        width:100%;
+        text-align:center
+    }
+
+    .ays-pb-bts-coupon {
+        min-height:40px
+    }
+
+    .ays-pb-bts-coupon span {
+        font-size:16px
+    }
+
+    .ays-pb-bts-cta {
+        min-height:40px
+    }
+
+    .ays-pb-bts-plane,.ays-pb-bts-ruler,.ays-pb-bts-pencil,.ays-pb-bts-wave {
+        display:none
+    }
+
+    .ays-pb-bts-dismiss {
+        right:30px
+    }
+
+}
+
+/* Back to School Sale Banner 2026 | End */

@@ -54,11 +54,13 @@ if( ! class_exists( 'avia_sc_magazine', false ) )
 			$this->config['base_element']	= 'yes';
 
 			$this->config['name']			= __( 'Magazine', 'avia_framework' );
-			$this->config['tab']			= __( 'Content Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-magazine.png';
-			$this->config['order']			= 39;
+			$this->config['tab']			= __( 'Post Loops', 'avia_framework' );
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-magazine.svg';
+			$this->config['order']			= 90;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_magazine';
+			//	the canvas names which categories it draws from - see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => 'link' );
 			$this->config['tooltip']		= __( 'Display entries in a magazine like fashion', 'avia_framework' );
 			$this->config['drag-level']		= 3;
 			$this->config['preview']		= 1;

@@ -147,15 +147,16 @@ class Report_Logs {
 			status varchar(32) NOT NULL,
 			message text DEFAULT NULL,
 			time int unsigned NOT NULL,
-			date varchar(10) NOT NULL,
+			date date NOT NULL,
 			PRIMARY KEY (ID)
 		) {$charset};";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
 
+		// A standalone report_id index is omitted: it is the leftmost prefix of the
+		// (report_id, queue_id) composite below, which already serves report_id lookups.
 		$indexes = [
-			[ 'report_id' ],
 			[ 'queue_id' ],
 			[ 'batch_id' ],
 			[ 'date' ],
@@ -164,7 +165,7 @@ class Report_Logs {
 		];
 
 		foreach ( $indexes as $index ) {
-			$this->add_index( "{$wpdb->prefix}burst_report_logs", $index );
+			$this->add_index( 'burst_report_logs', $index );
 		}
 	}
 
@@ -562,10 +563,10 @@ class Report_Logs {
 	public function get_report_status( int $report_id ): array {
 		$report = new Report( $report_id );
 
-		if ( $report->format === Report_Format::STORY ) {
+		if ( ! $report->scheduled ) {
 			return [
-				'status'  => 'ready_to_send',
-				'message' => __( 'Ready to send', 'burst-statistics' ),
+				'status'  => 'ready_to_share',
+				'message' => __( 'Ready to share', 'burst-statistics' ),
 			];
 		}
 

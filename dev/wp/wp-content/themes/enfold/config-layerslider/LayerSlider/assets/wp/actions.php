@@ -9,6 +9,21 @@ add_action('init', function() {
 
 	if(current_user_can(get_option('layerslider_custom_capability', 'manage_options'))) {
 
+		// Handle large uploads where the post content length exceeds post_max_size
+		if( $_SERVER['REQUEST_METHOD'] === 'POST' && strpos( $_SERVER['REQUEST_URI'], 'page=layerslider' ) !== false ) {
+
+			$maxStr = @ini_get('post_max_size');
+			$limitBytes = ! empty( $maxStr ) ? ls_string_to_bytes( $maxStr ) : 0;
+
+			$bytes = isset( $_SERVER['CONTENT_LENGTH'] ) ? (int) $_SERVER['CONTENT_LENGTH'] : 0;
+			$isChunked = ( isset( $_SERVER['HTTP_TRANSFER_ENCODING'] ) && stripos($_SERVER['HTTP_TRANSFER_ENCODING'], 'chunked') !== false );
+
+			if( $limitBytes > 0 && ! $isChunked && $bytes > $limitBytes && empty( $_POST ) && empty( $_FILES ) ) {
+				wp_redirect( admin_url('admin.php?page=layerslider&message=uploadErrorSize&error') );
+				exit;
+			}
+		}
+
 		// Preview iframe contents
 		if( ! empty( $_GET['page'] ) && $_GET['page'] === 'layerslider' && ! empty( $_GET['action'] ) && $_GET['action'] === 'preview-iframe-html') {
 			include LS_ROOT_PATH.'/templates/tmpl-project-preview-iframe.php';
@@ -65,13 +80,6 @@ add_action('init', function() {
 			if( check_admin_referer('export-sliders') ) {
 				$_POST['sliders'] = [ (int) $_GET['id'] ];
 				$_POST['ls-export'] = true;
-			}
-		}
-
-		// Export as HTML
-		if(isset($_GET['page']) && $_GET['page'] == 'layerslider' && isset($_GET['action']) && $_GET['action'] == 'export-html') {
-			if( check_admin_referer('export-sliders') ) {
-				ls_export_as_html( (int) $_GET['id'] );
 			}
 		}
 
@@ -258,6 +266,7 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_get_mce_sliders', 'ls_get_mce_sliders');
 		add_action('wp_ajax_ls_get_mce_slides', 'ls_get_mce_slides');
 		add_action('wp_ajax_ls_layer_action_popups', 'ls_layer_action_popups');
+		add_action('wp_ajax_ls_layer_action_scene_projects', 'ls_layer_action_scene_projects');
 		add_action('wp_ajax_ls_get_post_details', 'ls_get_post_details');
 		add_action('wp_ajax_lse_get_search_posts', 'lse_get_search_posts');
 		add_action('wp_ajax_ls_get_taxonomies', 'ls_get_taxonomies');
@@ -277,6 +286,9 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_download_object', 'ls_download_object');
 		add_action('wp_ajax_ls_assets_remote_download', 'ls_assets_remote_download');
 		add_action('wp_ajax_ls_assets_remote_search', 'ls_assets_remote_search');
+		add_action('wp_ajax_ls_upload_lottie_file', 'ls_upload_lottie_file');
+		add_action('wp_ajax_ls_get_lottie_uploads', 'ls_get_lottie_uploads');
+		add_action('wp_ajax_ls_fetch_external_lottie', 'ls_fetch_external_lottie');
 	}
 
 	// ADMIN PUBLIC AJAX FUNCTIONS
@@ -307,9 +319,29 @@ function ls_get_popup_markup() {
 	$popup 	= LS_Sliders::find( $id );
 
 	if( $popup ) {
+
+		// The "wp_enqueue_scripts" hook does not run in AJAX calls, so
+		// we need to execute this function manually in order to get
+		// scripts and style info we might depend on.
+		layerslider_enqueue_content_res();
+
+		// Marker to override opening trigger and timing, plus we use it
+		// to supply and load plugin dependecies in init code.
 		$GLOBALS['lsAjaxOverridePopupSettings'] = true;
+
+		// Get generated HTML markup and necessarry parts
 		$parts 	= LS_Shortcode::generateSliderMarkup( $popup );
-		die( $parts['container'].$parts['markup'].'<script>'.$parts['init'].'</script>' );
+
+		// Extra fonts we need to load (ie Font Awesome 4 icon font)
+		if( ! empty( $parts['fonts'] ) ) {
+			foreach( $parts['fonts'] as $item ) {
+				wp_print_styles( ['ls-'.$item] );
+			}
+		}
+
+		echo $parts['container'];
+		echo $parts['markup'];
+		echo '<script>'.$parts['init'].'</script>';
 	}
 
 	die();
@@ -503,9 +535,6 @@ function ls_sliders_bulk_action() {
 	if( $_POST['action'] === 'export' ) {
 		ls_export_sliders();
 
-	} elseif( $_POST['action'] === 'export-html' ) {
-		ls_export_as_html( (int) $_POST['sliders'][0] );
-
 	} elseif( $_POST['action'] === 'duplicate') {
 		layerslider_duplicateslider( $_POST['sliders'][0] );
 
@@ -678,6 +707,7 @@ function ls_save_plugin_settings() {
 		'suppress_debug_info',
 		'enable_play_by_scroll',
 		'wpml_string_translation',
+		'wpml_link_translation',
 		'wpml_media_translation',
 		'wpml_auto_cleanup',
 
@@ -831,6 +861,47 @@ function ls_layer_action_popups() {
 }
 
 
+// Multi-slide Scroll Scene projects for the scrollToSceneSlide layer action
+function ls_layer_action_scene_projects() {
+
+	$projects = LS_Sliders::find( [
+		'limit' => 200,
+		'where' => 'flag_popup = \'0\' AND data LIKE \'%"scene":"scroll"%\''
+	]);
+
+	$result = [];
+
+	foreach( $projects as $item ) {
+
+		$data = $item['data'];
+
+		if(
+			empty( $data['properties']['scene'] ) ||
+			$data['properties']['scene'] !== 'scroll' ||
+			( ! empty( $data['properties']['type'] ) && $data['properties']['type'] === 'popup' ) ||
+			empty( $data['layers'] ) ||
+			count( $data['layers'] ) < 2
+		) {
+			continue;
+		}
+
+		$slides = [];
+		foreach( $data['layers'] as $slide ) {
+			$slides[] = ! empty( $slide['properties']['title'] ) ? stripslashes( $slide['properties']['title'] ) : '';
+		}
+
+		$result[] = [
+			'id' 		=> (int) $item['id'],
+			'slug' 		=> ! empty( $item['slug'] ) ? htmlspecialchars( stripslashes( $item['slug'] ) ) : '',
+			'name' 		=> apply_filters('ls_slider_title', stripslashes( $item['name'] ), 40),
+			'slides' 	=> $slides
+		];
+	}
+
+	die( json_encode( $result, JSON_UNESCAPED_UNICODE ) );
+}
+
+
 function ls_rename_project() {
 
 	check_admin_referer( 'bulk-action' );
@@ -847,7 +918,7 @@ function ls_extract_slider_data_from_request() {
 		wp_send_json_error([
 			'errCode' => 'ERR_UPLOAD_ERROR',
 			'title' => __('Save Error', 'LayerSlider'),
-			'message' => __('There was an error uploading the slider data file.', 'LayerSlider'),
+			'message' => __('There was an error uploading the project data file.', 'LayerSlider'),
 		]);
 	}
 
@@ -855,10 +926,14 @@ function ls_extract_slider_data_from_request() {
 	$json = json_decode( $data, true );
 
 	if( json_last_error() !== JSON_ERROR_NONE ) {
+
+		// json_last_error_msg() requires PHP 5.5+
+		$jsonError = function_exists('json_last_error_msg') ? json_last_error_msg() : 'error code #'.json_last_error();
+
 		wp_send_json_error( [
 			'errCode' => 'ERR_INVALID_JSON',
 			'title' => __('Save Error', 'LayerSlider'),
-			'message' => __('Couldn’t parse slider data file as JSON. It threw the following error: ' . json_last_error_msg(), 'LayerSlider'),
+			'message' => sprintf( __('Couldn’t parse the project data file as JSON. It threw the following error: %s', 'LayerSlider'), $jsonError ),
 		]);
 	}
 
@@ -945,7 +1020,7 @@ function ls_save_slider() {
 	extract( ls_prepare_save_data( $data ) );
 
 	// WPML
-	if( ls_should_use_string_translation() ) {
+	if( ls_should_use_wpml_string_translation() ) {
 
 		// Get published version
 		$published = LS_Sliders::find( $id );
@@ -985,7 +1060,7 @@ function ls_publish_slider() {
 	extract( ls_prepare_save_data( $data ) );
 
 	// WPML
-	if( ls_should_use_string_translation() ) {
+	if( ls_should_use_wpml_string_translation() ) {
 		layerslider_register_wpml_strings( $id, $data );
 	}
 
@@ -1337,21 +1412,42 @@ function ls_import_online() {
 //-------------------------------------------------------
 function ls_import_sliders() {
 
-	// Check export file if any
-	if(!is_uploaded_file($_FILES['import_file']['tmp_name'])) {
+	if( ! isset( $_FILES['import_file'] ) ) {
 		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=importSelectError' ) );
-		die('No data received.');
+		exit;
+	}
+
+	$file = $_FILES['import_file'];
+
+	// Didn't choose a file
+	if( $file['error'] === UPLOAD_ERR_NO_FILE ) {
+		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=importSelectError') );
+		exit;
+	}
+
+	// Too large file
+	if( $file['error'] === UPLOAD_ERR_INI_SIZE || $file['error'] === UPLOAD_ERR_FORM_SIZE ) {
+		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=uploadErrorSize') );
+		exit;
+	}
+
+	// Other error
+	if( $file['error'] !== UPLOAD_ERR_OK ) {
+		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=uploadError') );
+		exit;
+	}
+
+	// Sec-check
+	if( ! is_uploaded_file( $file['tmp_name'] ) ) {
+		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=uploadError' ) );
+		exit;
 	}
 
 	require_once LS_ROOT_PATH.'/classes/class.ls.importutil.php';
 
-	$import = new LS_ImportUtil(
-		$_FILES['import_file']['tmp_name'],
-		$_FILES['import_file']['name'],
-		__('Imported Group', 'LayerSlider')
-	);
+	$import = new LS_ImportUtil( $file['tmp_name'], $file['name'], __('Imported Group', 'LayerSlider') );
 
-	if( ! empty( $import->lastErrorCode) ) {
+	if( ! empty( $import->lastErrorCode ) ) {
 		if( $import->lastErrorCode === 'LR_PARTIAL_IMPORT' ) {
 			wp_redirect( admin_url('admin.php?page=layerslider&message=importLRPartial&error') );
 			exit;
@@ -1464,6 +1560,243 @@ function ls_export_sliders( $sliderId = 0 ) {
 	}
 }
 
+
+function ls_upload_lottie_file() {
+
+	// Check the nonce for security
+	if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'ls-editor-nonce' ) ) {
+		wp_send_json_error( [ 'message' => 'Invalid nonce. Please reload the page and try again.' ] );
+	}
+
+	// Ensure a file was uploaded
+	if ( empty( $_FILES['file'] ) ) {
+		wp_send_json_error( [ 'message' => 'No file uploaded.' ] );
+	}
+
+	$file = $_FILES['file'];
+	$allowed_extensions = [ 'lottie', 'json' ];
+
+	// Validate file type
+	$file_extension = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
+	if ( ! in_array( $file_extension, $allowed_extensions ) ) {
+		wp_send_json_error( [ 'message' => 'Invalid file format. Only .lottie and .json files are allowed.' ] );
+	}
+
+	// Sanitize the file name
+	$original_file_name = sanitize_file_name( pathinfo( $file['name'], PATHINFO_FILENAME ) );
+	$file_name = $original_file_name . '.' . $file_extension;
+
+	// Ensure the upload directory exists
+	$uploads = wp_upload_dir();
+	$upload_base_dir = $uploads['basedir'];
+	$upload_dir = $upload_base_dir . '/layerslider/lottiefiles/imported';
+	LS_FileSystem::createUploadDirs();
+
+	$target_file = $upload_dir . '/' . $file_name;
+	$isDuplicate = false;
+	$i = 0;
+
+
+	// Check if the file already exists and compare contents
+	do {
+		if( file_exists( $target_file ) ) {
+
+			// Files are identical, return the existing file name
+			if( hash_file( 'md5', $target_file ) === md5_file( $file['tmp_name'] ) ) {
+				wp_send_json_success( [
+					'src' => 'imported/'.$file_name,
+					'url' => $uploads['baseurl'] . '/layerslider/lottiefiles/imported/' . $file_name
+				] );
+				$isDuplicate = true;
+				break;
+			}
+
+			// Increment the file name for the next iteration
+			$i++;
+			$file_name = $original_file_name . '-' . $i . '.' . $file_extension;
+			$target_file = $upload_dir . '/' . $file_name;
+		} else {
+			break; // No more files to check
+		}
+	} while( true );
+
+	// If a duplicate was found, skip the rest of the processing
+	if( $isDuplicate ) {
+		return;
+	}
+
+	// Move the uploaded file to the unique path
+	if ( ! move_uploaded_file( $file['tmp_name'], $target_file ) ) {
+		wp_send_json_error( [ 'message' => 'Failed to move the uploaded file.' ] );
+	}
+
+	// Return the new file name
+	wp_send_json_success( [
+		'src' => 'imported/'.$file_name,
+		'url' => $uploads['baseurl'] . '/layerslider/lottiefiles/imported/' . $file_name
+	] );
+}
+
+
+function ls_get_lottie_uploads() {
+
+	// Check the nonce for security
+	if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'ls-editor-nonce' ) ) {
+		wp_send_json_error( [ 'message' => 'Invalid nonce. Please reload the page and try again.' ] );
+	}
+
+	// Ensure the upload directory exists
+	$uploads = wp_upload_dir();
+	$upload_base_dir = $uploads['basedir'];
+	$upload_dir = $upload_base_dir . '/layerslider/lottiefiles/imported';
+
+	if( ! is_dir( $upload_dir ) ) {
+		wp_send_json_success([
+			'files' => []
+		]);
+	}
+
+	// Get all files in the directory
+	$files = @scandir( $upload_dir );
+	$files = array_diff( $files, [ '.', '..', 'index.php' ] );
+	$files_data = [];
+
+	$files_with_time = [];
+	foreach( $files as $file ) {
+		$files_with_time[$file] = filemtime( $upload_dir.'/'.$file );
+	}
+
+	arsort( $files_with_time );
+	$files = array_keys( $files_with_time );
+
+	foreach( $files as $file ) {
+		$file_path = $upload_dir . '/' . $file;
+		$file_url = $uploads['baseurl'] . '/layerslider/lottiefiles/imported/' . $file;
+		$file_extension = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
+
+		// Only include .json and .lottie files
+		if( in_array( $file_extension, [ 'json', 'lottie' ] ) ) {
+			$files_data[] = [
+				'src' => 'imported/'.$file,
+				'url' => $file_url,
+				'size' => filesize( $file_path ),
+				'created' => filectime( $file_path ),
+				'modified' => filemtime( $file_path )
+			];
+		}
+	}
+
+	wp_send_json_success([
+		'files' => $files_data
+	]);
+}
+
+
+function ls_fetch_external_lottie() {
+
+	// Check the nonce for security
+	if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'ls-editor-nonce' ) ) {
+		wp_send_json_error( [ 'message' => 'Invalid nonce. Please reload the page and try again.' ] );
+	}
+
+	// Ensure a URL was provided
+	if( empty( $_GET['url'] ) ) {
+		wp_send_json_error( [ 'message' => 'No URL provided.' ] );
+	}
+
+	$external_url = sanitize_url( $_GET['url'] );
+	$path = parse_url( $external_url, PHP_URL_PATH );
+	$file_name_from_url = basename( $path );
+	$file_extension = strtolower( pathinfo( $file_name_from_url, PATHINFO_EXTENSION ) );
+
+	// Fetch the external file
+	$response = wp_remote_get( $external_url, [ 'timeout' => 30 ] );
+
+	if( is_wp_error( $response ) ) {
+		wp_send_json_error( [ 'message' => 'Failed to fetch the external file: ' . $response->get_error_message() ] );
+	}
+
+	$file_content = wp_remote_retrieve_body( $response );
+	if( empty( $file_content ) ) {
+		wp_send_json_error( [ 'message' => 'The external file is empty.' ] );
+	}
+
+	// Determine or validate file extension based on content
+	json_decode( $file_content );
+	$is_valid_json = ( json_last_error() === JSON_ERROR_NONE );
+	$is_zip_header  = ( substr( $file_content, 0, 2 ) === 'PK' );
+	$detected_type = $is_valid_json ? 'json' : ( $is_zip_header ? 'lottie' : false );
+
+	// Error if the content is not a recognized format
+	if( ! $detected_type ) {
+		wp_send_json_error( [ 'message' => 'Invalid or unsupported file format.' ] );
+	}
+
+	// Error if the URL extension was valid but doesn't match the content
+	if( in_array( $file_extension, [ 'json', 'lottie' ] ) && $file_extension !== $detected_type ) {
+		wp_send_json_error( [ 'message' => 'Content mismatch: The file content does not match the URL extension.' ] );
+	}
+
+	// Everything is fine, use the detected extension
+	$file_extension = $detected_type;
+
+	// Sanitize the file name
+	$original_file_name = sanitize_file_name( pathinfo( $file_name_from_url, PATHINFO_FILENAME ) );
+	if( empty( $original_file_name ) ) {
+		$original_file_name = 'external-lottie-' . time();
+	}
+	$file_name = $original_file_name . '.' . $file_extension;
+
+	// Ensure the upload directory exists
+	$uploads = wp_upload_dir();
+	$upload_base_dir = $uploads['basedir'];
+	$upload_dir = $upload_base_dir . '/layerslider/lottiefiles/remote';
+	LS_FileSystem::createUploadDirs();
+
+	$target_file = $upload_dir . '/' . $file_name;
+	$isDuplicate = false;
+	$i = 0;
+	$content_hash = md5( $file_content );
+
+	// Check if the file already exists and compare contents
+	do {
+		if( file_exists( $target_file ) ) {
+
+			// Files are identical, return the existing file name
+			if( hash_file( 'md5', $target_file ) === $content_hash ) {
+				wp_send_json_success([
+					'src' => 'remote/'.$file_name,
+					'url' => $uploads['baseurl'] . '/layerslider/lottiefiles/remote/' . $file_name
+				]);
+				$isDuplicate = true;
+				break;
+			}
+
+			// Increment the file name for the next iteration
+			$i++;
+			$file_name = $original_file_name . '-' . $i . '.' . $file_extension;
+			$target_file = $upload_dir . '/' . $file_name;
+		} else {
+			break; // No more files to check
+		}
+	} while( true );
+
+	// If a duplicate was found, skip the rest of the processing
+	if( $isDuplicate ) {
+		return;
+	}
+
+	// Save the fetched content to the unique path
+	if( file_put_contents( $target_file, $file_content ) === false ) {
+		wp_send_json_error( [ 'message' => 'Failed to save the external file.' ] );
+	}
+
+	// Return the new file name
+	wp_send_json_success([
+		'src' => 'remote/'.$file_name,
+		'url' => $uploads['baseurl'] . '/layerslider/lottiefiles/remote/' . $file_name
+	]);
+}
 
 
 
@@ -1796,110 +2129,7 @@ function layerslider_convert_urls($arr) {
 	return $arr;
 }
 
-function layerslider_register_wpml_strings( $sliderID, $data, $publishedData = null ) {
 
-	$currentLang = apply_filters( 'wpml_current_language', NULL );
-	$createdWith = ! empty( $data['properties']['createdWith'] ) ? $data['properties']['createdWith'] : null;
-	$importVersion = ! empty( $data['properties']['importVersion'] ) ? $data['properties']['importVersion'] : null;
-	$shouldUseStringPackages = ls_should_use_wpml_string_packages( $createdWith, $importVersion );
-	$shouldCleanup = ls_should_auto_cleanup_translation_strings();
-	$package = [
-		'kind'  	=> LS_WPML_SP_TITLE,
-		'kind_slug' => LS_WPML_SP_SLUG,
-		'name'  	=> "project-{$sliderID}",
-		'title' 	=> apply_filters('ls_slider_title', stripslashes( $data['properties']['title'] ), 40 ) . ' (#'.$sliderID.')',
-		'view_link' => admin_url('admin.php?page=layerslider&action=edit&id='.$sliderID),
-		'edit_link' => admin_url('admin.php?page=layerslider&action=edit&id='.$sliderID)
-	];
-
-
-	if( $shouldUseStringPackages && $shouldCleanup ) {
-		do_action( 'wpml_start_string_package_registration', $package );
-	}
-
-	// First register strings from the published version in case of a draft
-	if( ! empty( $publishedData['layers'] ) && is_array( $publishedData['layers'] ) ) {
-		layerslider_do_register_wpml_strings( $publishedData, $sliderID, $currentLang, $createdWith, $shouldUseStringPackages, $package );
-	}
-
-	// Normal registration routine
-	if( ! empty( $data['layers'] ) && is_array( $data['layers'] ) ) {
-		layerslider_do_register_wpml_strings( $data, $sliderID, $currentLang, $createdWith, $shouldUseStringPackages, $package );
-	}
-
-	if( $shouldUseStringPackages && $shouldCleanup ) {
-		do_action( 'wpml_delete_unused_package_strings', $package );
-	}
-}
-
-function layerslider_do_register_wpml_strings( $data, $sliderID, $currentLang, $createdWith, $shouldUseStringPackages, $package ) {
-
-	foreach($data['layers'] as $slideIndex => $slide) {
-
-		if(!empty($slide['sublayers']) && is_array($slide['sublayers'])) {
-			foreach($slide['sublayers'] as $layerIndex => $layer) {
-
-				if( ! empty( $layer['media'] ) && $layer['media'] === 'img' ) {
-					continue;
-				}
-
-				// v7.14.2: WPML String Packages support for new projects
-				if( ! empty( $layer['uuid'] ) && $shouldUseStringPackages ) {
-
-					if( ! empty( $layer['html'] ) ) {
-						$stringName = ls_wpml_get_string_title( $layer['html'], $slideIndex, $slide, $layerIndex, $layer, 'html' );
-						do_action( 'wpml_register_string', $layer['html'], $layer['uuid'].'-html', $package, $stringName, 'LINE' );
-					}
-
-					if( ! empty( $layer['affixBefore'] ) ) {
-						$stringName = ls_wpml_get_string_title( $layer['affixBefore'], $slideIndex, $slide, $layerIndex, $layer, 'affix-before' );
-						do_action( 'wpml_register_string', $layer['affixBefore'], $layer['uuid'].'-affix-before', $package, $stringName, 'LINE' );
-					}
-
-					if( ! empty( $layer['affixAfter'] ) ) {
-						$stringName = ls_wpml_get_string_title( $layer['affixAfter'], $slideIndex, $slide, $layerIndex, $layer, 'affix-after' );
-						do_action( 'wpml_register_string', $layer['affixAfter'], $layer['uuid'].'-affix-after', $package, $stringName, 'LINE' );
-					}
-
-
-				// Check 'createdWith' property to decide which WPML implementation
-				// should we use. This property was added in v6.5.5 along with the
-				// new WPML implementation, so no version comparison required.
-				} elseif( ! empty( $layer['uuid'] ) && ! empty( $data['properties']['createdWith'] ) ) {
-
-					$string_name = "slider-{$sliderID}-layer-{$layer['uuid']}";
-
-					if( ! empty( $layer['html'] ) ) {
-						do_action( 'wpml_register_single_string', 'LayerSlider Sliders', $string_name.'-html', $layer['html'], false, $currentLang );
-					}
-
-					if( ! empty( $layer['affixBefore'] ) ) {
-						do_action( 'wpml_register_single_string', 'LayerSlider Sliders', $string_name.'-affix-before', $layer['affixBefore'], false, $currentLang );
-					}
-
-					if( ! empty( $layer['affixAfter'] ) ) {
-						do_action( 'wpml_register_single_string', 'LayerSlider Sliders', $string_name.'-affix-after', $layer['affixAfter'], false, $currentLang );
-					}
-
-				// Old implementation
-				} elseif( ! empty( $layer['html'] ) ) {
-
-					$string_name = '<'.$layer['type'].':'.substr(sha1($layer['html']), 0, 10).'> layer on slide #'.($slideIndex+1).' in slider #'.$sliderID.'';
-					do_action( 'wpml_register_single_string', 'LayerSlider WP', $string_name, $layer['html'], false, $currentLang );
-				}
-			}
-		}
-	}
-}
-
-
-function ls_export_as_html( $sliderID ) {
-
-	// Markup export uses PHP 5.3 features (namespaces, callbacks, etc),
-	// thus we cannot use the code directly on the global scope in order
-	// to avoid parsing errors on pre 5.3 PHP versions.
-	include LS_ROOT_PATH . '/includes/slider_markup_export.php';
-}
 
 
 function ls_empty_3rd_party_caches() {

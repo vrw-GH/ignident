@@ -60,10 +60,12 @@ if( ! class_exists( 'avia_sc_productgrid', false ) )
 
 			$this->config['name']			= __( 'Product Grid', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-portfolio.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-product-grid.svg';
 			$this->config['order']			= 30;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_productgrid';
+			//	the canvas names which products it shows - either field may hold them, see editor_element_terms()
+			$this->config['alb_items']		= array( 'terms' => array( 'categories', 'link' ) );
 			$this->config['tooltip']		= __( 'Display a Grid of Product Entries', 'avia_framework' );
 			$this->config['drag-level']		= 3;
 			$this->config['id_name']		= 'id';
@@ -220,7 +222,7 @@ if( ! class_exists( 'avia_sc_productgrid', false ) )
 
 						array(
 							'name'		=> __( 'Offset Number', 'avia_framework' ),
-							'desc'		=> __( 'The offset determines where the query begins pulling products. Useful if you want to remove a certain number of products because you already query them with another product grid. Attention: Use this option only if the product sorting of the product grids match and do not allow the user to pick the sort order!', 'avia_framework' ),
+							'desc'		=> __( 'Skip this many products from the start. Only use this when the sort order is fixed and matches the other product grid.', 'avia_framework' ),
 							'id'		=> 'offset',
 							'type'		=> 'select',
 							'std'		=> '0',

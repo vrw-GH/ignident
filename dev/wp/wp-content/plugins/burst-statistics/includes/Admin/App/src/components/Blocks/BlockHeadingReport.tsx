@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useBlockHeadingData } from '@/hooks/useBlockHeadingData';
 
 type BlockHeadingReportProps = {
-	title: string;
+	title: ReactNode;
 	controls?: ReactNode;
 	className?: string;
 	reportBlockIndex?: number;
@@ -17,12 +17,14 @@ type BlockHeadingReportProps = {
  * @param {React.ReactNode} props.controls - Optional controls to render on the right side.
  * @param {string} props.className - Additional CSS classes.
  * @param {number} props.reportBlockIndex - Index of the block in the report's content array.
+ * @param {boolean} props.pro - Whether this block is a Pro feature.
+ * @param {string} props.proId - Optional feature id for tier-specific Pro checks.
  * @return {JSX.Element} The block heading component.
  */
 export const BlockHeadingReport = memo( ({ title, controls, className = '', reportBlockIndex }: BlockHeadingReportProps ) => {
 	const { dateRangeText, filtersText, hasDateRange, hasFilters } = useBlockHeadingData( reportBlockIndex );
 
-	// Build subtitle text
+	// Build subtitle text.
 	const subtitle = useMemo( () => {
 		if ( hasDateRange && hasFilters ) {
 			return `${dateRangeText} • ${filtersText}`;
@@ -45,7 +47,7 @@ export const BlockHeadingReport = memo( ({ title, controls, className = '', repo
 		>
 			<div className="flex flex-col">
 				<h2 className="text-lg font-semibold">{title}</h2>
-				{subtitle && <p className="text-sm text-gray-600">{subtitle}</p>}
+				{subtitle && <p className="text-sm text-text-gray">{subtitle}</p>}
 			</div>
 			{controls}
 		</div>

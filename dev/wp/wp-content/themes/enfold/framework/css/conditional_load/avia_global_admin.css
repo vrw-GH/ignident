@@ -15,6 +15,13 @@
     padding: 5px 35px 5px 15px;
 }
 
+/* accent border for every notice the theme raises, whatever type WP colours it by.
+   two classes so it beats core .notice-info and friends, and it also covers the
+   custom templates - 'notice-custom' is a type core does not style at all */
+#wpwrap .notice.avia-admin-notices{
+	border-left: 4px solid #0285bb;
+}
+
 #wpwrap .avia-admin-notices.avia-notice-hide{
 	padding-right: 85px;
 }

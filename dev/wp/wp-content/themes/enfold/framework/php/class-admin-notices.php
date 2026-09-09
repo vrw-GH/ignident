@@ -33,6 +33,17 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 {
 	class aviaAdminNotices
 	{
+		/**
+		 * Key for both the queue of notices to show (an option, per site) and the list of
+		 * notices a user has dismissed.
+		 *
+		 * The dismiss list is read and written with get_user_option()/update_user_option()
+		 * rather than the user meta functions, so that it is stored per site as well. Plain
+		 * user meta is shared across a whole multisite network, and the clean up below
+		 * prunes the list against the notices queued for the current site - so a site with
+		 * an empty queue would delete the dismiss list of every user for every other site,
+		 * and notices already clicked away reappeared on the next cron run.
+		 */
 		const OPT_NOTICE = 'avia_admin_show_notices';
 		const NONCE = 'avia_admin_notices';
 
@@ -186,7 +197,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 			if( empty( $this->get_current_notices() ) )
 			{
 				//	remove all dismissed notices if none are to display
-				update_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, [] );
+				update_user_option( $user_id, aviaAdminNotices::OPT_NOTICE, [] );
 				return;
 			}
 
@@ -197,11 +208,11 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 			if( empty( $filtered_notices ) )
 			{
 				//	remove all dismissed notices if none are to display
-				update_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, [] );
+				update_user_option( $user_id, aviaAdminNotices::OPT_NOTICE, [] );
 				return;
 			}
 
-			$clicked = get_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, true );
+			$clicked = get_user_option( aviaAdminNotices::OPT_NOTICE, $user_id );
 
 			if( ! is_array( $clicked ) )
 			{
@@ -221,7 +232,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 
 			if( $deleted )
 			{
-				update_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, $clicked );
+				update_user_option( $user_id, aviaAdminNotices::OPT_NOTICE, $clicked );
 			}
 
 			foreach( $filtered_notices as $notice_key => $expire )
@@ -280,7 +291,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 			if( empty( $this->get_current_notices() ) )
 			{
 				//	remove all dismissed notices if none are to display
-				update_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, [] );
+				update_user_option( $user_id, aviaAdminNotices::OPT_NOTICE, [] );
 
 				if( ! $this->activate_cron )
 				{
@@ -293,7 +304,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 				exit;
 			}
 
-			$meta = get_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, true );
+			$meta = get_user_option( aviaAdminNotices::OPT_NOTICE, $user_id );
 
 			if( ! is_array( $meta ) )
 			{
@@ -309,7 +320,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 					unset( $meta[ $index ] );
 				}
 
-				update_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, $meta );
+				update_user_option( $user_id, aviaAdminNotices::OPT_NOTICE, $meta );
 
 				$response['message'] = __( 'Notice box was already removed from display list:', 'avia_framework' ) . " {$settings['key']}";
 			}
@@ -328,7 +339,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 						$meta[] = $settings['key'];
 					}
 
-					update_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, $meta );
+					update_user_option( $user_id, aviaAdminNotices::OPT_NOTICE, $meta );
 
 					$response['message'] = __( 'Notice box was added to users clicked list: ', 'avia_framework' ) . " {$settings['key']}";
 				}
@@ -410,7 +421,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 
 				if( empty( $this->current_notices ) )
 				{
-					update_user_meta( $user['ID'], aviaAdminNotices::OPT_NOTICE, [] );
+					update_user_option( $user['ID'], aviaAdminNotices::OPT_NOTICE, [] );
 					continue;
 				}
 
@@ -427,7 +438,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 
 				if( $changed )
 				{
-					update_user_meta( $user['ID'], aviaAdminNotices::OPT_NOTICE, $meta );
+					update_user_option( $user['ID'], aviaAdminNotices::OPT_NOTICE, $meta );
 				}
 			}
 
@@ -476,7 +487,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 
 					if( $user_id > 0 )
 					{
-						update_user_meta( $user_id, aviaAdminNotices::OPT_NOTICE, [] );
+						update_user_option( $user_id, aviaAdminNotices::OPT_NOTICE, [] );
 					}
 					break;
 				case 'clear-all-users':
@@ -486,7 +497,7 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 					{
 						foreach( $users as $user )
 						{
-							update_user_meta( $user['ID'], aviaAdminNotices::OPT_NOTICE, [] );
+							update_user_option( $user['ID'], aviaAdminNotices::OPT_NOTICE, [] );
 						}
 					}
 					break;
@@ -636,6 +647,30 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 			}
 
 			$this->get_current_notices();
+
+			/**
+			 * Only one notice at a time - a new one replaces whatever was queued.
+			 *
+			 * Updating across several versions runs every update handler above the
+			 * installed one, and seven of them add a notice: a jump from 4.x to 8.0 used
+			 * to stack seven boxes on every admin screen, each needing its own dismiss.
+			 *
+			 * The last one added wins, and that is the newest: the handlers are hooked to
+			 * ava_trigger_updates at ascending priorities in version order
+			 * (class-helper-compat-update.php), so the most recent one always runs last.
+			 * The older ones are dropped rather than queued - they are about versions the
+			 * user is skipping past and were never read in that context anyway.
+			 *
+			 * @since 8.0
+			 * @param boolean $single
+			 * @return boolean					false to keep the old stacking behaviour
+			 */
+			if( false !== apply_filters( 'avf_admin_notices_single', true ) )
+			{
+				//	one call may pass several keys - the last of those is the one kept
+				$notice_keys = array_slice( $notice_keys, -1 );
+				$this->current_notices = [];
+			}
 
 			foreach( $notice_keys as $notice_key )
 			{
@@ -804,10 +839,18 @@ if( ! class_exists( __NAMESPACE__ . '\aviaAdminNotices', false ) )
 		{
 			global $wpdb;
 
+			/**
+			 * The dismiss list is stored with update_user_option(), so the meta key carries
+			 * the blog prefix - wp_avia_admin_show_notices on the main site,
+			 * wp_7_avia_admin_show_notices on blog 7. Querying the unprefixed key here would
+			 * simply return nobody, and the clean up would silently stop working.
+			 */
+			$meta_key = $wpdb->get_blog_prefix() . self::OPT_NOTICE;
+
 			$sql  = "SELECT {$wpdb->users}.*, {$wpdb->usermeta}.meta_value as notices_show ";
 			$sql .= "FROM {$wpdb->users} ";
 			$sql .= "LEFT JOIN {$wpdb->usermeta} ON {$wpdb->users}.ID = {$wpdb->usermeta}.user_id ";
-			$sql .= "WHERE {$wpdb->usermeta}.meta_key = '" . self::OPT_NOTICE . "' ";
+			$sql .= $wpdb->prepare( "WHERE {$wpdb->usermeta}.meta_key = %s ", $meta_key );
 			$sql .= "ORDER BY {$wpdb->users}.ID ";
 
 			$users = $wpdb->get_results( $sql, ARRAY_A );

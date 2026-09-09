@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed.');
+if (!defined('ABSPATH')) die('No direct access allowed.');
 
 /*
 
@@ -235,7 +235,7 @@ public function updraftplus_getResumeUri() { return $this->resumeUri; }
       $postBody = $this->data;
     } else if (self::UPLOAD_MULTIPART_TYPE == $uploadType) {
       // This is a multipart/related upload.
-      $boundary = $this->boundary ? $this->boundary : mt_rand();
+      $boundary = $this->boundary ? $this->boundary : wp_rand();
       $boundary = str_replace('"', '', $boundary);
       $contentType = 'multipart/related; boundary=' . $boundary;
       $related = "--$boundary\r\n";

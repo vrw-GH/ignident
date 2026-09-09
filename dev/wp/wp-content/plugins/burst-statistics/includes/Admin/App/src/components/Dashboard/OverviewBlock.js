@@ -5,41 +5,10 @@ import { BlockContent } from '@/components/Blocks/BlockContent';
 import { BlockFooter } from '@/components/Blocks/BlockFooter';
 import { __ } from '@wordpress/i18n';
 import Tasks from './Tasks';
-import OverviewFooter from '@/components/Dashboard/OverviewFooter';
+import ButtonInput from '@/components/Inputs/ButtonInput';
 import { useNonPersistedTabsStore } from '@/store/useTabsStore';
 import LiveTraffic from '@/components/Dashboard/LiveTraffic';
 import { TabsContent, TabsList } from '@/components/Common/Tabs';
-
-/**
- * Framer Motion variants for list items.
- *
- * @param {number} index - The index of the item in the list.
- *
- * @return {Object} Variants for Framer Motion.
- */
-export const listSlideAnimation = ( index ) => ({
-	initial: {
-		opacity: 0,
-		y: -20
-	},
-	animate: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			delay: index * 0.05,
-			duration: 0.3,
-			ease: 'easeOut'
-		}
-	},
-	exit: {
-		opacity: 0,
-		y: 30,
-		transition: {
-			duration: 0.3,
-			ease: 'easeIn'
-		}
-	}
-});
 
 /**
  * OverviewBlock component to display tasks overview
@@ -76,7 +45,7 @@ const OverviewBlock = () => {
 	];
 
 	return (
-		<Block className="row-span-2 lg:col-span-12 xl:col-span-6">
+		<Block className="row-span-2 @lg:col-span-12 @xl:col-span-6">
 			<BlockHeading
 				title={__( 'Overview', 'burst-statistics' )}
 				className="border-b border-gray-200"
@@ -88,7 +57,7 @@ const OverviewBlock = () => {
 			<BlockContent className="px-0 py-0 border-b border-gray-200">
 				{
 					'activity' === activeTab && (
-						<TabsContent className="bg-blue-light burst-scroll px-2.5 md:px-6 py-8 h-[305px] overflow-y-auto rounded-none" group={tabGroup} id="activity">
+						<TabsContent className="bg-blue-50 burst-scroll px-2.5 md:px-6 py-8 h-[305px] overflow-y-auto rounded-none" group={tabGroup} id="activity">
 							<Tasks />
 						</TabsContent>
 					)
@@ -96,7 +65,7 @@ const OverviewBlock = () => {
 
 				{
 					'live-visitors' === activeTab && (
-						<TabsContent className="bg-brand-lightest burst-scroll px-2.5 md:px-6 py-8 h-[305px] overflow-y-auto rounded-none" group={tabGroup} id="live-visitors">
+						<TabsContent className="bg-green-50 burst-scroll px-2.5 md:px-6 py-8 h-[305px] overflow-y-auto rounded-none" group={tabGroup} id="live-visitors">
 							<LiveTraffic />
 						</TabsContent>
 					)
@@ -104,7 +73,9 @@ const OverviewBlock = () => {
 			</BlockContent>
 
 			<BlockFooter className="gap-2">
-				<OverviewFooter />
+				<ButtonInput btnVariant={'tertiary'} link={{ to: '/statistics' }}>
+					{__( 'View my statistics', 'burst-statistics' )}
+				</ButtonInput>
 			</BlockFooter>
 		</Block>
 	);

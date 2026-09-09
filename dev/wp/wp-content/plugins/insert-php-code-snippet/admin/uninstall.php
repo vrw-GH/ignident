@@ -34,9 +34,12 @@ delete_option("xyz_ips_exception_email");
 delete_option("xyz_ips_exec_in_editor");
 delete_option("xyz_ips_auto_insert");
 delete_option('xyz_ips_free_version');
+delete_option('xyz_ips_sync_needed');
+delete_option('xyz_ips_show_snippet_usage');
+delete_option('xyz_ips_preview_page_id');
 /* table delete*/
 $wpdb->query("DROP TABLE ".$wpdb->prefix."xyz_ips_short_code");
-
+$wpdb->query("DROP TABLE ".$wpdb->prefix."xyz_ips_usage");
 
 }
 

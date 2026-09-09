@@ -33,10 +33,10 @@ function seopress_image_seo_cleaning_filename( $filename ) {
 
 		$clean = apply_filters( 'seopress_image_seo_clean_output', $clean );
 
-		$friendly_filename = preg_replace( $char_not_clean, $clean, $filename );
+		$friendly_filename = (string) preg_replace( $char_not_clean, $clean, $filename );
 
 		// After replacement, we destroy the last residues.
-		$friendly_filename = preg_replace( '/\?/', '', $friendly_filename );
+		$friendly_filename = (string) preg_replace( '/\?/', '', $friendly_filename );
 
 		// Remove uppercase.
 		$friendly_filename = strtolower( $friendly_filename );
@@ -74,7 +74,7 @@ function seopress_auto_image_attr( $post_ID, $bulk = false ) {
 			}
 
 			// Sanitize the title: remove hyphens, underscores & extra spaces.
-			$img_attr = preg_replace( '%\s*[-_\s]+\s*%', ' ', $img_attr );
+			$img_attr = (string) preg_replace( '%\s*[-_\s]+\s*%', ' ', $img_attr );
 
 			// Lowercase attributes.
 			$img_attr = strtolower( $img_attr );
@@ -154,7 +154,8 @@ if ( 'edit.php' === $pagenow || 'edit-tags.php' === $pagenow ) {
 	$post_types = seopress_get_service( 'WordPressData' )->getPostTypes();
 	if ( ! empty( $post_types ) ) {
 		foreach ( $post_types as $key => $value ) {
-			if ( null === seopress_get_service( 'TitleOption' )->getSingleCptEnable( $key ) && '' !== $key ) {
+			// Skip only when "Disable SEO metabox" is explicitly on; an empty stored value still means enabled.
+			if ( '1' !== seopress_get_service( 'TitleOption' )->getSingleCptEnable( $key ) && '' !== $key ) {
 				$post_type_actions = $common_actions + array(
 					'seopress_bulk_actions_redirect_enable' => 'seopress_bulk_action_redirect_enable_handler',
 					'seopress_bulk_actions_redirect_disable' => 'seopress_bulk_action_redirect_disable_handler',
@@ -169,7 +170,8 @@ if ( 'edit.php' === $pagenow || 'edit-tags.php' === $pagenow ) {
 	$taxonomies = seopress_get_service( 'WordPressData' )->getTaxonomies();
 	if ( ! empty( $taxonomies ) ) {
 		foreach ( $taxonomies as $key => $value ) {
-			if ( null === seopress_get_service( 'TitleOption' )->getTaxEnable( $key ) && '' !== $key ) {
+			// Skip only when "Disable SEO metabox" is explicitly on; an empty stored value still means enabled.
+			if ( '1' !== seopress_get_service( 'TitleOption' )->getTaxEnable( $key ) && '' !== $key ) {
 				add_bulk_action_filters( $key, $common_actions );
 			}
 		}
@@ -929,7 +931,7 @@ if ( seopress_get_service( 'AdvancedOption' )->getAdvancedTaxDescEditor() === '1
 				'textarea_name' => 'description',
 				'textarea_rows' => 10,
 			);
-			wp_editor( htmlspecialchars_decode( $tag->description ), 'html-tag-description', $settings );
+			wp_editor( htmlspecialchars_decode( $tag->description, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ), 'html-tag-description', $settings );
 			?>
 		<p class="description"><?php esc_html_e( 'The description is not prominent by default; however, some themes may show it.', 'wp-seopress' ); ?>
 		</p>

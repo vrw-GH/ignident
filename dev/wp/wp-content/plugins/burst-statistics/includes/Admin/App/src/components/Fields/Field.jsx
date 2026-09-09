@@ -14,14 +14,21 @@ import GoalsSettings from '../Goals/GoalsSettings';
 import LicenseField from './LicenseField';
 import SelectField from './SelectField';
 import NumberField from './NumberField';
-import LogoEditorField from './LogoEditorField';
+import ImagePickerField from './ImagePickerField';
 import RestoreArchivesField from './RestoreArchivesField';
 import RadioField from './RadioField';
 import UploadField from './UploadField';
 import ExportSettingsField from './ExportSettingsField';
 import AnonymousUsageDataField from './AnonymousUsageDataField';
+import ThemeToggleField from './ThemeToggleField';
+import ColorPickerField from './ColorPickerField';
+import CssField from './CssField';
+import { EmailWysiwygField } from './Wysiwyg/WysiwygField';
 import useLicenseData from '@/hooks/useLicenseData';
 import { ReportLogsField } from '@/components/Fields/ReportLogsField';
+import GoogleSearchConsoleField from './GoogleSearchConsoleField';
+import IntegrationRowField from './IntegrationRowField';
+import IntegrationsIntroField from './IntegrationsIntroField';
 
 const fieldComponents = {
 	text: TextField,
@@ -37,17 +44,25 @@ const fieldComponents = {
 	goals: GoalsSettings,
 	license: LicenseField,
 	select: SelectField,
-	logo_editor: LogoEditorField,
+	image_picker: ImagePickerField,
 	restore_archives: RestoreArchivesField,
 	radio: RadioField,
 	upload: UploadField,
 	export_settings: ExportSettingsField,
 	report_logs: ReportLogsField,
-    anonymous_usage_data: AnonymousUsageDataField
+	anonymous_usage_data: AnonymousUsageDataField,
+	theme_toggle: ThemeToggleField,
+	wysiwyg: EmailWysiwygField,
+	color_picker: ColorPickerField,
+	css: CssField,
+	gsc_connect: GoogleSearchConsoleField,
+	integration_row: IntegrationRowField,
+	integrations_intro: IntegrationsIntroField
 };
 
+// fallow-ignore-next-line complexity
 const Field = memo( ({ setting, control, ...props }) => {
-	const { isLicenseValid } = useLicenseData();
+	const { isLicenseValid, tier } = useLicenseData();
 
 	// Special handling for goal(s) type that should not be wrapped in a controller.
 	if ( 'goals' === setting.type ) {
@@ -208,9 +223,13 @@ const Field = memo( ({ setting, control, ...props }) => {
 		...( setting.maxLength && { maxLength: setting.maxLength })
 	};
 
+	const isAgencyField = 'agency' === setting?.pro?.tier;
+	const isDisabledByTier = isAgencyField && 'agency' !== tier;
+
 	const conditionallyDisabled =
 		setting.disabled ||
 		( setting.pro && ! isLicenseValid ) ||
+		isDisabledByTier ||
 		props.settingsIsUpdating;
 
 	return (
@@ -219,7 +238,7 @@ const Field = memo( ({ setting, control, ...props }) => {
 				name={setting.id}
 				control={control}
 				rules={validationRules}
-				defaultValue={setting.value || setting.default}
+				defaultValue={( setting.value !== undefined && '' !== setting.value ) ? setting.value : setting.default}
 				render={({ field, fieldState }) => (
 					<FieldComponent
 						field={field}

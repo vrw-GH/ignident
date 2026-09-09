@@ -33,8 +33,8 @@ if( ! class_exists( 'avia_sc_search', false ) )
 
 			$this->config['name']			= __( 'Search', 'avia_framework' );
 			$this->config['tab']			= __( 'Content Elements', 'avia_framework');
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-search.png';
-			$this->config['order']			= 10;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-search.svg';
+			$this->config['order']			= 32;
 			$this->config['shortcode']		= 'avia_sc_search';
 			$this->config['tooltip']		= __( 'Displays a search form', 'avia_framework' );
 			$this->config['target']			= 'avia-target-insert';

@@ -65,7 +65,7 @@ if ( ! class_exists( 'avia_sc_sb_instagram_feed', false ) )
 
 			$this->config['name']			= __( 'Instagram Feed', 'avia_framework' );
 			$this->config['tab']			= __( 'Plugin Additions', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-instagram-feed.png';
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-instagram-feed.svg';
 			$this->config['order']			= 20;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode']		= 'av_sb_instagram_feed';

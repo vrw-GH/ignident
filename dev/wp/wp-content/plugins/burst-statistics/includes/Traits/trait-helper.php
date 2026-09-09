@@ -36,10 +36,16 @@ trait Helper {
 
 	/**
 	 * Get the frontend JS filename, with optional name obfuscation.
+	 *
+	 * @param bool|null $obfuscate Whether to use the obfuscated (ghost mode) filename. Pass the
+	 *                             caller's already resolved decision to keep filename and
+	 *                             directory in sync; null resolves it from the option.
 	 */
-	protected function get_frontend_js_filename(): string {
-		$obfuscate = apply_filters( 'burst_obfuscate_filename', $this->get_option_bool( 'ghost_mode' ) );
-		$filename  = 'burst';
+	protected function get_frontend_js_filename( ?bool $obfuscate = null ): string {
+		if ( $obfuscate === null ) {
+			$obfuscate = apply_filters( 'burst_obfuscate_filename', $this->get_option_bool( 'ghost_mode' ) );
+		}
+		$filename = 'burst';
 		if ( $obfuscate ) {
 			$filename = substr( hash( 'sha256', 'burst-' . get_site_url() ), 0, 8 );
 		}
@@ -126,7 +132,11 @@ trait Helper {
 				// replace the subsite url with the main site url in BURST_URL.
 				// get main site_url.
 				$main_site_url = get_site_url( get_main_site_id() );
-				return str_replace( site_url(), $main_site_url, BURST_URL ) . 'endpoint.php';
+				// During cron, site_url() may return http:// while BURST_URL is already forced to https://.
+				// Normalize site_url() to the same scheme as BURST_URL before replacing, so the replace always matches.
+				$burst_scheme     = wp_parse_url( BURST_URL, PHP_URL_SCHEME );
+				$current_site_url = set_url_scheme( site_url(), $burst_scheme );
+				return str_replace( $current_site_url, $main_site_url, BURST_URL ) . 'endpoint.php';
 			}
 		}
 		return BURST_URL . 'endpoint.php';
@@ -184,41 +194,6 @@ trait Helper {
 	}
 
 	/**
-	 * Check if the remote file exists
-	 * Used by geo ip in case a user has located the maxmind database outside WordPress.
-	 */
-	protected static function remote_file_exists( string $url ): bool {
-		// used to encode the url for the option name, not for security purposes.
-		// phpcs:ignore
-		// nosemgrep
-		$hash        = md5( $url );
-		$file_exists = get_option( "burst_remote_file_exists_$hash" );
-
-		if ( $file_exists === false ) {
-			$response = wp_remote_get(
-				$url,
-				[
-					'method'      => 'HEAD',
-					'timeout'     => 10,
-					'redirection' => 5,
-					'blocking'    => true,
-				]
-			);
-
-			if ( is_wp_error( $response ) ) {
-				$file_exists = 'false';
-			} else {
-				$status_code = wp_remote_retrieve_response_code( $response );
-				$file_exists = ( $status_code >= 200 && $status_code < 300 ) ? 'true' : 'false';
-			}
-
-			update_option( "burst_remote_file_exists_$hash", $file_exists );
-		}
-
-		return $file_exists === 'true';
-	}
-
-	/**
 	 * Check if we are running in a test environment
 	 */
 	protected static function is_test(): bool {
@@ -239,11 +214,17 @@ trait Helper {
 	}
 	// phpcs:enable
 
+	/**
+	 * Check if the database upgrade has been completed.
+	 */
+	protected static function database_upgrade_completed(): bool {
+		return get_option( 'burst-current-version' ) === BURST_VERSION;
+	}
 	// phpcs:disable
 	/**
 	 * Log error to error_log
 	 */
-	protected static function error_log( $message ): void {
+	protected static function error_log( $message, bool $print_stack_trace = false ): void {
 		// @phpstan-ignore-next-line.
 		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
 			return;
@@ -264,6 +245,13 @@ trait Helper {
 				error_log( $before_text . print_r( $message, true ) );
 			} else {
 				error_log( $before_text . $message );
+			}
+
+			if ( $print_stack_trace ) {
+				ob_start();
+				debug_print_backtrace();
+				$backtrace = ob_get_clean();
+				error_log( $backtrace );
 			}
 		}
 	}
@@ -361,6 +349,7 @@ trait Helper {
 		return (string) $base_currency;
 	}
 
+
 	/**
 	 * Get ecommerce cutoff time.
 	 *
@@ -412,11 +401,9 @@ trait Helper {
 	protected static function convert_date_to_unix(
 		string $time_string
 	): int {
-		$time               = \DateTime::createFromFormat( 'Y-m-d H:i:s', $time_string );
-		$utc_time           = $time ? $time->format( 'U' ) : strtotime( $time_string );
-		$gmt_offset_seconds = self::get_wp_timezone_offset();
+		$time = \DateTime::createFromFormat( 'Y-m-d H:i:s', $time_string, wp_timezone() );
 
-		return $utc_time - $gmt_offset_seconds;
+		return $time ? $time->getTimestamp() : strtotime( $time_string );
 	}
 
 	/**
@@ -438,6 +425,8 @@ trait Helper {
 	 *
 	 * @param mixed $input The input value.
 	 * @return mixed The input as an array if applicable, otherwise the original input.
+	 *
+	 * Mixed in/out: accepts any option/request value (array|string|int|bool|null) and returns it either coerced to an array or unchanged, so the type passes through.
 	 */
 	public function ensure_array_if_applicable( mixed $input ): mixed {
 		if ( is_array( $input ) ) {

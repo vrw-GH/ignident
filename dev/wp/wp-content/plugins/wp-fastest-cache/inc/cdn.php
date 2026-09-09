@@ -344,6 +344,24 @@
 					wp_send_json(array("success" => true));
 				}
 
+				if(
+					// IPv6
+					preg_match("/\:\:/", $_GET["url"]) || 
+					// decimal
+					(preg_match("/\d{10}/", $_GET["url"]) && !preg_match("/\./", $_GET["url"])) || 
+					// hex
+					(preg_match("/0x[0-9a-fA-F]{1,8}/", $_GET["url"]) && !preg_match("/\./", $_GET["url"])) || 
+					preg_match("/0x[0-9a-fA-F]{1,2}\.0x[0-9a-fA-F]{1,2}\.0x[0-9a-fA-F]{1,2}\.0x[0-9a-fA-F]{1,2}/", $_GET["url"]) || 
+					// octal
+					preg_match("/(https?\:\/\/)?[0-9]{4,5}\.[0-9]{1,5}\.[0-9]{1,5}\.[0-9]{1,5}/", $_GET["url"]) || 
+					// localhost
+					preg_match("/(\/\/)?localhost/i", $_GET["url"]) || 
+					preg_match("/(https?\:\/\/)?(127|10|172|169|100|198|192)\.\d{1,3}\.\d{1,3}\.\d{1,3}/", $_GET["url"])
+				){
+					$res = array("success" => false, "error_message" => "Localhost is not allowed");
+					wp_send_json($res);
+				}
+
 				$host = str_replace("www.", "", $_SERVER["HTTP_HOST"]);
 				$_GET["url"] = esc_url_raw($_GET["url"]);				
 				
@@ -355,20 +373,20 @@
 					$_GET["url"] = preg_replace("/http\:\/\//i", "https://", $_GET["url"]);
 				}
 				
-				$response = wp_safe_remote_get($_GET["url"], array('timeout' => 20, 'user-agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"));
+				$response = wp_safe_remote_get($_GET["url"], array('timeout' => 20, 'redirection' => 0, 'user-agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36"));
 
 				$header = wp_remote_retrieve_headers($response);
 
 				if ( !$response || is_wp_error( $response ) ) {
-					$res = array("success" => false, "error_message" => $response->get_error_message());
+					$res = array("success" => false, "error_message" => esc_html($response->get_error_message()) );
 					
 					if($response->get_error_code() == "http_request_failed"){
-						if($response->get_error_message() == "Failure when receiving data from the peer"){
+						if(esc_html($response->get_error_message())  == "Failure when receiving data from the peer"){
 							$res = array("success" => true);
-						}else if(preg_match("/cURL\serror\s60/i", $response->get_error_message())){
+						}else if(preg_match("/cURL\serror\s60/i", esc_html($response->get_error_message()) )){
 							//cURL error 60: SSL: no alternative certificate subject name matches target host name
 							$res = array("success" => false, "error_message" => "<a href='https://www.wpfastestcache.com/warnings/how-to-use-cdn-on-ssl-sites/' target='_blank'>Please Read: https://www.wpfastestcache.com/warnings/how-to-use-cdn-on-ssl-sites/</a>");
-						}else if(preg_match("/cURL\serror\s6/i", $response->get_error_message())){
+						}else if(preg_match("/cURL\serror\s6/i", esc_html($response->get_error_message()) )){
 							//cURL error 6: Couldn't resolve host
 							if(preg_match("/".preg_quote($host, "/")."/i", $_GET["url"])){
 								$res = array("success" => true);
@@ -381,9 +399,9 @@
 						$res = array("success" => true);
 					}else{
 						if (is_object($response) && method_exists($response, "get_error_message")) {
-							$res = array("success" => false, "error_message" => $response->get_error_message());
+							$res = array("success" => false, "error_message" => esc_html($response->get_error_message()) );
 						}else{
-							$res = array("success" => false, "error_message" => wp_remote_retrieve_response_message($response));
+							$res = array("success" => false, "error_message" => esc_html(wp_remote_retrieve_response_message($response)) );
 						}
 
 						if(isset($header["server"]) && preg_match("/squid/i", $header["server"])){

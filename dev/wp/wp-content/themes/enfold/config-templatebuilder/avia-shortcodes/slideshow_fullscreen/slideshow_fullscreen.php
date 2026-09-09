@@ -61,11 +61,14 @@ if( ! class_exists( 'avia_sc_slider_fullscreen', false ) )
 
 			$this->config['name']			= __( 'Fullscreen Slider', 'avia_framework' );
 			$this->config['tab']			= __( 'Media Elements', 'avia_framework' );
-			$this->config['icon']			= AviaBuilder::$path['imagesURL'] . 'sc-fullscreen.png';
-			$this->config['order']			= 60;
+			$this->config['icon']			= AviaBuilder::$path['iconsURL'] . 'sc-fullscreen.svg';
+			$this->config['order']			= 70;
 			$this->config['target']			= 'avia-target-insert';
 			$this->config['shortcode'] 		= 'av_fullscreen';
 			$this->config['shortcode_nested'] = array( 'av_fullscreen_slide' );
+			//	the canvas names the slide captions so one is told from the next - see editor_element_items()
+			//	the canvas shows the slides - see editor_element_images()
+			$this->config['alb_items']		= array( 'images' => array( 'tag' => 'av_fullscreen_slide', 'attr' => 'id' ) );
 			$this->config['tooltip'] 	    = __( 'Display a fullscreen slideshow element', 'avia_framework' );
 			$this->config['tinyMCE'] 		= array( 'disable' => 'true' );
 			$this->config['drag-level'] 	= 1;

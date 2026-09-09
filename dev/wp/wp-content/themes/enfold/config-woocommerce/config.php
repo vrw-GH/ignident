@@ -164,6 +164,9 @@ if( ! function_exists( 'avia_woocommerce_ignore_duplicate_post_types' ) )
 		}
 
 		$post_types[] = 'product';
+		$post_types[] = 'shop_order';
+		$post_types[] = 'shop_order_refund';
+		$post_types[] = 'shop_subscription';
 
 		return $post_types;
 	}
@@ -2919,7 +2922,9 @@ if( ! function_exists( 'avia_woocommerce_disable_editor' ) )
 
 		if( avia_backend_get_post_type() == 'product' )
 		{
+			//	advice rather than a restriction, so the user may close it - see aviaBuilderNotes
 			$params['noteclass'] = 'av-notice av-only-active';
+			$params['note_key'] = 'wc_product_extensions';
 			$params['note'] = __( 'Please note that the Advanced Layout Builder for products will not work with all WooCommerce Extensions', 'avia_framework' );
 		}
 

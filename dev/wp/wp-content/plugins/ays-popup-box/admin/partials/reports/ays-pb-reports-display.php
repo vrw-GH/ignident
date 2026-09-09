@@ -1,4 +1,12 @@
 <div class="wrap">
+    <div class="ays-pb-heading-box">
+        <div class="ays-pb-wordpress-user-manual-box">
+            <a href="https://popup-plugin.com/docs/reports/" id="ays-pb-heading-box-analytics" target="_blank">
+                <img src="<?php echo esc_url(AYS_PB_ADMIN_URL) . '/images/icons/text-file.svg' ?>">
+                <span><?php echo esc_html__("View Documentation", "ays-popup-box"); ?></span>
+            </a>
+        </div>
+    </div>
     <h1 class="wp-heading-inline">
         <?php
             echo esc_html(get_admin_page_title());
@@ -10,8 +18,8 @@
         </div>
     </div>
     <div class="nav-tab-wrapper">
-        <a href="#tab1" class="nav-tab nav-tab-active"><?php echo esc_html__('Reports', "ays-popup-box")?></a>
-        <a href="#tab2" class="nav-tab"><?php echo esc_html__('Statistics', "ays-popup-box")?></a>
+        <a href="#tab1" class="nav-tab nav-tab-active" data-tab="tab1"><?php echo esc_html__('Reports', "ays-popup-box"); ?></a>
+        <a href="#tab2" class="nav-tab" data-tab="tab2"><?php echo esc_html__('Statistics', "ays-popup-box"); ?></a>
     </div>
     <div id="tab1" class="ays-pb-tab-content ays-pb-tab-content-active" style="margin-top:15px;">
         <div class="col-sm-12 ays-pro-features-v2-main-box">

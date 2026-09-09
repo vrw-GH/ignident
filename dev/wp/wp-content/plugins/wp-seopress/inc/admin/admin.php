@@ -78,9 +78,8 @@ class SEOPressOptions {
 		add_action( 'admin_init', array( $this, 'page_init' ), 10 );
 		add_action( 'admin_init', array( $this, 'feature_save' ), 30 );
 		add_action( 'admin_init', array( $this, 'feature_title' ), 20 );
-		add_action( 'admin_init', array( $this, 'load_sections' ), 30 );
-		add_action( 'admin_init', array( $this, 'load_callbacks' ), 40 );
-		add_action( 'admin_init', array( $this, 'pre_save_options' ), 50 );
+		// Option save hooks (pre_update_option, update_option) are now in
+		// SEOPress\Actions\Options\OptionSaveHooks to work for both admin and REST.
 	}
 
 	/**
@@ -127,25 +126,26 @@ class SEOPressOptions {
 
 		$html = '<h1>' . $title;
 
+		// Always render toggle elements so SPA navigation can show/hide them.
+		$hidden = ( null === $feature ) ? ' style="display:none"' : '';
+
 		if ( null !== $feature ) {
-			if ( '1' == seopress_get_toggle_option( $feature ) ) { // phpcs:ignore -- TODO: null comparison check.
-				$toggle = '"1"';
-			} else {
-				$toggle = '"0"';
-			}
+			$toggle = ( '1' == seopress_get_toggle_option( $feature ) ) ? '"1"' : '"0"'; // phpcs:ignore -- TODO: null comparison check.
+			$html  .= '<input type="checkbox" name="toggle-' . $feature . '" id="toggle-' . $feature . '" class="toggle" data-toggle=' . $toggle . $hidden . '>';
+			$html  .= '<label for="toggle-' . $feature . '"' . $hidden . '></label>';
+		} else {
+			$html .= '<input type="checkbox" name="toggle-placeholder" id="toggle-placeholder" class="toggle" data-toggle="0"' . $hidden . '>';
+			$html .= '<label for="toggle-placeholder"' . $hidden . '></label>';
+		}
 
-			$html .= '<input type="checkbox" name="toggle-' . $feature . '" id="toggle-' . $feature . '" class="toggle" data-toggle=' . $toggle . '>';
-			$html .= '<label for="toggle-' . $feature . '"></label>';
+		$html .= $this->feature_save();
 
-			$html .= $this->feature_save();
-
-			if ( '1' == seopress_get_toggle_option( $feature ) ) { // phpcs:ignore -- TODO: null comparison check.
-				$html .= '<span id="titles-state-default" class="feature-state"><span class="dashicons dashicons-arrow-left-alt"></span>' . __( 'Click to disable this feature', 'wp-seopress' ) . '</span>';
-				$html .= '<span id="titles-state" class="feature-state feature-state-off"><span class="dashicons dashicons-arrow-left-alt"></span>' . __( 'Click to enable this feature', 'wp-seopress' ) . '</span>';
-			} else {
-				$html .= '<span id="titles-state-default" class="feature-state"><span class="dashicons dashicons-arrow-left-alt"></span>' . __( 'Click to enable this feature', 'wp-seopress' ) . '</span>';
-				$html .= '<span id="titles-state" class="feature-state feature-state-off"><span class="dashicons dashicons-arrow-left-alt"></span>' . __( 'Click to disable this feature', 'wp-seopress' ) . '</span>';
-			}
+		if ( null !== $feature && '1' == seopress_get_toggle_option( $feature ) ) { // phpcs:ignore -- TODO: null comparison check.
+			$html .= '<span id="titles-state-default" class="feature-state"' . $hidden . '><span class="dashicons dashicons-arrow-left-alt"></span>' . __( 'Click to disable this feature', 'wp-seopress' ) . '</span>';
+			$html .= '<span id="titles-state" class="feature-state feature-state-off"' . $hidden . '><span class="dashicons dashicons-arrow-left-alt"></span>' . __( 'Click to enable this feature', 'wp-seopress' ) . '</span>';
+		} else {
+			$html .= '<span id="titles-state-default" class="feature-state"' . $hidden . '><span class="dashicons dashicons-arrow-left-alt"></span>' . __( 'Click to enable this feature', 'wp-seopress' ) . '</span>';
+			$html .= '<span id="titles-state" class="feature-state feature-state-off"' . $hidden . '><span class="dashicons dashicons-arrow-left-alt"></span>' . __( 'Click to disable this feature', 'wp-seopress' ) . '</span>';
 		}
 
 		$html .= '</h1>';
@@ -159,7 +159,7 @@ class SEOPressOptions {
 	public function setup_admin_pages() {
 		$menu_icon = apply_filters(
 			'seopress_seo_admin_menu',
-			'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJ1dWlkLTRmNmE4YTQxLTE4ZTMtNGY3Ny1iNWE5LTRiMWIzOGFhMmRjOSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgODk5LjY1NSA0OTQuMzA5NCI+PHBhdGggaWQ9InV1aWQtYTE1NWMxY2EtZDg2OC00NjUzLTg0NzctOGRkODcyNDBhNzY1IiBkPSJNMzI3LjM4NDksNDM1LjEyOGwtMjk5Ljk5OTktLjI0OTdjLTE2LjI3MzUsMS4xOTM3LTI4LjQ5ODEsMTUuMzUzOC0yNy4zMDQ0LDMxLjYyNzMsMS4wNzE5LDE0LjYxMjgsMTIuNjkxNiwyNi4yMzI1LDI3LjMwNDQsMjcuMzA0NGwyOTkuOTk5OSwuMjQ5N2MxNi4yNzM1LTEuMTkzNywyOC40OTgxLTE1LjM1MzgsMjcuMzA0NC0zMS42MjczLTEuMDcxOC0xNC42MTI4LTEyLjY5MTYtMjYuMjMyNS0yNy4zMDQ0LTI3LjMwNDRaIiBzdHlsZT0iZmlsbDojZmZmOyIvPjxwYXRoIGlkPSJ1dWlkLWUzMGJhNGM2LTQ3NjktNDY2Yi1hMDNhLWU2NDRjNTE5OGU1NiIgZD0iTTI3LjM4NDksNTguOTMxN2wyOTkuOTk5OSwuMjQ5N2MxNi4yNzM1LTEuMTkzNywyOC40OTgxLTE1LjM1MzcsMjcuMzA0NC0zMS42MjczLTEuMDcxOC0xNC42MTI4LTEyLjY5MTYtMjYuMjMyNS0yNy4zMDQ0LTI3LjMwNDRMMjcuMzg0OSwwQzExLjExMTQsMS4xOTM3LTEuMTEzMiwxNS4zNTM3LC4wODA1LDMxLjYyNzNjMS4wNzE5LDE0LjYxMjgsMTIuNjkxNiwyNi4yMzI1LDI3LjMwNDQsMjcuMzA0NFoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PHBhdGggaWQ9InV1aWQtMmJiZDUyZDYtYWVjMS00Njg5LTlkNGMtMjNjMzVkNGYyMmI4IiBkPSJNNjUyLjQ4NSwuMjg0OWMtMTI0LjkzODgsLjA2NC0yMzAuMTU1NCw5My40MTMyLTI0NS4xMDAxLDIxNy40NTVIMjcuMzg0OWMtMTYuMjczNSwxLjE5MzctMjguNDk4MSwxNS4zNTM3LTI3LjMwNDQsMzEuNjI3MiwxLjA3MTksMTQuNjEyOCwxMi42OTE2LDI2LjIzMjUsMjcuMzA0NCwyNy4zMDQ0SDQwNy4zODQ5YzE2LjIyOTgsMTM1LjQ0NTQsMTM5LjE4NywyMzIuMDg4OCwyNzQuNjMyMywyMTUuODU4OSwxMzUuNDQ1NS0xNi4yMjk4LDIzMi4wODg4LTEzOS4xODY5LDIxNS44NTg5LTI3NC42MzI0Qzg4Mi45OTIxLDkzLjY4MzQsNzc3LjU4ODQsLjIxMTIsNjUyLjQ4NSwuMjg0OVptMCw0MzMuNDIxN2MtMTAyLjk3NTQsMC0xODYuNDUzMy04My40NzgtMTg2LjQ1MzMtMTg2LjQ1MzMsMC0xMDIuOTc1Myw4My40NzgxLTE4Ni40NTMzLDE4Ni40NTMzLTE4Ni40NTMzLDEwMi45NzU0LDAsMTg2LjQ1MzMsODMuNDc4LDE4Ni40NTMzLDE4Ni40NTMzLC4wNTI0LDEwMi45NzUzLTgzLjM4MywxODYuNDk1OS0xODYuMzU4MywxODYuNTQ4My0uMDMxNiwwLS4wNjM0LDAtLjA5NTEsMHYtLjA5NVoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+'
+			'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSItMjQgLTI0IDI0MiAyNDIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyMC42MjYgMTI5LjY4NEMxMjIuODMzIDEyOS43NjMgMTI0LjkyOSAxMzAuNjc1IDEyNi40OTEgMTMyLjIzN0MxMjguMDUzIDEzMy43OTkgMTI4Ljk2NSAxMzUuODk1IDEyOS4wNDQgMTM4LjEwMkMxMjkuMTIyIDE0MC4zMSAxMjguMzYyIDE0Mi40NjUgMTI2LjkxNSAxNDQuMTM0TDEyNi44NTUgMTQ0LjIwMkwxMjYuNzkyIDE0NC4yNjVMODEuOTg1MSAxODkuMDA4TDgxLjkyMDcgMTg5LjA3NEw4MS44NTEzIDE4OS4xMzNDODAuMTgxMSAxOTAuNTczIDc4LjAyODIgMTkxLjMyNyA3NS44MjUgMTkxLjI0NkM3My42MjE1IDE5MS4xNjQgNzEuNTI5OCAxOTAuMjUzIDY5Ljk3MDUgMTg4LjY5NEM2OC40MTExIDE4Ny4xMzUgNjcuNDk4OCAxODUuMDQ0IDY3LjQxNjcgMTgyLjg0QzY3LjMzNDcgMTgwLjYzNyA2OC4wODkgMTc4LjQ4NCA2OS41MjgxIDE3Ni44MTNMNjkuNTg5NiAxNzYuNzQzTDY5LjY1NiAxNzYuNjc2TDExNC40NjUgMTMxLjkzM0wxMTQuNTI3IDEzMS44NzFMMTE0LjU5NCAxMzEuODEzQzExNi4yNjMgMTMwLjM2NiAxMTguNDE4IDEyOS42MDUgMTIwLjYyNiAxMjkuNjg0WiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNTUuNzI2NiA2NC43ODU2QzU3LjkzNDEgNjQuODY0MyA2MC4wMjk4IDY1Ljc3NjQgNjEuNTkxOCA2Ny4zMzg0QzYzLjE1MzcgNjguOTAwMyA2NC4wNjU5IDcwLjk5NjEgNjQuMTQ0NSA3My4yMDM2QzY0LjIyMzEgNzUuNDExMSA2My40NjI1IDc3LjU2NjggNjIuMDE1NiA3OS4yMzU4TDYxLjk1NyA3OS4zMDMyTDYxLjg5MjYgNzkuMzY2N0wxNy44MTg0IDEyMy4zNjdWMTIzLjQ4M0wxNi45NTYxIDEyNC4yM0MxNS4yODcgMTI1LjY3NyAxMy4xMzEzIDEyNi40MzcgMTAuOTIzOCAxMjYuMzU5QzguNzE2MzEgMTI2LjI4IDYuNjIwNTYgMTI1LjM2OCA1LjA1ODU5IDEyMy44MDZDMy40OTY2MyAxMjIuMjQ0IDIuNTg0NDkgMTIwLjE0OCAyLjUwNTg2IDExNy45NDFDMi40MjcyNiAxMTUuNzMzIDMuMTg3OTEgMTEzLjU3OCA0LjYzNDc3IDExMS45MDlMNC42OTMzNiAxMTEuODQxTDQuNzU2ODQgMTExLjc3OEw0OS41NjU0IDY3LjAzNDdMNDkuNjI3OSA2Ni45NzIyTDQ5LjY5NDMgNjYuOTE0NkM1MS4zNjM1IDY1LjQ2NzcgNTMuNTE5IDY0LjcwNyA1NS43MjY2IDY0Ljc4NTZaIiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik0xMzMuNDY2IDIuNTk3NjZDMTQ2LjgxMSAxLjc5NzIyIDE1OS45ODYgNS45MTc5OSAxNzAuNDk3IDE0LjE3OTdDMTk0LjIxOCAzMi44MjQ2IDE5OC4zMzMgNjcuMTY4NyAxNzkuNjg4IDkwLjg4OTZDMTYxLjUwNCAxMTQuMDI1IDEyOC4zODUgMTE4LjUxMSAxMDQuNzU0IDEwMS40Mkw0OS41ODIgMTU2LjU5NEw0OS41MTY2IDE1Ni42NTlMNDkuNDQ2MyAxNTYuNzJDNDcuNzc2IDE1OC4xNTkgNDUuNjIyNCAxNTguOTE1IDQzLjQxODkgMTU4LjgzM0M0MS4yMTU2IDE1OC43NTEgMzkuMTI0NiAxNTcuODM5IDM3LjU2NTQgMTU2LjI4QzM2LjAwNjEgMTU0LjcyMSAzNS4wOTM4IDE1Mi42MyAzNS4wMTE3IDE1MC40MjdDMzQuOTI5NyAxNDguMjI0IDM1LjY4NDIgMTQ2LjA3MSAzNy4xMjMgMTQ0LjRMMzcuMTgzNiAxNDQuMzI5TDM3LjI0OSAxNDQuMjY0TDkyLjQyNzcgODkuMDg2OUM4NS4wNzc5IDc4Ljg5NjQgODEuNDQ5MiA2Ni40NjIzIDgyLjIwMTIgNTMuODc1QzgyLjk5NzQgNDAuNTQ2MiA4OC42NDczIDI3Ljk3MDEgOTguMDg0IDE4LjUyMzRDMTA3LjUzMiA5LjA2NDQ2IDEyMC4xMjEgMy4zOTgyIDEzMy40NjYgMi41OTc2NlpNMTYyLjc2OSAzMS4wODk4QzE0OC4zNzYgMTYuNjk5MiAxMjUuMDQzIDE2LjY5NzEgMTEwLjY1MiAzMS4wODg5Qzk2LjI2MTYgNDUuNDgxNiA5Ni4yNTk1IDY4LjgxNTkgMTEwLjY1MSA4My4yMDYxQzEyNS4wNDQgOTcuNTk2NiAxNDguMzc2IDk3LjU5NjUgMTYyLjc2OSA4My4yMDYxTDE2My41ODIgODIuMzkxNkMxNzcuMTcyIDY3LjkzOTcgMTc2Ljg5NCA0NS4yMTM1IDE2Mi43NjkgMzEuMDg5OFoiIGZpbGw9IndoaXRlIi8+PC9zdmc+'
 		);
 
 		$menu_title = apply_filters( 'seopress_seo_admin_menu_title', __( 'SEO', 'wp-seopress' ) );
@@ -308,23 +308,6 @@ class SEOPressOptions {
 		foreach ( $settings as [$group, $name] ) {
 			register_setting( $group, $name, array( $this, 'sanitize' ) );
 		}
-
-		// Array of files to include.
-		$setting_files = array(
-			'Titles.php',
-			'Sitemaps.php',
-			'Social.php',
-			'Analytics.php',
-			'ImageSEO.php',
-			'Advanced.php',
-			'InstantIndexing.php',
-		);
-
-		// Include files dynamically.
-		$settings_dir = plugin_dir_path( __FILE__ ) . 'settings/';
-		foreach ( $setting_files as $file ) {
-			require_once $settings_dir . $file;
-		}
 	}
 
 	/**
@@ -334,112 +317,9 @@ class SEOPressOptions {
 	 * @return array Sanitized input.
 	 */
 	public function sanitize( $input ) {
-		if ( isset( $_POST['option_page'] ) && 'seopress_advanced_option_group' === $_POST['option_page'] ) {
-			if ( ! isset( $input['seopress_advanced_appearance_universal_metabox_disable'] ) ) {
-				$input['seopress_advanced_appearance_universal_metabox_disable'] = '';
-			}
-		}
-
 		return seopress_sanitize_options_fields( $input );
 	}
 
-	/**
-	 * Load sections
-	 */
-	public function load_sections() {
-		require_once plugin_dir_path( __FILE__ ) . '/sections/Titles.php';
-		require_once plugin_dir_path( __FILE__ ) . '/sections/Sitemaps.php';
-		require_once plugin_dir_path( __FILE__ ) . '/sections/Social.php';
-		require_once plugin_dir_path( __FILE__ ) . '/sections/Analytics.php';
-		require_once plugin_dir_path( __FILE__ ) . '/sections/ImageSEO.php';
-		require_once plugin_dir_path( __FILE__ ) . '/sections/Advanced.php';
-		require_once plugin_dir_path( __FILE__ ) . '/sections/InstantIndexing.php';
-	}
-
-	/**
-	 * Load callbacks
-	 */
-	public function load_callbacks() {
-		require_once plugin_dir_path( __FILE__ ) . '/callbacks/Titles.php';
-		require_once plugin_dir_path( __FILE__ ) . '/callbacks/Sitemaps.php';
-		require_once plugin_dir_path( __FILE__ ) . '/callbacks/Social.php';
-		require_once plugin_dir_path( __FILE__ ) . '/callbacks/Analytics.php';
-		require_once plugin_dir_path( __FILE__ ) . '/callbacks/ImageSEO.php';
-		require_once plugin_dir_path( __FILE__ ) . '/callbacks/Advanced.php';
-		require_once plugin_dir_path( __FILE__ ) . '/callbacks/InstantIndexing.php';
-	}
-
-	/**
-	 * Pre save options
-	 */
-	public function pre_save_options() {
-		add_filter( 'pre_update_option_seopress_instant_indexing_option_name', array( $this, 'pre_seopress_instant_indexing_option_name' ), 10, 2 );
-		// Use update_option hook instead of pre_update_option so the value is saved before flushing.
-		add_action( 'update_option_seopress_xml_sitemap_option_name', array( $this, 'after_seopress_xml_sitemap_option_name' ), 10, 3 );
-	}
-
-	/**
-	 * Preset Indexing options
-	 *
-	 * @param array $new_value New value.
-	 * @param array $old_value Old value.
-	 * @return array New value.
-	 */
-	public function pre_seopress_instant_indexing_option_name( $new_value, $old_value ) {
-		// If we are saving data from SEO, PRO, Google Search Console tab, we have to save all Indexing options!
-		if ( ! array_key_exists( 'seopress_instant_indexing_bing_api_key', $new_value ) ) {
-			$options = get_option( 'seopress_instant_indexing_option_name' );
-			$options['seopress_instant_indexing_google_api_key'] = $new_value['seopress_instant_indexing_google_api_key'];
-			return $options;
-		}
-		return $new_value;
-	}
-
-	/**
-	 * Flush rewrite rules after saving XML sitemaps global settings
-	 *
-	 * This runs AFTER the option is saved to the database.
-	 * We need to manually re-register the rewrite rules because flush_rewrite_rules()
-	 * uses the rules that were registered during init (with the OLD values).
-	 * The init hook won't run again until the next request.
-	 *
-	 * @param mixed  $old_value Old value.
-	 * @param mixed  $new_value New value.
-	 * @param string $option Option name.
-	 * @return void
-	 */
-	public function after_seopress_xml_sitemap_option_name( $old_value, $new_value, $option ) {
-		// The new value is already saved to the database at this point.
-		// We need to force WordPress to regenerate rewrite rules with the new settings.
-
-		// Clear only SEOPress's own rewrite rules from the in-memory cache.
-		// We must NOT clear all rules as that would break other plugins' rewrite rules
-		// (REST API, custom post types, etc.).
-		global $wp_rewrite;
-		if ( ! empty( $wp_rewrite->extra_rules_top ) ) {
-			foreach ( $wp_rewrite->extra_rules_top as $pattern => $query ) {
-				if ( false !== strpos( $query, 'seopress_' ) ) {
-					unset( $wp_rewrite->extra_rules_top[ $pattern ] );
-				}
-			}
-		}
-
-		// Re-register SEOPress sitemap rewrite rules with the NEW settings.
-		// flush_rewrite_rules() does not re-fire the init action, so we must
-		// manually re-register the rules before flushing.
-		$toggle_options = get_option( 'seopress_toggle' );
-		\SEOPress\Actions\Sitemap\Router::registerRewriteRules( $new_value, $toggle_options );
-
-		// Allow PRO and extensions to re-register their sitemap rewrite rules
-		// (e.g., news.xml, video*.xml) before the flush persists everything.
-		do_action( 'seopress_re_register_sitemap_rules', $new_value, $toggle_options );
-
-		// Clear the rewrite rules from the database so they get regenerated.
-		delete_option( 'rewrite_rules' );
-
-		// Flush to regenerate and save all rewrite rules.
-		flush_rewrite_rules( false );
-	}
 }
 
 /**
